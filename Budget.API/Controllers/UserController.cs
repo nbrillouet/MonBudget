@@ -8,6 +8,7 @@ using Budget.SERVICE;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using Budget.API.Dtos;
+using System.Security.Claims;
 
 namespace Budget.API.Controllers
 {
@@ -19,7 +20,7 @@ namespace Budget.API.Controllers
         private IUserService _userService;
         private readonly IMapper _mapper;
 
-        public UserController(IUserService userService,IMapper mapper)
+        public UserController(IUserService userService, IMapper mapper)
         {
             _mapper = mapper;
             _userService = userService;
@@ -42,5 +43,29 @@ namespace Budget.API.Controllers
 
             return Ok(userToReturn);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserForDetailedDto userForDetailedDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var user = await _userService.GetById(id);
+
+            if (user == null)
+                return NotFound($"Could not find user with an ID of {id}");
+
+            if (currentUserId != user.Id)
+                return Unauthorized();
+
+            _mapper.Map(userForDetailedDto, user);
+
+            _userService.Update(user);
+
+            return NoContent();
+        }
+
     }
 }

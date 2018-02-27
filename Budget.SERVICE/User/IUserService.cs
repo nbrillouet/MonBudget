@@ -10,6 +10,7 @@ namespace Budget.SERVICE
     {
         Task<User> GetById(int id);
         Task<List<User>> GetAll();
+        void Update(User entity);
 
     }
 }

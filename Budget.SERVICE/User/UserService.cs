@@ -26,7 +26,12 @@ namespace Budget.SERVICE
             return _userRepository.GetAll();
         }
 
-        
+        public void Update(User user)
+        {
+           _userRepository.Update(user);
+        }
+
+
     }
 
 }
