@@ -18,6 +18,6 @@ namespace Budget.API.Dtos
         public string Country { get; set; }
         public string City { get; set; }
         public int PostalCode { get; set; }
-        public string Avatar { get; set; }
+        public string AvatarUrl { get; set; }
     }
 }

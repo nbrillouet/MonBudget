@@ -32,8 +32,10 @@ namespace Budget.MODEL
         public string City { get; set; }
         [Column("POSTAL_CODE")]
         public int PostalCode { get; set; }
-        [Column("AVATAR")]
-        public string Avatar { get; set;}
+        [Column("AVATAR_URL")]
+        public string AvatarUrl { get; set;}
+        [Column("ID_AVATAR_CLOUD")]
+        public string IdAvatarCloud { get; set; }
         
     }
 }

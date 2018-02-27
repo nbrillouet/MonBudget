@@ -9,6 +9,7 @@ import { UserDetailResolver } from './user-detail/user-detail.resolver';
 import { UserListResolver } from './user-list/user-list.resolver';
 import { PreventUnsavedChanges } from '../../../../_guards/prevent-unsaved-changes.guard';
 import { DialogGuardComponent } from '../../../../_guards/dialog-guard.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 const routes = [
   {
@@ -33,6 +34,7 @@ const routes = [
 @NgModule({
   imports: [
     SharedModule,
+    FileUploadModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

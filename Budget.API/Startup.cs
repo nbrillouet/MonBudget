@@ -38,6 +38,7 @@ namespace Budget.API
             services.AddDbContext<BudgetContext>();
             services.AddMvc();
             services.AddCors();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper();
 
             services.AddScoped<IUserService, UserService>();

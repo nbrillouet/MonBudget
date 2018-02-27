@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FuseUtils } from '../../../../../core/fuseUtils';
 import { AuthService } from '../../../../_services/auth.service';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-user-detail',
@@ -21,6 +22,9 @@ export class UserDetailComponent implements OnInit {
   onUserChanged: Subscription;
   pageType: string;
   userForm: FormGroup;
+
+  uploader: FileUploader = new FileUploader({});
+  hasBaseDropZoneOver: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -70,6 +74,10 @@ export class UserDetailComponent implements OnInit {
       }, error => {
         this.notificationService.error('Echec sauvegarde', error);
       })
+  }
+
+  public fileOverBase(e: any): void {
+    this.hasBaseDropZoneOver = e;
   }
   
 }

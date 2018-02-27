@@ -11,9 +11,10 @@ using System;
 namespace Budget.DATA.Migrations
 {
     [DbContext(typeof(BudgetContext))]
-    partial class BudgetContextModelSnapshot : ModelSnapshot
+    [Migration("20180227125104_alterUser")]
+    partial class alterUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,8 +27,8 @@ namespace Budget.DATA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("ID");
 
-                    b.Property<string>("AvatarUrl")
-                        .HasColumnName("AVATAR_URL");
+                    b.Property<string>("Avatar")
+                        .HasColumnName("AVATAR");
 
                     b.Property<string>("City")
                         .HasColumnName("CITY");

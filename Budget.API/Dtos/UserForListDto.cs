@@ -15,6 +15,6 @@ namespace Budget.API.Dtos
         public int Age { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateLastActive { get; set; }
-        public string Avatar { get; set; }
+        public string AvatarUrl { get; set; }
     }
 }

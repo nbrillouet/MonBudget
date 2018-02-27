@@ -11,7 +11,7 @@ export interface User {
     country: string;
     city: string;
     postalCode: number;
-    avatar: string;
+    avatarUrl: string;
 
 }
 

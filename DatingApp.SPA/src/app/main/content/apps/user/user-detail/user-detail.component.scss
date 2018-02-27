@@ -21,7 +21,7 @@
     }
 
     .content {
-
+        
         .mat-tab-group,
         .mat-tab-body-wrapper,
         .tab-content{
@@ -52,6 +52,32 @@
             }
         }
 
+        .avatar-card {
+            min-width: 500px;
+            margin-bottom: 20px;
+            .image-padding {
+                padding-top:10px;
+                padding-left:30px;
+            }
+            img {
+                
+                width: 250px;
+                height: 250px;
+                border: 3px solid rgba(0, 0, 0, 0.12);
+            }
+        }
+
+
+
     }
+
+    .content > * {
+        width: 100%;
+    }
+
+    .my-drop-zone { border: dotted 3px lightgray; }
+    .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+    .another-file-over-class { border: dotted 3px green; }
+ 
 
 }

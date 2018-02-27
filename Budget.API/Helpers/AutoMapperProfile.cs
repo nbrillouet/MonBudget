@@ -25,6 +25,8 @@ namespace Budget.API.Helpers
                 {
                     opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                 });
+
+            CreateMap<UserForAvatarCreationDto, User>();
         }
     }
 }
