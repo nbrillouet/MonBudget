@@ -1,0 +1,38 @@
+[implementation module]
+router à ajouter dans module: (app.module)
+const appRoutes: Routes = [
+{ path : '', component : FuseSampleComponent, canActivate: [AuthGuard] }
+]
+
+router à définir dans module:
+@NgModule({
+	imports     : [
+RouterModule.forRoot(appRoutes)
+]
+})
+
+[implementation specifique]
+router peut etre defini pour chaque composant dans un module:
+const routes = [
+    { path : 'sample', component : FuseSampleComponent, canActivate: [AuthGuard] }
+];
+
+@NgModule({
+imports     : [
+	RouterModule.forChild(routes)
+]
+})
+
+[implementation HTML]
+--> router se fait au niveau de:
+<router-outlet></router-outlet>
+
+-->acceder a une url
+[routerLink]="'/pages/auth/register'"
+
+-->mettre css specifique quand lien actif (sur menu)
+<li routerLinkActive="active">
+	<a [routerLink]="['/test']">test</a>
+</li>
+
+[implementation TS]

@@ -4,12 +4,11 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../../core/modules/shared.module';
 
 import { FuseSampleComponent } from './sample.component';
+import { AuthGuard } from '../../../_guards/auth.guard';
+
 
 const routes = [
-    {
-        path     : 'sample',
-        component: FuseSampleComponent
-    }
+    { path : 'sample', component : FuseSampleComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

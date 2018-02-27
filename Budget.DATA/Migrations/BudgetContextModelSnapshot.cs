@@ -26,11 +26,41 @@ namespace Budget.DATA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("ID");
 
+                    b.Property<string>("Avatar")
+                        .HasColumnName("AVATAR");
+
+                    b.Property<string>("City")
+                        .HasColumnName("CITY");
+
+                    b.Property<string>("Country")
+                        .HasColumnName("COUNTRY");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnName("CREATION_DATE");
+
+                    b.Property<DateTime>("DateLastActive")
+                        .HasColumnName("LAST_ACTIVE_DATE");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnName("BIRTH_DATE");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnName("FIRST_NAME");
+
+                    b.Property<string>("Gender")
+                        .HasColumnName("GENDER");
+
+                    b.Property<string>("LastName")
+                        .HasColumnName("LAST_NAME");
+
                     b.Property<byte[]>("PasswordHash")
                         .HasColumnName("PASSWORD_HASH");
 
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnName("PASSWORD_SALT");
+
+                    b.Property<int>("PostalCode")
+                        .HasColumnName("POSTAL_CODE");
 
                     b.Property<string>("UserName")
                         .HasColumnName("USER_NAME");

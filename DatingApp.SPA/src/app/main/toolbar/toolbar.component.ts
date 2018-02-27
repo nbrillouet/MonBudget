@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { FuseConfigService } from '../../core/services/config.service';
 import { TranslateService } from '@ngx-translate/core';
+import { LoginService } from '../content/pages/authentication/login/login.service';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { NotificationsService } from 'angular2-notifications';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
     selector   : 'fuse-toolbar',
@@ -16,11 +20,14 @@ export class FuseToolbarComponent
     selectedLanguage: any;
     showLoadingBar: boolean;
     horizontalNav: boolean;
+    idUser: number;
 
     constructor(
         private router: Router,
         private fuseConfig: FuseConfigService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private authService: AuthService,
+        private notif: NotificationsService
     )
     {
         this.userStatusOptions = [
@@ -58,14 +65,15 @@ export class FuseToolbarComponent
                 'flag' : 'us'
             },
             {
-                'id'   : 'tr',
-                'title': 'Turkish',
-                'flag' : 'tr'
+                'id'   : 'fr',
+                'title': 'Français',
+                'flag' : 'fr'
             }
         ];
 
-        this.selectedLanguage = this.languages[0];
-
+        this.selectedLanguage = this.languages[1];
+        this.idUser = this.authService.decodedToken.nameid;
+        
         router.events.subscribe(
             (event) => {
                 if ( event instanceof NavigationStart )
@@ -97,5 +105,21 @@ export class FuseToolbarComponent
 
         // Use the selected language for translations
         this.translate.use(lang.id);
+    }
+
+    logout()
+    {
+        this.authService.userToken = null;
+        localStorage.removeItem('budgetToken');
+        this.notif.info('logged out success','You are now logged out');
+        this.router.navigate(['/pages/auth/login']);
+    }
+
+    loggedIn(){
+        
+        return this.authService.loggedIn();
+
+        //const budgetToken = localStorage.getItem('budgetToken');
+        // return !!budgetToken;
     }
 }

@@ -26,6 +26,20 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                             'bg'   : '#F44336',
                             'fg'   : '#FFFFFF'
                         }
+                    },
+                    {
+                        'id'   : 'import',
+                        'title': 'Import relevé',
+                        'translate': 'NAV.SAMPLE.TITLE',
+                        'type' : 'item',
+                        'icon' : 'import_export',
+                        'url'  : '/apps/users',
+                        'badge': {
+                            'title': 25,
+                            'translate': 'NAV.SAMPLE.BADGE',
+                            'bg'   : '#F44336',
+                            'fg'   : '#FFFFFF'
+                        }
                     }
                 ]
             }

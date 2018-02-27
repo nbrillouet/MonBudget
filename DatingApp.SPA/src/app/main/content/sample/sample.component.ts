@@ -3,7 +3,7 @@ import { FuseTranslationLoaderService } from '../../../core/services/translation
 import { Http } from '@angular/http';
 
 import { locale as english } from './i18n/en';
-import { locale as turkish } from './i18n/tr';
+import { locale as french } from './i18n/fr';
 
 @Component({
     selector   : 'fuse-sample',
@@ -16,7 +16,7 @@ export class FuseSampleComponent implements OnInit
     
     constructor(private http: Http, private translationLoader: FuseTranslationLoaderService)
     {
-        this.translationLoader.loadTranslations(english, turkish);
+        this.translationLoader.loadTranslations(english, french);
     }
 
     ngOnInit() {
@@ -25,7 +25,7 @@ export class FuseSampleComponent implements OnInit
 
       getValues()
       {
-        this.http.get('http://localhost:5001/api/values').subscribe(response => {
+        this.http.get('http://localhost:5001/api/user').subscribe(response => {
           this.values = response.json();
         });
       }

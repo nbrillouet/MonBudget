@@ -43,6 +43,8 @@
     "@types/prismjs": "1.9.0",
     "angular-calendar": "0.23.3",
     "angular-in-memory-web-api": "0.5.3",
+    "angular2-jwt": "0.2.3",
+    "angular2-notifications": "0.9.7",
     "chart.js": "2.7.1",
     "classlist.js": "1.1.20150312",
     "core-js": "2.5.3",
