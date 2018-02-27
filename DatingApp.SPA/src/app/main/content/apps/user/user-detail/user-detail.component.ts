@@ -8,6 +8,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FuseUtils } from '../../../../../core/fuseUtils';
+import { AuthService } from '../../../../_services/auth.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -25,7 +26,8 @@ export class UserDetailComponent implements OnInit {
     private userService: UserService,
     private notificationService: NotificationsService,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -58,6 +60,16 @@ export class UserDetailComponent implements OnInit {
         }).catch(error => {
           this.notificationService.error('Echec sauvegarde', error);
     });
+  }
+
+  updateUser() {
+    this.userService.updateUser(this.authService.decodedToken.nameid, this.user)
+      .subscribe(next => {
+        this.userForm.reset(this.user);
+        this.notificationService.success('Sauvegarde réussi', 'Utilisateur enregistré');
+      }, error => {
+        this.notificationService.error('Echec sauvegarde', error);
+      })
   }
   
 }
