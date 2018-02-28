@@ -119,8 +119,8 @@ namespace Budget.API.Controllers
                 {
                     var uploadParams = new ImageUploadParams()
                     {
-                        File = new FileDescription(file.Name, stream),
-                        Transformation = new Transformation().Width(250).Height(250).Crop("fill").Gravity("face")
+                        File = new FileDescription(file.Name, stream)
+                        //Transformation = new Transformation().Width(250).Height(250).Crop("fill").Gravity("face")
                     };
 
                     uploadResult = _cloudinary.Upload(uploadParams);

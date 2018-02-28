@@ -66,22 +66,14 @@
                       <mat-tab label="Basic Info">
                           <div class="tab-content p-24" fusePerfectScrollbar>
                             
-                            <mat-card class="avatar-card">
+                            <!-- <mat-card class="avatar-card">
                                 <mat-card-header>
                                     <mat-card-title>Avatar</mat-card-title>
                                 </mat-card-header>
                                 
                                 <mat-card-content>
-                                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                                    <div class="toto" fxFlex="50">
-                                        <img mat-card-image *ngIf="avatarUrl" src="{{avatarUrl}}" alt="{{user.userName}}">
-                                        <!-- <img mat-card-image *ngIf="!user.avatarUrl" [src]="'assets/images/avatars/profile.jpg'"> -->
-                                    </div>
-                                    <div fxFlex="50">
-                                        <avatar-editor [user]="user" (getUserAvatarChange)="updateUserAvatar($event)"></avatar-editor>
-                                    </div>
-                                </div>
-                                </mat-card-content>
+                                
+                                </mat-card-content> -->
 
                                     
 
@@ -89,7 +81,7 @@
                                     <button mat-button>LIKE</button>
                                     <button mat-button>SHARE</button>
                                 </mat-card-actions> -->
-                            </mat-card>
+                            <!-- </mat-card> -->
                             
                                     
                             <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
@@ -153,6 +145,26 @@
                               </mat-form-field> -->
                           </div>
                       </mat-tab>
+                      <mat-tab label="Avatar">
+                        <mat-card class="avatar-card">
+                            <mat-card-content>
+                                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                                    <div class="avatar-image" fxFlex="50">
+                                        <img mat-card-image *ngIf="avatarUrl" src="{{avatarUrl}}" alt="{{user.userName}}">
+                                        <!-- <img mat-card-image *ngIf="!user.avatarUrl" [src]="'assets/images/avatars/profile.jpg'"> -->
+                                    </div>
+                                    <div fxFlex="50">
+                                        <avatar-editor [user]="user" (getUserAvatarChange)="updateUserAvatar($event)"></avatar-editor>
+                                    
+                                        
+                                    </div>
+                                </div> 
+                            </mat-card-content>
+                        </mat-card>
+                      </mat-tab>
+
+
+
 <!-- 
                       <mat-tab label="Product Images">
                           <div class="tab-content p-24" fusePerfectScrollbar>
