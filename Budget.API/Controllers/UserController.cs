@@ -108,6 +108,7 @@ namespace Budget.API.Controllers
             //if (currentUserId != user.Id)
             //    return Unauthorized();
 
+            //ajout de l'avatar dans Cloudinary
             var file = avatarDto.File;
 
             var uploadResult = new ImageUploadResult();
@@ -118,13 +119,19 @@ namespace Budget.API.Controllers
                 {
                     var uploadParams = new ImageUploadParams()
                     {
-                        File = new FileDescription(file.Name, stream)
+                        File = new FileDescription(file.Name, stream),
+                        Transformation = new Transformation().Width(250).Height(250).Crop("fill").Gravity("face")
                     };
 
                     uploadResult = _cloudinary.Upload(uploadParams);
                 }
             }
 
+            //suppression de l'ancien avatar dans Cloudinary
+            var deleteParams = new DeletionParams(user.IdAvatarCloud);
+            var result = _cloudinary.Destroy(deleteParams);
+
+            //maj bdd
             avatarDto.AvatarUrl = uploadResult.Uri.ToString();
             avatarDto.IdAvatarCloud = uploadResult.PublicId;
 

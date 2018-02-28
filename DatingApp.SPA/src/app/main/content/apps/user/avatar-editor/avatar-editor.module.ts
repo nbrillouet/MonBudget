@@ -8,4 +8,5 @@ import { AvatarEditorComponent } from './avatar-editor.component';
   ],
   declarations: [AvatarEditorComponent]
 })
+
 export class AvatarEditorModule { }

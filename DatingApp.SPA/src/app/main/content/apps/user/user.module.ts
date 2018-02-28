@@ -10,6 +10,7 @@ import { UserListResolver } from './user-list/user-list.resolver';
 import { PreventUnsavedChanges } from '../../../../_guards/prevent-unsaved-changes.guard';
 import { DialogGuardComponent } from '../../../../_guards/dialog-guard.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { AvatarEditorComponent } from './avatar-editor/avatar-editor.component';
 
 const routes = [
   {
@@ -40,7 +41,8 @@ const routes = [
   declarations: [
     UserListComponent,
     UserDetailComponent,
-    DialogGuardComponent
+    DialogGuardComponent,
+    AvatarEditorComponent
   ],
   providers : [
     UserService,

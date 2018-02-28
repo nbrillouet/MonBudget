@@ -32,4 +32,6 @@ public UserController(IUserService userService, IMapper mapper,IOptions<Cloudina
                 _cloudinaryConfig.Value.CloudName,
                 _cloudinaryConfig.Value.ApiKey,
                 _cloudinaryConfig.Value.ApiSecret);
+	    
+	    _cloudinary = new Cloudinary(acc);
         }

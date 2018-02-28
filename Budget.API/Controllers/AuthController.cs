@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 
 namespace Budget.API.Controllers
 {
@@ -23,11 +24,16 @@ namespace Budget.API.Controllers
     {
         private IAuthService _authService;
         private IConfiguration _config;
+        private readonly IMapper _mapper;
 
-        public AuthController(IAuthService authService,IConfiguration config)
+        public AuthController(
+            IAuthService authService,
+            IConfiguration config,
+            IMapper mapper)
         {
             _authService = authService;
             _config = config;
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
@@ -57,6 +63,7 @@ namespace Budget.API.Controllers
             //throw new Exception("Computer says no!");
 
             var userRetrieve = await _authService.Login(userForLoginDto.Username, userForLoginDto.Password);
+
             if (userRetrieve == null)
                 return Unauthorized();
 
@@ -78,7 +85,9 @@ namespace Budget.API.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            return Ok(new { tokenString });
+            var user = _mapper.Map<UserForDetailedDto>(userRetrieve);
+
+            return Ok(new { tokenString, user });
         }
     }
 }

@@ -6,6 +6,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
+import { User } from '../_models/User';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class AuthService {
@@ -13,9 +15,16 @@ export class AuthService {
     userToken: any;
     decodedToken : any;
     jwtHleper:JwtHelper = new JwtHelper();
+    currentUser: User;
+    private avatarUrl = new BehaviorSubject<string>('assets/images/avatars/profile.jpg');
+    currentAvatarUrl = this.avatarUrl.asObservable();
 
     constructor(private http: Http) { }
     
+    changeAvatar(avatarUrl: string) {
+        this.avatarUrl.next(avatarUrl);
+    }
+
     login(model: any) {
         const headers = new Headers({'Content-type': 'application/json'});
         const options = new RequestOptions({headers: headers});
@@ -24,8 +33,12 @@ export class AuthService {
             if(user){
                 localStorage.setItem('budgetToken',user.tokenString);
                 this.decodedToken = this.jwtHleper.decodeToken(user.tokenString);
-                console.log(this.decodedToken);
                 this.userToken = user.tokenString;
+
+                localStorage.setItem('user', JSON.stringify(user.user));
+                this.currentUser = user.user;
+
+                this.changeAvatar(this.currentUser.avatarUrl);
             }
         }).catch(this.handleError);
     }

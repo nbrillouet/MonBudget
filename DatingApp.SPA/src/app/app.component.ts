@@ -10,6 +10,7 @@ import { locale as navigationFrench } from './navigation/i18n/fr';
 import { AuthService } from './main/_services/auth.service';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { JwtHelper } from 'angular2-jwt';
+import { User } from './main/_models/User';
 
 
 @Component({
@@ -63,9 +64,16 @@ export class AppComponent implements OnInit
     ngOnInit()
     {
         const token=localStorage.getItem('budgetToken');
+        const user: User = JSON.parse(localStorage.getItem('user'));
+        
         if(token)
         {
             this.authService.decodedToken = this.jwtHelper.decodeToken(token);
+        }
+
+        if (user){
+            this.authService.currentUser = user;
+            this.authService.changeAvatar(user.avatarUrl);
         }
     }
 }
