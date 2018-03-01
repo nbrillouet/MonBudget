@@ -1,3 +1,5 @@
+import { IShortcut } from "./Shortcut";
+
 export interface User {
     id: number;
     userName: string;
@@ -12,21 +14,6 @@ export interface User {
     city: string;
     postalCode: number;
     avatarUrl: string;
+    shortcuts: IShortcut[];
 
 }
-
-// export class User implements IUser {
-//     id: number;
-//     username: string;
-//     lastName: string;
-//     firstName: string;
-//     gender: string;
-//     age: number;
-//     dateCreated: Date;
-//     dateLastActive: Date;
-
-//     country: string;
-//     city: string;
-//     postalCode: number;
-//     avatar: string;
-// }

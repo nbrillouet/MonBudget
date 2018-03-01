@@ -17,7 +17,10 @@ namespace Budget.DATA.Repositories
 
         public Task<User> GetById(int id)
         {
-            return Context.Set<User>().FirstOrDefaultAsync(x => x.Id == id);
+            return Context.User
+                .Where(x => x.Id == id)
+                .Include(x => x.Shortcuts)
+                .FirstOrDefaultAsync();
         }
     }
 }

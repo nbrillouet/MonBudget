@@ -36,7 +36,7 @@ namespace Budget.API
         {
             //x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnexion"))
             services.AddDbContext<BudgetContext>();
-            services.AddMvc();
+            
             services.AddCors();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper();
@@ -60,6 +60,11 @@ namespace Budget.API
                         ValidateAudience = false
                     };
                 });
+
+            services.AddMvc().AddJsonOptions(opt=>
+            {
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

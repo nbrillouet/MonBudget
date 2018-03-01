@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { User } from '../_models/User';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { IShortcut } from '../_models/Shortcut';
 
 @Injectable()
 export class AuthService {
@@ -18,11 +19,20 @@ export class AuthService {
     currentUser: User;
     private avatarUrl = new BehaviorSubject<string>('assets/images/avatars/profile.jpg');
     currentAvatarUrl = this.avatarUrl.asObservable();
+    
+    shortcutTab: IShortcut[];
+    private shortcuts = new BehaviorSubject<IShortcut[]>(this.shortcutTab);
+    currentShortcuts = this.shortcuts.asObservable();
 
     constructor(private http: Http) { }
     
     changeAvatar(avatarUrl: string) {
         this.avatarUrl.next(avatarUrl);
+    }
+
+    changeShortcuts(shortcuts: IShortcut[])
+    {
+        this.shortcuts.next(shortcuts);
     }
 
     login(model: any) {
@@ -39,6 +49,7 @@ export class AuthService {
                 this.currentUser = user.user;
 
                 this.changeAvatar(this.currentUser.avatarUrl);
+                this.changeShortcuts(this.currentUser.shortcuts);
             }
         }).catch(this.handleError);
     }

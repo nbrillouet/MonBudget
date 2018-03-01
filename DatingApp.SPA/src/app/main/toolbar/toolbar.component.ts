@@ -73,7 +73,10 @@ export class FuseToolbarComponent implements OnInit
         ];
 
         this.selectedLanguage = this.languages[1];
-        this.idUser = this.authService.decodedToken.nameid;
+        
+        if(this.authService.decodedToken)
+            this.idUser = this.authService.decodedToken.nameid;
+
         
         router.events.subscribe(
             (event) => {
@@ -95,6 +98,7 @@ export class FuseToolbarComponent implements OnInit
 
     ngOnInit() {
         this.authService.currentAvatarUrl.subscribe(avatarUrl => this.avatarUrl = avatarUrl);
+
     }
 
     search(value)

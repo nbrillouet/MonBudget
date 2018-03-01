@@ -1,16 +1,18 @@
 <div class="row">
   <div class="col-md-3">
 
+        <!-- [attr.disabled]=true -->
+
      <h3>Modifier votre avatar:</h3>
      <button 
-     ng2FileDrop [attr.disabled]=true
+        ng2FileDrop 
           [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
           (fileOver)="fileOverBase($event)"
           [uploader]="uploader"
           class="well drop-zone">
          
      
-     [disabled]=true>uu</button>
+     Drop Zone</button>
 
      <!-- <div 
      </div> -->

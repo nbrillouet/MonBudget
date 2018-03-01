@@ -20,6 +20,34 @@ namespace Budget.DATA.Migrations
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Budget.MODEL.Shortcut", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("Icon")
+                        .HasColumnName("ICON");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnName("ID_USER");
+
+                    b.Property<string>("Title")
+                        .HasColumnName("TITLE");
+
+                    b.Property<string>("Type")
+                        .HasColumnName("TYPE");
+
+                    b.Property<string>("Url")
+                        .HasColumnName("URL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("SHORTCUT");
+                });
+
             modelBuilder.Entity("Budget.MODEL.User", b =>
                 {
                     b.Property<int>("Id")
@@ -71,6 +99,14 @@ namespace Budget.DATA.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("USER");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Shortcut", b =>
+                {
+                    b.HasOne("Budget.MODEL.User", "User")
+                        .WithMany("Shortcuts")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Budget.MODEL
@@ -36,6 +37,12 @@ namespace Budget.MODEL
         public string AvatarUrl { get; set;}
         [Column("ID_AVATAR_CLOUD")]
         public string IdAvatarCloud { get; set; }
+        public List<Shortcut> Shortcuts { get; set; }
+
+        public User()
+        {
+            Shortcuts = new List<Shortcut>();
+        }
         
     }
 }

@@ -1,4 +1,4 @@
-[Utilisé pour eviter d'ajouter les ? dans le HTML quand Angular n'a pas fini de charger pour eviter erreur daffichage de chargement]
+[Utilisé pour eviter d'ajouter les ? dans le HTML quand Angular n'a pas fini de charger pour eviter erreur d'affichage de chargement]
 --> creation d'un fichier dans le dossier du composant desiré: (ex: user-detail.resolver.ts)
 
 --> sinspirer du modele ci dessous pour remplir le fichier:

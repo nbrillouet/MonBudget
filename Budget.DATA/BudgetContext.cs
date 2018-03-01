@@ -11,6 +11,7 @@ namespace Budget.DATA
         public BudgetContext(DbContextOptions<BudgetContext> options) : base(options){ }
 
         public DbSet<User> User { get; set; }
+        public DbSet<Shortcut> Shortcut { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Budget.MODEL;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Budget.DATA.Repositories
 {
@@ -16,7 +17,10 @@ namespace Budget.DATA.Repositories
 
         public async Task<User> Login(string username, string password)
         {
-            var user = await Context.User.FirstOrDefaultAsync(x=>x.UserName == username);
+            var user = await Context.User
+                .Where(x => x.UserName == username)
+                .Include(x => x.Shortcuts)
+                .FirstOrDefaultAsync();
 
             if (user == null)
                 return null;
