@@ -6,6 +6,7 @@ import { FuseMatchMedia } from '../../services/match-media.service';
 import { FuseConfigService } from '../../services/config.service';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../../main/_services/auth.service';
+import { UserService } from '../../../main/content/apps/user/user.service';
 
 @Component({
     selector   : 'fuse-shortcuts',
@@ -33,7 +34,8 @@ export class FuseShortcutsComponent implements OnInit, OnDestroy
         private fuseNavigationService: FuseNavigationService,
         private fuseConfig: FuseConfigService,
         private cookieService: CookieService,
-        private authService: AuthService
+        private authService: AuthService,
+        private userService: UserService
     )
     {
         this.filteredNavigationItems = this.navigationItems = this.fuseNavigationService.getFlatNavigation();
@@ -50,12 +52,12 @@ export class FuseShortcutsComponent implements OnInit, OnDestroy
     ngOnInit()
     {
         this.shortcutItems = [
-                {
-                    'title': 'Calendar',
-                    'type' : 'nav-item',
-                    'icon' : 'today',
-                    'url'  : '/apps/calendar'
-                },
+                // {
+                //     'title': 'Calendar',
+                //     'type' : 'nav-item',
+                //     'icon' : 'today',
+                //     'url'  : '/apps/calendar'
+                // },
         ];
 
         this.authService.currentShortcuts.subscribe(shortcuts => this.shortcutItems = shortcuts);
@@ -141,10 +143,21 @@ export class FuseShortcutsComponent implements OnInit, OnDestroy
         {
             if ( this.shortcutItems[i].url === itemToToggle.url )
             {
-                this.shortcutItems.splice(i, 1);
-
+                //supprimer le shortcut en bd/ rafraichir le shortcut dans le shared
+                
+                this.userService.deleteShortcut(this.authService.decodedToken.nameid,this.shortcutItems[i].id)
+                    .subscribe(()=>{
+                        this.shortcutItems.splice(i, 1);
+                        this.authService.changeShortcuts(this.shortcutItems);
+                        localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+                        console.log('success to delete shortcut');
+                    },error =>{
+                        console.log('failed to delete shortcut');
+                    });
+                
+                
                 // Save to the cookies
-                this.cookieService.set('FUSE2.shortcuts', JSON.stringify(this.shortcutItems));
+                //this.cookieService.set('FUSE2.shortcuts', JSON.stringify(this.shortcutItems));
 
                 return;
             }

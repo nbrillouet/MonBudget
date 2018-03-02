@@ -47,6 +47,9 @@ namespace Budget.API
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IAuthRepository, AuthRepository>();
 
+            services.AddScoped<IShortcutService, ShortcutService>();
+            services.AddScoped<IShortcutRepository, ShortcutRepository>();
+
             //add authentification
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

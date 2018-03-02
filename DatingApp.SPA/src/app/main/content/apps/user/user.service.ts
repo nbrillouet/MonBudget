@@ -71,6 +71,10 @@ export class UserService {
         );
     }
 
+    deleteShortcut(idUser: number, id: number) {
+        return this.authHttp.delete(this.baseUrl + 'users/' + idUser + '/shortcuts/' + id)
+            .catch(this.handleError);
+    }
 
     //Avant le remplacement par jwt global
     // getUsers(): Observable<User[]> {

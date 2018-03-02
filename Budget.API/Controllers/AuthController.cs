@@ -42,7 +42,7 @@ namespace Budget.API.Controllers
             userForRegisterDto.Name = userForRegisterDto.Name.ToLower();
             if (await _authService.UserExists(userForRegisterDto.Name))
                 ModelState.AddModelError("UserName","Username already exists");
-
+            
             //validate request
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -65,8 +65,11 @@ namespace Budget.API.Controllers
             var userRetrieve = await _authService.Login(userForLoginDto.Username, userForLoginDto.Password);
 
             if (userRetrieve == null)
-                return Unauthorized();
-
+            {
+                ModelState.AddModelError("Login Error","Incorrect username or password");
+                return BadRequest(ModelState);
+                // return Unauthorized();
+            }
             //generate token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_config.GetSection("AppSettings:Token").Value);

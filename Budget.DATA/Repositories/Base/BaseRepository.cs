@@ -26,10 +26,14 @@ namespace Budget.DATA.Repositories
             return Context.Set<T>().ToListAsync();
         }
 
-        public void Create(T entity)
+        public async Task<T> Create(T entity)
         {
-            Context.Set<T>().Add(entity);
-            Context.SaveChanges();
+            //Context.Set<T>().Add(entity);
+            //Context.SaveChanges();
+            await Context.Set<T>().AddAsync(entity);
+            await Context.SaveChangesAsync();
+
+            return entity;
         }
 
         public void Update(T entity)

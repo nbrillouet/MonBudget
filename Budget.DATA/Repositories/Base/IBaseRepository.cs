@@ -9,7 +9,7 @@ namespace Budget.DATA.Repositories
     {
         Task<List<T>> GetAll();
         //Task<T> GetById(int id);
-        void Create(T entity);
+        Task<T> Create(T entity);
         void Update(T entity);
         void Delete(T entity);
     }

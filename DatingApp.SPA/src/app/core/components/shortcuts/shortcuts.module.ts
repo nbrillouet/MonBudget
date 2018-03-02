@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { FuseShortcutsComponent } from './shortcuts.component';
 import { SharedModule } from '../../modules/shared.module';
+import { UserService } from '../../../main/content/apps/user/user.service';
 
 @NgModule({
     declarations: [
@@ -14,6 +15,9 @@ import { SharedModule } from '../../modules/shared.module';
     ],
     exports     : [
         FuseShortcutsComponent
+    ],
+    providers : [
+        UserService
     ]
 })
 export class FuseShortcutsModule
