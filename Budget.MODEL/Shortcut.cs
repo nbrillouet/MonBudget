@@ -8,6 +8,7 @@ namespace Budget.MODEL
     [Table("SHORTCUT")]
     public class Shortcut
     {
+        
         [Column("ID")]
         public int Id { get; set; }
         [Column("TITLE")]
