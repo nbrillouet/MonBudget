@@ -4,89 +4,113 @@
   <div class="top-bg mat-accent-bg"></div>
   <!-- / TOP BACKGROUND -->
 
-  <!-- CENTER -->
-  <div class="center">
+    <!-- CENTER -->
+    <div class="center">
 
-      <!-- HEADER -->
-      <div class="header white-fg"
-           fxLayout="column" fxLayoutAlign="center center"
-           fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+        <!-- HEADER -->
+        <div class="header white-fg"
+            fxLayout="column" fxLayoutAlign="center center"
+            fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
 
-          <!-- APP TITLE -->
-          <div class="logo my-12 m-sm-0"
-               fxLayout="row" fxLayoutAlign="start center">
-              <mat-icon class="logo-icon mr-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">account_box</mat-icon>
-              <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Utilisateurs</span>
-          </div>
-          <!-- / APP TITLE -->
+            <!-- APP TITLE -->
+            <div class="logo my-12 m-sm-0"
+                fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon mr-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">account_box</mat-icon>
+                <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Utilisateurs</span>
+            </div>
+            <!-- / APP TITLE -->
 
-          <!-- SEARCH -->
-          <div class="search-input-wrapper mx-12 m-md-0"
-               fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
-              <label for="search" class="mr-8">
-                  <mat-icon class="secondary-text">search</mat-icon>
-              </label>
-              <mat-form-field floatPlaceholder="never" fxFlex="1 0 auto">
-                  <input id="search" matInput #filter placeholder="Recherche">
-              </mat-form-field>
-          </div>
-          <!-- / SEARCH -->
+            <!-- SEARCH -->
+            <div class="search-input-wrapper mx-12 m-md-0"
+                fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+                <label for="search" class="mr-8">
+                    <mat-icon class="secondary-text">search</mat-icon>
+                </label>
+                <mat-form-field floatPlaceholder="never" fxFlex="1 0 auto">
+                    <input id="search" matInput #filter placeholder="Recherche">
+                </mat-form-field>
+            </div>
+            <!-- / SEARCH -->
 
-          <!-- <button mat-raised-button
-                  [routerLink]="'/apps/e-commerce/products/new'"
-                  class="add-product-button mat-white-bg my-12 mt-sm-0">
-              <span>ADD NEW PRODUCT</span>
-          </button> -->
+            <!-- <button mat-raised-button
+                    [routerLink]="'/apps/e-commerce/products/new'"
+                    class="add-product-button mat-white-bg my-12 mt-sm-0">
+                <span>ADD NEW PRODUCT</span>
+            </button> -->
 
-      </div>
-      <!-- / HEADER -->
+        </div>
+        <!-- / HEADER -->
 
-            <!-- CONTENT CARD -->
-            <div class="content-card mat-white-bg">
+        <!-- CONTENT CARD -->
+        <div class="content-card mat-white-bg">
+            <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+                <mat-spinner></mat-spinner>
+            </div>
 
-              <mat-table class="products-table"
-                         #table [dataSource]="dataSource"
-                         [@animateStagger]="{value:'50'}"
-                         fusePerfectScrollbar>
-    
-                  <!-- ID Column -->
-                  <ng-container matColumnDef="id">
-                      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-                      <mat-cell *matCellDef="let user">
-                          <p class="text-truncate">{{user.id}}</p>
-                      </mat-cell>
-                  </ng-container>
-                  
+            <mat-table class="products-table"
+                #table [dataSource]="dataSource"
+                [@animateStagger]="{value:'50'}"
+                fusePerfectScrollbar>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+                    <mat-cell *matCellDef="let user">
+                        <p class="text-truncate">{{user.id}}</p>
+                    </mat-cell>
+                </ng-container>
+                    
 
                 <!-- Avatar Column -->
                 <ng-container cdkColumnDef="avatar">
                     <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
                     <mat-cell *cdkCellDef="let user">
                         <img class="avatar"
-                             *ngIf="user.avatar" [alt]="user.userName"
-                             [src]="user.avatar"/>
+                                *ngIf="user.avatar" [alt]="user.userName"
+                                [src]="user.avatar"/>
                         <img *ngIf="!user.avatar" [src]="'assets/images/ecommerce/product-image-placeholder.png'">
                     </mat-cell>
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                
+                    
                 <mat-row *cdkRowDef="let user; columns: displayedColumns;"
                     class="product"
                     matRipple
                     [routerLink]="'/apps/users/'+user.id">
                 </mat-row>
             </mat-table>
-              <!-- <mat-paginator #paginator
-                             [length]="dataSource.filteredData.length"
-                             [pageIndex]="0"
-                             [pageSize]="10"
-                             [pageSizeOptions]="[5, 10, 25, 100]">
-              </mat-paginator>  -->
-    
-          </div> 
-          <!-- / CONTENT CARD -->
+            
+            <!-- *ngIf="dataSource.pagination$ | async; let pagination" -->
+            <mat-paginator 
+                [length]="pagination?.totalItems" 
+                [pageSize]="pagination?.itemsPerPage"
+                [pageSizeOptions]="[3, 5, 10]">
+            </mat-paginator>
+            
+            <!-- paginator.totalItems
+            pagination.itemsPerPage -->
+            <!-- <mat-paginator 
+                [length]="matPagination?.length" 
+                [pageSize]="matPagination?.pageSize"
+                [pageSizeOptions]="matPagination?.pageSizeOption">
+            </mat-paginator> -->
 
-  </div>
-  <!-- / CENTER -->
+            <div *ngIf="dataSource.pagination$ | async; let pagination" >
+                {{pagination.totalPages}}
+            </div>
+            <!-- ttttt {{dataSource.pagination$.totalPages | async}} -->
+
+            totot {{dataSource.loading$ | async}}
+        </div> 
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
 </div>
+
+            <!-- <mat-paginator #paginator
+                [length]="dataSource.filteredData.length"
+                [pageIndex]="0"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>  -->

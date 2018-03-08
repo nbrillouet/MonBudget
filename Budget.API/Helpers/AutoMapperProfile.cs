@@ -28,6 +28,7 @@ namespace Budget.API.Helpers
 
             CreateMap<UserForAvatarCreationDto, User>();
             CreateMap<Shortcut,ShortcutDto>();
+            CreateMap<ShortcutDto, Shortcut>();
         }
     }
 }

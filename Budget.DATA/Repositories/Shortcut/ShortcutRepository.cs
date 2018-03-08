@@ -21,6 +21,12 @@ namespace Budget.DATA.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        
+        //public new async Task<Shortcut> Create(Shortcut shortcut)
+        //{
+        //    await Context.Shortcut.AddAsync(shortcut);
+        //    await Context.SaveChangesAsync();
+
+        //    return shortcut;
+        //}
     }
 }

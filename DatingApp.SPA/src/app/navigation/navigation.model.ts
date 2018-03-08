@@ -28,15 +28,29 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                         }
                     },
                     {
-                        'id'   : 'import',
-                        'title': 'Import relevé',
-                        'translate': 'NAV.SAMPLE.TITLE',
+                        'id'   : 'users',
+                        'title': 'Users',
+                        'translate': 'NAV.USER.TITLE',
                         'type' : 'item',
-                        'icon' : 'import_export',
+                        'icon' : 'account_box',
                         'url'  : '/apps/users',
                         'badge': {
                             'title': 25,
-                            'translate': 'NAV.SAMPLE.BADGE',
+                            'translate': 'NAV.USER.BADGE',
+                            'bg'   : '#F44336',
+                            'fg'   : '#FFFFFF'
+                        }
+                    },
+                    {
+                        'id'   : 'importStatement',
+                        'title': 'Import statement',
+                        'translate': 'NAV.IMPORT_STATEMENT.TITLE',
+                        'type' : 'item',
+                        'icon' : 'account_box',
+                        'url'  : '/apps/importStatement',
+                        'badge': {
+                            'title': 25,
+                            'translate': 'NAV.IMPORT_STATEMENT.BADGE',
                             'bg'   : '#F44336',
                             'fg'   : '#FFFFFF'
                         }

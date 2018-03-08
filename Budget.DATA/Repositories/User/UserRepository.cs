@@ -22,5 +22,12 @@ namespace Budget.DATA.Repositories
                 .Include(x => x.Shortcuts)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<PagedList<User>> GetUsers(UserParams userParams)
+        {
+            var users = Context.User.Include(x => x.Shortcuts);
+
+            return await PagedListRepository<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
+        }
     }
 }

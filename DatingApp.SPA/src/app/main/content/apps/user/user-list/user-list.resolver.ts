@@ -12,18 +12,21 @@ import { UserService } from '../user.service';
 
 @Injectable()
 export class UserListResolver implements Resolve<User[]> {
-    
+pageSize = 5;
+pageNumber = 1;
+
     constructor(
         private userService: UserService,
         private router: Router,
         private notificationService: NotificationsService
     ) {}
-
+    
     resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
         console.log(route.params['idUser']);
-        return this.userService.getUsers().catch(error => {
+        return this.userService.getUsers(this.pageNumber, this.pageSize)
+            .catch(error => {
                 this.notificationService.error('Erreur de retour de données', error);
-                this.router.navigate(['/users']);
+                this.router.navigate(['']);
 
                 return Observable.of(null);
         })

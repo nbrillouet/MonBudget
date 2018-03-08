@@ -31,8 +31,15 @@ namespace Budget.DATA.Repositories
             //Context.Set<T>().Add(entity);
             //Context.SaveChanges();
             await Context.Set<T>().AddAsync(entity);
-            await Context.SaveChangesAsync();
 
+            try
+            {
+                await Context.SaveChangesAsync();
+            }
+            catch(Exception e)
+            {
+                Console.Write(e);
+            }
             return entity;
         }
 

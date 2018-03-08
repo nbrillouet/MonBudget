@@ -21,6 +21,11 @@ namespace Budget.SERVICE
             return _userRepository.GetById(id);
         }
 
+        public Task<PagedList<User>> GetUsers(UserParams userParams)
+        {
+            return _userRepository.GetUsers(userParams);
+        }
+
         public Task<List<User>> GetAll()
         {
             return _userRepository.GetAll();

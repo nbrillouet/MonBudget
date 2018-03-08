@@ -9,6 +9,8 @@ namespace Budget.DATA.Repositories
     public interface IUserRepository : IBaseRepository<User>
     {
         Task<User> GetById(int id);
+        Task<PagedList<User>> GetUsers(UserParams userParams);
+
 
     }
 

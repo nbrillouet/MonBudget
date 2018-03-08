@@ -6,6 +6,14 @@ export const locale = {
             'SAMPLE'        : {
                 'TITLE': 'Sample',
                 'BADGE': '25'
+            },
+            'USER'        : {
+                'TITLE': 'Users',
+                'BADGE': '25'
+            },
+            'IMPORT_STATEMENT'        : {
+                'TITLE': 'Import statements',
+                'BADGE': '25'
             }
         }
     }

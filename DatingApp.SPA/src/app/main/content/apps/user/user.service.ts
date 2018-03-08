@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions, Headers } from '@angular/http';
+import { Http, RequestOptions, Headers,Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -8,6 +8,8 @@ import { environment } from '../../../../../environments/environment';
 import { User } from '../../../_models/User';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AuthHttp } from 'angular2-jwt';
+import { IShortcut } from '../../../_models/Shortcut';
+import { PaginatedResult } from '../../../_models/IPagination';
 
 @Injectable()
 export class UserService {
@@ -19,10 +21,31 @@ export class UserService {
     ) { }
     
     //apres remplacement par jwt global (voir bas de page pour avant remplacement)
-    getUsers(): Observable<User[]> {
+    // getUsers(): Observable<User[]> {
+    //     return this.authHttp
+    //         .get(this.baseUrl + 'user')
+    //         .map(response => <User[]>response.json())
+    //         .catch(this.handleError);
+    // }
+
+    getUsers(page?:number,itemsPerPage?: number) {
+        const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
+        let queryString = '?';
+
+        if(page !=null && itemsPerPage !=null) {
+            queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage;
+        }
+
         return this.authHttp
-            .get(this.baseUrl + 'user')
-            .map(response => <User[]>response.json())
+            .get(this.baseUrl + 'user' + queryString)
+            .map((response: Response) => {
+                paginatedResult.result = response.json();
+                if(response.headers.get('Pagination') != null) {
+                    paginatedResult.pagination = JSON.parse(response.headers.get('pagination'));
+                }
+                
+                return paginatedResult;
+            })
             .catch(this.handleError);
     }
 
@@ -73,6 +96,11 @@ export class UserService {
 
     deleteShortcut(idUser: number, id: number) {
         return this.authHttp.delete(this.baseUrl + 'users/' + idUser + '/shortcuts/' + id)
+            .catch(this.handleError);
+    }
+
+    addShortcut(idUser: number, shortcut: IShortcut) {
+        return this.authHttp.post(this.baseUrl + 'users/' + idUser + '/shortcuts/', shortcut)
             .catch(this.handleError);
     }
 

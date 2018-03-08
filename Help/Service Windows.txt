@@ -3,3 +3,4 @@ sc create ServiceFilow  binpath= "C:\Softs\ServiceWindowsNomi\ServiceWindowsNomi
 
 [suppression service]
 sc delete ServiceName
+

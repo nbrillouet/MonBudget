@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Budget.MODEL
@@ -7,6 +8,7 @@ namespace Budget.MODEL
     [Table("USER")]
     public class User
     {
+        [Key]
         [Column("ID")]
         public int Id { get; set; }
         [Column("USER_NAME")]

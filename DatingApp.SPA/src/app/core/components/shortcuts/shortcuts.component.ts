@@ -163,11 +163,19 @@ export class FuseShortcutsComponent implements OnInit, OnDestroy
             }
         }
 
-        this.shortcutItems.push(itemToToggle);
+        //sauvegarde du shortcut / maj du local storage et du service shared
+        this.userService.addShortcut(this.authService.decodedToken.nameid,itemToToggle)
+            .subscribe(()=>{
+                this.shortcutItems.push(itemToToggle);
+                this.authService.changeShortcuts(this.shortcutItems);
+                localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+                console.log('success to add shortcut');
+            },error =>{
+                console.log('failed to add shortcut');
+            });
 
         // Save to the cookies
         this.cookieService.set('FUSE2.shortcuts', JSON.stringify(this.shortcutItems));
-        
     }
 
     isInShortcuts(navigationItem)

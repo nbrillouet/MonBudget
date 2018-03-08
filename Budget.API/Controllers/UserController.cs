@@ -44,11 +44,21 @@ namespace Budget.API.Controllers
             _cloudinary = new Cloudinary(acc);
         }
 
+        //[HttpGet]
+        //public async Task<IActionResult> Get()
+        //{
+        //    var users = await _userService.GetAll();
+        //    var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+
+        //    return Ok(usersToReturn);
+        //}
+
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] UserParams userParams)
         {
-            var users = await _userService.GetAll();
+            var users = await _userService.GetUsers(userParams);
             var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+            Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
             return Ok(usersToReturn);
         }

@@ -41,7 +41,7 @@ const routes = [
   declarations: [
     UserListComponent,
     UserDetailComponent,
-    DialogGuardComponent,
+    // DialogGuardComponent,
     AvatarEditorComponent
   ],
   providers : [
@@ -49,7 +49,7 @@ const routes = [
     UserDetailResolver,
     UserListResolver,
     PreventUnsavedChanges
-  ],
-  entryComponents: [DialogGuardComponent]
+  ]
+  // entryComponents: [DialogGuardComponent]
 })
 export class UserModule { }

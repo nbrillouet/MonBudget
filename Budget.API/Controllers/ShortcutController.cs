@@ -47,16 +47,17 @@ namespace Budget.API.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPost()]
         public async Task<IActionResult> AddShortcut(int idUser, [FromBody] ShortcutDto shortcutDto)
         {
-            return Ok($"ok {idUser}");
+            // return Ok($"ok {idUser}");
             var user = await _userService.GetById(idUser);
             if (user == null)
                 return BadRequest($"Could not find user id: {idUser}");
 
             var shortcut = new Shortcut();
             _mapper.Map(shortcutDto, shortcut);
+            shortcut.IdUser = idUser;
 
             shortcut = await _shortcutService.Create(shortcut);
 
