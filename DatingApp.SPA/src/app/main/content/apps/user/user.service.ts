@@ -9,7 +9,7 @@ import { User } from '../../../_models/User';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AuthHttp } from 'angular2-jwt';
 import { IShortcut } from '../../../_models/Shortcut';
-import { PaginatedResult } from '../../../_models/IPagination';
+import { PaginatedResult, Pagination } from '../../../_models/IPagination';
 
 @Injectable()
 export class UserService {
@@ -28,12 +28,18 @@ export class UserService {
     //         .catch(this.handleError);
     // }
 
-    getUsers(page?:number,itemsPerPage?: number) {
+    // getUsers(page?:number,itemsPerPage?: number) {
+    getUsers(pagination?: Pagination) {
         const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
         let queryString = '?';
 
-        if(page !=null && itemsPerPage !=null) {
-            queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage;
+        // if(page !=null && itemsPerPage !=null) {
+        if(pagination.currentPage !=null && pagination.itemsPerPage !=null)
+        {
+            queryString += 'pageNumber=' + pagination.currentPage 
+                + '&pageSize=' + pagination.itemsPerPage 
+                + '&sortColumn=' + pagination.sortColumn 
+                + '&sortDirection=' + pagination.sortDirection;
         }
 
         return this.authHttp

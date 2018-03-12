@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ImportStatementListComponent } from './importStatement-list.component';
+import { ImportStatementUploadComponent } from './import-statement-upload.component';
 
-describe('ImportStatementListComponent', () => {
-  let component: ImportStatementListComponent;
-  let fixture: ComponentFixture<ImportStatementListComponent>;
+describe('ImportStatementUploadComponent', () => {
+  let component: ImportStatementUploadComponent;
+  let fixture: ComponentFixture<ImportStatementUploadComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ImportStatementListComponent ]
+      declarations: [ ImportStatementUploadComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ImportStatementListComponent);
+    fixture = TestBed.createComponent(ImportStatementUploadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

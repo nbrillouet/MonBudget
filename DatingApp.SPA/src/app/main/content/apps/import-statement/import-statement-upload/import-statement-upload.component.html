@@ -1,0 +1,68 @@
+<!-- <p>Queue length: {{ uploader?.queue?.length }}</p> -->
+<Table>
+    <tr>
+        <td rowspan=2>
+            <button 
+            ng2FileDrop 
+              [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+              (fileOver)="fileOverBase($event)"
+              [uploader]="uploader"
+              class="well drop-zone">
+             
+         
+            Drop Zone</button>
+        </td>
+        <td>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="100px">Name</th>
+                    <th width="100px">Size</th>
+                    <!-- <th>Progress</th> -->
+       
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of uploader.queue">
+                    <td><strong>{{ item?.file?.name }}</strong></td>
+                    
+                    
+                    <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                    <!-- <td >
+                       <mat-progress-bar mode="determinate" [value]="item.progress"></mat-progress-bar>
+       
+       
+                    </td> -->
+       
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <!-- <td>
+            
+        </td> -->
+        <td>
+            <div>
+                <div>
+                    <mat-progress-bar mode="determinate" [value]="uploader.progress"></mat-progress-bar>
+      
+                </div>
+                <button type="button" class="btn btn-success btn-s"
+                        (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                    <span class="glyphicon glyphicon-upload"></span> Upload
+                </button>
+                <button type="button" class="btn btn-warning btn-s"
+                        (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                </button>
+                <button type="button" class="btn btn-danger btn-s"
+                        (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                    <span class="glyphicon glyphicon-trash"></span> Remove
+                </button>
+            </div>
+        </td>
+    </tr>
+</Table>
+

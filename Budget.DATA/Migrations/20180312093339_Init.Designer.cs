@@ -11,7 +11,7 @@ using System;
 namespace Budget.DATA.Migrations
 {
     [DbContext(typeof(BudgetContext))]
-    [Migration("20180305151652_Init")]
+    [Migration("20180312093339_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

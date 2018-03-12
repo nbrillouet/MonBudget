@@ -15,7 +15,7 @@ namespace Budget.DATA
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=PS10;Database=XmlToSwift_Demo;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer(@"Server=SQLDEVGD;Database=Test_NB;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
     }
 }

@@ -15,5 +15,8 @@ namespace Budget.MODEL
             get { return pageSize; }
             set { pageSize = (value > MaxPageSize) ? MaxPageSize : value; }
         }
+
+        public string SortColumn { get; set; } = "id";
+        public string SortDirection { get; set; } = "desc";
     }
 }

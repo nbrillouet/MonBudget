@@ -6,18 +6,20 @@ import { DataSource } from '@angular/cdk/table';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../../../_models/User';
 import { fuseAnimations } from '../../../../../core/animations';
-import { ImportStatementService } from '../importStatement.service';
+import { ImportStatementService } from '../import-statement.service';
 
 @Component({
-  selector: 'app-importStatement-list',
-  templateUrl: './importStatement-list.component.html',
-  styleUrls: ['./importStatement-list.component.scss'],
+  selector: 'app-import-statement-list',
+  templateUrl: './import-statement-list.component.html',
+  styleUrls: ['./import-statement-list.component.scss'],
   animations : fuseAnimations
 })
 export class ImportStatementListComponent implements OnInit {
   dataSource = new UserDataSource(this.importStatementService);
   displayedColumns = ['id','userName','lastName','firstName','city','postalCode','country','gender','age','dateCreated'];
 
+  user: User;
+  
   constructor(
     private importStatementService: ImportStatementService,
     private notificationService: NotificationsService,
@@ -34,6 +36,10 @@ export class ImportStatementListComponent implements OnInit {
     // this._sharedService.changeSuiviFilter(this.currentFilter);
   }
 
+  updateUserAvatar(avatarUrl)
+  {
+    this.user.avatarUrl=avatarUrl;
+  }
   
 }
 

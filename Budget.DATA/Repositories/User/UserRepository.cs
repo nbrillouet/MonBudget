@@ -25,7 +25,13 @@ namespace Budget.DATA.Repositories
 
         public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {
-            var users = Context.User.Include(x => x.Shortcuts);
+            var users = Context.User.Include(x => x.Shortcuts).AsQueryable();
+
+            //paging.SortColumn = String.IsNullOrEmpty(paging.SortColumn) ? "Id" : paging.SortColumn;
+            if (userParams.SortDirection == "asc")
+                users = users.OrderBy(userParams.SortColumn);
+            else
+                users = users.OrderByDescending(userParams.SortColumn);
 
             return await PagedListRepository<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }

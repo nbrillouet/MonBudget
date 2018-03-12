@@ -3,6 +3,8 @@ export interface IPagination {
     itemsPerPage: number;
     totalItems: number;
     totalPages: number;
+    sortColumn: string;
+    sortDirection: string;
 }
 
 export class PaginatedResult<T>{
@@ -15,6 +17,8 @@ export class Pagination {
     itemsPerPage: number;
     totalItems: number;
     totalPages: number;
+    sortColumn: string;
+    sortDirection: string;
 }
 
 export class MatPagination {

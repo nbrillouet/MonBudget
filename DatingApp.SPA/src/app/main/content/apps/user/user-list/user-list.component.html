@@ -50,11 +50,12 @@
             <mat-table class="products-table"
                 #table [dataSource]="dataSource"
                 [@animateStagger]="{value:'50'}"
+                matSort matSortActive="id" matSortDirection="asc" matSortDisableClear
                 fusePerfectScrollbar>
 
                 <!-- ID Column -->
-                <ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+                <ng-container matColumnDef="id" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                     <mat-cell *matCellDef="let user">
                         <p class="text-truncate">{{user.id}}</p>
                     </mat-cell>
@@ -63,7 +64,7 @@
 
                 <!-- Avatar Column -->
                 <ng-container cdkColumnDef="avatar">
-                    <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+                    <mat-header-cell *cdkHeaderCellDef mat-sort-header>avatar</mat-header-cell>
                     <mat-cell *cdkCellDef="let user">
                         <img class="avatar"
                                 *ngIf="user.avatar" [alt]="user.userName"

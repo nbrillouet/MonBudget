@@ -12,8 +12,8 @@ const routes = [
         canActivate: [AuthGuard]
     },
     {
-        path        : 'importStatement',
-        loadChildren: './importStatement/importStatement.module#ImportStatementModule',
+        path        : 'import-statement',
+        loadChildren: './import-statement/import-statement.module#ImportStatementModule',
         canActivate: [AuthGuard]
     }
     

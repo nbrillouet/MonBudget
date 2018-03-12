@@ -1,13 +1,14 @@
 import { AuthGuard } from "../../../../_guards/auth.guard";
-import { ImportStatementListComponent } from "./importStatement-list/importStatement-list.component";
-import { ImportStatementListResolver } from "./importStatement-list/importStatement-list.resolver";
+import { ImportStatementListComponent } from "./import-statement-list/import-statement-list.component";
+import { ImportStatementListResolver } from "./import-statement-list/import-statement-list.resolver";
 import { SharedModule } from "../../../../core/modules/shared.module";
 import { FileUploadModule } from "ng2-file-upload";
 import { RouterModule } from "@angular/router";
-import { ImportStatementService } from "./importStatement.service";
+import { ImportStatementService } from "./import-statement.service";
 import { PreventUnsavedChanges } from "../../../../_guards/prevent-unsaved-changes.guard";
 import { DialogGuardComponent } from "../../../../_guards/dialog-guard.component";
 import { NgModule } from "@angular/core";
+import { ImportStatementUploadComponent } from './import-statement-upload/import-statement-upload.component';
 
 
 const routes = [
@@ -38,9 +39,12 @@ const routes = [
     ],
     declarations: [
         ImportStatementListComponent,
+        ImportStatementUploadComponent
         // DialogGuardComponent
         
-    ],
+,
+    ImportStatementUploadComponent
+],
     providers : [
         ImportStatementService,
         ImportStatementListResolver,

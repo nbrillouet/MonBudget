@@ -42,12 +42,12 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                         }
                     },
                     {
-                        'id'   : 'importStatement',
+                        'id'   : 'import-statement',
                         'title': 'Import statement',
                         'translate': 'NAV.IMPORT_STATEMENT.TITLE',
                         'type' : 'item',
                         'icon' : 'account_box',
-                        'url'  : '/apps/importStatement',
+                        'url'  : '/apps/import-statement',
                         'badge': {
                             'title': 25,
                             'translate': 'NAV.IMPORT_STATEMENT.BADGE',

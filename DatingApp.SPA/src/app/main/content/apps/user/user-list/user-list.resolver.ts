@@ -22,13 +22,13 @@ pageNumber = 1;
     ) {}
     
     resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
-        console.log(route.params['idUser']);
-        return this.userService.getUsers(this.pageNumber, this.pageSize)
-            .catch(error => {
-                this.notificationService.error('Erreur de retour de données', error);
-                this.router.navigate(['']);
+        return null;
+        // return this.userService.getUsers(this.pageNumber, this.pageSize)
+        //     .catch(error => {
+        //         this.notificationService.error('Erreur de retour de données', error);
+        //         this.router.navigate(['']);
 
-                return Observable.of(null);
-        })
+        //         return Observable.of(null);
+        // })
     }
 }

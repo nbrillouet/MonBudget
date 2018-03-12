@@ -20,7 +20,7 @@ export class UserDetailResolver implements Resolve<User> {
     ) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<User> {
-
+        
         return this.userService.getUser(route.params['idUser'])
             .catch(error => {
                 this.notificationService.error('Erreur de retour de données', error);
