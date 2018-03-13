@@ -42,7 +42,6 @@ export class UserListComponent implements AfterViewInit, OnInit {
     this.dataSource = new UserDataSource(this.userService, this.route);
     this.dataSource.loadUsers(new Pagination());
 
-
     this.dataSource.pagination$
       .subscribe(res=>{
         
@@ -110,7 +109,7 @@ export class UserDataSource extends DataSource<User> {
 
     // this.userService.getUsers(pagination.currentPage,pagination.itemsPerPage)
     this.userService.getUsers(pagination)
-      .subscribe((res: PaginatedResult<User[]>)=> {
+      .subscribe((res: PaginatedResult<User[]>) => {
         this.usersSubject.next(res.result);
         this.paginationSubject.next(res.pagination);
         this.loadingSubject.next(false);

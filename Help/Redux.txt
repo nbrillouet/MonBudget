@@ -1,0 +1,6 @@
+library qui aide à gerer l'etat de l'application.
+-Manage the application in a predicable way:
+-decoupled architecture (peut utiliser angular ou re act ou..)
+-testability : redux utilise de simple fonction avec entré sorti facilement testable
+-Great tooling: ie redux developer tool extension pour debugger facilement
+-undo/redo : cette fonctionalité est facilement faisable avec redux

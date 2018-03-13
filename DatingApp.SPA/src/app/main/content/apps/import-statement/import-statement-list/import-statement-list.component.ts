@@ -17,7 +17,7 @@ import { ImportStatementService } from '../import-statement.service';
 export class ImportStatementListComponent implements OnInit {
   dataSource = new UserDataSource(this.importStatementService);
   displayedColumns = ['id','userName','lastName','firstName','city','postalCode','country','gender','age','dateCreated'];
-
+  test = false;
   user: User;
   
   constructor(

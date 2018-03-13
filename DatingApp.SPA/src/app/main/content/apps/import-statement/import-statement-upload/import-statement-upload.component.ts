@@ -5,11 +5,13 @@ import { environment } from '../../../../../../environments/environment';
 import { AuthService } from '../../../../_services/auth.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NotificationsService } from 'angular2-notifications';
+import { fuseAnimations } from '../../../../../core/animations';
 
 @Component({
   selector: 'import-statement-upload',
   templateUrl: './import-statement-upload.component.html',
-  styleUrls: ['./import-statement-upload.component.css']
+  styleUrls: ['./import-statement-upload.component.scss'],
+  animations   : fuseAnimations
 })
 export class ImportStatementUploadComponent implements OnInit {
 

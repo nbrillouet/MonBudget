@@ -1,68 +1,71 @@
 <!-- <p>Queue length: {{ uploader?.queue?.length }}</p> -->
-<Table>
-    <tr>
-        <td rowspan=2>
-            <button 
-            ng2FileDrop 
-              [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
-              (fileOver)="fileOverBase($event)"
-              [uploader]="uploader"
-              class="well drop-zone">
-             
-         
-            Drop Zone</button>
-        </td>
-        <td>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th width="100px">Name</th>
-                    <th width="100px">Size</th>
-                    <!-- <th>Progress</th> -->
-       
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let item of uploader.queue">
-                    <td><strong>{{ item?.file?.name }}</strong></td>
-                    
-                    
-                    <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
-                    <!-- <td >
-                       <mat-progress-bar mode="determinate" [value]="item.progress"></mat-progress-bar>
-       
-       
-                    </td> -->
-       
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <!-- <td>
-            
-        </td> -->
-        <td>
-            <div>
-                <div>
+
+<div class="header">
+    <!-- ADD FILE BUTTON -->
+    <div class="file-uploader" *ngIf="uploader.queue.length==0">
+        <input hidden type="file"
+            ng2FileSelect
+            [uploader]="uploader"
+            #fileInput/> 
+ 
+        <button 
+            mat-fab
+            class="add-file-button mat-warn"
+            (click)="fileInput.click()"
+            aria-label="Add file"
+            *fuseIfOnDom [@animate]="{value:'*', params:{delay:'300ms',scale:'0.2'}}">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    
+    <!-- ADD DROP ZONE -->
+    <div *ngIf="uploader.queue.length==0">
+        <button mat-button 
+            ng2FileDrop
+
+            [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+            (fileOver)="fileOverBase($event)"
+            [uploader]="uploader"
+            class="well drop-zone"
+            [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+            <mat-icon>insert_drive_file</mat-icon>
+            Drop Zone
+        </button>
+    </div>
+    
+    <!-- ADD FILE UPLOAD INFO -->
+    <table *ngIf="uploader.queue.length>0" class="file-upload-info">
+        <!-- <thead>
+        <tr >
+            <th style="text-align: right;width:100px;" >Nom fichier</th>
+            <th style="text-align: right;width:100px;">Taille</th>
+        </tr>
+        </thead> -->
+        <tbody>
+        <tr *ngFor="let item of uploader.queue">
+            <td style="text-align: right;">Nom fichier: {{ item?.file?.name }}</td>
+            <td style="text-align: right;" nowrap> Taille: {{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div *ngIf="uploader.progress>0">
                     <mat-progress-bar mode="determinate" [value]="uploader.progress"></mat-progress-bar>
-      
                 </div>
-                <button type="button" class="btn btn-success btn-s"
-                        (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-                    <span class="glyphicon glyphicon-upload"></span> Upload
-                </button>
-                <button type="button" class="btn btn-warning btn-s"
-                        (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
-                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                </button>
-                <button type="button" class="btn btn-danger btn-s"
+                <div style="text-align: right" *ngIf="uploader.progress==0">
+                    <button mat-raised-button color="warn"
                         (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
                     <span class="glyphicon glyphicon-trash"></span> Remove
-                </button>
-            </div>
-        </td>
-    </tr>
-</Table>
+                    </button>
+                    <button mat-raised-button color="primary"
+                            (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                        <span class="glyphicon glyphicon-upload"></span> Upload
+                    </button>
+                </div>
+                
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 
