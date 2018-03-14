@@ -15,7 +15,7 @@ namespace Budget.DATA.Repositories
 
         }
 
-        public Task<User> GetById(int id)
+        public new Task<User> GetByIdAsync(int id)
         {
             return Context.User
                 .Where(x => x.Id == id)
@@ -23,7 +23,7 @@ namespace Budget.DATA.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<PagedList<User>> GetUsers(UserParams userParams)
+        public async Task<PagedList<User>> GetUsers(Pagination userParams)
         {
             var users = Context.User.Include(x => x.Shortcuts).AsQueryable();
 

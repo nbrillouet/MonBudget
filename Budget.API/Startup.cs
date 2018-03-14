@@ -50,6 +50,12 @@ namespace Budget.API
             services.AddScoped<IShortcutService, ShortcutService>();
             services.AddScoped<IShortcutRepository, ShortcutRepository>();
 
+            services.AddScoped<IBankService, BankService>();
+            services.AddScoped<IBankRepository, BankRepository>();
+
+            services.AddScoped<IAccountStatementImportService, AccountStatementImportService>();
+            services.AddScoped<IAccountStatementImportRepository, AccountStatementImportRepository>();
+
             //add authentification
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

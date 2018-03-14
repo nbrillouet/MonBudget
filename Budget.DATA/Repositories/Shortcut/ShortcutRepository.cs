@@ -14,12 +14,12 @@ namespace Budget.DATA.Repositories
         {
         }
 
-        public Task<Shortcut> GetById(int id)
-        {
-            return Context.Shortcut
-                .Where(x => x.Id == id)
-                .FirstOrDefaultAsync();
-        }
+        //public Task<Shortcut> GetByIdAsync(int id)
+        //{
+        //    return Context.Shortcut
+        //        .Where(x => x.Id == id)
+        //        .FirstOrDefaultAsync();
+        //}
 
         //public new async Task<Shortcut> Create(Shortcut shortcut)
         //{

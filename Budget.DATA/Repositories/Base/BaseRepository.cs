@@ -15,15 +15,24 @@ namespace Budget.DATA.Repositories
             Context = context;
         }
 
-        //public Task<T> GetById(int id)
-        //{
-        //    var toto = Context.Set<T>().Where(x=>x..FindAsync(id);
-        //    return Context.Set<T>().FindAsync(id);
-        //}
+        public Task<T> GetByIdAsync(int id)
+        {
+            return Context.Set<T>().FindAsync(id);
+        }
 
-        public Task<List<T>> GetAll()
+        public T GetById(int id)
+        {
+            return Context.Set<T>().Find(id);
+        }
+
+        public Task<List<T>> GetAllAsync()
         {
             return Context.Set<T>().ToListAsync();
+        }
+
+        public List<T> GetAll()
+        {
+            return Context.Set<T>().ToList();
         }
 
         public async Task<T> Create(T entity)

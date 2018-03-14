@@ -8,7 +8,7 @@ namespace Budget.DATA.Repositories
 {
     public interface IShortcutRepository : IBaseRepository<Shortcut>
     {
-        Task<Shortcut> GetById(int id);
+        //Task<Shortcut> GetById(int id);
         
     }
 }

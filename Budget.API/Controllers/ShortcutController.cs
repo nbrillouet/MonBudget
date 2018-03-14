@@ -34,11 +34,11 @@ namespace Budget.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteShortcut(int idUser,int id)
         {
-            var user = await _userService.GetById(idUser);
+            var user = await _userService.GetByIdAsync(idUser);
             if (user == null)
                 return BadRequest($"Could not find user id: {idUser}");
 
-            var shortcut = await _shortcutService.GetById(id);
+            var shortcut = await _shortcutService.GetByIdAsync(id);
             if(shortcut == null)
                 return BadRequest($"Could not find shortcut id: {id}");
 
@@ -51,7 +51,7 @@ namespace Budget.API.Controllers
         public async Task<IActionResult> AddShortcut(int idUser, [FromBody] ShortcutDto shortcutDto)
         {
             // return Ok($"ok {idUser}");
-            var user = await _userService.GetById(idUser);
+            var user = await _userService.GetByIdAsync(idUser);
             if (user == null)
                 return BadRequest($"Could not find user id: {idUser}");
 

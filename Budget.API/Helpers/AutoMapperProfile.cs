@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Budget.API.Dtos;
 using Budget.MODEL;
+using Budget.MODEL.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,15 @@ namespace Budget.API.Helpers
             CreateMap<UserForAvatarCreationDto, User>();
             CreateMap<Shortcut,ShortcutDto>();
             CreateMap<ShortcutDto, Shortcut>();
+
+
+            CreateMap<AccountStatementImport, AccountStatementImportForListDto>();
+            CreateMap<Bank, BankForListDto>();
+
+
+            CreateMap<Pagination, FilterAccountStatementImport>();
+
+
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Budget.SERVICE
 {
     public interface IShortcutService
     {
-        Task<Shortcut> GetById(int id);
+        Task<Shortcut> GetByIdAsync(int id);
 
         void Delete(Shortcut shortcut);
 

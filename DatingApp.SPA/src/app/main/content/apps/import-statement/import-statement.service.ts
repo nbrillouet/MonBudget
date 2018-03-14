@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { IImportStatement } from '../../../_models/IImportStatement';
 import { AuthHttp } from 'angular2-jwt';
 import { User } from '../../../_models/User';
+import { IBank } from '../../../_models/Bank';
 
 @Injectable()
 export class ImportStatementService {
@@ -16,6 +17,16 @@ export class ImportStatementService {
             .map(response => <User[]>response.json())
             .catch(this.handleError);
     }
+
+    getDistinctBank(idUser: number):Observable<IBank[]> {
+        return this.authHttp
+            .get(this.baseUrl + 'AccountStatementImport/user/' + idUser)
+            .map(response => <IBank[]>response.json())
+            .catch(this.handleError);
+    }
+
+
+
 
     private handleError(error: any)
     {

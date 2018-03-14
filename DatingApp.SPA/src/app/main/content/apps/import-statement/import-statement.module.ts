@@ -9,6 +9,7 @@ import { PreventUnsavedChanges } from "../../../../_guards/prevent-unsaved-chang
 import { DialogGuardComponent } from "../../../../_guards/dialog-guard.component";
 import { NgModule } from "@angular/core";
 import { ImportStatementUploadComponent } from './import-statement-upload/import-statement-upload.component';
+import { ImportStatementHistoListComponent } from './import-statement-histo-list/import-statement-histo-list.component';
 
 
 const routes = [
@@ -39,12 +40,9 @@ const routes = [
     ],
     declarations: [
         ImportStatementListComponent,
-        ImportStatementUploadComponent
-        // DialogGuardComponent
-        
-,
-    ImportStatementUploadComponent
-],
+        ImportStatementUploadComponent,
+        ImportStatementHistoListComponent
+    ],
     providers : [
         ImportStatementService,
         ImportStatementListResolver,

@@ -54,9 +54,9 @@ namespace Budget.API.Controllers
         //}
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] UserParams userParams)
+        public async Task<IActionResult> Get([FromQuery] Pagination pagination)
         {
-            var users = await _userService.GetUsers(userParams);
+            var users = await _userService.GetUsers(pagination);
             var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
             Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
@@ -66,7 +66,7 @@ namespace Budget.API.Controllers
         [HttpGet("{id}", Name = "GetUser")]
         public async Task<IActionResult> Get(int id)
         {
-            var user = await _userService.GetById(id);
+            var user = await _userService.GetByIdAsync(id);
             var userToReturn = _mapper.Map<UserForDetailedDto>(user);
 
             return Ok(userToReturn);
@@ -89,7 +89,7 @@ namespace Budget.API.Controllers
 
             var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var user = await _userService.GetById(id);
+            var user = await _userService.GetByIdAsync(id);
 
             if (user == null)
                 return NotFound($"Could not find user with an ID of {id}");
@@ -108,7 +108,7 @@ namespace Budget.API.Controllers
         [Route("{idUser}/avatar")]
         public async Task<IActionResult> AddAvatar(int idUser, UserForAvatarCreationDto avatarDto)
         {
-            var user = await _userService.GetById(idUser);
+            var user = await _userService.GetByIdAsync(idUser);
 
             if (user == null)
                 return BadRequest("Could not find user");

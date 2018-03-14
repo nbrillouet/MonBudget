@@ -16,9 +16,9 @@ namespace Budget.SERVICE
             _shortcutRepository = shortcutRepository;
         }
 
-        public Task<Shortcut> GetById(int id)
+        public Task<Shortcut> GetByIdAsync(int id)
         {
-            return _shortcutRepository.GetById(id);
+            return _shortcutRepository.GetByIdAsync(id);
         }
 
         public Task<Shortcut> Create(Shortcut shortcut)

@@ -7,8 +7,10 @@ namespace Budget.DATA.Repositories
 {
     public interface IBaseRepository<T>
     {
-        Task<List<T>> GetAll();
-        //Task<T> GetById(int id);
+        Task<List<T>> GetAllAsync();
+        List<T> GetAll();
+        T GetById(int id);
+        Task<T> GetByIdAsync(int id);
         Task<T> Create(T entity);
         void Update(T entity);
         void Delete(T entity);

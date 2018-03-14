@@ -5,8 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { DataSource } from '@angular/cdk/table';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../../../_models/User';
+import { IBank } from '../../../../_models/Bank';
 import { fuseAnimations } from '../../../../../core/animations';
-import { ImportStatementService } from '../import-statement.service';
+
 
 @Component({
   selector: 'app-import-statement-list',
@@ -15,17 +16,20 @@ import { ImportStatementService } from '../import-statement.service';
   animations : fuseAnimations
 })
 export class ImportStatementListComponent implements OnInit {
-  dataSource = new UserDataSource(this.importStatementService);
+  dataSource = null ; //new UserDataSource(this.importStatementService);
   displayedColumns = ['id','userName','lastName','firstName','city','postalCode','country','gender','age','dateCreated'];
   test = false;
   user: User;
-  
+  // banks: IBank[];
+
   constructor(
-    private importStatementService: ImportStatementService,
+    
     private notificationService: NotificationsService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    
   }
 
   onSortChangeEvent(event): void {
@@ -43,12 +47,13 @@ export class ImportStatementListComponent implements OnInit {
   
 }
 
-export class UserDataSource extends DataSource<any> {
-  constructor(private importStatementService: ImportStatementService) {
-    super();
-  }
-  connect(): Observable<User[]> {
-    return this.importStatementService.getImportStatement();
-  }
-  disconnect() {}
-}
+// export class UserDataSource extends DataSource<any> {
+//   constructor(private importStatementService: ImportStatementService) {
+//     super();
+//   }
+//   connect(): Observable<User[]> {
+//     return this.importStatementService.getImportStatement();
+//     return null;
+//   }
+//   disconnect() {}
+// }

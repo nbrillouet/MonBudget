@@ -8,9 +8,10 @@ namespace Budget.SERVICE
 {
     public interface IUserService
     {
-        Task<User> GetById(int id);
-        Task<List<User>> GetAll();
-        Task<PagedList<User>> GetUsers(UserParams userParams);
+        Task<User> GetByIdAsync(int id);
+
+        Task<List<User>> GetAllAsync();
+        Task<PagedList<User>> GetUsers(Pagination userParams);
         void Update(User entity);
 
     }

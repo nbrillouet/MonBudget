@@ -16,19 +16,19 @@ namespace Budget.SERVICE
             _userRepository = userRepository;
         }
 
-        public Task<User> GetById(int id)
+        public Task<User> GetByIdAsync(int id)
         {
-            return _userRepository.GetById(id);
+            return _userRepository.GetByIdAsync(id);
         }
 
-        public Task<PagedList<User>> GetUsers(UserParams userParams)
+        public Task<PagedList<User>> GetUsers(Pagination userParams)
         {
             return _userRepository.GetUsers(userParams);
         }
 
-        public Task<List<User>> GetAll()
+        public Task<List<User>> GetAllAsync()
         {
-            return _userRepository.GetAll();
+            return _userRepository.GetAllAsync();
         }
 
         public void Update(User user)
