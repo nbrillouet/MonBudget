@@ -10,6 +10,9 @@ using Budget.SERVICE;
 using Budget.MODEL;
 using Budget.API.Dtos;
 using Budget.API.Helpers;
+using System.IO;
+using System.Text;
+using Budget.MODEL.Database;
 
 namespace Budget.API.Controllers
 {
@@ -19,17 +22,20 @@ namespace Budget.API.Controllers
     public class AccountStatementImportController : Controller
     {
         private readonly IMapper _mapper;
-        private IAccountStatementImportService _accountStatementImportService;
-        private IBankService _bankService;
+        private readonly IUserService _userService;
+        private readonly IAccountStatementImportService _accountStatementImportService;
+        private readonly IBankService _bankService;
 
         public AccountStatementImportController(
             IAccountStatementImportService accountStatementImportService,
+            IUserService userService,
             IBankService bankService,
             IMapper mapper)
         {
             _mapper = mapper;
             _accountStatementImportService = accountStatementImportService;
             _bankService = bankService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -52,8 +58,10 @@ namespace Budget.API.Controllers
             filter.idUser = idUser;
 
             var accountStatementImports = await _accountStatementImportService.GetAsync(filter);
+            var asiDto = _mapper.Map<IEnumerable<AccountStatementImportForListDto>>(accountStatementImports);
+            Response.AddPagination(accountStatementImports.CurrentPage, accountStatementImports.PageSize, accountStatementImports.TotalCount, accountStatementImports.TotalPages);
 
-            return Ok(); 
+            return Ok(asiDto); 
 
         }
 
@@ -66,6 +74,27 @@ namespace Budget.API.Controllers
 
             return Ok(banksDto);
 
+        }
+
+        [HttpPost]
+        [Route("user/{idUser}")]
+        public async Task<IActionResult> UploadFile(int idUser, AccountStatementImportForUploadDto asifuDto)
+        {
+            var user = await _userService.GetByIdAsync(idUser);
+
+            if (user == null)
+                return BadRequest("Could not find user");
+
+            var file = asifuDto.File;
+
+
+            if (file.Length > 0)
+            {
+                StreamReader csvreader = new StreamReader(file.OpenReadStream(), Encoding.GetEncoding(1252));
+                AccountStatementImport accountStatementImport = _accountStatementImportService.ImportFile(csvreader, user);
+            }
+            
+            return Ok();
         }
     }
 }

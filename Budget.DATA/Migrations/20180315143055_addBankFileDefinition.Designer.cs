@@ -11,8 +11,8 @@ using System;
 namespace Budget.DATA.Migrations
 {
     [DbContext(typeof(BudgetContext))]
-    [Migration("20180314123602_addTable1")]
-    partial class addTable1
+    [Migration("20180315143055_addBankFileDefinition")]
+    partial class addBankFileDefinition
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,6 +221,29 @@ namespace Budget.DATA.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ACCOUNT_TYPE");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.BankFileDefinition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<int>("IdBank")
+                        .HasColumnName("ID_BANK");
+
+                    b.Property<string>("LabelField")
+                        .HasColumnName("LABEL_FIELD")
+                        .HasMaxLength(50);
+
+                    b.Property<int>("LabelOrder")
+                        .HasColumnName("LABEL_ORDER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdBank");
+
+                    b.ToTable("BANK_FILE_DEFINITION");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.Operation", b =>
@@ -482,6 +505,14 @@ namespace Budget.DATA.Migrations
                     b.HasOne("Budget.MODEL.User", "User")
                         .WithMany()
                         .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.BankFileDefinition", b =>
+                {
+                    b.HasOne("Budget.MODEL.Bank", "Bank")
+                        .WithMany()
+                        .HasForeignKey("IdBank")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

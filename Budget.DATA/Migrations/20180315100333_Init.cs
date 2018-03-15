@@ -5,36 +5,44 @@ using System.Collections.Generic;
 
 namespace Budget.DATA.Migrations
 {
-    public partial class addTable1 : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ACCOUNT_STATEMENT_IMPORT",
+                name: "ACCOUNT_TYPE",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DATE_IMPORT = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FILE_IMPORT = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ID_BANK = table.Column<int>(type: "int", nullable: false),
-                    ID_USER = table.Column<int>(type: "int", nullable: false)
+                    LABEL = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ACCOUNT_STATEMENT_IMPORT", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_ACCOUNT_STATEMENT_IMPORT_BANK_ID_BANK",
-                        column: x => x.ID_BANK,
-                        principalTable: "BANK",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ACCOUNT_STATEMENT_IMPORT_USER_ID_USER",
-                        column: x => x.ID_USER,
-                        principalTable: "USER",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_ACCOUNT_TYPE", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BANK",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ADDRESS_BANK = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ADVISER_FIRST_NAME = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ADVISER_FIXED_PHONE = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    ADVISER_LAST_NAME = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ADVISER_MAIL = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ADVISER_MOBILE_PHONE = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    FOLDER_FILE_SAVE = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LABEL_BANK_LONG = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    LABEL_BANK_SHORT = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    LOGO_CLASS_NAME = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    POSTAL_CODE_BANK = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BANK", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,6 +89,62 @@ namespace Budget.DATA.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "USER",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AVATAR_URL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CITY = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    COUNTRY = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CREATION_DATE = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LAST_ACTIVE_DATE = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BIRTH_DATE = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FIRST_NAME = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GENDER = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ID_AVATAR_CLOUD = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LAST_NAME = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PASSWORD_HASH = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    PASSWORD_SALT = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    POSTAL_CODE = table.Column<int>(type: "int", nullable: false),
+                    USER_NAME = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_USER", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ACCOUNT",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ALERT_THRESHOLD = table.Column<double>(type: "float", nullable: false),
+                    ID_ACCOUNT_TYPE = table.Column<int>(type: "int", nullable: false),
+                    ID_BANK = table.Column<int>(type: "int", nullable: false),
+                    LABEL = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    NUMBER = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    START_AMOUNT = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ACCOUNT", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_ACCOUNT_ACCOUNT_TYPE_ID_ACCOUNT_TYPE",
+                        column: x => x.ID_ACCOUNT_TYPE,
+                        principalTable: "ACCOUNT_TYPE",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ACCOUNT_BANK_ID_BANK",
+                        column: x => x.ID_BANK,
+                        principalTable: "BANK",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OPERATION_TYPE",
                 columns: table => new
                 {
@@ -96,6 +160,57 @@ namespace Budget.DATA.Migrations
                         name: "FK_OPERATION_TYPE_OPERATION_TYPE_FAMILY_ID_OPERATION_TYPE_FAMILY",
                         column: x => x.ID_OPERATION_TYPE_FAMILY,
                         principalTable: "OPERATION_TYPE_FAMILY",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ACCOUNT_STATEMENT_IMPORT",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DATE_IMPORT = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FILE_IMPORT = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ID_BANK = table.Column<int>(type: "int", nullable: false),
+                    ID_USER = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ACCOUNT_STATEMENT_IMPORT", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_ACCOUNT_STATEMENT_IMPORT_BANK_ID_BANK",
+                        column: x => x.ID_BANK,
+                        principalTable: "BANK",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ACCOUNT_STATEMENT_IMPORT_USER_ID_USER",
+                        column: x => x.ID_USER,
+                        principalTable: "USER",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SHORTCUT",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ICON = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ID_USER = table.Column<int>(type: "int", nullable: false),
+                    TITLE = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TYPE = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    URL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SHORTCUT", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_SHORTCUT_USER_ID_USER",
+                        column: x => x.ID_USER,
+                        principalTable: "USER",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -192,6 +307,23 @@ namespace Budget.DATA.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ACCOUNT_ID_ACCOUNT_TYPE",
+                table: "ACCOUNT",
+                column: "ID_ACCOUNT_TYPE");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ACCOUNT_ID_BANK",
+                table: "ACCOUNT",
+                column: "ID_BANK");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AccountNumber",
+                table: "ACCOUNT",
+                column: "NUMBER",
+                unique: true,
+                filter: "[NUMBER] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ACCOUNT_STATEMENT_ID_ACCOUNT",
                 table: "ACCOUNT_STATEMENT",
                 column: "ID_ACCOUNT");
@@ -263,12 +395,23 @@ namespace Budget.DATA.Migrations
                 table: "OPERATION_TYPE_FAMILY",
                 columns: new[] { "ID", "ID_MOVEMENT" },
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SHORTCUT_ID_USER",
+                table: "SHORTCUT",
+                column: "ID_USER");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "ACCOUNT_STATEMENT");
+
+            migrationBuilder.DropTable(
+                name: "SHORTCUT");
+
+            migrationBuilder.DropTable(
+                name: "ACCOUNT");
 
             migrationBuilder.DropTable(
                 name: "ACCOUNT_STATEMENT_IMPORT");
@@ -278,6 +421,15 @@ namespace Budget.DATA.Migrations
 
             migrationBuilder.DropTable(
                 name: "OPERATION_PLACE");
+
+            migrationBuilder.DropTable(
+                name: "ACCOUNT_TYPE");
+
+            migrationBuilder.DropTable(
+                name: "BANK");
+
+            migrationBuilder.DropTable(
+                name: "USER");
 
             migrationBuilder.DropTable(
                 name: "OPERATION_METHOD");

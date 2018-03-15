@@ -23,11 +23,11 @@ namespace Budget.DATA
         public DbSet<Operation> Operation { get; set; }
         public DbSet<AccountStatement> AccountStatement { get; set; }
         public DbSet<AccountStatementImport> AccountStatementImport { get; set; }
-                
+        public DbSet<BankFileDefinition> BankFileDefinition { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=SQLDEVGD;Database=Test_NB;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer(@"Server=PS10;Database=XmlToSwift_Demo;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

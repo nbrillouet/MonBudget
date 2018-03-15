@@ -12,22 +12,21 @@ namespace Budget.SERVICE
     public class AccountStatementImportService : IAccountStatementImportService
     {
         private readonly IAccountStatementImportRepository _accountStatementImportRepository;
-
+        private readonly IBankFileDefinitionService _bankFileDefinitionService;
         //private readonly IAccountService _accountService;
-        //private readonly IBankService _bankService;
+        private readonly IBankService _bankService;
 
 
-        public AccountStatementImportService(
-            IAccountStatementImportRepository accountStatementImportRepository)
+        public AccountStatementImportService(IAccountStatementImportRepository accountStatementImportRepository,
+            IBankFileDefinitionService bankFileDefinitionService,
+            IBankService bankService)
         {
             _accountStatementImportRepository = accountStatementImportRepository;
+            _bankFileDefinitionService = bankFileDefinitionService;
+            _bankService = bankService;
         }
 
-        public AccountStatementImport ImportFile(StreamReader reader, User user)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public int Save(AccountStatementImport accountStatementImport)
         {
             throw new NotImplementedException();
@@ -92,44 +91,44 @@ namespace Budget.SERVICE
         //    return _accountStatementImportRepository.Create(entity);
         //}
 
-        //public AccountStatementImport ImportFile(StreamReader reader, User user)
-        //{
-        //    Boolean firstLine = true;
+        public AccountStatementImport ImportFile(StreamReader reader, User user)
+        {
+            Boolean firstLine = true;
 
-        //    //verifier en tete fichier selon banque: rejet ou definit la banque
-        //    while (!reader.EndOfStream)
-        //    {
-        //        var line = reader.ReadLine();
-        //        var values = line.Split(';');
+            //verifier en tete fichier selon banque: rejet ou definit la banque
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var values = line.Split(';');
 
-        //        if (firstLine)
-        //        {
-        //            if (isBPVFFile(values))
-        //            {
-        //                return ImportFileBPVF(reader, user);
-        //            }
-        //        }
-        //        firstLine = false;
-        //    }
-        //    return null;
-        //}
+                if (firstLine)
+                {
+                    if (isBPVFFile(values))
+                    {
+                        //return ImportFileBPVF(reader, user);
+                    }
+                }
+                firstLine = false;
+            }
+            return null;
+        }
 
-        //private Boolean isBPVFFile(string[] header)
-        //{
-        //    List<BankFileDefinition> bankFileDefinitions = _bankFileDefinitionService.GetByIdBank((int)EnumBank.BPVF);
-        //    if (header.Length == bankFileDefinitions.Count())
-        //    {
-        //        for (int i = 0; i < bankFileDefinitions.Count(); i++)
-        //        {
-        //            if (header[i] != bankFileDefinitions[i].LabelField)
-        //                return false;
-        //        }
-        //    }
-        //    else
-        //        return false;
+        private Boolean isBPVFFile(string[] header)
+        {
+            List<BankFileDefinition> bankFileDefinitions = _bankFileDefinitionService.GetByIdBank((int)EnumBank.BPVF);
+            if (header.Length == bankFileDefinitions.Count)
+            {
+                for (int i = 0; i < bankFileDefinitions.Count; i++)
+                {
+                    if (header[i] != bankFileDefinitions[i].LabelField)
+                        return false;
+                }
+            }
+            else
+                return false;
 
-        //    return true;
-        //}
+            return true;
+        }
 
         //private AccountStatementImport ImportFileBPVF(StreamReader reader, User user)
         //{

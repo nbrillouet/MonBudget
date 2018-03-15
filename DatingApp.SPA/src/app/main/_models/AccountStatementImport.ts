@@ -1,9 +1,10 @@
+
 export interface IAccountStatementImport {
-    Id : number
-    IdUser : number
-    User : User 
-    IdBank : number
-    Bank : Bank 
-    FileImport : string
-    DateImport : Date
+    id : number;
+    idUser : number;
+    // User : User 
+    idBank : number;
+    // Bank : Bank 
+    fileImport : string;
+    dateImport : Date;
 }

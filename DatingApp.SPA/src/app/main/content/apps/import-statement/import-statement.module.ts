@@ -10,13 +10,14 @@ import { DialogGuardComponent } from "../../../../_guards/dialog-guard.component
 import { NgModule } from "@angular/core";
 import { ImportStatementUploadComponent } from './import-statement-upload/import-statement-upload.component';
 import { ImportStatementHistoListComponent } from './import-statement-histo-list/import-statement-histo-list.component';
+import { ImportStatementMainComponent } from './import-statement-main/import-statement-main.component';
 
 
 const routes = [
     {
         path     : '',
-        component: ImportStatementListComponent,
-        resolve  : { users: ImportStatementListResolver },
+        component: ImportStatementMainComponent,
+        // resolve  : { users: ImportStatementListResolver },
         canActivate: [AuthGuard]
     },
     // {
@@ -41,7 +42,8 @@ const routes = [
     declarations: [
         ImportStatementListComponent,
         ImportStatementUploadComponent,
-        ImportStatementHistoListComponent
+        ImportStatementHistoListComponent,
+        ImportStatementMainComponent
     ],
     providers : [
         ImportStatementService,

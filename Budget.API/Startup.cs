@@ -56,6 +56,10 @@ namespace Budget.API
             services.AddScoped<IAccountStatementImportService, AccountStatementImportService>();
             services.AddScoped<IAccountStatementImportRepository, AccountStatementImportRepository>();
 
+            services.AddScoped<IBankFileDefinitionService, BankFileDefinitionService > ();
+            services.AddScoped<IBankFileDefinitionRepository, BankFileDefinitionRepository>();
+                        
+
             //add authentification
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

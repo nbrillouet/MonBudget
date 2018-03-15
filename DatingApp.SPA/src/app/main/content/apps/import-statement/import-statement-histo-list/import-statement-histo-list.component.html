@@ -1,54 +1,52 @@
-<mat-tab-group>
+<mat-tab-group (selectedTabChange)="onTabChanged($event)">
     <mat-tab  *ngFor="let bank of banks" [label]="bank.labelBankLong">
         <ng-template mat-tab-label>
                 <img [src]="bank.logoClassName" [alt]="bank.labelBankShort">
                 {{bank.labelBankLong}}
         </ng-template>
         
-        
-        {{bank.id}}
-        
-        <mat-table class="products-table"
+        <mat-table class="import-statement-histo-table"
           #table [dataSource]="dataSource"
           [@animateStagger]="{value:'50'}"
           matSort matSortActive="id" matSortDirection="asc" matSortDisableClear
+          (matSortChange)="onSortChangeEvent($event)"
           fusePerfectScrollbar>
 
           <!-- ID Column -->
           <ng-container matColumnDef="id" >
               <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-              <mat-cell *matCellDef="let user">
-                  <p class="text-truncate">{{user.id}}</p>
+              <mat-cell *matCellDef="let data">
+                  <p class="text-truncate">{{data.id}}</p>
               </mat-cell>
           </ng-container>
+            <!-- fileImport Column -->
+            <ng-container matColumnDef="fileImport" >
+                <mat-header-cell *matHeaderCellDef mat-sort-header>nom fichier</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    <p class="text-truncate">{{data.fileImport}}</p>
+                </mat-cell>
+            </ng-container>
+            <!-- dateImport Column -->
+        <ng-container matColumnDef="dateImport" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header>date import</mat-header-cell>
+            <mat-cell *matCellDef="let data">
+                <p class="text-truncate">{{ data.dateImport | date: 'dd/MM/yyyy HH:mm:ss' || "-"}}</p>
+            </mat-cell>
+        </ng-container>
+ 
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               
-
-          <!-- Avatar Column -->
-          <ng-container cdkColumnDef="avatar">
-              <mat-header-cell *cdkHeaderCellDef mat-sort-header>avatar</mat-header-cell>
-              <mat-cell *cdkCellDef="let user">
-                  <img class="avatar"
-                          *ngIf="user.avatar" [alt]="user.userName"
-                          [src]="user.avatar"/>
-                  <img *ngIf="!user.avatar" [src]="'assets/images/ecommerce/product-image-placeholder.png'">
-              </mat-cell>
-          </ng-container>
-
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-              
-          <mat-row *cdkRowDef="let user; columns: displayedColumns;"
-              class="product"
-              matRipple
-              [routerLink]="'/apps/users/'+user.id">
-          </mat-row>
-      </mat-table>
+        <mat-row *cdkRowDef="let data; columns: displayedColumns;"
+            class="product">
+        </mat-row>
+    </mat-table>
       
-      <!-- *ngIf="dataSource.pagination$ | async; let pagination" -->
-      <mat-paginator 
-          [length]="pagination?.totalItems" 
-          [pageSize]="pagination?.itemsPerPage"
-          [pageSizeOptions]="[3, 5, 10]">
-      </mat-paginator>
+    <mat-paginator *ngIf="dataSource.pagination$ | async; let pagination"
+        (page)="onPageChangeEvent($event)"
+        [length]="pagination.totalItems" 
+        [pageSize]="pagination.itemsPerPage"
+        [pageSizeOptions]="[3, 5, 10]">
+    </mat-paginator>
 
 
     </mat-tab>
