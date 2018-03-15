@@ -23,7 +23,7 @@
                 <!-- SEARCH -->
                 <div class="search-input-wrapper mx-12 m-md-0"
                      fxLayout="row" fxLayoutAlign="start center">
-                    <import-statement-upload [user]="user" (fileIsDropped)="fileIsDropped($event)"></import-statement-upload>
+                    <import-statement-upload [user]="user" (fileComplete)="GetFileComplete($event)" (fileInProgress)="GetFileInProgress($event)"></import-statement-upload>
                     <!-- <label for="search" class="mr-8">
                         <mat-icon class="secondary-text">search</mat-icon>
                     </label>
@@ -43,13 +43,18 @@
             <!-- / HEADER -->
   
             <!-- CONTENT CARD -->
-            <!-- *ngIf="test" -->
-          <div  class="content-card mat-white-bg">
-              
-              <import-statement-histo-list [user]="user"></import-statement-histo-list>
-  
-          </div> 
+            <div class="content-card mat-white-bg" *ngIf="!fileInProgress && !fileComplete">
+                <import-statement-histo-list [user]="user" fusePerfectScrollbar></import-statement-histo-list>
+            </div> 
             <!-- / CONTENT CARD -->
+            <div class="spinner-container" *ngIf="fileInProgress">
+                <mat-spinner></mat-spinner>
+            </div>
+
+            <div class="spinner-container" *ngIf="fileComplete">
+                Fichier traité
+            </div>
+
         </div>
         <!-- / CENTER -->
     </div>

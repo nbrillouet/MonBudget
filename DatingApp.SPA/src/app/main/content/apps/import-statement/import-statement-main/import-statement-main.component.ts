@@ -16,6 +16,8 @@ import { fuseAnimations } from '../../../../../core/animations';
 
 export class ImportStatementMainComponent implements OnInit {
   user: User;
+  fileInProgress: boolean;
+  fileComplete: boolean;
 
   constructor(
     
@@ -27,8 +29,15 @@ export class ImportStatementMainComponent implements OnInit {
   }
 
   //event from import-statement-upload
-  fileIsDropped($event) {
-    console.log('is dropped!');
+  GetFileInProgress($event) {
+    this.fileInProgress=true;
+    this.fileComplete=false;
+    console.log($event);
+  }
+
+  GetFileComplete($event) {
+    this.fileComplete=true;
+    this.fileInProgress=false;
   }
 
 }
