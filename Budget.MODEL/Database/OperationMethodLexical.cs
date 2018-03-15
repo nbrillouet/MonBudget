@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
+
+namespace Budget.MODEL.Database
+{
+    [Table("OPERATION_METHOD_LEXICAL")]
+    public class OperationMethodLexical
+    {
+        [Column("ID")]
+        public int Id { get; set; }
+
+        [Column("ID_BANK")]
+        public int IdBank { get; set; }
+
+        [ForeignKey("IdBank")]
+        public Bank Bank { get; set; }
+
+        [Column("ID_OPERATION_METHOD")]
+        public int IdOperationMethod { get; set; }
+
+        [ForeignKey("IdOperationMethod")]
+        public OperationMethod OperationMethod { get; set; }
+
+        [StringLength(50)]
+        [Column("KEYWORD")]
+        public string Keyword { get; set; }
+
+        [Column("ORDER_ID")]
+        public int OrderId { get; set; }
+    }
+}

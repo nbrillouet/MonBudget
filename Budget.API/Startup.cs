@@ -58,7 +58,33 @@ namespace Budget.API
 
             services.AddScoped<IBankFileDefinitionService, BankFileDefinitionService > ();
             services.AddScoped<IBankFileDefinitionRepository, BankFileDefinitionRepository>();
-                        
+
+            services.AddScoped<IAccountStatementImportFileService, AccountStatementImportFileService>();
+            services.AddScoped<IAccountStatementImportFileRepository, AccountStatementImportFileRepository>();
+
+            services.AddScoped<IAccountStatementService, AccountStatementService>();
+            services.AddScoped<IAccountStatementRepository, AccountStatementRepository>();
+
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
+
+            services.AddScoped<IOperationMethodService, OperationMethodService>();
+            services.AddScoped<IOperationMethodRepository, OperationMethodRepository>();
+
+            services.AddScoped<IOperationMethodLexicalService, OperationMethodLexicalService>();
+            services.AddScoped<IOperationMethodLexicalRepository, OperationMethodLexicalRepository>();
+
+            services.AddScoped<IOperationTypeService, OperationTypeService>();
+            services.AddScoped<IOperationTypeRepository, OperationTypeRepository>();
+
+            services.AddScoped<IOperationTypeFamilyService, OperationTypeFamilyService>();
+            services.AddScoped<IOperationTypeFamilyRepository, OperationTypeFamilyRepository>();
+
+            services.AddScoped<IOperationService, OperationService>();
+            services.AddScoped<IOperationRepository, OperationRepository>();
+
+            services.AddScoped<IOperationPlaceService, OperationPlaceService>();
+            services.AddScoped<IOperationPlaceRepository, OperationPlaceRepository>();
 
             //add authentification
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);

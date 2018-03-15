@@ -16,7 +16,7 @@ import { fuseAnimations } from '../../../../../core/animations';
 export class ImportStatementUploadComponent implements OnInit {
 
   @Input() user: User;
-  @Output() getUserAvatarChange = new EventEmitter<string>();
+  @Output() fileIsDropped = new EventEmitter<string>();
   
   uploader: FileUploader = new FileUploader({});
   hasBaseDropZoneOver: boolean = false;
@@ -36,11 +36,13 @@ export class ImportStatementUploadComponent implements OnInit {
     this.hasBaseDropZoneOver = e;
   }
 
-  initializeUploader() {
-    
+  loadFile($event) {
+    console.log('loadFile');
+  }
 
+  initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl + 'user/' + 1 + '/avatar',
+      url: this.baseUrl + 'AccountStatementImport/user/' + this.user.id,
       authToken: 'Bearer ' + localStorage.getItem('budgetToken'),
       isHTML5: true,
       // allowedMimeType: ['text/csv'], // CSV File limitation,
@@ -79,6 +81,11 @@ export class ImportStatementUploadComponent implements OnInit {
       console.log(options);
       // todo: show alert that you tried uploading wrong files
     };
+
+    this.uploader.onAfterAddingFile = (fileItem) => { 
+      this.fileIsDropped.emit('true');
+      console.log('file added');
+    }
   }
 
 }

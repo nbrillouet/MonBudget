@@ -20,10 +20,12 @@ namespace Budget.DATA
         public DbSet<OperationType> OperationType { get; set; }
         public DbSet<OperationPlace> OperationPlace { get; set; }
         public DbSet<OperationMethod> OperationMethod { get; set; }
+        public DbSet<OperationMethodLexical> OperationMethodLexical { get; set; }
         public DbSet<Operation> Operation { get; set; }
         public DbSet<AccountStatement> AccountStatement { get; set; }
         public DbSet<AccountStatementImport> AccountStatementImport { get; set; }
         public DbSet<BankFileDefinition> BankFileDefinition { get; set; }
+        public DbSet<AccountStatementImportFile> AccountStatementImportFile { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

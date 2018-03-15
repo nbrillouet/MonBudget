@@ -12,9 +12,10 @@ using System;
 namespace Budget.DATA.Migrations
 {
     [DbContext(typeof(BudgetContext))]
-    partial class BudgetContextModelSnapshot : ModelSnapshot
+    [Migration("20180315152341_addImportFile")]
+    partial class addImportFile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -399,34 +400,6 @@ namespace Budget.DATA.Migrations
                     b.ToTable("OPERATION_METHOD");
                 });
 
-            modelBuilder.Entity("Budget.MODEL.Database.OperationMethodLexical", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
-
-                    b.Property<int>("IdBank")
-                        .HasColumnName("ID_BANK");
-
-                    b.Property<int>("IdOperationMethod")
-                        .HasColumnName("ID_OPERATION_METHOD");
-
-                    b.Property<string>("Keyword")
-                        .HasColumnName("KEYWORD")
-                        .HasMaxLength(50);
-
-                    b.Property<int>("OrderId")
-                        .HasColumnName("ORDER_ID");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdBank");
-
-                    b.HasIndex("IdOperationMethod");
-
-                    b.ToTable("OPERATION_METHOD_LEXICAL");
-                });
-
             modelBuilder.Entity("Budget.MODEL.Database.OperationPlace", b =>
                 {
                     b.Property<int>("Id")
@@ -677,19 +650,6 @@ namespace Budget.DATA.Migrations
                     b.HasOne("Budget.MODEL.Database.OperationType", "OperationType")
                         .WithMany()
                         .HasForeignKey("IdOperationType")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Budget.MODEL.Database.OperationMethodLexical", b =>
-                {
-                    b.HasOne("Budget.MODEL.Bank", "Bank")
-                        .WithMany()
-                        .HasForeignKey("IdBank")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Budget.MODEL.Database.OperationMethod", "OperationMethod")
-                        .WithMany()
-                        .HasForeignKey("IdOperationMethod")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

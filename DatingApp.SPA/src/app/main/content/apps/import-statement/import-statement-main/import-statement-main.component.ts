@@ -26,6 +26,11 @@ export class ImportStatementMainComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
   }
 
+  //event from import-statement-upload
+  fileIsDropped($event) {
+    console.log('is dropped!');
+  }
+
 }
 
 

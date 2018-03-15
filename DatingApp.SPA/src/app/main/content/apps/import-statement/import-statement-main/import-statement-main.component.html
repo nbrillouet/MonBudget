@@ -23,7 +23,7 @@
                 <!-- SEARCH -->
                 <div class="search-input-wrapper mx-12 m-md-0"
                      fxLayout="row" fxLayoutAlign="start center">
-                    <import-statement-upload [user]="user" (getUserAvatarChange)="updateUserAvatar($event)"></import-statement-upload>
+                    <import-statement-upload [user]="user" (fileIsDropped)="fileIsDropped($event)"></import-statement-upload>
                     <!-- <label for="search" class="mr-8">
                         <mat-icon class="secondary-text">search</mat-icon>
                     </label>
