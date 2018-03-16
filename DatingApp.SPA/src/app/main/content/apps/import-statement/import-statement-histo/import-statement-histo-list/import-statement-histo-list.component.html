@@ -11,6 +11,18 @@
           matSort matSortActive="id" matSortDirection="asc" matSortDisableClear
           (matSortChange)="onSortChangeEvent($event)"
           fusePerfectScrollbar>
+        
+        <!-- checkBox Column -->
+        <ng-container matColumnDef="select" >
+            <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let data">
+                <mat-checkbox 
+                    [(ngModel)]="checkboxes[data.id]" 
+                    (ngModelChange)="onSelectedChange(data.id)"
+                    (click)="$event.stopPropagation()">
+                </mat-checkbox>
+            </mat-cell>
+        </ng-container>
 
           <!-- ID Column -->
           <ng-container matColumnDef="id" >

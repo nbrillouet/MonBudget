@@ -5,11 +5,14 @@ import { SharedModule } from "../../../../core/modules/shared.module";
 import { FileUploadModule } from "ng2-file-upload";
 import { RouterModule } from "@angular/router";
 import { ImportStatementService } from "./import-statement.service";
+import { ImportStatementHistoService } from "./import-statement-histo/import-statement-histo.service";
 import { PreventUnsavedChanges } from "../../../../_guards/prevent-unsaved-changes.guard";
 import { DialogGuardComponent } from "../../../../_guards/dialog-guard.component";
 import { NgModule } from "@angular/core";
 import { ImportStatementUploadComponent } from './import-statement-upload/import-statement-upload.component';
-import { ImportStatementHistoListComponent } from './import-statement-histo-list/import-statement-histo-list.component';
+import { ImportStatementHistoListComponent } from './import-statement-histo/import-statement-histo-list/import-statement-histo-list.component';
+import { SelectedBarComponent } from './import-statement-histo/selected-bar/selected-bar.component';
+
 import { ImportStatementMainComponent } from './import-statement-main/import-statement-main.component';
 
 
@@ -43,10 +46,12 @@ const routes = [
         ImportStatementListComponent,
         ImportStatementUploadComponent,
         ImportStatementHistoListComponent,
+        SelectedBarComponent,
         ImportStatementMainComponent
     ],
     providers : [
         ImportStatementService,
+        ImportStatementHistoService,
         ImportStatementListResolver,
         PreventUnsavedChanges
     ]

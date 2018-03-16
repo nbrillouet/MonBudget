@@ -41,7 +41,11 @@
   
             </div>
             <!-- / HEADER -->
-  
+            
+            <!-- SELECTED BAR -->
+            <selected-bar class="mat-accent-600-bg" *ngIf="hasSelectedRows" [@slideInTop]></selected-bar>
+            <!-- / SELECTED BAR -->
+
             <!-- CONTENT CARD -->
             <div class="content-card mat-white-bg" *ngIf="!fileInProgress && !fileComplete">
                 <import-statement-histo-list [user]="user" fusePerfectScrollbar></import-statement-histo-list>

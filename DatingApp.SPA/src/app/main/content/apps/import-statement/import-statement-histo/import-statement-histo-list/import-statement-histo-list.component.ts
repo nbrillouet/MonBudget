@@ -1,10 +1,10 @@
-import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
-import { fuseAnimations } from '../../../../../core/animations';
-import { User } from '../../../../_models/User';
-import { IBank } from '../../../../_models/Bank';
-import { IPagination, Pagination, MatPagination, PaginatedResult } from '../../../../_models/IPagination';
-import { IAccountStatementImport } from '../../../../_models/AccountStatementImport';
-import { ImportStatementService } from '../import-statement.service';
+import { Component, OnInit, OnDestroy, AfterViewInit, Input, ViewChild } from '@angular/core';
+import { fuseAnimations } from '../../../../../../core/animations';
+import { User } from '../../../../../_models/User';
+import { IBank } from '../../../../../_models/Bank';
+import { IPagination, Pagination, MatPagination, PaginatedResult } from '../../../../../_models/IPagination';
+import { IAccountStatementImport } from '../../../../../_models/AccountStatementImport';
+import { ImportStatementHistoService } from '../import-statement-histo.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
@@ -15,6 +15,9 @@ import { merge } from 'rxjs/observable/merge';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { CollectionViewer } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
+// import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
   selector: 'import-statement-histo-list',
@@ -23,39 +26,83 @@ import { Observable } from 'rxjs/Observable';
   animations : fuseAnimations
 })
 
-export class ImportStatementHistoListComponent implements OnInit {
+export class ImportStatementHistoListComponent implements OnInit, OnDestroy {
   @Input() user: User;
   banks: IBank[];
   pagination: Pagination;
+  data : any;
   idUser : number;
   idBank : number;
   dataSource : AccountStatementImportDataSource;
-  displayedColumns =   ['id', 'fileImport', 'dateImport' ];
-  paginSubs : any;
-
+  displayedColumns =   ['select','id', 'fileImport', 'dateImport' ];
+  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor ( private importStatementService: ImportStatementService,
+  checkboxes: {};
+  rows: any;
+  selectedRows: any[];
+  onRowsChangedSubscription: Subscription;
+  onSelectedRowsChangedSubscription: Subscription;
+  // selection = new SelectionModel<Element>(true, []);
+
+  constructor ( 
+    private importStatementHistoService: ImportStatementHistoService,
     private notificationService: NotificationsService,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute) {
+      
+      this.onRowsChangedSubscription =
+            this.importStatementHistoService.onRowsChanged.subscribe(rows => {
+
+                this.rows = rows;
+
+                this.checkboxes = {};
+                rows.map(row => {
+                    this.checkboxes[row.id] = false;
+                });
+            });
+
+      this.onSelectedRowsChangedSubscription =
+      this.importStatementHistoService.onSelectedRowsChanged.subscribe(selectedRows => {
+          for ( const id in this.checkboxes )
+          {
+              if ( !this.checkboxes.hasOwnProperty(id) )
+              {
+                  continue;
+              }
+
+              this.checkboxes[id] = selectedRows.includes(id);
+          }
+          this.selectedRows = selectedRows;
+      });
+    
+    }
 
 
   ngOnInit() {
-    this.dataSource = new AccountStatementImportDataSource(this.importStatementService, this.route);
+    this.dataSource = new AccountStatementImportDataSource(this.importStatementHistoService, this.route);
     
     this.dataSource.pagination$
     .subscribe(res=>{
       this.pagination = res;
     });
     
-    this.importStatementService.getDistinctBank(this.user.id)
+    this.dataSource.data$
+      .subscribe(res=>{this.data = res;});
+
+    this.importStatementHistoService.getDistinctBank(this.user.id)
       .subscribe((res: IBank[]) => { 
         this.banks = res;
         this.idUser = this.user.id;
         this.idBank = this.banks[0].id;
         this.dataSource.load(this.idUser,this.idBank,new Pagination());
       });
+  }
+
+  ngOnDestroy()
+  {
+      this.onRowsChangedSubscription.unsubscribe();
+      this.onSelectedRowsChangedSubscription.unsubscribe();
   }
 
   onTabChanged(event) {
@@ -83,6 +130,31 @@ export class ImportStatementHistoListComponent implements OnInit {
     this.dataSource.load(this.idUser,this.idBank,this.pagination);
   }
 
+
+  onSelectedChange(rowId)
+  {
+      this.importStatementHistoService.toggleSelectedRow(rowId);
+  }
+
+
+  // /** Whether the number of selected elements matches the total number of rows. */
+  // isAllSelected() {
+  //   const numSelected = this.selection.selected.length;
+  //   const numRows = this.data.length;
+  //   // console.log(numSelected === numRows);
+  //   return numSelected === numRows;
+  // }
+
+  // /** Selects all rows if they are not all selected; otherwise clear selection. */
+  // masterToggle() {
+  //   // console.log('all ' + this.isAllSelected());
+  //   this.isAllSelected() ?
+  //       this.selection.clear() :
+  //       this.data.forEach(row => this.selection.select(row));
+        
+  //   console.log(this.selection.selected);
+  // }
+
 }
 
 export class AccountStatementImportDataSource extends DataSource<IAccountStatementImport> {
@@ -92,8 +164,9 @@ export class AccountStatementImportDataSource extends DataSource<IAccountStateme
 
   public loading$ = this.loadingSubject.asObservable();
   public pagination$ = this.paginationSubject.asObservable();
+  public data$ = this.accountStatementImportsSubject.asObservable();
 
-  constructor (private importStatementService: ImportStatementService,
+  constructor (private importStatementHistoService: ImportStatementHistoService,
     private route: ActivatedRoute) {
     super();
   }
@@ -112,7 +185,7 @@ export class AccountStatementImportDataSource extends DataSource<IAccountStateme
 
     this.loadingSubject.next(true);
 
-    this.importStatementService.getAccountStatementImport(idUser,idBank,pagination)
+    this.importStatementHistoService.getAccountStatementImport(idUser,idBank,pagination)
       .subscribe((res: PaginatedResult<IAccountStatementImport[]>) => {
         this.accountStatementImportsSubject.next(res.result);
         this.paginationSubject.next(res.pagination);

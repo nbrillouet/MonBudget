@@ -17,11 +17,12 @@ export class ImportStatementListResolver implements Resolve<IImportStatement[]> 
     
     resolve(route: ActivatedRouteSnapshot): Observable<IImportStatement[]> {
         console.log(route.params['idUser']);
-        return this.importStatementService.getImportStatement().catch(error => {
-                this.notificationService.error('Erreur de retour de données', error);
-                this.router.navigate(['/import-statement']);
+        // return this.importStatementService.getImportStatement().catch(error => {
+        //         this.notificationService.error('Erreur de retour de données', error);
+        //         this.router.navigate(['/import-statement']);
 
-                return Observable.of(null);
-        })
+        //         return Observable.of(null);
+        // })
+        return null;
     }
 }
