@@ -22,7 +22,7 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'import-statement-histo-list',
   templateUrl: './import-statement-histo-list.component.html',
-  styleUrls: ['./import-statement-histo-list.component.css'],
+  styleUrls: ['./import-statement-histo-list.component.scss'],
   animations : fuseAnimations
 })
 
@@ -34,7 +34,7 @@ export class ImportStatementHistoListComponent implements OnInit, OnDestroy {
   idUser : number;
   idBank : number;
   dataSource : AccountStatementImportDataSource;
-  displayedColumns =   ['select','id', 'fileImport', 'dateImport' ];
+  displayedColumns =   ['checkbox','id', 'fileImport', 'dateImport' ];
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -45,15 +45,18 @@ export class ImportStatementHistoListComponent implements OnInit, OnDestroy {
   onRowsChangedSubscription: Subscription;
   onSelectedRowsChangedSubscription: Subscription;
   // selection = new SelectionModel<Element>(true, []);
+  booleanValue: boolean;
 
   constructor ( 
     private importStatementHistoService: ImportStatementHistoService,
     private notificationService: NotificationsService,
     private route: ActivatedRoute) {
       
+      
+
       this.onRowsChangedSubscription =
             this.importStatementHistoService.onRowsChanged.subscribe(rows => {
-
+              
                 this.rows = rows;
 
                 this.checkboxes = {};
@@ -133,9 +136,15 @@ export class ImportStatementHistoListComponent implements OnInit, OnDestroy {
 
   onSelectedChange(rowId)
   {
-      this.importStatementHistoService.toggleSelectedRow(rowId);
+    this.booleanValue = !this.booleanValue;
+    console.log(this.booleanValue);
+    this.importStatementHistoService.toggleSelectedRow(rowId);
+
   }
 
+  editContact(contact)
+    {
+    }
 
   // /** Whether the number of selected elements matches the total number of rows. */
   // isAllSelected() {
@@ -172,7 +181,8 @@ export class AccountStatementImportDataSource extends DataSource<IAccountStateme
   }
 
   connect(collectionViewer: CollectionViewer): Observable<IAccountStatementImport[]> {
-      return this.accountStatementImportsSubject.asObservable();
+    this.importStatementHistoService.onRowsChanged;
+    return this.accountStatementImportsSubject.asObservable();
   }
 
   disconnect(collectionViewer: CollectionViewer): void {

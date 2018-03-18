@@ -1,19 +1,19 @@
-<mat-tab-group (selectedTabChange)="onTabChanged($event)">
+<!-- <mat-tab-group (selectedTabChange)="onTabChanged($event)">
     <mat-tab  *ngFor="let bank of banks" [label]="bank.labelBankLong">
         <ng-template mat-tab-label>
                 <img [src]="bank.logoClassName" [alt]="bank.labelBankShort">
                 {{bank.labelBankLong}}
-        </ng-template>
+        </ng-template> -->
         
         <mat-table class="import-statement-histo-table"
           #table [dataSource]="dataSource"
           [@animateStagger]="{value:'50'}"
-          matSort matSortActive="id" matSortDirection="asc" matSortDisableClear
+          matSort matSortActive="id" matSortDirection="asc" matSortDisableClear 
           (matSortChange)="onSortChangeEvent($event)"
-          fusePerfectScrollbar>
+        >
         
         <!-- checkBox Column -->
-        <ng-container matColumnDef="select" >
+        <ng-container matColumnDef="checkbox" >
             <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let data">
                 <mat-checkbox 
@@ -49,7 +49,10 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               
         <mat-row *cdkRowDef="let data; columns: displayedColumns;"
-            class="product">
+            [ngClass]="{'mat-light-blue-50-bg':checkboxes[data.id]}"
+            (click)="EditRow(data)"
+            matRipple
+             [@animate]="{value:'*',params:{y:'100%'}}">>
         </mat-row>
     </mat-table>
       
@@ -61,5 +64,5 @@
     </mat-paginator>
 
 
-    </mat-tab>
-</mat-tab-group>
+    <!-- </mat-tab>
+</mat-tab-group> -->

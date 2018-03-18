@@ -22,10 +22,13 @@ export class SelectedBarComponent implements OnInit {
       this.importStatementHistoService.onSelectedRowsChanged
       .subscribe(selectedRows => {
           this.selectedRows = selectedRows;
+          console.log(this.selectedRows);
+          console.log(this.importStatementHistoService);
           setTimeout(() => {
-              this.hasSelectedRows = selectedRows.length > 0;
-              this.isIndeterminate = (selectedRows.length !== this.importStatementHistoService.rows.length && selectedRows.length > 0);
+              this.hasSelectedRows = this.selectedRows.length > 0;
+              this.isIndeterminate = (selectedRows.length !== this.importStatementHistoService.selectedRows.length && this.selectedRows.length > 0);
           }, 0);
+
       });
    }
 

@@ -1,5 +1,5 @@
 <div id="products" class="page-layout carded fullwidth" fusePerfectScrollbar>
-
+    
     <!-- TOP BACKGROUND -->
     <div class="top-bg mat-accent-bg"></div>
     <!-- / TOP BACKGROUND -->
@@ -47,9 +47,12 @@
             <!-- / SELECTED BAR -->
 
             <!-- CONTENT CARD -->
-            <div class="content-card mat-white-bg" *ngIf="!fileInProgress && !fileComplete">
-                <import-statement-histo-list [user]="user" fusePerfectScrollbar></import-statement-histo-list>
-            </div> 
+            <div class="center p-24 pb-56 pr-sm-92" fusePerfectScrollbar>
+                <div class="content-card mat-white-bg mat-elevation-z4" *ngIf="!fileInProgress && !fileComplete">
+                    rows: {{hasSelectedRows}}
+                    <import-statement-histo-list [user]="user" fusePerfectScrollbar></import-statement-histo-list>
+                </div> 
+            </div>
             <!-- / CONTENT CARD -->
             <div class="spinner-container" *ngIf="fileInProgress">
                 <mat-spinner></mat-spinner>
