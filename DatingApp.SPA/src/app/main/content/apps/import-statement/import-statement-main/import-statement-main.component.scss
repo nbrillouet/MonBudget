@@ -3,7 +3,7 @@
 :host {
 
     .header {
-
+        position:relative;
         .search-input-wrapper {
             max-width: 480px;
         }
@@ -13,7 +13,48 @@
             min-height: 176px !important;
             max-height: 176px !important;
         }
+
+        .selected-project {
+            position: absolute;
+            bottom: 0px;
+            left:42px;
+            background: rgba(0, 0, 0, 0.12);
+            color: #FFFFFF;
+            padding: 8px 16px;
+            height: 40px;
+            line-height: 24px;
+            font-size: 16px;
+        }
+        .project-selector {
+            position: absolute;
+            left:0px;
+            bottom: 0px;
+            margin-left: 1px;
+            border-radius: 0;
+            background: rgba(0, 0, 0, 0.12);
+
+            mat-icon {
+                color: #FFFFFF;
+            }
+        }
     }
+
+    .content {
+        flex: 1;
+
+        mat-tab-group {
+            height: 100%;
+
+            .mat-tab-body-wrapper {
+                flex-grow: 1;
+            }
+        }
+
+        .mat-tab-label-container {
+            padding: 0 24px;
+        }
+    }
+
 
     .top-bg {
         @include media-breakpoint-down(xs) {
@@ -77,5 +118,11 @@
         .active-icon {
             border-radius: 50%;
         }
+    }
+
+    .spinner-container {
+        height:100%;
+
+        vertical-align:middle;
     }
 }

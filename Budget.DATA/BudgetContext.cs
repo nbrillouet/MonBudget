@@ -26,11 +26,11 @@ namespace Budget.DATA
         public DbSet<AccountStatementImport> AccountStatementImport { get; set; }
         public DbSet<BankFileDefinition> BankFileDefinition { get; set; }
         public DbSet<AccountStatementImportFile> AccountStatementImportFile { get; set; }
-
+        public DbSet<Parameter> Parameter { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-0M47AE3\SQLEXPRESS;Database=Budget;Trusted_Connection=True;MultipleActiveResultSets=true");
-            //optionsBuilder.UseSqlServer(@"Server=PS10;Database=XmlToSwift_Demo;Trusted_Connection=True;MultipleActiveResultSets=true");
+            //optionsBuilder.UseSqlServer(@"Server=DESKTOP-0M47AE3\SQLEXPRESS;Database=Budget;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer(@"Server=PS10;Database=XmlToSwift_Demo;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

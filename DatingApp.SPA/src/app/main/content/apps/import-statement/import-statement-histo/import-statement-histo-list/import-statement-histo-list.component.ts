@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit,OnDestroy, Input, ViewChild } from '@angular/core';
 import { fuseAnimations } from '../../../../../../core/animations';
 import { User } from '../../../../../_models/User';
 import { IBank } from '../../../../../_models/Bank';
@@ -51,47 +51,49 @@ export class ImportStatementHistoListComponent implements OnInit, OnDestroy {
     private importStatementHistoService: ImportStatementHistoService,
     private notificationService: NotificationsService,
     private route: ActivatedRoute) {
-      
-      
 
       this.onRowsChangedSubscription =
-            this.importStatementHistoService.onRowsChanged.subscribe(rows => {
-              
-                this.rows = rows;
+        this.importStatementHistoService.onRowsChanged.subscribe(rows => {
+          
+            this.rows = rows;
 
-                this.checkboxes = {};
-                rows.map(row => {
-                    this.checkboxes[row.id] = false;
-                });
+            this.checkboxes = {};
+            rows.map(row => {
+                this.checkboxes[row.id] = false;
             });
+        });
 
       this.onSelectedRowsChangedSubscription =
       this.importStatementHistoService.onSelectedRowsChanged.subscribe(selectedRows => {
-          for ( const id in this.checkboxes )
-          {
-              if ( !this.checkboxes.hasOwnProperty(id) )
-              {
-                  continue;
-              }
+        for ( const id in this.checkboxes )
+        {
+            if ( !this.checkboxes.hasOwnProperty(id) )
+            {
+                continue;
+            }
 
-              this.checkboxes[id] = selectedRows.includes(id);
-          }
-          this.selectedRows = selectedRows;
+            this.checkboxes[id] = selectedRows.includes(+id);
+            console.log(id + ':' + this.checkboxes[id] + ':' + selectedRows.includes(+id));
+
+        }
+        this.selectedRows = selectedRows;
       });
-    
-    }
+  }
 
 
   ngOnInit() {
     this.dataSource = new AccountStatementImportDataSource(this.importStatementHistoService, this.route);
     
+    // this.dataSource.data$
+    // .subscribe(res=>{
+    //   this.data = res;
+      
+    // });
+
     this.dataSource.pagination$
     .subscribe(res=>{
       this.pagination = res;
     });
-    
-    this.dataSource.data$
-      .subscribe(res=>{this.data = res;});
 
     this.importStatementHistoService.getDistinctBank(this.user.id)
       .subscribe((res: IBank[]) => { 
@@ -102,14 +104,12 @@ export class ImportStatementHistoListComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy()
-  {
+  ngOnDestroy() {
       this.onRowsChangedSubscription.unsubscribe();
       this.onSelectedRowsChangedSubscription.unsubscribe();
   }
 
   onTabChanged(event) {
-       
     this.pagination = new Pagination();
     this.idUser = this.user.id;
     this.idBank = this.banks[event.index].id;
@@ -136,15 +136,14 @@ export class ImportStatementHistoListComponent implements OnInit, OnDestroy {
 
   onSelectedChange(rowId)
   {
-    this.booleanValue = !this.booleanValue;
-    console.log(this.booleanValue);
+    // this.booleanValue = !this.booleanValue;
+    // console.log(this.booleanValue);
+    // console.log(this.checkboxes);
     this.importStatementHistoService.toggleSelectedRow(rowId);
 
   }
 
-  editContact(contact)
-    {
-    }
+
 
   // /** Whether the number of selected elements matches the total number of rows. */
   // isAllSelected() {
@@ -181,8 +180,8 @@ export class AccountStatementImportDataSource extends DataSource<IAccountStateme
   }
 
   connect(collectionViewer: CollectionViewer): Observable<IAccountStatementImport[]> {
-    this.importStatementHistoService.onRowsChanged;
-    return this.accountStatementImportsSubject.asObservable();
+    return this.importStatementHistoService.onRowsChanged.asObservable();
+    // return this.accountStatementImportsSubject.asObservable();
   }
 
   disconnect(collectionViewer: CollectionViewer): void {
@@ -197,10 +196,13 @@ export class AccountStatementImportDataSource extends DataSource<IAccountStateme
 
     this.importStatementHistoService.getAccountStatementImport(idUser,idBank,pagination)
       .subscribe((res: PaginatedResult<IAccountStatementImport[]>) => {
+        this.importStatementHistoService.onRowsChanged.next(res.result);
         this.accountStatementImportsSubject.next(res.result);
         this.paginationSubject.next(res.pagination);
         this.loadingSubject.next(false);
-        console.log('passed service');
+        
+        // console.log('passed service');
+
       });
 
     }

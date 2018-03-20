@@ -1,5 +1,5 @@
-<div id="products" class="page-layout carded fullwidth" fusePerfectScrollbar>
-    
+<div id="products" class="page-layout carded fullwidth">
+
     <!-- TOP BACKGROUND -->
     <div class="top-bg mat-accent-bg"></div>
     <!-- / TOP BACKGROUND -->
@@ -11,26 +11,55 @@
             <div class="header white-fg"
                 fxLayout="column" fxLayoutAlign="center center"
                 fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
-  
+            <!-- <div class="top-bg" fxLayout="column" fxLayoutAlign="space-between">     -->
+                <!-- <div fxLayout="row" fxLayoutAlign="space-between start"> -->
                 <!-- APP TITLE -->
-                <div class="logo my-12 m-sm-0"
+                
+                <div class="toolbar w-100-p" fxFlex fxLayout="row" fxLayoutAlign="space-between start">
+                
+                    <div class="left-side" fxLayout="row">
+
+                        <div class="logo my-12 m-sm-0"
+                            fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="logo-icon mr-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">file_upload</mat-icon>
+                            <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Import de relevés</span>
+                        </div>
+                    </div>
+                    <div class="right-side" fxLayout="row">
+                <div class="logo mt-16 m-sm-0"
                     fxLayout="row" fxLayoutAlign="start center">
-                    <mat-icon class="logo-icon mr-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">file_upload</mat-icon>
-                    <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Import de relevés</span>
+                <import-statement-upload [user]="user" (fileError)="getFileError($event)" (fileSuccess)="getFileSuccess($event)" (fileInProgress)="getFileInProgress($event)"></import-statement-upload>
                 </div>
+          
+                    <div class="selected-project">compte 1</div>
+
+                    <button mat-icon-button class="project-selector" [matMenuTriggerFor]="projectsMenu"
+                            aria-label="Select project">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+
+                    <mat-menu #projectsMenu="matMenu">
+                        <button mat-menu-item *ngFor="let project of projects" (click)="selectedProject = project">
+                            <span>{{project.name}}</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+                
+                
                 <!-- / APP TITLE -->
-  
+                
                 <!-- SEARCH -->
-                <div class="search-input-wrapper mx-12 m-md-0"
-                     fxLayout="row" fxLayoutAlign="start center">
-                    <import-statement-upload [user]="user" (fileComplete)="GetFileComplete($event)" (fileInProgress)="GetFileInProgress($event)"></import-statement-upload>
+                <!-- <div class="search-input-wrapper mx-12 m-md-0"
+                     fxLayout="row" fxLayoutAlign="start center"> -->
+                
                     <!-- <label for="search" class="mr-8">
                         <mat-icon class="secondary-text">search</mat-icon>
                     </label>
                     <mat-form-field floatPlaceholder="never" fxFlex="1 0 auto">
                         <input id="search" matInput #filter placeholder="Recherche">
                     </mat-form-field> -->
-                </div>
+                <!-- </div> -->
               <!-- / SEARCH -->
   
               <!-- <button mat-raised-button
@@ -40,28 +69,46 @@
               </button> -->
   
             </div>
-            <!-- / HEADER -->
             
+            <!-- / HEADER -->
+            <div class="content">
             <!-- SELECTED BAR -->
             <selected-bar class="mat-accent-600-bg" *ngIf="hasSelectedRows" [@slideInTop]></selected-bar>
             <!-- / SELECTED BAR -->
 
             <!-- CONTENT CARD -->
-            <div class="center p-24 pb-56 pr-sm-92" fusePerfectScrollbar>
-                <div class="content-card mat-white-bg mat-elevation-z4" *ngIf="!fileInProgress && !fileComplete">
-                    rows: {{hasSelectedRows}}
-                    <import-statement-histo-list [user]="user" fusePerfectScrollbar></import-statement-histo-list>
-                </div> 
-            </div>
+            
+            <div class="content-card mat-white-bg" *ngIf="(!fileInProgress && !fileError)">
+                <import-statement-histo-list [user]="user" fusePerfectScrollbar></import-statement-histo-list>
+            </div> 
+
             <!-- / CONTENT CARD -->
-            <div class="spinner-container" *ngIf="fileInProgress">
-                <mat-spinner></mat-spinner>
+            <div class="spinner-container" *ngIf="fileInProgress" fxLayout="column" fxLayoutAlign="center center">
+                Chargement...
+                <mat-spinner color="accent"></mat-spinner>
             </div>
 
-            <div class="spinner-container" *ngIf="fileComplete">
+            <div class="spinner-container" *ngIf="fileSuccess">
                 Fichier traité
             </div>
-
+            </div>
         </div>
         <!-- / CENTER -->
     </div>
+
+
+
+            
+    <!-- <div> file in progress: {{fileInProgress}} </div>
+    <div>  file error: {{fileError}} </div>
+    <div>  file success: {{fileSuccess}}</div>
+    <div>  histo view: {{isHistoView}}</div> -->
+
+
+
+
+
+
+
+
+

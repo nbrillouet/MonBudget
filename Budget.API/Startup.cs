@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Http;
 using Budget.API.Helpers;
 using AutoMapper;
 
+
 namespace Budget.API
 {
     public class Startup
@@ -85,6 +86,9 @@ namespace Budget.API
 
             services.AddScoped<IOperationPlaceService, OperationPlaceService>();
             services.AddScoped<IOperationPlaceRepository, OperationPlaceRepository>();
+
+            services.AddScoped<IParameterService, ParameterService>();
+            services.AddScoped<IParameterRepository, ParameterRepository>();
 
             //add authentification
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);

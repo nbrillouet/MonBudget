@@ -19,7 +19,7 @@ baseUrl = environment.apiUrl;
 
 onRowsChanged: BehaviorSubject<any> = new BehaviorSubject([]);
 onSelectedRowsChanged: BehaviorSubject<any> = new BehaviorSubject([]);
-selectedRows: string[] = [];
+selectedRows: Number[] = [];
 rows: IAccountStatementImport[];
 
     constructor(private authHttp: AuthHttp) { }
@@ -48,6 +48,7 @@ rows: IAccountStatementImport[];
             .get(this.baseUrl + 'AccountStatementImport/user/'+ idUser + '/bank/' + idBank + queryString)
             .map((res: Response) => {
                 paginatedResult.result = res.json();
+                this.rows = res.json();
                 if(res.headers.get('Pagination') != null) {
                     paginatedResult.pagination = JSON.parse(res.headers.get('pagination'));
                 }
@@ -89,7 +90,7 @@ rows: IAccountStatementImport[];
         {
             this.selectedRows = [];
             this.rows.map(row => {
-                this.selectedRows.push(String(row.id));
+                this.selectedRows.push(Number(row.id));
             });
         }
         else

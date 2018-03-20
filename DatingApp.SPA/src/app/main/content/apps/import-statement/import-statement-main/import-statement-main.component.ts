@@ -19,10 +19,14 @@ import { ImportStatementHistoService } from '../import-statement-histo/import-st
 export class ImportStatementMainComponent implements OnInit, OnDestroy {
   user: User;
   fileInProgress: boolean;
-  fileComplete: boolean;
+  fileError: boolean;
+  fileSuccess: boolean;
 
   hasSelectedRows: boolean;
   onSelectedRowsChangedSubscription: Subscription;
+
+  projects : any[];
+  project : any
 
   constructor(
     private importStatementHistoService: ImportStatementHistoService,
@@ -30,8 +34,17 @@ export class ImportStatementMainComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('user'));
+    this.project = {'name': 'name 1 '};
+    this.projects=[this.project];
+    this.project = {'name': 'name 2 '};
+    this.projects.push(this.project);
+    this.project = {'name': 'name 3 '};
+    this.projects.push(this.project);
+    
 
+    this.user = JSON.parse(localStorage.getItem('user'));
+    // isHistoView=true;
+    this.fileInProgress= false;
     this.onSelectedRowsChangedSubscription =
             this.importStatementHistoService.onSelectedRowsChanged
                 .subscribe(selectedRows => {
@@ -45,15 +58,17 @@ export class ImportStatementMainComponent implements OnInit, OnDestroy {
   }
 
   //event from import-statement-upload
-  GetFileInProgress($event) {
-    this.fileInProgress=true;
-    this.fileComplete=false;
-    console.log($event);
+  getFileInProgress($event) {
+    this.fileInProgress=$event;
+
   }
 
-  GetFileComplete($event) {
-    this.fileComplete=true;
-    this.fileInProgress=false;
+  getFileSuccess($event) {
+    this.fileSuccess=$event;
+  }
+
+  getFileError($event) {
+    this.fileError=$event;
   }
 
 }

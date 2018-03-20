@@ -17,7 +17,8 @@ export class ImportStatementUploadComponent implements OnInit {
 
   @Input() user: User;
   @Output() fileInProgress = new EventEmitter<boolean>();
-  @Output() fileComplete= new EventEmitter<boolean>();
+  @Output() fileError= new EventEmitter<boolean>();
+  @Output() fileSuccess= new EventEmitter<boolean>();
 
   uploader: FileUploader = new FileUploader({});
   hasBaseDropZoneOver: boolean = false;
@@ -29,6 +30,10 @@ export class ImportStatementUploadComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.fileInProgress.emit(false);
+    this.fileError.emit(false);
+    this.fileSuccess.emit(false);
+
     this.initializeUploader();
     
   }
@@ -60,14 +65,14 @@ export class ImportStatementUploadComponent implements OnInit {
       if (response) {
         const res: User = JSON.parse(response);
         this.user.avatarUrl = res.avatarUrl;
-
+        console.log("success upload");
         // this.getUserAvatarChange.emit(res.avatarUrl);
-        this.authService.changeAvatar(res.avatarUrl);
+        // this.authService.changeAvatar(res.avatarUrl);
         //pour fonctionnement meme quand refresh du navigateur:
-        this.authService.currentUser.avatarUrl = res.avatarUrl;
-        localStorage.setItem('user',JSON.stringify(this.authService.currentUser));
+        // this.authService.currentUser.avatarUrl = res.avatarUrl;
+        // localStorage.setItem('user',JSON.stringify(this.authService.currentUser));
 
-        this.notificationService.success('Enregistrement réussi', 'Votre avatar est modifié');
+        this.notificationService.success('Enregistrement réussi', 'Relevé chargé');
 
       }
       
@@ -93,26 +98,53 @@ export class ImportStatementUploadComponent implements OnInit {
 
     this.uploader.onProgressAll = (fileItem) => {
       this.fileInProgress.emit(true);
-      this.fileComplete.emit(false);
+      this.fileError.emit(false);
+      this.fileSuccess.emit(false);
       console.log('file in progress');
     }
 
     this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
       this.fileInProgress.emit(false);
-      this.fileComplete.emit(true);
       console.log("item uploaded" + response);
     };
 
     this.uploader.onErrorItem = ((item, response, status, headers):any => {
-      console.log('error');
-      console.log(item);
-      console.log(response);
-      console.log(status);
-      console.log(headers);
+      this.fileError.emit(true);
+      this.fileInProgress.emit(false);
       
+      console.log('error');
+      // console.log(item);
+      // console.log(response);
+      // console.log(status);
+      // console.log(headers);
+      var toto = this.handleError(response);
+      console.log("toto: " +  toto);
+      this.notificationService.error('Erreur', toto);
       });
 
-    this.uploader.onErrorItem
+    // this.uploader.onErrorItem
   }
+
+
+  private handleError(error: any)
+    {
+        // const applicationError = error.headers.get('Application-Error');
+        // if(applicationError){
+        //     return Observable.throw(applicationError);
+        // }
+        const serverError = JSON.parse(error);
+        let modelStateErrors = '';
+        if(serverError) {
+            for(const key in serverError)
+            {
+                if(serverError[key]){
+                    modelStateErrors += serverError[key] + '\n';
+                }
+            }
+        }
+
+        return modelStateErrors;
+
+    }
 
 }

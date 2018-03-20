@@ -97,6 +97,7 @@ namespace Budget.DATA.Repositories
             //aStatement.AccountStatementImport = null;
             //aStatement.Operation = null;
             //aStatement.OperationPlace = null;
+            accountStatementImportFile.Id = 0;
 
             //Context.AccountStatement.Add(aStatement);
             if (accountStatementImportFile.Account != null)
@@ -113,6 +114,7 @@ namespace Budget.DATA.Repositories
                 Context.OperationPlace.Attach(accountStatementImportFile.OperationPlace);
 
             Context.AccountStatementImportFile.Add(accountStatementImportFile);
+
             Context.SaveChanges();
 
             return accountStatementImportFile.Id;

@@ -1,9 +1,9 @@
-<!-- <mat-tab-group (selectedTabChange)="onTabChanged($event)">
+<mat-tab-group (selectedTabChange)="onTabChanged($event)">
     <mat-tab  *ngFor="let bank of banks" [label]="bank.labelBankLong">
         <ng-template mat-tab-label>
                 <img [src]="bank.logoClassName" [alt]="bank.labelBankShort">
                 {{bank.labelBankLong}}
-        </ng-template> -->
+        </ng-template>
         
         <mat-table class="import-statement-histo-table"
           #table [dataSource]="dataSource"
@@ -50,7 +50,6 @@
               
         <mat-row *cdkRowDef="let data; columns: displayedColumns;"
             [ngClass]="{'mat-light-blue-50-bg':checkboxes[data.id]}"
-            (click)="EditRow(data)"
             matRipple
              [@animate]="{value:'*',params:{y:'100%'}}">>
         </mat-row>
@@ -64,5 +63,5 @@
     </mat-paginator>
 
 
-    <!-- </mat-tab>
-</mat-tab-group> -->
+    </mat-tab>
+</mat-tab-group>

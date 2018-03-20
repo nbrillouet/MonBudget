@@ -86,15 +86,23 @@ namespace Budget.API.Controllers
                 return BadRequest("Could not find user");
 
             var file = asifuDto.File;
-
+            AccountStatementImport accountStatementImport = new AccountStatementImport();
 
             if (file.Length > 0)
             {
-                StreamReader csvreader = new StreamReader(file.OpenReadStream(), Encoding.GetEncoding(1252));
-                AccountStatementImport accountStatementImport = _accountStatementImportService.ImportFile(csvreader, user);
+                try
+                {
+                    StreamReader csvreader = new StreamReader(file.OpenReadStream(), Encoding.GetEncoding(1252));
+                    accountStatementImport = _accountStatementImportService.ImportFile(csvreader, user);
+                }
+                catch(Exception e)
+                {
+                    ModelState.AddModelError("Erreur lors du chargement de fichier", e.Message.ToString());
+                    return BadRequest(ModelState);
+                }
             }
-            
-            return Ok();
+            accountStatementImport.File = null;
+            return Ok(accountStatementImport);
         }
     }
 }

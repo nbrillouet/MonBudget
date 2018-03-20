@@ -23,6 +23,7 @@ namespace Budget.SERVICE
         private readonly IOperationService _operationService;
         private readonly IOperationTypeService _operationTypeService;
         private readonly IOperationPlaceService _operationPlaceService;
+        private readonly IParameterService _parameterService;
 
         public AccountStatementImportService(IAccountStatementImportRepository accountStatementImportRepository,
             IBankFileDefinitionService bankFileDefinitionService,
@@ -33,7 +34,8 @@ namespace Budget.SERVICE
             IOperationMethodService operationMethodService,
             IOperationService operationService,
             IOperationTypeService operationTypeService,
-            IOperationPlaceService operationPlaceService)
+            IOperationPlaceService operationPlaceService,
+            IParameterService parameterService)
         {
             _accountStatementImportRepository = accountStatementImportRepository;
             _bankFileDefinitionService = bankFileDefinitionService;
@@ -45,12 +47,7 @@ namespace Budget.SERVICE
             _operationService = operationService;
             _operationTypeService = operationTypeService;
             _operationPlaceService = operationPlaceService;
-        }
-
-        
-        public int Save(AccountStatementImport accountStatementImport)
-        {
-            throw new NotImplementedException();
+            _parameterService = parameterService;
         }
 
         public Task<PagedList<AccountStatementImport>> GetAsync(FilterAccountStatementImport filter)
@@ -128,6 +125,10 @@ namespace Budget.SERVICE
                     {
                         return ImportFileBPVF(reader, user);
                     }
+                }
+                else
+                {
+                    throw new Exception("Type de fichier incorrect");
                 }
                 firstLine = false;
             }
@@ -286,34 +287,34 @@ namespace Budget.SERVICE
             //return accountStatements;
         }
 
-        //public int Save(AccountStatementImport accountStatementImport)
-        //{
-        //    if (accountStatementImport.Id == 0)
-        //    {
-        //        //Enregistrement
-        //        int id = _accountStatementImportRepository.Create(accountStatementImport);
-        //        accountStatementImport = _accountStatementImportRepository.GetById(id);
+        public int Save(AccountStatementImport accountStatementImport)
+        {
+            if (accountStatementImport.Id == 0)
+            {
+                //Enregistrement
+                int id = _accountStatementImportRepository.Create(accountStatementImport);
+                accountStatementImport = _accountStatementImportRepository.GetById(id);
 
-        //        //Enregistrement du fichier
-        //        //chemin denregistrement
-        //        string dir = _parameterService.GetImportFileDir(accountStatementImport.User.Id);
-        //        dir = dir + accountStatementImport.Bank.LabelBankShort + "\\";
-        //        accountStatementImport.File.DiscardBufferedData();
+                //Enregistrement du fichier
+                //chemin d'enregistrement
+                string dir = _parameterService.GetImportFileDir(accountStatementImport.User.Id);
+                dir = dir + accountStatementImport.Bank.LabelBankShort + "\\";
+                accountStatementImport.File.DiscardBufferedData();
 
-        //        accountStatementImport.File.BaseStream.Seek(0, System.IO.SeekOrigin.Begin);
-        //        using (var writer = new StreamWriter(dir + accountStatementImport.FileImport, append: false, encoding: Encoding.GetEncoding(1252)))
-        //        {
-        //            writer.Write(accountStatementImport.File.ReadToEnd());
-        //        }
+                accountStatementImport.File.BaseStream.Seek(0, SeekOrigin.Begin);
+                using (var writer = new StreamWriter(dir + accountStatementImport.FileImport, append: false, encoding: Encoding.GetEncoding(1252)))
+                {
+                    writer.Write(accountStatementImport.File.ReadToEnd());
+                }
 
-        //        //_accountStatementImportRepository.Create(accountStatementImport);
-        //    }
-        //    else
-        //        _accountStatementImportRepository.Update(accountStatementImport);
+                //_accountStatementImportRepository.Create(accountStatementImport);
+            }
+            else
+                _accountStatementImportRepository.Update(accountStatementImport);
 
-        //    return accountStatementImport.Id;
+            return accountStatementImport.Id;
 
 
-        //}
+        }
     }
 }
