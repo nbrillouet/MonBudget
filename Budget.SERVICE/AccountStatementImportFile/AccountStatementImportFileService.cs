@@ -3,6 +3,7 @@ using Budget.MODEL.Database;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Budget.MODEL.Dto;
 
 namespace Budget.SERVICE
 {
@@ -10,9 +11,13 @@ namespace Budget.SERVICE
     {
         private readonly IAccountStatementImportFileRepository _accountStatementImportFileRepository;
 
-        public AccountStatementImportFileService(IAccountStatementImportFileRepository accountStatementImportFileRepository)
+        private readonly IAccountService _accountService;
+
+        public AccountStatementImportFileService(IAccountStatementImportFileRepository accountStatementImportFileRepository,
+            IAccountService accountService)
         {
             _accountStatementImportFileRepository = accountStatementImportFileRepository;
+            _accountService = accountService;
         }
 
         /// <summary>
@@ -60,30 +65,65 @@ namespace Budget.SERVICE
             return accountStatementImportFile;
         }
 
-        //public List<AccountStatementImportFile> GetById(int IdImport, int idAccount)
-        //{
-        //    return _accountStatementImportFileRepository.GetById(IdImport, idAccount);
-        //}
-
-        public List<AccountStatementImportFile> GetAccountStatementImportFileFull(int idImport, int idAccount)
+        public AsifForListDto GetListDto(int idImport)
         {
-            return _accountStatementImportFileRepository.GetAccountStatementImportFileFull(idImport, idAccount);
+            AsifForListDto asifForListDto = new AsifForListDto();
+            asifForListDto.IdImport = idImport;
+            
+            //selectionner les account number distincts dans l'import
+            var accountNumbers = GetDistinctAccountNumber(idImport);
+            foreach (string accountNumber in accountNumbers)
+            {
+                AsifGroupByAccount asifGroups = new AsifGroupByAccount();
+                asifGroups.Account = _accountService.GetAccountByNumber(accountNumber);
+
+                asifGroups.AsifGroup = DispatchAccountStatements(idImport, asifGroups.Account.Id);
+
+                asifForListDto.AsifGroupByAccountList.Add(asifGroups);
+            }
+
+            return asifForListDto;
         }
 
-        public List<AccountStatementImportFile> GetAccountStatementImportFileComplete(int idImport, int idAccount)
+        private AsifGroup DispatchAccountStatements(int idImport, int idAccount)
         {
-            return _accountStatementImportFileRepository.GetAccountStatementImportFileComplete(idImport, idAccount);
+            //List<AccountStatementImportFile> accountStatementImportFiles = _accountStatementImportFileService.GetById(idAccountStatementImport, idAccount);
+            AsifGroup asifGroup = new AsifGroup();
+
+            asifGroup.AccountStatementsFull = GetAsifFull(idImport, idAccount);
+            //accountStatementImportViewModels.AccountStatementsFull.AccountStatementType = EnumAccountStatementType.Full;
+
+            asifGroup.AccountStatementsComplete = GetAsifComplete(idImport, idAccount);
+            //accountStatementImportViewModels.AccountStatementsComplete.AccountStatementType = EnumAccountStatementType.Complete;
+
+            asifGroup.AccountStatementsMethodLess = GetAsifMethodLess(idImport, idAccount);
+            //accountStatementImportViewModels.AccountStatementsMethodLess.AccountStatementType = EnumAccountStatementType.MethodLess;
+
+            asifGroup.AccountStatementsOperationLess = GetAsifOperationLess(idImport, idAccount);
+            //accountStatementImportViewModels.AccountStatementsOperationLess.AccountStatementType = EnumAccountStatementType.OperationLess;
+
+            return asifGroup;
 
         }
 
-        public List<AccountStatementImportFile> GetAccountStatementImportFileMethodLess(int idImport, int idAccount)
+        private List<AccountStatementImportFile> GetAsifFull(int idImport, int idAccount)
         {
-            return _accountStatementImportFileRepository.GetAccountStatementImportFileMethodLess(idImport, idAccount);
+            return _accountStatementImportFileRepository.GetAsifFull(idImport, idAccount);
         }
 
-        public List<AccountStatementImportFile> GetAccountStatementImportFileOperationLess(int idImport, int idAccount)
+        private List<AccountStatementImportFile> GetAsifComplete(int idImport, int idAccount)
         {
-            return _accountStatementImportFileRepository.GetAccountStatementImportFileOperationLess(idImport, idAccount);
+            return _accountStatementImportFileRepository.GetAsifComplete(idImport, idAccount);
+        }
+
+        private List<AccountStatementImportFile> GetAsifMethodLess(int idImport, int idAccount)
+        {
+            return _accountStatementImportFileRepository.GetAsifMethodLess(idImport, idAccount);
+        }
+
+        private List<AccountStatementImportFile> GetAsifOperationLess(int idImport, int idAccount)
+        {
+            return _accountStatementImportFileRepository.GetAsifOperationLess(idImport, idAccount);
         }
 
         public bool HasAccountStatementImportFileWihoutPlace(int IdImport, int idAccount)

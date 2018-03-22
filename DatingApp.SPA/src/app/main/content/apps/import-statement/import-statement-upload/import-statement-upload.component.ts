@@ -66,6 +66,7 @@ export class ImportStatementUploadComponent implements OnInit {
         const res: User = JSON.parse(response);
         this.user.avatarUrl = res.avatarUrl;
         console.log("success upload");
+        console.log(res);
         // this.getUserAvatarChange.emit(res.avatarUrl);
         // this.authService.changeAvatar(res.avatarUrl);
         //pour fonctionnement meme quand refresh du navigateur:

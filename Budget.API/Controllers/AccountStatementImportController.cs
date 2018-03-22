@@ -13,6 +13,7 @@ using Budget.API.Helpers;
 using System.IO;
 using System.Text;
 using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 
 namespace Budget.API.Controllers
 {
@@ -25,17 +26,24 @@ namespace Budget.API.Controllers
         private readonly IUserService _userService;
         private readonly IAccountStatementImportService _accountStatementImportService;
         private readonly IBankService _bankService;
+        private readonly IAccountStatementImportFileService _accountStatementImportFileService;
+
+        private readonly IAccountService _accountService;
 
         public AccountStatementImportController(
             IAccountStatementImportService accountStatementImportService,
             IUserService userService,
             IBankService bankService,
-            IMapper mapper)
+            IAccountStatementImportFileService accountStatementImportFileService,
+            IMapper mapper,
+            IAccountService accountService)
         {
             _mapper = mapper;
             _accountStatementImportService = accountStatementImportService;
             _bankService = bankService;
             _userService = userService;
+            _accountStatementImportFileService = accountStatementImportFileService;
+            _accountService = accountService;
         }
 
         [HttpGet]
@@ -80,20 +88,25 @@ namespace Budget.API.Controllers
         [Route("user/{idUser}")]
         public async Task<IActionResult> UploadFile(int idUser, AccountStatementImportForUploadDto asifuDto)
         {
+
+            var account = _accountService.GetAccountByNumber("30919688017");
+
             var user = await _userService.GetByIdAsync(idUser);
 
             if (user == null)
                 return BadRequest("Could not find user");
 
             var file = asifuDto.File;
-            AccountStatementImport accountStatementImport = new AccountStatementImport();
 
+            AsifForListDto asifForListDto = new AsifForListDto();
             if (file.Length > 0)
             {
                 try
                 {
                     StreamReader csvreader = new StreamReader(file.OpenReadStream(), Encoding.GetEncoding(1252));
-                    accountStatementImport = _accountStatementImportService.ImportFile(csvreader, user);
+                    AccountStatementImport accountStatementImport = _accountStatementImportService.ImportFile(csvreader, user);
+                    asifForListDto = _accountStatementImportFileService.GetListDto(accountStatementImport.Id);
+
                 }
                 catch(Exception e)
                 {
@@ -101,8 +114,8 @@ namespace Budget.API.Controllers
                     return BadRequest(ModelState);
                 }
             }
-            accountStatementImport.File = null;
-            return Ok(accountStatementImport);
+
+            return Ok(asifForListDto.AsifGroupByAccountList[0].AsifGroup.AccountStatementsComplete[0].AccountStatementImport);
         }
     }
 }

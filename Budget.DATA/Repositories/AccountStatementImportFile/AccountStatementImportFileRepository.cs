@@ -29,51 +29,57 @@ namespace Budget.DATA.Repositories
         //{
         //    return Context.AccountStatementImportFile.Where(x => x.IdImport == IdImport && x.IdAccount == idAccount).OrderBy(x=>x.DateOperation).ToList();
         //}
-        public List<AccountStatementImportFile> GetAccountStatementImportFileFull(int idImport, int idAccount)
+        public List<AccountStatementImportFile> GetAsifFull(int idImport, int idAccount)
         {
-            return Context.AccountStatementImportFile
+          
+            var tat = Context.AccountStatementImport.Where(x => x.Id == 160);
+            var toto =
+             Context.AccountStatementImportFile
                 .Where(x => x.IdImport == idImport &&
                 x.IdAccount == idAccount)
-                .Include(x => x.AccountStatementImport)
-                .Include(x => x.OperationType.OperationTypeFamily)
-                .Include(x => x.Operation)
-                .Include(x => x.OperationMethod)
-                .Include(x => x.OperationPlace)
+                //.Include(x => x.AccountStatementImport)
+                //.Include(x => x.OperationType.OperationTypeFamily)
+                //.Include(x => x.Operation)
+                //.Include(x => x.OperationMethod)
+                //.Include(x => x.OperationPlace)
                 .OrderBy(x => x.DateOperation).ToList();
+
+            return toto;
+
         }
-        public List<AccountStatementImportFile> GetAccountStatementImportFileComplete(int idImport, int idAccount)
+        public List<AccountStatementImportFile> GetAsifComplete(int idImport, int idAccount)
         {
             return Context.AccountStatementImportFile
                 .Where(x => x.IdImport == idImport &&
                 x.IdAccount == idAccount &&
                 x.EnumAccountStatementImportFileState == EnumAccountStatementImportFileState.Complete)
-                .Include(x => x.AccountStatementImport)
+                //.Include(x => x.AccountStatementImport)
                 .Include(x => x.OperationType.OperationTypeFamily)
                 .Include(x => x.Operation)
                 .Include(x => x.OperationMethod)
                 .Include(x => x.OperationPlace)
                 .OrderBy(x => x.DateOperation).ToList();
         }
-        public List<AccountStatementImportFile> GetAccountStatementImportFileMethodLess(int idImport, int idAccount)
+        public List<AccountStatementImportFile> GetAsifMethodLess(int idImport, int idAccount)
         {
             return Context.AccountStatementImportFile
                 .Where(x => x.IdImport == idImport &&
                 x.IdAccount == idAccount &&
                 x.EnumAccountStatementImportFileState == EnumAccountStatementImportFileState.MethodLess)
-                .Include(x => x.AccountStatementImport)
+                //.Include(x => x.AccountStatementImport)
                 .Include(x => x.OperationType.OperationTypeFamily)
                 .Include(x => x.Operation)
                 .Include(x => x.OperationMethod)
                 .Include(x => x.OperationPlace)
                 .OrderBy(x => x.DateOperation).ToList();
         }
-        public List<AccountStatementImportFile> GetAccountStatementImportFileOperationLess(int idImport, int idAccount)
+        public List<AccountStatementImportFile> GetAsifOperationLess(int idImport, int idAccount)
         {
             return Context.AccountStatementImportFile
                 .Where(x => x.IdImport == idImport &&
                 x.IdAccount == idAccount &&
                 x.EnumAccountStatementImportFileState == EnumAccountStatementImportFileState.OperationLess)
-                .Include(x => x.AccountStatementImport)
+                //.Include(x => x.AccountStatementImport)
                 .Include(x => x.OperationType.OperationTypeFamily)
                 .Include(x => x.Operation)
                 .Include(x => x.OperationMethod)
