@@ -242,6 +242,26 @@ namespace Budget.DATA.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PARAMETER",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ID_USER = table.Column<int>(type: "int", nullable: false),
+                    IMPORT_FILE_DIR = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PARAMETER", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_PARAMETER_USER_ID_USER",
+                        column: x => x.ID_USER,
+                        principalTable: "USER",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SHORTCUT",
                 columns: table => new
                 {
@@ -562,6 +582,11 @@ namespace Budget.DATA.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_PARAMETER_ID_USER",
+                table: "PARAMETER",
+                column: "ID_USER");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SHORTCUT_ID_USER",
                 table: "SHORTCUT",
                 column: "ID_USER");
@@ -580,6 +605,9 @@ namespace Budget.DATA.Migrations
 
             migrationBuilder.DropTable(
                 name: "OPERATION_METHOD_LEXICAL");
+
+            migrationBuilder.DropTable(
+                name: "PARAMETER");
 
             migrationBuilder.DropTable(
                 name: "SHORTCUT");

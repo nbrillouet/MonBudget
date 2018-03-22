@@ -4,20 +4,25 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Budget.MODEL.Dto;
+using AutoMapper;
+using System.Linq;
 
 namespace Budget.SERVICE
 {
     public class AccountStatementImportFileService : IAccountStatementImportFileService
     {
         private readonly IAccountStatementImportFileRepository _accountStatementImportFileRepository;
+        private readonly IMapper _mapper;
 
         private readonly IAccountService _accountService;
 
         public AccountStatementImportFileService(IAccountStatementImportFileRepository accountStatementImportFileRepository,
-            IAccountService accountService)
+            IAccountService accountService,
+            IMapper mapper)
         {
             _accountStatementImportFileRepository = accountStatementImportFileRepository;
             _accountService = accountService;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -65,10 +70,10 @@ namespace Budget.SERVICE
             return accountStatementImportFile;
         }
 
-        public AsifForListDto GetListDto(int idImport)
+        public AsifsGroupByAccount GetListDto(int idImport)
         {
-            AsifForListDto asifForListDto = new AsifForListDto();
-            asifForListDto.IdImport = idImport;
+            AsifsGroupByAccount asifsGroupByAccount = new AsifsGroupByAccount();
+            asifsGroupByAccount.IdImport = idImport;
             
             //selectionner les account number distincts dans l'import
             var accountNumbers = GetDistinctAccountNumber(idImport);
@@ -79,10 +84,10 @@ namespace Budget.SERVICE
 
                 asifGroups.AsifGroup = DispatchAccountStatements(idImport, asifGroups.Account.Id);
 
-                asifForListDto.AsifGroupByAccountList.Add(asifGroups);
+                asifsGroupByAccount.AsifGroupByAccountList.Add(asifGroups);
             }
 
-            return asifForListDto;
+            return asifsGroupByAccount;
         }
 
         private AsifGroup DispatchAccountStatements(int idImport, int idAccount)
@@ -90,16 +95,20 @@ namespace Budget.SERVICE
             //List<AccountStatementImportFile> accountStatementImportFiles = _accountStatementImportFileService.GetById(idAccountStatementImport, idAccount);
             AsifGroup asifGroup = new AsifGroup();
 
-            asifGroup.AccountStatementsFull = GetAsifFull(idImport, idAccount);
+            List<AccountStatementImportFile> asifs = GetAsifFull(idImport, idAccount);
+            asifGroup.AccountStatementsFull = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
             //accountStatementImportViewModels.AccountStatementsFull.AccountStatementType = EnumAccountStatementType.Full;
 
-            asifGroup.AccountStatementsComplete = GetAsifComplete(idImport, idAccount);
+            asifs = GetAsifComplete(idImport, idAccount);
+            asifGroup.AccountStatementsComplete = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
             //accountStatementImportViewModels.AccountStatementsComplete.AccountStatementType = EnumAccountStatementType.Complete;
 
-            asifGroup.AccountStatementsMethodLess = GetAsifMethodLess(idImport, idAccount);
+            asifs = GetAsifMethodLess(idImport, idAccount);
+            asifGroup.AccountStatementsMethodLess = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
             //accountStatementImportViewModels.AccountStatementsMethodLess.AccountStatementType = EnumAccountStatementType.MethodLess;
 
-            asifGroup.AccountStatementsOperationLess = GetAsifOperationLess(idImport, idAccount);
+            asifs = GetAsifOperationLess(idImport, idAccount);
+            asifGroup.AccountStatementsOperationLess = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
             //accountStatementImportViewModels.AccountStatementsOperationLess.AccountStatementType = EnumAccountStatementType.OperationLess;
 
             return asifGroup;

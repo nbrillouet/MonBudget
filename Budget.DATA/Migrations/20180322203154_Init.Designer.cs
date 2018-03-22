@@ -12,7 +12,7 @@ using System;
 namespace Budget.DATA.Migrations
 {
     [DbContext(typeof(BudgetContext))]
-    [Migration("20180320083156_Init")]
+    [Migration("20180322203154_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -497,6 +497,26 @@ namespace Budget.DATA.Migrations
                     b.ToTable("OPERATION_TYPE_FAMILY");
                 });
 
+            modelBuilder.Entity("Budget.MODEL.Database.Parameter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnName("ID_USER");
+
+                    b.Property<string>("ImportFileDir")
+                        .HasColumnName("IMPORT_FILE_DIR")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("PARAMETER");
+                });
+
             modelBuilder.Entity("Budget.MODEL.Shortcut", b =>
                 {
                     b.Property<int>("Id")
@@ -699,6 +719,14 @@ namespace Budget.DATA.Migrations
                     b.HasOne("Budget.MODEL.Database.OperationTypeFamily", "OperationTypeFamily")
                         .WithMany()
                         .HasForeignKey("IdOperationTypeFamily")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.Parameter", b =>
+                {
+                    b.HasOne("Budget.MODEL.User", "User")
+                        .WithMany()
+                        .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Budget.DATA\Budget.DATA.csproj" />
     <ProjectReference Include="..\Budget.MODEL\Budget.MODEL.csproj" />
   </ItemGroup>

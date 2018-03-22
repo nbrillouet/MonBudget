@@ -98,7 +98,7 @@ namespace Budget.API.Controllers
 
             var file = asifuDto.File;
 
-            AsifForListDto asifForListDto = new AsifForListDto();
+            AsifsGroupByAccount asifForListDto = new AsifsGroupByAccount();
             if (file.Length > 0)
             {
                 try
@@ -115,7 +115,7 @@ namespace Budget.API.Controllers
                 }
             }
 
-            return Ok(asifForListDto.AsifGroupByAccountList[0].AsifGroup.AccountStatementsComplete[0].AccountStatementImport);
+            return Ok(asifForListDto);
         }
     }
 }

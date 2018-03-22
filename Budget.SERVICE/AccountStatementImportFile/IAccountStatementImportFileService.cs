@@ -14,7 +14,7 @@ namespace Budget.SERVICE
         AccountStatementImportFile InitForImport();
         AccountStatementImportFile GetById(int IdAccountStatementImportFile);
         List<string> GetDistinctAccountNumber(int idImport);
-        AsifForListDto GetListDto(int idImport);
+        AsifsGroupByAccount GetListDto(int idImport);
         //List<AccountStatementImportFile> GetAccountStatementImportFileFull(int IdImport, int idAccount);
         //List<AccountStatementImportFile> GetAccountStatementImportFileComplete(int IdImport, int idAccount);
         //List<AccountStatementImportFile> GetAccountStatementImportFileMethodLess(int IdImport, int idAccount);
