@@ -166,7 +166,7 @@ export class AccountStatementImportFileDataSource extends DataSource<IAccountSta
 
     this.importStatementFileService.get(idImport,asifStateSelected,accountSelected,pagination)
       .subscribe((res: PaginatedResult<IAccountStatementImportFile[]>) => {
-        let toto:[]=[];
+        let toto:any[]=any[];
         res.result.forEach(element => toto.push(element, { detailRow: true, element }));
         this.accountStatementImportFilesSubject.next(toto);
         this.paginationSubject.next(res.pagination);
