@@ -98,14 +98,14 @@ namespace Budget.API.Controllers
 
             var file = asifuDto.File;
 
-            AsifsGroupByAccount asifForListDto = new AsifsGroupByAccount();
+            AsifGroupByAccounts asifGroupByAccounts = new AsifGroupByAccounts();
             if (file.Length > 0)
             {
                 try
                 {
                     StreamReader csvreader = new StreamReader(file.OpenReadStream(), Encoding.GetEncoding(1252));
                     AccountStatementImport accountStatementImport = _accountStatementImportService.ImportFile(csvreader, user);
-                    asifForListDto = _accountStatementImportFileService.GetListDto(accountStatementImport.Id);
+                    asifGroupByAccounts = _accountStatementImportFileService.GetListDto(accountStatementImport.Id);
 
                 }
                 catch(Exception e)
@@ -115,7 +115,23 @@ namespace Budget.API.Controllers
                 }
             }
 
-            return Ok(asifForListDto);
+            return Ok(asifGroupByAccounts);
+        }
+
+        [HttpGet]
+        [Route("imports/{idImport}/accounts/{idAccount}/asifStates")]
+        public IActionResult GetAsifStates(int idImport, int idAccount)
+        {
+            var results = _accountStatementImportFileService.GetAsifStates(idImport,idAccount);
+            return Ok(results);
+        }
+
+        [HttpGet]
+        [Route("imports/{idImport}/accounts")]
+        public IActionResult GetAsifAccounts(int idImport)
+        {
+            var results = _accountStatementImportFileService.GetListDto(idImport); 
+            return Ok(results);
         }
     }
 }

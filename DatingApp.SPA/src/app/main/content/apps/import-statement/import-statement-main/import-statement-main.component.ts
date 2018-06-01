@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
 import { DataSource } from '@angular/cdk/table';
@@ -8,6 +8,9 @@ import { IBank } from '../../../../_models/Bank';
 import { fuseAnimations } from '../../../../../core/animations';
 import { Subscription } from 'rxjs/Subscription';
 import { ImportStatementHistoService } from '../import-statement-histo/import-statement-histo.service';
+import { IAsifGroupByAccounts } from '../../../../_models/AccountStatementImportFile';
+import { IAccount } from '../../../../_models/Account';
+import { ImportStatementService } from '../import-statement.service';
 
 @Component({
   selector: 'import-statement-main',
@@ -16,30 +19,30 @@ import { ImportStatementHistoService } from '../import-statement-histo/import-st
   animations : fuseAnimations
 })
 
-export class ImportStatementMainComponent implements OnInit, OnDestroy {
+export class ImportStatementMainComponent implements OnInit, OnDestroy, OnChanges {
   user: User;
   fileInProgress: boolean;
   fileError: boolean;
   fileSuccess: boolean;
+  uploadResponse : IAsifGroupByAccounts;
 
   hasSelectedRows: boolean;
   onSelectedRowsChangedSubscription: Subscription;
 
   projects : any[];
-  project : any
+  project : any;
+  asifAccounts : IAsifGroupByAccounts;
+  // selectedProject: any;
+  accountSelected: IAccount;
 
   constructor(
     private importStatementHistoService: ImportStatementHistoService,
+    private importStatementService: ImportStatementService,
     private notificationService: NotificationsService,
     private route: ActivatedRoute) { }
-
+    
   ngOnInit() {
-    this.project = {'name': 'name 1 '};
-    this.projects=[this.project];
-    this.project = {'name': 'name 2 '};
-    this.projects.push(this.project);
-    this.project = {'name': 'name 3 '};
-    this.projects.push(this.project);
+
     
 
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -52,6 +55,13 @@ export class ImportStatementMainComponent implements OnInit, OnDestroy {
                 });
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('changes', changes);
+
+    let acc: SimpleChange = changes.account;
+    this.accountSelected = acc.currentValue;
+  }
+
   ngOnDestroy()
   {
       this.onSelectedRowsChangedSubscription.unsubscribe();
@@ -60,7 +70,6 @@ export class ImportStatementMainComponent implements OnInit, OnDestroy {
   //event from import-statement-upload
   getFileInProgress($event) {
     this.fileInProgress=$event;
-
   }
 
   getFileSuccess($event) {
@@ -69,6 +78,23 @@ export class ImportStatementMainComponent implements OnInit, OnDestroy {
 
   getFileError($event) {
     this.fileError=$event;
+  }
+
+  getUploadResponse($event) {
+    // this.uploadResponse = $event;
+    this.asifAccounts = $event;
+    this.accountSelected = $event.accounts[0];
+  }
+
+  idImportChanged($event) {
+    console.log($event);
+    //chargement du account import file correspondant
+    this.importStatementService.getAsifAccounts($event)
+      .subscribe(response => {
+          this.asifAccounts = response;
+          this.accountSelected = response.accounts[0];
+          this.fileSuccess = true;
+      });
   }
 
 }

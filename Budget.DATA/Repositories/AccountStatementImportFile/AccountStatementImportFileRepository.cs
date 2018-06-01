@@ -1,9 +1,13 @@
-﻿using Budget.MODEL.Database;
+﻿using Budget.MODEL;
+using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
+using Budget.MODEL.Filter;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Budget.DATA.Repositories
 {
@@ -25,10 +29,88 @@ namespace Budget.DATA.Repositories
             //Select(x => x.Account.Number)Distinct();
             //accountStatementImport.AccountStatementImportFiles.Select(x => x.Account.Number).Distinct();
         }
-        //public List<AccountStatementImportFile> GetById(int IdImport, int idAccount)
-        //{
-        //    return Context.AccountStatementImportFile.Where(x => x.IdImport == IdImport && x.IdAccount == idAccount).OrderBy(x=>x.DateOperation).ToList();
-        //}
+
+        public async Task<PagedList<AccountStatementImportFile>> GetAsync(FilterAccountStatementImportFile filter)
+        {
+            var accountStatementImportFiles = Context.AccountStatementImportFile
+                .Include(x=>x.Operation)
+                .Include(x=>x.OperationMethod)
+                .Include(x=>x.OperationType)
+                .Include(x => x.OperationTypeFamily)
+                .Include(x=>x.OperationPlace)
+
+
+                //.Include(x => x.Bank)
+                //.Include(x => x.User)
+                .AsQueryable();
+
+            if (filter.IdImport != null)
+            {
+                accountStatementImportFiles = accountStatementImportFiles.Where(x => x.IdImport == filter.IdImport);
+            }
+            if (filter.IdAccount != null)
+            {
+                accountStatementImportFiles = accountStatementImportFiles.Where(x => x.IdAccount == filter.IdAccount);
+            }
+            if (filter.IdAsifState != null)
+            {
+                accountStatementImportFiles = accountStatementImportFiles.Where(x => (int)x.EnumAccountStatementImportFileState == filter.IdAsifState);
+            }
+            if (filter.SortDirection == "asc")
+                accountStatementImportFiles = accountStatementImportFiles.OrderBy(filter.SortColumn);
+            else
+                accountStatementImportFiles = accountStatementImportFiles.OrderByDescending(filter.SortColumn);
+
+            return await PagedListRepository<AccountStatementImportFile>.CreateAsync(accountStatementImportFiles, filter.PageNumber, filter.PageSize);
+        }
+
+        public List<AsifState> GetAsifStates (int idImport, int idAccount)
+        {
+            List<AsifState> asifStates = new List<AsifState>();
+
+            if(HasAsifMethodLess(idImport, idAccount))
+            {
+                asifStates.Add(new AsifState { Id = (int)EnumAccountStatementImportFileState.OperationLess, Label = "Erreur méthode" });
+            }
+            if (HasAsifOperationLess(idImport, idAccount))
+            {
+                asifStates.Add(new AsifState { Id = (int)EnumAccountStatementImportFileState.OperationLess, Label = "Erreur opération" });
+            }
+            if (HasAsifComplete(idImport, idAccount))
+            {
+                asifStates.Add(new AsifState { Id = (int)EnumAccountStatementImportFileState.Complete, Label = "complet" });
+            }
+
+            return asifStates;
+        }
+
+        private Boolean HasAsifComplete(int idImport, int idAccount)
+        {
+            return Context.AccountStatementImportFile
+                .Where(x => x.IdImport == idImport &&
+                x.IdAccount == idAccount &&
+                x.EnumAccountStatementImportFileState == EnumAccountStatementImportFileState.Complete)
+                .Any();
+        }
+
+        private Boolean HasAsifOperationLess(int idImport, int idAccount)
+        {
+            return Context.AccountStatementImportFile
+                .Where(x => x.IdImport == idImport &&
+                x.IdAccount == idAccount &&
+                x.EnumAccountStatementImportFileState == EnumAccountStatementImportFileState.OperationLess)
+                .Any();
+        }
+
+        private Boolean HasAsifMethodLess(int idImport, int idAccount)
+        {
+            return Context.AccountStatementImportFile
+                .Where(x => x.IdImport == idImport &&
+                x.IdAccount == idAccount &&
+                x.EnumAccountStatementImportFileState == EnumAccountStatementImportFileState.MethodLess)
+                .Any();
+        }
+
         public List<AccountStatementImportFile> GetAsifFull(int idImport, int idAccount)
         {
           
@@ -47,6 +129,9 @@ namespace Budget.DATA.Repositories
             return toto;
 
         }
+
+        
+
         public List<AccountStatementImportFile> GetAsifComplete(int idImport, int idAccount)
         {
             return Context.AccountStatementImportFile

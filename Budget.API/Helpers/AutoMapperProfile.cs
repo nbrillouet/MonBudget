@@ -3,6 +3,7 @@ using Budget.API.Dtos;
 using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
+using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,12 +35,22 @@ namespace Budget.API.Helpers
 
 
             CreateMap<AccountStatementImport, AccountStatementImportForListDto>();
+            CreateMap<AccountStatementImportFile, AccountStatementImportFileDto>();
+            
+
             CreateMap<Bank, BankForListDto>();
 
+            CreateMap<Pagination, FilterAccountStatementImportFile>();
             CreateMap<Pagination, FilterAccountStatementImport>();
 
             CreateMap<AccountStatementImportFile, AsifForListDto>();
 
+
+            CreateMap<Operation, SelectDto>();
+            CreateMap<OperationMethod, SelectDto>();
+            CreateMap<OperationType, SelectDto>();
+            CreateMap<OperationTypeFamily, SelectDto>();
+            CreateMap<OperationPlace, SelectDto>();
 
         }
     }

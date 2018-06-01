@@ -52,7 +52,8 @@ namespace Budget.SERVICE
 
         public Task<PagedList<AccountStatementImport>> GetAsync(FilterAccountStatementImport filter)
         {
-            return _accountStatementImportRepository.GetAsync(filter);
+            var results = _accountStatementImportRepository.GetAsync(filter);
+            return results;
         }
 
         public Task<List<Bank>> GetDistinctBankAsync(int idUser)

@@ -70,13 +70,15 @@ namespace Budget.MODEL.Database
 
         [Column("ID_OPERATION_TYPE")]
         public int? IdOperationType { get; set; }
+        [ForeignKey("IdOperationType")]
+        public OperationType OperationType { get; set; }
 
         [Column("ID_OPERATION_TYPE_FAMILY")]
         public int? IdOperationTypeFamily { get; set; }
 
-        [ForeignKey("IdOperationType")]
-        public OperationType OperationType { get; set; }
-
+        [ForeignKey("IdOperationTypeFamily")]
+        public OperationTypeFamily OperationTypeFamily { get; set; }
+        
         [Column("REFERENCE")]
         [StringLength(50)]
         public string Reference { get; set; }

@@ -53,25 +53,35 @@ namespace Budget.MODEL.Dto
         public List<AsifForListDto> AccountStatementsOperationLess { get; set; }
     }
 
-    public class AsifGroupByAccount
+    public class AsifGroupByAccounts
     {
-        public Account Account { get; set; }
-        public AsifGroup AsifGroup { get; set; }
-        public AsifGroupByAccount()
+        public List<Account> Accounts { get; set; }
+        public int IdImport { get; set; }
+        //public Account Account { get; set; }
+        //public AsifGroup AsifGroup { get; set; }
+        public AsifGroupByAccounts()
         {
-            AsifGroup = new AsifGroup();
+            //AsifGroup = new AsifGroup();
+            Accounts = new List<Account>();
         }
     }
 
     public class AsifsGroupByAccount
     {
-        public List<AsifGroupByAccount> AsifGroupByAccountList { get; set; }
+        //public List<AsifGroupByAccount> AsifGroupByAccountList { get; set; }
+
         public int IdImport { get; set; }
 
         public AsifsGroupByAccount()
         {
-            AsifGroupByAccountList = new List<AsifGroupByAccount>();
+            //AsifGroupByAccountList = new List<AsifGroupByAccount>();
         }
+    }
+
+    public class AsifState
+    {
+        public int Id { get; set; }
+        public string Label { get; set; }
     }
 
 }

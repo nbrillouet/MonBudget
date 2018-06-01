@@ -1,6 +1,5 @@
 import { AuthGuard } from "../../../../_guards/auth.guard";
 import { ImportStatementListComponent } from "./import-statement-list/import-statement-list.component";
-import { ImportStatementListResolver } from "./import-statement-list/import-statement-list.resolver";
 import { SharedModule } from "../../../../core/modules/shared.module";
 import { FileUploadModule } from "ng2-file-upload";
 import { RouterModule } from "@angular/router";
@@ -14,6 +13,10 @@ import { ImportStatementHistoListComponent } from './import-statement-histo/impo
 import { SelectedBarComponent } from './import-statement-histo/selected-bar/selected-bar.component';
 
 import { ImportStatementMainComponent } from './import-statement-main/import-statement-main.component';
+// import { AccountStatementImportFileService } from "./import-statement-file/account-statement-import-file.service";
+import { ImportStatementFileListComponent } from "./import-statement-file/import-statement-file-list/import-statement-file-list.component";
+import { ImportStatementFileService } from "./import-statement-file/import-statement-file.service";
+import { ImportStatementFileMainComponent } from "./import-statement-file/import-statement-file-main/import-statement-file-main.component";
 
 
 const routes = [
@@ -43,7 +46,9 @@ const routes = [
       RouterModule.forChild(routes)
     ],
     declarations: [
+        ImportStatementFileMainComponent,
         ImportStatementListComponent,
+        ImportStatementFileListComponent,
         ImportStatementUploadComponent,
         ImportStatementHistoListComponent,
         SelectedBarComponent,
@@ -51,8 +56,10 @@ const routes = [
     ],
     providers : [
         ImportStatementService,
+        ImportStatementFileService,
         ImportStatementHistoService,
-        ImportStatementListResolver,
+        // AccountStatementImportFileService,
+        // AccountStatementImportFileService,
         PreventUnsavedChanges
     ]
     // entryComponents: [DialogGuardComponent]

@@ -25,72 +25,49 @@
                             <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Import de relevés</span>
                         </div>
                     </div>
+
                     <div class="right-side" fxLayout="row">
-                <div class="logo mt-16 m-sm-0"
-                    fxLayout="row" fxLayoutAlign="start center">
-                <import-statement-upload [user]="user" (fileError)="getFileError($event)" (fileSuccess)="getFileSuccess($event)" (fileInProgress)="getFileInProgress($event)"></import-statement-upload>
-                </div>
-          
-                    <div class="selected-project">compte 1</div>
+                        <div class="logo mt-16 m-sm-0"
+                            fxLayout="row" fxLayoutAlign="start center">
+                            <import-statement-upload [user]="user" (fileError)="getFileError($event)" (fileSuccess)="getFileSuccess($event)" (fileInProgress)="getFileInProgress($event)" (uploadResponse)="getUploadResponse($event)"></import-statement-upload>
+                        </div>
+            
+                        <div class="selected-project">{{accountSelected?.number}} - {{accountSelected?.label}}</div>
 
-                    <button mat-icon-button class="project-selector" [matMenuTriggerFor]="projectsMenu"
-                            aria-label="Select project">
-                        <mat-icon>more_horiz</mat-icon>
-                    </button>
-
-                    <mat-menu #projectsMenu="matMenu">
-                        <button mat-menu-item *ngFor="let project of projects" (click)="selectedProject = project">
-                            <span>{{project.name}}</span>
+                        <button mat-icon-button class="project-selector" [matMenuTriggerFor]="projectsMenu"
+                                aria-label="Select project">
+                            <mat-icon>more_horiz</mat-icon>
                         </button>
-                    </mat-menu>
+
+                        <mat-menu #projectsMenu="matMenu">
+                            <button mat-menu-item *ngFor="let account of asifAccounts?.accounts" (click)="accountSelected = account">
+                                <span>{{account.number}} - {{account.label}}</span>
+                            </button>
+                        </mat-menu>
+                    </div>
                 </div>
-            </div>
-                
-                
-                <!-- / APP TITLE -->
-                
-                <!-- SEARCH -->
-                <!-- <div class="search-input-wrapper mx-12 m-md-0"
-                     fxLayout="row" fxLayoutAlign="start center"> -->
-                
-                    <!-- <label for="search" class="mr-8">
-                        <mat-icon class="secondary-text">search</mat-icon>
-                    </label>
-                    <mat-form-field floatPlaceholder="never" fxFlex="1 0 auto">
-                        <input id="search" matInput #filter placeholder="Recherche">
-                    </mat-form-field> -->
-                <!-- </div> -->
-              <!-- / SEARCH -->
-  
-              <!-- <button mat-raised-button
-                      [routerLink]="'/apps/e-commerce/products/new'"
-                      class="add-product-button mat-white-bg my-12 mt-sm-0">
-                  <span>ADD NEW PRODUCT</span>
-              </button> -->
-  
+ 
             </div>
             
             <!-- / HEADER -->
             <div class="content">
-            <!-- SELECTED BAR -->
-            <selected-bar class="mat-accent-600-bg" *ngIf="hasSelectedRows" [@slideInTop]></selected-bar>
-            <!-- / SELECTED BAR -->
+                <!-- SELECTED BAR -->
+                <selected-bar class="mat-accent-600-bg" *ngIf="hasSelectedRows" [@slideInTop]></selected-bar>
+                <!-- / SELECTED BAR -->
+              
+                <div class="content-card mat-white-bg" *ngIf="(!fileInProgress && !fileError && !fileSuccess)">
+                    <import-statement-histo-list (idImportChanged)="idImportChanged($event)" [user]="user" fusePerfectScrollbar></import-statement-histo-list>
+                </div> 
 
-            <!-- CONTENT CARD -->
-            
-            <div class="content-card mat-white-bg" *ngIf="(!fileInProgress && !fileError)">
-                <import-statement-histo-list [user]="user" fusePerfectScrollbar></import-statement-histo-list>
-            </div> 
+                <div class="content-card mat-white-bg" *ngIf="fileSuccess">
+                    <import-statement-file-main [account]="accountSelected" [idImport]="asifAccounts?.idImport"></import-statement-file-main>
+                </div>
 
-            <!-- / CONTENT CARD -->
-            <div class="spinner-container" *ngIf="fileInProgress" fxLayout="column" fxLayoutAlign="center center">
-                Chargement...
-                <mat-spinner color="accent"></mat-spinner>
-            </div>
-
-            <div class="spinner-container" *ngIf="fileSuccess">
-                Fichier traité
-            </div>
+                <!-- / CONTENT CARD -->
+                <div class="spinner-container" *ngIf="fileInProgress" fxLayout="column" fxLayoutAlign="center center">
+                    Chargement...
+                    <mat-spinner color="accent"></mat-spinner>
+                </div>
             </div>
         </div>
         <!-- / CENTER -->

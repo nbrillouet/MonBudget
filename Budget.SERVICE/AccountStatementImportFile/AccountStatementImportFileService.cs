@@ -6,6 +6,9 @@ using System.Text;
 using Budget.MODEL.Dto;
 using AutoMapper;
 using System.Linq;
+using Budget.MODEL;
+using Budget.MODEL.Filter;
+using System.Threading.Tasks;
 
 namespace Budget.SERVICE
 {
@@ -70,24 +73,58 @@ namespace Budget.SERVICE
             return accountStatementImportFile;
         }
 
-        public AsifsGroupByAccount GetListDto(int idImport)
+        public AsifGroupByAccounts GetListDto(int idImport)
         {
-            AsifsGroupByAccount asifsGroupByAccount = new AsifsGroupByAccount();
-            asifsGroupByAccount.IdImport = idImport;
+            AsifGroupByAccounts asifGroupByAccounts = new AsifGroupByAccounts
+            {
+                IdImport = idImport,
+                Accounts = GetAccounts(idImport)
+            };
+            //asifGroupByAccounts.IdImport = idImport;
             
+            ////selectionner les account number distincts dans l'import
+            //var accountNumbers = GetDistinctAccountNumber(idImport);
+            //foreach (string accountNumber in accountNumbers)
+            //{
+            //    AsifGroupByAccounts asifGroups = new AsifGroupByAccount();
+            //    asifGroups.Account = _accountService.GetAccountByNumber(accountNumber);
+
+            //    //asifGroups.AsifGroup = DispatchAccountStatements(idImport, asifGroups.Account.Id);
+
+            //    //asifsGroupByAccount.AsifGroupByAccountList.Add(asifGroups);
+            //}
+
+            return asifGroupByAccounts;
+        }
+
+        private List<Account> GetAccounts(int idImport)
+        {
             //selectionner les account number distincts dans l'import
+
+            List<Account> accounts = new List<Account>();
             var accountNumbers = GetDistinctAccountNumber(idImport);
             foreach (string accountNumber in accountNumbers)
             {
-                AsifGroupByAccount asifGroups = new AsifGroupByAccount();
-                asifGroups.Account = _accountService.GetAccountByNumber(accountNumber);
+                accounts.Add(_accountService.GetAccountByNumber(accountNumber));
+                //AsifGroupByAccounts asifGroups = new AsifGroupByAccount();
+                //asifGroups.Account = _accountService.GetAccountByNumber(accountNumber);
 
-                asifGroups.AsifGroup = DispatchAccountStatements(idImport, asifGroups.Account.Id);
+                //asifGroups.AsifGroup = DispatchAccountStatements(idImport, asifGroups.Account.Id);
 
-                asifsGroupByAccount.AsifGroupByAccountList.Add(asifGroups);
+                //asifsGroupByAccount.AsifGroupByAccountList.Add(asifGroups);
             }
 
-            return asifsGroupByAccount;
+            return accounts;
+        }
+
+        public List<AsifState> GetAsifStates(int idImport, int idAccount)
+        {
+            return _accountStatementImportFileRepository.GetAsifStates(idImport, idAccount);
+        }
+
+        public Task<PagedList<AccountStatementImportFile>> GetAsync(FilterAccountStatementImportFile filter)
+        {
+            return _accountStatementImportFileRepository.GetAsync(filter);
         }
 
         private AsifGroup DispatchAccountStatements(int idImport, int idAccount)

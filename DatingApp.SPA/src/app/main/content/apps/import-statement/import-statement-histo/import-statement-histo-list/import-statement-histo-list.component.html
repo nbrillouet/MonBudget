@@ -49,12 +49,13 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               
         <mat-row *cdkRowDef="let data; columns: displayedColumns;"
+            (click)="onRowClick(data)"
             [ngClass]="{'mat-light-blue-50-bg':checkboxes[data.id]}"
             matRipple
              [@animate]="{value:'*',params:{y:'100%'}}">>
         </mat-row>
     </mat-table>
-      
+    
     <mat-paginator *ngIf="dataSource.pagination$ | async; let pagination"
         (page)="onPageChangeEvent($event)"
         [length]="pagination.totalItems" 

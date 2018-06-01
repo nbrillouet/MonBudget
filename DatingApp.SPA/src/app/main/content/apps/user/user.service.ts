@@ -99,7 +99,7 @@ export class UserService {
             modelStateErrors || 'Server error'
         );
     }
-
+    
     deleteShortcut(idUser: number, id: number) {
         return this.authHttp.delete(this.baseUrl + 'users/' + idUser + '/shortcuts/' + id)
             .catch(this.handleError);

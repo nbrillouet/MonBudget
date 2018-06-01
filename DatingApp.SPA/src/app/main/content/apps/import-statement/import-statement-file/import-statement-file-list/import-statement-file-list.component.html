@@ -1,0 +1,46 @@
+
+<mat-table class="import-statement-histo-table"
+        #table [dataSource]="dataSource"
+        [@animateStagger]="{value:'50'}"
+        matSort matSortActive="id" matSortDirection="asc" matSortDisableClear 
+        (matSortChange)="onSortChangeEvent($event)"
+>
+    <!-- Operation -->
+    <ng-container matColumnDef="id" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-cell *matCellDef="let data">
+            <p class="text-truncate">{{data.id}}</p>
+        </mat-cell>
+    </ng-container>
+    
+    <!-- Expanded Content Column - The detail row is made up of this one column -->
+    <ng-container matColumnDef="expandedDetail">
+        <mat-cell *matCellDef="let detail"> 
+        {{detail.element.labelOperation}}
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    
+    <mat-row *cdkRowDef="let data; columns: displayedColumns;"
+        matRipple
+        [@animate]="{value:'*',params:{y:'100%'}}"
+        class="element-row" 
+        [class.expanded]="expandedElement == data"
+        (click)="expandedElement = data">
+    </mat-row>
+
+    <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
+        [@detailExpand]="row.element == expandedElement ? 'expanded' : 'collapsed'"
+        style="overflow: hidden"> 
+    </mat-row>
+
+</mat-table>
+          
+<mat-paginator *ngIf="dataSource.pagination$ | async; let pagination"
+    (page)="onPageChangeEvent($event)"
+    [length]="pagination?.totalItems" 
+    [pageSize]="pagination?.itemsPerPage"
+    [pageSizeOptions]="[3, 5, 10]">
+</mat-paginator>
+

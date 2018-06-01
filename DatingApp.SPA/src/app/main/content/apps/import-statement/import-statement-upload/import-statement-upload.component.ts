@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { User } from '../../../../_models/User';
+import { IAsifGroupByAccounts } from '../../../../_models/AccountStatementImportFile';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from '../../../../../../environments/environment';
 import { AuthService } from '../../../../_services/auth.service';
@@ -19,6 +20,7 @@ export class ImportStatementUploadComponent implements OnInit {
   @Output() fileInProgress = new EventEmitter<boolean>();
   @Output() fileError= new EventEmitter<boolean>();
   @Output() fileSuccess= new EventEmitter<boolean>();
+  @Output() uploadResponse= new EventEmitter<IAsifGroupByAccounts>();
 
   uploader: FileUploader = new FileUploader({});
   hasBaseDropZoneOver: boolean = false;
@@ -59,14 +61,17 @@ export class ImportStatementUploadComponent implements OnInit {
       maxFileSize: 10*1024*1024,
       queueLimit : 1
     });
-
    
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
-        const res: User = JSON.parse(response);
-        this.user.avatarUrl = res.avatarUrl;
+        // const res: IAsifsAccount = JSON.parse(response);
+        let toto : IAsifGroupByAccounts = <IAsifGroupByAccounts>JSON.parse(response);
+
+        // this.user.avatarUrl = res.avatarUrl;
+        this.fileSuccess.emit(true);
+        this.uploadResponse.emit(toto);
         console.log("success upload");
-        console.log(res);
+        // console.log(res);
         // this.getUserAvatarChange.emit(res.avatarUrl);
         // this.authService.changeAvatar(res.avatarUrl);
         //pour fonctionnement meme quand refresh du navigateur:
