@@ -26,25 +26,29 @@
                         </div>
                     </div>
 
-                    <div class="right-side" fxLayout="row">
-                        <div class="logo mt-16 m-sm-0"
+                    <div fxLayout="row">
+                        <div *ngIf="areaImport?.historicView" class="logo mt-16 m-sm-0"
                             fxLayout="row" fxLayoutAlign="start center">
                             <import-statement-upload [user]="user" (fileError)="getFileError($event)" (fileSuccess)="getFileSuccess($event)" (fileInProgress)="getFileInProgress($event)" (uploadResponse)="getUploadResponse($event)"></import-statement-upload>
                         </div>
-            
-                        <div class="selected-project">{{accountSelected?.number}} - {{accountSelected?.label}}</div>
-
-                        <button mat-icon-button class="project-selector" [matMenuTriggerFor]="projectsMenu"
-                                aria-label="Select project">
-                            <mat-icon>more_horiz</mat-icon>
-                        </button>
-
-                        <mat-menu #projectsMenu="matMenu">
-                            <button mat-menu-item *ngFor="let account of asifAccounts?.accounts" (click)="accountSelected = account">
-                                <span>{{account.number}} - {{account.label}}</span>
-                            </button>
-                        </mat-menu>
+                        
+                        <div *ngIf="areaImport?.fileView">
+                                <div class="selected-project">{{accountSelected?.number}} - {{accountSelected?.label}}</div>
+    
+                                <button mat-icon-button class="project-selector" [matMenuTriggerFor]="projectsMenu"
+                                        aria-label="Select project">
+                                    <mat-icon>more_horiz</mat-icon>
+                                </button>
+    
+                                <mat-menu #projectsMenu="matMenu">
+                                    <button mat-menu-item *ngFor="let account of asifAccounts?.accounts" (click)="accountSelected = account">
+                                        <span>{{account.number}} - {{account.label}}</span>
+                                    </button>
+                                </mat-menu>
+                            </div>
+                        
                     </div>
+
                 </div>
  
             </div>

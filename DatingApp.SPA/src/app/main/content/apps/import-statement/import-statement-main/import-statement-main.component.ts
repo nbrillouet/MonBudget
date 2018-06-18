@@ -9,7 +9,7 @@ import { fuseAnimations } from '../../../../../core/animations';
 import { Subscription } from 'rxjs/Subscription';
 import { ImportStatementHistoService } from '../import-statement-histo/import-statement-histo.service';
 import { IAsifGroupByAccounts } from '../../../../_models/AccountStatementImportFile';
-import { IAccount } from '../../../../_models/Account';
+import { IAccount, AreaImport } from '../../../../_models/Account';
 import { ImportStatementService } from '../import-statement.service';
 
 @Component({
@@ -25,6 +25,7 @@ export class ImportStatementMainComponent implements OnInit, OnDestroy, OnChange
   fileError: boolean;
   fileSuccess: boolean;
   uploadResponse : IAsifGroupByAccounts;
+  areaImport : AreaImport ={'historicView':true,'fileView':false,'errorView':false,'loadingView':false};
 
   hasSelectedRows: boolean;
   onSelectedRowsChangedSubscription: Subscription;
@@ -43,8 +44,8 @@ export class ImportStatementMainComponent implements OnInit, OnDestroy, OnChange
     
   ngOnInit() {
 
-    
 
+    
     this.user = JSON.parse(localStorage.getItem('user'));
     // isHistoView=true;
     this.fileInProgress= false;
@@ -70,10 +71,12 @@ export class ImportStatementMainComponent implements OnInit, OnDestroy, OnChange
   //event from import-statement-upload
   getFileInProgress($event) {
     this.fileInProgress=$event;
+    this.areaImport.loadingView=$event;
   }
 
   getFileSuccess($event) {
     this.fileSuccess=$event;
+    this.areaImport.fileView=$event;
   }
 
   getFileError($event) {
@@ -94,6 +97,7 @@ export class ImportStatementMainComponent implements OnInit, OnDestroy, OnChange
           this.asifAccounts = response;
           this.accountSelected = response.accounts[0];
           this.fileSuccess = true;
+          this.areaImport.fileView=true;
       });
   }
 

@@ -13,6 +13,7 @@ namespace Budget.API.Dtos
         public SelectDto OperationType { get; set; }
         public SelectDto OperationTypeFamily { get; set; }
         public SelectDto OperationPlace { get; set; }
+        public DateTime? DateIntegration { get; set; }
         public double AmountOperation { get; set; }
         public string LabelOperation { get; set; }
     }

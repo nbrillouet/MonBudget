@@ -12,3 +12,10 @@ export interface IAccount {
     accountType: IAccountType,
     alertThreshold: number
 }
+
+export interface AreaImport {
+    historicView: boolean,
+    fileView: boolean,
+    errorView: boolean,
+    loadingView:boolean
+}

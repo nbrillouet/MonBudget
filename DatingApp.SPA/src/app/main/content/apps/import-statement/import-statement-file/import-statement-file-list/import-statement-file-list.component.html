@@ -7,12 +7,67 @@
 >
     <!-- Operation -->
     <ng-container matColumnDef="id" >
-        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-        <mat-cell *matCellDef="let data">
+        <mat-header-cell style="flex:0 0 40px;" *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-cell style="flex:0 0 40px;" *matCellDef="let data">
             <p class="text-truncate">{{data.id}}</p>
         </mat-cell>
     </ng-container>
-    
+    <!-- Operation -->
+    <ng-container matColumnDef="operation" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header>opération</mat-header-cell>
+        <mat-cell *matCellDef="let data">
+            <p class="text-truncate">{{data.operation.label}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Operation method -->
+    <ng-container matColumnDef="operationMethod" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Méthode opération</mat-header-cell>
+        <mat-cell *matCellDef="let data">
+            <p class="text-truncate">{{data.operationMethod.label}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Operation type -->
+    <ng-container matColumnDef="operationType" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Type opération</mat-header-cell>
+        <mat-cell *matCellDef="let data">
+            <p class="text-truncate">{{data.operationType.label}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Operation type family-->
+    <ng-container matColumnDef="operationTypeFamily" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Catégorie opération</mat-header-cell>
+        <mat-cell *matCellDef="let data">
+            <p class="text-truncate">{{data.operationTypeFamily.label}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Operation place-->
+    <ng-container matColumnDef="operationPlace" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Lieu opération</mat-header-cell>
+        <mat-cell *matCellDef="let data">
+            <p class="text-truncate">{{data.operationPlace.label}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Amount -->
+    <ng-container matColumnDef="dateIntegration" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header>date</mat-header-cell>
+        <mat-cell *matCellDef="let data">
+            <p class="text-truncate">{{data.dateIntegration | date: 'dd/MM/yyyy'}}</p>
+        </mat-cell>
+    </ng-container> 
+
+    <!-- Amount -->
+    <ng-container matColumnDef="amountOperation" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Montant</mat-header-cell>
+        <mat-cell *matCellDef="let data">
+            <p class="text-truncate">{{data.amountOperation}}</p>
+        </mat-cell>
+    </ng-container> 
+
     <!-- Expanded Content Column - The detail row is made up of this one column -->
     <ng-container matColumnDef="expandedDetail">
         <mat-cell *matCellDef="let detail"> 
@@ -41,6 +96,6 @@
     (page)="onPageChangeEvent($event)"
     [length]="pagination?.totalItems" 
     [pageSize]="pagination?.itemsPerPage"
-    [pageSizeOptions]="[3, 5, 10]">
+    [pageSizeOptions]="[10, 50, 100]">
 </mat-paginator>
 

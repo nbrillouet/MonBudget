@@ -33,7 +33,7 @@ export class ImportStatementFileListComponent implements OnInit {
   pagination: Pagination;
   selectedIndex:number = 0;
   dataSource : AccountStatementImportFileDataSource;
-  displayedColumns = ['id'];
+  displayedColumns = ['id','operation','operationMethod','operationType','operationTypeFamily','operationPlace','dateIntegration','amountOperation'];
   
   //isExpansionDetailRow = (i: number, row: Object) => row.hasOwnProperty('detailRow');
   isExpansionDetailRow = (i: number, row: any) => row.hasOwnProperty('detailRow');
@@ -166,7 +166,7 @@ export class AccountStatementImportFileDataSource extends DataSource<IAccountSta
 
     this.importStatementFileService.get(idImport,asifStateSelected,accountSelected,pagination)
       .subscribe((res: PaginatedResult<IAccountStatementImportFile[]>) => {
-        let toto:any[]=any[];
+        let toto:any[]=[];
         res.result.forEach(element => toto.push(element, { detailRow: true, element }));
         this.accountStatementImportFilesSubject.next(toto);
         this.paginationSubject.next(res.pagination);
