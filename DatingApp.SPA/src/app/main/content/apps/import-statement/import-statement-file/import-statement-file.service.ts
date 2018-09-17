@@ -1,21 +1,25 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../../../../environments/environment";
 import { AuthHttp } from "angular2-jwt";
-import { IAsifState } from "../../../../_models/AccountStatementImportFile";
+import { IAsifState, IAsifGrid, IAsifDetail } from "../../../../_models/AccountStatementImportFile";
 import { IAccount } from "../../../../_models/Account";
 import { Pagination, PaginatedResult } from "../../../../_models/IPagination";
-import { User } from "../../../../_models/User";
+import { IUser } from "../../../../_models/User";
 import { Observable } from "rxjs/Observable";
+import { ErrorService } from "../../../../_services/error.service";
 
 
 @Injectable()
 export class ImportStatementFileService {
 baseUrl = environment.apiUrl;
 
-    constructor(private authHttp: AuthHttp) { }
+    constructor(
+        private authHttp: AuthHttp,
+        private errorService: ErrorService
+    ) { }
 
     get(idImport: number, asifStateSelected: IAsifState,accountSelected: IAccount, pagination: Pagination) {
-        const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
+        const paginatedResult: PaginatedResult<IUser[]> = new PaginatedResult<IUser[]>();
         let queryString = '?';
 
         if(pagination.currentPage !=null && pagination.itemsPerPage !=null)
@@ -27,7 +31,6 @@ baseUrl = environment.apiUrl;
         }
 
         return this.authHttp
-        
             .get(this.baseUrl + `AccountStatementImportFile/imports/${idImport}/accounts/${accountSelected.id}/asifStates/${asifStateSelected.id}/asifs${queryString}`)
             .map((res: any) => {
                 paginatedResult.result = res.json();
@@ -38,29 +41,39 @@ baseUrl = environment.apiUrl;
                 
                 return paginatedResult;
             })
-            .catch(this.handleError);
+            .catch(this.errorService.handleError);
     }
 
-    private handleError(error: any)
-    {
-        const applicationError = error.headers.get('Application-Error');
-        if(applicationError){
-            return Observable.throw(applicationError);
-        }
-        const serverError = error.json();
-        let modelStateErrors = '';
-        if(serverError) {
-            for(const key in serverError)
-            {
-                if(serverError[key]){
-                    modelStateErrors += serverError[key] + '\n';
-                }
-            }
-        }
-
-        return Observable.throw(
-            modelStateErrors || 'Server error'
-        );
+    getById(id: number) {
+        return this.authHttp
+            .get(this.baseUrl + `AccountStatementImportFile/${id}/detail`)
+            .map(response => <IAsifDetail>response.json())
+            .catch(this.errorService.handleError);
     }
+
+    update(asif: IAsifDetail) {
+        return this.authHttp
+            .post(`${this.baseUrl}AccountStatementImportFile/update`,asif)
+            .map(resp=><boolean>resp.json())
+            .catch(this.errorService.handleError);
+    }
+
+    isSaveableInAccountStatement(idImport: number) {
+        return this.authHttp
+            .get(`${this.baseUrl}AccountStatementImportFile/imports/${idImport}/isSaveableInAccountStatement`)
+            .map(resp=><boolean>resp.json())
+            .catch(this.errorService.handleError);
+    }
+
+    saveInAccountStatement(idImport: number) {
+        return this.authHttp
+            .get(`${this.baseUrl}AccountStatementImportFile/imports/${idImport}/saveInAccountStatement`)
+            .map(resp=><boolean>resp.json())
+            .catch(this.errorService.handleError);
+    }
+    
+
+    
+
 
 }

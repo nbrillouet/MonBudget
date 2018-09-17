@@ -4,13 +4,19 @@ import { IBank } from "./Bank";
 export interface IAccount {
     id : number,
     number : string,
-    Label : string,
-    IdBank :number,
-    Bank : IBank,
-    StartAmount: number,
+    label : string,
+    idBank :number,
+    bank : IBank,
+    startAmount: number,
     idAccountType : number,
     accountType: IAccountType,
     alertThreshold: number
+}
+
+export interface IAccountForLabel {
+    id : number,
+    number : string,
+    label : string
 }
 
 export interface AreaImport {
@@ -19,3 +25,4 @@ export interface AreaImport {
     errorView: boolean,
     loadingView:boolean
 }
+

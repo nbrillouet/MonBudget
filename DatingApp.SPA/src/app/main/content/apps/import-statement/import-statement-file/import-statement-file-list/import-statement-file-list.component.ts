@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, SimpleChanges, SimpleChange } from '@angular/core';
 import { IAccount } from '../../../../../_models/Account';
-import { IAsifState, IAccountStatementImportFile } from '../../../../../_models/AccountStatementImportFile';
+import { IAsifState, IAsifGrid } from '../../../../../_models/AccountStatementImportFile';
 import { ImportStatementService } from '../../import-statement.service';
 import { ImportStatementFileService } from '../import-statement-file.service';
 import { DataSource } from '@angular/cdk/table';
@@ -12,6 +12,7 @@ import { fuseAnimations } from '../../../../../../core/animations';
 import { MatPaginator, MatSort } from '@angular/material';
 
 import { SelectionModel } from '@angular/cdk/collections';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'import-statement-file-list',
@@ -33,7 +34,7 @@ export class ImportStatementFileListComponent implements OnInit {
   pagination: Pagination;
   selectedIndex:number = 0;
   dataSource : AccountStatementImportFileDataSource;
-  displayedColumns = ['id','operation','operationMethod','operationType','operationTypeFamily','operationPlace','dateIntegration','amountOperation'];
+  displayedColumns = ['button2','id','operation','operationMethod','operationType','operationTypeFamily','dateIntegration','amountOperation','button'];
   
   //isExpansionDetailRow = (i: number, row: Object) => row.hasOwnProperty('detailRow');
   isExpansionDetailRow = (i: number, row: any) => row.hasOwnProperty('detailRow');
@@ -43,13 +44,15 @@ export class ImportStatementFileListComponent implements OnInit {
 
   constructor(
     private importStatementService: ImportStatementService,
-    private importStatementFileService: ImportStatementFileService) {
+    private importStatementFileService: ImportStatementFileService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
 
    }
 
   ngOnInit() {
     
-
+    console.log('entering List');
     // this.importStatementService
     //   .getAsifStates(this.idImport,this.account.id)
     //   .subscribe(res=>{
@@ -67,23 +70,48 @@ export class ImportStatementFileListComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log('this.asifStateSelected_INPUT',this.asifStateSelected);
     
+    let valueChanged: boolean = false;
+
     if(!this.dataSource) {
       this.dataSource = new AccountStatementImportFileDataSource(this.importStatementFileService);
     }
+    
     if(changes.account)
     {
-    let acc: SimpleChange = changes.account;
-    this.accountSelected = acc.currentValue;
+     
+      if(changes.account)
+      {
+        let acc: SimpleChange = changes.account;
+        if (this.accountSelected==null || acc.currentValue.id!=this.accountSelected.id)
+        {
+          valueChanged=true;
+          this.accountSelected = acc.currentValue;
+        }
+      }
     }
-    if(changes.asifState){
-    let asifState: SimpleChange= changes.asifState;
-    this.asifStateSelected = asifState.currentValue;
+
+    if(changes.asifState) {
+    
+      let asifState: SimpleChange= changes.asifState;
+      console.log(asifState.currentValue.id);
+      console.log(this.asifStateSelected);
+      
+      if(this.asifStateSelected==null || asifState.currentValue.id!=this.asifStateSelected.id)
+      {
+        valueChanged=true;
+        this.asifStateSelected = asifState.currentValue;
+        console.log('this.asifStateSelected_OUTPUT',this.asifStateSelected);
+      }
     }
-    if(this.asifStateSelected && this.accountSelected) {
+
+    if(valueChanged) {
       this.pagination = new Pagination();
       this.dataSource.load(this.idImport,this.asifStateSelected,this.accountSelected,this.pagination);
+      console.log('LOAD_LIST');
     }
+  
 
   }
 
@@ -121,12 +149,16 @@ export class ImportStatementFileListComponent implements OnInit {
     this.dataSource.load(this.idImport,this.asifStateSelected,this.accountSelected,this.pagination);
   }
 
-  
+  detail(data) {
+    console.log('asifRow',data);
+    this.router.navigate(
+      [`apps/import-statement-archives/${this.idImport}/accounts/${this.accountSelected.id}/import-statement-files/${data.id}/detail`]);
+  }
 
 }
 
-export class AccountStatementImportFileDataSource extends DataSource<IAccountStatementImportFile> {
-  private accountStatementImportFilesSubject = new BehaviorSubject<IAccountStatementImportFile[]>([]);
+export class AccountStatementImportFileDataSource extends DataSource<IAsifGrid> {
+  private accountStatementImportFilesSubject = new BehaviorSubject<IAsifGrid[]>([]);
   private paginationSubject = new BehaviorSubject<Pagination>(null);
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
@@ -139,7 +171,7 @@ export class AccountStatementImportFileDataSource extends DataSource<IAccountSta
     super();
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<IAccountStatementImportFile[]> {
+  connect(collectionViewer: CollectionViewer): Observable<IAsifGrid[]> {
     //return this.importStatementHistoService.onRowsChanged.asObservable();
     // data.forEach(element => this.accountStatementImportFilesSubject.push(element, { detailRow: true, element }));
     // console.log(this.accountStatementImportFilesSubject);
@@ -165,7 +197,7 @@ export class AccountStatementImportFileDataSource extends DataSource<IAccountSta
     this.loadingSubject.next(true);
 
     this.importStatementFileService.get(idImport,asifStateSelected,accountSelected,pagination)
-      .subscribe((res: PaginatedResult<IAccountStatementImportFile[]>) => {
+      .subscribe((res: PaginatedResult<IAsifGrid[]>) => {
         let toto:any[]=[];
         res.result.forEach(element => toto.push(element, { detailRow: true, element }));
         this.accountStatementImportFilesSubject.next(toto);

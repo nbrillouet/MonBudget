@@ -3,7 +3,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
 import { DataSource } from '@angular/cdk/table';
 import { Observable } from 'rxjs/Observable';
-import { User } from '../../../../_models/User';
+import { IUser } from '../../../../_models/User';
 import { IBank } from '../../../../_models/Bank';
 import { fuseAnimations } from '../../../../../core/animations';
 import { Subscription } from 'rxjs/Subscription';
@@ -20,7 +20,7 @@ import { ImportStatementService } from '../import-statement.service';
 })
 
 export class ImportStatementMainComponent implements OnInit, OnDestroy, OnChanges {
-  user: User;
+  user: IUser;
   fileInProgress: boolean;
   fileError: boolean;
   fileSuccess: boolean;
@@ -33,7 +33,7 @@ export class ImportStatementMainComponent implements OnInit, OnDestroy, OnChange
   projects : any[];
   project : any;
   asifAccounts : IAsifGroupByAccounts;
-  // selectedProject: any;
+
   accountSelected: IAccount;
 
   constructor(

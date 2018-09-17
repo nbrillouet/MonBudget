@@ -1,5 +1,6 @@
 ﻿using Budget.MODEL;
 using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,42 @@ namespace Budget.DATA.Repositories
         public OperationTypeRepository(BudgetContext context) : base(context)
         {
         }
+
         public List<OperationType> GetAllByOrder(EnumSelect enumSelect)
         {
             return Context.OperationType.ToList().OrderBy(x => x.Label).ToList();
         }
+
+        public List<OperationType> GetByIdOperationTypeFamily(int idOperationTypeFamily)
+        {
+            var results = Context.OperationType
+                .Where(x => x.IdOperationTypeFamily == idOperationTypeFamily)
+                .OrderBy(x => x.Label)
+                .ToList();
+
+            return results;
+        }
+
+        public List<OperationType> GetByOperationTypeFamilies(List<SelectDto> OperationTypeFamilies)
+        {
+            List<OperationType> results;
+            if (OperationTypeFamilies.Count == 0)
+            {
+                results = Context.OperationType
+                    .OrderBy(x=>x.Label)
+                    .ToList();
+            }
+            else
+            {
+                var idOperationTypeFamilies = OperationTypeFamilies.Select(x => x.Id).ToList();
+                results = Context.OperationType
+                    .Where(x => idOperationTypeFamilies.Contains(x.IdOperationTypeFamily))
+                    .ToList();
+            }
+
+            return results;
+        }
+
         public List<OperationType> GetByIdOperationTypeFamily(int idOperationTypeFamily, EnumSelect enumSelect)
         {
             List<OperationType> operationTypes = new List<OperationType>();

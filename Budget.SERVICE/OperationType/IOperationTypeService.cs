@@ -1,5 +1,6 @@
 ﻿using Budget.MODEL;
 using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,10 @@ namespace Budget.SERVICE
 {
     public interface IOperationTypeService
     {
+
+        List<SelectDto> GetSelects(int idOperationTypeFamily, int idSelectType);
+        List<SelectDto> GetSelectList(List<SelectDto> operationTypeFamilies);
+
 
         OperationType GetByIdWithOperationTypeFamily(int idOperationType);
 

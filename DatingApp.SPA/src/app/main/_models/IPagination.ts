@@ -7,8 +7,14 @@ export interface IPagination {
     sortDirection: string;
 }
 
-export class PaginatedResult<T>{
+export class PaginatedResult<T> {
     result: T;
+    pagination: IPagination;
+}
+
+
+export interface IPageList<T> {
+    datas:T[];
     pagination: IPagination;
 }
 

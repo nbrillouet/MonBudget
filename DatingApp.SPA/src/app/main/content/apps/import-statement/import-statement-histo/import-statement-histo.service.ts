@@ -3,7 +3,7 @@ import { Http, RequestOptions, Headers,Response } from '@angular/http';
 import { environment } from '../../../../../../environments/environment';
 import { IImportStatement } from '../../../../_models/IImportStatement';
 import { AuthHttp } from 'angular2-jwt';
-import { User } from '../../../../_models/User';
+import { IUser } from '../../../../_models/User';
 import { IBank } from '../../../../_models/Bank';
 import { PaginatedResult, Pagination } from '../../../../_models/IPagination';
 import { IAccountStatementImport } from '../../../../_models/AccountStatementImport';
@@ -33,7 +33,7 @@ rows: IAccountStatementImport[];
 
     getAccountStatementImport(idUser: number,idBank: number,pagination?: Pagination) {
         // const paginatedResult: PaginatedResult<IAccountStatementImport[]> = new PaginatedResult<IAccountStatementImport[]>();
-        const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
+        const paginatedResult: PaginatedResult<IUser[]> = new PaginatedResult<IUser[]>();
         let queryString = '?';
 
         if(pagination.currentPage !=null && pagination.itemsPerPage !=null)

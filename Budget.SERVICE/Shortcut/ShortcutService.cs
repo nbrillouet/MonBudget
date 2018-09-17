@@ -23,7 +23,7 @@ namespace Budget.SERVICE
 
         public Task<Shortcut> Create(Shortcut shortcut)
         {
-            return _shortcutRepository.Create(shortcut);
+            return _shortcutRepository.CreateAsync(shortcut);
         }
 
         public void Delete(Shortcut shortcut)

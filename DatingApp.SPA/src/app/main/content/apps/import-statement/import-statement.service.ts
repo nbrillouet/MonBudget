@@ -3,7 +3,7 @@ import { Http, RequestOptions, Headers,Response } from '@angular/http';
 import { environment } from '../../../../../environments/environment';
 import { IImportStatement } from '../../../_models/IImportStatement';
 import { AuthHttp } from 'angular2-jwt';
-import { User } from '../../../_models/User';
+// import { IUser } from '../../../_models/User';
 import { IBank } from '../../../_models/Bank';
 import { PaginatedResult, Pagination } from '../../../_models/IPagination';
 import { Observable } from 'rxjs/Observable';
@@ -27,9 +27,16 @@ baseUrl = environment.apiUrl;
     //         .catch(this.handleError);
     // }
 
-    getAsifStates(idImport: number,idAccount:number): Observable<IAsifState[]> {
+    getAsifStates(idImport: number, idAccount:number): Observable<IAsifState[]> {
         return this.authHttp
             .get(this.baseUrl + `AccountStatementImport/imports/${idImport}/accounts/${idAccount}/asifStates`)
+            .map(response => <any>response.json())
+            .catch(this.handleError);
+    }
+
+    getAsi(idImport: number) {
+        return this.authHttp
+            .get(this.baseUrl + `AccountStatementImport/imports/${idImport}`)
             .map(response => <any>response.json())
             .catch(this.handleError);
     }

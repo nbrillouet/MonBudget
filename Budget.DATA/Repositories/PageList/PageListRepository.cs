@@ -34,5 +34,18 @@ namespace Budget.DATA.Repositories
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
 
+
+        public static PagedList1<T> Create(IQueryable<T> source, Pagination1 pagination)
+        {
+            var count =  source.Count();
+            var items =  source.Skip((pagination.CurrentPage - 1) * pagination.ItemsPerPage).Take(pagination.ItemsPerPage).ToList();
+
+            pagination.TotalItems = count;
+            pagination.TotalPages = (int)Math.Ceiling(count / (double)pagination.ItemsPerPage);
+            
+            var results = new PagedList1<T>(items, pagination);
+            return results;
+        }
+
     }
 }

@@ -5,8 +5,14 @@
         matSort matSortActive="id" matSortDirection="asc" matSortDisableClear 
         (matSortChange)="onSortChangeEvent($event)"
 >
+    <ng-container matColumnDef="button2" >
+        <mat-header-cell style="flex:0 0 25px;" *matHeaderCellDef> </mat-header-cell>
+        <mat-cell style="flex:0 0 25px;" *matCellDef="let data">
+            <mat-icon matTooltip="Enregistrement dupliqué: non intégré" class="red-icon" *ngIf="data.isDuplicated">done_all</mat-icon>
+        </mat-cell>
+    </ng-container> 
     <!-- Operation -->
-    <ng-container matColumnDef="id" >
+    <ng-container matColumnDef="id">
         <mat-header-cell style="flex:0 0 40px;" *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
         <mat-cell style="flex:0 0 40px;" *matCellDef="let data">
             <p class="text-truncate">{{data.id}}</p>
@@ -45,28 +51,49 @@
     </ng-container>
 
     <!-- Operation place-->
-    <ng-container matColumnDef="operationPlace" >
+    <!-- <ng-container matColumnDef="operationPlace" >
         <mat-header-cell *matHeaderCellDef mat-sort-header>Lieu opération</mat-header-cell>
         <mat-cell *matCellDef="let data">
             <p class="text-truncate">{{data.operationPlace.label}}</p>
         </mat-cell>
-    </ng-container>
+    </ng-container> -->
 
     <!-- Amount -->
     <ng-container matColumnDef="dateIntegration" >
-        <mat-header-cell *matHeaderCellDef mat-sort-header>date</mat-header-cell>
-        <mat-cell *matCellDef="let data">
+        <mat-header-cell style="flex:0 0 80px;" *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+        <mat-cell style="flex:0 0 80px;" *matCellDef="let data">
             <p class="text-truncate">{{data.dateIntegration | date: 'dd/MM/yyyy'}}</p>
         </mat-cell>
     </ng-container> 
 
     <!-- Amount -->
     <ng-container matColumnDef="amountOperation" >
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Montant</mat-header-cell>
-        <mat-cell *matCellDef="let data">
-            <p class="text-truncate">{{data.amountOperation}}</p>
+        <mat-header-cell style="flex:0 0 80px;" *matHeaderCellDef mat-sort-header>Montant</mat-header-cell>
+        <mat-cell style="flex:0 0 80px;" *matCellDef="let data">
+            <div *ngIf="data.amountOperation>0">
+                <p  class="text-truncate green-fg">
+                    <mat-icon class="green-fg mr-2">trending_up</mat-icon>
+                     {{data.amountOperation}}
+                </p>
+            </div>
+            <div *ngIf="data.amountOperation<0">
+                <p  class="text-truncate red-fg">
+                    <mat-icon class="red-fg mr-2">trending_down</mat-icon>
+                     {{data.amountOperation}}
+                </p>
+            </div>
         </mat-cell>
     </ng-container> 
+
+    <ng-container matColumnDef="button" >
+            <mat-header-cell style="flex:0 0 30px;"  *matHeaderCellDef ></mat-header-cell>
+            <mat-cell style="flex:0 0 30px;" *matCellDef="let data">
+                    <button matTooltip="Détail" mat-icon-button (click)="detail(data)">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+            </mat-cell>
+    </ng-container> 
+    
 
     <!-- Expanded Content Column - The detail row is made up of this one column -->
     <ng-container matColumnDef="expandedDetail">
@@ -76,15 +103,16 @@
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    
+    <!-- [ngClass]="{'highlight': data.isDuplicated}" -->
     <mat-row *cdkRowDef="let data; columns: displayedColumns;"
         matRipple
         [@animate]="{value:'*',params:{y:'100%'}}"
         class="element-row" 
         [class.expanded]="expandedElement == data"
-        (click)="expandedElement = data">
+        (click)="expandedElement = data"
+        >
     </mat-row>
-
+    <!-- : selectedRowIndex == row.id -->
     <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
         [@detailExpand]="row.element == expandedElement ? 'expanded' : 'collapsed'"
         style="overflow: hidden"> 

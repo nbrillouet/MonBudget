@@ -1,8 +1,11 @@
-﻿using Budget.DATA.Repositories;
+﻿using AutoMapper;
+using Budget.DATA.Repositories;
 using Budget.MODEL;
 using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Budget.SERVICE
@@ -10,11 +13,34 @@ namespace Budget.SERVICE
     public class OperationTypeService : IOperationTypeService
     {
         private readonly IOperationTypeRepository _operationTypeRepository;
+        private readonly ISelectService _selectService;
+        private readonly IMapper _mapper;
 
-        public OperationTypeService(IOperationTypeRepository operationTypeRepository)
+        public OperationTypeService(
+            IOperationTypeRepository operationTypeRepository,
+            ISelectService selectService,
+            IMapper mapper)
         {
             _operationTypeRepository = operationTypeRepository;
+            _selectService = selectService;
+            _mapper = mapper;
         }
+
+        public List<SelectDto> GetSelects(int idOperationTypeFamily, int idSelectType)
+        {
+            var selectList = _selectService.GetSelectList(idSelectType);
+            var operationTypeFamilies = _operationTypeRepository.GetByIdOperationTypeFamily(idOperationTypeFamily);
+            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(operationTypeFamilies).ToList());
+
+            return selectList;
+        }
+
+        public List<SelectDto> GetSelectList(List<SelectDto> operationTypeFamilies)
+        {
+            var operationTypes = _operationTypeRepository.GetByOperationTypeFamilies(operationTypeFamilies);
+            return _mapper.Map<List<SelectDto>>(operationTypes);
+        }
+
 
         public List<GenericList> GetGenericList()
         {

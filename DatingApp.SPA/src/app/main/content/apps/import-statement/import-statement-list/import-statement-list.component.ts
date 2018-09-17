@@ -8,7 +8,7 @@ import { MatPaginator, MatSort } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
 
 import { IAccount } from "../../../../_models/Account";
-import { IAsifState,IAccountStatementImportFile } from "../../../../_models/AccountStatementImportFile";
+import { IAsifState, IAsifGrid } from "../../../../_models/AccountStatementImportFile";
 import { Pagination,PaginatedResult } from "../../../../_models/IPagination";
 import { AccountStatementImportFileService } from "./account-statement-import-file.service";
 import { NotificationsService } from "angular2-notifications";
@@ -119,8 +119,8 @@ export class ImportStatementListComponent implements OnInit,OnChanges {
 
 }
 
-export class AsifDataSource extends DataSource<IAccountStatementImportFile> {
-  private dataSubject = new BehaviorSubject<IAccountStatementImportFile[]>([]);
+export class AsifDataSource extends DataSource<IAsifGrid> {
+  private dataSubject = new BehaviorSubject<IAsifGrid[]>([]);
   private paginationSubject = new BehaviorSubject<Pagination>(null);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   
@@ -135,7 +135,7 @@ export class AsifDataSource extends DataSource<IAccountStatementImportFile> {
     super();
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<IAccountStatementImportFile[]> {
+  connect(collectionViewer: CollectionViewer): Observable<IAsifGrid[]> {
     return this.fakeSubject.asObservable(); //this.dataSubject.asObservable();
   }
 
@@ -151,7 +151,7 @@ export class AsifDataSource extends DataSource<IAccountStatementImportFile> {
     // if(asifStateSelected && accountSelected && pagination)
     // {
       this.accountStatementImportFileService.get(365,asifStateSelected,accountSelected,pagination)
-        .subscribe((res: PaginatedResult<IAccountStatementImportFile[]>) => {
+        .subscribe((res: PaginatedResult<IAsifGrid[]>) => {
           this.dataSubject.next(res.result);
           this.paginationSubject.next(res.pagination);
           this.loadingSubject.next(false);

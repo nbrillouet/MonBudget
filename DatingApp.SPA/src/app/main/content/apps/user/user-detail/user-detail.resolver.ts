@@ -4,14 +4,14 @@ import { Injectable } from '@angular/core';
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NotificationsService } from 'angular2-notifications';
-import { User } from '../../../../_models/User';
+import { IUser } from '../../../../_models/User';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { UserService } from '../user.service';
 
 @Injectable()
-export class UserDetailResolver implements Resolve<User> {
+export class UserDetailResolver implements Resolve<IUser> {
     
     constructor(
         private userService: UserService,
@@ -19,7 +19,7 @@ export class UserDetailResolver implements Resolve<User> {
         private notificationService: NotificationsService
     ) {}
 
-    resolve(route: ActivatedRouteSnapshot): Observable<User> {
+    resolve(route: ActivatedRouteSnapshot): Observable<IUser> {
         
         return this.userService.getUser(route.params['idUser'])
             .catch(error => {

@@ -14,12 +14,13 @@ using Budget.API.Helpers;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Budget.MODEL;
+using Budget.MODEL.Dto;
 
 namespace Budget.API.Controllers
 {
     [Authorize]
     [Produces("application/json")]
-    [Route("api/user")]
+    [Route("api/users")]
     public class UserController : Controller
     {
         private IUserService _userService;
@@ -67,7 +68,7 @@ namespace Budget.API.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var user = await _userService.GetByIdAsync(id);
-            var userToReturn = _mapper.Map<UserForDetailedDto>(user);
+            var userToReturn = _mapper.Map<UserForDetailDto>(user);
 
             return Ok(userToReturn);
         }
@@ -81,8 +82,8 @@ namespace Budget.API.Controllers
         //    return Ok(user);
         //}
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserForDetailedDto userForDetailedDto)
+        [HttpPut("{id}/update")]
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserForDetailDto userForDetailedDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -97,9 +98,9 @@ namespace Budget.API.Controllers
             if (currentUserId != user.Id)
                 return Unauthorized();
 
-            _mapper.Map(userForDetailedDto, user);
+            //_mapper.Map(userForDetailedDto, user);
 
-            _userService.Update(user);
+            _userService.Update(userForDetailedDto);
 
             return NoContent();
         }
@@ -152,6 +153,21 @@ namespace Budget.API.Controllers
 
             return CreatedAtRoute("GetUser", new { id = user.Id }, user);
 
+        }
+
+        /// <summary>
+        /// Rechercher les banques + comptes liés aux banque pour un utilisateurs
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{idUser}/banks")]
+        public IActionResult GetOperationList(int idUser)
+        {
+            var banks = _userService.GetBanks(idUser);
+            //var selectsDto = _operationService.GetByIdOperationMethod(idOperationMethod);
+
+            return Ok(banks);
         }
     }
 }

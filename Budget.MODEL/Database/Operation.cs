@@ -15,7 +15,6 @@ namespace Budget.MODEL.Database
         [Required]
         [Column("LABEL")]
         [StringLength(255)]
-        //[Index("IX_OperationLabel", 1, IsUnique = true)]
         public string Label { get; set; }
 
         [Column("REFERENCE")]
@@ -34,24 +33,7 @@ namespace Budget.MODEL.Database
         [ForeignKey("IdOperationType")]
         public OperationType OperationType { get; set; }
 
-        //[Column("ID_OPERATION_PLACE")]
-        //public int IdOperationPlace { get; set; }
-
-        [Required]
-        [Column("KEYWORD")]
-        [StringLength(255)]
-        //[Index("IX_OperationKeyword", 1, IsUnique = true)]
-        public string Keyword { get; set; }
-
-
-        //[ForeignKey("IdOperationPlace")]
-        //public OperationPlace OperationPlace { get; set; }
-        //[Column("OPERATION_PLACE_POSTAL_CODE")]
-        //public int? OperationPlacePostalCode { get; set; }
-
-        //[Column("OPERATION_PLACE_LABEL")]
-        //[StringLength(100)]
-        //public string OperationPlaceLabel { get; set; }
+        List<OperationDetail> OperationDetails { get; set; }
 
     }
 

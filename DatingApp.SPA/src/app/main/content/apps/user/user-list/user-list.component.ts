@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { User } from '../../../../_models/User';
+import { IUser } from '../../../../_models/User';
 // import { PaginatedResult } from '../../../_models/IPagination';
 import { IPagination, Pagination, MatPagination, PaginatedResult } from '../../../../_models/IPagination';
 import { UserService } from '../user.service';
@@ -24,8 +24,9 @@ import { merge } from 'rxjs/observable/merge';
 })
 export class UserListComponent implements AfterViewInit, OnInit {
   dataSource : UserDataSource;
-  displayedColumns = ['id','avatar'];
+  displayedColumns = ['id','avatar','lastName','firstName','userName','button'];
   pagination: Pagination;
+
   // matPagination: MatPagination;
 
 
@@ -76,10 +77,12 @@ export class UserListComponent implements AfterViewInit, OnInit {
     this.dataSource.loadUsers(this.pagination);
   }
 
+  
+
 }
 
-export class UserDataSource extends DataSource<User> {
-  private usersSubject = new BehaviorSubject<User[]>([]);
+export class UserDataSource extends DataSource<IUser> {
+  private usersSubject = new BehaviorSubject<IUser[]>([]);
   private paginationSubject = new BehaviorSubject<Pagination>(null);
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
@@ -93,7 +96,7 @@ export class UserDataSource extends DataSource<User> {
     super();
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<User[]> {
+  connect(collectionViewer: CollectionViewer): Observable<IUser[]> {
       return this.usersSubject.asObservable();
   }
 
@@ -109,11 +112,14 @@ export class UserDataSource extends DataSource<User> {
 
     // this.userService.getUsers(pagination.currentPage,pagination.itemsPerPage)
     this.userService.getUsers(pagination)
-      .subscribe((res: PaginatedResult<User[]>) => {
+      .subscribe((res: PaginatedResult<IUser[]>) => {
         this.usersSubject.next(res.result);
         this.paginationSubject.next(res.pagination);
         this.loadingSubject.next(false);
       });
 
     }
+
+
+    
 }

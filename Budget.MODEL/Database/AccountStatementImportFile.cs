@@ -43,6 +43,14 @@ namespace Budget.MODEL.Database
 
         [Column("ID_OPERATION")]
         public int? IdOperation { get; set; }
+        [ForeignKey("IdOperation")]
+        public Operation Operation { get; set; }
+
+        [Column("ID_OPERATION_DETAIL")]
+        public int? IdOperationDetail { get; set; }
+        [ForeignKey("IdOperationDetail")]
+        public OperationDetail OperationDetail { get; set; }
+
         [Column("OPERATION_LABEL_TEMP")]
         public string OperationLabelTemp { get; set; }
         [Column("OPERATION_KEYWORD_TEMP")]
@@ -50,22 +58,25 @@ namespace Budget.MODEL.Database
         [Column("OPERATION_REFERENCE_TEMP")]
         public string OperationReferenceTemp { get; set; }
 
-        [ForeignKey("IdOperation")]
-        public Operation Operation { get; set; }
+        [Column("PLACE_KEYWORD_TEMP")]
+        [StringLength(500)]
+        public string PlaceKeywordTemp { get; set; }
+        [Column("PLACE_LABEL_TEMP")]
+        [StringLength(500)]
+        public string PlaceLabelTemp { get; set; }
 
+        //[Column("ID_OPERATION_PLACE")]
+        //public int? IdOperationPlace { get; set; }
+        //[ForeignKey("IdOperationPlace")]
+        //public OperationPlace OperationPlace { get; set; }
 
-        [Column("ID_OPERATION_PLACE")]
-        public int? IdOperationPlace { get; set; }
+        //[Column("OPERATION_PLACE_DEPARTMENT_TEMP")]
+        //public string OperationPlaceDepartmentTemp { get; set; }
+        //[Column("OPERATION_PLACE_CITY_TEMP")]
+        //public string OperationPlaceCityTemp { get; set; }
+        //[Column("OPERATION_PLACE_KEYWORD_TEMP")]
+        //public string OperationPlaceKeywordTemp { get; set; }
 
-        [Column("OPERATION_PLACE_DEPARTMENT_TEMP")]
-        public string OperationPlaceDepartmentTemp { get; set; }
-        [Column("OPERATION_PLACE_CITY_TEMP")]
-        public string OperationPlaceCityTemp { get; set; }
-        [Column("OPERATION_PLACE_KEYWORD_TEMP")]
-        public string OperationPlaceKeywordTemp { get; set; }
-
-        [ForeignKey("IdOperationPlace")]
-        public OperationPlace OperationPlace { get; set; }
 
 
         [Column("ID_OPERATION_TYPE")]
@@ -100,12 +111,20 @@ namespace Budget.MODEL.Database
         public string LabelOperationWork { get; set; }
 
         [Column("STATE")]
-        public EnumAccountStatementImportFileState EnumAccountStatementImportFileState { get; set; }
+        public EnumAsifState EnumAsifState { get; set; }
         [Column("IS_DUPLICATED")]
         public bool IsDuplicated { get; set; }
+        [NotMapped]
+        public bool IsLocalisable
+        {
+            get
+            {
+                return (IdOperationMethod == (int)EnumOperationMethod.PaiementCarte || IdOperationMethod == (int)EnumOperationMethod.RetraitCarte);
+            }
+        }
 
     }
-    public enum EnumAccountStatementImportFileState
+    public enum EnumAsifState
     {
         Complete = 1,
         MethodLess = 2,

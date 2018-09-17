@@ -1,12 +1,12 @@
 import { Component, OnInit,OnDestroy, Input,Output,EventEmitter, ViewChild } from '@angular/core';
 import { fuseAnimations } from '../../../../../../core/animations';
-import { User } from '../../../../../_models/User';
+import { IUser } from '../../../../../_models/User';
 import { IBank } from '../../../../../_models/Bank';
 import { IPagination, Pagination, MatPagination, PaginatedResult } from '../../../../../_models/IPagination';
 import { ImportStatementHistoService } from '../import-statement-histo.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NotificationsService } from 'angular2-notifications';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { DataSource } from '@angular/cdk/table';
 // import { map, filter, tap } from 'rxjs/operators';
@@ -16,6 +16,7 @@ import { CollectionViewer } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { IAccountStatementImport } from '../../../../../_models/AccountStatementImport';
+import { ImportStatementService } from '../../import-statement.service';
 
 // import {SelectionModel} from '@angular/cdk/collections';
 
@@ -27,8 +28,8 @@ import { IAccountStatementImport } from '../../../../../_models/AccountStatement
 })
 
 export class ImportStatementHistoListComponent implements OnInit, OnDestroy {
-  @Input() user: User;
-  @Output() idImportChanged = new EventEmitter<number>();
+  @Input() user: IUser;
+  // @Output() idImportChanged = new EventEmitter<number>();
   
   banks: IBank[];
   pagination: Pagination;
@@ -51,8 +52,10 @@ export class ImportStatementHistoListComponent implements OnInit, OnDestroy {
 
   constructor ( 
     private importStatementHistoService: ImportStatementHistoService,
-    private notificationService: NotificationsService,
-    private route: ActivatedRoute) {
+    private importStatementService: ImportStatementService,
+    // private notificationService: NotificationsService,
+    private activatedRoute: ActivatedRoute,
+    public router: Router,) {
 
       this.onRowsChangedSubscription =
         this.importStatementHistoService.onRowsChanged.subscribe(rows => {
@@ -84,27 +87,26 @@ export class ImportStatementHistoListComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.dataSource = new AccountStatementImportDataSource(this.importStatementHistoService, this.route);
+    this.dataSource = new AccountStatementImportDataSource(this.importStatementHistoService, this.activatedRoute);
     console.log('dataSource',this.dataSource);
-    // this.dataSource.data$
-    // .subscribe(res=>{
-    //   this.data = res;
-      
-    // });
 
     this.dataSource.pagination$
-    .subscribe(res=>{
-      this.pagination = res;
-      console.log('paginationHisto',res);
-    });
+      .subscribe(res=>{
+        this.pagination = res;
+        console.log('paginationHisto',res);
+      });
 
     this.importStatementHistoService
       .getDistinctBank(this.user.id)
       .subscribe((res: IBank[]) => { 
         this.banks = res;
-        this.idUser = this.user.id;
-        this.idBank = this.banks[0].id;
-        this.dataSource.load(this.idUser,this.idBank,new Pagination());
+        console.log('this.banks',this.banks.length);
+        if(this.banks.length>0)
+        {
+          this.idUser = this.user.id;
+          this.idBank = this.banks[0].id;
+          this.dataSource.load(this.idUser,this.idBank,new Pagination());
+        }
       });
   }
 
@@ -129,8 +131,24 @@ export class ImportStatementHistoListComponent implements OnInit, OnDestroy {
   }
 
   onRowClick(row) {
-    this.idImportChanged.emit(row.id);
-    console.log(row);
+    // this.idImportChanged.emit(row.id);
+
+    // this.router.navigate(
+    //   [row.id + '/import-statement-files'],
+    //   {relativeTo: this.activatedRoute});
+    // console.log(row);
+
+    // chargement du account import file correspondant
+    this.importStatementService.getAsifAccounts(row.id)
+      .subscribe(response => {
+        let accountSelected = response.accounts[0];
+        console.log('accountSelected',accountSelected);
+        this.router.navigate(
+            [`${row.id}/accounts/${accountSelected.id}/import-statement-files`],
+            {relativeTo: this.activatedRoute});
+            // :idImport/accounts/:idAccount/import-statement-files
+        // this.accountSelected = response.accounts[0];
+      });
   }
 
   loadPage() {

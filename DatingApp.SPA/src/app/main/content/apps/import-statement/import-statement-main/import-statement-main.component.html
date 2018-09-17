@@ -45,7 +45,7 @@
                                         <span>{{account.number}} - {{account.label}}</span>
                                     </button>
                                 </mat-menu>
-                            </div>
+                        </div>
                         
                     </div>
 
@@ -58,13 +58,13 @@
                 <!-- SELECTED BAR -->
                 <selected-bar class="mat-accent-600-bg" *ngIf="hasSelectedRows" [@slideInTop]></selected-bar>
                 <!-- / SELECTED BAR -->
-              
+                
                 <div class="content-card mat-white-bg" *ngIf="(!fileInProgress && !fileError && !fileSuccess)">
                     <import-statement-histo-list (idImportChanged)="idImportChanged($event)" [user]="user" fusePerfectScrollbar></import-statement-histo-list>
                 </div> 
 
                 <div class="content-card mat-white-bg" *ngIf="fileSuccess">
-                    <import-statement-file-main [account]="accountSelected" [idImport]="asifAccounts?.idImport"></import-statement-file-main>
+                    <import-statement-file-main></import-statement-file-main>
                 </div>
 
                 <!-- / CONTENT CARD -->

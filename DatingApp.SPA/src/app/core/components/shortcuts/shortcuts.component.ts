@@ -118,6 +118,7 @@ export class FuseShortcutsComponent implements OnInit, OnDestroy
 
     search(event)
     {
+        this.navigationItems = this.fuseNavigationService.getFlatNavigation();
         const value = event.target.value.toLowerCase();
 
         if ( value === '' )
@@ -166,9 +167,14 @@ export class FuseShortcutsComponent implements OnInit, OnDestroy
         //sauvegarde du shortcut / maj du local storage et du service shared
         this.userService.addShortcut(this.authService.decodedToken.nameid,itemToToggle)
             .subscribe(()=>{
+                if(itemToToggle.icon==false)
+                    itemToToggle.icon=null;
+                    // itemToToggle.icon=itemToToggle.title.substring(0,2).toUpperCase();
+                console.log(itemToToggle);
                 this.shortcutItems.push(itemToToggle);
                 this.authService.changeShortcuts(this.shortcutItems);
                 localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+                console.log(itemToToggle);
                 console.log('success to add shortcut');
             },error =>{
                 console.log('failed to add shortcut');

@@ -20,4 +20,6 @@ namespace Budget.API.Dtos
         public string LogoClassName { get; set; }
         public string FolderFileSave { get; set; }
     }
+
+    
 }

@@ -4,13 +4,13 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { User } from '../../../../_models/User';
+import { IUser } from '../../../../_models/User';
 
 @Injectable()
 export class LoginService {
     baseUrl = 'http://localhost:5001/api/auth/'
     userToken: any;
-    currentUser: User;
+    currentUser: IUser;
 
     constructor(private http: Http) { }
     

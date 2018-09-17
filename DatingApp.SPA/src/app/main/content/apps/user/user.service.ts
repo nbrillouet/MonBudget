@@ -5,11 +5,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { environment } from '../../../../../environments/environment';
-import { User } from '../../../_models/User';
+import { IUser } from '../../../_models/User';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AuthHttp } from 'angular2-jwt';
 import { IShortcut } from '../../../_models/Shortcut';
 import { PaginatedResult, Pagination } from '../../../_models/IPagination';
+import { ErrorService } from '../../../_services/error.service';
 
 @Injectable()
 export class UserService {
@@ -17,7 +18,8 @@ export class UserService {
     onUserChanged: BehaviorSubject<any> = new BehaviorSubject({});
 
     constructor(
-        private authHttp: AuthHttp
+        private authHttp: AuthHttp,
+        private errorService: ErrorService
     ) { }
     
     //apres remplacement par jwt global (voir bas de page pour avant remplacement)
@@ -30,7 +32,7 @@ export class UserService {
 
     // getUsers(page?:number,itemsPerPage?: number) {
     getUsers(pagination?: Pagination) {
-        const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
+        const paginatedResult: PaginatedResult<IUser[]> = new PaginatedResult<IUser[]>();
         let queryString = '?';
 
         // if(page !=null && itemsPerPage !=null) {
@@ -43,7 +45,7 @@ export class UserService {
         }
 
         return this.authHttp
-            .get(this.baseUrl + 'user' + queryString)
+            .get(this.baseUrl + 'users' + queryString)
             .map((response: Response) => {
                 paginatedResult.result = response.json();
                 if(response.headers.get('Pagination') != null) {
@@ -52,62 +54,63 @@ export class UserService {
                 
                 return paginatedResult;
             })
-            .catch(this.handleError);
+            .catch(this.errorService.handleError);
     }
 
-    getUser(id: number): Observable<User> {
+    getUser(id: number): Observable<IUser> {
         return this.authHttp
-            .get(this.baseUrl + 'user/' + id)
-            .map(response => <User>response.json())
-            .catch(this.handleError);
+            .get(this.baseUrl + 'users/' + id)
+            .map(response => <IUser>response.json())
+            .catch(this.errorService.handleError);
     }
     
     saveUser(user)
     {
         return new Promise((resolve, reject) => {
-            this.authHttp.post('user/save/' + user.id, user)
+            this.authHttp.post('users/save/' + user.id, user)
                 .subscribe((response: any) => {
                     resolve(response);
                 }, reject);
         });
     }
 
-    updateUser(id: number, user: User)
+    updateUser(id: number, user: IUser)
     {
-        return this.authHttp.put(this.baseUrl + 'users/' + id,user)
-            .catch(this.handleError);
+        console.log('this.baseUrl',this.baseUrl);
+        return this.authHttp.put(`${this.baseUrl}users/${id}/update`,user)
+            .catch(this.errorService.handleError);
     }
 
-    private handleError(error: any)
-    {
-        const applicationError = error.headers.get('Application-Error');
-        if(applicationError){
-            return Observable.throw(applicationError);
-        }
-        const serverError = error.json();
-        let modelStateErrors = '';
-        if(serverError) {
-            for(const key in serverError)
-            {
-                if(serverError[key]){
-                    modelStateErrors += serverError[key] + '\n';
-                }
-            }
-        }
+    // private handleError(error: any)
+    // {
+    //     const applicationError = error.headers.get('Application-Error');
+    //     if(applicationError){
+    //         return Observable.throw(applicationError);
+    //     }
+    //     const serverError = error.json();
+    //     let modelStateErrors = '';
+    //     if(serverError) {
+    //         for(const key in serverError)
+    //         {
+    //             if(serverError[key]){
+    //                 modelStateErrors += serverError[key] + '\n';
+    //             }
+    //         }
+    //     }
 
-        return Observable.throw(
-            modelStateErrors || 'Server error'
-        );
-    }
+    //     return Observable.throw(
+    //         modelStateErrors || 'Server error'
+    //     );
+    // }
     
     deleteShortcut(idUser: number, id: number) {
         return this.authHttp.delete(this.baseUrl + 'users/' + idUser + '/shortcuts/' + id)
-            .catch(this.handleError);
+            .catch(this.errorService.handleError);
     }
 
     addShortcut(idUser: number, shortcut: IShortcut) {
         return this.authHttp.post(this.baseUrl + 'users/' + idUser + '/shortcuts/', shortcut)
-            .catch(this.handleError);
+            .catch(this.errorService.handleError);
     }
 
     //Avant le remplacement par jwt global

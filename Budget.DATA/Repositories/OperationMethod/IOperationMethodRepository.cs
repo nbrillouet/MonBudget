@@ -9,7 +9,11 @@ namespace Budget.DATA.Repositories
     {
         List<OperationMethod> GetAllForEdit();
         List<OperationMethod> GetAllByOrder();
+
         new int Create(OperationMethod operationMethod);
+
+
+
         //OperationMethod GetOperationMethodByFileLabel(string operationLabel, int idBank);
         //OperationMethod GetById(int idOperationMethod);
 

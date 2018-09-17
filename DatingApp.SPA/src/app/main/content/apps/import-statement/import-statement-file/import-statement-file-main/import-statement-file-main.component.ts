@@ -1,53 +1,80 @@
-import { Component, OnInit,OnChanges, SimpleChange, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit,OnChanges, SimpleChange, SimpleChanges, Input, ViewEncapsulation } from '@angular/core';
 import { IAsifState } from '../../../../../_models/AccountStatementImportFile';
 import { IAccount } from '../../../../../_models/Account';
 import { ImportStatementService } from '../../import-statement.service';
+import { ActivatedRoute } from '@angular/router';
+import { fuseAnimations } from '../../../../../../core/animations';
+import { IAccountStatementImport } from '../../../../../_models/AccountStatementImport';
+import { ImportStatementFileService } from '../import-statement-file.service';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'import-statement-file-main',
   templateUrl: './import-statement-file-main.component.html',
-  styleUrls: ['./import-statement-file-main.component.scss']
+  styleUrls: ['./import-statement-file-main.component.scss'],
+  animations : fuseAnimations
+
 })
-export class ImportStatementFileMainComponent implements OnInit, OnChanges {
-  @Input() account: IAccount;
-  @Input() idImport: number;
-  
-  asifStates : IAsifState[];
-  asifStateSelected : IAsifState;
+
+export class ImportStatementFileMainComponent implements OnInit {
+  // @Input() account: IAccount;
+  //@Input() idImport: number;
+  // idImport: number;
+  idImport: number;
+  idAccount: number;
+
+  accountStatementImport: IAccountStatementImport;
+  accounts: IAccount[];
   accountSelected: IAccount;
   
-  constructor(private importStatementService: ImportStatementService) { }
+  isSaveable: boolean;
+  loading: boolean;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private importStatementService: ImportStatementService,
+    private importStatementFileService: ImportStatementFileService,
+    private notificationService: NotificationsService
+  ) { }
   
-  ngOnInit() {
-    this.importStatementService
-      .getAsifStates(this.idImport,this.account.id)
-      .subscribe(res=>{
-        this.asifStates = res;
-        this.asifStateSelected = this.asifStates[0];
-      });
+  ngOnInit() {       
+    console.log('route_params',this.activatedRoute.params['idImport']);
+    
+    this.activatedRoute.params.subscribe(routeParams => {
+      this.idImport = routeParams['idImport'];
+      this.idAccount = routeParams['idAccount'];
+      
+      if(this.idImport!=0 && this.idAccount!=0)
+      {
+        //chargement du accountStatementImport
+        this.importStatementService.getAsi(this.idImport)
+          .subscribe(response=> {
+            this.accountStatementImport=response;
+            // chargement des accounts correspondants à l'import
+            this.importStatementService.getAsifAccounts(this.idImport)
+              .subscribe(response => {
+                this.accounts = response.accounts;
+                this.accountSelected = this.accounts.find(x=>x.id==this.idAccount);
+              });
+          })
+      }
+    });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-
-    let acc: SimpleChange = changes.account;
-    this.accountSelected = acc.currentValue;
-    // if(this.asifStateSelected) {
-    //   this.dataSource.load(this.asifStateSelected,this.accountSelected,new Pagination());
-    // }
+  SaveInAccountStatement() {
+    this.loading=true;
+    this.importStatementFileService.saveInAccountStatement(this.idImport)
+    .subscribe(resp=>{
+        this.notificationService.success('Enregistrement effectué', `Les relevés sont enregistrés`);
+        this.loading=false;
+    },
+    error => {
+      console.log('error_SaveInAccountStatement',error);
+      this.notificationService.error('Echec de l\'enregistrement', error);
+      this.loading=false;
+    });
 
   }
-
-  onTabChanged(event) {
-    // this.dataSource.clear();
-    // console.log(this.dataSource);
-    // this.selectedIndex=event.index;
-    this.asifStateSelected = this.asifStates[event.index];
-    console.log('asifStateSelected',this.asifStateSelected);
-
-    // this.dataSource.load(this.asifStateSelected,this.accountSelected,new Pagination());
-
-    // console.log(this.selection);
-
-}
+ 
 
 }

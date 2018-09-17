@@ -13,9 +13,21 @@ namespace Budget.DATA.Repositories
         {
         }
 
+        public List<OperationTypeFamily> GetByIdMovement(int idMovement)
+        {
+            return Context.OperationTypeFamily
+                .Where(x => x.IdMovement == idMovement)
+                .ToList()
+                .OrderBy(x => x.Label)
+                .ToList();
+        }
+        
         public List<OperationTypeFamily> GetAllByOrder()
         {
-            return Context.OperationTypeFamily.ToList().OrderBy(x => x.Label).ToList();
+            return Context.OperationTypeFamily.ToList()
+                .OrderBy(x => x.IdMovement)
+                .ThenBy(x=>x.Label)
+                .ToList();
         }
 
         public List<GenericList> GetGenericList()

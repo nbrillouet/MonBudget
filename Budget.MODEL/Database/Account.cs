@@ -39,7 +39,12 @@ namespace Budget.MODEL.Database
         [Column("ALERT_THRESHOLD")]
         public double AlertThreshold { get; set; }
 
-        //public ICollection<AccountStatement> AccountStatements { get; set; }
+        public virtual List<UserAccount> UserAccounts { get; set; }
+
+        public Account()
+        {
+            UserAccounts = new List<UserAccount>();
+        }
     }
 
     public enum EnumAccount

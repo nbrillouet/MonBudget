@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Budget.API.Dtos;
 using Budget.MODEL;
 using AutoMapper;
+using Budget.MODEL.Dto;
 
 namespace Budget.API.Controllers
 {
@@ -48,7 +49,7 @@ namespace Budget.API.Controllers
         }
 
         [HttpPost()]
-        public async Task<IActionResult> AddShortcut(int idUser, [FromBody] ShortcutDto shortcutDto)
+        public async Task<IActionResult> AddShortcut(int idUser, [FromBody] UserShortcutDto shortcutDto)
         {
             // return Ok($"ok {idUser}");
             var user = await _userService.GetByIdAsync(idUser);
@@ -58,7 +59,7 @@ namespace Budget.API.Controllers
             var shortcut = new Shortcut();
             _mapper.Map(shortcutDto, shortcut);
             shortcut.IdUser = idUser;
-
+            shortcut.Icon = shortcut.Icon == "false" ? null : shortcut.Icon;
             shortcut = await _shortcutService.Create(shortcut);
 
             return Ok(shortcut);

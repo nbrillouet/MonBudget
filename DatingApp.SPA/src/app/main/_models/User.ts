@@ -1,6 +1,6 @@
 import { IShortcut } from "./Shortcut";
 
-export interface User {
+export interface IUser {
     id: number;
     userName: string;
     lastName: string;
@@ -9,10 +9,12 @@ export interface User {
     age: number;
     dateCreated: Date;
     dateLastActive: Date;
-
-    country: string;
-    city: string;
-    postalCode: number;
+    dateOfBirth: Date;
+    idGMapAddress : number;
+    IdAvatarCloud : string;
+    // country: string;
+    // city: string;
+    // postalCode: number;
     avatarUrl: string;
     shortcuts: IShortcut[];
 

@@ -15,6 +15,9 @@ using System.Text;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using Budget.MODEL.Filter;
+using System.Security.Claims;
+
+//var toto = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
 namespace Budget.API.Controllers
 {
@@ -68,12 +71,63 @@ namespace Budget.API.Controllers
             filter.IdAsifState = idAsifState;
 
             var accountStatementImportFiles = await _accountStatementImportFileService.GetAsync(filter);
-            var asiDto = _mapper.Map<IEnumerable<AccountStatementImportFileDto>>(accountStatementImportFiles);
+            var asifGridDto = _mapper.Map<IEnumerable<AsifGridDto>>(accountStatementImportFiles);
             Response.AddPagination(accountStatementImportFiles.CurrentPage, accountStatementImportFiles.PageSize, accountStatementImportFiles.TotalCount, accountStatementImportFiles.TotalPages);
 
-            return Ok(asiDto);
+            return Ok(asifGridDto);
 
         }
+
+
+        [HttpGet]
+        [Route("{id}/detail")]
+        public async Task<IActionResult> GetById(int id)
+        {
+
+            var asifDto = await _accountStatementImportFileService.GetForDetailByIdAsync(id);
+            
+            return Ok(asifDto);
+        }
+
+        [HttpPost]
+        [Route("update")]
+        public IActionResult update([FromBody] AsifDetailDto asifDetailDto)
+        {
+            var result = _accountStatementImportFileService.Update(asifDetailDto);
+
+            return Ok(result);
+        }
+
+
+
+        [HttpGet]
+        [Route("imports/{idImport}/SaveInAccountStatement")]
+        public IActionResult SaveInAccountStatement(int idImport)
+        {
+            try
+            {
+                var result = _accountStatementImportFileService.SaveInAccountStatement(idImport);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                //throw new Exception(e.Message);
+                return BadRequest(e.Message);
+            }
+
+        }
+
+        [HttpGet]
+        [Route("imports/{idImport}/IsSaveableInAccountStatement")]
+        public IActionResult IsSaveableInAccountStatement(int idImport)
+        {
+            var result = _accountStatementImportFileService.IsSaveableInAccountStatement(idImport);
+
+            return Ok(result);
+        }
+
+
+
 
         //[HttpGet]
         //[Route("user/{idUser}")]
@@ -136,5 +190,7 @@ namespace Budget.API.Controllers
         //    return Ok(results);
         //}
     }
+
+    
 }
 

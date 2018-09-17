@@ -1,10 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { User } from '../../../../_models/User';
+import { IUser } from '../../../../_models/User';
 import { IAsifGroupByAccounts } from '../../../../_models/AccountStatementImportFile';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from '../../../../../../environments/environment';
 import { AuthService } from '../../../../_services/auth.service';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '../../../../../core/animations';
 
@@ -16,7 +15,7 @@ import { fuseAnimations } from '../../../../../core/animations';
 })
 export class ImportStatementUploadComponent implements OnInit {
 
-  @Input() user: User;
+  @Input() user: IUser;
   @Output() fileInProgress = new EventEmitter<boolean>();
   @Output() fileError= new EventEmitter<boolean>();
   @Output() fileSuccess= new EventEmitter<boolean>();
@@ -35,9 +34,7 @@ export class ImportStatementUploadComponent implements OnInit {
     this.fileInProgress.emit(false);
     this.fileError.emit(false);
     this.fileSuccess.emit(false);
-
     this.initializeUploader();
-    
   }
 
   public fileOverBase(e: any): void {
@@ -64,7 +61,6 @@ export class ImportStatementUploadComponent implements OnInit {
    
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
-        // const res: IAsifsAccount = JSON.parse(response);
         let toto : IAsifGroupByAccounts = <IAsifGroupByAccounts>JSON.parse(response);
 
         // this.user.avatarUrl = res.avatarUrl;
@@ -84,23 +80,9 @@ export class ImportStatementUploadComponent implements OnInit {
       
     }
 
-    
-
     this.uploader.onWhenAddingFileFailed = (item: any, filter: any, options: any) => {
-      
       this.notificationService.error('Type de fichier incorrect', 'Le fichier doit être de type .csv');
-      
-
-      console.log(item);
-      console.log(filter);
-      console.log(options);
-      // todo: show alert that you tried uploading wrong files
     };
-
-    // this.uploader.onAfterAddingFile = (fileItem) => { 
-    //   this.fileIsDropped.emit('true');
-    //   console.log('file added');
-    // }
 
     this.uploader.onProgressAll = (fileItem) => {
       this.fileInProgress.emit(true);
@@ -117,40 +99,26 @@ export class ImportStatementUploadComponent implements OnInit {
     this.uploader.onErrorItem = ((item, response, status, headers):any => {
       this.fileError.emit(true);
       this.fileInProgress.emit(false);
-      
-      console.log('error');
-      // console.log(item);
-      // console.log(response);
-      // console.log(status);
-      // console.log(headers);
-      var toto = this.handleError(response);
-      console.log("toto: " +  toto);
-      this.notificationService.error('Erreur', toto);
+      var error = this.handleError(response);
+      this.notificationService.error('Erreur', error);
       });
-
-    // this.uploader.onErrorItem
   }
 
-
   private handleError(error: any)
-    {
-        // const applicationError = error.headers.get('Application-Error');
-        // if(applicationError){
-        //     return Observable.throw(applicationError);
-        // }
-        const serverError = JSON.parse(error);
-        let modelStateErrors = '';
-        if(serverError) {
-            for(const key in serverError)
-            {
-                if(serverError[key]){
-                    modelStateErrors += serverError[key] + '\n';
-                }
-            }
-        }
+  {
+      const serverError = JSON.parse(error);
+      let modelStateErrors = '';
+      if(serverError) {
+          for(const key in serverError)
+          {
+              if(serverError[key]){
+                  modelStateErrors += serverError[key] + '\n';
+              }
+          }
+      }
 
-        return modelStateErrors;
+      return modelStateErrors;
 
-    }
+  }
 
 }

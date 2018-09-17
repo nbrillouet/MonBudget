@@ -11,21 +11,30 @@ namespace Budget.SERVICE
 {
     public interface IAccountStatementImportFileService
     {
-        string GetOperationWork(string operationLabel);
-        void Save(List<AccountStatementImportFile> accountStatementImportFiles);
-        int Save(AccountStatementImportFile accountStatementImportFile);
-        AccountStatementImportFile InitForImport();
+
         AccountStatementImportFile GetById(int IdAccountStatementImportFile);
-        List<string> GetDistinctAccountNumber(int idImport);
+        AccountStatementImportFile InitForImport();
         AsifGroupByAccounts GetListDto(int idImport);
         List<AsifState> GetAsifStates(int idImport, int idAccount);
+        Task<PagedList<AccountStatementImportFile>> GetAsync(FilterAccountStatementImportFile filter);
+        Task<AsifDetailDto> GetForDetailByIdAsync(int id);
+        string GetOperationWork(string operationLabel);
+
+        bool IsSaveableInAccountStatement(int idImport);
+
+        bool Update(AsifDetailDto asifDetailDto);
+        void Save(List<AccountStatementImportFile> accountStatementImportFiles);
+        bool SaveInAccountStatement(int idImport);
+
         //List<AccountStatementImportFile> GetAccountStatementImportFileFull(int IdImport, int idAccount);
         //List<AccountStatementImportFile> GetAccountStatementImportFileComplete(int IdImport, int idAccount);
         //List<AccountStatementImportFile> GetAccountStatementImportFileMethodLess(int IdImport, int idAccount);
         //List<AccountStatementImportFile> GetAccountStatementImportFileOperationLess(int IdImport, int idAccount);
-        bool HasAccountStatementImportFileWihoutPlace(int IdImport, int idAccount);
-        Task<PagedList<AccountStatementImportFile>> GetAsync(FilterAccountStatementImportFile filter);
-        
+        //bool HasAccountStatementImportFileWihoutPlace(int IdImport, int idAccount);
+        //string GetOperationWork(string operationLabel);
+        //
+        //int Save(AccountStatementImportFile accountStatementImportFile);
+        //List<string> GetDistinctAccountNumber(int idImport);
 
 
     }

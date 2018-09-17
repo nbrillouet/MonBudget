@@ -6,8 +6,9 @@
 
   <!-- CENTER -->
   <div class="center">
-
-      <!-- HEADER -->
+    <form name="userForm" [formGroup]="userForm" class="product w-100-p" fxLayout="column" fxFlex>
+        <div *ngIf='userForm'>
+        <!-- HEADER -->
       <div class="header white-fg" fxLayout="row" fxLayoutAlign="space-between center">
 
           <!-- APP TITLE -->
@@ -44,10 +45,11 @@
               <span>ADD</span>
           </button> -->
 
+          <!-- (click)="updateUser()" -->
           <button mat-raised-button
                   class="save-product-button mat-white-bg mt-16 mt-sm-0"
                   [disabled]="userForm.invalid || userForm.pristine"
-                  *ngIf="pageType ==='edit'" (click)="saveUser()">
+                  *ngIf="pageType ==='edit'" (click)="updateUser(userForm)">
               <span>SAVE</span>
           </button>
       </div>
@@ -58,31 +60,13 @@
 
           <!-- CONTENT -->
           <div class="content">
-            <div *ngIf='userForm'>
-                <form name="userForm" [formGroup]="userForm" class="product w-100-p" fxLayout="column" fxFlex>
+            
+                
                 
                     <mat-tab-group>
 
-                      <mat-tab label="Basic Info">
+                      <mat-tab label="Généralité">
                           <div class="tab-content p-24" fusePerfectScrollbar>
-                            
-                            <!-- <mat-card class="avatar-card">
-                                <mat-card-header>
-                                    <mat-card-title>Avatar</mat-card-title>
-                                </mat-card-header>
-                                
-                                <mat-card-content>
-                                
-                                </mat-card-content> -->
-
-                                    
-
-                                <!-- <mat-card-actions>
-                                    <button mat-button>LIKE</button>
-                                    <button mat-button>SHARE</button>
-                                </mat-card-actions> -->
-                            <!-- </mat-card> -->
-                            
                                     
                             <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
                                 <mat-icon class="mr-12 mt-12">account_circle</mat-icon>
@@ -95,72 +79,107 @@
                                 </mat-form-field>
                             </div>
                             
+                            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                                <mat-icon class="mr-12 mt-12">account_circle</mat-icon>
+                                <mat-form-field class="w-100-p">
+                                    <input matInput
+                                            name="firstName"
+                                            formControlName="firstName"
+                                            placeholder="Nom"
+                                            required>
+                                </mat-form-field>
+                            </div>
                             
+                            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                                <mat-icon class="mr-12 mt-12">account_circle</mat-icon>
+                                <mat-form-field class="w-100-p">
+                                    <input matInput
+                                            name="lastName"
+                                            formControlName="lastName"
+                                            placeholder="Prénom"
+                                            required>
+                                </mat-form-field>
+                            </div>
 
-                              <!-- <mat-form-field class="w-100-p">
-                                  <textarea matInput
-                                            name="description"
-                                            formControlName="description"
-                                            placeholder="Product Description"
-                                            rows="5">
-                                  </textarea>
-                              </mat-form-field>
+                            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                                <mat-icon class="mr-12 mt-12">cake</mat-icon>
+                                <mat-form-field class="w-100-p">
+                                    <input class="mini-input" matInput [matDatepicker]="dateOfBirth" formControlName="dateOfBirth" placeholder="Date de naissance"> 
+                                    <mat-datepicker-toggle matSuffix [for]="dateOfBirth"></mat-datepicker-toggle>
+                                    <mat-datepicker #dateOfBirth></mat-datepicker>
+                                </mat-form-field>
+                                
+                                <div style="width:10%"></div>
+                                
+                                <mat-icon class="mr-12 mt-12">cake</mat-icon>
+                                <mat-form-field class="w-100-p">
+                                    <input matInput
+                                            name="age"
+                                            formControlName="age"
+                                            placeholder="Age">
+                                </mat-form-field>
+                            </div>
 
-                              <h3 class="mb-0">Categories</h3>
-                              <mat-form-field class="w-100-p" floatPlaceholder="never">
-                                  <mat-chip-list matPrefix #categoryList
-                                                 name="categories"
-                                                 formControlName="categories">
+                            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                                <mat-icon class="mr-12 mt-12">calendar_today</mat-icon>
+                                <mat-form-field class="w-100-p">
+                                    <input matInput
+                                            name="dateCreated"
+                                            formControlName="dateCreated"
+                                            placeholder="Date de création"
+                                            required>
+                                </mat-form-field>
 
-                                      <mat-chip *ngFor="let category of product.categories"
-                                                removable="true" (removed)="product.removeCategory(category)">
-                                          {{category}}
-                                          <mat-icon matChipRemove>cancel</mat-icon>
-                                      </mat-chip>
-                                  </mat-chip-list>
-                                  <input matInput
-                                         matChipInputAddOnBlur="true"
-                                         (matChipInputTokenEnd)="product.addCategory($event)"
-                                         placeholder="Add category..."
-                                         [matChipInputFor]="categoryList"/>
-                              </mat-form-field>
+                                <div style="width:10%"></div>
 
-                              <h3 class="mb-0">Tags</h3>
-                              <mat-form-field class="w-100-p" floatPlaceholder="never">
-                                  <mat-chip-list matPrefix #tagList
-                                                 name="tags"
-                                                 formControlName="tags">
+                                <mat-icon class="mr-12 mt-12" >calendar_today</mat-icon>
+                                <mat-form-field class="w-100-p" >
+                                    <input matInput
+                                            name="dateLastActive"
+                                            formControlName="dateLastActive"
+                                            placeholder="Date de dernière activité"
+                                            required>
+                                </mat-form-field>
+                            </div>
 
-                                      <mat-chip *ngFor="let tag of product.tags"
-                                                removable="true" (removed)="product.removeTag(tag)">
-                                          {{tag}}
-                                          <mat-icon matChipRemove>cancel</mat-icon>
-                                      </mat-chip>
-                                  </mat-chip-list>
-                                  <input matInput
-                                         matChipInputAddOnBlur="true"
-                                         (matChipInputTokenEnd)="product.addTag($event)"
-                                         placeholder="Add tag..."
-                                         [matChipInputFor]="tagList"/>
-                              </mat-form-field> -->
+                            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                                <!-- <mat-icon class="mr-12 mt-12">cake</mat-icon> -->
+                                
+                            </div>
                           </div>
                       </mat-tab>
+
+                      <mat-tab label="Adresse">
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+                            <g-map-search *ngIf="gMapSearchInfo" [gMapSearchInfo]="gMapSearchInfo" (changeGMapAddress)="onChangeGMapAddress($event)"></g-map-search>
+                        
+                            <mat-form-field class="w-0-p" [hidden]=true>
+                                <input matInput
+                                        name="idGMapAddress"
+                                        formControlName="idGMapAddress"
+                                        placeholder="idGMapAddress"
+                                        
+                                        >
+                            </mat-form-field>
+                        </div>
+                    </mat-tab>
+
                       <mat-tab label="Avatar">
-                        <mat-card class="avatar-card">
-                            <mat-card-content>
+                        <!-- <mat-card class="avatar-card">
+                            <mat-card-content> -->
+                            <div class="avatar-card">
                                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                                    <div class="avatar-image" fxFlex="50">
-                                        <img mat-card-image *ngIf="avatarUrl" src="{{avatarUrl}}" alt="{{user.userName}}">
-                                        <!-- <img mat-card-image *ngIf="!user.avatarUrl" [src]="'assets/images/avatars/profile.jpg'"> -->
-                                    </div>
                                     <div fxFlex="50">
                                         <avatar-editor [user]="user" (getUserAvatarChange)="updateUserAvatar($event)"></avatar-editor>
-                                    
-                                        
                                     </div>
+                                    <div class="avatar-image" fxFlex="50">
+                                        <img mat-card-image *ngIf="avatarUrl" src="{{avatarUrl}}" alt="{{user.userName}}">
+                                    </div>
+                                    
                                 </div> 
-                            </mat-card-content>
-                        </mat-card>
+                            </div>
+                            <!-- </mat-card-content> -->
+                        <!-- </mat-card> -->
                       </mat-tab>
 
 
@@ -285,14 +304,16 @@
                       </mat-tab> -->
 
                   </mat-tab-group>
-              </form>
-            </div>
+              
+
           </div>
           <!-- / CONTENT -->
 
       </div>
       <!-- / CONTENT CARD -->
-
+      </div>
+    </form>
   </div>
+
   <!-- / CENTER -->
 </div>

@@ -9,6 +9,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Dtos\Account\**" />
+    <Content Remove="Dtos\Account\**" />
+    <EmbeddedResource Remove="Dtos\Account\**" />
+    <None Remove="Dtos\Account\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Dtos\ShortcutDto.cs" />
+    <Compile Remove="Dtos\UserForAvatarCreationDto.cs" />
+    <Compile Remove="Dtos\UserForDetailedDto.cs" />
+    <Compile Remove="Dtos\UserForListDto.cs" />
+    <Compile Remove="Dtos\UserForLoginDto.cs" />
+    <Compile Remove="Dtos\UserForRegisterDto.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

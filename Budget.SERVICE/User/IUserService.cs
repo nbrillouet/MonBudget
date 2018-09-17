@@ -1,4 +1,6 @@
 ﻿using Budget.MODEL;
+using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +14,10 @@ namespace Budget.SERVICE
 
         Task<List<User>> GetAllAsync();
         Task<PagedList<User>> GetUsers(Pagination userParams);
+        void Update(UserForDetailDto entity);
         void Update(User entity);
+
+        List<BankAccountsDto> GetBanks(int idUser);
 
     }
 }

@@ -27,6 +27,13 @@ import { AuthService } from './main/_services/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { UserDetailResolver } from './main/content/apps/user/user-detail/user-detail.resolver';
 import { DialogGuardComponent } from './_guards/dialog-guard.component';
+import { ReferentialService } from './main/_services/referential.service';
+import { DatePipe } from '@angular/common';
+import { ErrorService } from './main/_services/error.service';
+import { GoogleMapService } from './main/_services/google-map.service';
+import { NavigationService } from './main/_services/navigation.service';
+import { OperationTypeFamilyService } from './main/_services/Referential/operation-type-family.service';
+import { OperationTypeService } from './main/_services/Referential/operation-type.service';
 
 // .main/content/pages/login/login
 const appRoutes: Routes = [
@@ -65,19 +72,26 @@ const appRoutes: Routes = [
         LoginModule,
         RegisterModule,
         HttpModule,
-        AuthModule      
+        AuthModule
     ],
     providers   : [
         AuthGuard,
         AuthService,
+        ErrorService,
+        GoogleMapService,
         FuseSplashScreenService,
         FuseConfigService,
         FuseNavigationService,
+        ReferentialService,
+        OperationTypeFamilyService,
+        OperationTypeService,
+        NavigationService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: JwtInterceptor,
             multi: true
         },
+        DatePipe,
         UserDetailResolver
     ],
     bootstrap   : [

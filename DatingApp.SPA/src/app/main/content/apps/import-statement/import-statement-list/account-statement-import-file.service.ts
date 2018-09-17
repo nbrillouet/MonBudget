@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../../../environments/environment';
 import { PaginatedResult, Pagination } from '../../../../_models/IPagination';
-import { IAsifState, IAccountStatementImportFile } from '../../../../_models/AccountStatementImportFile';
+import { IAsifState } from '../../../../_models/AccountStatementImportFile';
 import { AuthHttp } from 'angular2-jwt';
 import { IAccount } from '../../../../_models/Account';
 import { Observable } from 'rxjs/Observable';
-import { User } from '../../../../_models/User';
+import { IUser } from '../../../../_models/User';
 
 @Injectable()
 export class AccountStatementImportFileService {
@@ -14,7 +14,7 @@ baseUrl = environment.apiUrl;
 constructor(private authHttp: AuthHttp) { }
 
     get(idImport: number, asifStateSelected: IAsifState,accountSelected: IAccount, pagination: Pagination) {
-        const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
+        const paginatedResult: PaginatedResult<IUser[]> = new PaginatedResult<IUser[]>();
         let queryString = '?';
 
         if(pagination.currentPage !=null && pagination.itemsPerPage !=null)

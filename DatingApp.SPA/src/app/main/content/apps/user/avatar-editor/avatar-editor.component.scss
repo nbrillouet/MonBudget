@@ -1,0 +1,54 @@
+/* .drop-zone { border: dotted 3px lightgray;min-height:100px; }
+.nv-file-over { border: dotted 3px red; } //Default class applied to drop zones on over */
+
+
+@import "src/app/core/scss/fuse";
+
+.header-upload {
+    // position: relative;
+    height: 75px;
+    min-height: 75px;
+    max-height: 75px;
+    width:100%;
+    position:relative;
+
+    @include media-breakpoint-down('sm') {
+        height: 75px;
+        min-height: 75px;
+        max-height: 75px;
+    }
+
+    .add-file-button {
+        position: absolute;
+        bottom: 15px;
+        right: 225px;
+        z-index: 998;
+    }
+
+    .drop-zone { 
+        bottom: 70px;
+        border: dotted 3px #2094C8;
+        background-color: #37ABDF;
+        right:-30px;
+        min-height:100px;
+        min-width:200px;
+        color:white;
+    }
+    .nv-file-over { border: dotted 3px #F44336; } /* Default class applied to drop zones on over */
+
+    .file-upload-info {
+        position: absolute;
+        text-align:right;
+        bottom: 0px;
+        left: -200px;
+        min-height: 75px;
+        max-height: 75px;
+        min-width:600px;
+
+    }
+
+    
+}
+
+
+

@@ -1,5 +1,7 @@
 import { IAccount } from "./Account";
 import { ISelect } from "./Select";
+import { IGMapAddress } from "./GMap";
+import { IOperationDetail } from "./operation-detail.model";
 
 export interface IAsifGroupByAccounts {
     accounts : IAccount[],
@@ -11,27 +13,52 @@ export interface IAsifState {
     label : string
 }
 
-export interface IAccountStatementImportFile {
+export interface IAsifGrid {
+    // id: number;
+    // operation : ISelect;
+    // operationMethod: ISelect;
+    // operationType: ISelect;
+    // operationTypeFamily: ISelect;
+    // operationPlace: ISelect;
+    // amountOperation : number;
     id: number;
     operation : ISelect;
     operationMethod: ISelect;
     operationType: ISelect;
     operationTypeFamily: ISelect;
-    operationPlace: ISelect;
+    // operationPlace: ISelect;
     amountOperation : number;
+    labelOperation: string;
+    dateIntegration: Date;
+    idDuplicated: boolean;
 }
 
-// export interface IAccountStatementImport {
-//     id : number;
-//     idUser : number;
-//     // User : User 
-//     idBank : number;
-//     // Bank : Bank 
-//     fileImport : string;
-//     dateImport : Date;
+// export interface IAsifDetail extends IAsifGrid {
+//     idMovement: number;
+//     operationKeywordTemp: string;
 // }
 
-// export interface IAsifsAccount {
-    
-    
+// export class AsifGrid {
+//     id: number;
+//     operation : ISelect;
+//     operationMethod: ISelect;
+//     operationType: ISelect;
+//     operationTypeFamily: ISelect;
+//     operationPlace: ISelect;
+//     amountOperation : number;
+//     labelOperation: string;
+//     dateIntegration: Date;
+
 // }
+
+export interface IAsifDetail extends IAsifGrid {
+    idMovement: number;
+    logoName: string;
+    operationKeywordTemp: string;
+    operationLabelTemp: string;
+    placeLabelTemp: string;
+    placeKeywordTemp: string;
+    isLocalisable: boolean;
+    operationDetail: IOperationDetail;
+    // gMapAddress: IGMapAddress;
+}

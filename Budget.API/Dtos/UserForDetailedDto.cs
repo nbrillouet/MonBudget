@@ -21,5 +21,6 @@ namespace Budget.API.Dtos
         public int PostalCode { get; set; }
         public string AvatarUrl { get; set; }
         public List<ShortcutDto> Shortcuts { get; set; }
+        public List<AccountDto> Accounts { get; set; }
     }
 }

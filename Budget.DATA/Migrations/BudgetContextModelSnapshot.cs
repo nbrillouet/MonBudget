@@ -132,7 +132,7 @@ namespace Budget.DATA.Migrations
                     b.Property<DateTime?>("DateOperation")
                         .HasColumnName("DATE_OPERATION");
 
-                    b.Property<int?>("IdAccount")
+                    b.Property<int>("IdAccount")
                         .HasColumnName("ID_ACCOUNT");
 
                     b.Property<int>("IdImport")
@@ -141,19 +141,19 @@ namespace Budget.DATA.Migrations
                     b.Property<int>("IdMovement")
                         .HasColumnName("ID_MOVEMENT");
 
-                    b.Property<int?>("IdOperation")
+                    b.Property<int>("IdOperation")
                         .HasColumnName("ID_OPERATION");
 
-                    b.Property<int?>("IdOperationMethod")
+                    b.Property<int>("IdOperationDetail")
+                        .HasColumnName("ID_OPERATION_DETAIL");
+
+                    b.Property<int>("IdOperationMethod")
                         .HasColumnName("ID_OPERATION_METHOD");
 
-                    b.Property<int?>("IdOperationPlace")
-                        .HasColumnName("ID_OPERATION_PLACE");
-
-                    b.Property<int?>("IdOperationType")
+                    b.Property<int>("IdOperationType")
                         .HasColumnName("ID_OPERATION_TYPE");
 
-                    b.Property<int?>("IdOperationTypeFamily")
+                    b.Property<int>("IdOperationTypeFamily")
                         .HasColumnName("ID_OPERATION_TYPE_FAMILY");
 
                     b.Property<string>("LabelOperation")
@@ -172,9 +172,9 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdOperation");
 
-                    b.HasIndex("IdOperationMethod");
+                    b.HasIndex("IdOperationDetail");
 
-                    b.HasIndex("IdOperationPlace");
+                    b.HasIndex("IdOperationMethod");
 
                     b.HasIndex("IdOperationType");
 
@@ -226,7 +226,7 @@ namespace Budget.DATA.Migrations
                     b.Property<DateTime?>("DateOperation")
                         .HasColumnName("DATE_OPERATION");
 
-                    b.Property<int>("EnumAccountStatementImportFileState")
+                    b.Property<int>("EnumAsifState")
                         .HasColumnName("STATE");
 
                     b.Property<int?>("IdAccount")
@@ -241,11 +241,11 @@ namespace Budget.DATA.Migrations
                     b.Property<int?>("IdOperation")
                         .HasColumnName("ID_OPERATION");
 
+                    b.Property<int?>("IdOperationDetail")
+                        .HasColumnName("ID_OPERATION_DETAIL");
+
                     b.Property<int?>("IdOperationMethod")
                         .HasColumnName("ID_OPERATION_METHOD");
-
-                    b.Property<int?>("IdOperationPlace")
-                        .HasColumnName("ID_OPERATION_PLACE");
 
                     b.Property<int?>("IdOperationType")
                         .HasColumnName("ID_OPERATION_TYPE");
@@ -270,17 +270,16 @@ namespace Budget.DATA.Migrations
                     b.Property<string>("OperationLabelTemp")
                         .HasColumnName("OPERATION_LABEL_TEMP");
 
-                    b.Property<string>("OperationPlaceCityTemp")
-                        .HasColumnName("OPERATION_PLACE_CITY_TEMP");
-
-                    b.Property<string>("OperationPlaceDepartmentTemp")
-                        .HasColumnName("OPERATION_PLACE_DEPARTMENT_TEMP");
-
-                    b.Property<string>("OperationPlaceKeywordTemp")
-                        .HasColumnName("OPERATION_PLACE_KEYWORD_TEMP");
-
                     b.Property<string>("OperationReferenceTemp")
                         .HasColumnName("OPERATION_REFERENCE_TEMP");
+
+                    b.Property<string>("PlaceKeywordTemp")
+                        .HasColumnName("PLACE_KEYWORD_TEMP")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("PlaceLabelTemp")
+                        .HasColumnName("PLACE_LABEL_TEMP")
+                        .HasMaxLength(500);
 
                     b.Property<string>("Reference")
                         .HasColumnName("REFERENCE")
@@ -294,9 +293,9 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdOperation");
 
-                    b.HasIndex("IdOperationMethod");
+                    b.HasIndex("IdOperationDetail");
 
-                    b.HasIndex("IdOperationPlace");
+                    b.HasIndex("IdOperationMethod");
 
                     b.HasIndex("IdOperationType");
 
@@ -343,6 +342,263 @@ namespace Budget.DATA.Migrations
                     b.ToTable("BANK_FILE_DEFINITION");
                 });
 
+            modelBuilder.Entity("Budget.MODEL.Database.GMapAddress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("FormattedAddress")
+                        .IsRequired()
+                        .HasColumnName("FORMATTED_ADDRESS");
+
+                    b.Property<double>("Lat")
+                        .HasColumnName("LAT");
+
+                    b.Property<double>("Lng")
+                        .HasColumnName("LNG");
+
+                    b.Property<int>("idGMapAdministrativeAreaLevel1")
+                        .HasColumnName("ID_GMAP_ADMINISTRATIVE_AREA_LEVEL_1");
+
+                    b.Property<int>("idGMapAdministrativeAreaLevel2")
+                        .HasColumnName("ID_GMAP_ADMINISTRATIVE_AREA_LEVEL_2");
+
+                    b.Property<int>("idGMapCountry")
+                        .HasColumnName("ID_GMAP_COUNTRY");
+
+                    b.Property<int>("idGMapLocality")
+                        .HasColumnName("ID_GMAP_LOCALITY");
+
+                    b.Property<int>("idGMapNeighborhood")
+                        .HasColumnName("ID_GMAP_NEIGHBORHOOD");
+
+                    b.Property<int>("idGMapPostalCode")
+                        .HasColumnName("ID_GMAP_POSTAL_CODE");
+
+                    b.Property<int>("idGMapRoute")
+                        .HasColumnName("ID_GMAP_ROUTE");
+
+                    b.Property<int>("idGMapStreetNumber")
+                        .HasColumnName("ID_GMAP_STREET_NUMBER");
+
+                    b.Property<int>("idGMapSublocalityLevel1")
+                        .HasColumnName("ID_GMAP_SUBLOCALITY_LEVEL_1");
+
+                    b.Property<int>("idGMapSublocalityLevel2")
+                        .HasColumnName("ID_GMAP_SUBLOCALITY_LEVEL_2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("idGMapAdministrativeAreaLevel1");
+
+                    b.HasIndex("idGMapAdministrativeAreaLevel2");
+
+                    b.HasIndex("idGMapCountry");
+
+                    b.HasIndex("idGMapLocality");
+
+                    b.HasIndex("idGMapNeighborhood");
+
+                    b.HasIndex("idGMapPostalCode");
+
+                    b.HasIndex("idGMapRoute");
+
+                    b.HasIndex("idGMapStreetNumber");
+
+                    b.HasIndex("idGMapSublocalityLevel1");
+
+                    b.HasIndex("idGMapSublocalityLevel2");
+
+                    b.ToTable("GMAP_ADDRESS");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.GMapAddressType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<int>("IdGMapAddress")
+                        .HasColumnName("ID_GMAP_ADDRESS");
+
+                    b.Property<int>("IdGMapType")
+                        .HasColumnName("ID_GMAP_TYPE");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdGMapAddress");
+
+                    b.HasIndex("IdGMapType");
+
+                    b.ToTable("GMAP_ADDRESS_TYPE");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.GMapAdministrativeAreaLevel1", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnName("LABEL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GMAP_ADMINISTRATIVE_AREA_LEVEL_1");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.GMapAdministrativeAreaLevel2", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnName("LABEL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GMAP_ADMINISTRATIVE_AREA_LEVEL_2");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.GMapCountry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnName("LABEL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GMAP_COUNTRY");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.GMapLocality", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnName("LABEL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GMAP_LOCALITY");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.GMapNeighborhood", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnName("LABEL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GMAP_NEIGHBORHOOD");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.GMapPostalCode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnName("LABEL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GMAP_POSTAL_CODE");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.GMapRoute", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnName("LABEL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GMAP_ROUTE");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.GMapStreetNumber", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnName("LABEL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GMAP_STREET_NUMBER");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.GMapSublocalityLevel1", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnName("LABEL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GMAP_SUBLOCALITY_LEVEL_1");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.GMapSublocalityLevel2", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnName("LABEL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GMAP_SUBLOCALITY_LEVEL_2");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.GMapType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnName("LABEL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GMAP_TYPE");
+                });
+
             modelBuilder.Entity("Budget.MODEL.Database.Operation", b =>
                 {
                     b.Property<int>("Id")
@@ -354,11 +610,6 @@ namespace Budget.DATA.Migrations
 
                     b.Property<int>("IdOperationType")
                         .HasColumnName("ID_OPERATION_TYPE");
-
-                    b.Property<string>("Keyword")
-                        .IsRequired()
-                        .HasColumnName("KEYWORD")
-                        .HasMaxLength(255);
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -375,15 +626,38 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdOperationType");
 
-                    b.HasIndex("Keyword")
+                    b.HasIndex("Label", "IdOperationMethod", "IdOperationType")
                         .IsUnique()
-                        .HasName("IX_OperationKeyword");
-
-                    b.HasIndex("Label")
-                        .IsUnique()
-                        .HasName("IX_OperationLabel");
+                        .HasName("IX_OperationKey");
 
                     b.ToTable("OPERATION");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.OperationDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<int>("IdGMapAddress")
+                        .HasColumnName("ID_GMAP_ADDRESS");
+
+                    b.Property<int>("IdOperation")
+                        .HasColumnName("ID_OPERATION");
+
+                    b.Property<string>("KeywordOperation")
+                        .HasColumnName("KEYWORD_OPERATION");
+
+                    b.Property<string>("KeywordPlace")
+                        .HasColumnName("KEYWORD_PLACE");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdGMapAddress");
+
+                    b.HasIndex("IdOperation");
+
+                    b.ToTable("OPERATION_DETAIL");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.OperationMethod", b =>
@@ -427,29 +701,6 @@ namespace Budget.DATA.Migrations
                     b.HasIndex("IdOperationMethod");
 
                     b.ToTable("OPERATION_METHOD_LEXICAL");
-                });
-
-            modelBuilder.Entity("Budget.MODEL.Database.OperationPlace", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
-
-                    b.Property<string>("City")
-                        .HasColumnName("CITY")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("Department")
-                        .HasColumnName("DEPARTMENT")
-                        .HasMaxLength(10);
-
-                    b.Property<string>("Keyword")
-                        .HasColumnName("KEYWORD")
-                        .HasMaxLength(60);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OPERATION_PLACE");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.OperationType", b =>
@@ -518,6 +769,27 @@ namespace Budget.DATA.Migrations
                     b.ToTable("PARAMETER");
                 });
 
+            modelBuilder.Entity("Budget.MODEL.Database.UserAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<int>("IdAccount")
+                        .HasColumnName("ID_ACCOUNT");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnName("ID_USER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdAccount");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("USER_ACCOUNT");
+                });
+
             modelBuilder.Entity("Budget.MODEL.Shortcut", b =>
                 {
                     b.Property<int>("Id")
@@ -555,12 +827,6 @@ namespace Budget.DATA.Migrations
                     b.Property<string>("AvatarUrl")
                         .HasColumnName("AVATAR_URL");
 
-                    b.Property<string>("City")
-                        .HasColumnName("CITY");
-
-                    b.Property<string>("Country")
-                        .HasColumnName("COUNTRY");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnName("CREATION_DATE");
 
@@ -579,6 +845,9 @@ namespace Budget.DATA.Migrations
                     b.Property<string>("IdAvatarCloud")
                         .HasColumnName("ID_AVATAR_CLOUD");
 
+                    b.Property<int?>("IdGMapAddress")
+                        .HasColumnName("ID_GMAP_ADDRESS");
+
                     b.Property<string>("LastName")
                         .HasColumnName("LAST_NAME");
 
@@ -588,13 +857,12 @@ namespace Budget.DATA.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnName("PASSWORD_SALT");
 
-                    b.Property<int>("PostalCode")
-                        .HasColumnName("POSTAL_CODE");
-
                     b.Property<string>("UserName")
                         .HasColumnName("USER_NAME");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdGMapAddress");
 
                     b.ToTable("USER");
                 });
@@ -607,7 +875,7 @@ namespace Budget.DATA.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Budget.MODEL.Bank", "Bank")
-                        .WithMany()
+                        .WithMany("Accounts")
                         .HasForeignKey("IdBank")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -616,7 +884,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.HasOne("Budget.MODEL.Database.Account", "Account")
                         .WithMany()
-                        .HasForeignKey("IdAccount");
+                        .HasForeignKey("IdAccount")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Budget.MODEL.Database.AccountStatementImport", "AccountStatementImport")
                         .WithMany()
@@ -625,19 +894,23 @@ namespace Budget.DATA.Migrations
 
                     b.HasOne("Budget.MODEL.Database.Operation", "Operation")
                         .WithMany()
-                        .HasForeignKey("IdOperation");
+                        .HasForeignKey("IdOperation")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.OperationDetail", "OperationDetail")
+                        .WithMany()
+                        .HasForeignKey("IdOperationDetail")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Budget.MODEL.Database.OperationMethod", "OperationMethod")
                         .WithMany()
-                        .HasForeignKey("IdOperationMethod");
-
-                    b.HasOne("Budget.MODEL.Database.OperationPlace", "OperationPlace")
-                        .WithMany()
-                        .HasForeignKey("IdOperationPlace");
+                        .HasForeignKey("IdOperationMethod")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Budget.MODEL.Database.OperationType", "OperationType")
                         .WithMany()
-                        .HasForeignKey("IdOperationType");
+                        .HasForeignKey("IdOperationType")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.AccountStatementImport", b =>
@@ -668,13 +941,13 @@ namespace Budget.DATA.Migrations
                         .WithMany()
                         .HasForeignKey("IdOperation");
 
+                    b.HasOne("Budget.MODEL.Database.OperationDetail", "OperationDetail")
+                        .WithMany()
+                        .HasForeignKey("IdOperationDetail");
+
                     b.HasOne("Budget.MODEL.Database.OperationMethod", "OperationMethod")
                         .WithMany()
                         .HasForeignKey("IdOperationMethod");
-
-                    b.HasOne("Budget.MODEL.Database.OperationPlace", "OperationPlace")
-                        .WithMany()
-                        .HasForeignKey("IdOperationPlace");
 
                     b.HasOne("Budget.MODEL.Database.OperationType", "OperationType")
                         .WithMany()
@@ -693,6 +966,72 @@ namespace Budget.DATA.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Budget.MODEL.Database.GMapAddress", b =>
+                {
+                    b.HasOne("Budget.MODEL.Database.GMapAdministrativeAreaLevel1", "gMapAdministrativeAreaLevel1")
+                        .WithMany()
+                        .HasForeignKey("idGMapAdministrativeAreaLevel1")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.GMapAdministrativeAreaLevel2", "gMapAdministrativeAreaLevel2")
+                        .WithMany()
+                        .HasForeignKey("idGMapAdministrativeAreaLevel2")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.GMapCountry", "gMapCountry")
+                        .WithMany()
+                        .HasForeignKey("idGMapCountry")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.GMapLocality", "gMapLocality")
+                        .WithMany()
+                        .HasForeignKey("idGMapLocality")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.GMapNeighborhood", "gMapNeighborhood")
+                        .WithMany()
+                        .HasForeignKey("idGMapNeighborhood")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.GMapPostalCode", "gMapPostalCode")
+                        .WithMany()
+                        .HasForeignKey("idGMapPostalCode")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.GMapRoute", "gMapRoute")
+                        .WithMany()
+                        .HasForeignKey("idGMapRoute")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.GMapStreetNumber", "gMapStreetNumber")
+                        .WithMany()
+                        .HasForeignKey("idGMapStreetNumber")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.GMapSublocalityLevel1", "gMapSublocalityLevel1")
+                        .WithMany()
+                        .HasForeignKey("idGMapSublocalityLevel1")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.GMapSublocalityLevel2", "gMapSublocalityLevel2")
+                        .WithMany()
+                        .HasForeignKey("idGMapSublocalityLevel2")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.GMapAddressType", b =>
+                {
+                    b.HasOne("Budget.MODEL.Database.GMapAddress", "GMapAddress")
+                        .WithMany()
+                        .HasForeignKey("IdGMapAddress")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.GMapType", "GMapType")
+                        .WithMany()
+                        .HasForeignKey("IdGMapType")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Budget.MODEL.Database.Operation", b =>
                 {
                     b.HasOne("Budget.MODEL.Database.OperationMethod", "OperationMethod")
@@ -703,6 +1042,19 @@ namespace Budget.DATA.Migrations
                     b.HasOne("Budget.MODEL.Database.OperationType", "OperationType")
                         .WithMany()
                         .HasForeignKey("IdOperationType")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.OperationDetail", b =>
+                {
+                    b.HasOne("Budget.MODEL.Database.GMapAddress", "GMapAddress")
+                        .WithMany()
+                        .HasForeignKey("IdGMapAddress")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.Operation", "Operation")
+                        .WithMany()
+                        .HasForeignKey("IdOperation")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -735,12 +1087,32 @@ namespace Budget.DATA.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Budget.MODEL.Database.UserAccount", b =>
+                {
+                    b.HasOne("Budget.MODEL.Database.Account", "Account")
+                        .WithMany("UserAccounts")
+                        .HasForeignKey("IdAccount")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.User", "User")
+                        .WithMany("UserAccounts")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Budget.MODEL.Shortcut", b =>
                 {
                     b.HasOne("Budget.MODEL.User", "User")
                         .WithMany("Shortcuts")
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Budget.MODEL.User", b =>
+                {
+                    b.HasOne("Budget.MODEL.Database.GMapAddress", "GMapAddress")
+                        .WithMany()
+                        .HasForeignKey("IdGMapAddress");
                 });
 #pragma warning restore 612, 618
         }

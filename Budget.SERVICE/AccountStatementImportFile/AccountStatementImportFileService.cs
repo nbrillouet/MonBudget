@@ -9,6 +9,7 @@ using System.Linq;
 using Budget.MODEL;
 using Budget.MODEL.Filter;
 using System.Threading.Tasks;
+using Budget.SERVICE.GMap;
 
 namespace Budget.SERVICE
 {
@@ -16,16 +17,78 @@ namespace Budget.SERVICE
     {
         private readonly IAccountStatementImportFileRepository _accountStatementImportFileRepository;
         private readonly IMapper _mapper;
-
         private readonly IAccountService _accountService;
+        private readonly IAccountStatementService _accountStatementService;
+        private readonly IOperationDetailService _operationDetailService;
+        private readonly IGMapAddressService _gMapAddressService;
+        private readonly IGMapAddressTypeService _gMapAddressTypeService;
+        private readonly IGMapTypeService _gMapTypeService;
+        
+
 
         public AccountStatementImportFileService(IAccountStatementImportFileRepository accountStatementImportFileRepository,
             IAccountService accountService,
-            IMapper mapper)
+            IMapper mapper,
+            IAccountStatementService accountStatementService,
+            IOperationDetailService operationDetailService,
+            IGMapAddressService gMapAddressService,
+            IGMapAddressTypeService gMapAddressTypeService,
+            IGMapTypeService gMapTypeService)
         {
             _accountStatementImportFileRepository = accountStatementImportFileRepository;
             _accountService = accountService;
             _mapper = mapper;
+            _accountStatementService = accountStatementService;
+            _operationDetailService = operationDetailService;
+            _gMapAddressService = gMapAddressService;
+            _gMapAddressTypeService = gMapAddressTypeService;
+            _gMapTypeService = gMapTypeService;
+        }
+
+        ///// <summary>
+        ///// Nettoie le label operation provenant d'un fichier
+        ///// </summary>
+        ///// <param name="operationLabel"></param>
+        ///// <returns></returns>
+        //public string GetOperationWork(string operationLabel)
+        //{
+        //    string trimOperationLabel = operationLabel.ToUpper();
+        //    trimOperationLabel = trimOperationLabel.Replace("'", "");
+        //    trimOperationLabel = trimOperationLabel.Replace("*", "");
+        //    trimOperationLabel = trimOperationLabel.Replace("-", "");
+        //    trimOperationLabel = trimOperationLabel.Replace("/", "");
+
+        //    return trimOperationLabel;
+        //}
+
+        public AccountStatementImportFile GetById(int IdAccountStatementImportFile)
+        {
+            return _accountStatementImportFileRepository.GetById(IdAccountStatementImportFile);
+        }
+        public List<string> GetDistinctAccountNumber(int idImport)
+        {
+            return _accountStatementImportFileRepository.GetDistinctAccountNumber(idImport);
+        }
+
+        public void Save(List<AccountStatementImportFile> accountStatementImportFiles)
+        {
+            _accountStatementImportFileRepository.Save(accountStatementImportFiles);
+        }
+
+        //public int Save(AccountStatementImportFile accountStatementImportFile)
+        //{
+
+        //    return _accountStatementImportFileRepository.Save(accountStatementImportFile);
+        //}
+
+        public AccountStatementImportFile InitForImport()
+        {
+            var accountStatementImportFile = new AccountStatementImportFile();
+            accountStatementImportFile.IdAccount = (int)EnumAccount.Inconnu;
+            accountStatementImportFile.IdOperation = (int)EnumOperation.Inconnu;
+            accountStatementImportFile.IdOperationMethod = (int)EnumOperationMethod.Inconnu;
+            accountStatementImportFile.IdOperationDetail = (int)EnumOperationMethod.Inconnu;
+            return accountStatementImportFile;
         }
 
         /// <summary>
@@ -42,35 +105,6 @@ namespace Budget.SERVICE
             trimOperationLabel = trimOperationLabel.Replace("/", "");
 
             return trimOperationLabel;
-        }
-        public AccountStatementImportFile GetById(int IdAccountStatementImportFile)
-        {
-            return _accountStatementImportFileRepository.GetById(IdAccountStatementImportFile);
-        }
-        public List<string> GetDistinctAccountNumber(int idImport)
-        {
-            return _accountStatementImportFileRepository.GetDistinctAccountNumber(idImport);
-        }
-        public void Save(List<AccountStatementImportFile> accountStatementImportFiles)
-        {
-
-            _accountStatementImportFileRepository.Save(accountStatementImportFiles);
-        }
-
-        public int Save(AccountStatementImportFile accountStatementImportFile)
-        {
-
-            return _accountStatementImportFileRepository.Save(accountStatementImportFile);
-        }
-
-        public AccountStatementImportFile InitForImport()
-        {
-            var accountStatementImportFile = new AccountStatementImportFile();
-            accountStatementImportFile.IdAccount = (int)EnumAccount.Inconnu;
-            accountStatementImportFile.IdOperation = (int)EnumOperation.Inconnu;
-            accountStatementImportFile.IdOperationMethod = (int)EnumOperationMethod.Inconnu;
-            accountStatementImportFile.IdOperationPlace = (int)EnumOperationPlace.Inconnu;
-            return accountStatementImportFile;
         }
 
         public AsifGroupByAccounts GetListDto(int idImport)
@@ -127,54 +161,155 @@ namespace Budget.SERVICE
             return _accountStatementImportFileRepository.GetAsync(filter);
         }
 
-        private AsifGroup DispatchAccountStatements(int idImport, int idAccount)
+        public async Task<AsifDetailDto> GetForDetailByIdAsync(int id)
         {
-            //List<AccountStatementImportFile> accountStatementImportFiles = _accountStatementImportFileService.GetById(idAccountStatementImport, idAccount);
-            AsifGroup asifGroup = new AsifGroup();
+            var accountStatementImportFile = await _accountStatementImportFileRepository.GetForDetailByIdAsync(id);
+            var asifDetailDto = _mapper.Map<AsifDetailDto>(accountStatementImportFile);
+            
+            //recherche de la gMapAddress
 
-            List<AccountStatementImportFile> asifs = GetAsifFull(idImport, idAccount);
-            asifGroup.AccountStatementsFull = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
-            //accountStatementImportViewModels.AccountStatementsFull.AccountStatementType = EnumAccountStatementType.Full;
+           // asifDetailDto.OperationDetail = accountStatementImportFile.OperationDetail; 
 
-            asifs = GetAsifComplete(idImport, idAccount);
-            asifGroup.AccountStatementsComplete = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
-            //accountStatementImportViewModels.AccountStatementsComplete.AccountStatementType = EnumAccountStatementType.Complete;
+            return asifDetailDto;
+        }
 
-            asifs = GetAsifMethodLess(idImport, idAccount);
-            asifGroup.AccountStatementsMethodLess = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
-            //accountStatementImportViewModels.AccountStatementsMethodLess.AccountStatementType = EnumAccountStatementType.MethodLess;
+        public bool SaveInAccountStatement(int idImport)
+        {
+            //Mise à jour des state et des duplicate
+            _accountStatementImportFileRepository.UpdateAsifStates(idImport);
 
-            asifs = GetAsifOperationLess(idImport, idAccount);
-            asifGroup.AccountStatementsOperationLess = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
-            //accountStatementImportViewModels.AccountStatementsOperationLess.AccountStatementType = EnumAccountStatementType.OperationLess;
+            //controler si tous les enregistrements sont complets
+            if (!IsSaveableInAccountStatement(idImport))
+                throw new Exception("Il existe des opérations en erreur dans le relevé");
 
-            return asifGroup;
+            //recuperer les accountStatementImportFiles
+            var accountStatementImportFiles = GetAsifsWithoutDuplicate(idImport);
+
+            //sauvegarder dans accountStatement
+            var accountStatements = _mapper.Map <IEnumerable<AccountStatement>>(accountStatementImportFiles).ToList();
+            return _accountStatementService.Save(accountStatements);
 
         }
 
-        private List<AccountStatementImportFile> GetAsifFull(int idImport, int idAccount)
+        /// <summary>
+        /// renvoie les lignes a sauvegarder dans accountStatement (pas de doublons)
+        /// </summary>
+        /// <param name="idImport"></param>
+        /// <returns></returns>
+        private List<AccountStatementImportFile> GetAsifsWithoutDuplicate(int idImport)
         {
-            return _accountStatementImportFileRepository.GetAsifFull(idImport, idAccount);
+            var accountStatementImports = _accountStatementImportFileRepository.GetAsifsWithoutDuplicate(idImport);
+
+            return accountStatementImports;
         }
 
-        private List<AccountStatementImportFile> GetAsifComplete(int idImport, int idAccount)
+        /// <summary>
+        /// controler si tous les enregistrements sont complets
+        /// </summary>
+        /// <param name="idImport"></param>
+        /// <returns></returns>
+        public bool IsSaveableInAccountStatement(int idImport)
         {
-            return _accountStatementImportFileRepository.GetAsifComplete(idImport, idAccount);
+            return _accountStatementImportFileRepository.IsAccountStatementSaveable(idImport);
         }
 
-        private List<AccountStatementImportFile> GetAsifMethodLess(int idImport, int idAccount)
+        public bool Update(AsifDetailDto asifDetailDto)
         {
-            return _accountStatementImportFileRepository.GetAsifMethodLess(idImport, idAccount);
-        }
+            //chargement du accountStatementFile
+            var asif = _accountStatementImportFileRepository.GetById(asifDetailDto.Id);
 
-        private List<AccountStatementImportFile> GetAsifOperationLess(int idImport, int idAccount)
-        {
-            return _accountStatementImportFileRepository.GetAsifOperationLess(idImport, idAccount);
-        }
+            //mise à jour des données
+            asif.AmountOperation = asifDetailDto.AmountOperation;
+            asif.DateIntegration = asifDetailDto.DateIntegration;
+            asif.LabelOperation = asifDetailDto.LabelOperation;
+            asif.IdOperation = asifDetailDto.Operation.Id;
+            asif.IdOperationMethod = asifDetailDto.OperationMethod.Id;
+            asif.IdOperationType = asifDetailDto.OperationType.Id;
+            asif.IdOperationTypeFamily = asifDetailDto.OperationTypeFamily.Id;
 
-        public bool HasAccountStatementImportFileWihoutPlace(int IdImport, int idAccount)
-        {
-            return _accountStatementImportFileRepository.HasAccountStatementImportFileWihoutPlace(IdImport, idAccount);
+            asif.IdOperationDetail = asifDetailDto.OperationDetail.Id;
+            //mise à jour des données GMapAddress
+            //if (asifDetailDto.OperationDetail.Id==0 || asifDetailDto.OperationDetail.Id==2)
+            //{
+            //    throw new Exception("l'adresse ne peut être vide ou inconnu");
+            //}
+            if (asifDetailDto.OperationDetail.GMapAddress.Id == 3)
+            {
+                asifDetailDto.PlaceKeywordTemp = "--INTERNET--";
+            }
+
+            //Recherche si operation detail existe déjà, sinon creation
+            OperationDetail operationDetail = new OperationDetail
+            {
+                Id = 0,
+                IdOperation = asifDetailDto.Operation.Id,
+                IdGMapAddress = asifDetailDto.OperationDetail.GMapAddress.Id,
+                KeywordOperation = asifDetailDto.OperationKeywordTemp,
+                KeywordPlace = asifDetailDto.PlaceKeywordTemp
+            };
+            operationDetail = _operationDetailService.GetOrCreate(operationDetail);
+            asif.IdOperationDetail = operationDetail.Id;
+
+
+            //Mise à jour de l'asifState et du duplicate
+            asif = _accountStatementImportFileRepository.UpdateAsifState(asif);
+
+            //update de accountStatementFile
+            _accountStatementImportFileRepository.Update(asif);
+
+            return true;
+
         }
+        //private AsifGroup DispatchAccountStatements(int idImport, int idAccount)
+        //{
+        //    //List<AccountStatementImportFile> accountStatementImportFiles = _accountStatementImportFileService.GetById(idAccountStatementImport, idAccount);
+        //    AsifGroup asifGroup = new AsifGroup();
+
+        //    List<AccountStatementImportFile> asifs = GetAsifFull(idImport, idAccount);
+        //    asifGroup.AccountStatementsFull = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
+        //    //accountStatementImportViewModels.AccountStatementsFull.AccountStatementType = EnumAccountStatementType.Full;
+
+        //    asifs = GetAsifComplete(idImport, idAccount);
+        //    asifGroup.AccountStatementsComplete = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
+        //    //accountStatementImportViewModels.AccountStatementsComplete.AccountStatementType = EnumAccountStatementType.Complete;
+
+        //    asifs = GetAsifMethodLess(idImport, idAccount);
+        //    asifGroup.AccountStatementsMethodLess = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
+        //    //accountStatementImportViewModels.AccountStatementsMethodLess.AccountStatementType = EnumAccountStatementType.MethodLess;
+
+        //    asifs = GetAsifOperationLess(idImport, idAccount);
+        //    asifGroup.AccountStatementsOperationLess = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
+        //    //accountStatementImportViewModels.AccountStatementsOperationLess.AccountStatementType = EnumAccountStatementType.OperationLess;
+
+        //    return asifGroup;
+
+        //}
+
+        //private List<AccountStatementImportFile> GetAsifFull(int idImport, int idAccount)
+        //{
+        //    return _accountStatementImportFileRepository.GetAsifFull(idImport, idAccount);
+        //}
+
+        //private List<AccountStatementImportFile> GetAsifComplete(int idImport, int idAccount)
+        //{
+        //    return _accountStatementImportFileRepository.GetAsifComplete(idImport, idAccount);
+        //}
+
+        //private List<AccountStatementImportFile> GetAsifMethodLess(int idImport, int idAccount)
+        //{
+        //    return _accountStatementImportFileRepository.GetAsifMethodLess(idImport, idAccount);
+        //}
+
+        //private List<AccountStatementImportFile> GetAsifOperationLess(int idImport, int idAccount)
+        //{
+        //    return _accountStatementImportFileRepository.GetAsifOperationLess(idImport, idAccount);
+        //}
+
+        //public bool HasAccountStatementImportFileWihoutPlace(int IdImport, int idAccount)
+        //{
+        //    return _accountStatementImportFileRepository.HasAccountStatementImportFileWihoutPlace(IdImport, idAccount);
+        //}
+
+
     }
 }

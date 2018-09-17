@@ -8,6 +8,16 @@ using System.Text;
 
 namespace Budget.DATA
 {
+
+    /// <summary>
+    /// changement DATABASE
+    /// --> table operation_place mettre à NULL les departement pour id 1 / 20 / 27
+    /// --> remplacer l'id 2 (bordeaux) par NON APPLICABLE : 
+    ///   update OPERATION_PLACE set city = 'N/A'  WHERE id=2
+    ///   update OPERATION_PLACE set DEPARTMENT = NULL  WHERE id = 2
+    ///   update OPERATION_PLACE set keyword = '--FAKE_KEYWORD--'  WHERE id = 2
+    ///   insert into OPERATION_PLACE values( 'BORDEAUX','33','33BORDEAUX')
+    /// </summary>
     public class BudgetContext : DbContext
     {
         public BudgetContext(DbContextOptions<BudgetContext> options) : base(options)
@@ -22,7 +32,7 @@ namespace Budget.DATA
         public DbSet<Account> Account { get; set; }
         public DbSet<OperationTypeFamily> OperationTypeFamily { get; set; }
         public DbSet<OperationType> OperationType { get; set; }
-        public DbSet<OperationPlace> OperationPlace { get; set; }
+        //public DbSet<OperationPlace> OperationPlace { get; set; }
         public DbSet<OperationMethod> OperationMethod { get; set; }
         public DbSet<OperationMethodLexical> OperationMethodLexical { get; set; }
         public DbSet<Operation> Operation { get; set; }
@@ -31,11 +41,30 @@ namespace Budget.DATA
         public DbSet<BankFileDefinition> BankFileDefinition { get; set; }
         public DbSet<AccountStatementImportFile> AccountStatementImportFile { get; set; }
         public DbSet<Parameter> Parameter { get; set; }
+        public DbSet<UserAccount> UserAccount { get; set; }
+
+
+        public DbSet<GMapAddress> GMapAddress { get; set; }
+        public DbSet<GMapAdministrativeAreaLevel1> GMapAdministrativeAreaLevel1 { get; set; }
+        public DbSet<GMapAdministrativeAreaLevel2> GMapAdministrativeAreaLevel2 { get; set; }
+        public DbSet<GMapCountry> GMapCountry { get; set; }
+        public DbSet<GMapLocality> GMapLocality { get; set; }
+        public DbSet<GMapNeighborhood> GMapNeighborhood { get; set; }
+        public DbSet<GMapPostalCode> GMapPostalCode { get; set; }
+        public DbSet<GMapRoute> GMapRoute { get; set; }
+        public DbSet<GMapStreetNumber> GMapStreetNumber { get; set; }
+        public DbSet<GMapSublocalityLevel1> GMapSublocalityLevel1 { get; set; }
+        public DbSet<GMapSublocalityLevel2> GMapSublocalityLevel2 { get; set; }
+        public DbSet<OperationDetail> OperationDetail { get; set; }
+        public DbSet<GMapType> GMapType { get; set; }
+        public DbSet<GMapAddressType> GMapAddressType { get; set; }
+        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             
             //optionsBuilder.UseSqlServer(@"Server=DESKTOP-0M47AE3\SQLEXPRESS;Database=Budget;Trusted_Connection=True;MultipleActiveResultSets=true");
-            optionsBuilder.UseSqlServer(@"Server=SQLDEVGD;Database=XmlToSwift_Demo;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer(@"Server=PS10;Database=XmlToSwift_Demo;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,14 +75,20 @@ namespace Budget.DATA
                 .IsUnique();
 
             modelBuilder.Entity<Operation>()
-                .HasIndex(i => i.Label)
-                .HasName("IX_OperationLabel")
+                .HasIndex("Label", "IdOperationMethod", "IdOperationType")
+                .HasName("IX_OperationKey")
                 .IsUnique();
 
-           modelBuilder.Entity<Operation>()
-                .HasIndex(i => i.Keyword)
-                .HasName("IX_OperationKeyword")
-                .IsUnique();
+           //modelBuilder.Entity<Operation>()
+           //     .HasIndex(i => i.IdOperationMethod)
+           //     .HasName("IX_OperationKey")
+           //     .IsUnique();
+
+           //modelBuilder.Entity<Operation>()
+           //     .HasIndex(i => i.IdOperationType)
+           //     .HasName("IX_OperationKey")
+           //     .IsUnique();
+
 
             modelBuilder.Entity<OperationTypeFamily>()
                 .HasIndex(i => new { i.Id, i.IdMovement })

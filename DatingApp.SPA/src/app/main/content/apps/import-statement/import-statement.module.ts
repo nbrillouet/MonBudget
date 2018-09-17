@@ -17,15 +17,32 @@ import { ImportStatementMainComponent } from './import-statement-main/import-sta
 import { ImportStatementFileListComponent } from "./import-statement-file/import-statement-file-list/import-statement-file-list.component";
 import { ImportStatementFileService } from "./import-statement-file/import-statement-file.service";
 import { ImportStatementFileMainComponent } from "./import-statement-file/import-statement-file-main/import-statement-file-main.component";
+import { ImportStatementHistoMainComponent } from "./import-statement-histo/import-statement-histo-main/import-statement-histo-main.component";
+import { ImportStatementFileStateComponent } from "./import-statement-file/import-statement-file-state/import-statement-file-state.component";
+import { ImportStatementFileDetailComponent } from "./import-statement-file/import-statement-file-detail/import-statement-file-detail.component";
+
+import { AgmCoreModule } from '@agm/core';
+import { GMapModule } from "../g-map/g-map.module";
 
 
 const routes = [
     {
         path     : '',
-        component: ImportStatementMainComponent,
+        component: ImportStatementHistoMainComponent,
         // resolve  : { users: ImportStatementListResolver },
         canActivate: [AuthGuard]
     },
+    {
+        path     : ':idImport/accounts/:idAccount/import-statement-files/:idImportFile/detail',
+        component: ImportStatementFileDetailComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path     : ':idImport/accounts/:idAccount/import-statement-files',
+        component: ImportStatementFileMainComponent,
+        canActivate: [AuthGuard]
+    },
+
     // {
     //     path     : ':idUser',
     //     component: UserDetailComponent,
@@ -43,16 +60,24 @@ const routes = [
     imports: [
       SharedModule,
       FileUploadModule,
+      GMapModule,
       RouterModule.forChild(routes)
+    //   AgmCoreModule.forRoot({
+    //     apiKey: 'AIzaSyD6F176dnusdXdDH35db9iOGGlCiZYNDvw'
+    // })
     ],
     declarations: [
         ImportStatementFileMainComponent,
-        ImportStatementListComponent,
         ImportStatementFileListComponent,
+        ImportStatementFileStateComponent,
+        ImportStatementFileDetailComponent,
+        ImportStatementListComponent,
         ImportStatementUploadComponent,
+        ImportStatementHistoMainComponent,
         ImportStatementHistoListComponent,
         SelectedBarComponent,
         ImportStatementMainComponent
+
     ],
     providers : [
         ImportStatementService,

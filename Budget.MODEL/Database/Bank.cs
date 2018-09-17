@@ -1,4 +1,5 @@
 ﻿
+using Budget.MODEL.Database;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -54,6 +55,13 @@ namespace Budget.MODEL
 
         [Column("FOLDER_FILE_SAVE")]
         public string FolderFileSave { get; set; }
+
+        public List<Account> Accounts { get; set; }
+
+        public Bank()
+        {
+            Accounts = new List<Account>();
+        }
     }
 
     public enum EnumBank

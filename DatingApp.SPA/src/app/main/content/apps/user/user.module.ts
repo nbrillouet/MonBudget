@@ -11,6 +11,7 @@ import { PreventUnsavedChanges } from '../../../../_guards/prevent-unsaved-chang
 import { DialogGuardComponent } from '../../../../_guards/dialog-guard.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AvatarEditorComponent } from './avatar-editor/avatar-editor.component';
+import { GMapModule } from '../g-map/g-map.module';
 
 const routes = [
   {
@@ -36,6 +37,7 @@ const routes = [
   imports: [
     SharedModule,
     FileUploadModule,
+    GMapModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

@@ -11,7 +11,8 @@ namespace Budget.DATA.Repositories
         List<T> GetAll();
         T GetById(int id);
         Task<T> GetByIdAsync(int id);
-        Task<T> Create(T entity);
+        Task<T> CreateAsync(T entity);
+        T Create(T entity);
         void Update(T entity);
         void Delete(T entity);
     }

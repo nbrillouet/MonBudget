@@ -1,3 +1,5 @@
+import { IAccountForLabel } from "./Account";
+
 export interface IBank {
     id : number;
     labelBankShort : string;
@@ -11,4 +13,11 @@ export interface IBank {
     adviserMobilePhone : string;
     logoClassName : string;
     folderFileSave : string;
+}
+
+export interface IBankAccounts {
+    id : number;
+    labelBankShort : string;
+    labelBankLong : string;
+    accounts: IAccountForLabel[];
 }

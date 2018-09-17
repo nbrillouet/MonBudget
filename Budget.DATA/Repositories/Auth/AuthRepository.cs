@@ -17,10 +17,27 @@ namespace Budget.DATA.Repositories
 
         public async Task<User> Login(string username, string password)
         {
+            //var toto = Context.User
+            //    .Where(x => x.UserName == username)
+            //    .Include("UserAccounts.Account")
+            //    .FirstOrDefault();
+
             var user = await Context.User
                 .Where(x => x.UserName == username)
                 .Include(x => x.Shortcuts)
+                .Include(x=>x.UserAccounts)
+                    .ThenInclude(u=>u.Account)
+                        .ThenInclude(a => a.Bank)
+                 .Include(x => x.UserAccounts)
+                    .ThenInclude(u => u.Account)
+                        .ThenInclude(a => a.AccountType)
                 .FirstOrDefaultAsync();
+
+            //var user = await Context.User
+            //    .Where(x => x.UserName == username)
+            //    .Include(x => x.Shortcuts)
+            //    .Include(x => x.UserAccounts.Select(a=>a.Account).ToList())
+            //    .FirstOrDefaultAsync();
 
             if (user == null)
                 return null;

@@ -1,7 +1,4 @@
-<!-- <p>Queue length: {{ uploader?.queue?.length }}</p> -->
-
 <div class="header-upload">
-
     <!-- ADD FILE BUTTON -->
     <div class="file-uploader" *ngIf="uploader.queue.length==0">
         <input hidden type="file"
@@ -23,25 +20,18 @@
     <div *ngIf="uploader.queue.length==0">
         <button mat-button 
             ng2FileDrop
-
             [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
             (fileOver)="fileOverBase($event)"
             [uploader]="uploader"
             class="well drop-zone"
             [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-            <mat-icon>insert_drive_file</mat-icon>
-            Drop Zone
+            <div class="parachute_32" style="padding-left:35px;">Déposer le fichier ici</div>
+          
         </button>
     </div>
     
     <!-- ADD FILE UPLOAD INFO -->
     <table *ngIf="uploader.queue.length>0" class="file-upload-info">
-        <!-- <thead>
-        <tr >
-            <th style="text-align: right;width:100px;" >Nom fichier</th>
-            <th style="text-align: right;width:100px;">Taille</th>
-        </tr>
-        </thead> -->
         <tbody>
         <tr *ngFor="let item of uploader.queue">
             <td style="text-align: right;">Nom fichier: {{ item?.file?.name }}</td>
@@ -62,7 +52,6 @@
                         <span class="glyphicon glyphicon-upload"></span> Upload
                     </button>
                 </div>
-                
             </td>
         </tr>
         </tbody>

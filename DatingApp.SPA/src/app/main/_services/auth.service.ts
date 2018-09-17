@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
-import { User } from '../_models/User';
+import { IUser } from '../_models/User';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { IShortcut } from '../_models/Shortcut';
 
@@ -16,7 +16,7 @@ export class AuthService {
     userToken: any;
     decodedToken : any;
     jwtHleper:JwtHelper = new JwtHelper();
-    currentUser: User;
+    currentUser: IUser;
     private avatarUrl = new BehaviorSubject<string>('assets/images/avatars/profile.jpg');
     currentAvatarUrl = this.avatarUrl.asObservable();
     
@@ -64,6 +64,7 @@ export class AuthService {
         return tokenNotExpired('budgetToken');
     }
 
+    
     private requestOptions()
     {
         const headers = new Headers({'Content-type': 'application/json'});

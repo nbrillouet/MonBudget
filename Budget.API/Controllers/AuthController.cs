@@ -14,6 +14,7 @@ using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
+using Budget.MODEL.Dto;
 
 namespace Budget.API.Controllers
 {
@@ -88,7 +89,7 @@ namespace Budget.API.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            var user = _mapper.Map<UserForDetailedDto>(userRetrieve);
+            var user = _mapper.Map<UserForDetailDto>(userRetrieve);
 
             return Ok(new { tokenString, user });
         }

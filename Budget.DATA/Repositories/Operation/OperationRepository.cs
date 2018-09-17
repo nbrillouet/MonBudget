@@ -1,5 +1,6 @@
 ﻿using Budget.MODEL;
 using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,71 @@ namespace Budget.DATA.Repositories
         public OperationRepository(BudgetContext context) : base(context)
         {
         }
+
+        //public List<Operation> GetByIdOperationMethod(int idOperationMethod)
+        //{
+        //    var operationUnknown = Context.Operation
+        //        .Where(x => x.Id == 1) //ajout ligne inconnue
+        //        .FirstOrDefault();
+
+        //    var operations= Context.Operation
+        //        .Where(x => x.IdOperationMethod == idOperationMethod)
+        //        .OrderBy(x=>x.Label)
+        //        .ToList();
+
+        //    var results = new List<Operation>();
+        //    results.Add(operationUnknown);
+        //    results.AddRange(operations);
+
+        //    return results;
+        //}
+
+        public List<Operation> GetSelectList(int idOperationMethod, int idOperationType)
+        {
+            var operationUnknown = Context.Operation
+                .Where(x => x.Id == 1) //ajout ligne inconnue
+                .FirstOrDefault();
+
+            var operations = Context.Operation
+                .Where(x => x.IdOperationMethod == idOperationMethod
+                    && x.IdOperationType==idOperationType)
+                .OrderBy(x => x.Label)
+                .ToList();
+            var results = new List<Operation>();
+            results.Add(operationUnknown);
+            results.AddRange(operations);
+
+            return results;
+        }
+
+        public List<Operation> GetSelectList(List<SelectDto> operationMethods)
+        {
+            List<Operation> results;
+            if (operationMethods.Count==0)
+            {
+                results = Context.Operation
+                    .ToList();
+            }
+            else
+            {
+                var idOperationMethods = operationMethods.Select(x => x.Id).ToList();
+                results = Context.Operation
+                    .Where(x => idOperationMethods.Contains(x.IdOperationMethod))
+                    .ToList();
+            }
+
+            return results;
+        }
+
+        public Operation Add(Operation operation)
+        {
+            return Create(operation);
+        }
+
+
+
+
+
 
         public List<Operation> GetAllByIdOperationMethod(int idOperationMethod)
         {
@@ -62,17 +128,17 @@ namespace Budget.DATA.Repositories
             return GenericLists;
         }
 
-        public new int Create(Operation entity)
+        public new Operation Create(Operation operation)
         {
-            if (entity.OperationMethod != null)
-                Context.OperationMethod.Attach(entity.OperationMethod);
-            if (entity.OperationType != null)
-                Context.OperationType.Attach(entity.OperationType);
+            //if (entity.OperationMethod != null)
+            //    Context.OperationMethod.Attach(entity.OperationMethod);
+            //if (entity.OperationType != null)
+            //    Context.OperationType.Attach(entity.OperationType);
 
-            Context.Operation.Add(entity);
+            Context.Operation.Add(operation);
             Context.SaveChanges();
 
-            return entity.Id;
+            return operation;
         }
     }
 }

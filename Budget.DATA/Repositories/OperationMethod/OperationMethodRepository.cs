@@ -22,6 +22,7 @@ namespace Budget.DATA.Repositories
                 .Where(x => x.Id != (int)EnumOperationMethod.Inconnu)
                 .OrderBy(x => x.Label).ToList();
         }
+
         public new int Create(OperationMethod operationMethod)
         {
             Context.Set<OperationMethod>().Add(operationMethod);

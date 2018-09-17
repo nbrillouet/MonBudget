@@ -84,12 +84,23 @@ namespace Budget.API.Controllers
 
         }
 
+        [HttpGet]
+        [Route("imports/{idImport}")]
+        public async Task<IActionResult> GetAsi(int idImport)
+        {
+            var asi = await _accountStatementImportService.GetById(idImport);
+            //var banksDto = _mapper.Map<IEnumerable<BankForListDto>>(idImport);
+
+            return Ok(asi);
+
+        }
+
         [HttpPost]
         [Route("user/{idUser}")]
         public async Task<IActionResult> UploadFile(int idUser, AccountStatementImportForUploadDto asifuDto)
         {
 
-            var account = _accountService.GetAccountByNumber("30919688017");
+            //var account = _accountService.GetAccountByNumber("30919688017");
 
             var user = await _userService.GetByIdAsync(idUser);
 
@@ -101,18 +112,18 @@ namespace Budget.API.Controllers
             AsifGroupByAccounts asifGroupByAccounts = new AsifGroupByAccounts();
             if (file.Length > 0)
             {
-                try
-                {
+                //try
+                //{
                     StreamReader csvreader = new StreamReader(file.OpenReadStream(), Encoding.GetEncoding(1252));
                     AccountStatementImport accountStatementImport = _accountStatementImportService.ImportFile(csvreader, user);
                     asifGroupByAccounts = _accountStatementImportFileService.GetListDto(accountStatementImport.Id);
 
-                }
-                catch(Exception e)
-                {
-                    ModelState.AddModelError("Erreur lors du chargement de fichier", e.Message.ToString());
-                    return BadRequest(ModelState);
-                }
+                //}
+                //catch(Exception e)
+                //{
+                //    ModelState.AddModelError("Erreur lors du chargement de fichier", e.Message.ToString());
+                //    return BadRequest(ModelState);
+                //}
             }
 
             return Ok(asifGroupByAccounts);

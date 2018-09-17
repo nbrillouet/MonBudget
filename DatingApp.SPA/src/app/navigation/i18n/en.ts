@@ -7,13 +7,18 @@ export const locale = {
                 'TITLE': 'Sample',
                 'BADGE': '25'
             },
-            'USER'        : {
-                'TITLE': 'Users',
-                'BADGE': '25'
+            'REFERENTIAL'        : {
+                'TITLE': 'Referential'
             },
+            'USER'        : {
+                'TITLE': 'Users'
+            },
+            'BANK'        : {
+                'TITLE': 'Vos comptes'
+            },
+
             'IMPORT_STATEMENT'        : {
-                'TITLE': 'Import statements',
-                'BADGE': '25'
+                'TITLE': 'Import statements'
             }
         }
     }

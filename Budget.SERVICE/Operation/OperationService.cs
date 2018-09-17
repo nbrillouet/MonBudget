@@ -1,6 +1,8 @@
-﻿using Budget.DATA.Repositories;
+﻿using AutoMapper;
+using Budget.DATA.Repositories;
 using Budget.MODEL;
 using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,16 +12,50 @@ namespace Budget.SERVICE
 {
     public class OperationService : IOperationService
     {
+        private readonly IMapper _mapper;
         private readonly IOperationRepository _operationRepository;
         private readonly IOperationTypeRepository _operationTypeRepository;
         private readonly IOperationTypeFamilyRepository _operationTypeFamilyRepository;
 
-        public OperationService(IOperationRepository operationRepository, IOperationTypeRepository operationTypeRepository, IOperationTypeFamilyRepository operationTypeFamilyRepository)
+        public OperationService(
+            IMapper mapper,
+            IOperationRepository operationRepository,
+            IOperationTypeRepository operationTypeRepository,
+            IOperationTypeFamilyRepository operationTypeFamilyRepository)
         {
+            _mapper = mapper;
             _operationRepository = operationRepository;
             _operationTypeRepository = operationTypeRepository;
             _operationTypeFamilyRepository = operationTypeFamilyRepository;
         }
+
+        //public List<Operation> GetByIdOperationMethod(int idOperationMethod)
+        //{
+        //    return _operationRepository.GetByIdOperationMethod(idOperationMethod);
+        //}
+
+        public List<SelectDto> GetSelectList(int idOperationMethod, int idOperationType)
+        {
+            var operations = _operationRepository.GetSelectList(idOperationMethod, idOperationType);
+            return _mapper.Map<List<SelectDto>>(operations);
+        }
+
+        public List<SelectDto> GetSelectList(List<SelectDto> operationMethods)
+        {
+            var operations = _operationRepository.GetSelectList(operationMethods);
+            return _mapper.Map<List<SelectDto>>(operations);
+        }
+
+        public Operation Add(Operation operation)
+        {
+            //operation.Keyword = "";
+            var result = _operationRepository.Add(operation);
+            return result;
+        }
+
+
+
+
 
         public Operation GetById(int idOperation)
         {
@@ -45,23 +81,23 @@ namespace Budget.SERVICE
             return _operationRepository.GetAllByIdOperationTypeFamily(idOperationTypeFamily);
         }
 
-        public Operation GetOperationByFileLabel(string operationLabel, string reference, EnumBank bankEnum, OperationMethod operationMethod, int idMovement)
-        {
-            //retrouver l'operation par le keyword d'operation
-            List<Operation> operations = _operationRepository.GetAllByIdOperationMethod(operationMethod.Id);
+        //public Operation GetOperationByFileLabel(string operationLabel, string reference, EnumBank bankEnum, OperationMethod operationMethod, int idMovement)
+        //{
+        //    //retrouver l'operation par le keyword d'operation
+        //    List<Operation> operations = _operationRepository.GetAllByIdOperationMethod(operationMethod.Id);
 
-            foreach (Operation operation in operations)
-            {
-                if (operationLabel.Contains(operation.Keyword))
-                {
-                    OperationType operationType = _operationTypeRepository.GetById(operation.IdOperationType);
-                    OperationTypeFamily operationTypeFamily = _operationTypeFamilyRepository.GetById(operationType.IdOperationTypeFamily);
-                    if ((int)idMovement == operationTypeFamily.IdMovement)
-                        return operation;
-                }
-            }
-            return null;
-        }
+        //    foreach (Operation operation in operations)
+        //    {
+        //        if (operationLabel.Contains(operation.Keyword))
+        //        {
+        //            OperationType operationType = _operationTypeRepository.GetById(operation.IdOperationType);
+        //            OperationTypeFamily operationTypeFamily = _operationTypeFamilyRepository.GetById(operationType.IdOperationTypeFamily);
+        //            if ((int)idMovement == operationTypeFamily.IdMovement)
+        //                return operation;
+        //        }
+        //    }
+        //    return null;
+        //}
 
         public DateTime? GetDateOperationByFileLabel(string trimOperationLabel, OperationMethod operationMethod)
         {
@@ -77,7 +113,7 @@ namespace Budget.SERVICE
             return null;
         }
 
-        public Operation GetOperationByParsingLabel(AccountStatementImportFile accountStatementImportFile)
+        public OperationTmpDto GetOperationByParsingLabel(AccountStatementImportFile accountStatementImportFile)
         {
             //Operation operation = accountStatement.Operation;
             switch (accountStatementImportFile.OperationMethod.Id)
@@ -141,12 +177,12 @@ namespace Budget.SERVICE
                     break;
 
             }
-            return new Operation();
+            return new OperationTmpDto();
         }
 
 
 
-        private Operation GetOperationForCardPaymentBpvf(AccountStatementImportFile accountStatementImportFile)
+        private OperationTmpDto GetOperationForCardPaymentBpvf(AccountStatementImportFile accountStatementImportFile)
         {
             string fileLabelTmp = accountStatementImportFile.LabelOperationWork;
             //Enlever tout apres DONT FRAIS
@@ -172,7 +208,7 @@ namespace Budget.SERVICE
                 char c = Convert.ToChar(fileLabelTmp.Substring(i, 1));
                 if (!Char.IsNumber(c))
                 {
-                    fileLabelTmp = fileLabelTmp.Substring(i + 1);
+                    fileLabelTmp = fileLabelTmp.Substring(i);
                     break;
                 }
 
@@ -188,7 +224,7 @@ namespace Budget.SERVICE
                 }
             }
 
-            Operation operation = new Operation
+            OperationTmpDto operation = new OperationTmpDto
             {
                 Id = (int)EnumOperation.Inconnu,
                 OperationMethod = accountStatementImportFile.OperationMethod,
@@ -200,7 +236,7 @@ namespace Budget.SERVICE
             return operation;
         }
 
-        private Operation GetOperationForCashWithdrawal(AccountStatementImportFile accountStatementImportFile)
+        private OperationTmpDto GetOperationForCashWithdrawal(AccountStatementImportFile accountStatementImportFile)
         {
             //  Le lieu est du debut jusqu'au mot clef
             //  lieu est a mettre dans place
@@ -211,7 +247,7 @@ namespace Budget.SERVICE
             //operation.Label = place;
             //operation.Keyword = place.Replace(" ", "").ToUpper();
 
-            Operation operation = new Operation
+            OperationTmpDto operation = new OperationTmpDto
             {
                 OperationMethod = accountStatementImportFile.OperationMethod,
                 IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
@@ -223,7 +259,7 @@ namespace Budget.SERVICE
             return operation;
         }
 
-        private Operation GetOperationForCotisation(AccountStatementImportFile accountStatementImportFile)
+        private OperationTmpDto GetOperationForCotisation(AccountStatementImportFile accountStatementImportFile)
         {
             //rechercher libellé apres mot clef cotisation
             string label = accountStatementImportFile.LabelOperationWork.Substring(accountStatementImportFile.LabelOperationWork.IndexOf(accountStatementImportFile.OperationMethod.KeywordWork) + accountStatementImportFile.OperationMethod.KeywordWork.Length);
@@ -231,7 +267,7 @@ namespace Budget.SERVICE
             label = label.Substring(0, label.IndexOf(" "));
             label = label.Trim();
 
-            Operation operation = new Operation
+            OperationTmpDto operation = new OperationTmpDto
             {
                 OperationMethod = accountStatementImportFile.OperationMethod,
                 IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
@@ -242,7 +278,7 @@ namespace Budget.SERVICE
             return operation;
         }
 
-        private Operation GetOperationForVirement(AccountStatementImportFile accountStatementImportFile)
+        private OperationTmpDto GetOperationForVirement(AccountStatementImportFile accountStatementImportFile)
         {
             //rechercher libellé apres mot clef virement
             string label = accountStatementImportFile.LabelOperationWork.Substring(accountStatementImportFile.LabelOperationWork.IndexOf(accountStatementImportFile.OperationMethod.KeywordWork) + accountStatementImportFile.OperationMethod.KeywordWork.Length);
@@ -251,7 +287,7 @@ namespace Budget.SERVICE
             label = label.Substring(0, label.IndexOf(" "));
             label = label.Trim();
 
-            Operation operation = new Operation
+            OperationTmpDto operation = new OperationTmpDto
             {
                 OperationMethod = accountStatementImportFile.OperationMethod,
                 IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
@@ -262,9 +298,9 @@ namespace Budget.SERVICE
             return operation;
         }
 
-        private Operation GetOperationForRemiseCheque(AccountStatementImportFile accountStatementImportFile)
+        private OperationTmpDto GetOperationForRemiseCheque(AccountStatementImportFile accountStatementImportFile)
         {
-            Operation operation = new Operation
+            OperationTmpDto operation = new OperationTmpDto
             {
                 OperationMethod = accountStatementImportFile.OperationMethod,
                 IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
@@ -274,9 +310,9 @@ namespace Budget.SERVICE
             return operation;
         }
 
-        private Operation GetOperationForEmissionCheque(AccountStatementImportFile accountStatementImportFile)
+        private OperationTmpDto GetOperationForEmissionCheque(AccountStatementImportFile accountStatementImportFile)
         {
-            Operation operation = new Operation
+            OperationTmpDto operation = new OperationTmpDto
             {
                 OperationMethod = accountStatementImportFile.OperationMethod,
                 IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
@@ -286,7 +322,7 @@ namespace Budget.SERVICE
             return operation;
         }
 
-        private Operation GetOperationForPrelevement(AccountStatementImportFile accountStatementImportFile)
+        private OperationTmpDto GetOperationForPrelevement(AccountStatementImportFile accountStatementImportFile)
         {
             //remettre lespace original du mot clef
             if (accountStatementImportFile.OperationMethod.KeywordWork == "PRLVSEPA")
@@ -306,7 +342,7 @@ namespace Budget.SERVICE
             }
             label = label.Trim();
 
-            Operation operation = new Operation
+            OperationTmpDto operation = new OperationTmpDto
             {
                 OperationMethod = accountStatementImportFile.OperationMethod,
                 IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
@@ -317,7 +353,7 @@ namespace Budget.SERVICE
             return operation;
         }
 
-        private Operation GetOperationForFrais(AccountStatementImportFile accountStatementImportFile)
+        private OperationTmpDto GetOperationForFrais(AccountStatementImportFile accountStatementImportFile)
         {
             //rechercher libellé apres mot clef frais
             string label = accountStatementImportFile.LabelOperationWork.Substring(accountStatementImportFile.LabelOperationWork.IndexOf(accountStatementImportFile.OperationMethod.KeywordWork) + accountStatementImportFile.OperationMethod.KeywordWork.Length);
@@ -326,7 +362,7 @@ namespace Budget.SERVICE
             label = label.Substring(0, label.IndexOf(":"));
             label = label.Trim();
 
-            Operation operation = new Operation
+            OperationTmpDto operation = new OperationTmpDto
             {
                 OperationMethod = accountStatementImportFile.OperationMethod,
                 IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
@@ -338,7 +374,7 @@ namespace Budget.SERVICE
         }
 
 
-        public int Create(Operation operation)
+        public Operation Create(Operation operation)
         {
             return _operationRepository.Create(operation);
         }

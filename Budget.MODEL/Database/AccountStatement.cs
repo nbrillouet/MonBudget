@@ -19,7 +19,7 @@ namespace Budget.MODEL.Database
         public AccountStatementImport AccountStatementImport { get; set; }
 
         [Column("ID_ACCOUNT")]
-        public int? IdAccount { get; set; }
+        public int IdAccount { get; set; }
 
         [ForeignKey("IdAccount")]
         public Account Account { get; set; }
@@ -35,28 +35,34 @@ namespace Budget.MODEL.Database
         //public string LabelOperationWork { get; set; }
 
         [Column("ID_OPERATION_METHOD")]
-        public int? IdOperationMethod { get; set; }
+        public int IdOperationMethod { get; set; }
 
         [ForeignKey("IdOperationMethod")]
         public OperationMethod OperationMethod { get; set; }
 
         [Column("ID_OPERATION")]
-        public int? IdOperation { get; set; }
+        public int IdOperation { get; set; }
 
         [ForeignKey("IdOperation")]
         public Operation Operation { get; set; }
 
-        [Column("ID_OPERATION_PLACE")]
-        public int? IdOperationPlace { get; set; }
+        //[Column("ID_OPERATION_PLACE")]
+        //public int IdOperationPlace { get; set; }
 
-        [ForeignKey("IdOperationPlace")]
-        public OperationPlace OperationPlace { get; set; }
+        //[ForeignKey("IdOperationPlace")]
+        //public OperationPlace OperationPlace { get; set; }
+
+        [Column("ID_OPERATION_DETAIL")]
+        public int IdOperationDetail { get; set; }
+        [ForeignKey("IdOperationDetail")]
+        public OperationDetail OperationDetail { get; set; }
+
 
         [Column("ID_OPERATION_TYPE")]
-        public int? IdOperationType { get; set; }
+        public int IdOperationType { get; set; }
 
         [Column("ID_OPERATION_TYPE_FAMILY")]
-        public int? IdOperationTypeFamily { get; set; }
+        public int IdOperationTypeFamily { get; set; }
 
         [ForeignKey("IdOperationType")]
         public OperationType OperationType { get; set; }

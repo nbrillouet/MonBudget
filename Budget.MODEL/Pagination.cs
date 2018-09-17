@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Budget.MODEL
 {
-    public class Pagination 
+        public class Pagination 
     {
         private const int MaxPageSize = 50;
         public int PageNumber { get; set; } = 1;
@@ -18,6 +18,18 @@ namespace Budget.MODEL
 
         public string SortColumn { get; set; } = "id";
         public string SortDirection { get; set; } = "desc";
+
+
+    }
+
+    public class Pagination1
+    {
+        public int CurrentPage { get; set; }
+        public int ItemsPerPage { get; set; }
+        public int TotalItems { get; set; }
+        public int TotalPages { get; set; }
+        public string SortColumn { get; set; }
+        public string SortDirection { get; set; }
 
 
     }

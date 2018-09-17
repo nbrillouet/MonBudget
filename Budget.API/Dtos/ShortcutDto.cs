@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Budget.API.Dtos
 {
-    public class ShortcutDto
+    public class UserShortcutDto
     {
         public int Id { get; set; }
         public string Title { get; set; }

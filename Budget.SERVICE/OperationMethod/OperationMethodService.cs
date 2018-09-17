@@ -1,6 +1,8 @@
-﻿using Budget.DATA.Repositories;
+﻿using AutoMapper;
+using Budget.DATA.Repositories;
 using Budget.MODEL;
 using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +14,33 @@ namespace Budget.SERVICE
     {
         private readonly IOperationMethodRepository _operationMethodRepository;
         private readonly IOperationMethodLexicalService _operationMethodLexicalService;
+        private readonly ISelectService _selectService;
+        private readonly IMapper _mapper;
+
         public OperationMethodService(IOperationMethodRepository operationMethodRepository,
-                                      IOperationMethodLexicalService operationMethodLexicalService)
+                                      IOperationMethodLexicalService operationMethodLexicalService,
+                                      ISelectService selectService,
+                                      IMapper mapper)
         {
             _operationMethodRepository = operationMethodRepository;
             _operationMethodLexicalService = operationMethodLexicalService;
-
+            _selectService = selectService;
+            _mapper = mapper;
         }
+
+        public List<SelectDto> GetSelect(int idSelectType)
+        {
+            var selectList = _selectService.GetSelectList(idSelectType);
+            var operationMethods = _operationMethodRepository.GetAllByOrder();
+
+            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(operationMethods).ToList());
+
+            return selectList;
+        }
+
+
+
+
 
         public List<OperationMethod> GetAllForEdit()
         {

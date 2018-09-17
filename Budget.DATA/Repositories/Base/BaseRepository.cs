@@ -35,7 +35,7 @@ namespace Budget.DATA.Repositories
             return Context.Set<T>().ToList();
         }
 
-        public async Task<T> Create(T entity)
+        public async Task<T> CreateAsync(T entity)
         {
             //Context.Set<T>().Add(entity);
             //Context.SaveChanges();
@@ -49,6 +49,14 @@ namespace Budget.DATA.Repositories
             {
                 Console.Write(e);
             }
+            return entity;
+        }
+
+        public T Create(T entity)
+        {
+            Context.Set<T>().Add(entity);
+            Context.SaveChanges();
+
             return entity;
         }
 

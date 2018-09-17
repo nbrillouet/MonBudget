@@ -13,7 +13,7 @@ namespace Budget.SERVICE
         Task<PagedList<AccountStatementImport>> GetAsync(FilterAccountStatementImport filter);
         Task<List<Bank>> GetDistinctBankAsync(int idUser);
 
-
+        Task<AccountStatementImport> GetById(int idImport);
         AccountStatementImport ImportFile(StreamReader reader, User user);
         int Save(AccountStatementImport accountStatementImport);
     }

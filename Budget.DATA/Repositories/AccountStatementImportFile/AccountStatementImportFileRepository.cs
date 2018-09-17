@@ -17,6 +17,16 @@ namespace Budget.DATA.Repositories
         {
         }
 
+        public bool IsAccountStatementSaveable(int idImport)
+        {
+            var result = Context.AccountStatementImportFile
+                .Where(x=>x.IdImport== idImport)
+                .Where(x => x.EnumAsifState != EnumAsifState.Complete)
+                .Any();
+
+            return !result;
+        }
+
         public List<string> GetDistinctAccountNumber(int idImport)
         {
             List<string> accounts = new List<string>();
@@ -30,6 +40,31 @@ namespace Budget.DATA.Repositories
             //accountStatementImport.AccountStatementImportFiles.Select(x => x.Account.Number).Distinct();
         }
 
+        public async Task<AccountStatementImportFile> GetForDetailByIdAsync(int id)
+        {
+            var accountStatementImportFile = Context.AccountStatementImportFile
+                .Include(x => x.Operation)
+                .Include(x => x.OperationMethod)
+                .Include(x => x.OperationType)
+                .Include(x => x.OperationTypeFamily)
+                .Include(x => x.OperationDetail)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel1)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel2)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapCountry)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapLocality)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapNeighborhood)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapPostalCode)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapRoute)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapStreetNumber)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapSublocalityLevel1)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapSublocalityLevel2)
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
+
+            return await accountStatementImportFile;
+        }
+
+
         public async Task<PagedList<AccountStatementImportFile>> GetAsync(FilterAccountStatementImportFile filter)
         {
             var accountStatementImportFiles = Context.AccountStatementImportFile
@@ -37,11 +72,7 @@ namespace Budget.DATA.Repositories
                 .Include(x=>x.OperationMethod)
                 .Include(x=>x.OperationType)
                 .Include(x => x.OperationTypeFamily)
-                .Include(x=>x.OperationPlace)
-
-
-                //.Include(x => x.Bank)
-                //.Include(x => x.User)
+                //.Include(x=> x.GMapAddress)
                 .AsQueryable();
 
             if (filter.IdImport != null)
@@ -54,7 +85,7 @@ namespace Budget.DATA.Repositories
             }
             if (filter.IdAsifState != null)
             {
-                accountStatementImportFiles = accountStatementImportFiles.Where(x => (int)x.EnumAccountStatementImportFileState == filter.IdAsifState);
+                accountStatementImportFiles = accountStatementImportFiles.Where(x => (int)x.EnumAsifState == filter.IdAsifState);
             }
             if (filter.SortDirection == "asc")
                 accountStatementImportFiles = accountStatementImportFiles.OrderBy(filter.SortColumn);
@@ -70,15 +101,15 @@ namespace Budget.DATA.Repositories
 
             if(HasAsifMethodLess(idImport, idAccount))
             {
-                asifStates.Add(new AsifState { Id = (int)EnumAccountStatementImportFileState.OperationLess, Label = "Erreur méthode" });
+                asifStates.Add(new AsifState { Id = (int)EnumAsifState.OperationLess, Label = "Erreur méthode" });
             }
             if (HasAsifOperationLess(idImport, idAccount))
             {
-                asifStates.Add(new AsifState { Id = (int)EnumAccountStatementImportFileState.OperationLess, Label = "Erreur opération" });
+                asifStates.Add(new AsifState { Id = (int)EnumAsifState.OperationLess, Label = "Erreur opération" });
             }
             if (HasAsifComplete(idImport, idAccount))
             {
-                asifStates.Add(new AsifState { Id = (int)EnumAccountStatementImportFileState.Complete, Label = "complet" });
+                asifStates.Add(new AsifState { Id = (int)EnumAsifState.Complete, Label = "complet" });
             }
 
             return asifStates;
@@ -89,7 +120,7 @@ namespace Budget.DATA.Repositories
             return Context.AccountStatementImportFile
                 .Where(x => x.IdImport == idImport &&
                 x.IdAccount == idAccount &&
-                x.EnumAccountStatementImportFileState == EnumAccountStatementImportFileState.Complete)
+                x.EnumAsifState == EnumAsifState.Complete)
                 .Any();
         }
 
@@ -98,7 +129,7 @@ namespace Budget.DATA.Repositories
             return Context.AccountStatementImportFile
                 .Where(x => x.IdImport == idImport &&
                 x.IdAccount == idAccount &&
-                x.EnumAccountStatementImportFileState == EnumAccountStatementImportFileState.OperationLess)
+                x.EnumAsifState == EnumAsifState.OperationLess)
                 .Any();
         }
 
@@ -107,78 +138,78 @@ namespace Budget.DATA.Repositories
             return Context.AccountStatementImportFile
                 .Where(x => x.IdImport == idImport &&
                 x.IdAccount == idAccount &&
-                x.EnumAccountStatementImportFileState == EnumAccountStatementImportFileState.MethodLess)
+                x.EnumAsifState == EnumAsifState.MethodLess)
                 .Any();
         }
 
-        public List<AccountStatementImportFile> GetAsifFull(int idImport, int idAccount)
-        {
+        //public List<AccountStatementImportFile> GetAsifFull(int idImport, int idAccount)
+        //{
           
-            var tat = Context.AccountStatementImport.Where(x => x.Id == 160);
-            var toto =
-             Context.AccountStatementImportFile
-                .Where(x => x.IdImport == idImport &&
-                x.IdAccount == idAccount)
-                //.Include(x => x.AccountStatementImport)
-                //.Include(x => x.OperationType.OperationTypeFamily)
-                //.Include(x => x.Operation)
-                //.Include(x => x.OperationMethod)
-                //.Include(x => x.OperationPlace)
-                .OrderBy(x => x.DateOperation).ToList();
+        //    var tat = Context.AccountStatementImport.Where(x => x.Id == 160);
+        //    var toto =
+        //     Context.AccountStatementImportFile
+        //        .Where(x => x.IdImport == idImport &&
+        //        x.IdAccount == idAccount)
+        //        //.Include(x => x.AccountStatementImport)
+        //        //.Include(x => x.OperationType.OperationTypeFamily)
+        //        //.Include(x => x.Operation)
+        //        //.Include(x => x.OperationMethod)
+        //        //.Include(x => x.OperationPlace)
+        //        .OrderBy(x => x.DateOperation).ToList();
 
-            return toto;
+        //    return toto;
 
-        }
+        //}
 
         
 
-        public List<AccountStatementImportFile> GetAsifComplete(int idImport, int idAccount)
-        {
-            return Context.AccountStatementImportFile
-                .Where(x => x.IdImport == idImport &&
-                x.IdAccount == idAccount &&
-                x.EnumAccountStatementImportFileState == EnumAccountStatementImportFileState.Complete)
-                //.Include(x => x.AccountStatementImport)
-                .Include(x => x.OperationType.OperationTypeFamily)
-                .Include(x => x.Operation)
-                .Include(x => x.OperationMethod)
-                .Include(x => x.OperationPlace)
-                .OrderBy(x => x.DateOperation).ToList();
-        }
-        public List<AccountStatementImportFile> GetAsifMethodLess(int idImport, int idAccount)
-        {
-            return Context.AccountStatementImportFile
-                .Where(x => x.IdImport == idImport &&
-                x.IdAccount == idAccount &&
-                x.EnumAccountStatementImportFileState == EnumAccountStatementImportFileState.MethodLess)
-                //.Include(x => x.AccountStatementImport)
-                .Include(x => x.OperationType.OperationTypeFamily)
-                .Include(x => x.Operation)
-                .Include(x => x.OperationMethod)
-                .Include(x => x.OperationPlace)
-                .OrderBy(x => x.DateOperation).ToList();
-        }
-        public List<AccountStatementImportFile> GetAsifOperationLess(int idImport, int idAccount)
-        {
-            return Context.AccountStatementImportFile
-                .Where(x => x.IdImport == idImport &&
-                x.IdAccount == idAccount &&
-                x.EnumAccountStatementImportFileState == EnumAccountStatementImportFileState.OperationLess)
-                //.Include(x => x.AccountStatementImport)
-                .Include(x => x.OperationType.OperationTypeFamily)
-                .Include(x => x.Operation)
-                .Include(x => x.OperationMethod)
-                .Include(x => x.OperationPlace)
-                .OrderBy(x => x.DateOperation).ToList();
-        }
-        public bool HasAccountStatementImportFileWihoutPlace(int IdImport, int idAccount)
-        {
-            return Context.AccountStatementImportFile
-                .Where(x => x.IdImport == IdImport
-                && x.IdAccount == idAccount
-                && x.IdOperationPlace == (int)EnumOperation.Inconnu
-                && (x.IdOperationMethod == (int)EnumOperationMethod.PaiementCarte || x.IdOperationMethod == (int)EnumOperationMethod.RetraitCarte)).Any();
-        }
+        //public List<AccountStatementImportFile> GetAsifComplete(int idImport, int idAccount)
+        //{
+        //    return Context.AccountStatementImportFile
+        //        .Where(x => x.IdImport == idImport &&
+        //        x.IdAccount == idAccount &&
+        //        x.EnumAsifState == EnumAsifState.Complete)
+        //        .Include(x => x.OperationType.OperationTypeFamily)
+        //        .Include(x => x.Operation)
+        //        .Include(x => x.OperationMethod)
+        //        .Include(x => x.GMapAddress)
+        //        .OrderBy(x => x.DateOperation).ToList();
+        //}
+        //public List<AccountStatementImportFile> GetAsifMethodLess(int idImport, int idAccount)
+        //{
+        //    return Context.AccountStatementImportFile
+        //        .Where(x => x.IdImport == idImport &&
+        //        x.IdAccount == idAccount &&
+        //        x.EnumAsifState == EnumAsifState.MethodLess)
+        //        .Include(x => x.OperationType.OperationTypeFamily)
+        //        .Include(x => x.Operation)
+        //        .Include(x => x.OperationMethod)
+        //        //.Include(x => x.GMapAddress)
+        //        .OrderBy(x => x.DateOperation).ToList();
+        //}
+        //public List<AccountStatementImportFile> GetAsifOperationLess(int idImport, int idAccount)
+        //{
+        //    return Context.AccountStatementImportFile
+        //        .Where(x => x.IdImport == idImport &&
+        //        x.IdAccount == idAccount &&
+        //        x.EnumAsifState == EnumAsifState.OperationLess)
+        //        .Include(x => x.OperationType.OperationTypeFamily)
+        //        .Include(x => x.Operation)
+        //        .Include(x => x.OperationMethod)
+        //        .Include(x => x.GMapAddress)
+        //        .OrderBy(x => x.DateOperation).ToList();
+        //}
+
+        //public bool HasAccountStatementImportFileWihoutPlace(int IdImport, int idAccount)
+        //{
+        //    return Context.AccountStatementImportFile
+        //        .Where(x => x.IdImport == IdImport
+        //        && x.IdAccount == idAccount
+        //        && x.IdOperationPlace == (int)EnumOperation.Inconnu
+        //        && (x.IdOperationMethod == (int)EnumOperationMethod.PaiementCarte || x.IdOperationMethod == (int)EnumOperationMethod.RetraitCarte)).Any();
+        //}
+
+        //TODO : enlever les attach
         public new int Create(AccountStatementImportFile accountStatementImportFile)
         {
             //var aStatement = accountStatement;
@@ -201,8 +232,8 @@ namespace Budget.DATA.Repositories
                 Context.AccountStatementImport.Attach(accountStatementImportFile.AccountStatementImport);
             if (accountStatementImportFile.Operation != null)
                 Context.Operation.Attach(accountStatementImportFile.Operation);
-            if (accountStatementImportFile.OperationPlace != null)
-                Context.OperationPlace.Attach(accountStatementImportFile.OperationPlace);
+            if (accountStatementImportFile.OperationDetail != null)
+                Context.OperationDetail.Attach(accountStatementImportFile.OperationDetail);
 
             Context.AccountStatementImportFile.Add(accountStatementImportFile);
 
@@ -217,7 +248,7 @@ namespace Budget.DATA.Repositories
             foreach (AccountStatementImportFile item in accountStatementImportFiles)
             {
                 AccountStatementImportFile accountStatementImportFile = item;
-                accountStatementImportFile = GetFlag(item);
+                accountStatementImportFile = UpdateAsifState(item);
 
                 Create(accountStatementImportFile);
 
@@ -228,24 +259,44 @@ namespace Budget.DATA.Repositories
 
         public int Save(AccountStatementImportFile accountStatementImportFile)
         {
-            accountStatementImportFile = GetFlag(accountStatementImportFile);
+            accountStatementImportFile = UpdateAsifState(accountStatementImportFile);
 
             Update(accountStatementImportFile);
             return accountStatementImportFile.Id;
         }
 
-        private AccountStatementImportFile GetFlag(AccountStatementImportFile item)
+        public void UpdateAsifStates(int idImport)
+        {
+            var asifs = GetByIdImport(idImport);
+            foreach(var asif in asifs)
+            {
+                UpdateAsifState(asif);
+                Update(asif);
+            }
+
+        }
+
+        private List<AccountStatementImportFile> GetByIdImport(int idImport)
+        {
+            return Context.AccountStatementImportFile
+                .Where(x => x.IdImport == idImport)
+                .ToList();
+        }
+
+        public AccountStatementImportFile UpdateAsifState(AccountStatementImportFile item)
         {
             //Flager la ligne d'operation si elle existe deja dans la table AccountStatement
             var duplicate = Context.AccountStatement
                 .Where(x => x.DateOperation == item.DateOperation
-                && x.IdAccount == item.IdAccount
-                //&& x.IdMovement==item.IdMovement
-                //&& x.IdOperation==item.IdOperation
-                //&& x.IdOperationMethod==item.IdOperationMethod
-                && x.DateIntegration == item.DateIntegration
-                && x.LabelOperation == item.LabelOperation
-                && x.AmountOperation == item.AmountOperation).FirstOrDefault();
+                    && x.IdAccount == item.IdAccount
+                    && x.IdMovement == item.IdMovement
+                    && x.IdOperation == item.IdOperation
+                    && x.IdOperationMethod == item.IdOperationMethod
+                    && x.DateIntegration == item.DateIntegration
+                    && x.LabelOperation == item.LabelOperation
+                    && x.IdOperationDetail == item.IdOperationDetail
+                    && x.AmountOperation == item.AmountOperation)
+                .FirstOrDefault();
 
             if (duplicate != null)
             {
@@ -253,17 +304,27 @@ namespace Budget.DATA.Repositories
             }
 
             //determination du State
-            if (item.IdOperation != 1 && item.IdOperationMethod != 1)
-                item.EnumAccountStatementImportFileState = EnumAccountStatementImportFileState.Complete;
+            if (item.IdOperation != 1 && item.IdOperationMethod != 1 && item.IdOperationDetail!=1)
+                item.EnumAsifState = EnumAsifState.Complete;
             else if (item.IdOperationMethod == 1)
-                item.EnumAccountStatementImportFileState = EnumAccountStatementImportFileState.MethodLess;
-            else if (item.IdOperation == 1)
-                item.EnumAccountStatementImportFileState = EnumAccountStatementImportFileState.OperationLess;
+                item.EnumAsifState = EnumAsifState.MethodLess;
+            else //if (item.IdOperation == 1)
+                item.EnumAsifState = EnumAsifState.OperationLess;
 
-            if (item.IdOperationPlace == (int)EnumOperationPlace.Inconnu && (item.IdOperationMethod == (int)EnumOperationMethod.PaiementCarte || item.IdOperationMethod == (int)EnumOperationMethod.RetraitCarte))
-                item.EnumAccountStatementImportFileState = EnumAccountStatementImportFileState.OperationLess;
+            //if (item.OperationDetail.IdGMapAddress == (int)EnumGMapAddress.Inconnu && (item.IdOperationMethod == (int)EnumOperationMethod.PaiementCarte || item.IdOperationMethod == (int)EnumOperationMethod.RetraitCarte))
+            //    item.EnumAsifState = EnumAsifState.OperationLess;
 
             return item;
+        }
+
+        public List<AccountStatementImportFile> GetAsifsWithoutDuplicate(int idImport)
+        {
+            var results = Context.AccountStatementImportFile
+                .Where(x=>x.IdImport== idImport)
+                .Where(x => x.IsDuplicated == false)
+                .ToList();
+
+            return results;
         }
     }
 }

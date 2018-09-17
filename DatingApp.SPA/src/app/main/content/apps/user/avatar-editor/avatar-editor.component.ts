@@ -1,20 +1,22 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { User } from '../../../../_models/User';
+import { IUser } from '../../../../_models/User';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from '../../../../../../environments/environment';
 import { AuthService } from '../../../../_services/auth.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NotificationsService } from 'angular2-notifications';
 import * as _ from 'underscore';
+import { fuseAnimations } from '../../../../../core/animations';
 
 @Component({
   selector: 'avatar-editor',
   templateUrl: './avatar-editor.component.html',
-  styleUrls: ['./avatar-editor.component.css']
+  styleUrls: ['./avatar-editor.component.scss'],
+  animations   : fuseAnimations
 })
 
 export class AvatarEditorComponent implements OnInit {
-  @Input() user: User;
+  @Input() user: IUser;
   @Output() getUserAvatarChange = new EventEmitter<string>();
   
   uploader: FileUploader = new FileUploader({});
@@ -47,7 +49,7 @@ export class AvatarEditorComponent implements OnInit {
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
-        const res: User = JSON.parse(response);
+        const res: IUser = JSON.parse(response);
         this.user.avatarUrl = res.avatarUrl;
 
         // this.getUserAvatarChange.emit(res.avatarUrl);

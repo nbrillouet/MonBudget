@@ -1,4 +1,6 @@
 ﻿using Budget.MODEL;
+using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,8 @@ namespace Budget.DATA.Repositories
             return Context.User
                 .Where(x => x.Id == id)
                 .Include(x => x.Shortcuts)
+                .Include(x=>x.UserAccounts)
+                    .ThenInclude(x=>x.Account)
                 .FirstOrDefaultAsync();
         }
 
@@ -34,6 +38,21 @@ namespace Budget.DATA.Repositories
                 users = users.OrderByDescending(userParams.SortColumn);
 
             return await PagedListRepository<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
+        }
+
+        public List<Bank> GetBanks(int idUser)
+        {
+            List<Account> results = Context.UserAccount
+                .Where(x => x.IdUser == idUser)
+                .Select(x => x.Account)
+                .Include(x => x.Bank)
+                .ToList();
+
+            var banks = results.Select(x => x.Bank).ToList();
+            var distinctBanks= banks.GroupBy(x =>x.Id)
+                .Select(x=>x.FirstOrDefault())
+                .ToList();
+            return distinctBanks;
         }
     }
 }

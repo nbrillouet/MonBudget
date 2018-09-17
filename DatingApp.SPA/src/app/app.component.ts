@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FuseSplashScreenService } from './core/services/splash-screen.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FuseTranslationLoaderService } from './core/services/translation-loader.service';
@@ -10,8 +10,13 @@ import { locale as navigationFrench } from './navigation/i18n/fr';
 import { AuthService } from './main/_services/auth.service';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { JwtHelper } from 'angular2-jwt';
-import { User } from './main/_models/User';
+import { IUser } from './main/_models/User';
+import { NavigationService } from './main/_services/navigation.service';
+// import { MatIconRegistry } from '../../node_modules/@angular/material';
 
+// import { DomSanitizer } from '../../node_modules/@angular/platform-browser';
+// import { PLATFORM_ID } from '@angular/core';
+// import { isPlatformBrowser, isPlatformServer } from '@angular/common'
 
 @Component({
     selector   : 'fuse-root',
@@ -38,10 +43,13 @@ export class AppComponent implements OnInit
         private fuseSplashScreen: FuseSplashScreenService,
         private translate: TranslateService,
         private translationLoader: FuseTranslationLoaderService,
-        private authService: AuthService
+        private authService: AuthService,
+        private navigationService: NavigationService
+        // private iconRegistry: MatIconRegistry, 
+        // private sanitizer: DomSanitizer
+        // @Inject(PLATFORM_ID) private platformId: string
     )
     {
-        
 
         // Add languages
         this.translate.addLangs(['en', 'fr']);
@@ -64,7 +72,7 @@ export class AppComponent implements OnInit
     ngOnInit()
     {
         const token=localStorage.getItem('budgetToken');
-        const user: User = JSON.parse(localStorage.getItem('user'));
+        const user: IUser = JSON.parse(localStorage.getItem('user'));
         
         if(token)
         {
@@ -75,6 +83,16 @@ export class AppComponent implements OnInit
             this.authService.currentUser = user;
             this.authService.changeAvatar(user.avatarUrl);
             this.authService.changeShortcuts(user.shortcuts);
+
+            this.navigationService.GetBanks(user)
+                .subscribe(resp=>{
+                    var userMenu = new FuseNavigationModel();
+                    userMenu.model[0].children.push(this.navigationService.getReferentialMenu(user));
+                    userMenu.model[0].children.push(this.navigationService.getBankMenu(resp));
+                    userMenu.model[0].children.push(this.navigationService.getImportAccountMenu());
+                    this.fuseNavigationService.setNavigationModel(userMenu);
+                    console.log('GetBanks',resp);
+                })
         }
     }
 }

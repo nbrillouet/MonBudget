@@ -19,7 +19,8 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Budget.API.Helpers;
 using AutoMapper;
-
+using Budget.SERVICE.GMap;
+using Budget.DATA.Repositories.GMap;
 
 namespace Budget.API
 {
@@ -42,8 +43,8 @@ namespace Budget.API
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper();
 
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IAuthRepository, AuthRepository>();
@@ -84,11 +85,57 @@ namespace Budget.API
             services.AddScoped<IOperationService, OperationService>();
             services.AddScoped<IOperationRepository, OperationRepository>();
 
-            services.AddScoped<IOperationPlaceService, OperationPlaceService>();
-            services.AddScoped<IOperationPlaceRepository, OperationPlaceRepository>();
+            services.AddScoped<IOperationDetailService, OperationDetailService>();
+            services.AddScoped<IOperationDetailRepository, OperationDetailRepository>();
+
+            //services.AddScoped<IOperationPlaceService, OperationPlaceService>();
+            //services.AddScoped<IOperationPlaceRepository, OperationPlaceRepository>();
 
             services.AddScoped<IParameterService, ParameterService>();
             services.AddScoped<IParameterRepository, ParameterRepository>();
+
+            services.AddScoped<IGMapAddressService, GMapAddressService>();
+            services.AddScoped<IGMapAddressRepository, GMapAddressRepository>();
+
+            services.AddScoped<IGMapAdministrativeAreaLevel1Service, GMapAdministrativeAreaLevel1Service>();
+            services.AddScoped<IGMapAdministrativeAreaLevel1Repository, GMapAdministrativeAreaLevel1Repository>();
+
+            services.AddScoped<IGMapAdministrativeAreaLevel2Service, GMapAdministrativeAreaLevel2Service>();
+            services.AddScoped<IGMapAdministrativeAreaLevel2Repository, GMapAdministrativeAreaLevel2Repository>();
+
+            services.AddScoped<IGMapCountryService, GMapCountryService>();
+            services.AddScoped<IGMapCountryRepository, GMapCountryRepository>();
+
+            services.AddScoped<IGMapLocalityService, GMapLocalityService>();
+            services.AddScoped<IGMapLocalityRepository, GMapLocalityRepository>();
+
+            services.AddScoped<IGMapNeighborhoodService, GMapNeighborhoodService>();
+            services.AddScoped<IGMapNeighborhoodRepository, GMapNeighborhoodRepository>();
+
+            services.AddScoped<IGMapPostalCodeService, GMapPostalCodeService>();
+            services.AddScoped<IGMapPostalCodeRepository, GMapPostalCodeRepository>();
+
+            services.AddScoped<IGMapRouteService, GMapRouteService>();
+            services.AddScoped<IGMapRouteRepository, GMapRouteRepository>();
+
+            services.AddScoped<IGMapStreetNumberService, GMapStreetNumberService>();
+            services.AddScoped<IGMapStreetNumberRepository, GMapStreetNumberRepository>();
+
+            services.AddScoped<IGMapSublocalityLevel1Service, GMapSublocalityLevel1Service>();
+            services.AddScoped<IGMapSublocalityLevel1Repository, GMapSublocalityLevel1Repository>();
+
+            services.AddScoped<IGMapSublocalityLevel2Service, GMapSublocalityLevel2Service>();
+            services.AddScoped<IGMapSublocalityLevel2Repository, GMapSublocalityLevel2Repository>();
+
+            services.AddScoped<IGMapTypeService, GMapTypeService>();
+            services.AddScoped<IGMapTypeRepository, GMapTypeRepository>();
+
+            services.AddScoped<IGMapAddressTypeService, GMapAddressTypeService>();
+            services.AddScoped<IGMapAddressTypeRepository, GMapAddressTypeRepository>();
+
+            services.AddScoped<ISelectService, SelectService>();
+
+            services.AddTransient<IGreeter, Greeter>();
 
             //add authentification
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);
@@ -134,6 +181,10 @@ namespace Budget.API
                     });
                 });
             }
+
+            //Add our new middleware to the pipeline
+            app.UseMiddleware<RequestTrackerMiddleware>();
+
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
 
             app.UseAuthentication();
