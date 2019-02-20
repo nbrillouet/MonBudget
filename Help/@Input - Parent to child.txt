@@ -4,3 +4,5 @@
  
 --> dans le composant mere, implementation du fils:
 <avatar-editor [idUser]="user.id"></avatar-editor>
+
+ReadAllTypeSociete

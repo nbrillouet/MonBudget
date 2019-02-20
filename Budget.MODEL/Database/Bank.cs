@@ -64,10 +64,10 @@ namespace Budget.MODEL
         }
     }
 
-    public enum EnumBank
+    public enum EnumBankFamily
     {
         Inconnu = 1,
-        BPVF = 4,
-        CAM = 2
+        BanquePopulaire = 2,
+        CreditAgricole = 3
     }
 }

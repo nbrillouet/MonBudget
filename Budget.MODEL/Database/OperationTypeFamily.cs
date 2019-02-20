@@ -29,8 +29,14 @@ namespace Budget.MODEL.Database
 
     public enum EnumOperationTypeFamily
     {
-        InconnuCredit = 1,
-        InconnuDebit = 24
+        //InconnuCredit = 1,
+        //InconnuDebit = 24
+        Inconnu = 1
+    }
 
+    public enum EnumMouvement
+    {
+        Credit = 1,
+        Debit = 2
     }
 }

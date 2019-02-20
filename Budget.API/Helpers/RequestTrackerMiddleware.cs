@@ -60,7 +60,7 @@ namespace Budget.API.Helpers
             {
                 User user = await _userService.GetByIdAsync(Convert.ToInt32(idUser));
                 user.DateLastActive = DateTime.Now;
-                _userService.Update(user);
+                //_userService.Update(user);
 
             }
             //    //Format the response from the server

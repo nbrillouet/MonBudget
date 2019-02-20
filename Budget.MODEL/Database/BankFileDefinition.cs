@@ -11,14 +11,21 @@ namespace Budget.MODEL.Database
     {
         [Column("ID")]
         public int Id { get; set; }
-        [Column("ID_BANK")]
-        public int IdBank { get; set; }
-        [ForeignKey("IdBank")]
-        public Bank Bank { get; set; }
+        [Column("ID_BANK_FAMILY")]
+        public int IdBankFamily { get; set; }
+        //[ForeignKey("IdBank")]
+        //public Bank Bank { get; set; }
         [Column("LABEL_FIELD")]
         [StringLength(50)]
         public string LabelField { get; set; }
         [Column("LABEL_ORDER")]
         public int LabelOrder { get; set; }
     }
+
+    //public enum EnumFileBankType
+    //{
+    //    Inconnu,
+    //    BanquePopulaire,
+    //    CreditAgricole
+    //}
 }

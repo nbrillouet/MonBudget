@@ -15,7 +15,7 @@ namespace Budget.DATA.Repositories
 
         public List<BankFileDefinition> GetAllWithNoUnknown()
         {
-            return Context.BankFileDefinition.Where(x => x.Id != (int)EnumBank.Inconnu).ToList();
+            return Context.BankFileDefinition.Where(x => x.Id != (int)EnumBankFamily.Inconnu).ToList();
         }
 
         public List<GenericList> GetGenericList()
@@ -32,9 +32,12 @@ namespace Budget.DATA.Repositories
             return GenericLists;
         }
 
-        public List<BankFileDefinition> GetByIdBank(int idBank)
+        public List<BankFileDefinition> GetByIdBank(int idBankFamily)
         {
-            return Context.BankFileDefinition.Where(x => x.IdBank == idBank).OrderBy(x => x.LabelOrder).ToList();
+            return Context.BankFileDefinition
+                .Where(x => x.IdBankFamily == idBankFamily)
+                .OrderBy(x => x.LabelOrder)
+                .ToList();
         }
 
     }

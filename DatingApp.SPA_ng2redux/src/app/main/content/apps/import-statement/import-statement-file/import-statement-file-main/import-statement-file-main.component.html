@@ -1,0 +1,84 @@
+<div id="products" class="page-layout carded fullwidth">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg mat-accent-bg"></div>
+  <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header white-fg" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <div fxLayout="row" fxLayoutAlign="start center">
+                    
+                <div class="left-side" style="margin-bottom:30px;" fxLayout="row" *ngIf="loading">
+                    <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                        <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Enregistrement des relevés</span>
+                    </div>
+                </div>
+
+                <div class="left-side" style="margin-bottom:30px;" fxLayout="row" *ngIf="!loading">
+                    <button class="mr-0 mr-sm-16" mat-icon-button [routerLink]="'/apps/import-statement-archives'">
+                        <mat-icon>arrow_back</mat-icon>
+                    </button>
+
+                    <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                        <div  fxLayout="column">
+                            <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">{{accountStatementImport?.bank.label}}</span>
+                            <span class="logo-text h3" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Import du {{accountStatementImport?.dateImport | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
+                        
+                        </div>
+                    </div>
+                    <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                        
+                    </div>
+                </div>
+
+                <div fxLayout="row" *ngIf="!loading">
+
+                    <div class="selected-project">{{accountSelected?.number}} - {{accountSelected?.label}}</div>
+
+                    <button mat-icon-button 
+                        class="project-selector" 
+                        [matMenuTriggerFor]="projectsMenu"
+                        aria-label="Select project">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+
+                    <mat-menu #projectsMenu="matMenu">
+                        <button mat-menu-item *ngFor="let account of accounts"  [routerLink]="['/apps/import-statement-archives',idImport,'accounts',account.id,'import-statement-files']">
+                            <span>{{account.number}} - {{account.label}}</span>
+                        </button>
+                    </mat-menu>
+
+                </div>
+
+            </div>
+
+            <button mat-raised-button style="margin-bottom:30px;"
+                class="save-product-button mat-white-bg mt-16 mt-sm-0"
+                (click)="SaveInAccountStatement()"
+                [disabled]="loading">
+                <span>SAUVEGARDER</span>
+            
+            </button>
+
+        </div>
+        <!-- / HEADER -->
+            
+        <div class="content">
+            <div class="content-card mat-white-bg" *ngIf="accountSelected && !loading">
+                <import-statement-file-state 
+                    [account]="accountSelected" 
+                    [accountStatementImport]="accountStatementImport">
+                </import-statement-file-state>
+            </div>
+
+            <div class="spinner-container" *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">
+                En cours...
+                <mat-spinner color="accent"></mat-spinner>
+            </div>
+        </div>
+    </div>
+      <!-- / CENTER -->
+  </div>

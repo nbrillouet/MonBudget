@@ -31,9 +31,6 @@ namespace Budget.MODEL.Database
         [StringLength(500)]
         public string LabelOperation { get; set; }
 
-        //[NotMapped]
-        //public string LabelOperationWork { get; set; }
-
         [Column("ID_OPERATION_METHOD")]
         public int IdOperationMethod { get; set; }
 
@@ -46,12 +43,6 @@ namespace Budget.MODEL.Database
         [ForeignKey("IdOperation")]
         public Operation Operation { get; set; }
 
-        //[Column("ID_OPERATION_PLACE")]
-        //public int IdOperationPlace { get; set; }
-
-        //[ForeignKey("IdOperationPlace")]
-        //public OperationPlace OperationPlace { get; set; }
-
         [Column("ID_OPERATION_DETAIL")]
         public int IdOperationDetail { get; set; }
         [ForeignKey("IdOperationDetail")]
@@ -60,12 +51,15 @@ namespace Budget.MODEL.Database
 
         [Column("ID_OPERATION_TYPE")]
         public int IdOperationType { get; set; }
+        [ForeignKey("IdOperationType")]
+        public OperationType OperationType { get; set; }
+
 
         [Column("ID_OPERATION_TYPE_FAMILY")]
         public int IdOperationTypeFamily { get; set; }
+        [ForeignKey("IdOperationTypeFamily")]
+        public OperationTypeFamily OperationTypeFamily { get; set; }
 
-        [ForeignKey("IdOperationType")]
-        public OperationType OperationType { get; set; }
 
         [Column("REFERENCE")]
         [StringLength(50)]
@@ -82,5 +76,14 @@ namespace Budget.MODEL.Database
 
         [Column("DATE_IMPORT")]
         public DateTime DateImport { get; set; }
+
+        [NotMapped]
+        public bool IsLocalisable
+        {
+            get
+            {
+                return (IdOperationMethod == (int)EnumOperationMethod.PaiementCarte || IdOperationMethod == (int)EnumOperationMethod.RetraitCarte);
+            }
+        }
     }
 }

@@ -109,6 +109,16 @@ namespace Budget.DATA.Repositories
 
         }
 
+        public List<OperationTypeFamily> GetByIdList(List<int> idList)
+        {
+            List<OperationTypeFamily> results = Context
+                .OperationTypeFamily
+                .Where(x => idList.Contains(x.Id))
+                .ToList();
+
+            return results;
+        }
+
         public new int Create(OperationTypeFamily entity)
         {
             Context.Set<OperationTypeFamily>().Add(entity);

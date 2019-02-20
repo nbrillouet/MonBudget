@@ -1,0 +1,28 @@
+<div fxLayout="row" fxLayoutAlign="space-between">
+    <div fxflex fxLayoutAlign="start center">
+        <div *ngFor="let item of months"
+
+            class="selected-project cursor-pointer"
+            (click)="updateMonthsSelected(item)"
+            (dblclick)="monthsSelected=[item]"
+            [ngClass]="{'blue-600-bg': isInMonthSelected(item)}">
+            {{ item.label }}
+        </div>
+    </div>
+    <div fxflex fxLayoutAlign="end center">
+      <div class="selected-project">{{filter.monthYearSelected.year}}</div>
+
+      <button mat-icon-button 
+          class="project-selector" 
+          [matMenuTriggerFor]="projectsMenu"
+          aria-label="Select project">
+          <mat-icon>more_horiz</mat-icon>
+      </button>
+
+      <mat-menu #projectsMenu="matMenu">
+          <button mat-menu-item *ngFor="let year of years" (click)="updateYearSelected(year)">
+              <span>{{year}}</span>
+          </button>
+      </mat-menu>
+  </div>
+</div>

@@ -1,0 +1,140 @@
+
+<!-- <div *ngIf="(detailInfo$ | async).dataInfos.loadingInfo.loaded as loaded" id="product" class="page-layout carded fullwidth inner-scroll"> -->
+<div  id="product" class="page-layout carded fullwidth inner-scroll">
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+
+      <!-- HEADER -->
+      <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+          <!-- APP TITLE -->
+          <div fxLayout="row" fxLayoutAlign="start center">
+
+              <button mat-icon-button class="mr-0 mr-sm-16" 
+                [routerLink]="'/apps/plans'">
+                  <mat-icon>arrow_back</mat-icon>
+              </button>
+
+              <div class="mr-8 mr-sm-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                <mat-icon>donut_small</mat-icon>
+                  <!-- <img *ngIf="product.images[0]" [src]="product.images[0].url">
+                  <img *ngIf="!product.images[0]" [src]="'assets/images/ecommerce/product-image-placeholder.png'"> -->
+              </div>
+
+              <div fxLayout="column" fxLayoutAlign="start start"
+                   [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                  <div class="h2" *ngIf="formLoaded && pageType ==='edit'">
+                      {{planDetail.plan.label}}
+                  </div>
+                  <div class="h2" *ngIf="formLoaded && pageType ==='new'">
+                      Nouveau budget
+                  </div>
+                  <div class="subtitle secondary-text">
+                      <span>Détail du budget</span>
+                  </div>
+              </div>
+          </div>
+          <!-- / APP TITLE -->
+
+          <!-- <button mat-raised-button
+                  class="save-product-button"
+                  [disabled]="planForm.invalid"
+                  *ngIf="pageType ==='new'" (click)="create(planForm)">
+              <span>AJOUTER</span>
+          </button>  -->
+
+          <button mat-raised-button *ngIf="formLoaded"
+                  class="save-product-button"
+                  [disabled]="planForm.invalid || planForm.pristine"
+                  (click)="save(planForm)">
+              <span>SAUVEGARDER</span>
+          </button>
+      </div>
+      <!-- / HEADER -->
+
+      <!-- CONTENT CARD -->
+      <div class="content-card" *ngIf="formLoaded">
+
+          <!-- CONTENT -->
+          <div class="content">
+
+                <form [formGroup]="planForm" class="product w-100-p" fxLayout="column" fxFlex>
+
+                        <mat-tab-group>
+      
+                            <mat-tab label="Basic Info">
+      
+                                <div class="tab-content p-24" fusePerfectScrollbar>
+                                    
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                        <mat-label>Libellé du budget</mat-label>
+                                        <input matInput placeholder="Libellé du budget"
+                                                name="label"
+                                                formControlName="label"
+                                                required>
+                                    </mat-form-field>
+
+                                  <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                      <mat-label>Année</mat-label>
+                                      <input matInput placeholder="Année impliquée"
+                                              name="year"
+                                              formControlName="year"
+                                              required>
+                                  </mat-form-field>
+
+                                  <chip-autocomplete [placeHolder]="this.planDetailUserPlaceHolder" [datas]="this.planDetail.users" (getSelectedListChange)="updateSelectedUsers($event)"></chip-autocomplete>
+                                  
+                                  <mat-form-field appearance="outline" floatLabel="always" class="w-50-p">
+                                        <mat-label>Couleur associée</mat-label>
+                                        <input matInput placeholder="Couleur associée"
+                                                name="color"
+                                                formControlName="color"
+                                                required
+                                                [value]="planDetail.plan.color"
+                                                [style.background]="planDetail.plan.color"
+                                                [(colorPicker)]="planDetail.plan.color"
+                                                (colorPickerChange)="onColorPickerChange($event)"
+                                        >
+                                    </mat-form-field>
+
+                                </div>
+      
+                            </mat-tab>
+      
+                            <mat-tab label="Recettes" [disabled]="pageType ==='new'">
+                              <div class="tab-content " fusePerfectScrollbar>
+                                  <plan-poste-list [plan]="this.planDetail.plan" [dataSource]="recetteTab"></plan-poste-list>
+                              </div>
+                            </mat-tab>
+      
+                            <mat-tab label="Dépenses fixes" [disabled]="pageType ==='new'">
+                                <div class="tab-content " fusePerfectScrollbar>
+                                        <plan-poste-list [plan]="this.planDetail.plan" [dataSource]="depenseFixeTab"></plan-poste-list>
+                                </div>
+                            </mat-tab>
+      
+                            <mat-tab label="Dépenses variables" [disabled]="pageType ==='new'">
+                                <div class="tab-content " fusePerfectScrollbar>
+                                    <plan-poste-list [plan]="this.planDetail.plan" [dataSource]="depenseVariable"></plan-poste-list>
+                                </div>
+                            </mat-tab>
+
+                        </mat-tab-group>
+                        
+                    </form>
+
+          </div>
+          <!-- / CONTENT -->
+
+      </div>
+      <!-- / CONTENT CARD -->
+
+  </div>
+  <!-- / CENTER -->
+
+</div>
+

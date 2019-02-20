@@ -10,6 +10,6 @@ namespace Budget.MODEL.Dto
         public int Id { get; set; }
         public string Number { get; set; }
         public string Label { get; set; }
-        public AccountType AccountType { get; set; }
+        //public AccountType AccountType { get; set; }
     }
 }

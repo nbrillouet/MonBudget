@@ -5,6 +5,7 @@ using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,9 +23,23 @@ namespace Budget.SERVICE
             _mapper = mapper;
         }
 
-        public Task<User> GetByIdAsync(int id)
+        public UserForDetailDto GetForDetailById(int id)
         {
-            return _userRepository.GetByIdAsync(id);
+            var user =  _userRepository.GetForDetailById(id);
+
+            var banks = GetBanks(id);
+
+            var userForDetailDto = _mapper.Map<UserForDetailDto>(user);
+            userForDetailDto.Banks = banks;
+
+            return userForDetailDto;
+        }
+
+        public async Task<User> GetByIdAsync(int id)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+
+            return user;
         }
 
         public Task<PagedList<User>> GetUsers(Pagination userParams)
@@ -35,6 +50,11 @@ namespace Budget.SERVICE
         public Task<List<User>> GetAllAsync()
         {
             return _userRepository.GetAllAsync();
+        }
+
+        public List<User> GetAll()
+        {
+            return _userRepository.GetAll();
         }
 
         public void Update(UserForDetailDto userForDetail)
@@ -58,8 +78,20 @@ namespace Budget.SERVICE
         public List<BankAccountsDto> GetBanks(int idUser)
         {
             var banks = _userRepository.GetBanks(idUser);
-            var results = _mapper.Map<List<BankAccountsDto>>(banks);
-            return results;
+
+            var bankAccountsDtos = _mapper.Map<List<BankAccountsDto>>(banks);
+            foreach (var bank in bankAccountsDtos)
+            {
+                foreach (var account in bank.Accounts)
+                {
+                    var acc = banks.SelectMany(x => x.Accounts).Distinct().Where(u => u.Id == account.Id).FirstOrDefault();
+                    var idx = acc.UserAccounts.FindIndex(x => x.IdUser == idUser);
+                    acc.UserAccounts.RemoveAt(idx);
+                    account.LinkedUsers = _mapper.Map<List<SelectDto>>(acc.UserAccounts.Select(x => x.User).ToList());
+                }
+                    
+            }
+            return bankAccountsDtos;
         }
 
 

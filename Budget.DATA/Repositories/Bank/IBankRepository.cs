@@ -7,9 +7,10 @@ namespace Budget.DATA.Repositories
 {
     public interface IBankRepository : IBaseRepository<Bank>
     {
+        List<Bank> GetAllOrdering();
         //Bank GetById(int idBank);
         //List<Bank> GetAll();
-        List<GenericList> GetGenericList();
-        List<Bank> GetAllWithNoUnknown();
+        //List<GenericList> GetGenericList();
+        //List<Bank> GetAllWithNoUnknown();
     }
 }

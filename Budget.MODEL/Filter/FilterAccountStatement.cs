@@ -6,7 +6,7 @@ using System.Text;
 namespace Budget.MODEL.Filter
 {
 
-    public class FilterAccountStatement 
+    public class FilterAccountStatement
     {
         public int? IdAccount { get; set; }
         public List<SelectDto> OperationSelected { get; set; }
@@ -19,6 +19,7 @@ namespace Budget.MODEL.Filter
         public double? AmountMax { get; set; }
         public MonthYear MonthYearSelected { get; set; }
         public Pagination1 Pagination { get; set; }
+        public bool IsWithITransfer {get;set;}
 
         public FilterAccountStatement()
         {
@@ -29,7 +30,7 @@ namespace Budget.MODEL.Filter
 
     public class MonthYear
     {
-        public Month Month { get; set; }
+        public SelectDto Month { get; set; }
         public int Year { get; set; }
     }
 

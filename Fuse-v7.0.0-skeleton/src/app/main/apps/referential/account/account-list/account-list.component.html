@@ -1,0 +1,130 @@
+<!-- <div id="products" class="page-layout carded fullwidth" fusePerfectScrollbar> -->
+<div id="products" class="page-layout carded fullwidth inner-scroll">
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent"
+            fxLayout="column" fxLayoutAlign="center center"
+            fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo my-12 m-sm-0"
+                fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon mr-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">account_balance</mat-icon>
+                <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Comptes bancaires</span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button
+                    class="save-product-button white mt-16 mt-sm-0"
+                    [routerLink]="'/apps/referential/accounts/new'">
+                <span>AJOUTER UN COMPTE</span>
+            </button>
+
+            <!-- SEARCH -->
+            <!-- <div class="search-input-wrapper mx-12 m-md-0"
+                fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+                <label for="search" class="mr-8">
+                    <mat-icon class="secondary-text">search</mat-icon>
+                </label>
+                <mat-form-field floatPlaceholder="never" fxFlex="1 0 auto">
+                    <input id="search" matInput #filter placeholder="Recherche">
+                </mat-form-field>
+            </div> -->
+
+
+        </div>
+        
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div >
+            <!-- <div class="px-24 py-8"  style="background-color:#039BE5; ">
+  
+                <div class="mail-selection" fxFlex="row" fxLayoutAlign="start center">
+                    <button mat-icon-button 
+                        matTooltip="Ajouter un compte"
+                        [routerLink]="'/apps/referential/accounts/new'" >
+                        <mat-icon style="color:white;">add</mat-icon>
+                    </button>
+
+                    <button mat-icon-button matTooltip="Supprimer le(s) compte(s) sélectionné(s)" *ngIf="hasSelectedAccounts">
+                        <mat-icon style="color:white;">delete</mat-icon>
+                    </button>
+
+                    
+                </div>
+            </div>  -->
+    
+    
+    
+    
+    
+    
+    
+    <div fxLayout='column' class="cards">
+        <div *ngFor="let bank of banks">
+            <mat-card class="example-card" >
+                <mat-card-header >
+                    <img mat-card-avatar src="{{bank.logoClassName}}"   alt="bank logo">
+                    <mat-card-title>{{bank.labelBankLong}}</mat-card-title>
+                    <mat-card-subtitle>{{bank.labelBankShort}}</mat-card-subtitle>
+                </mat-card-header>
+                
+                <mat-card-content>
+                    <div fxLayout='column' >
+
+                        <div fxLayout="row" fxLayoutAlign="start center" style="background-color: #EDEEEF;color: #1F1F1F;" >
+                            <div fxflex = "0%" [hidden]="true"></div>
+                            <div fxFlex = "20%">Numéro de compte</div>
+                            <div fxFlex = "20%">Nom du compte</div>
+                            <div fxFlex = "20%"><mat-icon matTooltip="compte joint">link</mat-icon></div>
+                        </div>
+
+                        <div fxLayout='column' *ngFor="let account of bank.accounts;last as last">
+                            <div fxLayout='row' fxLayoutAlign="start center" >
+                                <div  fxflex = "0%" [hidden]="true">{{account.id}}</div>
+                                <div  fxFlex = "20%" >{{account.number}}</div>
+                                <div  fxFlex = "20%" >{{account.label}}</div>
+                                <div  fxFlex = "20%" >
+                                    <mat-icon (mouseover)="visualizeLinkedUser(account)" matTooltip="{{linkUserToolTip}}" *ngIf="account.linkedUsers.length>0">link</mat-icon>
+                                </div>
+                                <div  fxFlex></div>
+                                <div  fxFlex = "30px" fxLayoutAlign="right center">
+                                        <button  matTooltip="Supprimer" 
+                                            mat-icon-button
+                                            (click)="delete(account)"
+                                        >
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                </div>
+                                <div  fxFlex = "30px" fxLayoutAlign="right center">
+                                    <button  
+                                        matTooltip="Détail" 
+                                        mat-icon-button
+                                        [routerLink]="['/apps/referential/accounts/', account.id]">
+                                        <mat-icon>more_horiz</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="list-divider"></div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            <br>
+        </div>
+    </div>
+            
+
+    </div> 
+
+    </div>
+
+</div>
+

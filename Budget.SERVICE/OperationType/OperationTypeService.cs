@@ -3,6 +3,7 @@ using Budget.DATA.Repositories;
 using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
+using Budget.MODEL.Dto.Select;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -99,6 +100,48 @@ namespace Budget.SERVICE
         public void Delete(OperationType operationType)
         {
             _operationTypeRepository.Delete(operationType);
+        }
+
+        public List<SelectGroupDto> GetSelectGroupListByIdPoste(int idPoste)
+        {
+            var idMovement = idPoste == (int)EnumMouvement.Credit ? (int)EnumMouvement.Credit : (int)EnumMouvement.Debit;
+            List<OperationType> operationTypes = _operationTypeRepository.GetByIdMovement(idMovement);
+
+            return GetSelectGroupList(operationTypes);
+        }
+
+        public List<SelectGroupDto> GetSelectGroupListByIdList(List<int> idList)
+        {
+            List<OperationType> operationTypes = _operationTypeRepository.GetByIdList(idList);
+
+            return GetSelectGroupList(operationTypes);
+        }
+
+        private List<SelectGroupDto> GetSelectGroupList(List<OperationType> operationTypes)
+        {
+            List<SelectGroupDto> results = new List<SelectGroupDto>();
+            //regroupement par idOperationTypeFamily
+            List<OperationTypeFamily> operationTypeFamilies = operationTypes.Select(x => x.OperationTypeFamily).Distinct().ToList();
+            foreach (var operationTypeFamily in operationTypeFamilies)
+            {
+                SelectGroupDto selectGroup = new SelectGroupDto { Id = operationTypeFamily.Id, Label = operationTypeFamily.Label };
+
+                var operationTypesByFamily = operationTypes.Where(x => x.IdOperationTypeFamily == operationTypeFamily.Id).ToList();
+                foreach (var operationType in operationTypesByFamily)
+                {
+                    SelectDto selectDto = new SelectDto { Id = operationType.Id, Label = operationType.Label };
+                    selectGroup.Selects.Add(selectDto);
+                }
+
+                results.Add(selectGroup);
+            }
+            return results;
+        }
+
+        public List<SelectDto> GetSelectListByIdList(List<int> idList)
+        {
+            List<OperationType> operationTypes = _operationTypeRepository.GetByIdList(idList);
+            return _mapper.Map<List<SelectDto>>(operationTypes);
         }
 
     }

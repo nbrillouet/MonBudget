@@ -1,3 +1,39 @@
+installation:
+ng new app-redux
+npm install redux ng2-redux --save
+npm update
+npm install tassign --save 
+npm install immutable --save
+
+pour redux devtools:
+dans app.module.ts ajouter DevToolsExtension dans:
+import { NgRedux, NgReduxModule} from 'ng2-redux';
+import { NgModule, isDevMode } from '@angular/core';
+
+et dans classe appModule:
+export class AppModule { 
+  constructor(ngRedux: NgRedux<IAppState>, devTools: DevToolsExtension) {
+      var enhancers = isDevMode() ? [devTools.enhancer()] : [];
+		  ngRedux.configureStore(rootReducer, INITIAL_STATE, [], enhancers );
+	}
+}
+
+
+dans app.module:
+import { NgRedux, NgReduxModule} from 'ng2-redux';
+import { IAppState, rootReducer } from './store';
+-->imports {
+	BrowserModule,
+	NgReduxModule
+ }
+ 
+ --> export class AppModule {
+	constructor(ngRedux: NgRedux<IAppState>) {
+		ngRedux.configureStore(rootReducer, {});
+	}
+ }
+
+
 library qui aide à gerer l'etat de l'application.
 -Manage the application in a predicable way
 -decoupled architecture (peut utiliser angular ou re act ou..)
@@ -13,10 +49,10 @@ Quand utilisé Redux:
 
 [Building blocks]
 Dans Redux on a 3 parties:
--Store 		: a single JS object that contains the state of the application (comme une database local)
--Actions	: Plain Js objects that represent something that has happened
--Reducers	: A function htat specifies how the state changes in response to action.
-				A reducer does not modify the state. It returns the new state
+-Store (=state)		: a single JS object that contains the state of the application (comme une database local)
+-Actions			: Plain Js objects that represent something that has happened
+-Reducers			: A function htat specifies how the state changes in response to action.
+						A reducer does not modify the state. It returns the new state
 				
 [Pure function: reducers]
 une fonction est pure quand:

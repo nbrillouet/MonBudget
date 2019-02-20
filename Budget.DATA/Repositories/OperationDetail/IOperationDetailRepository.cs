@@ -11,6 +11,9 @@ namespace Budget.DATA.Repositories
         OperationDetail GetByIdOperation(int idOperation);
         List<OperationDetail> GetAllByIdOperationMethod(int idOperationMethod);
         OperationDetail GetByOperationDetail(OperationDetail operationDetail);
+
+        OperationDetail FindKeywordPlace(string operationLabel);
+        bool HasSameKeywords(OperationDetail operationDetail);
     }
 
 }

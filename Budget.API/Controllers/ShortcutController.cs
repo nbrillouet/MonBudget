@@ -19,12 +19,12 @@ namespace Budget.API.Controllers
     public class ShortcutController : Controller
     {
         private readonly IUserService _userService;
-        private readonly IShortcutService _shortcutService;
+        private readonly IUserShortcutService _shortcutService;
         private readonly IMapper _mapper;
 
         public ShortcutController(
             IUserService userService,
-            IShortcutService shortcutService,
+            IUserShortcutService shortcutService,
             IMapper mapper)
         {
             _userService = userService;
@@ -49,15 +49,14 @@ namespace Budget.API.Controllers
         }
 
         [HttpPost()]
-        public async Task<IActionResult> AddShortcut(int idUser, [FromBody] UserShortcutDto shortcutDto)
+        public async Task<IActionResult> AddShortcut(int idUser, [FromBody] UserShortcutDto userShortcutDto)
         {
-            // return Ok($"ok {idUser}");
             var user = await _userService.GetByIdAsync(idUser);
             if (user == null)
                 return BadRequest($"Could not find user id: {idUser}");
 
-            var shortcut = new Shortcut();
-            _mapper.Map(shortcutDto, shortcut);
+            var shortcut = new UserShortcut();
+            _mapper.Map(userShortcutDto, shortcut);
             shortcut.IdUser = idUser;
             shortcut.Icon = shortcut.Icon == "false" ? null : shortcut.Icon;
             shortcut = await _shortcutService.Create(shortcut);

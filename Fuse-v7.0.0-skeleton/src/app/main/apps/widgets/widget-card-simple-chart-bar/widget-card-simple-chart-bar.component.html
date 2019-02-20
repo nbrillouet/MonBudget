@@ -1,0 +1,17 @@
+<!-- <div fxLayout="row wrap" fxLayoutAlign="start start"> -->
+
+
+            <canvas #baseChart="base-chart" baseChart
+                    [datasets]="widget.datasets"
+                    [labels]="widget.labels"
+                    [colors]="widget.colors"
+                    [options]="widget.options"
+                    [chartType]="widget.chartType"
+                    (chartClick)="onSelect($event)"
+                    >
+
+            </canvas>
+
+            <!-- </div> -->
+            <!-- </div> -->
+

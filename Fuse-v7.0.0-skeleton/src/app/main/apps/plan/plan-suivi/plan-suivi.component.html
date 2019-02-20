@@ -1,0 +1,148 @@
+<div id="products" class="page-layout carded fullwidth">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent header-1-background"></div>
+  <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+      <div class="center">
+        <div class="header header-2-background accent p-12 pb-0" fxLayout="column" fxLayoutAlign="space-between">
+
+
+
+
+
+
+          <div class="pt-12" fxLayout="column" fxLayoutAlign="space-between"> 
+              <div fxLayout="row" fxLayoutAlign="start center" class="content">
+                  <!-- <div fxFlex = "20%"> -->
+                    <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                      donut_small
+                    </mat-icon>
+                  <!-- </div> -->
+                  <!-- <div fxFlex = "60%" fxFlexAlign="start"> -->
+                      <span fxFlex = "80%" class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                          Budget: suivi
+                      </span>
+                      
+             
+              </div>
+
+              
+          </div> 
+
+          <month-year-selection *ngIf="isLoaded" [selectYears]="this.selectYears" (monthYearChange)="onMonthYearChange($event)" [@animate]="{value:'*',params:{x:'50px'}}"></month-year-selection>
+      </div>
+
+          <!-- / HEADER -->
+          
+          <!--  -->
+      <div class="content-card" *ngIf="(planTracking$ | async).dataInfos.loadingInfo.loaded" >
+          <div class="widget-group p-12" fxLayout="row wrap" fxFlex="100" *fuseIfOnDom
+          [@animateStagger]="{value:'50'}">
+        <!-- <div class="left"> -->
+        <fuse-widget 
+          [@animate]="{value:'*',params:{y:'100%'}}" 
+          fxLayout="row" 
+          fxFlex="50"
+          class="widget widget5"
+          *ngFor="let poste of planTracking.dataInfos.datas.postes"
+        >
+            <div class="fuse-widget-front">
+
+              <div class="px-8 border-bottom" 
+                fxLayout="row wrap"
+                fxLayoutAlign="space-between center">
+
+                  <div fxflex=28 fxFlex class="h3">{{poste.poste.label}}</div>
+                  <div fxFlex="0 1 26"  style="text-align: center;">
+                    <ngx-gauge 
+                      size = 80
+                      class="gauge-width"
+                      [type]="gaugeType" 
+                      [value]="poste.gaugeValue"
+                      [label]="gaugeLabel"  
+                      [append]="gaugeAppendText"
+                      thick=10
+                      foregroundColor="rgba(0, 150, 136, 1)"
+                      backgroundColor = "rgba(0, 0, 0, 0.1)"
+                      duration=2500
+                      [thresholds]="poste.poste.id==1 ? thresholdConfig1 : poste.poste.id==2 ? thresholdConfig2 : thresholdConfig3"
+                    >
+                    <ngx-gauge-value style="font-size: 11px;font-weight: bold;">
+                        {{ poste.gaugeValue  }} %
+                      </ngx-gauge-value>
+                    </ngx-gauge>
+                  </div>
+                  <div fxFlex="0 1 18" style="font-weight: bold;" >{{poste.amountReal}} €</div>
+                  <div fxFlex="0 1 18" style="font-weight: bold;" >{{poste.amountPreview}} €</div>
+                  <div fxFlex="0 1 10"></div>
+              </div>
+
+              <div fxLayout="row wrap" fxLayoutAlign="start start">
+                  <div fxflex=28 fxFlex class="h3"></div>  
+                  <div fxFlex="0 1 26"  ></div>
+                  <div fxFlex="0 1 18"  >réel</div>
+                  <div fxFlex="0 1 18"  >prévu</div>
+                  <div fxFlex="0 1 10"  >part</div>
+              </div>
+
+              <div 
+                class="px-8" 
+                fxLayout="row wrap" 
+                fxLayoutAlign="start center"
+                *ngFor="let planPoste of poste.planPostes"
+              >
+                  <div fxflex=28 fxFlex style="font-size: 14px;">{{planPoste.label}}</div>  
+                  <div fxFlex="0 1 26" style="text-align: center;" >
+                    <ngx-gauge 
+                      size = 65
+                      class="gauge-width"
+                      [type]="gaugeType" 
+                      [value]="planPoste.gaugeValue" 
+                      [label]="gaugeLabel"  
+                      [append]="gaugeAppendText"
+                      thick=10
+                      foregroundColor="rgba(0, 150, 136, 1)"
+                      backgroundColor = "rgba(0, 0, 0, 0.1)"
+                      duration=2500
+                      [thresholds]="poste.poste.id==1 ? thresholdConfig1 : poste.poste.id==2 ? thresholdConfig2 : thresholdConfig3"
+                    >
+                      <ngx-gauge-value style="font-size: 11px;font-weight: bold;">
+                        {{ planPoste.gaugeValue  }} %
+                      </ngx-gauge-value>
+                    </ngx-gauge>
+                  </div >
+                  <div fxFlex="0 1 18" style="font-size: 11px;font-weight: bold;" >{{ planPoste.amountReal }} €</div>
+                  <div fxFlex="0 1 18" style="font-size: 11px;font-weight: bold;" >{{ planPoste.amountPreview }} €</div>
+                  <div fxFlex="0 1 10">
+                    <div 
+                      style="font-size: 9px;"
+                      *ngFor="let planPosteUser of planPoste.planPosteUsers"
+                    >
+                      {{ planPosteUser.firstName }}
+                      <mat-progress-bar class="green-progress"
+                        height="20px"
+                        style="cursor:pointer;"
+                        mode="determinate" 
+                        [value]="planPosteUser.percentagePart"
+                        matTooltip='{{planPosteUser.percentagePart}} % reel: {{planPosteUser.amountReal}} € / prévu: {{planPosteUser.amountPreview}}'>
+                      </mat-progress-bar>
+                      
+                    </div>
+                  </div>
+              </div>
+
+
+
+            </div>
+
+            
+        </fuse-widget>
+
+</div>
+
+
+          </div>
+      </div>
+  </div>

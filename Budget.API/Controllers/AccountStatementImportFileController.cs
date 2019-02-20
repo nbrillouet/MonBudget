@@ -23,7 +23,7 @@ namespace Budget.API.Controllers
 {
     [Authorize]
     [Produces("application/json")]
-    [Route("api/AccountStatementImportFile")]
+    [Route("api/account-statement-import-files")]
     public class AccountStatementImportFileController : Controller
     {
         private readonly IMapper _mapper;
@@ -31,6 +31,7 @@ namespace Budget.API.Controllers
         private readonly IAccountStatementImportService _accountStatementImportService;
         private readonly IBankService _bankService;
         private readonly IAccountStatementImportFileService _accountStatementImportFileService;
+        private readonly IFilterService _filterService;
 
         private readonly IAccountService _accountService;
 
@@ -40,7 +41,8 @@ namespace Budget.API.Controllers
             IBankService bankService,
             IAccountStatementImportFileService accountStatementImportFileService,
             IMapper mapper,
-            IAccountService accountService)
+            IAccountService accountService,
+            IFilterService filterService)
         {
             _mapper = mapper;
             _accountStatementImportService = accountStatementImportService;
@@ -48,7 +50,37 @@ namespace Budget.API.Controllers
             _userService = userService;
             _accountStatementImportFileService = accountStatementImportFileService;
             _accountService = accountService;
+            _filterService = filterService;
         }
+
+        [HttpPost]
+        [Route("table-filter")]
+        public IActionResult getAsifTableFilter([FromBody] FilterAsifTableSelected filter)
+        {
+            var result = _filterService.GetFilterAsifTable(filter);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("filter")]
+        public IActionResult getAsifTable([FromBody] FilterAsifTableSelected filter)
+        {
+            var pagedList = _accountStatementImportFileService.GetAsifTable(filter);
+
+            return Ok(pagedList);
+
+        }
+
+        //[HttpPost]
+        //[Route("filter")]
+        //public IActionResult getAsifTableFilter([FromBody] FilterAsifTableSelected filter)
+        //{
+        //    var pagedList = _filterService.GetAsifTableFilter(filter);
+
+        //    return Ok(pagedList);
+
+        //}
 
         //[HttpGet]
         //public async Task<IActionResult> Get([FromQuery] FilterAccountStatementImport filter)
@@ -61,22 +93,22 @@ namespace Budget.API.Controllers
         //    return Ok(asi);
         //}
 
-        [HttpGet]
-        [Route("imports/{idImport}/accounts/{idAccount}/asifStates/{idAsifState}/asifs")]
-        public async Task<IActionResult> Get(int idImport, int idAccount,int idAsifState, [FromQuery] Pagination pagination)
-        {
-            var filter = _mapper.Map(pagination, new FilterAccountStatementImportFile());
-            filter.IdImport = idImport;
-            filter.IdAccount = idAccount;
-            filter.IdAsifState = idAsifState;
+        //[HttpGet]
+        //[Route("imports/{idImport}/accounts/{idAccount}/asifStates/{idAsifState}/asifs")]
+        //public async Task<IActionResult> Get(int idImport, int idAccount,int idAsifState, [FromQuery] Pagination pagination)
+        //{
+        //    var filter = _mapper.Map(pagination, new FilterAccountStatementImportFile());
+        //    filter.IdImport = idImport;
+        //    filter.IdAccount = idAccount;
+        //    filter.IdAsifState = idAsifState;
 
-            var accountStatementImportFiles = await _accountStatementImportFileService.GetAsync(filter);
-            var asifGridDto = _mapper.Map<IEnumerable<AsifGridDto>>(accountStatementImportFiles);
-            Response.AddPagination(accountStatementImportFiles.CurrentPage, accountStatementImportFiles.PageSize, accountStatementImportFiles.TotalCount, accountStatementImportFiles.TotalPages);
+        //    var accountStatementImportFiles = await _accountStatementImportFileService.GetAsync(filter);
+        //    var asifGridDto = _mapper.Map<IEnumerable<AsifGridDto>>(accountStatementImportFiles);
+        //    Response.AddPagination(accountStatementImportFiles.CurrentPage, accountStatementImportFiles.PageSize, accountStatementImportFiles.TotalCount, accountStatementImportFiles.TotalPages);
 
-            return Ok(asifGridDto);
+        //    return Ok(asifGridDto);
 
-        }
+        //}
 
 
         [HttpGet]
@@ -93,9 +125,16 @@ namespace Budget.API.Controllers
         [Route("update")]
         public IActionResult update([FromBody] AsifDetailDto asifDetailDto)
         {
-            var result = _accountStatementImportFileService.Update(asifDetailDto);
+            try
+            {
+                var result = _accountStatementImportFileService.Update(asifDetailDto);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
 
@@ -126,6 +165,7 @@ namespace Budget.API.Controllers
             return Ok(result);
         }
 
+        
 
 
 

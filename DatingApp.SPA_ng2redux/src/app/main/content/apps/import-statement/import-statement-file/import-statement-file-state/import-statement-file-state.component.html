@@ -1,0 +1,8 @@
+
+<mat-tab-group (selectedTabChange)="onTabChanged($event)">
+  <ng-container *ngIf="asifStates"> 
+    <mat-tab  *ngFor="let asifState of asifStates; index as i" [label]="asifState.label">
+        <import-statement-file-list *ngIf="selectedIndex == i" [idImport]="accountStatementImport.id" [account]="account" [asifState]="asifStateSelected"></import-statement-file-list>
+    </mat-tab>
+  </ng-container> 
+</mat-tab-group>

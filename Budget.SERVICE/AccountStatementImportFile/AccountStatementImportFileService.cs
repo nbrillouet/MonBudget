@@ -10,6 +10,7 @@ using Budget.MODEL;
 using Budget.MODEL.Filter;
 using System.Threading.Tasks;
 using Budget.SERVICE.GMap;
+using Budget.SERVICE._Helpers;
 
 namespace Budget.SERVICE
 {
@@ -23,6 +24,7 @@ namespace Budget.SERVICE
         private readonly IGMapAddressService _gMapAddressService;
         private readonly IGMapAddressTypeService _gMapAddressTypeService;
         private readonly IGMapTypeService _gMapTypeService;
+        //private readonly 
         
 
 
@@ -60,6 +62,24 @@ namespace Budget.SERVICE
 
         //    return trimOperationLabel;
         //}
+        public PagedList1<AsifForTableDto> GetAsifTable(FilterAsifTableSelected filter)
+        {
+            if (filter.Pagination == null)
+            {
+                filter.Pagination = new Pagination1
+                {
+                    CurrentPage = 0,
+                    ItemsPerPage = 15,
+                    SortColumn = "id",
+                    SortDirection = "asc"
+                };
+            }
+            var pagedList = _accountStatementImportFileRepository.GetAsifTable(filter);
+
+            var result = new PagedList1<AsifForTableDto>(_mapper.Map<List<AsifForTableDto>>(pagedList.Datas), pagedList.Pagination);
+
+            return result;
+        }
 
         public AccountStatementImportFile GetById(int IdAccountStatementImportFile)
         {
@@ -70,9 +90,9 @@ namespace Budget.SERVICE
             return _accountStatementImportFileRepository.GetDistinctAccountNumber(idImport);
         }
 
-        public void Save(List<AccountStatementImportFile> accountStatementImportFiles)
+        public void SaveWithTran(List<AccountStatementImportFile> accountStatementImportFiles)
         {
-            _accountStatementImportFileRepository.Save(accountStatementImportFiles);
+            _accountStatementImportFileRepository.SaveWithTran(accountStatementImportFiles);
         }
 
         //public int Save(AccountStatementImportFile accountStatementImportFile)
@@ -96,13 +116,12 @@ namespace Budget.SERVICE
         /// </summary>
         /// <param name="operationLabel"></param>
         /// <returns></returns>
-        public string GetOperationWork(string operationLabel)
+        public string GetOperationLabelWork(string operationLabel)
         {
             string trimOperationLabel = operationLabel.ToUpper();
-            trimOperationLabel = trimOperationLabel.Replace("'", "");
-            trimOperationLabel = trimOperationLabel.Replace("*", "");
-            trimOperationLabel = trimOperationLabel.Replace("-", "");
-            trimOperationLabel = trimOperationLabel.Replace("/", "");
+
+            trimOperationLabel = FileHelper.ExcludeForbiddenChars(trimOperationLabel);
+            trimOperationLabel = trimOperationLabel.Replace(" ", "");
 
             return trimOperationLabel;
         }
@@ -134,24 +153,29 @@ namespace Budget.SERVICE
         private List<Account> GetAccounts(int idImport)
         {
             //selectionner les account number distincts dans l'import
-
             List<Account> accounts = new List<Account>();
             var accountNumbers = GetDistinctAccountNumber(idImport);
             foreach (string accountNumber in accountNumbers)
             {
-                accounts.Add(_accountService.GetAccountByNumber(accountNumber));
-                //AsifGroupByAccounts asifGroups = new AsifGroupByAccount();
-                //asifGroups.Account = _accountService.GetAccountByNumber(accountNumber);
-
-                //asifGroups.AsifGroup = DispatchAccountStatements(idImport, asifGroups.Account.Id);
-
-                //asifsGroupByAccount.AsifGroupByAccountList.Add(asifGroups);
+                accounts.Add(_accountService.GetByNumber(accountNumber));
             }
 
             return accounts;
         }
 
-        public List<AsifState> GetAsifStates(int idImport, int idAccount)
+        public List<SelectDto> GetAccountSelectListByIdImport(int idImport)
+        {
+            List<SelectDto> accounts = new List<SelectDto>();
+            var accountNumbers = GetDistinctAccountNumber(idImport);
+            foreach (string accountNumber in accountNumbers)
+            {
+                accounts.Add(_mapper.Map<SelectDto>(_accountService.GetByNumber(accountNumber)));
+            }
+
+            return accounts;
+        }
+
+        public List<SelectDto> GetAsifStates(int idImport, int idAccount)
         {
             return _accountStatementImportFileRepository.GetAsifStates(idImport, idAccount);
         }
@@ -226,6 +250,8 @@ namespace Budget.SERVICE
             asif.IdOperationMethod = asifDetailDto.OperationMethod.Id;
             asif.IdOperationType = asifDetailDto.OperationType.Id;
             asif.IdOperationTypeFamily = asifDetailDto.OperationTypeFamily.Id;
+            asif.OperationKeywordTemp = asifDetailDto.OperationKeywordTemp;
+            asif.PlaceKeywordTemp = asifDetailDto.PlaceKeywordTemp;
 
             asif.IdOperationDetail = asifDetailDto.OperationDetail.Id;
             //mise à jour des données GMapAddress
@@ -259,6 +285,21 @@ namespace Budget.SERVICE
 
             return true;
 
+        }
+
+        public OperationDetail GetOperationDetail(AccountStatementImportFile accountStatementImportFile)
+        {
+            OperationDetail operationDetail = null;
+            if (accountStatementImportFile.IsLocalisable)
+            {
+                operationDetail = _operationDetailService.GetByKeywords(accountStatementImportFile.LabelOperationWork, accountStatementImportFile.IdOperationMethod, accountStatementImportFile.IdMovement);
+            }
+            else
+            {
+                operationDetail = _operationDetailService.GetByKeywordOperation(accountStatementImportFile.LabelOperationWork, accountStatementImportFile.IdOperationMethod, accountStatementImportFile.IdMovement);
+            }
+
+            return operationDetail;
         }
         //private AsifGroup DispatchAccountStatements(int idImport, int idAccount)
         //{

@@ -15,10 +15,46 @@ namespace Budget.DATA.Repositories
         {
         }
 
+        public AccountStatementImport GetByIdForDetail(int id)
+        {
+            return Context.AccountStatementImport
+                .Where(x => x.Id == id)
+                .Include(x => x.User)
+                .Include(x => x.Bank)
+                .First();
+        }
+        public PagedList1<AccountStatementImport> GetAsiTable(FilterAsiTableSelected filter)
+        {
+            var accountStatementImports = Context.AccountStatementImport
+                .Include(x => x.User)
+                .AsQueryable();
+
+            if (filter.IdUser.HasValue)
+            {
+                accountStatementImports = accountStatementImports.Where(x => x.IdUser == filter.IdUser);
+            }
+            if (filter.IdBank.HasValue)
+            {
+                accountStatementImports = accountStatementImports.Where(x => x.IdBank == filter.IdBank);
+            }
+
+            if (filter.Pagination.SortDirection == "asc")
+            {
+                accountStatementImports = accountStatementImports.OrderBy(filter.Pagination.SortColumn);
+            }
+            else
+            {
+                accountStatementImports = accountStatementImports.OrderByDescending(filter.Pagination.SortColumn);
+            }
+            var results = PagedListRepository<AccountStatementImport>.Create(accountStatementImports, filter.Pagination);
+
+            return results;
+        }
+
         public async Task<PagedList<AccountStatementImport>> GetAsync(FilterAccountStatementImport filter)
         {
             var accountStatementImports = Context.AccountStatementImport
-                .Include(x=>x.Bank)
+                //.Include(x=>x.Bank)
                 .Include(x=>x.User)
                 .AsQueryable();
 
@@ -51,6 +87,18 @@ namespace Budget.DATA.Repositories
             return await Banks.ToListAsync();
         }
 
+        public List<Bank> GetDistinctBank(int idUser)
+        {
+            var Banks = Context.AccountStatementImport
+                .Include(x => x.Bank)
+                .Where(x => x.IdUser == idUser)
+                .Select(x => x.Bank)
+                .Distinct()
+                .ToList();
+
+            return Banks;
+        }
+
         public new int Create(AccountStatementImport entity)
         {
             Context.Set<AccountStatementImport>().Add(entity);
@@ -61,7 +109,7 @@ namespace Budget.DATA.Repositories
             //    Context.Entry(item).State= EntityState.Unchanged;
             //}
             //entity.AccountStatements.ForEach(x => Context.Entry(x).State = EntityState.Unchanged);
-            Context.Entry(entity.Bank).State = EntityState.Unchanged;
+            //Context.Entry(entity.Bank).State = EntityState.Unchanged;
             //entity.AccountStatements = null;
             //entity.Bank = null;
 
@@ -69,6 +117,8 @@ namespace Budget.DATA.Repositories
 
             return entity.Id;
         }
+
+        
 
         public List<AccountStatement> ImportFile()
         {

@@ -1,0 +1,90 @@
+
+<!-- <mat-tab-group 
+    *ngIf="(asiTableFilter$ | async).loadingInfo.loaded && (asiTableFilter$ | async).filters as filters" 
+    (selectedTabChange)="onTabChanged($event)"
+>
+    <mat-tab *ngFor="let bank of filters.banks" [label]="bank.label">
+        <ng-template mat-tab-label>
+            <img [src]="bank.color" [alt]="bank.label">
+            {{bank.label}}
+        </ng-template> -->
+        
+        <mat-table class="account-statement-import-table"
+          #table [dataSource]="dataSource"
+          [@animateStagger]="{value:'50'}"
+          matSort matSortActive="id" matSortDirection="asc" matSortDisableClear 
+          (matSortChange)="onSortChangeEvent($event)"
+        >
+            <!-- checkBox Column -->
+            <ng-container matColumnDef="checkbox" >
+                <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                        <!-- (change)="onSelectedChange($event,data.id)" -->
+                    <mat-checkbox 
+                       
+                        (click)="$event.stopPropagation()"
+                    >
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-container>
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="id" >
+                <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    <p class="text-truncate">{{data.id}}</p>
+                </mat-cell>
+            </ng-container>
+                <!-- fileImport Column -->
+                <ng-container matColumnDef="fileImport" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>nom fichier</mat-header-cell>
+                    <mat-cell *matCellDef="let data">
+                        <p class="text-truncate">{{data.fileImport}}</p>
+                    </mat-cell>
+                </ng-container>
+                <!-- dateImport Column -->
+            <ng-container matColumnDef="dateImport" >
+                <mat-header-cell *matHeaderCellDef mat-sort-header>date import</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    <p class="text-truncate">{{ data.dateImport | date: 'dd/MM/yyyy HH:mm:ss' || "-"}}</p>
+                </mat-cell>
+            </ng-container>
+    
+            <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"></mat-header-row>
+                
+            <!-- <mat-row *cdkRowDef="let data; columns: displayedColumns;"
+                (click)="onRowClick(data)"
+                [ngClass]="{'mat-light-blue-50-bg':checkboxes[data.id]}"
+                matRipple
+                [@animate]="{value:'*',params:{y:'100%'}}">>
+            </mat-row> -->
+            <!-- [class.expanded]="expandedElement == data" -->
+            <!-- (click)="expandedElement = data" -->
+            <mat-row 
+                *cdkRowDef="let data; columns: displayedColumns;"
+                matRipple
+                [@animate]="{value:'*',params:{y:'100%'}}"
+                class="element-row" 
+                (click)="onRowClick(data)"
+            >
+            </mat-row>
+        </mat-table>
+        
+        <div *ngIf="(asiTable$ | async).loadingInfo.loading"
+            class="h-96 w-100-p"
+            fxLayout="column"
+            fxLayoutAlign="center center">
+            <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
+            <div style="color:#4285F3" fxLayout="row">chargement...</div>
+        </div> 
+        
+        <mat-paginator *ngIf="(asiTableFilter$ | async).filters.selected.pagination; let pagination"
+            (page)="onPageChangeEvent($event)"
+            [length]="pagination.totalItems" 
+            [pageSize]="pagination.itemsPerPage"
+            [pageSizeOptions]="[3, 5, 10]">
+        </mat-paginator>
+    <!-- </mat-tab>
+</mat-tab-group>
+
+<p class="empty-result" *ngIf="(asiTableFilter$ | async).loadingInfo.loaded && (asiTableFilter$ | async).filters.banks.length==0">Aucun résultat</p> -->

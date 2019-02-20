@@ -1,4 +1,5 @@
-﻿using Budget.MODEL.Database;
+﻿using Budget.MODEL;
+using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Budget.SERVICE
     {
         List<SelectDto> GetSelect(int idSelectType);
 
-        OperationMethod GetOperationMethodByFileLabel(string operationLabel, int idBank);
+        OperationMethod GetOperationMethodByFileLabel(string operationLabel, EnumBankFamily enumBankFamily);
         OperationMethod GetById(int idOperationMethod);
         List<OperationMethod> GetAll();
         List<OperationMethod> GetAllForEdit();

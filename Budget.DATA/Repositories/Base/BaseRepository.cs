@@ -60,6 +60,12 @@ namespace Budget.DATA.Repositories
             return entity;
         }
 
+        public T CreateWithTran(T entity)
+        {
+            Context.Set<T>().Add(entity);
+            return entity;
+        }
+
         public void Update(T entity)
         {
             Context.Entry(entity).State = EntityState.Modified;

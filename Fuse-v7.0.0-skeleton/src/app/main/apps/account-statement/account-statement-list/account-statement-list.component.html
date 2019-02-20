@@ -1,0 +1,243 @@
+  
+<div class="example-container">
+    <mat-table class="account-statement-import-histo-table"
+        #table [dataSource]="dataSource"
+        [@animateStagger]="{value:'50'}"
+        matSort matSortActive="id" matSortDirection="asc" matSortDisableClear 
+        (matSortChange)="onSortChangeEvent($event)"
+        
+    >
+
+    <!-- id -->
+    <ng-container matColumnDef="id">
+        <mat-header-cell style="flex:0 0 70px;" *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-cell style="flex:0 0 70px;" *matCellDef="let data">
+            <p class="text-truncate">{{data.id}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- plans -->
+    <ng-container matColumnDef="plan">
+        <mat-header-cell style="flex:0 0 70px;" *matHeaderCellDef ></mat-header-cell>
+        <mat-cell style="flex:0 0 70px;" *matCellDef="let data">
+                <div class="dot" *ngFor="let plan of data.plans"
+                    [matTooltip]="plan.label"
+                    [ngStyle]="{'background-color':plan.color }"
+                >
+                    {{plan.id}}
+                </div>
+            <!-- <span *ngFor="let plan of data.plans">{{plan.label}}</span> -->
+            
+        </mat-cell>
+    </ng-container>
+
+    <!-- Operation method -->
+    <ng-container matColumnDef="operationMethod" >
+        <mat-header-cell style="flex: 0 0 15%;"  *matHeaderCellDef >
+            <div mat-sort-header >Méthode opération</div>
+            
+            <div (click)="templateFor='col2'" [matMenuTriggerFor]="menuOperationMethod" 
+                    style="cursor: pointer;" fxFlex fxLayoutAlign="end start"   >
+                <mat-icon color="warn" *ngIf="hasFilterData('operationMethod')">filter_list</mat-icon>
+                <mat-icon color="primary" *ngIf="!hasFilterData('operationMethod')">filter_list</mat-icon>
+            </div>
+            <mat-menu #menuOperationMethod="matMenu" [overlapTrigger]="false">
+                <operation-method-filter *ngIf="templateFor==='col2'"></operation-method-filter>
+            </mat-menu>
+        </mat-header-cell >
+        <mat-cell style="flex: 0 0 15%;" *matCellDef="let data">
+            <p class="text-truncate">{{data.operationMethod.label}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Opération -->
+    <ng-container matColumnDef="operation" >
+        <mat-header-cell style="flex: 0 0 15%;" *matHeaderCellDef >
+            <div mat-sort-header >Opération</div>
+    
+            <div (click)="templateFor='col3'" [matMenuTriggerFor]="menuOperation"
+                fxFlex fxLayoutAlign="end start" style="cursor: pointer;">
+                <mat-icon color="warn" *ngIf="hasFilterData('operation')">filter_list</mat-icon>
+                <mat-icon color="primary" *ngIf="!hasFilterData('operation')">filter_list</mat-icon>
+            </div>
+    
+            <mat-menu #menuOperation="matMenu" [overlapTrigger]="false">
+                <operation-filter [openFilter]="true" *ngIf="templateFor==='col3'"></operation-filter>
+            </mat-menu>
+        </mat-header-cell>
+        <mat-cell style="flex: 0 0 15%;" *matCellDef="let data">
+            <p class="text-truncate">{{data.operation.label}}</p>
+        </mat-cell>
+    </ng-container>
+        
+    <!-- Operation type family-->
+    <ng-container matColumnDef="operationTypeFamily" >
+        <mat-header-cell style="flex: 0 0 15%;" *matHeaderCellDef>
+            <div mat-sort-header>Catégorie opération</div>
+    
+            <div (click)="templateFor='col4'" [matMenuTriggerFor]="menuOperationTypeFamily"
+                fxFlex fxLayoutAlign="end start" style="cursor: pointer;">
+                <mat-icon color="warn" *ngIf="hasFilterData('operationTypeFamily')">filter_list</mat-icon>
+                <mat-icon color="primary" *ngIf="!hasFilterData('operationTypeFamily')">filter_list</mat-icon>
+            </div>
+    
+            <mat-menu #menuOperationTypeFamily="matMenu" [overlapTrigger]="false">
+                <operation-type-family-filter *ngIf="templateFor==='col4'"></operation-type-family-filter>
+            </mat-menu>
+        </mat-header-cell>
+
+        <mat-cell style="flex: 0 0 15%;" *matCellDef="let data">
+            <p class="text-truncate">{{data.operationTypeFamily.label}}</p>
+        </mat-cell>
+    </ng-container>
+        
+    <!-- Operation type -->
+    <ng-container matColumnDef="operationType" >
+        <mat-header-cell style="flex: 0 0 15%;" *matHeaderCellDef>
+            <div mat-sort-header >Type opération</div>
+    
+            <div (click)="templateFor='col5'" [matMenuTriggerFor]="menuOperationType"
+                fxFlex fxLayoutAlign="end start" style="cursor: pointer;">
+                <mat-icon color="warn" *ngIf="hasFilterData('operationType')">filter_list</mat-icon>
+                <mat-icon color="primary" *ngIf="!hasFilterData('operationType')">filter_list</mat-icon>
+            </div>
+    
+            <mat-menu #menuOperationType="matMenu" [overlapTrigger]="false">
+                <operation-type-filter *ngIf="templateFor==='col5'"></operation-type-filter>
+            </mat-menu>
+        </mat-header-cell>
+    
+        <mat-cell style="flex: 0 0 15%;" *matCellDef="let data">
+            <p class="text-truncate">{{data.operationType.label}}</p>
+        </mat-cell>
+    </ng-container>
+        
+    <!-- dateIntegration -->
+    <ng-container matColumnDef="dateIntegration" >
+        <mat-header-cell style="flex: 0 0 100px;" *matHeaderCellDef>
+            <div mat-sort-header>Date int.</div>
+    
+            <div (click)="templateFor='col6'" [matMenuTriggerFor]="menuDateIntegration"
+                fxFlex fxLayoutAlign="end start" style="cursor: pointer;">
+                <mat-icon color="warn" *ngIf="hasFilterData('dateIntegration')">filter_list</mat-icon>
+                <mat-icon color="primary" *ngIf="!hasFilterData('dateIntegration')">filter_list</mat-icon>
+            </div>
+    
+            <mat-menu #menuDateIntegration="matMenu" [overlapTrigger]="false">
+                <date-integration-filter *ngIf="templateFor==='col6'"></date-integration-filter>
+            </mat-menu>
+        </mat-header-cell>
+    
+        <mat-cell style="flex: 0 0 100px;" *matCellDef="let data">
+            <p class="text-truncate">{{data.dateIntegration | date: 'dd/MM/yyyy'}}</p>
+        </mat-cell>
+    </ng-container> 
+        
+    <!-- Amount -->
+    <ng-container matColumnDef="amountOperation" >
+        <mat-header-cell style="flex: 0 0 100px;" *matHeaderCellDef>
+            <div mat-sort-header >Montant</div>
+    
+            <div (click)="templateFor='col7'" [matMenuTriggerFor]="menuAmount"
+                fxFlex fxLayoutAlign="end start" style="cursor: pointer;">
+                <mat-icon color="warn" *ngIf="hasFilterData('amount')">filter_list</mat-icon>
+                <mat-icon color="primary" *ngIf="!hasFilterData('amount')">filter_list</mat-icon>
+            </div>
+    
+            <mat-menu #menuAmount="matMenu" [overlapTrigger]="false">
+                <amount-filter *ngIf="templateFor==='col7'"></amount-filter>
+            </mat-menu>
+        </mat-header-cell>
+        
+        <mat-cell style="flex: 0 0 100px;" *matCellDef="let data">
+            <div *ngIf="data.amountOperation>0">
+                <p  class="text-truncate green-fg">
+                    <mat-icon class="green-fg mr-2">trending_up</mat-icon>
+                    {{data.amountOperation}}
+                </p>
+            </div>
+            <div *ngIf="data.amountOperation<0">
+                <p  class="text-truncate red-fg">
+                    <mat-icon class="red-fg mr-2">trending_down</mat-icon>
+                    {{data.amountOperation}}
+                </p>
+            </div>
+        </mat-cell>
+    </ng-container> 
+        
+    <ng-container matColumnDef="button" >
+        <mat-header-cell style="flex:0 0 30px;"  *matHeaderCellDef ></mat-header-cell>
+        <mat-cell fxFlex fxLayoutAlign="end start" *matCellDef="let data">
+            <button matTooltip="Détail" mat-icon-button (click)="detail(data)">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container> 
+        
+        
+        <!-- Expanded Content Column - The detail row is made up of this one column -->
+        <ng-container matColumnDef="expandedDetail">
+            <mat-cell *matCellDef="let detail"> 
+                {{detail.element.labelOperation}}
+            </mat-cell>
+        </ng-container>
+        
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+        
+        <mat-row 
+            
+            *cdkRowDef="let data; columns: displayedColumns;"
+            matRipple
+            [@animate]="{value:'*',params:{y:'100%'}}"
+            class="element-row" 
+            [class.expanded]="expandedElement == data"
+            (click)="expandedElement = data"
+        >
+        </mat-row>
+        
+        <!-- <mat-row
+            *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
+            [@detailExpand]="row.element == expandedElement ? 'expanded' : 'collapsed'"
+            style="overflow: hidden"> 
+        </mat-row> -->
+   
+        
+    </mat-table>
+
+</div>
+
+    <div *ngIf="(tableInfo$ | async).dataInfos.loadingInfo.loading"
+        class="h-96 w-100-p"
+        fxLayout="column"
+        fxLayoutAlign="center center">
+        <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
+        <div style="color:#4285F3" fxLayout="row">chargement...</div>
+    </div> 
+    <!-- <div *ngIf="dataSource.loading$ | async;"
+        class="h-96 w-100-p"
+        fxLayout="column"
+        fxLayoutAlign="center center">
+        <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
+        <div style="color:#4285F3" fxLayout="row">chargement...</div>
+    </div>  -->
+
+    <!-- <p class="empty-result" *ngIf="(dataSource.pagination$ | async)?.totalItems==0 && (dataSource.loading$ | async)==false;">Aucun résultat</p> -->
+    <p class="empty-result" *ngIf="(tableInfo$ | async).dataInfos.loadingInfo.loaded && (tableInfo$ | async).filter.pagination.totalItems==0">Aucun résultat</p>
+    <!-- <p *ngIf="(gridInfo$ | async).loadingInfo.loaded &&  (gridInfo$ | async).filter.pagination as pagination">
+        total items: {{pagination.totalItems}} item perPage: {{pagination.itemsPerPage}}
+    </p> -->
+    <mat-paginator *ngIf="(tableInfo$ | async).filter.pagination as pagination"
+        (page)="onPageChangeEvent($event)"
+        [length]="pagination.totalItems" 
+        [pageSize]="pagination.itemsPerPage"
+        [pageSizeOptions]="[15, 100, 200]">
+    </mat-paginator>
+    
+
+
+
+
+
+
+
+

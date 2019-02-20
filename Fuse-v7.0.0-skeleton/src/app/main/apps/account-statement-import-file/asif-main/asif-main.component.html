@@ -1,0 +1,81 @@
+<div id="products" class="page-layout carded fullwidth inner-scroll">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <div class="left-side" style="margin-bottom:30px;" fxLayout="row" *ngIf="loading">
+                    <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                        <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Enregistrement des relevés</span>
+                    </div>
+                </div>
+
+                <div class="left-side" style="margin-bottom:30px;" fxLayout="row" *ngIf="!loading">
+                    <button class="mr-0 mr-sm-16" mat-icon-button [routerLink]="'/apps/account-statement-imports'">
+                        <mat-icon>arrow_back</mat-icon>
+                    </button>
+
+                    <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center"
+                        *ngIf="(asifTableFilter$ | async).loadingInfo.loaded"
+                    >
+                        <div  fxLayout="column">
+                            <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">{{(asifTableFilter$ | async).filters.asiBankLabel}}</span>
+                            <span class="logo-text h3" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Import du {{(asifTableFilter$ | async).filters.asiDateImport | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
+                        </div>
+                    </div>
+                    <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                        
+                    </div>
+                </div>
+
+                <div fxLayout="row" *ngIf="(asifTableFilter$ | async).loadingInfo.loaded && (asifTableFilter$ | async).filters.accounts as accounts">
+
+                    <div class="selected-project">{{(asifTableFilter$ | async).filters.selected.account.label}}</div>
+
+                    <button mat-icon-button 
+                        class="project-selector" 
+                        [matMenuTriggerFor]="projectsMenu"
+                        aria-label="Select project">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+
+                    <!-- [routerLink]="['/apps/account-statement-import-archives',idImport,'accounts',account.id,'account-statement-import-files']" -->
+                    <mat-menu #projectsMenu="matMenu">
+                        <button mat-menu-item *ngFor="let account of accounts" (click)="AccountChange(account)"  >
+                            <span>{{account.label}}</span>
+                        </button>
+                    </mat-menu>
+
+                </div>
+
+            </div>
+
+            <button mat-raised-button style="margin-bottom:30px;"
+                class="save-product-button white mt-16 mt-sm-0"
+                (click)="SaveInAccountStatement()"
+                [disabled]="loading">
+                <span>SAUVEGARDER</span>
+            
+            </button>
+
+        </div>
+        <!-- / HEADER -->
+            
+        <div class="content-card">
+            <div *ngIf="(asifTableFilter$ | async).loadingInfo.loaded">
+                <asif-state></asif-state>
+            </div>
+
+            <div class="spinner-container" *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">
+                En cours...
+                <mat-spinner color="accent"></mat-spinner>
+            </div>
+        </div>
+    </div>
+      <!-- / CENTER -->
+  </div>

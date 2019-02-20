@@ -1,0 +1,85 @@
+@import "src/@fuse/scss/fuse";
+
+.header-1-background {
+    background-color: #9B9B9B;
+    background: url('/assets/images/backgrounds/bck_1.png') no-repeat;
+}
+
+.header-2-background {
+    background-color: #9B9B9B;
+    background: url('/assets/images/backgrounds/bck_2.png') no-repeat;
+}
+
+.selected-project {
+    background: rgba(0, 0, 0, 0.12);
+    color: #FFFFFF;
+    padding: 8px 16px;
+    margin-left:2px;
+    height: 40px;
+    line-height: 24px;
+    font-size: 16px;
+    border-radius: 8px 8px 0 0;
+}
+
+.project-selector {
+    margin-left: 1px;
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 8px 0 0 0;
+    mat-icon {
+        color: #FFFFFF;
+    }
+}
+
+.mat-table {
+    overflow: auto;
+    width: 100% !important;
+    // height: 800px !important;
+  }
+  
+  .element-row {
+    position: relative;
+  }
+  
+  .element-row:not(.expanded) {
+    cursor: pointer;
+  }
+  
+  .element-row:not(.expanded):hover {
+    background: #f5f5f5;
+  }
+  
+  .element-row.expanded {
+    border-bottom-color: red;
+    background: #f5f5f5;
+  }
+
+  .ng-trigger-detailExpand {
+    background: #f5f5f5;
+  }
+
+  .mat-row {
+    min-height: 36px;
+    max-height: 36px;
+    padding-top:0px;
+    padding-right:6px;
+    padding-bottom: 0px;
+    padding-left: 6px;
+    width: 100%;
+  }
+
+  .mat-header-row {
+  //   position: sticky;
+  // top: 0;
+    min-height: 40px;
+    max-height: 40px;
+    padding-top:0px;
+    padding-right:6px;
+    padding-bottom: 0px;
+    padding-left: 6px;
+    width: 100%;
+  }
+
+  .empty-result {
+    text-align:center;
+    color:#4285F3;
+  }

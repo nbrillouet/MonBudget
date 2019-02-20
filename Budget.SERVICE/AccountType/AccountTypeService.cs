@@ -1,17 +1,29 @@
-﻿using Budget.DATA.Repositories;
+﻿using AutoMapper;
+using Budget.DATA.Repositories;
 using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Budget.SERVICE
 {
     public class AccountTypeService : IAccountTypeService
     {
+        private readonly IMapper _mapper;
         private readonly IAccountTypeRepository _accountTypeRepository;
-        public AccountTypeService(IAccountTypeRepository accountTypeRepository)
+        private readonly ISelectService _selectService;
+
+        public AccountTypeService(
+            IAccountTypeRepository accountTypeRepository,
+            IMapper mapper,
+            ISelectService selectService
+            )
         {
             _accountTypeRepository = accountTypeRepository;
+            _mapper = mapper;
+            _selectService = selectService;
 
         }
 
@@ -20,10 +32,19 @@ namespace Budget.SERVICE
             return _accountTypeRepository.GetById(id);
         }
 
-        public List<AccountType> GetAll()
+        public List<SelectDto> GetSelectList(int idSelectType)
         {
-            return _accountTypeRepository.GetAll();
+            var selectList = _selectService.GetSelectList(idSelectType);
+            var accountTypes = _accountTypeRepository.GetAllOrdering();
+            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(accountTypes).ToList());
+
+            return selectList;
         }
+
+        //public List<AccountType> GetAll()
+        //{
+        //    return _accountTypeRepository.GetAll();
+        //}
 
 
         //public int Create(Account account)

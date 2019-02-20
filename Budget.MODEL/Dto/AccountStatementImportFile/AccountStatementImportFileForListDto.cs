@@ -78,10 +78,10 @@ namespace Budget.MODEL.Dto
     //    }
     //}
 
-    public class AsifState
-    {
-        public int Id { get; set; }
-        public string Label { get; set; }
-    }
+    //public class AsifState
+    //{
+    //    public int Id { get; set; }
+    //    public string Label { get; set; }
+    //}
 
 }

@@ -1,0 +1,431 @@
+﻿using Budget.MODEL;
+using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
+using Budget.SERVICE._Helpers;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace Budget.SERVICE
+{
+
+    public class CreditAgricoleImportFileService : BankingImportService, ICreditAgricoleImportFileService
+    {
+        private readonly IParameterService _parameterService;
+        private readonly IBankFileDefinitionService _bankFileDefinitionService;
+        private readonly IAccountStatementImportFileService _asifService;
+        private readonly IAccountService _accountService;
+        private readonly IOperationMethodService _operationMethodService;
+        private readonly IOperationService _operationService;
+        private readonly IOperationTypeService _operationTypeService;
+        private readonly IOperationDetailService _operationDetailService;
+
+        public CreditAgricoleImportFileService(
+            IParameterService parameterService,
+            IBankFileDefinitionService bankFileDefinitionService,
+            IAccountStatementImportFileService asifService,
+            IAccountService accountService,
+            IOperationMethodService operationMethodService,
+            IOperationService operationService,
+            IOperationTypeService operationTypeService,
+            IOperationDetailService operationDetailService
+        )
+        {
+            _parameterService = parameterService;
+            _bankFileDefinitionService = bankFileDefinitionService;
+            _asifService = asifService;
+            _accountService = accountService;
+            _operationMethodService = operationMethodService;
+            _operationService = operationService;
+            _operationTypeService = operationTypeService;
+            _operationDetailService = operationDetailService;
+        }
+
+        public StreamReader FormatFile(StreamReader reader, User user)
+        {
+            List<BankFileDefinition> bankFileDefinitions = _bankFileDefinitionService.GetByIdBank((int)EnumBankFamily.CreditAgricole);
+            
+            reader.DiscardBufferedData();
+            reader.BaseStream.Seek(0, SeekOrigin.Begin);
+
+            string dir = _parameterService.GetImportFileDir(user.Id);
+            dir = dir + "ca_TMP.csv";
+            StreamWriter writer = new StreamWriter(dir);
+
+            string account = "";
+            bool lineFound = false;
+            string currentLine = string.Empty;
+            //string stream = string.Empty;
+
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                if(line.Contains("no "))
+                {
+                    account = line.Substring(line.IndexOf("no ") + 3);
+                    account = account.Remove(account.Length-1);
+                }
+
+                if ((line.Contains("\"") && !lineFound))
+                {
+                    line = line.Replace(@"""", string.Empty);
+                    currentLine = $"{currentLine}{line.Replace("\r\n","")}";
+                    lineFound = true;
+                }
+                else if (line.Contains("\"") && lineFound)
+                {
+                    line = line.Replace(@"""", string.Empty);
+                    currentLine = $"{currentLine}{line}";
+                    string newLine = $"{account};{currentLine}";
+                    int countSemiColumn = newLine.Count(f => f == ';');
+                    if (countSemiColumn != bankFileDefinitions.Count())
+                        newLine = $"{newLine};";
+
+                    writer.WriteLine(newLine);
+
+                    currentLine = string.Empty;
+                    lineFound = false;
+                }
+                else if (lineFound)
+                {
+                    currentLine = $"{currentLine}{line.Replace("\r\n", "")}";
+                }
+                var values = line.Split(';');
+
+            }
+
+            writer.Close();
+            writer.Dispose();
+
+            StreamReader myReader = new StreamReader(dir);
+
+
+            return myReader;
+        }
+
+        public override List<AccountStatementImportFile> ImportFile(StreamReader reader, AccountStatementImport accountStatementImport, User user)
+        {
+            reader.DiscardBufferedData();
+            reader.BaseStream.Seek(0, SeekOrigin.Begin);
+
+            List<AccountStatementImportFile> accountStatementImportFiles = new List<AccountStatementImportFile>();
+            int currentLineNumber = 0;
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+
+                var values = line.Split(';');
+                AccountStatementImportFile asif = _asifService.InitForImport();
+                asif.Id = currentLineNumber;
+                asif.IdImport = accountStatementImport.Id;
+                asif.DateImport = DateTime.Now;
+                asif.Reference = null;
+                asif.LabelOperation = values[2].ToString();
+
+                asif.LabelOperationWork = _asifService.GetOperationLabelWork(asif.LabelOperation);
+                //asif.LabelOperationWork = asif.LabelOperationWork.ToString().Replace(" ", "");
+                if (values[3].ToString() != string.Empty)
+                {
+                    asif.AmountOperation = - double.Parse(values[3].Replace(",", ".").ToString(), CultureInfo.InvariantCulture);
+                    asif.IdMovement = (int)EnumMouvement.Debit;
+                }
+                else if (values[4].ToString() != string.Empty)
+                {
+                    asif.AmountOperation = double.Parse(values[4].Replace(",", ".").ToString(), CultureInfo.InvariantCulture);
+                    asif.IdMovement = (int)EnumMouvement.Credit;
+                }
+
+                asif.DateIntegration = Convert.ToDateTime(values[1].ToString());
+                asif.Account = _accountService.GetByNumber(values[0].ToString());
+                asif.IdAccount = asif.Account.Id;
+
+                OperationMethod operationMethod = _operationMethodService.GetOperationMethodByFileLabel(asif.LabelOperationWork, EnumBankFamily.CreditAgricole);
+                asif.IdOperationMethod = operationMethod.Id;
+
+                //Date Operation
+                switch (asif.IdOperationMethod)
+                {
+                    case (int)EnumOperationMethod.PaiementCarte:
+                        asif.DateOperation = GetDateOperationByFileLabel(asif.LabelOperationWork, asif.DateIntegration.Value, EnumOperationMethod.PaiementCarte);
+                        break;
+                    case (int)EnumOperationMethod.RetraitCarte:
+                        asif.DateOperation = GetDateOperationByFileLabel(asif.LabelOperationWork, asif.DateIntegration.Value, EnumOperationMethod.RetraitCarte);
+                        break;
+                }
+
+                //Determination de operationDetail (operation+addresse) à partir des keywords
+                OperationDetail operationDetail = _asifService.GetOperationDetail(asif);
+                if (operationDetail != null)
+                {
+                    asif.IdOperation = operationDetail.Operation.Id;
+                    asif.IdOperationType = operationDetail.Operation.IdOperationType;
+                    asif.IdOperationTypeFamily = operationDetail.Operation.OperationType.IdOperationTypeFamily;
+                    asif.IdOperationDetail = operationDetail.Id;
+                    asif.OperationLabelTemp = operationDetail.Operation.Label;
+                    asif.OperationKeywordTemp = operationDetail.KeywordOperation;
+                    asif.PlaceLabelTemp = operationDetail.KeywordPlace;
+                    asif.PlaceKeywordTemp = operationDetail.KeywordPlace;
+                }
+                else
+                {
+                    //Determination de operationDetail (operation+addresse) à partir du label brut
+                    OperationType operationType = _operationTypeService
+                        .GetByIdWithOperationTypeFamily((int)EnumOperationType.Inconnu);
+                    //asif.IdMovement==(int)EnumMouvement.Credit ? (int)EnumOperationType.InconnuCredit : (int)EnumOperationType.InconnuDebit);
+                    asif.IdOperationType = operationType.Id;
+                    asif.IdOperationTypeFamily = operationType.IdOperationTypeFamily;
+
+                    //rechercher les labels et keyword sur libellé brut
+                    OperationInformation operationInformation = GetOperationInformationByParsingLabel(asif.LabelOperation, asif.LabelOperationWork, operationMethod);
+                    if (operationInformation != null)
+                    {
+                        //asif.IdOperation = operationInformation.IdOperation;
+                        asif.OperationLabelTemp = operationInformation.OperationLabel;
+                        asif.OperationKeywordTemp = operationInformation.OperationKeyword;
+                        asif.PlaceKeywordTemp = operationInformation.PlaceKeyword;
+                        asif.PlaceLabelTemp = operationInformation.PlaceLabel;
+
+                    }
+                    ////si localisable , rechercher label et keyword pour lieu operation
+                    //if (asif.IsLocalisable)
+                    //{
+                    //    KeyLabel keywordPlace = _operationDetailService.GetKeywordPlaceByParsingLabel(asif);
+                    //    asif.PlaceKeywordTemp = keywordPlace.Keyword;
+                    //    asif.PlaceLabelTemp = keywordPlace.Label;
+                    //}
+                }
+
+                accountStatementImportFiles.Add(asif);
+                //}
+                //else
+                //{
+                //    var toto = asif.LabelOperationWork;
+                //}
+            }
+            
+
+            return accountStatementImportFiles;
+        }
+
+        private DateTime? GetDateOperationByFileLabel(string trimOperationLabel, DateTime dateIntegration, EnumOperationMethod enumOperationMethod)
+        {
+            int idx = 0;
+            int year = dateIntegration.Year;
+            string dateOperation;
+            switch (enumOperationMethod)
+            {
+                case EnumOperationMethod.PaiementCarte:
+                    //Recherche pos de 'Paiement Par Carte', la date est au format dd/MM et commence 5 pos avant. 
+                    //Prendre l'année de la date integration pour mettre annee sur date operation
+                    idx = trimOperationLabel.IndexOf("PAIEMENTPARCARTE");
+                    idx = idx - 4;
+                    dateOperation = trimOperationLabel.Substring(idx, 4);
+                    
+                    return DateTime.ParseExact($"{dateOperation}{year}", "ddMMyyyy", CultureInfo.CurrentCulture);
+
+                case EnumOperationMethod.RetraitCarte:
+                    //Recherche pos de 'Retrait Au Distributeur', la date / heure est au format dd/MM hhhmm et commence 9 pos avant.
+                    //Prendre l'année de la date integration pour mettre annee sur date operation
+                    idx = trimOperationLabel.IndexOf("RETRAITAUDISTRIBUTEUR");
+                    idx = idx - 9;
+                    dateOperation = $"{trimOperationLabel.Substring(idx, 4)}{year} {trimOperationLabel.Substring(idx+4, 5).Replace("H",":")}:00.000";
+
+                    return DateTime.ParseExact($"{dateOperation}", "ddMMyyyy HH:mm:ss.fff", CultureInfo.CurrentCulture);
+            }
+
+            return null;
+        }
+
+        protected override OperationInformation GetOperationInformationByParsingLabel(string label, string labelWork, OperationMethod operationMethod)
+        {
+            switch (operationMethod.Id)
+            {
+                case (int)EnumOperationMethod.PaiementCarte:
+                    return GetOperationInformationForCardPayment(label, labelWork, operationMethod.KeywordWork);
+                case (int)EnumOperationMethod.RetraitCarte:
+                    return GetOperationInformationForCashWithdrawal(label, labelWork, operationMethod.KeywordWork);
+                case (int)EnumOperationMethod.Cotisation:
+                    return GetOperationInformationForCotisation(label, labelWork, operationMethod.KeywordWork);
+                case (int)EnumOperationMethod.Virement:
+                    return GetOperationInformationForVirement(label, labelWork, operationMethod.KeywordWork);
+                case (int)EnumOperationMethod.RemiseCheque:
+                    return GetOperationInformationForRemiseCheque(label, labelWork, operationMethod.KeywordWork);
+                case (int)EnumOperationMethod.EmissionCheque:
+                    return GetOperationInformationForEmissionCheque(label, labelWork, operationMethod.KeywordWork);
+                case (int)EnumOperationMethod.Prelevement:
+                    return GetOperationInformationForPrelevement(label, labelWork, operationMethod.KeywordWork);
+                case (int)EnumOperationMethod.Frais:
+                    return GetOperationInformationForFrais(label, labelWork, operationMethod.KeywordWork);
+            }
+            return null;
+        }
+
+        protected override OperationInformation GetOperationInformationForCardPayment(string label, string labelWork, string operationMethodKeyword)
+        {
+            string placeLabel = string.Empty;
+            string placeKeyword = string.Empty;
+            //string operationLabel = string.Empty;
+
+            //recherche position de 'paiement par carte' et enlever la date devant (format ddMM)
+            int idx = labelWork.IndexOf(operationMethodKeyword) - 4;
+            string operationLabel = labelWork.Substring(0, idx);
+            operationLabel = FileHelper.ExcludeNumbers(operationLabel);
+
+            var labelOperation = string.Empty;
+            //recherche dans operation_detail le mot clef du lieu
+            var operationDetail = _operationDetailService.FindKeywordPlace(operationLabel);
+            if (operationDetail!=null)
+            {
+                placeLabel = operationDetail.GMapAddress.gMapLocality.Label;
+                placeKeyword = operationDetail.KeywordPlace;
+                //on enleve tout apres le mot clef de la localisation
+                idx = operationLabel.IndexOf(operationDetail.KeywordPlace);
+                operationLabel = operationLabel.Substring(0, idx).ToUpper();
+            }
+
+            OperationInformation operationInformation = new OperationInformation
+            {
+                OperationLabel = FileHelper.GetOperationLabelFromOperationLabelWork(label, operationLabel),
+                OperationKeyword = operationLabel,// FileHelper.ExcludeForbiddenChars(operationLabel.Replace(" ", "").ToUpper()),
+                PlaceLabel = placeLabel,
+                PlaceKeyword = placeKeyword
+            };
+
+            return operationInformation;
+        }
+        
+
+        protected override OperationInformation GetOperationInformationForCashWithdrawal(string label, string labelWork, string operationMethodKeyword)
+        {
+            string placeLabel = string.Empty;
+            string placeKeyword = string.Empty;
+            string operationLabel = string.Empty;
+
+            //recherche dans operation_detail le mot clef du lieu
+            var operationDetail = _operationDetailService.FindKeywordPlace(labelWork);
+            if (operationDetail != null)
+            {
+                placeLabel = operationDetail.GMapAddress.gMapLocality.Label;
+                placeKeyword = operationDetail.KeywordPlace;
+            }
+
+            OperationInformation operationInformation = new OperationInformation
+            {
+                OperationLabel = "RETRAIT DAB",
+                OperationKeyword = operationMethodKeyword,
+                PlaceLabel = placeLabel,
+                PlaceKeyword = placeKeyword
+            };
+
+            return operationInformation;
+        }
+
+        protected override OperationInformation GetOperationInformationForCotisation(string label, string labelWork, string operationMethodKeyword)
+        {
+            string operationLabel = string.Empty;
+
+            //rechercher libellé avant mot clef cotisation
+            int index = labelWork.IndexOf(operationMethodKeyword);//  accountStatementImportFile.LabelOperation.ToUpper().IndexOf("COTISATION");
+            operationLabel = labelWork.Substring(0, index); // accountStatementImportFile.LabelOperation.Substring(0, index);
+            operationLabel = operationLabel.Trim();
+            //operationLabel = operationLabel.Trim();
+
+            OperationInformation operationInformation = new OperationInformation
+            {
+                OperationLabel = FileHelper.GetOperationLabelFromOperationLabelWork(label, operationLabel), 
+                OperationKeyword = operationLabel // FileHelper.ExcludeForbiddenChars(operationLabel.Replace(" ", "").ToUpper())
+            };
+
+            return operationInformation;
+        }
+
+        protected override OperationInformation GetOperationInformationForVirement(string label, string labelWork, string operationMethodKeyword)
+        {
+            string operationLabel = string.Empty;
+
+            //rechercher libellé avant mot clef virement en votre faveur
+            int index = labelWork.IndexOf(operationMethodKeyword); // accountStatementImportFile.LabelOperation.ToUpper().IndexOf("VIREMENT EN VOTRE FAVEUR");
+            operationLabel = labelWork.Substring(0, index); // accountStatementImportFile.LabelOperation.Substring(0,index);
+            //label s'arrete au premier chiffre trouvé
+            index = FileHelper.IndexFirstNumeric(operationLabel);
+            operationLabel = index == -1 ? operationLabel : operationLabel.Substring(0, index);
+            //operationLabel = FileHelper.ExcludeNumbers(operationLabel);
+            //operationLabel = FileHelper.ExcludeForbiddenChars(operationLabel);
+            //operationLabel = operationLabel.ToUpper();
+            operationLabel = operationLabel.Trim();
+
+            OperationInformation operationInformation = new OperationInformation
+            {
+                OperationLabel = FileHelper.GetOperationLabelFromOperationLabelWork(label, operationLabel), //operationLabel,
+                OperationKeyword = operationLabel // FileHelper.ExcludeForbiddenChars(operationLabel.Replace(" ", "").ToUpper())
+            };
+
+            return operationInformation;
+
+        }
+
+        protected override OperationInformation GetOperationInformationForRemiseCheque(string label, string labelWork, string operationMethodKeyword)
+        {
+
+
+            //TODO (pas d'exemples)
+
+            OperationInformation operationInformation = new OperationInformation
+            {
+                OperationLabel = "REMISE CHEQUE"
+            };
+            return operationInformation;
+        }
+
+        protected override OperationInformation GetOperationInformationForEmissionCheque(string label, string labelWork, string operationMethodKeyword)
+        {
+
+            //TODO (pas d'exemples)
+
+            OperationInformation operationInformation = new OperationInformation
+            {
+                OperationLabel = "EMISSION CHEQUE"
+            };
+
+            return operationInformation;
+        }
+
+        protected override OperationInformation GetOperationInformationForPrelevement(string label, string labelWork, string operationMethodKeyword)
+        {
+            string operationLabel = string.Empty;
+
+            //rechercher libellé avant mot clef 'Prelevmnt'
+            int index = labelWork.IndexOf(operationMethodKeyword); //accountStatementImportFile.LabelOperation.ToUpper().IndexOf("PRELEVMNT");
+            operationLabel = labelWork.Substring(0, index); // accountStatementImportFile.LabelOperation.Substring(0,index);
+            //operationLabel = operationLabel.ToUpper();
+            operationLabel = operationLabel.Trim();
+
+            OperationInformation operationInformation = new OperationInformation
+            {
+                OperationLabel = FileHelper.GetOperationLabelFromOperationLabelWork(label, operationLabel), //operationLabel,
+                OperationKeyword = operationLabel //FileHelper.ExcludeForbiddenChars(operationLabel.Replace(" ", "").ToUpper())
+            };
+
+            return operationInformation;
+        }
+
+        protected override OperationInformation GetOperationInformationForFrais(string label, string labelWork, string operationMethodKeyword)
+        {
+            string operationLabel = string.Empty;
+
+            //TODO (pas d'exemples)
+
+            OperationInformation operationInformation = new OperationInformation
+            {
+                OperationLabel = FileHelper.GetOperationLabelFromOperationLabelWork(label, operationLabel),
+                OperationKeyword = operationLabel // FileHelper.ExcludeForbiddenChars(operationLabel.Replace(" ", "").ToUpper())
+            };
+
+            return operationInformation;
+        }
+    }
+}

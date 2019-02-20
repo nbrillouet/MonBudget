@@ -1,6 +1,7 @@
 ﻿using Budget.HELPER;
 using Budget.MODEL;
 using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using Budget.MODEL.Filter;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,6 +27,17 @@ namespace Budget.DATA.Repositories
                 .Include(x => x.OperationMethod)
                 .Include(x => x.OperationType)
                     .ThenInclude(x => x.OperationTypeFamily)
+                .Include(x=>x.OperationDetail)
+                .Include(x=>x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel1)
+                .Include(x => x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel2)
+                .Include(x => x.OperationDetail.GMapAddress.gMapCountry)
+                .Include(x => x.OperationDetail.GMapAddress.gMapLocality)
+                .Include(x => x.OperationDetail.GMapAddress.gMapNeighborhood)
+                .Include(x => x.OperationDetail.GMapAddress.gMapPostalCode)
+                .Include(x => x.OperationDetail.GMapAddress.gMapRoute)
+                .Include(x => x.OperationDetail.GMapAddress.gMapStreetNumber)
+                .Include(x => x.OperationDetail.GMapAddress.gMapSublocalityLevel1)
+                .Include(x => x.OperationDetail.GMapAddress.gMapSublocalityLevel2)
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
@@ -117,12 +129,10 @@ namespace Budget.DATA.Repositories
 
             if (filter.Pagination.SortDirection == "asc")
             {
-                //filter.Pagination.SortColumn
                 accountStatements = accountStatements.OrderBy(columnSorted);
             }
             else
             {
-                //filter.Pagination.SortColumn
                 accountStatements = accountStatements.OrderByDescending(columnSorted);
             }
             var results= PagedListRepository<AccountStatement>.Create(accountStatements, filter.Pagination);
@@ -148,7 +158,7 @@ namespace Budget.DATA.Repositories
             else
                 accountStatements = accountStatements.OrderByDescending(filter.Pagination.SortColumn);
 
-            return await PagedListRepository<AccountStatement>.CreateAsync(accountStatements, filter.Pagination.CurrentPage, filter.Pagination.ItemsPerPage);
+            return await PagedListRepository<AccountStatement>.CreateAsync(accountStatements, filter.Pagination.CurrentPage.Value, filter.Pagination.ItemsPerPage.Value);
         }
 
         public Boolean Save(List<AccountStatement> accountStatements)
@@ -174,6 +184,61 @@ namespace Budget.DATA.Repositories
 
             return true;
         }
+
+        public SoldeDto GetSolde(int idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer)
+        {
+           // var idAccountParameter = new SqlParameter("@idAccount", soldeDto.IdAccount);
+           // var dateStartParameter = new SqlParameter("@dateStart", soldeDto.DateStart);
+           // //dateStartParameter.Value = soldeDto.DateStart;
+           // var dateEndParameter = new SqlParameter("@dateEnd", soldeDto.DateEnd);
+           // //dateEndParameter.Value = soldeDto.DateEnd;
+           // var isWithITransferParameter = new SqlParameter("@isWithITransfer", soldeDto.IsWithITransfer);
+
+           // object[] parameters =
+           //{
+           //     idAccountParameter,
+           //     dateStartParameter,
+           //     dateEndParameter,
+           //     isWithITransferParameter
+           // };
+
+            return Context.Set<SoldeDto>()
+                //.FromSql("spGetSolde @idAccount,@dateStart,@dateEnd,@isWithITransfer", parameters)
+                .FromSql("spGetSolde @idAccount,@dateStart,@dateEnd,@isWithITransfer",
+                    //parameters : new[] { idAccount , dateMin , dateMax , isWithITransfer })
+                    new SqlParameter("@idAccount", idAccount),
+                    new SqlParameter("@dateStart", dateMin),
+                    new SqlParameter("@dateEnd", dateMax),
+                    new SqlParameter("@isWithITransfer", isWithITransfer))
+                .FirstOrDefault();
+        }
+        //public SoldeDto GetSolde(SoldeDto soldeDto)
+        //{
+        //    var idAccountParameter = new SqlParameter("@idAccount", soldeDto.IdAccount);
+        //    var dateStartParameter = new SqlParameter("@dateStart", soldeDto.DateStart);
+        //    //dateStartParameter.Value = soldeDto.DateStart;
+        //    var dateEndParameter = new SqlParameter("@dateEnd", soldeDto.DateEnd);
+        //    //dateEndParameter.Value = soldeDto.DateEnd;
+        //    var isWithITransferParameter = new SqlParameter("@isWithITransfer", soldeDto.IsWithITransfer);
+
+        //    object[] parameters =
+        //   {
+        //        idAccountParameter,
+        //        dateStartParameter,
+        //        dateEndParameter,
+        //        isWithITransferParameter
+        //    };
+
+        //    return Context.SoldeDto
+        //        //.FromSql("spGetSolde @idAccount,@dateStart,@dateEnd,@isWithITransfer", parameters)
+        //        .FromSql("spGetSolde @idAccount,@dateStart,@dateEnd,@isWithITransfer", 
+        //            new SqlParameter("@idAccount", soldeDto.IdAccount),
+        //            new SqlParameter("@dateStart", soldeDto.DateStart),
+        //            new SqlParameter("@dateEnd", soldeDto.DateEnd),
+        //            new SqlParameter("@isWithITransfer", soldeDto.IsWithITransfer))
+        //        .FirstOrDefault();
+
+        //}
 
         //public double GetSum(DateTime startDate, DateTime endDate, int idMovement, int idAccount)
         //{

@@ -9,5 +9,10 @@ namespace Budget.MODEL.Dto.Select
         public int Id { get; set; }
         public string Label { get; set; }
         public List<SelectDto> Selects { get; set; }
+
+        public SelectGroupDto()
+        {
+            Selects = new List<SelectDto>();
+        }
     }
 }

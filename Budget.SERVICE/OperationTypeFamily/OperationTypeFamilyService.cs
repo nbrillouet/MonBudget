@@ -60,10 +60,10 @@ namespace Budget.SERVICE
             return selectGroupDto;
         }
 
-        public List<GenericList> GetGenericList()
-        {
-            return _operationTypeFamilyRepository.GetGenericList();
-        }
+        //public List<GenericList> GetGenericList()
+        //{
+        //    return _operationTypeFamilyRepository.GetGenericList();
+        //}
 
         public OperationTypeFamily GetById(int idOperationTypeFamily)
         {
@@ -75,15 +75,47 @@ namespace Budget.SERVICE
             return _operationTypeFamilyRepository.GetAllByOrder();
         }
 
-        public List<GenericList> GetGenericListByIdMovement(int idMovement, EnumSelect enumSelect)
-        {
-            return _operationTypeFamilyRepository.GetGenericListByIdMovement(idMovement, enumSelect);
-        }
+        //public List<GenericList> GetGenericListByIdMovement(int idMovement, EnumSelect enumSelect)
+        //{
+        //    return _operationTypeFamilyRepository.GetGenericListByIdMovement(idMovement, enumSelect);
+        //}
 
         public List<OperationTypeFamily> GetByIdMovement(int idMovement, EnumSelect enumSelect)
         {
             return _operationTypeFamilyRepository.GetByIdMovement(idMovement, enumSelect);
         }
+
+        public List<SelectGroupDto> GetSelectGroupListByIdPoste(int idPoste)
+        {
+            EnumMouvement enumMovement = idPoste== (int)EnumMouvement.Credit ? EnumMouvement.Credit : EnumMouvement.Debit;
+
+            List<OperationTypeFamily> operationTypeFamilies = _operationTypeFamilyRepository.GetByIdMovement((int)enumMovement);
+
+            return GetSelectGroupList(operationTypeFamilies, enumMovement);
+
+        }
+
+        private List<SelectGroupDto> GetSelectGroupList(List<OperationTypeFamily> operationTypeFamilies, EnumMouvement enumMovement)
+        {
+            List<SelectGroupDto> results = new List<SelectGroupDto>();
+
+            SelectGroupDto selectGroup = new SelectGroupDto { Id = (int)enumMovement, Label = enumMovement.ToString() };
+            foreach (var operationTypeFamily in operationTypeFamilies)
+            {
+                SelectDto selectDto = new SelectDto { Id = operationTypeFamily.Id, Label = operationTypeFamily.Label };
+                selectGroup.Selects.Add(selectDto);
+            }
+            results.Add(selectGroup);
+
+            return results;
+        }
+
+        public List<SelectDto> GetSelectListByIdList(List<int> idList)
+        {
+            List<OperationTypeFamily> operationTypeFamilies = _operationTypeFamilyRepository.GetByIdList(idList);
+            return _mapper.Map<List<SelectDto>>(operationTypeFamilies);
+        }
+        
 
         public int Create(OperationTypeFamily operationTypeFamily)
         {

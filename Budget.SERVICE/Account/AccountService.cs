@@ -1,5 +1,8 @@
-﻿using Budget.DATA.Repositories;
+﻿using AutoMapper;
+using Budget.DATA.Repositories;
 using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,20 +11,28 @@ namespace Budget.SERVICE
 {
     public class AccountService : IAccountService
     {
+        private readonly IMapper _mapper;
         private readonly IAccountRepository _accountRepository;
-        public AccountService(IAccountRepository accountRepository)
+        private readonly IUserAccountService _userAccountService;
+
+        public AccountService(
+            IAccountRepository accountRepository,
+            IUserAccountService userAccountService,
+            IMapper mapper)
         {
             _accountRepository = accountRepository;
+            _userAccountService = userAccountService;
+            _mapper = mapper;
 
         }
-        public Account GetAccountByNumber(string accountNumber)
+        public Account GetByNumber(string number)
         {
-            Account account = _accountRepository.GetAccountByNumber(accountNumber);
-            if (account == null)
-            {
-                account = GetById((int)EnumAccount.Inconnu);
-                account.Number = accountNumber;
-            }
+            Account account = _accountRepository.GetByNumber(number);
+            //if (account == null)
+            //{
+            //    account = GetById((int)EnumAccount.Inconnu);
+            //    account.Number = number;
+            //}
             return account;
         }
 
@@ -40,7 +51,65 @@ namespace Budget.SERVICE
             return _accountRepository.GetByIdBank(idBank);
         }
 
-        public int Create(Account account)
+        public AccountForDetailDto GetForDetailById(int id)
+        {
+            var account = _accountRepository.GetForDetailById(id);
+            var accountForDetail = _mapper.Map<AccountForDetailDto>(account);
+            //Recherche des comptes liés
+            accountForDetail.LinkedUsers = _mapper.Map<List<SelectDto>>(account.UserAccounts.Select(x => x.User).ToList()); 
+            
+            return accountForDetail;
+        }
+
+        public void Update(AccountForDetailDto accountForDetailDto)
+        {
+            var account = _accountRepository.GetById(accountForDetailDto.Id);
+            account.IdBank = accountForDetailDto.Bank.Id;
+            account.IdAccountType = accountForDetailDto.AccountType.Id;
+            account.Label = accountForDetailDto.Label;
+            account.Number = accountForDetailDto.Number;
+            account.StartAmount = accountForDetailDto.StartAmount;
+            account.AlertThreshold = accountForDetailDto.AlertThreshold;
+
+            Update(account);
+
+        }
+
+        public Account Create(int idUser, AccountForDetailDto accountForDetailDto)
+        {
+            var account = _accountRepository.GetByNumber(accountForDetailDto.Number);
+            if (account == null)
+            {
+                account = new Account
+                {
+                    IdBank = accountForDetailDto.Bank.Id,
+                    IdAccountType = accountForDetailDto.AccountType.Id,
+                    Label = accountForDetailDto.Label,
+                    Number = accountForDetailDto.Number,
+                    StartAmount = accountForDetailDto.StartAmount,
+                    AlertThreshold = accountForDetailDto.AlertThreshold
+                };
+                account = Create(account);
+            }
+
+            var userAccount = new UserAccount
+            {
+                IdAccount = account.Id,
+                IdUser = idUser
+            };
+            _userAccountService.Create(userAccount);
+
+            return account;
+
+        }
+
+        public void Delete(int idUser, int idAccount)
+        {
+            var userAccount = _userAccountService.Get(idUser, idAccount);
+            _userAccountService.Delete(userAccount);
+        }
+
+        public Account Create(Account account)
         {
             return _accountRepository.Create(account);
         }

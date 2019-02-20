@@ -3,9 +3,11 @@ using Budget.DATA.Repositories;
 using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
+using Budget.MODEL.Dto.Select;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Budget.SERVICE
@@ -48,14 +50,10 @@ namespace Budget.SERVICE
 
         public Operation Add(Operation operation)
         {
-            //operation.Keyword = "";
+            //controle si le keyword_operation existe deja 
             var result = _operationRepository.Add(operation);
             return result;
         }
-
-
-
-
 
         public Operation GetById(int idOperation)
         {
@@ -81,298 +79,39 @@ namespace Budget.SERVICE
             return _operationRepository.GetAllByIdOperationTypeFamily(idOperationTypeFamily);
         }
 
-        //public Operation GetOperationByFileLabel(string operationLabel, string reference, EnumBank bankEnum, OperationMethod operationMethod, int idMovement)
-        //{
-        //    //retrouver l'operation par le keyword d'operation
-        //    List<Operation> operations = _operationRepository.GetAllByIdOperationMethod(operationMethod.Id);
-
-        //    foreach (Operation operation in operations)
-        //    {
-        //        if (operationLabel.Contains(operation.Keyword))
-        //        {
-        //            OperationType operationType = _operationTypeRepository.GetById(operation.IdOperationType);
-        //            OperationTypeFamily operationTypeFamily = _operationTypeFamilyRepository.GetById(operationType.IdOperationTypeFamily);
-        //            if ((int)idMovement == operationTypeFamily.IdMovement)
-        //                return operation;
-        //        }
-        //    }
-        //    return null;
-        //}
-
-        public DateTime? GetDateOperationByFileLabel(string trimOperationLabel, OperationMethod operationMethod)
+        public List<SelectGroupDto> GetSelectGroupListByIdPoste(int idPoste)
         {
-            string dateOperation;
-            switch (operationMethod.Id)
-            {
-                case (int)EnumOperationMethod.PaiementCarte:
-                    dateOperation = trimOperationLabel.Substring(5, 6);
-                    return DateTime.ParseExact(dateOperation, "ddMMyy", CultureInfo.CurrentCulture);
+            var idMovement = idPoste == (int)EnumMouvement.Credit ? (int)EnumMouvement.Credit : (int)EnumMouvement.Debit;
+            List<Operation> operations = _operationRepository.GetByIdMovement(idMovement);
 
-            }
-
-            return null;
+            return GetSelectGroupList(operations);
         }
-
-        public OperationTmpDto GetOperationByParsingLabel(AccountStatementImportFile accountStatementImportFile)
+        private List<SelectGroupDto> GetSelectGroupList(List<Operation> operations)
         {
-            //Operation operation = accountStatement.Operation;
-            switch (accountStatementImportFile.OperationMethod.Id)
+            List<SelectGroupDto> results = new List<SelectGroupDto>();
+            //regroupement par idOperationType
+            List<OperationType> operationTypes = operations.Select(x => x.OperationType).Distinct().ToList();
+            foreach (var operationType in operationTypes)
             {
-                case (int)EnumOperationMethod.PaiementCarte:
-                    switch (accountStatementImportFile.Account.IdBank)
-                    {
-                        case (int)EnumBank.BPVF:
-                            return GetOperationForCardPaymentBpvf(accountStatementImportFile);
+                SelectGroupDto selectGroup = new SelectGroupDto { Id = operationType.Id, Label = operationType.Label };
 
-                    }
-                    break;
-                case (int)EnumOperationMethod.RetraitCarte:
-                    switch (accountStatementImportFile.Account.IdBank)
-                    {
-                        case (int)EnumBank.BPVF:
-                            return GetOperationForCashWithdrawal(accountStatementImportFile);
-                    }
-                    break;
-                case (int)EnumOperationMethod.Cotisation:
-                    switch (accountStatementImportFile.Account.IdBank)
-                    {
-                        case (int)EnumBank.BPVF:
-                            return GetOperationForCotisation(accountStatementImportFile);
-                    }
-                    break;
-                case (int)EnumOperationMethod.Virement:
-                    switch (accountStatementImportFile.Account.IdBank)
-                    {
-                        case (int)EnumBank.BPVF:
-                            return GetOperationForVirement(accountStatementImportFile);
-                    }
-                    break;
-                case (int)EnumOperationMethod.RemiseCheque:
-                    switch (accountStatementImportFile.Account.IdBank)
-                    {
-                        case (int)EnumBank.BPVF:
-                            return GetOperationForRemiseCheque(accountStatementImportFile);
-                    }
-                    break;
-                case (int)EnumOperationMethod.EmissionCheque:
-                    switch (accountStatementImportFile.Account.IdBank)
-                    {
-                        case (int)EnumBank.BPVF:
-                            return GetOperationForEmissionCheque(accountStatementImportFile);
-                    }
-                    break;
-                case (int)EnumOperationMethod.Prelevement:
-                    switch (accountStatementImportFile.Account.IdBank)
-                    {
-                        case (int)EnumBank.BPVF:
-                            return GetOperationForPrelevement(accountStatementImportFile);
-                    }
-                    break;
-                case (int)EnumOperationMethod.Frais:
-                    switch (accountStatementImportFile.Account.IdBank)
-                    {
-                        case (int)EnumBank.BPVF:
-                            return GetOperationForFrais(accountStatementImportFile);
-                    }
-                    break;
-
-            }
-            return new OperationTmpDto();
-        }
-
-
-
-        private OperationTmpDto GetOperationForCardPaymentBpvf(AccountStatementImportFile accountStatementImportFile)
-        {
-            string fileLabelTmp = accountStatementImportFile.LabelOperationWork;
-            //Enlever tout apres DONT FRAIS
-            int pos = fileLabelTmp.IndexOf("DONT FRAIS");
-            if (pos != -1)
-            {
-                fileLabelTmp = fileLabelTmp.Substring(0, pos - 1);
-                fileLabelTmp = fileLabelTmp.Trim();
-            }
-
-            //Recherche du debut du label par le mot cle: CB* ou SC*
-            pos = fileLabelTmp.IndexOf("CB");
-            if (pos == -1)
-            {
-                pos = fileLabelTmp.IndexOf("SC");
-            }
-            fileLabelTmp = fileLabelTmp.Substring(pos + 2);
-            //fileLabelTmp = fileLabelTmp.Replace("*", "");
-
-            //retrait des chiffres
-            for (int i = 0; i < fileLabelTmp.Length; i++)
-            {
-                char c = Convert.ToChar(fileLabelTmp.Substring(i, 1));
-                if (!Char.IsNumber(c))
+                var operationsByOperationType = operations.Where(x => x.IdOperationType == operationType.Id).ToList();
+                foreach (var operation in operationsByOperationType)
                 {
-                    fileLabelTmp = fileLabelTmp.Substring(i);
-                    break;
+                    SelectDto selectDto = new SelectDto { Id = operation.Id, Label = operation.Label };
+                    selectGroup.Selects.Add(selectDto);
                 }
 
+                results.Add(selectGroup);
             }
-            //Arret du label des le 1er chiffre
-            for (int i = 0; i < fileLabelTmp.Length; i++)
-            {
-                char c = Convert.ToChar(fileLabelTmp.Substring(i, 1));
-                if (Char.IsNumber(c))
-                {
-                    fileLabelTmp = fileLabelTmp.Substring(0, i);
-                    break;
-                }
-            }
-
-            OperationTmpDto operation = new OperationTmpDto
-            {
-                Id = (int)EnumOperation.Inconnu,
-                OperationMethod = accountStatementImportFile.OperationMethod,
-                IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
-                Label = fileLabelTmp.Trim(),
-                Keyword = fileLabelTmp.Replace(" ", "").ToUpper()
-            };
-
-            return operation;
+            return results;
         }
 
-        private OperationTmpDto GetOperationForCashWithdrawal(AccountStatementImportFile accountStatementImportFile)
+        public List<SelectDto> GetSelectListByIdList(List<int> idList)
         {
-            //  Le lieu est du debut jusqu'au mot clef
-            //  lieu est a mettre dans place
-            //string place = accountStatement.LabelOperationWork.Substring(0, accountStatement.LabelOperationWork.IndexOf(accountStatement.OperationMethod.KeywordWork));
-            //place = place.Trim();
-
-            //var operation = new Operation();
-            //operation.Label = place;
-            //operation.Keyword = place.Replace(" ", "").ToUpper();
-
-            OperationTmpDto operation = new OperationTmpDto
-            {
-                OperationMethod = accountStatementImportFile.OperationMethod,
-                IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
-                Label = "RETRAIT DAB",
-                Keyword = null,
-                Id = (int)EnumOperation.RetraitDab
-            };
-
-            return operation;
+            List<Operation> operations = _operationRepository.GetByIdList(idList);
+            return _mapper.Map<List<SelectDto>>(operations);
         }
-
-        private OperationTmpDto GetOperationForCotisation(AccountStatementImportFile accountStatementImportFile)
-        {
-            //rechercher libellé apres mot clef cotisation
-            string label = accountStatementImportFile.LabelOperationWork.Substring(accountStatementImportFile.LabelOperationWork.IndexOf(accountStatementImportFile.OperationMethod.KeywordWork) + accountStatementImportFile.OperationMethod.KeywordWork.Length);
-            label = label.Trim();
-            label = label.Substring(0, label.IndexOf(" "));
-            label = label.Trim();
-
-            OperationTmpDto operation = new OperationTmpDto
-            {
-                OperationMethod = accountStatementImportFile.OperationMethod,
-                IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
-                Label = label,
-                Keyword = accountStatementImportFile.OperationMethod.KeywordWork.ToUpper() + label.Replace(" ", "").ToUpper()
-            };
-
-            return operation;
-        }
-
-        private OperationTmpDto GetOperationForVirement(AccountStatementImportFile accountStatementImportFile)
-        {
-            //rechercher libellé apres mot clef virement
-            string label = accountStatementImportFile.LabelOperationWork.Substring(accountStatementImportFile.LabelOperationWork.IndexOf(accountStatementImportFile.OperationMethod.KeywordWork) + accountStatementImportFile.OperationMethod.KeywordWork.Length);
-            label = label.Trim();
-            // Label se termine au premier " " rencontré
-            label = label.Substring(0, label.IndexOf(" "));
-            label = label.Trim();
-
-            OperationTmpDto operation = new OperationTmpDto
-            {
-                OperationMethod = accountStatementImportFile.OperationMethod,
-                IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
-                Label = label,
-                Keyword = accountStatementImportFile.OperationMethod.KeywordWork.ToUpper() + label.Replace(" ", "").ToUpper()
-            };
-
-            return operation;
-        }
-
-        private OperationTmpDto GetOperationForRemiseCheque(AccountStatementImportFile accountStatementImportFile)
-        {
-            OperationTmpDto operation = new OperationTmpDto
-            {
-                OperationMethod = accountStatementImportFile.OperationMethod,
-                IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
-                Id = (int)EnumOperation.RemiseCheque,
-                Label = "REMISE CHEQUE"
-            };
-            return operation;
-        }
-
-        private OperationTmpDto GetOperationForEmissionCheque(AccountStatementImportFile accountStatementImportFile)
-        {
-            OperationTmpDto operation = new OperationTmpDto
-            {
-                OperationMethod = accountStatementImportFile.OperationMethod,
-                IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
-                Id = (int)EnumOperation.RemiseCheque,
-                Label = "EMISSION CHEQUE"
-            };
-            return operation;
-        }
-
-        private OperationTmpDto GetOperationForPrelevement(AccountStatementImportFile accountStatementImportFile)
-        {
-            //remettre lespace original du mot clef
-            if (accountStatementImportFile.OperationMethod.KeywordWork == "PRLVSEPA")
-                accountStatementImportFile.OperationMethod.KeywordWork = "PRLV SEPA";
-            //rechercher libellé apres mot clef virement
-            string label = accountStatementImportFile.LabelOperationWork.Substring(accountStatementImportFile.LabelOperationWork.IndexOf(accountStatementImportFile.OperationMethod.KeywordWork) + accountStatementImportFile.OperationMethod.KeywordWork.Length);
-            label = label.Trim();
-            //fin du label est au 1er chiffre trouvé
-            for (int i = 0; i < label.Length; i++)
-            {
-                char c = Convert.ToChar(label.Substring(i, 1));
-                if (Char.IsNumber(c))
-                {
-                    label = label.Substring(0, i);
-                    break;
-                }
-            }
-            label = label.Trim();
-
-            OperationTmpDto operation = new OperationTmpDto
-            {
-                OperationMethod = accountStatementImportFile.OperationMethod,
-                IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
-                Label = label,
-                Keyword = accountStatementImportFile.OperationMethod.KeywordWork.Replace(" ", "").ToUpper() + label.Replace(" ", "").ToUpper()
-            };
-
-            return operation;
-        }
-
-        private OperationTmpDto GetOperationForFrais(AccountStatementImportFile accountStatementImportFile)
-        {
-            //rechercher libellé apres mot clef frais
-            string label = accountStatementImportFile.LabelOperationWork.Substring(accountStatementImportFile.LabelOperationWork.IndexOf(accountStatementImportFile.OperationMethod.KeywordWork) + accountStatementImportFile.OperationMethod.KeywordWork.Length);
-            label = label.Trim();
-            //Label se termine au premier ":" rencontré
-            label = label.Substring(0, label.IndexOf(":"));
-            label = label.Trim();
-
-            OperationTmpDto operation = new OperationTmpDto
-            {
-                OperationMethod = accountStatementImportFile.OperationMethod,
-                IdOperationMethod = (int)accountStatementImportFile.IdOperationMethod,
-                Label = label,
-                Keyword = accountStatementImportFile.OperationMethod.KeywordWork.ToUpper() + label.Replace(" ", "").ToUpper()
-            };
-
-            return operation;
-        }
-
 
         public Operation Create(Operation operation)
         {

@@ -64,6 +64,36 @@ namespace Budget.DATA.Repositories
             return await accountStatementImportFile;
         }
 
+        public PagedList1<AccountStatementImportFile> GetAsifTable(FilterAsifTableSelected filter)
+        {
+            var accountStatementImportFiles = Context.AccountStatementImportFile
+                .Include(x => x.Operation)
+                .Include(x => x.OperationMethod)
+                .Include(x => x.OperationType)
+                .Include(x => x.OperationTypeFamily)
+                .AsQueryable();
+
+            if (filter.IdImport != null)
+            {
+                accountStatementImportFiles = accountStatementImportFiles.Where(x => x.IdImport == filter.IdImport);
+            }
+            if (filter.Account != null)
+            {
+                accountStatementImportFiles = accountStatementImportFiles.Where(x => x.IdAccount == filter.Account.Id);
+            }
+            if (filter.AsifState != null)
+            {
+                accountStatementImportFiles = accountStatementImportFiles.Where(x => (int)x.EnumAsifState == filter.AsifState.Id);
+            }
+            if (filter.Pagination.SortDirection == "asc")
+                accountStatementImportFiles = accountStatementImportFiles.OrderBy(filter.Pagination.SortColumn);
+            else
+                accountStatementImportFiles = accountStatementImportFiles.OrderByDescending(filter.Pagination.SortColumn);
+
+            var results = PagedListRepository<AccountStatementImportFile>.Create(accountStatementImportFiles, filter.Pagination);
+
+            return results;
+        }
 
         public async Task<PagedList<AccountStatementImportFile>> GetAsync(FilterAccountStatementImportFile filter)
         {
@@ -95,21 +125,21 @@ namespace Budget.DATA.Repositories
             return await PagedListRepository<AccountStatementImportFile>.CreateAsync(accountStatementImportFiles, filter.PageNumber, filter.PageSize);
         }
 
-        public List<AsifState> GetAsifStates (int idImport, int idAccount)
+        public List<SelectDto> GetAsifStates (int idImport, int idAccount)
         {
-            List<AsifState> asifStates = new List<AsifState>();
+            List<SelectDto> asifStates = new List<SelectDto>();
 
             if(HasAsifMethodLess(idImport, idAccount))
             {
-                asifStates.Add(new AsifState { Id = (int)EnumAsifState.OperationLess, Label = "Erreur méthode" });
+                asifStates.Add(new SelectDto { Id = (int)EnumAsifState.MethodLess, Label = "Erreur méthode" });
             }
             if (HasAsifOperationLess(idImport, idAccount))
             {
-                asifStates.Add(new AsifState { Id = (int)EnumAsifState.OperationLess, Label = "Erreur opération" });
+                asifStates.Add(new SelectDto { Id = (int)EnumAsifState.OperationLess, Label = "Erreur opération" });
             }
             if (HasAsifComplete(idImport, idAccount))
             {
-                asifStates.Add(new AsifState { Id = (int)EnumAsifState.Complete, Label = "complet" });
+                asifStates.Add(new SelectDto { Id = (int)EnumAsifState.Complete, Label = "complet" });
             }
 
             return asifStates;
@@ -210,7 +240,7 @@ namespace Budget.DATA.Repositories
         //}
 
         //TODO : enlever les attach
-        public new int Create(AccountStatementImportFile accountStatementImportFile)
+        public new int CreateWithTran(AccountStatementImportFile accountStatementImportFile)
         {
             //var aStatement = accountStatement;
             //aStatement.Account = null;
@@ -237,12 +267,12 @@ namespace Budget.DATA.Repositories
 
             Context.AccountStatementImportFile.Add(accountStatementImportFile);
 
-            Context.SaveChanges();
+            //Context.SaveChanges();
 
             return accountStatementImportFile.Id;
         }
 
-        public void Save(List<AccountStatementImportFile> accountStatementImportFiles)
+        public bool SaveWithTran(List<AccountStatementImportFile> accountStatementImportFiles)
         {
 
             foreach (AccountStatementImportFile item in accountStatementImportFiles)
@@ -250,11 +280,11 @@ namespace Budget.DATA.Repositories
                 AccountStatementImportFile accountStatementImportFile = item;
                 accountStatementImportFile = UpdateAsifState(item);
 
-                Create(accountStatementImportFile);
+                CreateWithTran(accountStatementImportFile);
 
             }
 
-            //return accountStatementImportFiles;
+            return true;
         }
 
         public int Save(AccountStatementImportFile accountStatementImportFile)

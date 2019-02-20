@@ -64,13 +64,12 @@ namespace Budget.API.Controllers
             return Ok(usersToReturn);
         }
 
-        [HttpGet("{id}", Name = "GetUser")]
-        public async Task<IActionResult> Get(int id)
+        [HttpGet("{id}/user-detail", Name = "GetUser")]
+        public IActionResult Get(int id)
         {
-            var user = await _userService.GetByIdAsync(id);
-            var userToReturn = _mapper.Map<UserForDetailDto>(user);
+            var userForDetailDto =  _userService.GetForDetailById(id);
 
-            return Ok(userToReturn);
+            return Ok(userForDetailDto);
         }
 
         //[HttpGet("{id}", Name = "GetUser")]
@@ -162,10 +161,9 @@ namespace Budget.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{idUser}/banks")]
-        public IActionResult GetOperationList(int idUser)
+        public IActionResult GetBanks(int idUser)
         {
             var banks = _userService.GetBanks(idUser);
-            //var selectsDto = _operationService.GetByIdOperationMethod(idOperationMethod);
 
             return Ok(banks);
         }

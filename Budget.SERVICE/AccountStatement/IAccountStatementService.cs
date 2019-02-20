@@ -13,11 +13,12 @@ namespace Budget.SERVICE
     {
         AsDetailDto GetForDetailById(int id);
         PagedList1<AsGridDto> Get(FilterAccountStatement filter);
-        
+        SoldeDto GetSolde(FilterAccountStatement filter);
         Task<PagedList<AccountStatement>> GetAsync(FilterAccountStatement filter);
         
         Boolean Save(List<AccountStatement> accountStatements);
 
+        SoldeDto GetSolde(int idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer);
         //string GetOperationWork(string operationLabel);
         //AccountStatement InitForImport();
         //List<AccountStatement> GetAccountStatementsFull(List<AccountStatement> accountStatements, int idAccount);

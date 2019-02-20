@@ -16,6 +16,7 @@ namespace Budget.MODEL.Database
 
         [ForeignKey("IdOperation")]
         public Operation Operation { get; set; }
+
         [Column("KEYWORD_OPERATION")]
         public string KeywordOperation { get; set; }
 

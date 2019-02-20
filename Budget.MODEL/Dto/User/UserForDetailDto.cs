@@ -17,11 +17,17 @@ namespace Budget.MODEL.Dto
         public int IdGMapAddress { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string IdAvatarCloud { get; set; }
-        //public string Country { get; set; }
-        //public string City { get; set; }
-        //public int PostalCode { get; set; }
         public string AvatarUrl { get; set; }
         public List<UserShortcutDto> Shortcuts { get; set; }
-        public List<AccountDto> Accounts { get; set; }
+        public List<BankAccountsDto> Banks { get; set; }
+    }
+
+    public class UserForConnectionDto
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string Token { get; set; }
     }
 }

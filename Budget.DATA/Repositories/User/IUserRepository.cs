@@ -10,6 +10,7 @@ namespace Budget.DATA.Repositories
 {
     public interface IUserRepository : IBaseRepository<User>
     {
+        User GetForDetailById(int id);
         Task<PagedList<User>> GetUsers(Pagination userParams);
         List<Bank> GetBanks(int idUser);
     }

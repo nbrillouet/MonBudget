@@ -14,6 +14,10 @@ namespace Budget.SERVICE._Helpers
     {
         public AutoMapperProfile()
         {
+            CreateMap<User, SelectDto>()
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.FirstName + " " + s.LastName));
+
+
             CreateMap<User, UserForListDto>()
                 //trouver l'age a partir de la date de naissance
                 .ForMember(dest => dest.Age, opt =>
@@ -28,7 +32,8 @@ namespace Budget.SERVICE._Helpers
                 {
                     opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                 })
-                .ForMember(d => d.Accounts, o => o.MapFrom(s => s.UserAccounts.Select(ua => ua.Account).ToList()));
+                .ForMember(d => d.Banks, o => o.Ignore());
+                //.ForMember(d => d.Accounts, o => o.MapFrom(s => s.UserAccounts.Select(ua => ua.Account).ToList()));
 
             CreateMap<UserForDetailDto, User>()
                 .ForMember(d => d.PasswordHash, o => o.Ignore())
@@ -37,11 +42,30 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(d => d.UserAccounts, o => o.Ignore());
 
             CreateMap<UserForAvatarCreationDto, User>();
-            CreateMap<Shortcut, UserShortcutDto>();
-            CreateMap<UserShortcutDto, Shortcut>();
+            CreateMap<UserForLabelDto, User>();
+            CreateMap<User, UserForConnectionDto>()
+                .ForMember(d => d.Token, o => o.Ignore());
 
+            CreateMap<UserShortcut, UserShortcutDto>();
+            CreateMap<UserShortcutDto, UserShortcut>();
+            
             CreateMap<Account, AccountForLabelDto>();
+            CreateMap<Account, AccountForDetailDto>()
+                .ForMember(d => d.LinkedUsers, o => o.Ignore());
+            CreateMap<Account, SelectDto>()
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.Number + " - " + s.Label));
+
+            CreateMap<AccountType, BankAccountsDto>();
+
             CreateMap<Bank, BankAccountsDto>();
+            CreateMap<Bank, BankForListDto>(); 
+            CreateMap<Bank, SelectDto>()
+                .ForMember(d=>d.Label,o=>o.MapFrom(s=>s.LabelBankLong));
+            CreateMap<Bank, SelectColorDto>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelBankLong))
+                .ForMember(d => d.Color, o => o.MapFrom(s => s.LogoClassName));
+
 
             CreateMap<AccountStatement, AsGridDto>()
                 .ForMember(d => d.OperationTypeFamily, o => o.MapFrom(s => s.OperationType.OperationTypeFamily));
@@ -50,8 +74,7 @@ namespace Budget.SERVICE._Helpers
             CreateMap<Operation, SelectDto>();
             CreateMap<OperationTypeFamily, SelectDto>();
 
-            //CreateMap<OperationPlace, SelectDto>()
-            //   .ForMember(dest => dest.Label, opt => opt.MapFrom(source => source.Department !=null ? source.Department + "-" + source.City : source.City));
+            CreateMap<AccountStatementImport, AsiForListDto>();
 
             CreateMap<AccountStatementImportFile, AccountStatement>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
@@ -62,7 +85,50 @@ namespace Budget.SERVICE._Helpers
             CreateMap<AccountStatement, AsDetailDto>()
                 .ForMember(dest => dest.LogoName, opt => opt.MapFrom(source => source.OperationType.OperationTypeFamily.LogoClassName))
                 .ForMember(d => d.OperationTypeFamily, o => o.MapFrom(s => s.OperationType.OperationTypeFamily));
+
+            //Plan
+            CreateMap<Plan, PlanForDetailDto>()
+                .ForMember(d => d.Plan, o => o.MapFrom(s => s));
+
+            CreateMap<PlanUser, SelectDto>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.User.Id))
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.User.FirstName + " " + s.User.LastName));
+
+            CreateMap<PlanPosteForDetailDto, PlanPoste>()
+                .ForMember(d => d.ReferenceTable, o => o.Ignore())
+                .ForMember(d => d.Poste, o => o.Ignore())
+                .ForMember(d => d.Plan, o => o.Ignore());
+
+            CreateMap<PlanPoste, PlanPosteForDetailDto>()
+                .ForMember(d => d.PlanPosteUser, o => o.Ignore())
+                .ForMember(d => d.PlanPosteReference, o => o.Ignore())
+                .ForMember(d => d.PlanPosteFrequencies, o => o.Ignore())
+                .ForMember(d => d.ReferenceTable, o => o.Ignore());
+
+            CreateMap<AccountStatementPlan, SelectColorDto>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.IdPlan))
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.Plan.Label))
+                .ForMember(d => d.Color, o => o.MapFrom(s => s.Plan.Color));
+
+            CreateMap<Frequency, SelectDto>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.MonthLabel));
+            CreateMap<Frequency, FrequencyDto>()
+                .ForMember(d => d.monthLabelShort, o => o.Ignore());
             
+
+            CreateMap<Poste, SelectDto>();
+            CreateMap<ReferenceTable, SelectDto>();
+                //.ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+                //.ForMember(d => d.Label, o => o.MapFrom(s => s.Label));
+
+            CreateMap<PlanPosteUser, PlanPosteUserForDetailDto>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.IsSalaryEstimatedPart, o => o.MapFrom(s => s.IsSalaryEstimatedPart))
+                .ForMember(d => d.Percentage, o => o.MapFrom(s => s.PercentagePart))
+                .ForMember(d => d.User, o => o.MapFrom(s => s.PlanUser.User));
+
+
             //Filter
             CreateMap<Pagination, FilterAccountStatement>();
 

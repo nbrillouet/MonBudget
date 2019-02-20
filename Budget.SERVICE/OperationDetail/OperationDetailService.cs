@@ -1,6 +1,7 @@
 ﻿using Budget.DATA.Repositories;
 using Budget.MODEL;
 using Budget.MODEL.Database;
+using Budget.SERVICE._Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,13 +36,13 @@ namespace Budget.SERVICE
         /// trouver l'operation à partir du keyword pour les operations non localisables
         /// </summary>
         /// <param name="operationLabel"></param>
-        /// <param name="operationMethod"></param>
+        /// <param name="idOperationMethod"></param>
         /// <param name="idMovement"></param>
         /// <returns></returns>
-        public OperationDetail GetByKeywordOperation(string operationLabel, OperationMethod operationMethod, int idMovement)
+        public OperationDetail GetByKeywordOperation(string operationLabel, int idOperationMethod, int idMovement)
         {
             //retrouver l'operation par le keyword d'operation
-            List<OperationDetail> operationDetails = _operationDetailRepository.GetAllByIdOperationMethod(operationMethod.Id);
+            List<OperationDetail> operationDetails = _operationDetailRepository.GetAllByIdOperationMethod(idOperationMethod);
 
             operationDetails = operationDetails.Where(x => operationLabel.Contains(x.KeywordOperation)).ToList();
             var lenght = operationDetails.Max(x => x.KeywordOperation);
@@ -57,22 +58,6 @@ namespace Budget.SERVICE
                     throw new Exception("2 keywords identiques présents pour les operations non localisables");
             }
 
-            //if (operationDetails.Count>1)
-            //    throw new Exception ("2 keywords identiques présents pour les operations non localisables")
-            
-            //return operationDetails[0];
-
-            //foreach (OperationDetail operationDetail in operationDetails)
-            //{
-            //    if (operationLabel.Contains(operationDetail.KeywordOperation))
-            //    {
-            //        OperationType operationType = _operationTypeRepository.GetById(operation.IdOperationType);
-            //        OperationTypeFamily operationTypeFamily = _operationTypeFamilyRepository.GetById(operationType.IdOperationTypeFamily);
-            //        if ((int)idMovement == operationTypeFamily.IdMovement)
-            //            return operationDetail.Operation;
-            //    }
-            //}
-            //return null;
         }
 
 
@@ -86,13 +71,13 @@ namespace Budget.SERVICE
         /// trouver l'operation à partir des keywords operation et place pour les operations localisables
         /// </summary>
         /// <param name="operationLabel"></param>
-        /// <param name="operationMethod"></param>
+        /// <param name="idOperationMethod"></param>
         /// <param name="idMovement"></param>
         /// <returns></returns>
-        public OperationDetail GetByKeywords(string operationLabel, OperationMethod operationMethod, int idMovement)
+        public OperationDetail GetByKeywords(string operationLabel, int idOperationMethod, int idMovement)
         {
             //retrouver l'operation par le keyword d'operation
-            List<OperationDetail> operationDetails = _operationDetailRepository.GetAllByIdOperationMethod(operationMethod.Id);
+            List<OperationDetail> operationDetails = _operationDetailRepository.GetAllByIdOperationMethod(idOperationMethod);
 
             operationDetails = operationDetails
                     .Where(x => operationLabel.Contains(x.KeywordOperation))
@@ -113,6 +98,11 @@ namespace Budget.SERVICE
             }
         }
 
+        public OperationDetail FindKeywordPlace(string operationLabel)
+        {
+            return _operationDetailRepository.FindKeywordPlace(operationLabel);
+        }
+
         public KeyLabel GetKeywordPlaceByParsingLabel(AccountStatementImportFile accountStatementImportFile)
         {
             switch (accountStatementImportFile.OperationMethod.Id)
@@ -120,7 +110,7 @@ namespace Budget.SERVICE
                 case (int)EnumOperationMethod.PaiementCarte:
                     switch (accountStatementImportFile.Account.IdBank)
                     {
-                        case (int)EnumBank.BPVF:
+                        case (int)EnumBankFamily.BanquePopulaire:
                             return GetKeywordPlaceForCardPaymentBpvf(accountStatementImportFile);
 
                     }
@@ -128,7 +118,7 @@ namespace Budget.SERVICE
                 case (int)EnumOperationMethod.RetraitCarte:
                     switch (accountStatementImportFile.Account.IdBank)
                     {
-                        case (int)EnumBank.BPVF:
+                        case (int)EnumBankFamily.BanquePopulaire:
                             return GetKeywordPlaceForCashWithdrawal(accountStatementImportFile);
 
                     }
@@ -212,7 +202,26 @@ namespace Budget.SERVICE
 
         private OperationDetail Create(OperationDetail operationDetail)
         {
+            //Recherche si les mots clefs existent déjà pour une autre operation
+            if(HasSameKeywords(operationDetail))
+            {
+                if (operationDetail.KeywordPlace!=null)
+                {
+                    throw new Exception($"La paire de mot clef: {operationDetail.KeywordOperation}/{operationDetail.KeywordPlace} existe déjà pour une autre opération");
+                }
+                else
+                {
+                    throw new Exception($"Le mot clef: {operationDetail.KeywordOperation} existe déjà pour une autre opération");
+                }
+            }
+
             return _operationDetailRepository.Create(operationDetail);
+
+        }
+
+        private bool HasSameKeywords(OperationDetail operationDetail)
+        {
+            return _operationDetailRepository.HasSameKeywords(operationDetail);
         }
 
         public OperationDetail GetOrCreate(OperationDetail operationDetail)
@@ -222,7 +231,7 @@ namespace Budget.SERVICE
             if (operationDetailDuplicate != null)
                 return operationDetailDuplicate;
 
-            operationDetail.KeywordOperation = operationDetail.KeywordOperation.ToUpper();
+            operationDetail.KeywordOperation = FileHelper.ExcludeForbiddenChars(operationDetail.KeywordOperation.ToUpper());
             operationDetail.KeywordPlace = operationDetail.KeywordPlace!=null ? operationDetail.KeywordPlace.ToUpper() : null;
             operationDetail = Create(operationDetail);
 

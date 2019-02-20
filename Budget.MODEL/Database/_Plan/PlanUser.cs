@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
+
+namespace Budget.MODEL.Database
+{
+    [Table("PLAN_USER")]
+    public class PlanUser
+    {
+        [Column("ID")]
+        public int Id { get; set; }
+
+        [Column("ID_USER")]
+        public int IdUser { get; set; }
+
+        [ForeignKey("IdUser")]
+        public User User { get; set; }
+
+        [Column("ID_PLAN")]
+        public int IdPlan { get; set; }
+
+        [ForeignKey("IdPlan")]
+        public Plan Plan { get; set; }
+    }
+}

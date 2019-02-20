@@ -1,5 +1,6 @@
 ﻿using Budget.MODEL;
 using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,8 @@ namespace Budget.DATA.Repositories
 
         Boolean Save(List<AccountStatement> accountStatements);
         //double GetSum(DateTime startDate, DateTime endDate, int idMovement, int idAccount);
-
+        SoldeDto GetSolde(int idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer);
+        //SoldeDto GetSolde(SoldeDto soldeDto);
 
     }
 }

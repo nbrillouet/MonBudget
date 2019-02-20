@@ -36,60 +36,34 @@ namespace Budget.MODEL.Database
         //public string LabelOperationWork { get; set; }
 
         [Column("ID_OPERATION_METHOD")]
-        public int? IdOperationMethod { get; set; }
+        public int IdOperationMethod { get; set; }
 
         [ForeignKey("IdOperationMethod")]
         public OperationMethod OperationMethod { get; set; }
 
         [Column("ID_OPERATION")]
-        public int? IdOperation { get; set; }
+        public int IdOperation { get; set; }
         [ForeignKey("IdOperation")]
         public Operation Operation { get; set; }
 
         [Column("ID_OPERATION_DETAIL")]
-        public int? IdOperationDetail { get; set; }
+        public int IdOperationDetail { get; set; }
         [ForeignKey("IdOperationDetail")]
         public OperationDetail OperationDetail { get; set; }
 
-        [Column("OPERATION_LABEL_TEMP")]
-        public string OperationLabelTemp { get; set; }
-        [Column("OPERATION_KEYWORD_TEMP")]
-        public string OperationKeywordTemp { get; set; }
-        [Column("OPERATION_REFERENCE_TEMP")]
-        public string OperationReferenceTemp { get; set; }
-
-        [Column("PLACE_KEYWORD_TEMP")]
-        [StringLength(500)]
-        public string PlaceKeywordTemp { get; set; }
-        [Column("PLACE_LABEL_TEMP")]
-        [StringLength(500)]
-        public string PlaceLabelTemp { get; set; }
-
-        //[Column("ID_OPERATION_PLACE")]
-        //public int? IdOperationPlace { get; set; }
-        //[ForeignKey("IdOperationPlace")]
-        //public OperationPlace OperationPlace { get; set; }
-
-        //[Column("OPERATION_PLACE_DEPARTMENT_TEMP")]
-        //public string OperationPlaceDepartmentTemp { get; set; }
-        //[Column("OPERATION_PLACE_CITY_TEMP")]
-        //public string OperationPlaceCityTemp { get; set; }
-        //[Column("OPERATION_PLACE_KEYWORD_TEMP")]
-        //public string OperationPlaceKeywordTemp { get; set; }
-
-
-
         [Column("ID_OPERATION_TYPE")]
-        public int? IdOperationType { get; set; }
+        public int IdOperationType { get; set; }
         [ForeignKey("IdOperationType")]
         public OperationType OperationType { get; set; }
 
+
         [Column("ID_OPERATION_TYPE_FAMILY")]
-        public int? IdOperationTypeFamily { get; set; }
+        public int IdOperationTypeFamily { get; set; }
 
         [ForeignKey("IdOperationTypeFamily")]
         public OperationTypeFamily OperationTypeFamily { get; set; }
-        
+
+
         [Column("REFERENCE")]
         [StringLength(50)]
         public string Reference { get; set; }
@@ -106,14 +80,6 @@ namespace Budget.MODEL.Database
         [Column("DATE_IMPORT")]
         public DateTime DateImport { get; set; }
 
-        [Column("LABEL_OPERATION_WORK")]
-        [StringLength(500)]
-        public string LabelOperationWork { get; set; }
-
-        [Column("STATE")]
-        public EnumAsifState EnumAsifState { get; set; }
-        [Column("IS_DUPLICATED")]
-        public bool IsDuplicated { get; set; }
         [NotMapped]
         public bool IsLocalisable
         {
@@ -122,6 +88,29 @@ namespace Budget.MODEL.Database
                 return (IdOperationMethod == (int)EnumOperationMethod.PaiementCarte || IdOperationMethod == (int)EnumOperationMethod.RetraitCarte);
             }
         }
+
+        [NotMapped]
+        public string LabelOperationCopy { get; set; }
+
+        [Column("OPERATION_LABEL_TEMP")]
+        public string OperationLabelTemp { get; set; }
+        [Column("OPERATION_KEYWORD_TEMP")]
+        public string OperationKeywordTemp { get; set; }
+        [Column("OPERATION_REFERENCE_TEMP")]
+        public string OperationReferenceTemp { get; set; }
+        [Column("PLACE_KEYWORD_TEMP")]
+        [StringLength(500)]
+        public string PlaceKeywordTemp { get; set; }
+        [Column("PLACE_LABEL_TEMP")]
+        [StringLength(500)]
+        public string PlaceLabelTemp { get; set; }
+        [Column("LABEL_OPERATION_WORK")]
+        [StringLength(500)]
+        public string LabelOperationWork { get; set; }
+        [Column("STATE")]
+        public EnumAsifState EnumAsifState { get; set; }
+        [Column("IS_DUPLICATED")]
+        public bool IsDuplicated { get; set; }
 
     }
     public enum EnumAsifState

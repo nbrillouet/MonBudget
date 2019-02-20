@@ -1,0 +1,50 @@
+.title {
+    padding-left:12px;
+}
+
+.header-1-background {
+    background-color: #9B9B9B;
+    background: url('/assets/images/backgrounds/bck_1.png') no-repeat;
+}
+
+.header-2-background {
+    background-color: #9B9B9B;
+    background: url('/assets/images/backgrounds/bck_2.png') no-repeat;
+    min-height:120px !important;
+    max-height:120px !important;
+    height:120px !important;
+}
+
+.mat-tab-body-content {
+overflow: hidden !important;
+}
+
+// .anim-icon {
+//     animation: rotating 3s linear infinite;
+// }
+
+.mat-standard-chip {
+    min-height:28px !important;
+    // height:24px;
+}
+
+.mat-chip-red {
+    background-color: #DC2C18 !important;
+    color:white !important;
+}
+
+.mat-chip-green {
+    background-color: #4CAF50 !important;
+    color:white !important;
+}
+
+
+
+
+
+
+
+
+
+
+

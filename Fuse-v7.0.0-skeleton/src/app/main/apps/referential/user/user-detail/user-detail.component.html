@@ -1,0 +1,278 @@
+<div id="user" class="page-layout carded fullwidth inner-scroll" >
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+  
+    <!-- CENTER -->
+    <div class="center">
+        <!-- <div *ngIf='userForm'> -->
+          <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+  
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+  
+                <button class="mr-0 mr-sm-16" mat-icon-button
+                  [routerLink]="'/apps/referential/users'"
+                   >
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+  
+                <div class="product-image mr-8 mr-sm-16"  [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    <img *ngIf="user.avatarUrl" [src]="user.avatarUrl">
+                    <img *ngIf="!user.avatarUrl" [src]="'assets/images/avatars/profile.jpg'">
+                </div>
+  
+                <div fxLayout="column" fxLayoutAlign="start start"
+                      [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2" *ngIf="pageType ==='edit'">
+                        {{user.userName}}
+                    </div>
+                    <div class="h2" *ngIf="pageType ==='new'">
+                        Nouveau Utilisateur
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Details Utilisateur</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+  
+            <!-- <button mat-raised-button
+                    class="save-product-button mat-white-bg mt-16 mt-sm-0"
+                    [disabled]="productForm.invalid"
+                    *ngIf="pageType ==='new'" (click)="addProduct()">
+                <span>ADD</span>
+            </button> -->
+  
+            <!-- (click)="updateUser()" -->
+            <button mat-raised-button
+                    class="save-product-button white mt-16 mt-sm-0"
+                    [disabled]="userForm.invalid || userForm.pristine"
+                    *ngIf="pageType ==='edit'" (click)="updateUser(userForm)">
+                <span>SAVE</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+  
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+  
+            <!-- CONTENT -->
+            <div class="content">
+                <form name="userForm" [formGroup]="userForm" class="product w-100-p" fxLayout="column" fxFlex>
+                  
+                  
+                      <mat-tab-group>
+  
+                        <mat-tab label="Généralité">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                      
+                              <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                                  <mat-icon class="mr-12 mt-12">account_circle</mat-icon>
+                                  <mat-form-field class="w-100-p">
+                                      <input matInput
+                                              name="userName"
+                                              formControlName="userName"
+                                              placeholder="Pseudonyme"
+                                              required>
+                                  </mat-form-field>
+                              </div>
+                              
+                              <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                                  <mat-icon class="mr-12 mt-12">account_circle</mat-icon>
+                                  <mat-form-field class="w-100-p">
+                                      <input matInput
+                                              name="firstName"
+                                              formControlName="firstName"
+                                              placeholder="Nom"
+                                              required>
+                                  </mat-form-field>
+                              </div>
+                              
+                              <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                                  <mat-icon class="mr-12 mt-12">account_circle</mat-icon>
+                                  <mat-form-field class="w-100-p">
+                                      <input matInput
+                                              name="lastName"
+                                              formControlName="lastName"
+                                              placeholder="Prénom"
+                                              required>
+                                  </mat-form-field>
+                              </div>
+  
+                              <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                                  <mat-icon class="mr-12 mt-12">cake</mat-icon>
+                                  <mat-form-field class="w-100-p">
+                                      <input class="mini-input" matInput [matDatepicker]="dateOfBirth" formControlName="dateOfBirth" placeholder="Date de naissance"> 
+                                      <mat-datepicker-toggle matSuffix [for]="dateOfBirth"></mat-datepicker-toggle>
+                                      <mat-datepicker #dateOfBirth></mat-datepicker>
+                                  </mat-form-field>
+                                  
+                                  <div style="width:10%"></div>
+  
+                                  <mat-icon class="mr-12 mt-12">cake</mat-icon>
+                                  <mat-form-field class="w-100-p">
+                                      <input matInput
+                                              name="age"
+                                              formControlName="age"
+                                              placeholder="Age">
+                                  </mat-form-field>
+                              </div>
+  
+                              <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                                  <mat-icon class="mr-12 mt-12">calendar_today</mat-icon>
+                                  <mat-form-field class="w-100-p">
+                                      <input matInput
+                                              name="dateCreated"
+                                              formControlName="dateCreated"
+                                              placeholder="Date de création"
+                                              required>
+                                  </mat-form-field>
+  
+                                  <div style="width:10%"></div>
+  
+                                  <mat-icon class="mr-12 mt-12" >calendar_today</mat-icon>
+                                  <mat-form-field class="w-100-p" >
+                                      <input matInput
+                                              name="dateLastActive"
+                                              formControlName="dateLastActive"
+                                              placeholder="Date de dernière activité"
+                                              required>
+                                  </mat-form-field>
+                              </div>
+  
+                              <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                                  <!-- <mat-icon class="mr-12 mt-12">cake</mat-icon> -->
+                                  
+                              </div>
+                            </div>
+                        </mat-tab>
+  
+                        <mat-tab label="Adresse">
+                          <div class="tab-content p-24" fusePerfectScrollbar>
+                              <g-map-search *ngIf="gMapSearchInfo" [gMapSearchInfo]="gMapSearchInfo" (changeGMapAddress)="onChangeGMapAddress($event)"></g-map-search>
+                          
+                              <mat-form-field class="w-0-p" [hidden]=true>
+                                  <input matInput
+                                          name="idGMapAddress"
+                                          formControlName="idGMapAddress"
+                                          placeholder="idGMapAddress"
+                                          
+                                          >
+                              </mat-form-field>
+                          </div>
+                      </mat-tab>
+  
+                        <mat-tab label="Avatar">
+                              <!-- <div fxLayout='row' fxLayoutAlign="center center" fxLayoutWrap >     -->
+                          <mat-card class="example-card">
+                                      <mat-card-header>
+                                          <avatar-editor [user]="user" (getUserAvatarChange)="updateUserAvatar($event)"></avatar-editor>
+           
+                                      </mat-card-header>
+                                      
+                                      <mat-card-content>
+                                          <img class="avatar" *ngIf="avatarUrl" src="{{avatarUrl}}" alt="{{user.userName}}">
+                                      </mat-card-content>
+                              </mat-card>
+                         <!-- </div> -->
+                              <!-- <div class="avatar-card">
+                                  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                                      <div fxFlex="50">
+                                          <avatar-editor [user]="user" (getUserAvatarChange)="updateUserAvatar($event)"></avatar-editor>
+                                      </div>
+                                      <div class="avatar-image" fxFlex="50">
+                                          <img mat-card-image *ngIf="avatarUrl" src="{{avatarUrl}}" alt="{{user.userName}}">
+                                      </div>
+                                      
+                                  </div> 
+                              </div> -->
+                     
+                        </mat-tab>
+  
+                        <mat-tab label="Comptes associés">
+                            <div class="px-24 py-8"  style="background-color:#039BE5; ">
+                                <div class="mail-selection" fxFlex="row" fxLayoutAlign="start center">
+                                    <button mat-icon-button matTooltip="Ajouter un compte" >
+                                        <mat-icon style="color:white;">add</mat-icon>
+                                    </button>
+                                    <button mat-icon-button matTooltip="Supprimer le(s) compte(s) sélectionné(s)" *ngIf="hasSelectedAccounts">
+                                        <mat-icon style="color:white;">delete</mat-icon>
+                                    </button>
+                                </div>
+                            </div> 
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          <div fxLayout='column' fxLayoutWrap class="cards">
+                              <div fxFlex="20" class="example-card" *ngFor="let bank of user.banks">
+                              <mat-card class="example-card">
+                              <mat-card-header>
+                                      
+                                      <!-- mat-card-avatar -->
+                                <img mat-card-avatar src="{{bank.logoClassName}}"   alt="bank logo">
+                                <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                                <mat-card-title>{{bank.labelBankLong}}</mat-card-title>
+                                <mat-card-subtitle>{{bank.labelBankShort}}</mat-card-subtitle>
+                              </mat-card-header>
+                              
+                              <mat-card-content>
+                                  <div fxLayout='column' fxLayoutWrap class="cards">
+                                      <div style="background-color: #EDEEEF;color: #1F1F1F;height:30px;" fxFlex="20" fxLayout='row'> 
+                                          <div style="width:10%;"></div>
+                                          <div [hidden]="true" style="width:10%;"></div>
+                                          <div style="width:20%;margin-top:7px;">Numéro de compte</div>
+                                          <div style="width:20%;margin-top:7px;">Nom du compte</div>
+                                      </div>
+                                      <div fxFlex="20" fxLayout='row' *ngFor="let account of bank.accounts">
+                                          <!-- <mat-divider></mat-divider> -->
+                                          <!-- [(ngModel)]="checkboxes[account.id]"  -->
+                                          <!-- (ngModelChange)="onSelectedChange(account.id)" -->
+                                          <mat-checkbox style="width:10%;margin-top: 10px;"
+                                              (change)="onSelectedChange($event,account.id)"
+                                              (click)="$event.stopPropagation()">
+                                          </mat-checkbox>
+                                          <div [hidden]="true" style="width:10%;margin-top: 10px;">{{account.id}}</div>
+                                          <div style="width:20%;margin-top: 12px;">{{account.number}}</div>
+                                          <div style="width:20%;margin-top: 12px;">{{account.label}}</div>
+                                      </div>
+                                  </div>
+                              </mat-card-content>
+                              <!-- </mat-card-content>
+                                <p>
+                                  The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                                  A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                                  bred for hunting.
+                                </p>
+                              </mat-card-content> -->
+                              <!-- </div> -->
+                              <!-- <mat-card-actions>
+                                <button mat-button>LIKE</button>
+                                <button mat-button>SHARE</button>
+                              </mat-card-actions> -->
+                            </mat-card>
+                            </div>
+                          </div>
+                        </mat-tab>
+  
+  
+                    </mat-tab-group>
+                </form>
+  
+            </div>
+            <!-- / CONTENT -->
+  
+        </div>
+        <!-- / CONTENT CARD -->
+        </div>
+      
+    </div>
+  
+    <!-- / CENTER -->
+  <!-- </div> -->

@@ -89,9 +89,9 @@ namespace Budget.API.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            var user = _mapper.Map<UserForDetailDto>(userRetrieve);
-
-            return Ok(new { tokenString, user });
+            var user = _mapper.Map<UserForConnectionDto>(userRetrieve);
+            user.Token = tokenString;
+            return Ok(user);
         }
     }
 }

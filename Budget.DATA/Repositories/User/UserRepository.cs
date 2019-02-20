@@ -17,14 +17,21 @@ namespace Budget.DATA.Repositories
 
         }
 
-        public new Task<User> GetByIdAsync(int id)
+        //public new Task<User> GetByIdAsync(int id)
+        //{
+        //    return Context.User
+        //        .Where(x => x.Id == id)
+        //        //.Include(x => x.Shortcuts)
+        //        //.Include(x=>x.UserAccounts)
+        //        //    .ThenInclude(x=>x.Account)
+        //        .FirstOrDefaultAsync();
+        //}
+        public User GetForDetailById(int id)
         {
             return Context.User
                 .Where(x => x.Id == id)
                 .Include(x => x.Shortcuts)
-                .Include(x=>x.UserAccounts)
-                    .ThenInclude(x=>x.Account)
-                .FirstOrDefaultAsync();
+                .FirstOrDefault();
         }
 
         public async Task<PagedList<User>> GetUsers(Pagination userParams)
@@ -46,6 +53,9 @@ namespace Budget.DATA.Repositories
                 .Where(x => x.IdUser == idUser)
                 .Select(x => x.Account)
                 .Include(x => x.Bank)
+                .Include(x => x.AccountType)
+                .Include(x=>x.UserAccounts)
+                    .ThenInclude(ua=>ua.User)
                 .ToList();
 
             var banks = results.Select(x => x.Bank).ToList();

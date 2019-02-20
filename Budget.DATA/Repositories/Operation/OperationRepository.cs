@@ -15,23 +15,6 @@ namespace Budget.DATA.Repositories
         {
         }
 
-        //public List<Operation> GetByIdOperationMethod(int idOperationMethod)
-        //{
-        //    var operationUnknown = Context.Operation
-        //        .Where(x => x.Id == 1) //ajout ligne inconnue
-        //        .FirstOrDefault();
-
-        //    var operations= Context.Operation
-        //        .Where(x => x.IdOperationMethod == idOperationMethod)
-        //        .OrderBy(x=>x.Label)
-        //        .ToList();
-
-        //    var results = new List<Operation>();
-        //    results.Add(operationUnknown);
-        //    results.AddRange(operations);
-
-        //    return results;
-        //}
 
         public List<Operation> GetSelectList(int idOperationMethod, int idOperationType)
         {
@@ -74,10 +57,6 @@ namespace Budget.DATA.Repositories
         {
             return Create(operation);
         }
-
-
-
-
 
 
         public List<Operation> GetAllByIdOperationMethod(int idOperationMethod)
@@ -128,6 +107,25 @@ namespace Budget.DATA.Repositories
             return GenericLists;
         }
 
+        public List<Operation> GetByIdMovement(int idMovement)
+        {
+            return Context.Operation
+                .Where(x => x.OperationType.OperationTypeFamily.IdMovement == idMovement)
+                .Include(x=>x.OperationType)
+                .ToList();
+                //.OrderBy(x => x.OperationType.OperationTypeFamily.Label)
+                //.ToList();
+        }
+
+        public List<Operation> GetByIdList(List<int> idList)
+        {
+            List<Operation> operations = Context.Operation
+                .Where(x => idList.Contains(x.Id))
+                .ToList();
+
+            return operations;
+        }
+
         public new Operation Create(Operation operation)
         {
             //if (entity.OperationMethod != null)
@@ -139,6 +137,15 @@ namespace Budget.DATA.Repositories
             Context.SaveChanges();
 
             return operation;
+        }
+
+
+        public List<VPlanGlobal> getTest()
+        {
+            var toto = Context.Query<VPlanGlobal>()
+                .Where(x => x.IdPlan == 1)
+                .ToList();
+            return Context.VPlanGlobal.ToList();
         }
     }
 }

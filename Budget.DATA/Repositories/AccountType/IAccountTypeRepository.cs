@@ -7,6 +7,6 @@ namespace Budget.DATA.Repositories
 {
     public interface IAccountTypeRepository : IBaseRepository<AccountType>
     {
-
+        List<AccountType> GetAllOrdering();
     }
 }

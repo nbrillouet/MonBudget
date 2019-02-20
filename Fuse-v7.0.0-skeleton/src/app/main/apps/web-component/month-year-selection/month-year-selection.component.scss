@@ -1,0 +1,21 @@
+@import "src/@fuse/scss/fuse";
+
+.selected-project {
+    background: rgba(0, 0, 0, 0.12);
+    color: #FFFFFF;
+    padding: 8px 16px;
+    margin-left:2px;
+    height: 40px;
+    line-height: 24px;
+    font-size: 16px;
+    border-radius: 8px 8px 0 0;
+}
+
+.project-selector {
+    margin-left: 1px;
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 8px 0 0 0;
+    mat-icon {
+        color: #FFFFFF;
+    }
+}

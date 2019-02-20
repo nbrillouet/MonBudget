@@ -153,6 +153,16 @@ namespace Budget.DATA.Repositories
             return operationTypes;
         }
 
+        public List<OperationType> GetByIdList(List<int> idList)
+        {
+            List<OperationType> operationTypes = Context.OperationType
+                .Where(x => idList.Contains(x.Id))
+                .ToList();
+
+            return operationTypes;
+        }
+
+
         public List<GenericList> GetGenericListByIdMovement(int IdMovement)
         {
             List<OperationTypeFamily> operationTypeFamilies = Context.OperationTypeFamily.Where(x => x.IdMovement == IdMovement).ToList();

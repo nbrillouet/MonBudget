@@ -1,0 +1,59 @@
+.title {
+  padding-left:12px;
+}
+
+.header-1-background {
+  background-color: #9B9B9B;
+  background: url('/assets/images/backgrounds/bck_1.png') no-repeat;
+}
+
+.header-2-background {
+  background-color: #9B9B9B;
+  background: url('/assets/images/backgrounds/bck_2.png') no-repeat;
+}
+
+.mat-tab-body-content {
+overflow: hidden !important;
+}
+
+.anim-icon {
+  animation: rotating 3s linear infinite;
+}
+
+.mini-select {
+  font-size:15px;
+  min-width: 200px;
+  min-height: 30px;
+  padding:5px;
+  color:white;
+  border: 1px solid white;
+  border-radius: 2px;
+}
+
+.mat-select-placeholder {
+  color:white;
+
+}
+
+.gauge-width { 
+  // width: 60px !important; 
+  // canvas { 
+  //   width: 60px !important; 
+  //   height: 50px !important; 
+  // } 
+  // .reading-label { 
+  //   width: 60px !important; 
+  //   height: 50px !important; 
+  // } 
+  // .reading-block {
+  //   height: 60px !important; 
+  // }
+}
+
+.green-progress .mat-progress-bar-fill::after {
+  background-color: #4CAF50 !important;
+}
+
+.mat-progress-bar {
+  height:10px !important;
+}

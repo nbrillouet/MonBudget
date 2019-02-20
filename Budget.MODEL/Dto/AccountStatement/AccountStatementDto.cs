@@ -1,7 +1,5 @@
-﻿using Budget.MODEL.Dto.OperationDetail;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Budget.MODEL.Dto
 {
@@ -15,6 +13,7 @@ namespace Budget.MODEL.Dto
         public DateTime? DateIntegration { get; set; }
         public double AmountOperation { get; set; }
         public string LabelOperation { get; set; }
+        public List<SelectColorDto> Plans { get; set; }
     }
 
     public class AsDetailDto : AsGridDto

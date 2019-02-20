@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Budget.DATA.Repositories;
+using Budget.HELPER;
 using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
@@ -17,25 +18,27 @@ namespace Budget.SERVICE
     {
         private readonly IMapper _mapper;
         private readonly IGMapAddressService _gMapAddressService;
+        private readonly IAccountStatementPlanService _accountStatementPlanService;
         private readonly IAccountStatementRepository _accountStatementRepository;
         
 
         public AccountStatementService(
             IMapper mapper,
             IGMapAddressService gMapAddressService,
-            IAccountStatementRepository accountStatementRepository)
+            IAccountStatementRepository accountStatementRepository,
+            IAccountStatementPlanService accountStatementPlanService
+            )
         {
             _mapper = mapper;
             _gMapAddressService = gMapAddressService;
             _accountStatementRepository = accountStatementRepository;
+            _accountStatementPlanService = accountStatementPlanService;
         }
 
         public AsDetailDto GetForDetailById(int id)
         {
             var accountStatement = _accountStatementRepository.GetForDetailById(id);
             var asDetailDto = _mapper.Map<AsDetailDto>(accountStatement);
-            //recherche de la gMapAddress
-           // asDetailDto.GMapAddress = _gMapAddressService.GetById(accountStatement.IdGMapAddress.Value);
 
             return asDetailDto;
         }
@@ -51,25 +54,16 @@ namespace Budget.SERVICE
         {
             var pagedList = _accountStatementRepository.Get(filter);
 
-            return new PagedList1<AsGridDto>(_mapper.Map<List<AsGridDto>>(pagedList.Datas), pagedList.Pagination);
+            var result = new PagedList1<AsGridDto>(_mapper.Map<List<AsGridDto>>(pagedList.Datas), pagedList.Pagination);
 
+            foreach (var data in result.Datas)
+            {
+                data.Plans=_accountStatementPlanService.GetPlansByIdAccountStatement(data.Id,data.DateIntegration.Value.Year);
+            }
+
+            
+            return result;
         }
-
-        ///// <summary>
-        ///// Nettoie le label operation provenant dun fichier
-        ///// </summary>
-        ///// <param name="operationLabel"></param>
-        ///// <returns></returns>
-        //public string GetOperationWork(string operationLabel)
-        //{
-        //    string trimOperationLabel = operationLabel.ToUpper();
-        //    trimOperationLabel = trimOperationLabel.Replace("'", "");
-        //    trimOperationLabel = trimOperationLabel.Replace("*", "");
-        //    trimOperationLabel = trimOperationLabel.Replace("-", "");
-        //    trimOperationLabel = trimOperationLabel.Replace("/", "");
-
-        //    return trimOperationLabel;
-        //}
 
         public Boolean Save(List<AccountStatement> accountStatements)
         {
@@ -77,41 +71,21 @@ namespace Budget.SERVICE
             return _accountStatementRepository.Save(accountStatements);
         }
 
-        //public AccountStatement InitForImport()
-        //{
-        //    var accountStatement = new AccountStatement();
-        //    accountStatement.IdAccount = (int)EnumAccount.Inconnu;
-        //    accountStatement.IdOperation = (int)EnumOperation.Inconnu;
-        //    accountStatement.IdOperationMethod = (int)EnumOperationMethod.Inconnu;
-        //    accountStatement.IdOperationPlace = (int)EnumOperationPlace.Inconnu;
-        //    return accountStatement;
-        //}
+        public SoldeDto GetSolde(int idAccount,DateTime dateMin,DateTime dateMax,bool isWithITransfer)
+        {
+            return _accountStatementRepository.GetSolde(idAccount,dateMin, dateMax, isWithITransfer);
+        }
 
+        public SoldeDto GetSolde(FilterAccountStatement filter)
+        {
+            var date = Convert.ToDateTime($"01/{filter.MonthYearSelected.Month.Id}/{filter.MonthYearSelected.Year}");
+            var dateMin = DateHelper.GetFirstDayOfMonth(date);
+            var dateMax = DateHelper.GetLastDayOfMonth(date);
 
-        //public List<AccountStatement> GetAccountStatementsFull(List<AccountStatement> accountStatements, int idAccount)
-        //{
-        //    return accountStatements.Where(x => x.Account.Id == idAccount).OrderBy(x => x.DateOperation).ToList();
-        //}
+            return GetSolde(filter.IdAccount.Value, dateMin, dateMax, filter.IsWithITransfer);
+        }
 
-        //public List<AccountStatement> GetAccountStatementsComplete(List<AccountStatement> accountStatements, int idAccount)
-        //{
-        //    return accountStatements.Where(x => x.IdOperation != 1 && x.IdOperationMethod != 1 && x.Account.Id == idAccount).OrderBy(x => x.DateOperation).ToList();
-        //}
-
-        //public List<AccountStatement> GetAccountStatementsMethodLess(List<AccountStatement> accountStatements, int idAccount)
-        //{
-        //    return accountStatements.Where(x => x.IdOperationMethod == 1 && x.Account.Id == idAccount).OrderBy(x => x.DateOperation).ToList();
-        //}
-
-        //public List<AccountStatement> GetAccountStatementsOperationLess(List<AccountStatement> accountStatements, int idAccount)
-        //{
-        //    return accountStatements.Where(x => x.IdOperation == 1 && x.Account.Id == idAccount).OrderBy(x => x.DateOperation).ToList();
-        //}
-
-        //public double GetSum(DateTime startDate, DateTime endDate, int idMovement, int idAccount)
-        //{
-        //    return _accountStatementRepository.GetSum(startDate, endDate, idMovement, idAccount);
-        //}
+        
 
 
     }

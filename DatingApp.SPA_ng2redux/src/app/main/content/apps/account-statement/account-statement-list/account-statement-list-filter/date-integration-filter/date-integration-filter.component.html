@@ -1,0 +1,26 @@
+<div class="content-filter"
+  (click)="$event.stopPropagation()" 
+  (keyup)="$event.stopPropagation()" 
+  (keydown)="$event.stopPropagation()">
+    <form name="dateIntegrationForm" [formGroup]="dateIntegrationForm" class="product w-100-p" fxLayout="column" fxFlex>
+      <mat-form-field class="w-100-p">
+        <input class="mini-input" matInput [matDatepicker]="dateIntegrationMin" formControlName="dateIntegrationMin" placeholder="Date intégration min"> 
+        <mat-datepicker-toggle matSuffix [for]="dateIntegrationMin"></mat-datepicker-toggle>
+        <mat-datepicker #dateIntegrationMin></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="w-100-p">
+        <input class="mini-input" matInput [matDatepicker]="dateIntegrationMax" formControlName="dateIntegrationMax" placeholder="Date intégration max"> 
+        <mat-datepicker-toggle matSuffix [for]="dateIntegrationMax"></mat-datepicker-toggle>
+        <mat-datepicker #dateIntegrationMax></mat-datepicker>
+      </mat-form-field>
+
+      <!--  -->
+      <button mat-raised-button 
+        class="save-product-button mat-white-bg mt-16 mt-sm-0"
+        [disabled]= "dateIntegrationForm.invalid || dateIntegrationForm.pristine"
+        (click)="applyFilter()">
+          <span>APPLIQUER</span>
+      </button>
+    </form>
+  </div>

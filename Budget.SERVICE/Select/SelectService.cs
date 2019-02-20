@@ -15,16 +15,25 @@ namespace Budget.SERVICE
                 SelectDto select = new SelectDto();
                 switch (typeList)
                 {
-                    case 0:
+                    case (int)EnumSelectType.Empty:
+                        //Aucun ajout de base dans la liste
+                        return Selectlist;
+                    case (int)EnumSelectType.Inconnu:
+                        select = new SelectDto { Id = 1, Label = "INCONNU" };
+                        break;
+                    case (int)EnumSelectType.Inconnue:
+                        select = new SelectDto { Id = 1, Label = "INCONNU" };
+                        break;
+                    case (int)EnumSelectType.Tous:
                         select = new SelectDto { Id = 0, Label = "Tous" };
                         break;
-                    case 2:
+                    case (int)EnumSelectType.Toutes:
                         select = new SelectDto { Id = 0, Label = "Toutes" };
                         break;
-                    case 3:
+                    case (int)EnumSelectType.Aucun:
                         select = new SelectDto { Id = 0, Label = "Aucun" };
                         break;
-                    case 4:
+                    case (int)EnumSelectType.Aucune:
                         select = new SelectDto { Id = 0, Label = "Aucune" };
                         break;
                 }

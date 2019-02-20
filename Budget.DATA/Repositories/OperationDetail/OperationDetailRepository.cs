@@ -13,6 +13,7 @@ namespace Budget.DATA.Repositories
         {
         }
 
+        
         public OperationDetail GetForAddressById(int id)
         {
             var result = Context.OperationDetail
@@ -85,6 +86,33 @@ namespace Budget.DATA.Repositories
             //    return result;
 
             //return result;
+        }
+
+        public OperationDetail FindKeywordPlace(string operationLabel)
+        {
+            var result = Context.OperationDetail
+                    .Where(x => operationLabel.Contains(x.KeywordPlace))
+                    .Include(x => x.GMapAddress.gMapLocality)
+                    .FirstOrDefault();
+
+            return result;
+        }
+
+        public bool HasSameKeywords(OperationDetail operationDetail)
+        {
+            //if(operationDetail.KeywordPlace!=null)
+            //{
+                return Context.OperationDetail
+                    .Where(x => x.KeywordOperation == operationDetail.KeywordOperation
+                        && x.KeywordPlace == operationDetail.KeywordPlace)
+                    .Any();
+            //}
+            //else
+            //{
+            //    return Context.OperationDetail
+            //        .Where(x => x.KeywordOperation == operationDetail.KeywordOperation)
+            //        .Any();
+            //}
         }
     }
 }

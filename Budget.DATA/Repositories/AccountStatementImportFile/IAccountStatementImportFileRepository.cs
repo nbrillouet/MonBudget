@@ -11,17 +11,20 @@ namespace Budget.DATA.Repositories
 {
     public interface IAccountStatementImportFileRepository : IBaseRepository<AccountStatementImportFile>
     {
+        PagedList1<AccountStatementImportFile> GetAsifTable(FilterAsifTableSelected filter);
+
         bool IsAccountStatementSaveable(int idImport);
-        void Save(List<AccountStatementImportFile> accountStatementImportFiles);
+        //void Save(List<AccountStatementImportFile> accountStatementImportFiles);
         int Save(AccountStatementImportFile accountStatementImportFile);
         AccountStatementImportFile UpdateAsifState(AccountStatementImportFile item);
         void UpdateAsifStates(int idImport);
-        
+
+        bool SaveWithTran(List<AccountStatementImportFile> accountStatementImportFiles);
 
 
 
         List<string> GetDistinctAccountNumber(int idImport);
-        List<AsifState> GetAsifStates(int idImport, int idAccount);
+        List<SelectDto> GetAsifStates(int idImport, int idAccount);
         //List<AccountStatementImportFile> GetById(int IdImport, int idAccount);
         //List<AccountStatementImportFile> GetAsifFull(int idImport, int idAccount);
         //List<AccountStatementImportFile> GetAsifComplete(int idImport, int idAccount);

@@ -1,0 +1,55 @@
+<div class="example-container">
+    <div class="w-100-p py-7 pl-24" style="background-color:#039BE5; ">
+        <div class="mail-selection" fxFlex="row" fxLayoutAlign="start center">
+            <button mat-icon-button (click)="openDetail(0)" matTooltip="Ajouter une recette" >
+                <mat-icon style="color:white;">add</mat-icon>
+            </button>
+            <button mat-icon-button (click)="delete()" matTooltip="Supprimer la(es) recette(s) sélectionnée(s)" *ngIf="hasSelectedRecette">
+                <mat-icon style="color:white;">delete</mat-icon>
+            </button>
+        </div>
+    </div> 
+
+    <table mat-table [dataSource]="dataSource.list" >
+        <ng-container matColumnDef="checkbox">
+            <mat-header-cell style="flex: 0 0 60px;" *matHeaderCellDef> </mat-header-cell>
+            <mat-cell style="flex: 0 0 60px;" *matCellDef="let element">  
+                <mat-checkbox 
+                    (change)="onSelectedChange($event,element.id)"
+                    (click)="$event.stopPropagation()">
+                </mat-checkbox>
+            </mat-cell>
+        </ng-container>
+
+      <ng-container matColumnDef="label">
+        <mat-header-cell *matHeaderCellDef> Libellé </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.label}} </mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="delete">
+          <mat-header-cell style="flex:0 0 30px;"  *matHeaderCellDef ></mat-header-cell>
+          <mat-cell style="flex:0 0 30px;" *matCellDef="let data">
+              <button matTooltip="Supprimer" mat-icon-button (click)="delete(data)">
+                  <mat-icon>delete</mat-icon>
+              </button>
+          </mat-cell>
+      </ng-container> 
+      
+      <ng-container matColumnDef="detail">
+          <mat-header-cell style="flex:0 0 30px;"  *matHeaderCellDef ></mat-header-cell>
+          <mat-cell style="flex:0 0 30px;" *matCellDef="let data">
+              <button matTooltip="Détail" 
+                mat-icon-button 
+                (click)="openDetail(data)"
+                >
+                <mat-icon>more_horiz</mat-icon>
+              </button>
+          </mat-cell>
+      </ng-container> 
+     
+    
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row class="element-row"  *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </table>
+    <p class="empty-result" *ngIf="dataSource.list.length==0">Aucun résultat</p>
+</div>

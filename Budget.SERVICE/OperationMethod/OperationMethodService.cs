@@ -61,10 +61,10 @@ namespace Budget.SERVICE
             return _operationMethodRepository.GetById(idOperationMethod);
         }
 
-        public OperationMethod GetOperationMethodByFileLabel(string operationLabel, int idBank)
+        public OperationMethod GetOperationMethodByFileLabel(string operationLabel, EnumBankFamily enumBankFamily)
         {
 
-            List<OperationMethodLexical> operationMethodLexicals = _operationMethodLexicalService.GetAllByOrder().Where(x => x.IdBank == idBank).ToList();
+            List<OperationMethodLexical> operationMethodLexicals = _operationMethodLexicalService.GetAllByOrder().Where(x => x.IdBankFamily == (int)enumBankFamily).ToList();
             //chercher le mot clef du lexique dans l'operation label
             foreach (var operationMethodLexical in operationMethodLexicals)
             {
@@ -76,7 +76,7 @@ namespace Budget.SERVICE
                 }
             }
 
-            return GetById((int)EnumOperationMethod.Inconnu); ;
+            return GetById((int)EnumOperationMethod.Inconnu);
         }
 
         public List<OperationMethod> GetAll()

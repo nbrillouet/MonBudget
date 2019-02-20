@@ -47,12 +47,12 @@ namespace Budget.MODEL
         public string AvatarUrl { get; set;}
         [Column("ID_AVATAR_CLOUD")]
         public string IdAvatarCloud { get; set; }
-        public List<Shortcut> Shortcuts { get; set; }
+        public List<UserShortcut> Shortcuts { get; set; }
         public virtual List<UserAccount> UserAccounts { get; set; }
 
         public User()
         {
-            Shortcuts = new List<Shortcut>();
+            Shortcuts = new List<UserShortcut>();
             UserAccounts = new List<UserAccount>();
         }
         

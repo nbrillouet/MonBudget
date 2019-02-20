@@ -24,12 +24,13 @@ namespace Budget.MODEL
 
     public class Pagination1
     {
-        public int CurrentPage { get; set; }
-        public int ItemsPerPage { get; set; }
-        public int TotalItems { get; set; }
-        public int TotalPages { get; set; }
+        public int? CurrentPage { get; set; }
+        public int? ItemsPerPage { get; set; }
         public string SortColumn { get; set; }
         public string SortDirection { get; set; }
+        public int? TotalItems { get; set; }
+        public int? TotalPages { get; set; }
+        
 
 
     }

@@ -12,11 +12,11 @@ namespace Budget.MODEL.Database
         [Column("ID")]
         public int Id { get; set; }
 
-        [Column("ID_BANK")]
-        public int IdBank { get; set; }
+        [Column("ID_BANK_FAMILY")]
+        public int IdBankFamily { get; set; }
 
-        [ForeignKey("IdBank")]
-        public Bank Bank { get; set; }
+        //[ForeignKey("IdBank")]
+        //public Bank Bank { get; set; }
 
         [Column("ID_OPERATION_METHOD")]
         public int IdOperationMethod { get; set; }

@@ -12,10 +12,22 @@ namespace Budget.MODEL.Dto
 
     }
 
+    public class SelectColorDto
+    {
+        public int Id { get; set; }
+        public string Label { get; set; }
+        public string Color { get; set; }
+
+    }
+
     public enum EnumSelectType
     {
-        VIDE = 1,
-        TOUS = 2,
-        TOUTES = 3
+        Empty = 0,
+        Inconnu = 1,
+        Inconnue = 11,
+        Tous =2,
+        Toutes=22,
+        Aucun=3,
+        Aucune=33
     }
 }

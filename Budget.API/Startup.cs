@@ -21,6 +21,8 @@ using Budget.API.Helpers;
 using AutoMapper;
 using Budget.SERVICE.GMap;
 using Budget.DATA.Repositories.GMap;
+using Budget.DATA.Repositories.ContextTransaction;
+
 
 namespace Budget.API
 {
@@ -49,14 +51,16 @@ namespace Budget.API
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IAuthRepository, AuthRepository>();
 
-            services.AddScoped<IShortcutService, ShortcutService>();
-            services.AddScoped<IShortcutRepository, ShortcutRepository>();
+            services.AddScoped<IUserShortcutService, UserShortcutService>();
+            services.AddScoped<IUserShortcutRepository, UserShortcutRepository>();
 
             services.AddScoped<IBankService, BankService>();
             services.AddScoped<IBankRepository, BankRepository>();
 
             services.AddScoped<IAccountStatementImportService, AccountStatementImportService>();
             services.AddScoped<IAccountStatementImportRepository, AccountStatementImportRepository>();
+            services.AddScoped<IBanquePopulaireImportFileService, BanquePopulaireImportFileService>();
+            services.AddScoped<ICreditAgricoleImportFileService, CreditAgricoleImportFileService>();
 
             services.AddScoped<IBankFileDefinitionService, BankFileDefinitionService > ();
             services.AddScoped<IBankFileDefinitionRepository, BankFileDefinitionRepository>();
@@ -69,6 +73,12 @@ namespace Budget.API
 
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+
+            services.AddScoped<IUserAccountService, UserAccountService>();
+            services.AddScoped<IUserAccountRepository, UserAccountRepository>();
+
+            services.AddScoped<IAccountTypeService, AccountTypeService>();
+            services.AddScoped<IAccountTypeRepository, AccountTypeRepository>();
 
             services.AddScoped<IOperationMethodService, OperationMethodService>();
             services.AddScoped<IOperationMethodRepository, OperationMethodRepository>();
@@ -87,6 +97,46 @@ namespace Budget.API
 
             services.AddScoped<IOperationDetailService, OperationDetailService>();
             services.AddScoped<IOperationDetailRepository, OperationDetailRepository>();
+
+            services.AddScoped<IPlanService, PlanService>();
+            services.AddScoped<IPlanRepository, PlanRepository>();
+
+            services.AddScoped<IPlanPosteReferenceService, PlanPosteReferenceService>();
+            services.AddScoped<IPlanPosteReferenceRepository, PlanPosteReferenceRepository>();
+
+            services.AddScoped<IPlanPosteFrequencyService, PlanPosteFrequencyService>();
+            services.AddScoped<IPlanPosteFrequencyRepository, PlanPosteFrequencyRepository>();
+
+            services.AddScoped<IFrequencyService, FrequencyService>();
+            services.AddScoped<IFrequencyRepository, FrequencyRepository>();
+
+            services.AddScoped<IPlanPosteUserService, PlanPosteUserService>();
+            services.AddScoped<IPlanPosteUserRepository, PlanPosteUserRepository>();
+            
+            services.AddScoped<IPlanUserRepository, PlanUserRepository>();
+            services.AddScoped<IPlanUserService, PlanUserService>();
+
+            services.AddScoped<IAccountStatementPlanRepository, AccountStatementPlanRepository>();
+            services.AddScoped<IAccountStatementPlanService, AccountStatementPlanService>();
+
+            services.AddScoped<IReferenceTableService, ReferenceTableService>();
+            services.AddScoped<IReferenceTableRepository, ReferenceTableRepository>();
+
+            services.AddScoped<IPosteService, PosteService>();
+            services.AddScoped<IPosteRepository, PosteRepository>();
+
+            services.AddScoped<IPlanPosteService, PlanPosteService>();
+            services.AddScoped<IPlanPosteRepository, PlanPosteRepository>();
+
+            services.AddScoped<IVPlanGlobalService, VPlanGlobalService>();
+            services.AddScoped<IVPlanGlobalRepository, VPlanGlobalRepository>();
+            
+
+            services.AddScoped<IPlanDetailService,PlanDetailService>();
+            services.AddScoped<IPlanPosteDetailService, PlanPosteDetailService>();
+            services.AddScoped<IPlanTrackingService, PlanTrackingService>();
+            
+
 
             //services.AddScoped<IOperationPlaceService, OperationPlaceService>();
             //services.AddScoped<IOperationPlaceRepository, OperationPlaceRepository>();
@@ -134,6 +184,11 @@ namespace Budget.API
             services.AddScoped<IGMapAddressTypeRepository, GMapAddressTypeRepository>();
 
             services.AddScoped<ISelectService, SelectService>();
+            services.AddScoped<IVPlanGlobalRepository, VPlanGlobalRepository>();
+
+            services.AddScoped<IFilterService, FilterService>();
+
+            services.AddScoped<IContextTransaction, ContextTransaction>();
 
             services.AddTransient<IGreeter, Greeter>();
 

@@ -14,9 +14,11 @@ namespace Budget.SERVICE
         List<SelectGroupDto> GetSelectGroup();
 
         OperationTypeFamily GetById(int idOperationTypeFamily);
-        List<GenericList> GetGenericList();
-        List<GenericList> GetGenericListByIdMovement(int idMovement, EnumSelect enumSelect);
+        //List<GenericList> GetGenericList();
+        //List<GenericList> GetGenericListByIdMovement(int idMovement, EnumSelect enumSelect);
         List<OperationTypeFamily> GetByIdMovement(int idMovement, EnumSelect enumSelect);
+        List<SelectGroupDto> GetSelectGroupListByIdPoste(int idPoste);
+        List<SelectDto> GetSelectListByIdList(List<int> idList);
 
         int Create(OperationTypeFamily operationTypeFamily);
         void Update(OperationTypeFamily operationTypeFamily);

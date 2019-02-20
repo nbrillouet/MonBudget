@@ -13,6 +13,13 @@ namespace Budget.DATA.Repositories
         {
         }
 
+        public List<Bank> GetAllOrdering()
+        {
+            return Context.Bank
+                .OrderBy(x => x.LabelBankLong)
+                .ToList();
+        }
+
         //public Bank GetById(int idBank)
         //{
         //    using (var context = new BudgetDbContext())
@@ -29,27 +36,27 @@ namespace Budget.DATA.Repositories
         //    }
         //}
 
-        public List<Bank> GetAllWithNoUnknown()
-        {
-            //using (var context = new BudgetDbContext())
-            //{
-            return Context.Bank.Where(x => x.Id != (int)EnumBank.Inconnu).ToList();
-            //}
-        }
+        //public List<Bank> GetAllWithNoUnknown()
+        //{
+        //    //using (var context = new BudgetDbContext())
+        //    //{
+        //    return Context.Bank.Where(x => x.Id != (int)EnumBank.Inconnu).ToList();
+        //    //}
+        //}
 
-        public List<GenericList> GetGenericList()
-        {
-            List<Bank> banks = GetAll();
-            List<GenericList> GenericLists = new List<GenericList>();
-            foreach (var item in banks)
-            {
-                GenericList genericList = new GenericList();
-                genericList.value = item.Id;
-                genericList.text = item.LabelBankLong;
-                GenericLists.Add(genericList);
-            }
-            return GenericLists;
-        }
+        //public List<GenericList> GetGenericList()
+        //{
+        //    List<Bank> banks = GetAll();
+        //    List<GenericList> GenericLists = new List<GenericList>();
+        //    foreach (var item in banks)
+        //    {
+        //        GenericList genericList = new GenericList();
+        //        genericList.value = item.Id;
+        //        genericList.text = item.LabelBankLong;
+        //        GenericLists.Add(genericList);
+        //    }
+        //    return GenericLists;
+        //}
 
 
     }

@@ -14,12 +14,13 @@ using System.IO;
 using System.Text;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
+using Budget.MODEL.Filter;
 
 namespace Budget.API.Controllers
 {
     [Authorize]
     [Produces("application/json")]
-    [Route("api/AccountStatementImport")]
+    [Route("api/account-statement-import")]
     public class AccountStatementImportController : Controller
     {
         private readonly IMapper _mapper;
@@ -27,7 +28,7 @@ namespace Budget.API.Controllers
         private readonly IAccountStatementImportService _accountStatementImportService;
         private readonly IBankService _bankService;
         private readonly IAccountStatementImportFileService _accountStatementImportFileService;
-
+        private readonly IFilterService _filterService;
         private readonly IAccountService _accountService;
 
         public AccountStatementImportController(
@@ -36,7 +37,9 @@ namespace Budget.API.Controllers
             IBankService bankService,
             IAccountStatementImportFileService accountStatementImportFileService,
             IMapper mapper,
-            IAccountService accountService)
+            IAccountService accountService,
+            IFilterService filterService
+            )
         {
             _mapper = mapper;
             _accountStatementImportService = accountStatementImportService;
@@ -44,6 +47,26 @@ namespace Budget.API.Controllers
             _userService = userService;
             _accountStatementImportFileService = accountStatementImportFileService;
             _accountService = accountService;
+            _filterService = filterService;
+        }
+
+        [HttpPost]
+        [Route("table-filter")]
+        public IActionResult getAsiTableFilter([FromBody] FilterAsiTableSelected filter)
+        {
+            var result= _filterService.GetFilterAsiTable(filter);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("filter")]
+        public IActionResult getAsiTable([FromBody] FilterAsiTableSelected filter)
+        {
+            var pagedList = _accountStatementImportService.GetAsiTable(filter);
+
+            return Ok(pagedList);
+
         }
 
         [HttpGet]
@@ -58,7 +81,7 @@ namespace Budget.API.Controllers
         }
 
         [HttpGet]
-        [Route("user/{idUser}/bank/{idBank}")]
+        [Route("users/{idUser}/banks/{idBank}/account-statement-imports")]
         public async Task<IActionResult> Get(int idUser,int idBank, [FromQuery] Pagination pagination)
         {
             var filter = _mapper.Map(pagination, new FilterAccountStatementImport());
@@ -74,7 +97,7 @@ namespace Budget.API.Controllers
         }
 
         [HttpGet]
-        [Route("user/{idUser}")]
+        [Route("users/{idUser}/banks")]
         public async Task<IActionResult> GetDistinctBank(int idUser)
         {
             var banks = await _accountStatementImportService.GetDistinctBankAsync(idUser);
@@ -85,22 +108,17 @@ namespace Budget.API.Controllers
         }
 
         [HttpGet]
-        [Route("imports/{idImport}")]
-        public async Task<IActionResult> GetAsi(int idImport)
+        [Route("imports/{idImport}/account-statement-import")]
+        public IActionResult GetAsiDto(int idImport)
         {
-            var asi = await _accountStatementImportService.GetById(idImport);
-            //var banksDto = _mapper.Map<IEnumerable<BankForListDto>>(idImport);
-
-            return Ok(asi);
-
+            var asiDto = _accountStatementImportService.GetForDetailById(idImport);
+            return Ok(asiDto);
         }
 
         [HttpPost]
-        [Route("user/{idUser}")]
+        [Route("users/{idUser}/upload-file")]
         public async Task<IActionResult> UploadFile(int idUser, AccountStatementImportForUploadDto asifuDto)
         {
-
-            //var account = _accountService.GetAccountByNumber("30919688017");
 
             var user = await _userService.GetByIdAsync(idUser);
 
@@ -112,28 +130,28 @@ namespace Budget.API.Controllers
             AsifGroupByAccounts asifGroupByAccounts = new AsifGroupByAccounts();
             if (file.Length > 0)
             {
-                //try
-                //{
+                try
+                {
                     StreamReader csvreader = new StreamReader(file.OpenReadStream(), Encoding.GetEncoding(1252));
                     AccountStatementImport accountStatementImport = _accountStatementImportService.ImportFile(csvreader, user);
                     asifGroupByAccounts = _accountStatementImportFileService.GetListDto(accountStatementImport.Id);
-
-                //}
-                //catch(Exception e)
-                //{
-                //    ModelState.AddModelError("Erreur lors du chargement de fichier", e.Message.ToString());
-                //    return BadRequest(ModelState);
-                //}
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("Erreur lors du chargement de fichier", e.Message.ToString());
+                    return BadRequest(ModelState);
+                }
             }
 
             return Ok(asifGroupByAccounts);
         }
 
         [HttpGet]
-        [Route("imports/{idImport}/accounts/{idAccount}/asifStates")]
+        [Route("imports/{idImport}/accounts/{idAccount}/asif-states")]
         public IActionResult GetAsifStates(int idImport, int idAccount)
         {
             var results = _accountStatementImportFileService.GetAsifStates(idImport,idAccount);
+
             return Ok(results);
         }
 

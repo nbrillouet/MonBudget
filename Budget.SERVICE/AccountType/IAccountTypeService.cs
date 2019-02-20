@@ -1,4 +1,5 @@
 ﻿using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,10 +8,9 @@ namespace Budget.SERVICE
 {
     public interface IAccountTypeService
     {
+        List<SelectDto> GetSelectList(int idSelectType);
         AccountType GetById(int id);
-        List<AccountType> GetAll();
-        //int Create(Account account);
-        //void Update(Account account);
-        //void Delete(Account account);
+        //List<AccountType> GetAll();
+
     }
 }

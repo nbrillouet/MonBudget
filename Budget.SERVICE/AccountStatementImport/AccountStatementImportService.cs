@@ -9,49 +9,43 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Globalization;
 using Budget.MODEL.Dto;
+using Budget.DATA.Repositories.ContextTransaction;
+using AutoMapper;
 
 namespace Budget.SERVICE
 {
     public class AccountStatementImportService : IAccountStatementImportService
     {
+        private readonly IMapper _mapper;
         private readonly IAccountStatementImportRepository _accountStatementImportRepository;
         private readonly IBankFileDefinitionService _bankFileDefinitionService;
         private readonly IAccountStatementImportFileService _accountStatementImportFileService;
-        private readonly IAccountStatementService _accountStatementService;
-        private readonly IBankService _bankService;
         private readonly IAccountService _accountService;
-        private readonly IOperationMethodService _operationMethodService;
-        private readonly IOperationService _operationService;
-        private readonly IOperationTypeService _operationTypeService;
-        //private readonly IOperationPlaceService _operationPlaceService;
         private readonly IParameterService _parameterService;
-        private readonly IOperationDetailService _operationDetailService;
+        private readonly IContextTransaction _contextTransaction;
+        private readonly IBanquePopulaireImportFileService _banquePopulaireImportFileService;
+        private readonly ICreditAgricoleImportFileService _creditAgricoleImportFileService;
 
-        public AccountStatementImportService(IAccountStatementImportRepository accountStatementImportRepository,
+        public AccountStatementImportService(
+            IMapper mapper,
+            IAccountStatementImportRepository accountStatementImportRepository,
             IBankFileDefinitionService bankFileDefinitionService,
-            IBankService bankService,
             IAccountStatementImportFileService accountStatementImportFileService,
-            IAccountStatementService accountStatementService,
             IAccountService accountService,
-            IOperationMethodService operationMethodService,
-            IOperationService operationService,
-            IOperationTypeService operationTypeService,
-            //IOperationPlaceService operationPlaceService,
             IParameterService parameterService,
-            IOperationDetailService operationDetailService)
+            IContextTransaction contextTransaction,
+            IBanquePopulaireImportFileService banquePopulaireImportFileService,
+            ICreditAgricoleImportFileService creditAgricoleImportFileService)
         {
+            _mapper = mapper;
             _accountStatementImportRepository = accountStatementImportRepository;
             _bankFileDefinitionService = bankFileDefinitionService;
-            _bankService = bankService;
             _accountStatementImportFileService = accountStatementImportFileService;
-            _accountStatementService = accountStatementService;
             _accountService = accountService;
-            _operationMethodService = operationMethodService;
-            _operationService = operationService;
-            _operationTypeService = operationTypeService;
-            //_operationPlaceService = operationPlaceService;
             _parameterService = parameterService;
-            _operationDetailService = operationDetailService;
+            _contextTransaction = contextTransaction;
+            _banquePopulaireImportFileService = banquePopulaireImportFileService;
+            _creditAgricoleImportFileService = creditAgricoleImportFileService;
         }
 
         public Task<PagedList<AccountStatementImport>> GetAsync(FilterAccountStatementImport filter)
@@ -65,16 +59,47 @@ namespace Budget.SERVICE
             return _accountStatementImportRepository.GetDistinctBankAsync(idUser);
         }
 
-        public Task<AccountStatementImport> GetById(int idImport)
+        public List<Bank> GetDistinctBank(int idUser)
+        {
+            return _accountStatementImportRepository.GetDistinctBank(idUser);
+        }
+
+        public PagedList1<AsiForTableDto> GetAsiTable(FilterAsiTableSelected filter)
+        {
+            //if (filter.Pagination==null)
+            //{
+            //    filter.Pagination = new Pagination1
+            //    {
+            //        CurrentPage = 0,
+            //        ItemsPerPage = 15,
+            //        SortColumn = "id",
+            //        SortDirection = "asc"
+            //    };
+            //}
+            var pagedList = _accountStatementImportRepository.GetAsiTable(filter);
+
+            var result = new PagedList1<AsiForTableDto>(_mapper.Map<List<AsiForTableDto>>(pagedList.Datas), pagedList.Pagination);
+
+            return result;
+        }
+
+        public Task<AccountStatementImport> GetByIdAsync(int idImport)
         {
             return _accountStatementImportRepository.GetByIdAsync(idImport);
         }
+        public AccountStatementImport GetById (int idImport)
+        {
+            return _accountStatementImportRepository.GetById(idImport);
+        }
 
+        public AsiForListDto GetForDetailById(int idImport)
+        {
+            var result = _accountStatementImportRepository.GetByIdForDetail(idImport);
 
+            return _mapper.Map<AsiForListDto>(result);
+        }
 
-
-
-
+        
         //private readonly IBankFileDefinitionService _bankFileDefinitionService;
         //private readonly IOperationMethodService _operationMethodService;
         //private readonly IOperationService _operationService;
@@ -119,33 +144,60 @@ namespace Budget.SERVICE
 
         public AccountStatementImport ImportFile(StreamReader reader, User user)
         {
-            Boolean firstLine = true;
+            //Boolean firstLine = true;
 
             //verifier en tete fichier selon banque: rejet ou definit la banque
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
-                var values = line.Split(';');
-
-                if (firstLine)
+                if (line.Contains(';'))
                 {
-                    if (isBPVFFile(values))
+                    var values = line.Split(';');
+
+                    EnumBankFamily enumBankFamily = GetFileBankType(values);
+                    switch (enumBankFamily)
                     {
-                        return ImportFileBPVF(reader, user);
+                        case EnumBankFamily.BanquePopulaire:
+                            return ImportFileBanquePopulaire(reader, user);
+                        case EnumBankFamily.CreditAgricole:
+                            return ImportFileCreditAgricole(reader, user);
+
                     }
                 }
-                else
-                {
-                    throw new Exception("Type de fichier incorrect");
-                }
-                firstLine = false;
+                
+                //if (firstLine)
+                //{
+                //if (isBPVFFile(values))
+                //{
+                //    return ImportFileBPVF(reader, user);
+                //}
+                //if (isCAFile(values))
+                //{
+                //    return ImportFileCa(reader, user);
+                //}
+                //}
+                //else
+                //{
+                    
+                //}
+                //firstLine = false;
             }
-            return null;
+            throw new Exception("Type de fichier incorrect");
         }
 
-        private Boolean isBPVFFile(string[] header)
+        private EnumBankFamily GetFileBankType(string[] header)
         {
-            List<BankFileDefinition> bankFileDefinitions = _bankFileDefinitionService.GetByIdBank((int)EnumBank.BPVF);
+            if (isBanquePopulaireFile(header))
+                return EnumBankFamily.BanquePopulaire;
+            else if (isCreditAgricoleFile(header))
+                return EnumBankFamily.CreditAgricole;
+            else
+                return EnumBankFamily.Inconnu;
+        }
+
+        private Boolean isBanquePopulaireFile(string[] header)
+        {
+            List<BankFileDefinition> bankFileDefinitions = _bankFileDefinitionService.GetByIdBank((int)EnumBankFamily.BanquePopulaire);
             if (header.Length == bankFileDefinitions.Count)
             {
                 for (int i = 0; i < bankFileDefinitions.Count; i++)
@@ -160,13 +212,73 @@ namespace Budget.SERVICE
             return true;
         }
 
-        private AccountStatementImport ImportFileBPVF(StreamReader reader, User user)
+        private Boolean isCreditAgricoleFile(string[] header)
         {
-            Bank bank = _bankService.GetById((int)EnumBank.BPVF);
+            List<BankFileDefinition> bankFileDefinitions = _bankFileDefinitionService.GetByIdBank((int)EnumBankFamily.CreditAgricole);
+            if (header.Length == bankFileDefinitions.Count)
+            {
+                for (int i = 0; i < bankFileDefinitions.Count; i++)
+                {
+                    if (header[i] != bankFileDefinitions[i].LabelField)
+                        return false;
+                }
+            }
+            else
+                return false;
+
+            return true;
+        }
+
+        private AccountStatementImport ImportFileBanquePopulaire(StreamReader reader, User user)
+        {
+            List<String> accountNumbers = GetAccountNumbers(reader,0);
+
+            Bank bank = GetImportFileBank(reader, accountNumbers);
+            var accountStatementImport = Create(bank, reader, user);
+            accountStatementImport = SaveWithTran(accountStatementImport);
+
+            List<AccountStatementImportFile> accountStatementImportFiles = _banquePopulaireImportFileService.ImportFile(reader, accountStatementImport,user);
+            _accountStatementImportFileService.SaveWithTran(accountStatementImportFiles);
+
+            _contextTransaction.Commit();
+
+            return accountStatementImport;
+        }
+
+        private AccountStatementImport ImportFileCreditAgricole(StreamReader reader, User user)
+        {
+            var caReader = _creditAgricoleImportFileService.FormatFile(reader, user);
+            try
+            {
+                List<String> accountNumbers = GetAccountNumbers(caReader, 0);
+
+                Bank bank = GetImportFileBank(reader, accountNumbers);
+                var accountStatementImport = Create(bank, reader, user);
+                accountStatementImport = SaveWithTran(accountStatementImport);
+
+                List<AccountStatementImportFile> accountStatementImportFiles = _creditAgricoleImportFileService.ImportFile(caReader, accountStatementImport, user);
+                _accountStatementImportFileService.SaveWithTran(accountStatementImportFiles);
+
+                _contextTransaction.Commit();
+
+
+                return accountStatementImport;
+            }
+            catch(Exception e)
+            {
+                caReader.Close();
+                caReader.Dispose();
+                throw e;
+            }
+        }
+
+        private AccountStatementImport Create(Bank bank, StreamReader reader, User user)
+        {
+            //Bank bank = _bankService.GetById((int)enumBankFamily);
             AccountStatementImport accountStatementImport = new AccountStatementImport
             {
-                Bank = _bankService.GetById((int)EnumBank.BPVF),
-                IdBank = (int)EnumBank.BPVF,
+                //Bank = _bankService.GetById((int)enumBankFamily),
+                IdBank = bank.Id,
                 FileImport = String.Format("{0}_{1}.csv", DateTime.Now.ToString("yyyyMMdd"), bank.LabelBankShort),
                 DateImport = DateTime.Now,
                 File = reader,
@@ -174,157 +286,16 @@ namespace Budget.SERVICE
                 User = user
             };
 
-            List<AccountStatementImportFile> accountStatementImportFiles = new List<AccountStatementImportFile>();
-            int currentLineNumber = 0;
-            while (!reader.EndOfStream)
-            {
-                var line = reader.ReadLine();
-                var values = line.Split(';');
-
-                AccountStatementImportFile accountStatementImportFile = _accountStatementImportFileService.InitForImport();
-                accountStatementImportFile.Id = currentLineNumber;
-                accountStatementImportFile.IdImport = accountStatementImport.Id;
-                accountStatementImportFile.Reference = values[4].ToString();
-                accountStatementImportFile.LabelOperation = values[3].ToString();
-                accountStatementImportFile.LabelOperationWork = _accountStatementImportFileService.GetOperationWork(accountStatementImportFile.LabelOperation);
-                accountStatementImportFile.LabelOperationWork = accountStatementImportFile.LabelOperationWork.ToString().Replace(" ", "");
-                accountStatementImportFile.AmountOperation = double.Parse(values[6].Replace(",", ".").ToString(), CultureInfo.InvariantCulture);
-                accountStatementImportFile.DateIntegration = Convert.ToDateTime(values[1].ToString());
-                accountStatementImportFile.IdMovement = accountStatementImportFile.AmountOperation > 0 ? 1 : 2;
-                accountStatementImportFile.Account = _accountService.GetAccountByNumber(values[0].ToString());
-                if (accountStatementImportFile.Account != null)
-                    accountStatementImportFile.IdAccount = accountStatementImportFile.Account.Id;
-
-                accountStatementImportFile.OperationMethod = _operationMethodService.GetOperationMethodByFileLabel(accountStatementImportFile.LabelOperationWork, (int)EnumBank.BPVF);
-                if (accountStatementImportFile.OperationMethod != null)
-                {
-                    accountStatementImportFile.IdOperationMethod = accountStatementImportFile.OperationMethod.Id;
-
-                    //Date Operation
-                    if (accountStatementImportFile.IdOperationMethod == (int)EnumOperationMethod.PaiementCarte)
-                    {
-                        accountStatementImportFile.DateOperation = _operationService.GetDateOperationByFileLabel(accountStatementImportFile.LabelOperationWork, accountStatementImportFile.OperationMethod);
-                    }
-                    //if (!accountStatementImportFile.IsLocalisable)
-                    //{
-                    //    accountStatementImportFile.IdOperationDetail = (int)EnumGMapAddress.NonApplicable;
-                    //}
-
-                    /*NOUVEAU****************************/
-                    //Determination de operationDetail (operation+addresse) à partir des keywords
-                    OperationDetail operationDetail = GetOperationDetail(accountStatementImportFile);
-                    if(operationDetail!=null)
-                    {
-                        accountStatementImportFile.IdOperation = operationDetail.Operation.Id;
-                        accountStatementImportFile.IdOperationType = operationDetail.Operation.IdOperationType;
-                        accountStatementImportFile.IdOperationTypeFamily = operationDetail.Operation.OperationType.IdOperationTypeFamily;
-                        accountStatementImportFile.IdOperationDetail = operationDetail.Id;
-                        accountStatementImportFile.OperationLabelTemp = operationDetail.Operation.Label;
-                        accountStatementImportFile.OperationKeywordTemp = operationDetail.KeywordOperation;
-                        accountStatementImportFile.PlaceLabelTemp = operationDetail.KeywordPlace;
-                        accountStatementImportFile.PlaceKeywordTemp = operationDetail.KeywordPlace;
-                    }
-                    //Determination de operationDetail (operation+addresse) à partir du label brut
-                    else
-                    {
-                        OperationType operationType = _operationTypeService.GetByIdWithOperationTypeFamily(accountStatementImportFile.AmountOperation > 0 ? (int)EnumOperationType.InconnuCredit : (int)EnumOperationType.InconnuDebit);
-                        accountStatementImportFile.IdOperationType = operationType.Id;
-                        accountStatementImportFile.IdOperationTypeFamily = operationType.IdOperationTypeFamily;
-
-                        //rechercher les labels et keyword sur libellé brut
-                        //accountStatementImportFile.LabelOperationWork = _accountStatementService.GetOperationWork(accountStatementImportFile.LabelOperation);
-                        OperationTmpDto operation = _operationService.GetOperationByParsingLabel(accountStatementImportFile);
-                        if (operation != null)
-                        {
-                            accountStatementImportFile.OperationLabelTemp = operation.Label;
-                            accountStatementImportFile.OperationKeywordTemp = operation.Keyword;
-                            accountStatementImportFile.OperationReferenceTemp = operation.Reference;
-                        }
-                        //si localisable , rechercher label et keyword pour lieu operation
-                        if(accountStatementImportFile.IsLocalisable)
-                        {
-                            KeyLabel keywordPlace = _operationDetailService.GetKeywordPlaceByParsingLabel(accountStatementImportFile);
-                            accountStatementImportFile.PlaceKeywordTemp = keywordPlace.Keyword;
-                            accountStatementImportFile.PlaceLabelTemp = keywordPlace.Label;
-                        }
-                    }
-                    /*NOUVEAU****************************/
-                }
-                else
-                {
-                    accountStatementImportFile.OperationMethod = new OperationMethod { Id = (int)EnumOperationMethod.Inconnu };
-                }
-                accountStatementImportFiles.Add(accountStatementImportFile);
-                currentLineNumber++;
-            }
-
-            ////rechercher les operations inconnus par parsage du libellé operation
-            //List<AccountStatementImportFile> accountStatementImportFileUnknownOperations =
-            //    accountStatementImportFiles
-            //    .Where(x => x.IdAccount != (int)EnumAccount.Inconnu && x.IdOperationMethod != (int)EnumOperationMethod.Inconnu && x.IdOperation == (int)EnumOperation.Inconnu)
-            //    .ToList();
-
-            //for (int i = 0; i < accountStatementImportFileUnknownOperations.Count; i++)
-            //{
-            //    accountStatementImportFileUnknownOperations[i].LabelOperationWork = _accountStatementService.GetOperationWork(accountStatementImportFileUnknownOperations[i].LabelOperation);
-
-            //    accountStatementImportFileUnknownOperations[i].Operation = _operationService.GetOperationByParsingLabel(accountStatementImportFileUnknownOperations[i]);
-            //    if (accountStatementImportFileUnknownOperations[i].Operation != null)
-            //    {
-            //        accountStatementImportFileUnknownOperations[i].OperationLabelTemp = accountStatementImportFileUnknownOperations[i].Operation.Label;
-            //        accountStatementImportFileUnknownOperations[i].OperationKeywordTemp = accountStatementImportFileUnknownOperations[i].Operation.Keyword;
-            //        accountStatementImportFileUnknownOperations[i].OperationReferenceTemp = accountStatementImportFileUnknownOperations[i].Operation.Reference;
-            //    }
-            //    accountStatementImportFileUnknownOperations[i].Operation = _operationService.GetById((int)EnumOperation.Inconnu);
-
-            //    accountStatementImportFileUnknownOperations[i].OperationType = _operationTypeService.GetByIdWithOperationTypeFamily(accountStatementImportFileUnknownOperations[i].AmountOperation > 0 ? (int)EnumOperationType.InconnuCredit : (int)EnumOperationType.InconnuDebit);
-            //    accountStatementImportFileUnknownOperations[i].IdOperationType = accountStatementImportFileUnknownOperations[i].OperationType.Id;
-            //    accountStatementImportFileUnknownOperations[i].IdOperationTypeFamily = accountStatementImportFileUnknownOperations[i].OperationType.IdOperationTypeFamily;
-            //}
-
-            //// Rechercher le lieu pour les operations retraits et paiement carte
-            //List<AccountStatementImportFile> accountStatementImportFileOperationLieux =
-            //    accountStatementImportFiles
-            //    .Where(x => x.IdAccount != (int)EnumAccount.Inconnu && x.IdOperationPlace == (int)EnumOperation.Inconnu && (x.IdOperationMethod == (int)EnumOperationMethod.PaiementCarte || x.IdOperationMethod == (int)EnumOperationMethod.RetraitCarte))
-            //    .ToList();
-            //for (int i = 0; i < accountStatementImportFileOperationLieux.Count; i++)
-            //{
-            //    accountStatementImportFileOperationLieux[i].LabelOperationWork = _accountStatementService.GetOperationWork(accountStatementImportFileOperationLieux[i].LabelOperation);
-
-            //    accountStatementImportFileOperationLieux[i].OperationPlace = _operationPlaceService.GetOperationPlaceByParsingLabel(accountStatementImportFileOperationLieux[i]);
-            //    if (accountStatementImportFileOperationLieux[i].OperationPlace != null)
-            //    {
-            //        accountStatementImportFileOperationLieux[i].OperationPlaceCityTemp = accountStatementImportFileOperationLieux[i].OperationPlace.City;
-            //        accountStatementImportFileOperationLieux[i].OperationPlaceDepartmentTemp = accountStatementImportFileOperationLieux[i].OperationPlace.Department;
-            //        accountStatementImportFileOperationLieux[i].OperationPlaceKeywordTemp = accountStatementImportFileOperationLieux[i].OperationPlace.Keyword;
-            //    }
-            //    accountStatementImportFileOperationLieux[i].OperationPlace = _operationPlaceService.GetById((int)EnumOperation.Inconnu);
-            //}
-            
-            //Save accountStatementImport
-            Save(accountStatementImport);
-            //accountStatementImport = _accountStatementImportRepository.GetById(accountStatementImport.Id);
-            //Save AccountStatementImportFiles
-            foreach (var item in accountStatementImportFiles)
-            {
-                item.AccountStatementImport = accountStatementImport;
-                item.IdImport = accountStatementImport.Id;
-                item.DateImport = DateTime.Now;
-            }
-            _accountStatementImportFileService.Save(accountStatementImportFiles);
-
-            //accountStatementImport.AccountStatementImportFiles = accountStatementImportFiles;
             return accountStatementImport;
-            //return accountStatements;
         }
 
-        public int Save(AccountStatementImport accountStatementImport)
+        public AccountStatementImport SaveWithTran(AccountStatementImport accountStatementImport)
         {
-            if (accountStatementImport.Id == 0)
-            {
+            //if (accountStatementImport.Id == 0)
+            //{
                 //Enregistrement
-                int id = _accountStatementImportRepository.Create(accountStatementImport);
-                accountStatementImport = _accountStatementImportRepository.GetById(id);
+                var asi = _accountStatementImportRepository.CreateWithTran(accountStatementImport);
+                accountStatementImport = _accountStatementImportRepository.GetById(asi.Id);
 
                 //Enregistrement du fichier
                 //chemin d'enregistrement
@@ -338,27 +309,85 @@ namespace Budget.SERVICE
                     writer.Write(accountStatementImport.File.ReadToEnd());
                 }
 
-                //_accountStatementImportRepository.Create(accountStatementImport);
-            }
-            else
-                _accountStatementImportRepository.Update(accountStatementImport);
+                _accountStatementImportRepository.CreateWithTran(accountStatementImport);
 
-            return accountStatementImport.Id;
+
+           
+            //}
+            //else
+            //    _accountStatementImportRepository.Update(accountStatementImport);
+
+            return accountStatementImport;
         }
-
-        private OperationDetail GetOperationDetail(AccountStatementImportFile accountStatementImportFile)
+        public Bank GetImportFileBank(StreamReader reader, List<String> accountNumbers)
         {
-            OperationDetail operationDetail = null;
-            if (accountStatementImportFile.IsLocalisable)
+            //List<string> accountNumbers = new List<string>();
+            //while (!reader.EndOfStream)
+            //{
+            //    var line = reader.ReadLine();
+            //    var values = line.Split(';');
+            //    accountNumbers.Add(values[0].ToString());
+            //}
+            //var accountNumbersGroups = accountNumbers
+            //    .GroupBy(x => x);
+
+            //accountNumbers = new List<string>();
+            //foreach (var accountNumbersGroup in accountNumbersGroups)
+            //{
+            //    accountNumbers.Add(accountNumbersGroup.Key);
+            //}
+            //return accountNumbers;
+
+            Account firstAccount = _accountService.GetByNumber(accountNumbers[0]);
+            if (firstAccount != null)
             {
-                operationDetail = _operationDetailService.GetByKeywords(accountStatementImportFile.LabelOperationWork, accountStatementImportFile.OperationMethod, accountStatementImportFile.IdMovement);
+                foreach (var accountNumber in accountNumbers)
+                {
+                    var account = _accountService.GetByNumber(accountNumber);
+                    if (account == null)
+                        throw new Exception($"Compte bancaire inconnu: {accountNumber}");
+                    if (account.IdBank != firstAccount.Bank.Id)
+                        throw new Exception($"Ce compte: {accountNumber}, n'est pas un compte de: {firstAccount.Bank.LabelBankShort}");
+                }
             }
             else
-            {
-                operationDetail = _operationDetailService.GetByKeywordOperation(accountStatementImportFile.LabelOperationWork, accountStatementImportFile.OperationMethod, accountStatementImportFile.IdMovement);
-            }
+                throw new Exception($"Compte inconnu: {accountNumbers[0]}");
 
-            return operationDetail;
+            return firstAccount.Bank;
         }
+
+        private List<String> GetAccountNumbers(StreamReader reader,int indexAccount)
+        {
+            List<string> accountNumbers = new List<string>();
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var values = line.Split(';');
+                accountNumbers.Add(values[indexAccount].ToString());
+            }
+            var accountNumbersGroups = accountNumbers
+                .GroupBy(x => x);
+
+            accountNumbers = new List<string>();
+            foreach (var accountNumbersGroup in accountNumbersGroups)
+            {
+                accountNumbers.Add(accountNumbersGroup.Key);
+            }
+            return accountNumbers;
+        }
+        //private OperationDetail GetOperationDetail(AccountStatementImportFile accountStatementImportFile)
+        //{
+        //    OperationDetail operationDetail = null;
+        //    if (accountStatementImportFile.IsLocalisable)
+        //    {
+        //        operationDetail = _operationDetailService.GetByKeywords(accountStatementImportFile.LabelOperationWork, accountStatementImportFile.OperationMethod, accountStatementImportFile.IdMovement);
+        //    }
+        //    else
+        //    {
+        //        operationDetail = _operationDetailService.GetByKeywordOperation(accountStatementImportFile.LabelOperationWork, accountStatementImportFile.OperationMethod, accountStatementImportFile.IdMovement);
+        //    }
+
+        //    return operationDetail;
+        //}
     }
 }

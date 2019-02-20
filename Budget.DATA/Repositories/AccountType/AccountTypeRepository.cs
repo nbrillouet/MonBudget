@@ -1,5 +1,5 @@
 ﻿using Budget.MODEL.Database;
-using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +9,13 @@ namespace Budget.DATA.Repositories
     {
         public AccountTypeRepository(BudgetContext context) : base(context)
         {
+        }
+
+        public List<AccountType> GetAllOrdering()
+        {
+            return Context.AccountType
+                .OrderBy(x => x.Label)
+                .ToList();
         }
     }
 }

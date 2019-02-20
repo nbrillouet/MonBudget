@@ -20,6 +20,7 @@ namespace Budget.DATA.Repositories
         List<GenericList> GetGenericListByIdOperationTypeFamily(int IdOperationTypeFamily, EnumSelect enumSelect);
         List<GenericList> GetGenericListByIdMovement(int IdMovement);
         List<OperationType> GetByIdMovement(int IdMovement);
+        List<OperationType> GetByIdList(List<int> idList);
         OperationType GetFirstByIdOperationTypeFamily(int idOperationTypeFamily);
         new int Create(OperationType operationType);
     }

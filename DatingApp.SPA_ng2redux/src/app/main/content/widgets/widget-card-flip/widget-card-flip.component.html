@@ -1,0 +1,48 @@
+<fuse-widget>
+
+    <!-- Front -->
+    <div class="mat-white-bg mat-elevation-z2" >
+        <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="simplified font-size-16" aria-label="Change range">Dépenses</div> 
+            <!-- <mat-form-field>
+                <mat-select class="simplified font-size-16" [(value)]="widget.currentRange"
+                            aria-label="Change range" [compareWith]="compareObjects">
+                    <mat-option *ngFor="let range of widget.ranges"
+                                [value]="range">
+                        {{range.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> -->
+            <!-- <button mat-icon-button fuseWidgetToggle aria-label="more">
+                <mat-icon>more_vert</mat-icon>
+            </button> -->
+        </div>
+
+        <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+            <div class="light-blue-fg font-size-72 line-height-72">
+                {{widget.data.count | myfilter:widget.currentRange }}
+            </div>
+            <div class="h3 secondary-text font-weight-500">{{widget.data.label}}</div>
+        </div>
+
+        <div class="p-16 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
+            <span class="h4 secondary-text text-truncate">{{widget.data.extra.label}}:</span>
+            <span class="h4 ml-8">{{widget.data.extra.count[0].value}}</span>
+        </div>
+    </div>
+    <!-- / Front -->
+
+    <!-- Back -->
+    <div class="fuse-widget-back p-16 pt-32 mat-white-bg mat-elevation-z2">
+        <button mat-icon-button fuseWidgetToggle class="fuse-widget-flip-button"
+                aria-label="Flip widget">
+            <mat-icon class="s-16">close</mat-icon>
+        </button>
+
+        <div>
+            {{widget.detail}}
+        </div>
+    </div>
+    <!-- / Back -->
+
+</fuse-widget>
