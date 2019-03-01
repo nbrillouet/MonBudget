@@ -7,44 +7,37 @@ namespace Budget.SERVICE
 {
     public class SelectService: ISelectService
     {
-        public List<SelectDto> GetSelectList(int typeList)
+        public List<SelectDto> GetSelectList(EnumSelectType enumSelectType)
         {
             List<SelectDto> Selectlist = new List<SelectDto>();
-            if (typeList != -1)
-            {
-                SelectDto select = new SelectDto();
-                switch (typeList)
-                {
-                    case (int)EnumSelectType.Empty:
-                        //Aucun ajout de base dans la liste
-                        return Selectlist;
-                    case (int)EnumSelectType.Inconnu:
-                        select = new SelectDto { Id = 1, Label = "INCONNU" };
-                        break;
-                    case (int)EnumSelectType.Inconnue:
-                        select = new SelectDto { Id = 1, Label = "INCONNU" };
-                        break;
-                    case (int)EnumSelectType.Tous:
-                        select = new SelectDto { Id = 0, Label = "Tous" };
-                        break;
-                    case (int)EnumSelectType.Toutes:
-                        select = new SelectDto { Id = 0, Label = "Toutes" };
-                        break;
-                    case (int)EnumSelectType.Aucun:
-                        select = new SelectDto { Id = 0, Label = "Aucun" };
-                        break;
-                    case (int)EnumSelectType.Aucune:
-                        select = new SelectDto { Id = 0, Label = "Aucune" };
-                        break;
-                }
 
-                Selectlist = new List<SelectDto> { select };
-            }
-            else
+            SelectDto select = new SelectDto();
+            switch (enumSelectType)
             {
-                Selectlist = new List<SelectDto>();
+                case EnumSelectType.Empty:
+                    //Aucun ajout de base dans la liste
+                    return Selectlist;
+                case EnumSelectType.Inconnu:
+                    select = new SelectDto { Id = 1, Label = "INCONNU" };
+                    break;
+                case EnumSelectType.Inconnue:
+                    select = new SelectDto { Id = 1, Label = "INCONNU" };
+                    break;
+                case EnumSelectType.Tous:
+                    select = new SelectDto { Id = 0, Label = "TOUS" };
+                    break;
+                case EnumSelectType.Toutes:
+                    select = new SelectDto { Id = 0, Label = "TOUTES" };
+                    break;
+                case EnumSelectType.Aucun:
+                    select = new SelectDto { Id = -1, Label = "AUCUN" };
+                    break;
+                case EnumSelectType.Aucune:
+                    select = new SelectDto { Id = -1, Label = "AUCUNE" };
+                    break;
             }
 
+            Selectlist.Add(select);
             return Selectlist;
         }
     }

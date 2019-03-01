@@ -11,13 +11,14 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { environment } from 'environments/environment';
 import { ErrorService } from 'app/main/_services/error.service';
 import { Pagination, PaginatedResult } from 'app/main/_models/pagination.model';
-import { IUser } from 'app/main/_models/user.model';
+import { IUser, UserTable } from 'app/main/_models/user.model';
 import { IUserShortcut } from 'app/main/_models/user-shortcut.model';
 // import { PaginatedResult, Pagination } from '../../../../_models/pagination.model';
 // import { ErrorService } from '../../../../_services/error.service';
 // import { IUserShortcut } from '../../../../_models/user-shortcut.model';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/shareReplay';
+import { FilterUserTableSelected, FilterUserTable } from 'app/main/_models/filters/user.filter';
 
 @Injectable()
 export class UserService {
@@ -30,15 +31,22 @@ export class UserService {
         private errorService: ErrorService
     ) { }
     
-    //apres remplacement par jwt global (voir bas de page pour avant remplacement)
-    // getUsers(): Observable<User[]> {
-    //     return this.authHttp
-    //         .get(this.baseUrl + 'user')
-    //         .map(response => <User[]>response.json())
-    //         .catch(this.handleError);
-    // }
+    
+    getUserTable (filter: FilterUserTableSelected) {
+        return this.http
+        .post(`${this.baseUrl}users/filter`,filter)
+        .map((response: UserTable) => {
+            return response;
+        });
+        // .catch(this.errorService.handleError);
+    }
 
-    // getUsers(page?:number,itemsPerPage?: number) {
+    getUserTableFilter(filter: FilterUserTableSelected) {
+        return this.http
+            .post(`${this.baseUrl}users/table-filter`,filter)
+            .map(response => <FilterUserTable>response);
+    }
+
     getUsers(pagination?: Pagination) {
         const paginatedResult: PaginatedResult<IUser[]> = new PaginatedResult<IUser[]>();
         let queryString = '?';
@@ -105,28 +113,6 @@ export class UserService {
         return this.http.put(`${this.baseUrl}users/${id}/update`,user)
             .catch(this.errorService.handleError);
     }
-
-    // private handleError(error: any)
-    // {
-    //     const applicationError = error.headers.get('Application-Error');
-    //     if(applicationError){
-    //         return Observable.throw(applicationError);
-    //     }
-    //     const serverError = error.json();
-    //     let modelStateErrors = '';
-    //     if(serverError) {
-    //         for(const key in serverError)
-    //         {
-    //             if(serverError[key]){
-    //                 modelStateErrors += serverError[key] + '\n';
-    //             }
-    //         }
-    //     }
-
-    //     return Observable.throw(
-    //         modelStateErrors || 'Server error'
-    //     );
-    // }
     
     deleteShortcut(idUser: number, id: number) {
         return this.http.delete(this.baseUrl + 'users/' + idUser + '/shortcuts/' + id)

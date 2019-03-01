@@ -14,15 +14,19 @@ namespace Budget.SERVICE
         private readonly IAccountStatementImportService _accountStatementImportService;
         private readonly IAccountStatementImportFileService _accountStatementImportFileService;
 
+       
+
         public FilterService(
             IMapper mapper,
             IAccountStatementImportService accountStatementImportService,
             IAccountStatementImportFileService accountStatementImportFileService
+
             )
         {
             _mapper = mapper;
             _accountStatementImportService = accountStatementImportService;
             _accountStatementImportFileService = accountStatementImportFileService;
+
         }
 
         public FilterAsiTable GetFilterAsiTable(FilterAsiTableSelected filter)
@@ -64,6 +68,20 @@ namespace Budget.SERVICE
             filterAsifTable.AsifStates = asifStates;
 
             return filterAsifTable;
+
+        }
+
+        //public List<SelectDto> GetOperationMethodSelectList(EnumSelectType enumSelectType)
+        //{
+        //    return _operationMethodService.GetSelectList(enumSelectType);
+        //}
+
+        public FilterUserTable GetFilterUserTable(FilterUserTableSelected filter)
+        {
+            FilterUserTable filterUserTable = new FilterUserTable();
+            filterUserTable.Selected = filter;
+
+            return filterUserTable;
 
         }
 

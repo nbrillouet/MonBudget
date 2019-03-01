@@ -1,4 +1,5 @@
 import { LoadingInfo } from "./loading-info.model";
+import { Pagination } from "../pagination.model";
 
 export class TableInfo<T,U>  {
     dataInfos : DataInfos<T>;
@@ -11,6 +12,7 @@ export class TableInfo<T,U>  {
 
 export class DataInfos<T> {
     datas: T[];
+    pagination: Pagination;
     loadingInfo : LoadingInfo;
 
     constructor(){

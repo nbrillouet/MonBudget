@@ -13,7 +13,7 @@ namespace Budget.MODEL.Filter
         public int? IndexTabAsifState { get; set; }
         public SelectDto Account { get; set; }
         public SelectDto AsifState { get; set; }
-        public Pagination1 Pagination { get; set; }
+        public Pagination Pagination { get; set; }
 
         public FilterAsifTableSelected()
         {
@@ -38,10 +38,10 @@ namespace Budget.MODEL.Filter
 
 
 
-    public class FilterAccountStatementImportFile : Pagination
-    {
-        public int? IdImport { get; set; }
-        public int? IdAccount { get; set; }
-        public int? IdAsifState { get; set; }
-    }
+    //public class FilterAccountStatementImportFile : Pagination
+    //{
+    //    public int? IdImport { get; set; }
+    //    public int? IdAccount { get; set; }
+    //    public int? IdAsifState { get; set; }
+    //}
 }

@@ -8,5 +8,5 @@ export class ComboSimple<T> {
 
 export class ComboMultiple<T> {
     list: T[];
-    listSelected: T;
+    listSelected: T[];
 }

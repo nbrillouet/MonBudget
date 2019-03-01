@@ -2,6 +2,7 @@
 using Budget.DATA.Repositories;
 using Budget.MODEL;
 using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using Budget.MODEL.Dto.Select;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace Budget.SERVICE
             _operationService = operationService;
         }
 
-
+       
         public ComboMultiple<SelectGroupDto> GetListForComboByIdPlanPoste(int IdPlanPoste, int idReferenceTable, int idPoste)
         {
             ComboMultiple<SelectGroupDto> result = new ComboMultiple<SelectGroupDto>();

@@ -21,8 +21,6 @@ let asifTableFilterStateModel = new AsifTableFilterStateModel();
 
 export class AsifTableFilterState {
 
-    
-    
     constructor(
         private _asifService: AsifService,
         private _store: Store
@@ -75,7 +73,9 @@ export class AsifTableFilterState {
     @Action(ChangeAsifTableFilter)
     changeFilter(context: StateContext<AsifTableFilterStateModel>, action: ChangeAsifTableFilter) {
         const state = context.getState();
-
+        state.loadingInfo.loaded=false;
+        state.loadingInfo.loading=true;
+        context.patchState(state);
         
         if(this.ReloadFilters(state.filters,action.payload)) {
             
@@ -87,8 +87,12 @@ export class AsifTableFilterState {
                 context.patchState(state);
 
                 this._store.dispatch(new LoadAsifTableDatas(state.filters.selected));
-    
             }
+            
+                state.loadingInfo.loaded=true;
+                state.loadingInfo.loading=false;
+                context.patchState(state);
+            
         }
      }
 
@@ -119,6 +123,7 @@ export class AsifTableFilterState {
         if(state.asifState.id!=payload.asifState.id) {
             return true;
         }
+        console.log('state.pagination != payload.pagination',state.pagination != payload.pagination);
         if(state.pagination != payload.pagination) {
             return true;
         }

@@ -45,7 +45,7 @@ namespace Budget.DATA.Repositories
 
         }
 
-        public PagedList1<AccountStatement> Get(FilterAccountStatement filter)
+        public PagedList<AccountStatement> Get(FilterAccountStatement filter)
         {
             var accountStatements = Context.AccountStatement
                 .Include(x => x.Operation)
@@ -139,7 +139,40 @@ namespace Budget.DATA.Repositories
             return results;
         }
 
-        public async Task<PagedList<AccountStatement>> GetAsync(FilterAccountStatement filter)
+        //public async Task<PagedList<AccountStatement>> GetAsync(FilterAccountStatement filter)
+        //{
+        //    var accountStatements = Context.AccountStatement
+        //        .Include(x => x.Operation)
+        //        .Include(x => x.OperationMethod)
+        //        .Include(x => x.OperationType)
+        //        .Include(x => x.OperationType.OperationTypeFamily)
+        //        .AsQueryable();
+
+        //    if (filter.IdAccount != null)
+        //    {
+        //        accountStatements = accountStatements.Where(x => x.IdAccount == filter.IdAccount);
+        //    }
+
+        //    if (filter.Pagination.SortDirection == "asc")
+        //        accountStatements = accountStatements.OrderBy(filter.Pagination.SortColumn);
+        //    else
+        //        accountStatements = accountStatements.OrderByDescending(filter.Pagination.SortColumn);
+
+        //    return await PagedListRepository<AccountStatement>.CreateAsync(accountStatements, filter.Pagination.CurrentPage.Value, filter.Pagination.ItemsPerPage.Value);
+        //}
+
+        public List<AccountStatement> GetByDateIdOperationTypeFamilyList(List<int> idOperationtypeFamilyList, DateTime dateMin,DateTime dateMax)
+        {
+            var results = Context.AccountStatement
+                .Where(x => idOperationtypeFamilyList.Contains(x.IdOperationTypeFamily)
+                    && x.DateIntegration >= dateMin 
+                    && x.DateIntegration <= dateMax)
+                .ToList();
+
+            return results;
+        }
+
+        public List<AccountStatement> GetByDatePlanPosteReferenceList(List<PlanPosteReference> planPosteReferences, DateTime dateMin, DateTime dateMax)
         {
             var accountStatements = Context.AccountStatement
                 .Include(x => x.Operation)
@@ -148,17 +181,48 @@ namespace Budget.DATA.Repositories
                 .Include(x => x.OperationType.OperationTypeFamily)
                 .AsQueryable();
 
-            if (filter.IdAccount != null)
-            {
-                accountStatements = accountStatements.Where(x => x.IdAccount == filter.IdAccount);
-            }
-            
-            if (filter.Pagination.SortDirection == "asc")
-                accountStatements = accountStatements.OrderBy(filter.Pagination.SortColumn);
-            else
-                accountStatements = accountStatements.OrderByDescending(filter.Pagination.SortColumn);
+            // IdReferenceTable
+            //case 1: //OPERATION_TYPE_FAMILY
+            var idOperationTypeFamilyList = planPosteReferences
+                .Where(x => x.IdReferenceTable == 1)
+                .Select(x => x.IdReference)
+                .ToList();
 
-            return await PagedListRepository<AccountStatement>.CreateAsync(accountStatements, filter.Pagination.CurrentPage.Value, filter.Pagination.ItemsPerPage.Value);
+            var resultOperationTypeFamilies = accountStatements
+                .Where(x => idOperationTypeFamilyList.Contains(x.IdOperationTypeFamily)
+                    && x.DateIntegration >= dateMin
+                    && x.DateIntegration <= dateMax)
+
+                .ToList();
+
+            //case 2: // "OPERATION_TYPE"
+            var idOperationTypeList = planPosteReferences
+                .Where(x => x.IdReferenceTable == 2)
+                .Select(x => x.IdReference)
+                .ToList();
+
+            var resultOperationTypes = accountStatements
+                .Where(x => idOperationTypeList.Contains(x.IdOperationType)
+                    && x.DateIntegration >= dateMin
+                    && x.DateIntegration <= dateMax)
+                .ToList();
+
+            //case 3: //TODO OPERATION
+            var idOperationList = planPosteReferences
+               .Where(x => x.IdReferenceTable == 3)
+               .Select(x => x.IdReference)
+               .ToList();
+
+            var resultOperations = accountStatements
+                .Where(x => idOperationList.Contains(x.IdOperation)
+                    && x.DateIntegration >= dateMin
+                    && x.DateIntegration <= dateMax)
+                .ToList();
+
+            resultOperationTypeFamilies.AddRange(resultOperationTypes);
+            resultOperationTypeFamilies.AddRange(resultOperations);
+
+            return resultOperationTypeFamilies;
         }
 
         public Boolean Save(List<AccountStatement> accountStatements)

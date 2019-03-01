@@ -35,18 +35,18 @@ namespace Budget.DATA.Repositories
             return new OperationMethod();
         }
 
-        public List<GenericList> GetGenericList()
-        {
-            List<OperationMethod> operationMethods = GetAllByOrder();
-            List<GenericList> GenericLists = new List<GenericList>();
-            foreach (var item in operationMethods)
-            {
-                GenericList genericList = new GenericList();
-                genericList.value = item.Id;
-                genericList.text = item.Label;
-                GenericLists.Add(genericList);
-            }
-            return GenericLists;
-        }
+        //public List<GenericList> GetGenericList()
+        //{
+        //    List<OperationMethod> operationMethods = GetAllByOrder();
+        //    List<GenericList> GenericLists = new List<GenericList>();
+        //    foreach (var item in operationMethods)
+        //    {
+        //        GenericList genericList = new GenericList();
+        //        genericList.value = item.Id;
+        //        genericList.text = item.Label;
+        //        GenericLists.Add(genericList);
+        //    }
+        //    return GenericLists;
+        //}
     }
 }

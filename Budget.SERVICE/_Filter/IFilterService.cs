@@ -1,4 +1,5 @@
 ﻿using Budget.MODEL;
+using Budget.MODEL.Dto;
 using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Budget.SERVICE
     {
         FilterAsiTable GetFilterAsiTable(FilterAsiTableSelected filter);
         FilterAsifTable GetFilterAsifTable(FilterAsifTableSelected filter);
-
+        FilterUserTable GetFilterUserTable(FilterUserTableSelected filter);
 
     }
 

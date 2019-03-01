@@ -39,7 +39,7 @@ namespace Budget.SERVICE
         /// <param name="idOperationMethod"></param>
         /// <param name="idMovement"></param>
         /// <returns></returns>
-        public OperationDetail GetByKeywordOperation(string operationLabel, int idOperationMethod, int idMovement)
+        public OperationDetail GetByKeywordOperation(string operationLabel, int idOperationMethod, EnumMovement enumMovement)
         {
             //retrouver l'operation par le keyword d'operation
             List<OperationDetail> operationDetails = _operationDetailRepository.GetAllByIdOperationMethod(idOperationMethod);
@@ -74,7 +74,7 @@ namespace Budget.SERVICE
         /// <param name="idOperationMethod"></param>
         /// <param name="idMovement"></param>
         /// <returns></returns>
-        public OperationDetail GetByKeywords(string operationLabel, int idOperationMethod, int idMovement)
+        public OperationDetail GetByKeywords(string operationLabel, int idOperationMethod, EnumMovement enumMovement)
         {
             //retrouver l'operation par le keyword d'operation
             List<OperationDetail> operationDetails = _operationDetailRepository.GetAllByIdOperationMethod(idOperationMethod);

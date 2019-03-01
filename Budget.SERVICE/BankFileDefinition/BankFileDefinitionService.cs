@@ -36,10 +36,10 @@ namespace Budget.SERVICE
             return _bankFileDefinitionRepository.GetByIdBank(idBank);
         }
 
-        public List<GenericList> GetGenericList()
-        {
-            return _bankFileDefinitionRepository.GetGenericList();
-        }
+        //public List<GenericList> GetGenericList()
+        //{
+        //    return _bankFileDefinitionRepository.GetGenericList();
+        //}
 
 
     }

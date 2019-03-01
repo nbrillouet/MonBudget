@@ -7,9 +7,9 @@ using System.Text;
 
 namespace Budget.SERVICE
 {
-    public interface IOperationMethodService : IGenericListService
+    public interface IOperationMethodService 
     {
-        List<SelectDto> GetSelect(int idSelectType);
+        List<SelectDto> GetSelectList(EnumSelectType enumSelectType);
 
         OperationMethod GetOperationMethodByFileLabel(string operationLabel, EnumBankFamily enumBankFamily);
         OperationMethod GetById(int idOperationMethod);

@@ -13,10 +13,10 @@ namespace Budget.DATA.Repositories
         {
         }
 
-        public List<OperationTypeFamily> GetByIdMovement(int idMovement)
+        public List<OperationTypeFamily> GetByIdMovement(EnumMovement enumMovement)
         {
             return Context.OperationTypeFamily
-                .Where(x => x.IdMovement == idMovement)
+                .Where(x => x.IdMovement == (int)enumMovement || x.IdMovement==(int)EnumMovement.TwoWays)
                 .ToList()
                 .OrderBy(x => x.Label)
                 .ToList();
@@ -28,85 +28,6 @@ namespace Budget.DATA.Repositories
                 .OrderBy(x => x.IdMovement)
                 .ThenBy(x=>x.Label)
                 .ToList();
-        }
-
-        public List<GenericList> GetGenericList()
-        {
-            List<OperationTypeFamily> operationTypeFamilys = GetAllByOrder();
-            List<GenericList> GenericLists = new List<GenericList>();
-            foreach (var item in operationTypeFamilys)
-            {
-                GenericList genericList = new GenericList();
-                genericList.value = item.Id;
-                genericList.text = item.Label;
-                GenericLists.Add(genericList);
-            }
-            return GenericLists;
-        }
-
-        public List<GenericList> GetGenericListByIdMovement(int idMovement, EnumSelect enumSelect)
-        {
-            List<OperationTypeFamily> operationTypeFamilys = GetByIdMovement(idMovement, enumSelect);
-            List<GenericList> GenericLists = new List<GenericList>();
-            foreach (var item in operationTypeFamilys)
-            {
-                GenericList genericList = new GenericList();
-                genericList.value = item.Id;
-                genericList.text = item.Label;
-                GenericLists.Add(genericList);
-            }
-            return GenericLists;
-        }
-
-        public List<OperationTypeFamily> GetByIdMovement(int idMovement, EnumSelect enumSelect)
-        {
-            switch (enumSelect)
-            {
-                case EnumSelect.Normal:
-                    {
-                        return Context.OperationTypeFamily
-                            .Where(x => x.IdMovement == idMovement && x.Label != "ALL_OPERATION_TYPE")
-                            .ToList()
-                            .OrderBy(x => x.Label)
-                            .ToList();
-                    }
-                case EnumSelect.WithAll:
-                    {
-                        OperationTypeFamily operationTypeFamily = new OperationTypeFamily
-                        {
-                            Id = -1,
-                            Label = "Toutes",
-                            IdMovement = idMovement
-                        };
-                        List<OperationTypeFamily> operationTypeFamilies = new List<OperationTypeFamily>();
-                        operationTypeFamilies.Add(operationTypeFamily);
-                        List<OperationTypeFamily> operationTypeFamiliesDb =
-                            Context.OperationTypeFamily
-                            .Where(x => x.IdMovement == idMovement && x.Label != "INCONNU" && x.Label != "ALL_OPERATION_TYPE").ToList().OrderBy(x => x.Label).ToList();
-                        foreach (var item in operationTypeFamiliesDb)
-                        {
-                            operationTypeFamilies.Add(item);
-                        }
-                        return operationTypeFamilies;
-                    }
-                case EnumSelect.WithoutUnknown:
-                    {
-                        return Context.OperationTypeFamily
-                            .Where(x => x.IdMovement == idMovement && x.Label != "ALL_OPERATION_TYPE" && x.Label != "INCONNU")
-                            .ToList()
-                            .OrderBy(x => x.Label)
-                            .ToList();
-                    }
-                default:
-                    {
-                        return Context.OperationTypeFamily
-                            .Where(x => x.IdMovement == idMovement && x.Label != "ALL_OPERATION_TYPE")
-                            .ToList()
-                            .OrderBy(x => x.Label)
-                            .ToList();
-                    }
-            }
-
         }
 
         public List<OperationTypeFamily> GetByIdList(List<int> idList)

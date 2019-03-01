@@ -23,7 +23,7 @@ namespace Budget.DATA.Repositories
                 .Include(x => x.Bank)
                 .First();
         }
-        public PagedList1<AccountStatementImport> GetAsiTable(FilterAsiTableSelected filter)
+        public PagedList<AccountStatementImport> GetAsiTable(FilterAsiTableSelected filter)
         {
             var accountStatementImports = Context.AccountStatementImport
                 .Include(x => x.User)
@@ -51,29 +51,29 @@ namespace Budget.DATA.Repositories
             return results;
         }
 
-        public async Task<PagedList<AccountStatementImport>> GetAsync(FilterAccountStatementImport filter)
-        {
-            var accountStatementImports = Context.AccountStatementImport
-                //.Include(x=>x.Bank)
-                .Include(x=>x.User)
-                .AsQueryable();
+        //public async Task<PagedList<AccountStatementImport>> GetAsync(FilterAccountStatementImport filter)
+        //{
+        //    var accountStatementImports = Context.AccountStatementImport
+        //        //.Include(x=>x.Bank)
+        //        .Include(x=>x.User)
+        //        .AsQueryable();
 
-            if (filter.idUser != null)
-            {
-                accountStatementImports = accountStatementImports.Where(x => x.IdUser == filter.idUser);
-            }
-            if(filter.idBank !=null)
-            {
-                accountStatementImports = accountStatementImports.Where(x => x.IdBank == filter.idBank);
-            }
+        //    if (filter.idUser != null)
+        //    {
+        //        accountStatementImports = accountStatementImports.Where(x => x.IdUser == filter.idUser);
+        //    }
+        //    if(filter.idBank !=null)
+        //    {
+        //        accountStatementImports = accountStatementImports.Where(x => x.IdBank == filter.idBank);
+        //    }
 
-            if (filter.SortDirection == "asc")
-                accountStatementImports = accountStatementImports.OrderBy(filter.SortColumn);
-            else
-                accountStatementImports = accountStatementImports.OrderByDescending(filter.SortColumn);
+        //    if (filter.SortDirection == "asc")
+        //        accountStatementImports = accountStatementImports.OrderBy(filter.SortColumn);
+        //    else
+        //        accountStatementImports = accountStatementImports.OrderByDescending(filter.SortColumn);
 
-            return await PagedListRepository<AccountStatementImport>.CreateAsync(accountStatementImports, filter.PageNumber, filter.PageSize);
-        }
+        //    return await PagedListRepository<AccountStatementImport>.CreateAsync(accountStatementImports, filter.PageNumber, filter.PageSize);
+        //}
 
         public async Task<List<Bank>> GetDistinctBankAsync(int idUser)
         {

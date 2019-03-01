@@ -34,19 +34,19 @@ namespace Budget.API.Controllers
 
         }
 
-        [HttpGet]
-        [Route("accounts/{idAccount}/account-statements")]
-        public async Task<IActionResult> Get(int idAccount, [FromQuery] Pagination pagination)
-        {
-            var filter = _mapper.Map(pagination, new FilterAccountStatement());
-            filter.IdAccount = idAccount;
-            var accountStatements = await _accountStatementService.GetAsync(filter);
+        //[HttpGet]
+        //[Route("accounts/{idAccount}/account-statements")]
+        //public async Task<IActionResult> Get(int idAccount, [FromQuery] Pagination pagination)
+        //{
+        //    var filter = _mapper.Map(pagination, new FilterAccountStatement());
+        //    filter.IdAccount = idAccount;
+        //    var accountStatements = await _accountStatementService.GetAsync(filter);
 
-            var asGridDto = _mapper.Map<IEnumerable<AsGridDto>>(accountStatements);
-            Response.AddPagination(accountStatements.CurrentPage, accountStatements.PageSize, accountStatements.TotalCount, accountStatements.TotalPages);
+        //    var asGridDto = _mapper.Map<IEnumerable<AsGridDto>>(accountStatements);
+        //    Response.AddPagination(accountStatements.CurrentPage, accountStatements.PageSize, accountStatements.TotalCount, accountStatements.TotalPages);
 
-            return Ok(asGridDto);
-        }
+        //    return Ok(asGridDto);
+        //}
 
         [HttpPost]
         [Route("filter")]

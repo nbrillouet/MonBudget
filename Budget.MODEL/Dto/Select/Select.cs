@@ -20,6 +20,18 @@ namespace Budget.MODEL.Dto
 
     }
 
+    public class ComboSimple<T>
+    {
+        public List<T> List { get; set; }
+        public T Selected { get; set; }
+    }
+
+    public class ComboMultiple<T>
+    {
+        public List<T> List { get; set; }
+        public List<SelectDto> ListSelected { get; set; }
+    }
+
     public enum EnumSelectType
     {
         Empty = 0,

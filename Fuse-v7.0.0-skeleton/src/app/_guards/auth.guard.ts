@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { IUserCurrent, IUser, UserLoaded } from 'app/main/_models/user.model';
-import { LoadUser } from 'app/main/_ngxs/user/user.action';
 import { Store } from '@ngxs/store';
+import { LoadUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.action';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
 
     loadCurrentUser(currentUser:IUserCurrent) {
 
-        this.store.dispatch(new LoadUser(<IUser>currentUser));
+        this.store.dispatch(new LoadUserDetail(<IUser>currentUser));
         this.userLoaded.isLoaded=true;
     }
 }

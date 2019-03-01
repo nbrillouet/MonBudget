@@ -26,27 +26,27 @@ namespace Budget.API.Controllers
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IAccountStatementImportService _accountStatementImportService;
-        private readonly IBankService _bankService;
+        //private readonly IBankService _bankService;
         private readonly IAccountStatementImportFileService _accountStatementImportFileService;
         private readonly IFilterService _filterService;
-        private readonly IAccountService _accountService;
+        //private readonly IAccountService _accountService;
 
         public AccountStatementImportController(
             IAccountStatementImportService accountStatementImportService,
             IUserService userService,
-            IBankService bankService,
+            //IBankService bankService,
             IAccountStatementImportFileService accountStatementImportFileService,
             IMapper mapper,
-            IAccountService accountService,
+            //IAccountService accountService,
             IFilterService filterService
             )
         {
             _mapper = mapper;
             _accountStatementImportService = accountStatementImportService;
-            _bankService = bankService;
+            //_bankService = bankService;
             _userService = userService;
             _accountStatementImportFileService = accountStatementImportFileService;
-            _accountService = accountService;
+            //_accountService = accountService;
             _filterService = filterService;
         }
 
@@ -66,33 +66,6 @@ namespace Budget.API.Controllers
             var pagedList = _accountStatementImportService.GetAsiTable(filter);
 
             return Ok(pagedList);
-
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] FilterAccountStatementImport filter)
-        {
-            var accountStatementImports = await _accountStatementImportService.GetAsync(filter);
-            var asi = _mapper.Map<IEnumerable<AccountStatementImportForListDto>>(accountStatementImports);
-
-            Response.AddPagination(accountStatementImports.CurrentPage, accountStatementImports.PageSize, accountStatementImports.TotalCount, accountStatementImports.TotalPages);
-
-            return Ok(asi);
-        }
-
-        [HttpGet]
-        [Route("users/{idUser}/banks/{idBank}/account-statement-imports")]
-        public async Task<IActionResult> Get(int idUser,int idBank, [FromQuery] Pagination pagination)
-        {
-            var filter = _mapper.Map(pagination, new FilterAccountStatementImport());
-            filter.idBank = idBank;
-            filter.idUser = idUser;
-
-            var accountStatementImports = await _accountStatementImportService.GetAsync(filter);
-            var asiDto = _mapper.Map<IEnumerable<AccountStatementImportForListDto>>(accountStatementImports);
-            Response.AddPagination(accountStatementImports.CurrentPage, accountStatementImports.PageSize, accountStatementImports.TotalCount, accountStatementImports.TotalPages);
-
-            return Ok(asiDto); 
 
         }
 
@@ -146,21 +119,21 @@ namespace Budget.API.Controllers
             return Ok(asifGroupByAccounts);
         }
 
-        [HttpGet]
-        [Route("imports/{idImport}/accounts/{idAccount}/asif-states")]
-        public IActionResult GetAsifStates(int idImport, int idAccount)
-        {
-            var results = _accountStatementImportFileService.GetAsifStates(idImport,idAccount);
+        //[HttpGet]
+        //[Route("imports/{idImport}/accounts/{idAccount}/asif-states")]
+        //public IActionResult GetAsifStates(int idImport, int idAccount)
+        //{
+        //    var results = _accountStatementImportFileService.GetAsifStates(idImport,idAccount);
 
-            return Ok(results);
-        }
+        //    return Ok(results);
+        //}
 
-        [HttpGet]
-        [Route("imports/{idImport}/accounts")]
-        public IActionResult GetAsifAccounts(int idImport)
-        {
-            var results = _accountStatementImportFileService.GetListDto(idImport); 
-            return Ok(results);
-        }
+        //[HttpGet]
+        //[Route("imports/{idImport}/accounts")]
+        //public IActionResult GetAsifAccounts(int idImport)
+        //{
+        //    var results = _accountStatementImportFileService.GetListDto(idImport); 
+        //    return Ok(results);
+        //}
     }
 }

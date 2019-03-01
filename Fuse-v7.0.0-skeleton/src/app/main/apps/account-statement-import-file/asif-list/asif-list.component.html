@@ -1,147 +1,154 @@
-<div class="example-container">
-<mat-table class="account-statement-import-histo-table"
-        #table [dataSource]="dataSource"
-        [@animateStagger]="{value:'50'}"
-        matSort matSortActive="id" matSortDirection="asc" matSortDisableClear 
-        (matSortChange)="onSortChangeEvent($event)"
->
-    <ng-container matColumnDef="button2" >
-        <mat-header-cell style="flex:0 0 25px;" *matHeaderCellDef> </mat-header-cell>
-        <mat-cell style="flex:0 0 25px;" *matCellDef="let data">
-            <mat-icon matTooltip="Enregistrement dupliqué: non intégré" class="red-icon" *ngIf="data.isDuplicated">done_all</mat-icon>
-        </mat-cell>
-    </ng-container> 
-    <!-- Operation -->
-    <ng-container matColumnDef="id">
-        <mat-header-cell style="flex:0 0 40px;" *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-        <mat-cell style="flex:0 0 40px;" *matCellDef="let data">
-            <p class="text-truncate">{{data.id}}</p>
-        </mat-cell>
-    </ng-container>
-
-    <!-- Operation method -->
-    <ng-container matColumnDef="operationMethod" >
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Méthode opération</mat-header-cell>
-        <mat-cell *matCellDef="let data">
-            <p class="text-truncate">{{data.operationMethod.label}}</p>
-        </mat-cell>
-    </ng-container>
-
-    <!-- Operation type family-->
-    <ng-container matColumnDef="operationTypeFamily" >
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Catégorie opération</mat-header-cell>
-        <mat-cell *matCellDef="let data">
-            <p class="text-truncate">{{data.operationTypeFamily.label}}</p>
-        </mat-cell>
-    </ng-container>
-
-    <!-- Operation type -->
-    <ng-container matColumnDef="operationType" >
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Type opération</mat-header-cell>
-        <mat-cell *matCellDef="let data">
-            <p class="text-truncate">{{data.operationType.label}}</p>
-        </mat-cell>
-    </ng-container>
-
-    <!-- Operation -->
-    <ng-container matColumnDef="operation" >
-        <mat-header-cell *matHeaderCellDef mat-sort-header>opération</mat-header-cell>
-        <mat-cell *matCellDef="let data">
-            <p class="text-truncate">{{data.operation.label}}</p>
-        </mat-cell>
-    </ng-container>
-
-    <!-- Operation place-->
-    <!-- <ng-container matColumnDef="operationPlace" >
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Lieu opération</mat-header-cell>
-        <mat-cell *matCellDef="let data">
-            <p class="text-truncate">{{data.operationPlace.label}}</p>
-        </mat-cell>
-    </ng-container> -->
-
-    <!-- Amount -->
-    <ng-container matColumnDef="dateIntegration" >
-        <mat-header-cell style="flex:0 0 80px;" *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
-        <mat-cell style="flex:0 0 80px;" *matCellDef="let data">
-            <p class="text-truncate">{{data.dateIntegration | date: 'dd/MM/yyyy'}}</p>
-        </mat-cell>
-    </ng-container> 
-
-    <!-- Amount -->
-    <ng-container matColumnDef="amountOperation" >
-        <mat-header-cell style="flex:0 0 80px;" *matHeaderCellDef mat-sort-header>Montant</mat-header-cell>
-        <mat-cell style="flex:0 0 80px;" *matCellDef="let data">
-            <div *ngIf="data.amountOperation>0">
-                <p  class="text-truncate green-fg">
-                    <mat-icon class="green-fg mr-2">trending_up</mat-icon>
-                     {{data.amountOperation}}
-                </p>
-            </div>
-            <div *ngIf="data.amountOperation<0">
-                <p  class="text-truncate red-fg">
-                    <mat-icon class="red-fg mr-2">trending_down</mat-icon>
-                     {{data.amountOperation}}
-                </p>
-            </div>
-        </mat-cell>
-    </ng-container> 
-
-    <ng-container matColumnDef="button" >
-            <mat-header-cell style="flex:0 0 30px;"  *matHeaderCellDef ></mat-header-cell>
-            <mat-cell style="flex:0 0 30px;" *matCellDef="let data">
-                    <button matTooltip="Détail" mat-icon-button (click)="detail(data)">
-                        <mat-icon>more_horiz</mat-icon>
-                    </button>
-            </mat-cell>
-    </ng-container> 
-    
-
-    <!-- Expanded Content Column - The detail row is made up of this one column -->
-    <!-- <ng-container matColumnDef="expandedDetail">
-        <mat-cell *matCellDef="let detail"> 
-        {{detail.element.labelOperation}}
-        </mat-cell>
-    </ng-container> -->
-
-    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></mat-header-row>
-    <!-- (click)="onRowClick(data)" -->
-    <mat-row 
-        *cdkRowDef="let data; columns: displayedColumns;"
-        matRipple
-        [@animate]="{value:'*',params:{y:'100%'}}"
-        class="element-row" 
-       
+ <div class="example-container"> 
+<!-- <div class="table-scrolled">  -->
+    <mat-table 
+            #table [dataSource]="dataSource"
+            [@animateStagger]="{value:'50'}"
+            matSort matSortActive="id" matSortDirection="asc" matSortDisableClear 
+            (matSortChange)="onSortChangeEvent($event)"
     >
-    </mat-row>
-<!--     
-    <mat-row *cdkRowDef="let data; columns: displayedColumns;"
-        matRipple
-        [@animate]="{value:'*',params:{y:'100%'}}"
-        class="element-row" 
-        [class.expanded]="expandedElement == data"
-        (click)="expandedElement = data"
+
+        <ng-container matColumnDef="button2" >
+            <mat-header-cell style="flex:0 0 25px;" *matHeaderCellDef> </mat-header-cell>
+            <mat-cell style="flex:0 0 25px;" *matCellDef="let data">
+                <mat-icon matTooltip="Enregistrement dupliqué: non intégré" class="red-icon" *ngIf="data.isDuplicated">done_all</mat-icon>
+            </mat-cell>
+        </ng-container> 
+        <!-- Operation -->
+        <ng-container matColumnDef="id">
+            <mat-header-cell style="flex:0 0 40px;" *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+            <mat-cell style="flex:0 0 40px;" *matCellDef="let data">
+                <p class="text-truncate">{{data.id}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Operation method -->
+        <ng-container matColumnDef="operationMethod" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Méthode opération</mat-header-cell>
+            <mat-cell *matCellDef="let data">
+                <p class="text-truncate">{{data.operationMethod.label}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Operation type family-->
+        <ng-container matColumnDef="operationTypeFamily" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Catégorie opération</mat-header-cell>
+            <mat-cell *matCellDef="let data">
+                <p class="text-truncate">{{data.operationTypeFamily.label}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Operation type -->
+        <ng-container matColumnDef="operationType" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Type opération</mat-header-cell>
+            <mat-cell *matCellDef="let data">
+                <p class="text-truncate">{{data.operationType.label}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Operation -->
+        <ng-container matColumnDef="operation" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header>opération</mat-header-cell>
+            <mat-cell *matCellDef="let data">
+                <p class="text-truncate">{{data.operation.label}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Operation place-->
+        <!-- <ng-container matColumnDef="operationPlace" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Lieu opération</mat-header-cell>
+            <mat-cell *matCellDef="let data">
+                <p class="text-truncate">{{data.operationPlace.label}}</p>
+            </mat-cell>
+        </ng-container> -->
+
+        <!-- Amount -->
+        <ng-container matColumnDef="dateIntegration" >
+            <mat-header-cell style="flex:0 0 80px;" *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+            <mat-cell style="flex:0 0 80px;" *matCellDef="let data">
+                <p class="text-truncate">{{data.dateIntegration | date: 'dd/MM/yyyy'}}</p>
+            </mat-cell>
+        </ng-container> 
+
+        <!-- Amount -->
+        <ng-container matColumnDef="amountOperation" >
+            <mat-header-cell style="flex:0 0 80px;" *matHeaderCellDef mat-sort-header>Montant</mat-header-cell>
+            <mat-cell style="flex:0 0 80px;" *matCellDef="let data">
+                <div *ngIf="data.amountOperation>0">
+                    <p  class="text-truncate green-fg">
+                        <mat-icon class="green-fg mr-2">trending_up</mat-icon>
+                        {{data.amountOperation}}
+                    </p>
+                </div>
+                <div *ngIf="data.amountOperation<0">
+                    <p  class="text-truncate red-fg">
+                        <mat-icon class="red-fg mr-2">trending_down</mat-icon>
+                        {{data.amountOperation}}
+                    </p>
+                </div>
+            </mat-cell>
+        </ng-container> 
+
+        <ng-container matColumnDef="button" >
+                <mat-header-cell style="flex:0 0 30px;"  *matHeaderCellDef ></mat-header-cell>
+                <mat-cell style="flex:0 0 30px;" *matCellDef="let data">
+                        <button matTooltip="Détail" mat-icon-button (click)="detail(data)">
+                            <mat-icon>more_horiz</mat-icon>
+                        </button>
+                </mat-cell>
+        </ng-container> 
+        
+
+        <!-- Expanded Content Column - The detail row is made up of this one column -->
+        <!-- <ng-container matColumnDef="expandedDetail">
+            <mat-cell *matCellDef="let detail"> 
+            {{detail.element.labelOperation}}
+            </mat-cell>
+        </ng-container> -->
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></mat-header-row>
+        <!-- (click)="onRowClick(data)" -->
+        <mat-row 
+            *cdkRowDef="let data; columns: displayedColumns;"
+            matRipple
+            [@animate]="{value:'*',params:{y:'100%'}}"
+            class="element-row" 
+            [matTooltip]="data.labelOperation"
         >
-    </mat-row>
+        </mat-row>
+        
+        <!-- <mat-row *cdkRowDef="let data; columns: displayedColumns;"
+            matRipple
+            [@animate]="{value:'*',params:{y:'100%'}}"
+            class="element-row" 
+            [class.expanded]="expandedElement == data"
+            (click)="expandedElement = data"
+            >
+        </mat-row>
 
-    <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
-        [@detailExpand]="row.element == expandedElement ? 'expanded' : 'collapsed'"
-        style="overflow: hidden"> 
-    </mat-row> -->
+        <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
+            [@detailExpand]="row.element == expandedElement ? 'expanded' : 'collapsed'"
+            style="overflow: hidden"> 
+        </mat-row> -->
 
-</mat-table>
-<div *ngIf="(asifTable$ | async).loadingInfo.loading"
-    class="h-96 w-100-p"
-    fxLayout="column"
-    fxLayoutAlign="center center">
-    <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
-    <div style="color:#4285F3" fxLayout="row">chargement...</div>
+    </mat-table>
+
+
+    <div *ngIf="(asifTable$ | async).loadingInfo.loading"
+        class="h-96 w-100-p"
+        fxLayout="column"
+        fxLayoutAlign="center center">
+        <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
+        <div style="color:#4285F3" fxLayout="row">chargement...</div>
+    </div> 
 </div> 
-
-<mat-paginator *ngIf="(asifTableFilter$ | async).filters.selected.pagination; let pagination"
+<!-- </div>  -->
+    <!-- <mat-paginator *ngIf="(asifTableFilter$ | async).loadingInfo.loaded && (asifTableFilter$ | async).filters.selected.pagination as pagination" -->
+<mat-paginator *ngIf="(asifTable$ | async).pagination as pagination"
     (page)="onPageChangeEvent($event)"
     [length]="pagination.totalItems" 
     [pageSize]="pagination.itemsPerPage"
     [pageSizeOptions]="[15, 100, 200]">
 </mat-paginator>
-</div>
+
+
 

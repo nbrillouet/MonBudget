@@ -12,8 +12,8 @@ import { AuthService } from 'app/main/_services/auth.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { Select } from '@ngxs/store';
-import { UserState } from 'app/main/_ngxs/user/user.state';
 import { IUser } from 'app/main/_models/user.model';
+import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
 
 @Component({
     selector     : 'toolbar',
@@ -24,7 +24,7 @@ import { IUser } from 'app/main/_models/user.model';
 
 export class ToolbarComponent implements OnInit, OnDestroy
 {
-    @Select(UserState.getUser) user$: Observable<IUser>;
+    @Select(UserDetailState.getUser) user$: Observable<IUser>;
     
     horizontalNavbar: boolean;
     rightNavbar: boolean;

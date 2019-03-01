@@ -237,19 +237,19 @@ namespace Budget.DATA.Migrations
                     b.Property<int>("IdMovement")
                         .HasColumnName("ID_MOVEMENT");
 
-                    b.Property<int?>("IdOperation")
+                    b.Property<int>("IdOperation")
                         .HasColumnName("ID_OPERATION");
 
-                    b.Property<int?>("IdOperationDetail")
+                    b.Property<int>("IdOperationDetail")
                         .HasColumnName("ID_OPERATION_DETAIL");
 
-                    b.Property<int?>("IdOperationMethod")
+                    b.Property<int>("IdOperationMethod")
                         .HasColumnName("ID_OPERATION_METHOD");
 
-                    b.Property<int?>("IdOperationType")
+                    b.Property<int>("IdOperationType")
                         .HasColumnName("ID_OPERATION_TYPE");
 
-                    b.Property<int?>("IdOperationTypeFamily")
+                    b.Property<int>("IdOperationTypeFamily")
                         .HasColumnName("ID_OPERATION_TYPE_FAMILY");
 
                     b.Property<bool>("IsDuplicated")
@@ -741,6 +741,48 @@ namespace Budget.DATA.Migrations
                     b.ToTable("OPERATION_METHOD_LEXICAL");
                 });
 
+            modelBuilder.Entity("Budget.MODEL.Database.OperationTransverse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnName("ID_USER");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnName("LABEL")
+                        .HasMaxLength(255);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("OPERATION_TRANSVERSE");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.OperationTransverseAsif", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<int>("IdAccountStatementImportFile")
+                        .HasColumnName("ID_ACCOUNT_STATEMENT_IMPORT_FILE");
+
+                    b.Property<int>("IdOperationTransverse")
+                        .HasColumnName("ID_OPERATION_TRANSVERSE");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdAccountStatementImportFile");
+
+                    b.HasIndex("IdOperationTransverse");
+
+                    b.ToTable("OPERATION_TRANSVERSE_ASIF");
+                });
+
             modelBuilder.Entity("Budget.MODEL.Database.OperationType", b =>
                 {
                     b.Property<int>("Id")
@@ -1176,23 +1218,28 @@ namespace Budget.DATA.Migrations
 
                     b.HasOne("Budget.MODEL.Database.Operation", "Operation")
                         .WithMany()
-                        .HasForeignKey("IdOperation");
+                        .HasForeignKey("IdOperation")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Budget.MODEL.Database.OperationDetail", "OperationDetail")
                         .WithMany()
-                        .HasForeignKey("IdOperationDetail");
+                        .HasForeignKey("IdOperationDetail")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Budget.MODEL.Database.OperationMethod", "OperationMethod")
                         .WithMany()
-                        .HasForeignKey("IdOperationMethod");
+                        .HasForeignKey("IdOperationMethod")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Budget.MODEL.Database.OperationType", "OperationType")
                         .WithMany()
-                        .HasForeignKey("IdOperationType");
+                        .HasForeignKey("IdOperationType")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Budget.MODEL.Database.OperationTypeFamily", "OperationTypeFamily")
                         .WithMany()
-                        .HasForeignKey("IdOperationTypeFamily");
+                        .HasForeignKey("IdOperationTypeFamily")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.AccountStatementPlan", b =>
@@ -1305,6 +1352,27 @@ namespace Budget.DATA.Migrations
                     b.HasOne("Budget.MODEL.Database.OperationMethod", "OperationMethod")
                         .WithMany()
                         .HasForeignKey("IdOperationMethod")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.OperationTransverse", b =>
+                {
+                    b.HasOne("Budget.MODEL.User", "User")
+                        .WithMany()
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.OperationTransverseAsif", b =>
+                {
+                    b.HasOne("Budget.MODEL.Database.AccountStatementImportFile", "AccountStatementImportFile")
+                        .WithMany()
+                        .HasForeignKey("IdAccountStatementImportFile")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.OperationTransverse", "OperationTransverse")
+                        .WithMany()
+                        .HasForeignKey("IdOperationTransverse")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

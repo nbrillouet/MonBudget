@@ -1,17 +1,17 @@
 import { IUser, User } from "app/main/_models/user.model";
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { AddUser, DeleteUser, LoadUser, LoadUserSuccess, User_DeleteShortcut, User_DeleteShortcutSuccess, User_AddShortcut } from "./user.action";
+import { AddUser, DeleteUser, User_DeleteShortcut, User_DeleteShortcutSuccess, User_AddShortcut, LoadUserDetailSuccess, LoadUserDetail } from "./user-detail.action";
 import { UserService } from "app/main/apps/referential/user/user.service";
 import { IUserShortcut } from "app/main/_models/user-shortcut.model";
 import { NotificationsService } from "angular2-notifications";
 
-export class UserStateModel extends User  {
+export class UserDetailStateModel extends User  {
 
 }
 
 
 let user = null;// new User(); // <IUser> {id: null,userName: null,lastName: null,firstName: null,gender: null,age: null,dateCreated: null, dateLastActive: null,dateOfBirth:null,idGMapAddress : null,IdAvatarCloud : null,avatarUrl: null,shortcuts: null,banks: null}
-@State<UserStateModel>({
+@State<UserDetailStateModel>({
     name: 'user',
     defaults : user
     // defaults : {
@@ -19,33 +19,34 @@ let user = null;// new User(); // <IUser> {id: null,userName: null,lastName: nul
     // }
 })
 
-export class UserState {
+export class UserDetailState {
     constructor(
-        private userService: UserService,
-        private notification: NotificationsService) {
+        private _userService: UserService,
+        private _notification: NotificationsService) {
         
     }
 
     @Selector()
-    static getUser(state: UserStateModel) {
+    static getUser(state: UserDetailStateModel) {
         return state;
     }
 
-    @Action(LoadUser)
-    load(context: StateContext<UserStateModel>, action: LoadUser) {
+    @Action(LoadUserDetail)
+    loadUserDetail(context: StateContext<UserDetailStateModel>, action: LoadUserDetail) {
         const state = context.getState();
 
-        this.userService.getUser(action.payload.id)
+        this._userService.getUser(action.payload.id)
             .subscribe(result=> {
-                context.dispatch(new LoadUserSuccess(result));
-                this.notification.success('user-->chargement!','user chargé');
-            },error => {
-                this.notification.error('Erreur connexion',error);
-            })
+                context.dispatch(new LoadUserDetailSuccess(result));
+                this._notification.success('user-->chargement!','user chargé');
+            });
+            // ,error => {
+            //     this.notification.error('Erreur connexion',error);
+            // })
     }
 
-    @Action(LoadUserSuccess)
-    loadSuccess(context: StateContext<UserStateModel>, action: LoadUser) {
+    @Action(LoadUserDetailSuccess)
+    loadUserDetailSuccess(context: StateContext<UserDetailStateModel>, action: LoadUserDetailSuccess) {
 
         context.patchState(
             action.payload
@@ -55,7 +56,7 @@ export class UserState {
 
 
     @Action(AddUser)
-    save(context: StateContext<UserStateModel>, action: AddUser) {
+    save(context: StateContext<UserDetailStateModel>, action: AddUser) {
         const state = context.getState();
         context.patchState(
              action.payload
@@ -64,7 +65,7 @@ export class UserState {
     }
 
     @Action(DeleteUser)
-    remove(context: StateContext<UserStateModel>, action: DeleteUser) {
+    remove(context: StateContext<UserDetailStateModel>, action: DeleteUser) {
         const state = context.getState();
         context.patchState(
             state
@@ -72,10 +73,10 @@ export class UserState {
     }
 
     @Action(User_DeleteShortcut)
-    removeShortcut(context: StateContext<UserStateModel>, action: User_DeleteShortcut) {
+    removeShortcut(context: StateContext<UserDetailStateModel>, action: User_DeleteShortcut) {
         const state = context.getState();
 
-        this.userService.deleteShortcut(state.id,action.id)
+        this._userService.deleteShortcut(state.id,action.id)
             .subscribe(result=> {
                 context.dispatch(new User_DeleteShortcutSuccess(action.id));
 
@@ -84,7 +85,7 @@ export class UserState {
     }
 
     @Action(User_DeleteShortcutSuccess)
-    removeShortcutSuccess(context: StateContext<UserStateModel>, action: User_DeleteShortcutSuccess) {
+    removeShortcutSuccess(context: StateContext<UserDetailStateModel>, action: User_DeleteShortcutSuccess) {
         const state = context.getState();
         state.shortcuts.splice(state.shortcuts.findIndex(x=>x.id==action.id), 1);
         
@@ -95,10 +96,10 @@ export class UserState {
     }
 
     @Action(User_AddShortcut)
-    addShortcut(context: StateContext<UserStateModel>, action: User_AddShortcut) {
+    addShortcut(context: StateContext<UserDetailStateModel>, action: User_AddShortcut) {
         const state = context.getState();
 
-        this.userService.addShortcut(state.id,action.shortcut)
+        this._userService.addShortcut(state.id,action.shortcut)
             .subscribe(result=> {
                 state.shortcuts.push(<IUserShortcut>result);
                 

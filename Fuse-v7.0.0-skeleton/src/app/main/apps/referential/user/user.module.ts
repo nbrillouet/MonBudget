@@ -15,6 +15,9 @@ import { GMapModule } from '../../g-map/g-map.module';
 import { AuthGuard } from 'app/_guards/auth.guard';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { PreventUnsavedChanges } from 'app/_guards/prevent-unsaved-changes.guard';
+import { NgxsModule } from '@ngxs/store';
+import { UserTableState } from 'app/main/_ngxs/user/user-list/user-list.state';
+import { UserTableFilterState } from 'app/main/_ngxs/user/user-list-filter/user-list-filter.state';
 
 const routes = [
   {
@@ -42,12 +45,15 @@ const routes = [
     FuseSharedModule,
     FileUploadModule,
     GMapModule,
+    NgxsModule.forFeature([
+      UserTableState,
+      UserTableFilterState
+    ]),
     RouterModule.forChild(routes)
   ],
   declarations: [
     UserListComponent,
     UserDetailComponent,
-    // DialogGuardComponent,
     AvatarEditorComponent
   ],
   providers : [
@@ -56,6 +62,5 @@ const routes = [
     UserListResolver,
     PreventUnsavedChanges
   ]
-  // entryComponents: [DialogGuardComponent]
 })
 export class UserModule { }

@@ -98,6 +98,12 @@ namespace Budget.API
             services.AddScoped<IOperationDetailService, OperationDetailService>();
             services.AddScoped<IOperationDetailRepository, OperationDetailRepository>();
 
+            services.AddScoped<IOperationTransverseService, OperationTransverseService>();
+            services.AddScoped<IOperationTransverseRepository, OperationTransverseRepository>();
+
+            services.AddScoped<IOperationTransverseAsifService, OperationTransverseAsifService>();
+            services.AddScoped<IOperationTransverseAsifRepository, OperationTransverseAsifRepository>();
+
             services.AddScoped<IPlanService, PlanService>();
             services.AddScoped<IPlanRepository, PlanRepository>();
 
@@ -187,6 +193,7 @@ namespace Budget.API
             services.AddScoped<IVPlanGlobalRepository, VPlanGlobalRepository>();
 
             services.AddScoped<IFilterService, FilterService>();
+            services.AddTransient<ReferentialService>();
 
             services.AddScoped<IContextTransaction, ContextTransaction>();
 

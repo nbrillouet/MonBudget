@@ -3,6 +3,7 @@ using Budget.DATA.Repositories;
 using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
+using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,15 @@ namespace Budget.SERVICE
         {
             _userRepository = userRepository;
             _mapper = mapper;
+        }
+
+        public PagedList<UserForTableDto> GetUserTable(FilterUserTableSelected filter)
+        {
+            var pagedList = _userRepository.GetUserTable(filter);
+
+            var result = new PagedList<UserForTableDto>(_mapper.Map<List<UserForTableDto>>(pagedList.Datas), pagedList.Pagination);
+
+            return result;
         }
 
         public UserForDetailDto GetForDetailById(int id)
@@ -42,10 +52,10 @@ namespace Budget.SERVICE
             return user;
         }
 
-        public Task<PagedList<User>> GetUsers(Pagination userParams)
-        {
-            return _userRepository.GetUsers(userParams);
-        }
+        //public Task<PagedList<User>> GetUsers(Pagination userParams)
+        //{
+        //    return _userRepository.GetUsers(userParams);
+        //}
 
         public Task<List<User>> GetAllAsync()
         {

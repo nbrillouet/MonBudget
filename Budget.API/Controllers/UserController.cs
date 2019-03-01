@@ -15,6 +15,7 @@ using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Budget.MODEL;
 using Budget.MODEL.Dto;
+using Budget.MODEL.Filter;
 
 namespace Budget.API.Controllers
 {
@@ -27,11 +28,14 @@ namespace Budget.API.Controllers
         private readonly IMapper _mapper;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
         private Cloudinary _cloudinary;
+        private readonly IFilterService _filterService;
 
         public UserController(
             IUserService userService, 
             IMapper mapper,
-            IOptions<CloudinarySettings> cloudinaryConfig)
+            IOptions<CloudinarySettings> cloudinaryConfig,
+            IFilterService filterService
+            )
         {
             _mapper = mapper;
             _userService = userService;
@@ -43,6 +47,26 @@ namespace Budget.API.Controllers
                 _cloudinaryConfig.Value.ApiSecret);
 
             _cloudinary = new Cloudinary(acc);
+            _filterService = filterService;
+        }
+
+        [HttpPost]
+        [Route("table-filter")]
+        public IActionResult getUserTableFilter([FromBody] FilterUserTableSelected filter)
+        {
+            var result = _filterService.GetFilterUserTable(filter);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("filter")]
+        public IActionResult getUserTable([FromBody] FilterUserTableSelected filter)
+        {
+            var pagedList = _userService.GetUserTable(filter);
+
+            return Ok(pagedList);
+
         }
 
         //[HttpGet]
@@ -54,15 +78,15 @@ namespace Budget.API.Controllers
         //    return Ok(usersToReturn);
         //}
 
-        [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] Pagination pagination)
-        {
-            var users = await _userService.GetUsers(pagination);
-            var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
-            Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
+        //[HttpGet]
+        //public async Task<IActionResult> Get([FromQuery] Pagination pagination)
+        //{
+        //    var users = await _userService.GetUsers(pagination);
+        //    var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+        //    Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
-            return Ok(usersToReturn);
-        }
+        //    return Ok(usersToReturn);
+        //}
 
         [HttpGet("{id}/user-detail", Name = "GetUser")]
         public IActionResult Get(int id)

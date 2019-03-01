@@ -25,6 +25,13 @@ namespace Budget.SERVICE._Helpers
                     opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                 });
 
+            CreateMap<User, UserForTableDto>()
+                //trouver l'age a partir de la date de naissance
+                .ForMember(dest => dest.Age, opt =>
+                {
+                    opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
+                });
+
 
             CreateMap<User, UserForDetailDto>()
                 //trouver l'age a partir de la date de naissance
@@ -80,7 +87,14 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
 
             CreateMap<AccountStatementImportFile, AsifDetailDto>()
-                .ForMember(dest => dest.LogoName, opt => opt.MapFrom(source => source.OperationTypeFamily.LogoClassName));
+                .ForMember(d => d.LogoName, opt => opt.MapFrom(source => source.OperationTypeFamily.LogoClassName))
+                //trouver l'url à partir de la className
+                .ForMember(d => d.LogoUrl, o => o.ResolveUsing(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName)))
+                .ForMember(d => d.Operation, o => o.Ignore())
+                .ForMember(d => d.OperationMethod, o => o.Ignore())
+                .ForMember(d => d.OperationType, o => o.Ignore())
+                .ForMember(d => d.OperationTypeFamily, o => o.Ignore());
+                //.ForMember(d => d.OperationDetail, o => o.Ignore());
 
             CreateMap<AccountStatement, AsDetailDto>()
                 .ForMember(dest => dest.LogoName, opt => opt.MapFrom(source => source.OperationType.OperationTypeFamily.LogoClassName))
@@ -130,7 +144,7 @@ namespace Budget.SERVICE._Helpers
 
 
             //Filter
-            CreateMap<Pagination, FilterAccountStatement>();
+            //CreateMap<Pagination, FilterAccountStatement>();
 
             //GMap
             CreateMap<GMapAddress, GMapAddressDto>();

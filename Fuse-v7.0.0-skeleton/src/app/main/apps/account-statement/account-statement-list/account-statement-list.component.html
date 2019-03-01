@@ -204,7 +204,7 @@
         
     </mat-table>
 
-</div>
+
 
     <div *ngIf="(tableInfo$ | async).dataInfos.loadingInfo.loading"
         class="h-96 w-100-p"
@@ -232,6 +232,8 @@
         [pageSize]="pagination.itemsPerPage"
         [pageSizeOptions]="[15, 100, 200]">
     </mat-paginator>
+
+</div>
     
 
 

@@ -17,6 +17,30 @@ namespace Budget.DATA.Repositories
         {
         }
 
+        public AccountStatementImportFile GetAsifDetail(int id)
+        {
+            var accountStatementImportFile = Context.AccountStatementImportFile
+                .Include(x => x.Operation)
+                .Include(x => x.OperationMethod)
+                .Include(x => x.OperationType)
+                .Include(x => x.OperationTypeFamily)
+                .Include(x => x.OperationDetail)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel1)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel2)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapCountry)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapLocality)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapNeighborhood)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapPostalCode)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapRoute)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapStreetNumber)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapSublocalityLevel1)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapSublocalityLevel2)
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+
+            return  accountStatementImportFile;
+        }
+
         public bool IsAccountStatementSaveable(int idImport)
         {
             var result = Context.AccountStatementImportFile
@@ -64,7 +88,7 @@ namespace Budget.DATA.Repositories
             return await accountStatementImportFile;
         }
 
-        public PagedList1<AccountStatementImportFile> GetAsifTable(FilterAsifTableSelected filter)
+        public PagedList<AccountStatementImportFile> GetAsifTable(FilterAsifTableSelected filter)
         {
             var accountStatementImportFiles = Context.AccountStatementImportFile
                 .Include(x => x.Operation)
@@ -95,35 +119,35 @@ namespace Budget.DATA.Repositories
             return results;
         }
 
-        public async Task<PagedList<AccountStatementImportFile>> GetAsync(FilterAccountStatementImportFile filter)
-        {
-            var accountStatementImportFiles = Context.AccountStatementImportFile
-                .Include(x=>x.Operation)
-                .Include(x=>x.OperationMethod)
-                .Include(x=>x.OperationType)
-                .Include(x => x.OperationTypeFamily)
-                //.Include(x=> x.GMapAddress)
-                .AsQueryable();
+        //public async Task<PagedList<AccountStatementImportFile>> GetAsync(FilterAccountStatementImportFile filter)
+        //{
+        //    var accountStatementImportFiles = Context.AccountStatementImportFile
+        //        .Include(x=>x.Operation)
+        //        .Include(x=>x.OperationMethod)
+        //        .Include(x=>x.OperationType)
+        //        .Include(x => x.OperationTypeFamily)
+        //        //.Include(x=> x.GMapAddress)
+        //        .AsQueryable();
 
-            if (filter.IdImport != null)
-            {
-                accountStatementImportFiles = accountStatementImportFiles.Where(x => x.IdImport == filter.IdImport);
-            }
-            if (filter.IdAccount != null)
-            {
-                accountStatementImportFiles = accountStatementImportFiles.Where(x => x.IdAccount == filter.IdAccount);
-            }
-            if (filter.IdAsifState != null)
-            {
-                accountStatementImportFiles = accountStatementImportFiles.Where(x => (int)x.EnumAsifState == filter.IdAsifState);
-            }
-            if (filter.SortDirection == "asc")
-                accountStatementImportFiles = accountStatementImportFiles.OrderBy(filter.SortColumn);
-            else
-                accountStatementImportFiles = accountStatementImportFiles.OrderByDescending(filter.SortColumn);
+        //    if (filter.IdImport != null)
+        //    {
+        //        accountStatementImportFiles = accountStatementImportFiles.Where(x => x.IdImport == filter.IdImport);
+        //    }
+        //    if (filter.IdAccount != null)
+        //    {
+        //        accountStatementImportFiles = accountStatementImportFiles.Where(x => x.IdAccount == filter.IdAccount);
+        //    }
+        //    if (filter.IdAsifState != null)
+        //    {
+        //        accountStatementImportFiles = accountStatementImportFiles.Where(x => (int)x.EnumAsifState == filter.IdAsifState);
+        //    }
+        //    if (filter.SortDirection == "asc")
+        //        accountStatementImportFiles = accountStatementImportFiles.OrderBy(filter.SortColumn);
+        //    else
+        //        accountStatementImportFiles = accountStatementImportFiles.OrderByDescending(filter.SortColumn);
 
-            return await PagedListRepository<AccountStatementImportFile>.CreateAsync(accountStatementImportFiles, filter.PageNumber, filter.PageSize);
-        }
+        //    return await PagedListRepository<AccountStatementImportFile>.CreateAsync(accountStatementImportFiles, filter.PageNumber, filter.PageSize);
+        //}
 
         public List<SelectDto> GetAsifStates (int idImport, int idAccount)
         {

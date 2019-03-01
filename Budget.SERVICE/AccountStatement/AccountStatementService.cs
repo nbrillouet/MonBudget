@@ -43,26 +43,50 @@ namespace Budget.SERVICE
             return asDetailDto;
         }
 
-        public async Task<PagedList<AccountStatement>> GetAsync(FilterAccountStatement filter)
-        {
-            var accountStatements = await _accountStatementRepository.GetAsync(filter);
-            return accountStatements;
-        }
+        //public async Task<PagedList<AccountStatement>> GetAsync(FilterAccountStatement filter)
+        //{
+        //    var accountStatements = await _accountStatementRepository.GetAsync(filter);
+        //    return accountStatements;
+        //}
 
 
-        public PagedList1<AsGridDto> Get(FilterAccountStatement filter)
+        public PagedList<AsGridDto> Get(FilterAccountStatement filter)
         {
             var pagedList = _accountStatementRepository.Get(filter);
 
-            var result = new PagedList1<AsGridDto>(_mapper.Map<List<AsGridDto>>(pagedList.Datas), pagedList.Pagination);
+            var result = new PagedList<AsGridDto>(_mapper.Map<List<AsGridDto>>(pagedList.Datas), pagedList.Pagination);
 
             foreach (var data in result.Datas)
             {
                 data.Plans=_accountStatementPlanService.GetPlansByIdAccountStatement(data.Id,data.DateIntegration.Value.Year);
             }
-
-            
+                        
             return result;
+        }
+
+        public List<AsGridDto> GetByPlanPosteReferences(List<PlanPosteReference> planPosteReferences,MonthYear monthYear)
+        {
+            DateTime minDate = Convert.ToDateTime($"01/{monthYear.Month.Id}/{monthYear.Year}");
+            DateTime maxDate = DateHelper.GetLastDayOfMonth(minDate);
+            
+            var accountStatements = _accountStatementRepository.GetByDatePlanPosteReferenceList(planPosteReferences, minDate, maxDate);
+
+            return _mapper.Map<List<AsGridDto>>(accountStatements);
+            //// IdReferenceTable
+            ////case 1: //OPERATION_TYPE_FAMILY
+            ////case 2: // "OPERATION_TYPE"
+            ////case 3: //TODO OPERATION
+            //var idOperationTypeFamilyList = planPosteReferences
+            //    .Where(x => x.IdReferenceTable == 1)
+            //    .Select(x=>x.IdReference)
+            //    .ToList();
+            //var accountStatements = _accountStatementRepository.GetByDateIdOperationTypeFamilyList(idOperationTypeFamilyList, minDate, maxDate);
+
+            //var idOperationTypeList = planPosteReferences
+            //    .Where(x => x.IdReferenceTable == 2)
+            //    .Select(x => x.IdReference)
+            //    .ToList();
+            //accountStatements.AddRange(_accountStatementRepository.GetByDateIdOperationTypeList(idOperationTypeList, minDate, maxDate));
         }
 
         public Boolean Save(List<AccountStatement> accountStatements)

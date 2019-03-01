@@ -6,8 +6,8 @@ import { IAsifState, IAsifDetail, IAsifGrid } from "app/main/_models/account-sta
 import { IAccount } from "app/main/_models/account.model";
 import { Pagination, PaginatedResult } from "app/main/_models/pagination.model";
 import { HttpClient } from '@angular/common/http';
-import { FilterAsifTableSelected, FilterAsifTable } from "app/main/_models/filters/account-statement-import-file.filter";
-import { AsifTable } from "app/main/_models/account-statement-import/account-statement-import-file.model";
+import { FilterAsifTableSelected, FilterAsifTable, FilterAsifDetail } from "app/main/_models/filters/account-statement-import-file.filter";
+import { AsifTable, AsifDetail } from "app/main/_models/account-statement-import/account-statement-import-file.model";
 // import { AsifTable } from "app/main/_models/account-statement-import-file/account-statement-import-file.model";
 
 @Injectable()
@@ -53,18 +53,25 @@ baseUrl = environment.apiUrl;
         })
         .catch(this.errorService.handleError);
     }
-    
-    getById(id: number) {
-        return this.http
-            .get(this.baseUrl + `account-statement-import-files/${id}/detail`)
-            .map(response => <IAsifDetail>response)
-            .catch(this.errorService.handleError);
-    }
 
     getAsifTableFilter(filter: FilterAsifTableSelected) {
         return this.http
             .post(`${this.baseUrl}account-statement-import-files/table-filter`,filter)
             .map(response => <FilterAsifTable>response);
+    }
+
+    getAsifDetail(filterAsifDetail: FilterAsifDetail) {
+        return this.http
+            .get(this.baseUrl + `account-statement-import-files/${filterAsifDetail.idAsif}/users/${filterAsifDetail.idUser}/detail`)
+            .map(response => <AsifDetail>response)
+            // .catch(this.errorService.handleError);
+    }
+
+    getById(id: number) {
+        return this.http
+            .get(this.baseUrl + `account-statement-import-files/${id}/detail`)
+            .map(response => <IAsifDetail>response)
+            .catch(this.errorService.handleError);
     }
 
     isSaveableInAccountStatement(idImport: number) {
@@ -81,9 +88,9 @@ baseUrl = environment.apiUrl;
             .catch(this.errorService.handleError);
     }
 
-    update(asif: IAsifDetail) {
+    update(asifDetail: AsifDetail) {
         return this.http
-            .post(`${this.baseUrl}account-statement-import-files/update`,asif)
+            .post(`${this.baseUrl}account-statement-import-files/update`,asifDetail)
             .map(resp=><boolean>resp)
             .catch(this.errorService.handleError);
     }

@@ -7,11 +7,11 @@ import { takeUntil } from 'rxjs/operators';
 import { FuseMatchMediaService } from '@fuse/services/match-media.service';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { Select, Store } from '@ngxs/store';
-import { UserState } from 'app/main/_ngxs/user/user.state';
 import { IUser } from 'app/main/_models/user.model';
 import { navigation } from 'app/navigation/navigation';
 import { NavigationState } from 'app/main/_ngxs/navigation/navigation.state';
-import { User_DeleteShortcut, User_AddShortcut } from 'app/main/_ngxs/user/user.action';
+import { User_DeleteShortcut, User_AddShortcut } from 'app/main/_ngxs/user/user-detail/user-detail.action';
+import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
 
 @Component({
     selector   : 'fuse-shortcuts',
@@ -20,7 +20,7 @@ import { User_DeleteShortcut, User_AddShortcut } from 'app/main/_ngxs/user/user.
 })
 export class FuseShortcutsComponent implements OnInit, OnDestroy
 {
-    @Select(UserState.getUser) user$: Observable<IUser>;
+    @Select(UserDetailState.getUser) user$: Observable<IUser>;
     @Select(NavigationState.getNavigation) navigation$: Observable<any>;
     
     shortcutItems: any[];

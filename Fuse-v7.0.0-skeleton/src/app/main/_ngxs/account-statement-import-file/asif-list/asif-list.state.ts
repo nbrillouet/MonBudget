@@ -39,6 +39,9 @@ export class AsifTableState {
     // static getFilter(state: AsifTableStateModel) {
     //     return state.filter;
     // }
+    async delay(ms: number) {
+        await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+      }
 
     @Action(LoadAsifTableDatas)
     loadGrid(context: StateContext<AsifTableStateModel>, action: LoadAsifTableDatas) {
@@ -47,12 +50,14 @@ export class AsifTableState {
         state.loadingInfo.loading=true;
         // state.datas = action.payload;
         state.datas = null;
-        
         context.patchState(state);
+        
+        // this.delay(3000).then(any=>{
         this._asifService.getAsifTable(action.payload)
             .subscribe(result=> {
                 context.dispatch(new LoadAsifTableDatasSuccess(result));
             });
+        // });
     }
 
     @Action(LoadAsifTableDatasSuccess)
@@ -61,8 +66,11 @@ export class AsifTableState {
         state.loadingInfo.loaded = true;
         state.loadingInfo.loading = false;
         state.datas = action.payload.datas;
+        state.pagination = action.payload.pagination;
 
         context.patchState(state);
+        console.log('asif list refresh done');
+
         this._store.dispatch(new UpdatePaginationAsifTableFilter(action.payload.pagination));
     }
 

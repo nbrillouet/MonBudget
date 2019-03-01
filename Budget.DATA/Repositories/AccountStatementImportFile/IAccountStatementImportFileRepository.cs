@@ -11,7 +11,8 @@ namespace Budget.DATA.Repositories
 {
     public interface IAccountStatementImportFileRepository : IBaseRepository<AccountStatementImportFile>
     {
-        PagedList1<AccountStatementImportFile> GetAsifTable(FilterAsifTableSelected filter);
+        PagedList<AccountStatementImportFile> GetAsifTable(FilterAsifTableSelected filter);
+        AccountStatementImportFile GetAsifDetail(int id);
 
         bool IsAccountStatementSaveable(int idImport);
         //void Save(List<AccountStatementImportFile> accountStatementImportFiles);
@@ -31,7 +32,7 @@ namespace Budget.DATA.Repositories
         //List<AccountStatementImportFile> GetAsifMethodLess(int idImport, int idAccount);
         //List<AccountStatementImportFile> GetAsifOperationLess(int idImport, int idAccount);
         //bool HasAccountStatementImportFileWihoutPlace(int IdImport, int idAccount);
-        Task<PagedList<AccountStatementImportFile>> GetAsync(FilterAccountStatementImportFile filter);
+        //Task<PagedList<AccountStatementImportFile>> GetAsync(FilterAccountStatementImportFile filter);
         Task<AccountStatementImportFile> GetForDetailByIdAsync(int id);
         List<AccountStatementImportFile> GetAsifsWithoutDuplicate(int idImport);
 

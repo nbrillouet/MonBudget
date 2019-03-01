@@ -46,7 +46,7 @@ export class PlanPosteDetailComponent implements OnInit  {
   ) 
   { 
 
-    this.planPosteDetailFilter= data;
+    this.planPosteDetailFilter = data;
 
     this._store.dispatch(new ChangePlanPosteDetailFilter(this.planPosteDetailFilter));
     

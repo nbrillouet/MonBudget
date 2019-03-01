@@ -27,10 +27,10 @@ namespace Budget.SERVICE
             _mapper = mapper;
         }
 
-        public List<SelectDto> GetSelects(int idMovement, int idSelectType)
+        public List<SelectDto> GetSelectList(EnumMovement enumMovement, EnumSelectType enumSelectType)
         {
-            var selectList = _selectService.GetSelectList(idSelectType);
-            var operationTypeFamilies = _operationTypeFamilyRepository.GetByIdMovement(idMovement);
+            var selectList = _selectService.GetSelectList(enumSelectType);
+            var operationTypeFamilies = _operationTypeFamilyRepository.GetByIdMovement(enumMovement);
             selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(operationTypeFamilies).ToList());
 
             return selectList;
@@ -74,28 +74,23 @@ namespace Budget.SERVICE
         {
             return _operationTypeFamilyRepository.GetAllByOrder();
         }
-
-        //public List<GenericList> GetGenericListByIdMovement(int idMovement, EnumSelect enumSelect)
+        
+        //public List<OperationTypeFamily> GetByIdMovement(EnumMovement enumMovement, EnumSelect enumSelect)
         //{
-        //    return _operationTypeFamilyRepository.GetGenericListByIdMovement(idMovement, enumSelect);
+        //    return _operationTypeFamilyRepository.GetByIdMovement(enumMovement, enumSelect);
         //}
-
-        public List<OperationTypeFamily> GetByIdMovement(int idMovement, EnumSelect enumSelect)
-        {
-            return _operationTypeFamilyRepository.GetByIdMovement(idMovement, enumSelect);
-        }
 
         public List<SelectGroupDto> GetSelectGroupListByIdPoste(int idPoste)
         {
-            EnumMouvement enumMovement = idPoste== (int)EnumMouvement.Credit ? EnumMouvement.Credit : EnumMouvement.Debit;
+            EnumMovement enumMovement = idPoste== (int)EnumMovement.Credit ? EnumMovement.Credit : EnumMovement.Debit;
 
-            List<OperationTypeFamily> operationTypeFamilies = _operationTypeFamilyRepository.GetByIdMovement((int)enumMovement);
+            List<OperationTypeFamily> operationTypeFamilies = _operationTypeFamilyRepository.GetByIdMovement(enumMovement);
 
             return GetSelectGroupList(operationTypeFamilies, enumMovement);
 
         }
 
-        private List<SelectGroupDto> GetSelectGroupList(List<OperationTypeFamily> operationTypeFamilies, EnumMouvement enumMovement)
+        private List<SelectGroupDto> GetSelectGroupList(List<OperationTypeFamily> operationTypeFamilies, EnumMovement enumMovement)
         {
             List<SelectGroupDto> results = new List<SelectGroupDto>();
 

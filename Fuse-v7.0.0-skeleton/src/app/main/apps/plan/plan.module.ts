@@ -21,9 +21,11 @@ import { PlanTableComboFilterState } from "app/main/_ngxs/plan/plan-list-filter/
 import { PlanDetailState } from "app/main/_ngxs/plan/plan-detail/plan-detail.state";
 import { PlanPosteDetailState } from "app/main/_ngxs/plan-poste/plan-poste-detail/plan-poste-detail.state";
 import { PlanForTrackingState } from "app/main/_ngxs/plan-tracking/plan-tracking.state";
-import { UserState } from "app/main/_ngxs/user/user.state";
+
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { environment } from "environments/environment";
+import { PlanAmountTableState } from "app/main/_ngxs/plan/plan-amount-list/plan-amount-list.state";
+import { PlanAmountListComponent } from "./plan-suivi/plan-amount-list/plan-amount-list.component";
 
 const routes = [
     {
@@ -68,12 +70,12 @@ const routes = [
       FuseWidgetModule,
       ColorPickerModule,
       NgxsModule.forFeature([
-        // UserState,
         PlanTableState,
         PlanTableComboFilterState,
         PlanDetailState,
         PlanPosteDetailState,
-        PlanForTrackingState
+        PlanForTrackingState,
+        PlanAmountTableState
     ])
     
         //NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production ? true : false })
@@ -90,7 +92,8 @@ const routes = [
         PlanPosteDetailComponent,
         PlanSuiviComponent,
         ChipAutocompleteComponent,
-        MonthYearSelectionComponent
+        MonthYearSelectionComponent,
+        PlanAmountListComponent
     ],
     providers : [
         PlanService,
@@ -98,7 +101,8 @@ const routes = [
 
     ],
     entryComponents: [
-        PlanPosteDetailComponent
+        PlanPosteDetailComponent,
+        PlanAmountListComponent
     ]
   })
 

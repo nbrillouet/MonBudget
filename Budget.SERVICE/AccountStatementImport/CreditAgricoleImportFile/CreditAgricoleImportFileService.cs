@@ -131,12 +131,12 @@ namespace Budget.SERVICE
                 if (values[3].ToString() != string.Empty)
                 {
                     asif.AmountOperation = - double.Parse(values[3].Replace(",", ".").ToString(), CultureInfo.InvariantCulture);
-                    asif.IdMovement = (int)EnumMouvement.Debit;
+                    asif.IdMovement = (int)EnumMovement.Debit;
                 }
                 else if (values[4].ToString() != string.Empty)
                 {
                     asif.AmountOperation = double.Parse(values[4].Replace(",", ".").ToString(), CultureInfo.InvariantCulture);
-                    asif.IdMovement = (int)EnumMouvement.Credit;
+                    asif.IdMovement = (int)EnumMovement.Credit;
                 }
 
                 asif.DateIntegration = Convert.ToDateTime(values[1].ToString());
@@ -175,7 +175,6 @@ namespace Budget.SERVICE
                     //Determination de operationDetail (operation+addresse) à partir du label brut
                     OperationType operationType = _operationTypeService
                         .GetByIdWithOperationTypeFamily((int)EnumOperationType.Inconnu);
-                    //asif.IdMovement==(int)EnumMouvement.Credit ? (int)EnumOperationType.InconnuCredit : (int)EnumOperationType.InconnuDebit);
                     asif.IdOperationType = operationType.Id;
                     asif.IdOperationTypeFamily = operationType.IdOperationTypeFamily;
 

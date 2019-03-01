@@ -138,5 +138,15 @@ namespace Budget.API.Controllers
             return Ok(planForDetailDto);
         }
 
+        [HttpPost]
+        [Route("plan-amounts/filter")]
+        public IActionResult GetPlanAmountTable([FromBody] FilterPlanAmount filter)
+        {
+            var results = _planTrackingService.GetPlanAmountTable(filter);
+
+            return Ok(results);
+
+        }
+
     }
 }

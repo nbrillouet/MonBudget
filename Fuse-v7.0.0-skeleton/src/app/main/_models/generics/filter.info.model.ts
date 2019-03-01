@@ -1,8 +1,8 @@
 import { LoadingInfo } from "./loading-info.model";
 
-interface NoParamConstructor<T> {
-    new (): T;
-}
+// interface NoParamConstructor<T> {
+//     new (): T;
+// }
 
 // export class FilterInfo<T> {
 //     filters: T;

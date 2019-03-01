@@ -9,13 +9,13 @@ namespace Budget.DATA.Repositories
     public interface IOperationTypeFamilyRepository : IBaseRepository<OperationTypeFamily>
     {
 
-        List<OperationTypeFamily> GetByIdMovement(int idMovement);
+        List<OperationTypeFamily> GetByIdMovement(EnumMovement enumMovement);
 
         List<OperationTypeFamily> GetAllByOrder();
 
-        List<GenericList> GetGenericList();
-        List<GenericList> GetGenericListByIdMovement(int idMovement, EnumSelect enumSelect);
-        List<OperationTypeFamily> GetByIdMovement(int idMovement, EnumSelect enumSelect);
+        //List<GenericList> GetGenericList();
+        //List<GenericList> GetGenericListByIdMovement(EnumMovement enumMovement, EnumSelect enumSelect);
+        //List<OperationTypeFamily> GetByIdMovement(EnumMovement enumMovement, EnumSelect enumSelect);
 
         List<OperationTypeFamily> GetByIdList(List<int> idList);
 

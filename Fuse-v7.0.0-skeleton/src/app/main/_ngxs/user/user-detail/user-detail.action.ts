@@ -1,11 +1,11 @@
 import { IUser } from "app/main/_models/user.model";
 import { IUserShortcut } from "app/main/_models/user-shortcut.model";
 
+export const USER_DETAIL_LOAD = 'user-detail-load';
+export const USER_DETAIL_LOAD_SUCCESS = 'user-detail-load-success';
+
 export const USER_ADD = 'user-add';
 export const USER_DELETE = 'user-delete';
-export const USER_LOAD = 'user-load';
-export const USER_LOAD_SUCCESS = 'user-load-success';
-
 export const USER_DELETE_SHORTCUT  = 'user-delete-shortcut';
 export const USER_DELETE_SHORTCUT_SUCCESS = 'user-delete-shortcut-success';
 
@@ -23,14 +23,14 @@ export class DeleteUser {
     constructor(public id:number) {}
 }
 
-export class LoadUser {
-    static readonly type = USER_LOAD;
+export class LoadUserDetail {
+    static readonly type = USER_DETAIL_LOAD;
  
     constructor(public payload: IUser) { }
 }
 
-export class LoadUserSuccess {
-    static readonly type = USER_LOAD_SUCCESS;
+export class LoadUserDetailSuccess {
+    static readonly type = USER_DETAIL_LOAD_SUCCESS;
  
     constructor(public payload: IUser) { }
 }

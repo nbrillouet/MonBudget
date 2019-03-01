@@ -8,6 +8,7 @@ import { AccountTypeService } from "./account-type.service";
 import { NgModule } from "@angular/core";
 import { OperationService } from "./operation.service";
 import { ReferentialService } from "./referential.service";
+import { OperationTransverseService } from "./operation-tranverse.service";
 
 @NgModule({
     imports: [
@@ -24,7 +25,8 @@ import { ReferentialService } from "./referential.service";
         OperationMethodService,
         BankService,
         AccountService,
-        AccountTypeService
+        AccountTypeService,
+        OperationTransverseService
 
     ]
 

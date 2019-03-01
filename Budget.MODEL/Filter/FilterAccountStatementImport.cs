@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Budget.MODEL
 {
-    public class FilterAccountStatementImport : Pagination
-    {
-        public int? idUser { get; set; }
-        public int? idBank { get; set; }
-    }
+    //public class FilterAccountStatementImport : Pagination
+    //{
+    //    public int? idUser { get; set; }
+    //    public int? idBank { get; set; }
+    //}
 
     public class FilterAsiTable
     {
@@ -27,7 +27,7 @@ namespace Budget.MODEL
         public int? IdUser { get; set; }
         public int? IdBank { get; set; }
         public int? IndexTabBank { get; set; }
-        public Pagination1 Pagination { get; set; }
+        public Pagination Pagination { get; set; }
 
         public FilterAsiTableSelected()
         {

@@ -10,7 +10,7 @@ namespace Budget.DATA.Repositories
     {
         List<Operation> GetSelectList(int idOperationMethod, int idOperationType);
         List<Operation> GetSelectList(List<SelectDto> operationMethods);
-        List<Operation> GetByIdMovement(int idMovement);
+        List<Operation> GetByIdMovement(EnumMovement enumMovement);
         List<Operation> GetAllByOrder();
         List<Operation> GetAllByIdOperationMethod(int idOperationMethod);
         List<Operation> GetAllByIdOperationTypeFamily(int idOperationTypeFamily);

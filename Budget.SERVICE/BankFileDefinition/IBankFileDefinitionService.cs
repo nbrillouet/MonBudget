@@ -12,6 +12,6 @@ namespace Budget.SERVICE
         BankFileDefinition GetById(int idBankFileDefinition);
         List<BankFileDefinition> GetAll();
         List<BankFileDefinition> GetAllWithNoUnknown();
-        List<GenericList> GetGenericList();
+        //List<GenericList> GetGenericList();
     }
 }

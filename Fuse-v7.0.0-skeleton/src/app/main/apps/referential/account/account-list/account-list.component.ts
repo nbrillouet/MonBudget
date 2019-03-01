@@ -15,9 +15,9 @@ import { AccountService } from 'app/main/_services/Referential/account.service';
 import { IAccountForDetail, IAccount } from 'app/main/_models/account.model';
 import { IUser } from 'app/main/_models/user.model';
 import { Select } from '@ngxs/store';
-import { UserState } from 'app/main/_ngxs/user/user.state';
 import { Observable } from 'rxjs';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
+import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
 // import { ReferentialTestService } from 'app/main/_services/Referential/referential.service';
 
 @Component({
@@ -27,7 +27,7 @@ import { ReferentialService } from 'app/main/_services/Referential/referential.s
   animations   : fuseAnimations
 })
 export class AccountListComponent implements OnInit {
-@Select(UserState.getUser) user$: Observable<IUser>;
+@Select(UserDetailState.getUser) user$: Observable<IUser>;
 
 banks: IBankAccounts[];
 checkboxes: number[]=[];

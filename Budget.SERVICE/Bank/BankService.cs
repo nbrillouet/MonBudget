@@ -34,7 +34,7 @@ namespace Budget.SERVICE
 
         public List<SelectDto> GetSelectList(int idSelectType)
         {
-            var selectList = _selectService.GetSelectList(idSelectType);
+            var selectList = _selectService.GetSelectList((EnumSelectType)idSelectType);
             var banks = _bankRepository.GetAllOrdering();
             selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(banks).ToList());
 

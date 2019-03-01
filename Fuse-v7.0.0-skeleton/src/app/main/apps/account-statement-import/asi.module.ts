@@ -22,6 +22,7 @@ import { AsiTableFilterState } from "app/main/_ngxs/account-statement-import/asi
 import { AsiListComponent } from "./asi-list/asi-list.component";
 import { AsiFilterComponent } from "./asi-filter/asi-filter.component";
 import { AsiService } from "./asi.service";
+import { AsifDetailState } from "app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.state";
 
 const routes = [
     {
@@ -57,7 +58,8 @@ const routes = [
         AsiTableState,
         AsiTableFilterState,
         AsifTableState,
-        AsifTableFilterState
+        AsifTableFilterState,
+        AsifDetailState
 
       ]),
       RouterModule.forChild(routes)

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { IOperation } from "app/main/_models/operation.model";
-import { ISelect } from "app/main/_models/generics/select.model";
+import { ISelect, EnumSelectType } from "app/main/_models/generics/select.model";
 
 
 @Injectable()
@@ -14,10 +14,16 @@ baseUrl = environment.apiUrl;
     ) { }
 
     
-    GetList(idOperationMethod: number,idOperationType: number) {
+    // GetList(idOperationMethod: number,idOperationType: number) {
+    //     return this._http
+    //         .get(this.baseUrl + `referential/operations/operation-methods/${idOperationMethod}/operation-types/${idOperationType}/operations`)
+    //         .map(response => <IOperation[]>response);
+    // }
+
+    GetSelectList(idOperationMethod: number,idOperationType: number, enumSelectType: EnumSelectType) {
         return this._http
-            .get(this.baseUrl + `referential/operations/operation-methods/${idOperationMethod}/operation-types/${idOperationType}/operations`)
-            .map(response => <IOperation[]>response);
+            .get(this.baseUrl + `referential/operations/operation-methods/${idOperationMethod}/operation-types/${idOperationType}/select-type/${enumSelectType}/operations`)
+            .map(response => <ISelect[]>response);
     }
 
     GetSelectListByOperationMethods(operationMethods: ISelect[]) {

@@ -48,11 +48,11 @@ namespace Budget.SERVICE
             _creditAgricoleImportFileService = creditAgricoleImportFileService;
         }
 
-        public Task<PagedList<AccountStatementImport>> GetAsync(FilterAccountStatementImport filter)
-        {
-            var results = _accountStatementImportRepository.GetAsync(filter);
-            return results;
-        }
+        //public Task<PagedList<AccountStatementImport>> GetAsync(FilterAccountStatementImport filter)
+        //{
+        //    var results = _accountStatementImportRepository.GetAsync(filter);
+        //    return results;
+        //}
 
         public Task<List<Bank>> GetDistinctBankAsync(int idUser)
         {
@@ -64,7 +64,7 @@ namespace Budget.SERVICE
             return _accountStatementImportRepository.GetDistinctBank(idUser);
         }
 
-        public PagedList1<AsiForTableDto> GetAsiTable(FilterAsiTableSelected filter)
+        public PagedList<AsiForTableDto> GetAsiTable(FilterAsiTableSelected filter)
         {
             //if (filter.Pagination==null)
             //{
@@ -78,7 +78,7 @@ namespace Budget.SERVICE
             //}
             var pagedList = _accountStatementImportRepository.GetAsiTable(filter);
 
-            var result = new PagedList1<AsiForTableDto>(_mapper.Map<List<AsiForTableDto>>(pagedList.Datas), pagedList.Pagination);
+            var result = new PagedList<AsiForTableDto>(_mapper.Map<List<AsiForTableDto>>(pagedList.Datas), pagedList.Pagination);
 
             return result;
         }
@@ -375,19 +375,6 @@ namespace Budget.SERVICE
             }
             return accountNumbers;
         }
-        //private OperationDetail GetOperationDetail(AccountStatementImportFile accountStatementImportFile)
-        //{
-        //    OperationDetail operationDetail = null;
-        //    if (accountStatementImportFile.IsLocalisable)
-        //    {
-        //        operationDetail = _operationDetailService.GetByKeywords(accountStatementImportFile.LabelOperationWork, accountStatementImportFile.OperationMethod, accountStatementImportFile.IdMovement);
-        //    }
-        //    else
-        //    {
-        //        operationDetail = _operationDetailService.GetByKeywordOperation(accountStatementImportFile.LabelOperationWork, accountStatementImportFile.OperationMethod, accountStatementImportFile.IdMovement);
-        //    }
 
-        //    return operationDetail;
-        //}
     }
 }

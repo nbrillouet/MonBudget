@@ -26,16 +26,16 @@ namespace Budget.DATA.Repositories
 
     public class PagedListRepository<T> : List<T>
     {
-        public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize)
-        {
-            var count = await source.CountAsync();
-            var items = await source.Skip((pageNumber) * pageSize).Take(pageSize).ToListAsync();
+        //public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize)
+        //{
+        //    var count = await source.CountAsync();
+        //    var items = await source.Skip((pageNumber) * pageSize).Take(pageSize).ToListAsync();
 
-            return new PagedList<T>(items, count, pageNumber, pageSize);
-        }
+        //    return new PagedList<T>(items, count, pageNumber, pageSize);
+        //}
 
 
-        public static PagedList1<T> Create(IQueryable<T> source, Pagination1 pagination)
+        public static PagedList<T> Create(IQueryable<T> source, Pagination pagination)
         {
             var count =  source.Count();
             var items =  source.Skip((pagination.CurrentPage.Value) * pagination.ItemsPerPage.Value).Take(pagination.ItemsPerPage.Value).ToList();
@@ -43,7 +43,7 @@ namespace Budget.DATA.Repositories
             pagination.TotalItems = count;
             pagination.TotalPages = (int)Math.Ceiling(count / (double)pagination.ItemsPerPage);
             
-            var results = new PagedList1<T>(items, pagination);
+            var results = new PagedList<T>(items, pagination);
             return results;
         }
 

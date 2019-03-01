@@ -34,9 +34,10 @@ namespace Budget.MODEL.Database
         Inconnu = 1
     }
 
-    public enum EnumMouvement
+    public enum EnumMovement
     {
         Credit = 1,
-        Debit = 2
+        Debit = 2,
+        TwoWays = 3
     }
 }

@@ -2,7 +2,6 @@ import { Pagination } from "../pagination.model";
 import { IMonthYear, DateTimeFactory } from "../date-time.model";
 import { ISelect } from "../generics/select.model";
 
-
 export class FilterAccountStatement {
     idAccount: number;
     pagination: Pagination;
@@ -54,7 +53,6 @@ export class FilterAccountStatement {
         }
         return monthYear;
     }
-
 }
 
 export class AsFilter extends FilterAccountStatement 

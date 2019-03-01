@@ -16,16 +16,17 @@ export interface IAsTable {
     plans: ISelectColor[];
 }
 
-export interface AsTable extends IAsTable {
-    // id: number;
-    // operation : ISelect;
-    // operationMethod: ISelect;
-    // operationType: ISelect;
-    // operationTypeFamily: ISelect;
-    // amountOperation : number;
-    // labelOperation: string;
-    // dateIntegration: Date;
-    // idDuplicated: boolean;
+export class AsTable implements IAsTable {
+    id: number;
+    operation : ISelect;
+    operationMethod: ISelect;
+    operationType: ISelect;
+    operationTypeFamily: ISelect;
+    amountOperation : number;
+    labelOperation: string;
+    dateIntegration: Date;
+    idDuplicated: boolean;
+    plans: ISelectColor[];
 }
 
 export interface IAsDetail extends IAsTable {

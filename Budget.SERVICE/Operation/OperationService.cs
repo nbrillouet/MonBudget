@@ -18,17 +18,21 @@ namespace Budget.SERVICE
         private readonly IOperationRepository _operationRepository;
         private readonly IOperationTypeRepository _operationTypeRepository;
         private readonly IOperationTypeFamilyRepository _operationTypeFamilyRepository;
+        private readonly ISelectService _selectService;
 
         public OperationService(
             IMapper mapper,
             IOperationRepository operationRepository,
             IOperationTypeRepository operationTypeRepository,
-            IOperationTypeFamilyRepository operationTypeFamilyRepository)
+            IOperationTypeFamilyRepository operationTypeFamilyRepository,
+            ISelectService selectService
+            )
         {
             _mapper = mapper;
             _operationRepository = operationRepository;
             _operationTypeRepository = operationTypeRepository;
             _operationTypeFamilyRepository = operationTypeFamilyRepository;
+            _selectService = selectService;
         }
 
         //public List<Operation> GetByIdOperationMethod(int idOperationMethod)
@@ -36,10 +40,13 @@ namespace Budget.SERVICE
         //    return _operationRepository.GetByIdOperationMethod(idOperationMethod);
         //}
 
-        public List<SelectDto> GetSelectList(int idOperationMethod, int idOperationType)
+        public List<SelectDto> GetSelectList(int idOperationMethod, int idOperationType, EnumSelectType enumSelectType)
         {
+            var selectList = _selectService.GetSelectList(enumSelectType);
             var operations = _operationRepository.GetSelectList(idOperationMethod, idOperationType);
-            return _mapper.Map<List<SelectDto>>(operations);
+            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(operations).ToList());
+
+            return selectList;
         }
 
         public List<SelectDto> GetSelectList(List<SelectDto> operationMethods)
@@ -64,10 +71,10 @@ namespace Budget.SERVICE
             return _operationRepository.GetAllByOrder();
         }
 
-        public List<GenericList> GetGenericList()
-        {
-            return _operationRepository.GetGenericList();
-        }
+        //public List<GenericList> GetGenericList()
+        //{
+        //    return _operationRepository.GetGenericList();
+        //}
 
         public List<Operation> GetAllByIdOperationMethod(int idOperationMethod)
         {
@@ -81,7 +88,7 @@ namespace Budget.SERVICE
 
         public List<SelectGroupDto> GetSelectGroupListByIdPoste(int idPoste)
         {
-            var idMovement = idPoste == (int)EnumMouvement.Credit ? (int)EnumMouvement.Credit : (int)EnumMouvement.Debit;
+            EnumMovement idMovement = idPoste == (int)EnumMovement.Credit ? EnumMovement.Credit : EnumMovement.Debit;
             List<Operation> operations = _operationRepository.GetByIdMovement(idMovement);
 
             return GetSelectGroupList(operations);

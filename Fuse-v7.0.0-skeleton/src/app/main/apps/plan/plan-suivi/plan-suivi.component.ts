@@ -4,10 +4,7 @@ import { Select, Store } from '@ngxs/store';
 import { PlanForTrackingState } from 'app/main/_ngxs/plan-tracking/plan-tracking.state';
 import { Observable } from 'rxjs';
 import { TableInfo } from 'app/main/_models/generics/table-info.model';
-// import { PlanForTracking } from 'app/main/_models/plan.model';
-// import { FilterPlanForTracking } from 'app/main/_models/filters/plan-tracking.filter';
 import { ChangePlanForTrackingFilter } from 'app/main/_ngxs/plan-tracking/plan-tracking.action';
-import { UserState } from 'app/main/_ngxs/user/user.state';
 import { IUser } from 'app/main/_models/user.model';
 import { PlanService } from '../plan.service';
 import { IMonthYear, MonthYear } from 'app/main/_models/date-time.model';
@@ -16,6 +13,12 @@ import { ISelect, SelectYear } from 'app/main/_models/generics/select.model';
 import { DetailInfo } from 'app/main/_models/generics/detail-info.model';
 import { PlanForTracking } from 'app/main/_models/plan/plan-tracking.model';
 import { FilterPlanTracking } from 'app/main/_models/filters/plan-tracking.filter';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { PlanPosteDetailComponent } from '../plan-detail/plan-poste-detail/plan-poste-detail.component';
+import { ClearPlanPosteDetailDatas } from 'app/main/_ngxs/plan-poste/plan-poste-detail/plan-poste-detail.action';
+import { PlanAmountFilter } from 'app/main/_models/filters/plan-amount.filter';
+import { ChangePlanAmountTableFilter, ClearPlanAmountTableDatas } from 'app/main/_ngxs/plan/plan-amount-list/plan-amount-list.action';
+import { PlanAmountListComponent } from './plan-amount-list/plan-amount-list.component';
 
 @Component({
   selector: 'plan-suivi',
@@ -25,7 +28,7 @@ import { FilterPlanTracking } from 'app/main/_models/filters/plan-tracking.filte
   encapsulation: ViewEncapsulation.None
 })
 export class PlanSuiviComponent implements OnInit {
-  @Select(UserState.getUser) user$: Observable<IUser>;
+  // @Select(UserState.getUser) user$: Observable<IUser>;
   @Select(PlanForTrackingState.get) planTracking$: Observable<DetailInfo<PlanForTracking,FilterPlanTracking>>;
 
   // planList: IPlanTable[];
@@ -37,6 +40,7 @@ export class PlanSuiviComponent implements OnInit {
   planForm: FormGroup;
   isLoaded: boolean;
   isLoaded1: boolean;
+  
   gaugeType = "full";
   gaugeValue = Math.round(1600*100/1500);
   gaugeLabel = "";
@@ -71,7 +75,8 @@ export class PlanSuiviComponent implements OnInit {
     private _store: Store,
     private _planService: PlanService,
     private _fb: FormBuilder,
-    private _changeDetectorRef:ChangeDetectorRef
+    private _changeDetectorRef:ChangeDetectorRef,
+    private _dialog: MatDialog,
   ) { 
 
       let user = JSON.parse(localStorage.getItem('currentUser'));
@@ -100,24 +105,71 @@ export class PlanSuiviComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-
+  
     this.planTracking$.subscribe(planTracking => {
       this.planTracking= planTracking;
-
- 
     })
   }
 
   ngAfterViewChecked()
   {
-
     this._changeDetectorRef.detectChanges();
+  }
+
+  GetAmountPreviewForPlanPosteList(idPlanPoste: number,idPoste: number,idPlan: number) {
+
+    const dialogConfig = new MatDialogConfig();
+ 
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width='70%';
+    dialogConfig.height='97%';
+    
+    dialogConfig.data = {
+        id: idPlanPoste,
+        idPlan: idPlan,
+        idPoste: idPoste
+    };
+
+    const dialogRef = this._dialog.open(PlanPosteDetailComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      data => console.log("Dialog output:", data)
+      this._store.dispatch(new ClearPlanPosteDetailDatas());
+    });    
   }
 
   // onPlanChange(value: ISelect) {
   //   this.filter.idPlan=value.id;
   // }
+  GetAmountReal(monthYear:IMonthYear,idPlanPoste: number,idPoste:number,idPlan:number){
+    let planAmountFilter = new PlanAmountFilter();
+    planAmountFilter.monthYear= monthYear;
+    planAmountFilter.idPoste=idPoste;
+    planAmountFilter.idPlanPoste=idPlanPoste;
+    planAmountFilter.idPlan=idPlan;
+
+    const dialogConfig = new MatDialogConfig();
+ 
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width='80%';
+    dialogConfig.height='50%';
+    
+    dialogConfig.data = planAmountFilter;
+
+    const dialogRef = this._dialog.open(PlanAmountListComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      data => console.log("Dialog output:", data)
+      this._store.dispatch(new ClearPlanAmountTableDatas());
+    });    
+
+
+
+
+    // this._store.dispatch(new ChangePlanAmountTableFilter(planAmountFilter));
+  }
 
   onMonthYearChange($event: MonthYear) {
 

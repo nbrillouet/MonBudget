@@ -49,6 +49,7 @@ export class GMapSearchComponent implements OnInit,OnChanges {
     this.gMapService
       .getById(this.gMapSearchInfo.idGMapAddress)
       .subscribe(resp=> {
+        console.log('this.gMapAddress',resp);
         this.gMapAddress = resp;
         this.createForm();
         this.addressVisible = this.gMapAddress.id!=1 && this.gMapAddress.id!=3;
@@ -61,6 +62,7 @@ export class GMapSearchComponent implements OnInit,OnChanges {
   }
 
   createForm() {
+    
     this.gMapSearchForm = this.formBuilder.group({
       //operationPlace: [dataOperationPlace,[Validators.required, ValidateIsUnknown]],
       

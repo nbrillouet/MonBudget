@@ -28,9 +28,9 @@ namespace Budget.SERVICE
             _mapper = mapper;
         }
 
-        public List<SelectDto> GetSelect(int idSelectType)
+        public List<SelectDto> GetSelectList(EnumSelectType enumSelectType)
         {
-            var selectList = _selectService.GetSelectList(idSelectType);
+            var selectList = _selectService.GetSelectList(enumSelectType);
             var operationMethods = _operationMethodRepository.GetAllByOrder();
 
             selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(operationMethods).ToList());
@@ -46,10 +46,10 @@ namespace Budget.SERVICE
         {
             return _operationMethodRepository.GetAllForEdit();
         }
-        public List<GenericList> GetGenericList()
-        {
-            return _operationMethodRepository.GetGenericList();
-        }
+        //public List<GenericList> GetGenericList()
+        //{
+        //    return _operationMethodRepository.GetGenericList();
+        //}
 
         public List<OperationMethod> GetAllByOrder()
         {

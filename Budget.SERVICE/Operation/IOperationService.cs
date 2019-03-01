@@ -8,9 +8,9 @@ using System.Text;
 
 namespace Budget.SERVICE
 {
-    public interface IOperationService : IGenericListService
+    public interface IOperationService 
     {
-        List<SelectDto> GetSelectList(int idOperationMethod,int idOperationType);
+        List<SelectDto> GetSelectList(int idOperationMethod,int idOperationType, EnumSelectType enumSelectType);
         List<SelectDto> GetSelectList(List<SelectDto> operationMethods);
         List<SelectGroupDto> GetSelectGroupListByIdPoste(int idPoste);
         List<SelectDto> GetSelectListByIdList(List<int> idList);

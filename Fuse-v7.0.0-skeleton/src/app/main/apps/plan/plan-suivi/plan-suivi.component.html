@@ -82,9 +82,9 @@
               <div fxLayout="row wrap" fxLayoutAlign="start start">
                   <div fxflex=28 fxFlex class="h3"></div>  
                   <div fxFlex="0 1 26"  ></div>
-                  <div fxFlex="0 1 18"  >réel</div>
-                  <div fxFlex="0 1 18"  >prévu</div>
-                  <div fxFlex="0 1 10"  >part</div>
+                  <div fxFlex="0 1 18" style="text-align:center" >réel</div>
+                  <div fxFlex="0 1 18" style="text-align:center">prévu</div>
+                  <div fxFlex="0 1 10" style="text-align:center">part</div>
               </div>
 
               <div 
@@ -113,8 +113,27 @@
                       </ngx-gauge-value>
                     </ngx-gauge>
                   </div >
-                  <div fxFlex="0 1 18" style="font-size: 11px;font-weight: bold;" >{{ planPoste.amountReal }} €</div>
-                  <div fxFlex="0 1 18" style="font-size: 11px;font-weight: bold;" >{{ planPoste.amountPreview }} €</div>
+                  <!-- <div fxFlex="0 1 18" style="font-size: 11px;font-weight: bold;" > -->
+                  <button 
+                    mat-button 
+                    color="accent"
+                    fxFlex="0 1 18" style="font-size: 11px;font-weight: bold;"
+                    (click)="GetAmountReal(planTracking.filter.monthYear,planPoste.idPlanPoste,poste.poste.id,planTracking.dataInfos.datas.plan.id)"
+                  >
+                    {{ planPoste.amountReal }} €
+                  </button>
+                    
+                  <!-- </div> -->
+                  <!-- <div fxFlex="0 1 18" style="font-size: 11px;font-weight: bold;" > -->
+                  <button 
+                    mat-button 
+                    color="accent"
+                    fxFlex="0 1 18" style="font-size: 11px;font-weight: bold;"
+                    (click)="GetAmountPreviewForPlanPosteList(planPoste.idPlanPoste,poste.poste.id,planTracking.dataInfos.datas.plan.id)"
+                  >
+                    {{ planPoste.amountPreview }} €
+                  </button>
+                  <!-- </div> -->
                   <div fxFlex="0 1 10">
                     <div 
                       style="font-size: 9px;"

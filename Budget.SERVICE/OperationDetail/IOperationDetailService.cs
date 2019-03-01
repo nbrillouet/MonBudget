@@ -10,8 +10,8 @@ namespace Budget.SERVICE
     {
         OperationDetail GetForAddressById(int id);
         OperationDetail GetByIdOperation(int idOperation);
-        OperationDetail GetByKeywordOperation(string operationLabel, int idOperationMethod, int idMovement);
-        OperationDetail GetByKeywords(string operationLabel, int idOperationMethod, int idMovement);
+        OperationDetail GetByKeywordOperation(string operationLabel, int idOperationMethod, EnumMovement enumMovement);
+        OperationDetail GetByKeywords(string operationLabel, int idOperationMethod, EnumMovement enumMovement);
         KeyLabel GetKeywordPlaceByParsingLabel(AccountStatementImportFile accountStatementImportFile);
         OperationDetail GetByOperationDetail(OperationDetail operationDetail);
         OperationDetail FindKeywordPlace(string operationLabel);

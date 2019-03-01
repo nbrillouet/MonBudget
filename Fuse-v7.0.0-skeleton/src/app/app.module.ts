@@ -43,7 +43,6 @@ import { JwtInterceptor } from './_interceptor/jwt.interceptor';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { UserState } from './main/_ngxs/user/user.state';
 import { environment } from 'environments/environment';
 import { UserLoaded } from './main/_models/user.model';
 import { UserService } from './main/apps/referential/user/user.service';
@@ -60,6 +59,7 @@ import { AsSoldeState } from './main/_ngxs/account-statement/account-statement-s
 import { OperationMethodService } from './main/_services/Referential/operation-method.service';
 // import { ReferentialTestService } from './main/_services/Referential/referential.service';
 import { ReferentialServiceModule } from './main/_services/Referential/referential.service.module';
+import { UserDetailState } from './main/_ngxs/user/user-detail/user-detail.state';
 // import { PlanDetailState } from './main/_ngxs/plan/planDetail/plan-detail.state';
 // import { AsFilterState } from './main/_ngxs/account-statement/account-statement-filter/account-statement-filter.state';
 
@@ -118,16 +118,9 @@ const appRoutes: Routes = [
         ReferentialServiceModule,
 
         NgxsModule.forRoot([
-            UserState,
+            UserDetailState,
             NavigationState
-            // AsListState,
-            // AsSoldeState
-            // PlanTableState,
-            // PlanTableComboFilterState,
-            // PlanDetailState,
-            // PlanPosteDetailState,
-            // PlanForTrackingState
-        ]),
+         ]),
         NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production ? true : false })
         
     ],

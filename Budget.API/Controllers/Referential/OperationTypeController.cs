@@ -42,7 +42,7 @@ namespace Budget.API.Controllers.Referential
         [Route("operation-type-families/{idOperationTypeFamily}/select-type/{idSelectType}/select-list")]
         public IActionResult GetSelectList(int idOperationTypeFamily, int idSelectType)
         {
-            var selectsDto = _operationTypeService.GetSelects(idOperationTypeFamily, idSelectType);
+            var selectsDto = _operationTypeService.GetSelectList(idOperationTypeFamily, (EnumSelectType)idSelectType);
 
             return Ok(selectsDto);
         }

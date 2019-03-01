@@ -1,6 +1,7 @@
 ﻿using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
+using Budget.MODEL.Filter;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,31 @@ namespace Budget.DATA.Repositories
 
         }
 
-        //public new Task<User> GetByIdAsync(int id)
-        //{
-        //    return Context.User
-        //        .Where(x => x.Id == id)
-        //        //.Include(x => x.Shortcuts)
-        //        //.Include(x=>x.UserAccounts)
-        //        //    .ThenInclude(x=>x.Account)
-        //        .FirstOrDefaultAsync();
-        //}
+        public PagedList<User> GetUserTable(FilterUserTableSelected filter)
+        {
+            var users = Context.User
+                .Include(x => x.Shortcuts)
+                .AsQueryable();
+
+            if (filter.Keyword != null)
+            {
+                users = users.Where(x => x.FirstName.ToUpper().Contains(filter.Keyword.ToUpper())
+                    || x.LastName.ToUpper().Contains(filter.Keyword.ToUpper())
+                    || x.UserName.ToUpper().Contains(filter.Keyword.ToUpper())
+                    );
+            }
+            
+            if (filter.Pagination.SortDirection == "asc")
+                users = users.OrderBy(filter.Pagination.SortColumn);
+            else
+                users = users.OrderByDescending(filter.Pagination.SortColumn);
+
+            var results = PagedListRepository<User>.Create(users, filter.Pagination);
+
+            return results;
+        }
+
+        
         public User GetForDetailById(int id)
         {
             return Context.User
@@ -34,18 +51,18 @@ namespace Budget.DATA.Repositories
                 .FirstOrDefault();
         }
 
-        public async Task<PagedList<User>> GetUsers(Pagination userParams)
-        {
-            var users = Context.User.Include(x => x.Shortcuts).AsQueryable();
+        //public async Task<PagedList<User>> GetUsers(Pagination userParams)
+        //{
+        //    var users = Context.User.Include(x => x.Shortcuts).AsQueryable();
 
-            //paging.SortColumn = String.IsNullOrEmpty(paging.SortColumn) ? "Id" : paging.SortColumn;
-            if (userParams.SortDirection == "asc")
-                users = users.OrderBy(userParams.SortColumn);
-            else
-                users = users.OrderByDescending(userParams.SortColumn);
+        //    //paging.SortColumn = String.IsNullOrEmpty(paging.SortColumn) ? "Id" : paging.SortColumn;
+        //    if (userParams.SortDirection == "asc")
+        //        users = users.OrderBy(userParams.SortColumn);
+        //    else
+        //        users = users.OrderByDescending(userParams.SortColumn);
 
-            return await PagedListRepository<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
-        }
+        //    return await PagedListRepository<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
+        //}
 
         public List<Bank> GetBanks(int idUser)
         {

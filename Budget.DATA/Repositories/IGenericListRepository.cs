@@ -7,6 +7,6 @@ namespace Budget.DATA.Repositories
 {
     public interface IGenericListRepository
     {
-        List<GenericList> GetGenericList();
+        //List<GenericList> GetGenericList();
     }
 }

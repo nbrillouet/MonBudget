@@ -11,21 +11,21 @@ namespace Budget.SERVICE
     public interface IOperationTypeService
     {
 
-        List<SelectDto> GetSelects(int idOperationTypeFamily, int idSelectType);
+        List<SelectDto> GetSelectList(int idOperationTypeFamily, EnumSelectType enumSelectType);
         List<SelectDto> GetSelectList(List<SelectDto> operationTypeFamilies);
 
 
         OperationType GetByIdWithOperationTypeFamily(int idOperationType);
 
         List<OperationType> GetAll();
-        List<OperationType> GetByIdOperationTypeFamily(int idOperationTypeFamily, EnumSelect enumSelect);
+        //List<OperationType> GetByIdOperationTypeFamily(int idOperationTypeFamily, EnumSelect enumSelect);
         OperationType GetFirstByIdOperationTypeFamily(int idOperationTypeFamily);
         OperationType GetById(int idOperationType);
-        List<OperationType> GetByIdMovement(int IdMovement);
+        List<OperationType> GetByIdMovement(EnumMovement enumMovement);
 
-        List<GenericList> GetGenericList();
-        List<GenericList> GetGenericListByIdOperationTypeFamily(int IdOperationTypeFamily, EnumSelect enumSelect);
-        List<GenericList> GetGenericListByIdMovement(int IdMovement);
+        //List<GenericList> GetGenericList();
+        //List<GenericList> GetGenericListByIdOperationTypeFamily(int IdOperationTypeFamily, EnumSelect enumSelect);
+        //List<GenericList> GetGenericListByIdMovement(EnumMovement enumMovement);
 
         List<SelectGroupDto> GetSelectGroupListByIdPoste(int idPoste);
         List<SelectGroupDto> GetSelectGroupListByIdList(List<int> idList);

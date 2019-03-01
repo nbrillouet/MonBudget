@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, ViewEncapsulation } from '@angular/core';
 import { IAccount } from 'app/main/_models/account.model';
 import { IAccountStatementImport } from 'app/main/_models/account-statement-import.model';
 import { IAsifState } from 'app/main/_models/account-statement-import-file.model';
@@ -14,7 +14,8 @@ import { AsiService } from '../../account-statement-import/asi.service';
 @Component({
   selector: 'asif-state',
   templateUrl: './asif-state.component.html',
-  styleUrls: ['./asif-state.component.scss']
+  styleUrls: ['./asif-state.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AsifStateComponent implements OnInit {
   @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;

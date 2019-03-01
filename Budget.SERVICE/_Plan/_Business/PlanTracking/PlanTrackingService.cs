@@ -17,14 +17,17 @@ namespace Budget.SERVICE
         private readonly IPlanRepository _planRepository;
         private readonly IPosteRepository _posteRepository;
         private readonly IPlanPosteUserRepository _planPosteUserRepository;
-
+        private readonly IPlanPosteReferenceService _planPosteReferenceService;
+        private readonly IAccountStatementService _accountStatementService;
 
         public PlanTrackingService(
             IMapper mapper,
             IVPlanGlobalService vPlanGlobalService,
             IPlanRepository planRepository,
             IPosteRepository posteRepository,
-            IPlanPosteUserRepository planPosteUserRepository
+            IPlanPosteUserRepository planPosteUserRepository,
+            IAccountStatementService accountStatementService,
+            IPlanPosteReferenceService planPosteReferenceService
             )
         {
             _mapper = mapper;
@@ -32,6 +35,8 @@ namespace Budget.SERVICE
             _planRepository = planRepository;
             _posteRepository = posteRepository;
             _planPosteUserRepository = planPosteUserRepository;
+            _accountStatementService = accountStatementService;
+            _planPosteReferenceService = planPosteReferenceService;
 
         }
 
@@ -157,6 +162,20 @@ namespace Budget.SERVICE
                 ? Math.Round(AmountBase * 100 / Amount, 2)
                 : 0;
 
+        }
+
+        public List<AsGridDto> GetPlanAmountTable(FilterPlanAmount filter)
+        {
+            if (filter.IdPlanPoste.HasValue)
+            {
+                List<PlanPosteReference> planPosteReferences = _planPosteReferenceService.GetByIdPlanPoste(filter.IdPlanPoste.Value);
+                List<AsGridDto> asGridDto = _accountStatementService.GetByPlanPosteReferences(planPosteReferences,filter.MonthYear);
+
+                return asGridDto;
+
+            }
+
+            return null;
         }
     }
 }

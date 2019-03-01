@@ -6,6 +6,7 @@ import { AccountTypeService } from "./account-type.service";
 import { AccountService } from "./account.service";
 import { BankService } from "./bank.service";
 import { OperationService } from "./operation.service";
+import { OperationTransverseService } from "./operation-tranverse.service";
 // import { OperationService } from "./operation.service";
 
 //FACADE
@@ -72,6 +73,15 @@ export class ReferentialService {
         this._operationTypeService = this.injector.get(OperationTypeService);
         }
         return this._operationTypeService;
+    }
+
+    //OperationTransverseService
+    private _operationTransverseService: OperationTransverseService;
+    public get operationTransverseService(): OperationTransverseService {
+        if(!this._operationTransverseService){
+        this._operationTransverseService = this.injector.get(OperationTransverseService);
+        }
+        return this._operationTransverseService;
     }
 
     constructor(private injector: Injector) {  }

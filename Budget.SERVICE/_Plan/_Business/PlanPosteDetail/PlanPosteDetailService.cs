@@ -74,20 +74,16 @@ namespace Budget.SERVICE
             planPosteForDetailDto.IdPlan = idPlan;
             planPosteForDetailDto.IdPoste = idPoste;
             planPosteForDetailDto.Poste = _mapper.Map<SelectDto>(_posteService.GetById(idPoste));
-            //SelectDto referenceTableListSelected = null;
+
             var referenceTableList = _referenceTableService.GetAll();
             planPosteForDetailDto.ReferenceTable.List = _mapper.Map<List<SelectDto>>(referenceTableList);
             planPosteForDetailDto.ReferenceTable.Selected = new SelectDto();
 
-            //planPosteForDetailDto.PlanPosteUser = _planPosteUserService.InitForCreation(idPlan);
-            //List<PlanPosteUser> planPosteUser = _planPosteUserRepository.GetByIdPlanPoste(id);
             planPosteForDetailDto.PlanPosteUser = _planPosteUserService.InitForCreation(idPlan);
-            //_mapper.Map<List<PlanPosteUserForDetailDto>>(planPosteUser);
-
+            
             planPosteForDetailDto.PlanPosteReference = new ComboMultiple<SelectGroupDto>();
 
             planPosteForDetailDto.PlanPosteFrequencies = _planPosteFrequencyService.InitForCreation();
-            //planPosteForDetailDto.Frequencies = _frequencyService.GetSelectAll();
 
             return planPosteForDetailDto;
         }

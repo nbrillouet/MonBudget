@@ -32,7 +32,7 @@ export class AccountStatementDetailComponent implements OnInit {
   operationTypes: ISelect[];
   operationPlaces: ISelect[];
   operationPlaceSelected: ISelect;
-  operations: IOperation[];
+  operations: ISelect[];
   logoUrl: string;
     
   operationForm: FormGroup;
@@ -147,7 +147,7 @@ export class AccountStatementDetailComponent implements OnInit {
     }
   
     loadOperationList() {
-      this._referentialService.operationService.GetList(this.data.operationMethod.id,this.data.operationType.id)
+      this._referentialService.operationService.GetSelectList(this.data.operationMethod.id,this.data.operationType.id,EnumSelectType.empty)
       .subscribe(response => {
         this.operations = response;
 
@@ -225,7 +225,7 @@ export class AccountStatementDetailComponent implements OnInit {
   
    
               //charger la liste Operation
-            this._referentialService.operationService.GetList(this.data.operationMethod.id,0)
+            this._referentialService.operationService.GetSelectList(this.data.operationMethod.id,0,EnumSelectType.empty)
             .subscribe(response => {
               this.operations = response;
         

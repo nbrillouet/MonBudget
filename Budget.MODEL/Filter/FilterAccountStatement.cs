@@ -18,7 +18,7 @@ namespace Budget.MODEL.Filter
         public double? AmountMin { get; set; }
         public double? AmountMax { get; set; }
         public MonthYear MonthYearSelected { get; set; }
-        public Pagination1 Pagination { get; set; }
+        public Pagination Pagination { get; set; }
         public bool IsWithITransfer {get;set;}
 
         public FilterAccountStatement()

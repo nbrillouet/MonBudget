@@ -27,9 +27,9 @@ namespace Budget.SERVICE
             _mapper = mapper;
         }
 
-        public List<SelectDto> GetSelects(int idOperationTypeFamily, int idSelectType)
+        public List<SelectDto> GetSelectList(int idOperationTypeFamily, EnumSelectType enumSelectType)
         {
-            var selectList = _selectService.GetSelectList(idSelectType);
+            var selectList = _selectService.GetSelectList(enumSelectType);
             var operationTypeFamilies = _operationTypeRepository.GetByIdOperationTypeFamily(idOperationTypeFamily);
             selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(operationTypeFamilies).ToList());
 
@@ -43,10 +43,10 @@ namespace Budget.SERVICE
         }
 
 
-        public List<GenericList> GetGenericList()
-        {
-            return _operationTypeRepository.GetGenericList();
-        }
+        //public List<GenericList> GetGenericList()
+        //{
+        //    return _operationTypeRepository.GetGenericList();
+        //}
         public List<OperationType> GetAll()
         {
             return _operationTypeRepository.GetAll();
@@ -55,33 +55,33 @@ namespace Budget.SERVICE
         {
             return _operationTypeRepository.GetById(idOperationType);
         }
-        public List<OperationType> GetByIdOperationTypeFamily(int idOperationTypeFamily, EnumSelect enumSelect)
+        //public List<OperationType> GetByIdOperationTypeFamily(int idOperationTypeFamily, EnumSelect enumSelect)
+        //{
+        //    return _operationTypeRepository.GetByIdOperationTypeFamily(idOperationTypeFamily, enumSelect);
+        //}
+        public List<OperationType> GetByIdMovement(EnumMovement enumMovement)
         {
-            return _operationTypeRepository.GetByIdOperationTypeFamily(idOperationTypeFamily, enumSelect);
+            return _operationTypeRepository.GetByIdMovement(enumMovement);
         }
-        public List<OperationType> GetByIdMovement(int IdMovement)
-        {
-            return _operationTypeRepository.GetByIdMovement(IdMovement);
-        }
-        public List<GenericList> GetGenericListByIdMovement(int IdMovement)
-        {
-            return _operationTypeRepository.GetGenericListByIdMovement(IdMovement);
-        }
+        //public List<GenericList> GetGenericListByIdMovement(EnumMovement enumMovement)
+        //{
+        //    return _operationTypeRepository.GetGenericListByIdMovement(enumMovement);
+        //}
 
         public OperationType GetByIdWithOperationTypeFamily(int idOperationType)
         {
             return _operationTypeRepository.GetByIdWithOperationTypeFamily(idOperationType);
         }
 
-        public List<OperationType> GetAllByOrder(EnumSelect enumSelect)
-        {
-            return _operationTypeRepository.GetAllByOrder(enumSelect);
-        }
+        //public List<OperationType> GetAllByOrder(EnumSelect enumSelect)
+        //{
+        //    return _operationTypeRepository.GetAllByOrder(enumSelect);
+        //}
 
-        public List<GenericList> GetGenericListByIdOperationTypeFamily(int IdOperationTypeFamily, EnumSelect enumSelect)
-        {
-            return _operationTypeRepository.GetGenericListByIdOperationTypeFamily(IdOperationTypeFamily, enumSelect);
-        }
+        //public List<GenericList> GetGenericListByIdOperationTypeFamily(int IdOperationTypeFamily, EnumSelect enumSelect)
+        //{
+        //    return _operationTypeRepository.GetGenericListByIdOperationTypeFamily(IdOperationTypeFamily, enumSelect);
+        //}
 
         public OperationType GetFirstByIdOperationTypeFamily(int idOperationTypeFamily)
         {
@@ -104,7 +104,7 @@ namespace Budget.SERVICE
 
         public List<SelectGroupDto> GetSelectGroupListByIdPoste(int idPoste)
         {
-            var idMovement = idPoste == (int)EnumMouvement.Credit ? (int)EnumMouvement.Credit : (int)EnumMouvement.Debit;
+            EnumMovement idMovement = idPoste == (int)EnumMovement.Credit ? EnumMovement.Credit : EnumMovement.Debit;
             List<OperationType> operationTypes = _operationTypeRepository.GetByIdMovement(idMovement);
 
             return GetSelectGroupList(operationTypes);

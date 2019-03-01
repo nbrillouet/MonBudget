@@ -15,11 +15,11 @@ import { navigation } from 'app/navigation/navigation';
 import { locale as navigationEnglish } from 'app/navigation/i18n/en';
 import { locale as navigationTurkish } from 'app/navigation/i18n/tr';
 import { Select, Store } from '@ngxs/store';
-import { UserState } from './main/_ngxs/user/user.state';
 import { IUser } from './main/_models/user.model';
 import { NavigationService } from './main/_services/navigation.service';
 import { AddNavigation } from './main/_ngxs/navigation/navigation.action';
 import { NavigationState } from './main/_ngxs/navigation/navigation.state';
+import { UserDetailState } from './main/_ngxs/user/user-detail/user-detail.state';
 
 @Component({
     selector   : 'app',
@@ -28,7 +28,7 @@ import { NavigationState } from './main/_ngxs/navigation/navigation.state';
 })
 export class AppComponent implements OnInit, OnDestroy
 {
-    @Select(UserState.getUser) user$: Observable<IUser>;
+    @Select(UserDetailState.getUser) user$: Observable<IUser>;
     @Select(NavigationState.getNavigation) navigation$: Observable<any>;
 
     fuseConfig: any;

@@ -1,4 +1,6 @@
-﻿using Budget.SERVICE;
+﻿using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
+using Budget.SERVICE;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -34,7 +36,7 @@ namespace Budget.API.Controllers.Referential
         [Route("movements/{idMovement}/selectType/{idSelectType}/select-list")]
         public IActionResult GetSelectList(int idMovement, int idSelectType)
         {
-            var selectsDto = _operationTypeFamilyService.GetSelects(idMovement, idSelectType);
+            var selectsDto = _operationTypeFamilyService.GetSelectList((EnumMovement)idMovement,(EnumSelectType)idSelectType);
 
             return Ok(selectsDto);
         }

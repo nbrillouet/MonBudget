@@ -6,8 +6,8 @@ import { locale as english } from './i18n/en';
 import { locale as turkish } from './i18n/tr';
 import { IUser } from '../_models/user.model';
 import { Select, Store } from '@ngxs/store';
-import { UserState } from '../_ngxs/user/user.state';
 import { Observable } from 'rxjs';
+import { UserDetailState } from '../_ngxs/user/user-detail/user-detail.state';
 
 @Component({
     selector   : 'sample',
@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
 })
 export class SampleComponent
 {
-    @Select(UserState.getUser) user: Observable<IUser>;
+    @Select(UserDetailState.getUser) user: Observable<IUser>;
     /**
      * Constructor
      *

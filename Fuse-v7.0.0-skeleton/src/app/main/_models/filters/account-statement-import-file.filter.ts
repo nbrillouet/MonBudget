@@ -30,3 +30,8 @@ export class FilterAsifTable {
     }
 }
 
+export class FilterAsifDetail {
+    idAsif: number;
+    idUser: number;
+}
+

@@ -24,19 +24,11 @@ namespace Budget.API.Controllers.Referential
             _operationService = operationService;
         }
 
-        //[HttpGet("postes/{idPoste}")]
-        //public IActionResult GetSelectGroupListByIdPoste(int idPoste)
-        //{
-        //    var selectListDto = _operationService.GetSelectGroupListByIdPoste(idPoste);
-
-        //    return Ok(selectListDto);
-        //}
-
         [HttpGet]
-        [Route("operation-methods/{idOperationMethod}/operation-types/{idOperationType}/operations")]
-        public IActionResult GetList(int idOperationMethod, int idOperationType)
+        [Route("operation-methods/{idOperationMethod}/operation-types/{idOperationType}/select-type/{enumSelectType}/operations")]
+        public IActionResult GetList(int idOperationMethod, int idOperationType,EnumSelectType enumSelectType)
         {
-            var selectsDto = _operationService.GetSelectList(idOperationMethod, idOperationType);
+            var selectsDto = _operationService.GetSelectList(idOperationMethod, idOperationType, enumSelectType);
 
             return Ok(selectsDto);
         }

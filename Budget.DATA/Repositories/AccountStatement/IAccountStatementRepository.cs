@@ -12,13 +12,14 @@ namespace Budget.DATA.Repositories
     public interface IAccountStatementRepository : IBaseRepository<AccountStatement>
     {
         AccountStatement GetForDetailById(int id);
-        Task<PagedList<AccountStatement>> GetAsync(FilterAccountStatement filter);
-        PagedList1<AccountStatement> Get(FilterAccountStatement filter);
+        //Task<PagedList<AccountStatement>> GetAsync(FilterAccountStatement filter);
+        PagedList<AccountStatement> Get(FilterAccountStatement filter);
+
+        List<AccountStatement> GetByDatePlanPosteReferenceList(List<PlanPosteReference> planPosteReferences, DateTime dateMin, DateTime dateMax);
 
         Boolean Save(List<AccountStatement> accountStatements);
-        //double GetSum(DateTime startDate, DateTime endDate, int idMovement, int idAccount);
         SoldeDto GetSolde(int idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer);
-        //SoldeDto GetSolde(SoldeDto soldeDto);
+
 
     }
 }

@@ -2,25 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { NotificationsService } from 'angular2-notifications';
-import { MatChipInputEvent } from '@angular/material';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { fuseAnimations } from '@fuse/animations';
-import { IAsifDetail } from 'app/main/_models/account-statement-import-file.model';
-import { IOperation } from 'app/main/_models/operation.model';
-import { IGMapSearchInfo } from 'app/main/_models/g-map.model.';
-import { ISelect, EnumSelectType } from 'app/main/_models/generics/select.model';
-import { OperationTypeFamilyService } from 'app/main/_services/Referential/operation-type-family.service';
-import { OperationMethodService } from 'app/main/_services/Referential/operation-method.service';
-import { ReferentialService } from 'app/main/_services/Referential/referential.service';
-import { AsifService } from '../asif.service';
 import { ValidateIsUnknown, ValidatorIfLocalisable } from './asif-detail.validator';
-import { LoadAsifTableDatas } from 'app/main/_ngxs/account-statement-import-file/asif-list/asif-list.action';
 import { Store, Select } from '@ngxs/store';
 import { AsifTableFilterState } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.state';
 import { Observable } from 'rxjs';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
-import { FilterAsifTable } from 'app/main/_models/filters/account-statement-import-file.filter';
+import { FilterAsifTable, FilterAsifDetail } from 'app/main/_models/filters/account-statement-import-file.filter';
+import { LoadAsifDetail, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationType } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.action';
+import { AsifDetailState } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.state';
+import { DataInfo } from 'app/main/_models/generics/detail-info.model';
+import { AsifDetail } from 'app/main/_models/account-statement-import/account-statement-import-file.model';
+import { OperationFilter, IOperation } from 'app/main/_models/operation.model';
+import { GMapSearchInfo } from 'app/main/_models/g-map.model.';
+import { ISelect } from 'app/main/_models/generics/select.model';
+import { ReferentialService } from 'app/main/_services/Referential/referential.service';
+import { NotificationsService } from 'angular2-notifications';
+import { AsifService } from '../asif.service';
+import { LoadAsifTableDatas } from 'app/main/_ngxs/account-statement-import-file/asif-list/asif-list.action';
+import { IUser } from 'app/main/_models/user.model';
+import { OperationTransverse } from 'app/main/_models/referential/operation-transverse.model';
 
 @Component({
   selector: 'asif-detail',
@@ -29,209 +30,125 @@ import { FilterAsifTable } from 'app/main/_models/filters/account-statement-impo
   animations : fuseAnimations
 })
 export class AsifDetailComponent implements OnInit {
+@Select(AsifDetailState.get) asifDetail$: Observable<DataInfo<AsifDetail>>;
 @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
+user: IUser;
 filterAsif: FilterAsifTable;
-
+formLoaded: boolean;
+asifDetail: AsifDetail;
 idImport: number;
-idAccount: number;
-
-idAccountStatementFile: number;
-data: IAsifDetail;
-operationMethods: ISelect[];
-operationTypeFamilies: ISelect[];
-operationTypes: ISelect[];
-operationPlaces: ISelect[];
-operationPlaceSelected: ISelect;
-operations: IOperation[];
-logoUrl: string;
-
-operationForm: FormGroup;
+asifDetailForm: FormGroup;
 operationAddForm: FormGroup;
-
-geoDetailVisible: boolean;
-geoVisible: boolean;
-
-gMapSearchInfo: IGMapSearchInfo;
-
+operationTransverseAddForm: FormGroup;
 isNewOperationTemplate: boolean;
-isNewOperationTemplateAvailable: boolean; //visibilité du panneau creation d'operation
-categories: string[];
-
+isNewOperationTransverseTemplate: boolean;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private _asifService: AsifService,
-    // private referentialService: ReferentialService,
-    private _referentialService: ReferentialService,
-    // private _operationTypeFamilyService: OperationTypeFamilyService,
-    // private _operationMethodService: OperationMethodService,
-    private formBuilder: FormBuilder,
-    private datePipe: DatePipe,
-    private notificationService: NotificationsService,
+    private _activatedRoute: ActivatedRoute,
+    private _formBuilder: FormBuilder,
+    private _datePipe: DatePipe,
     private _router: Router,
-    private _store: Store
-
+    private _store: Store,
+    private _referentialService: ReferentialService,
+    private _notificationService: NotificationsService,
+    private _asifService: AsifService
   ) {
     this.asifTableFilter$.subscribe(asifTableFilter=>{
       this.filterAsif = JSON.parse(JSON.stringify(asifTableFilter.filters));
     });
 
-      this.logoUrl = "assets/images/Otf/OtfInconnu_128.png";
+    this.asifDetail$.subscribe(asifDetail=>{
+      if(asifDetail.loadingInfo.loaded) {
+        this.asifDetail = JSON.parse(JSON.stringify(asifDetail.datas));
+          //creation du formulaire
+          this.createForms();
+          this.formLoaded=true;
+      }
+    });
    }
 
   ngOnInit() {
 
-    this.activatedRoute.params.subscribe(routeParams => {
+    this._activatedRoute.params.subscribe(routeParams => {
       this.idImport = routeParams['idImport'];
-      // this.idAccount = routeParams['idAccount'];
-      this.idAccountStatementFile = routeParams['idImportFile'];
+      let idAccountStatementFile = routeParams['idImportFile'];
+      this.user = JSON.parse(localStorage.getItem('currentUser'));
 
-      //Charger le detail de l'operation
-      this._asifService
-        .getById(this.idAccountStatementFile)
-        .subscribe(response=> {
-          this.data = response;
-
-          if(this.data.logoName!=null)
-            this.logoUrl = `assets/images/Otf/${this.data.logoName}_128.png`;
-            this.isNewOperationTemplateAvailable = this.data.operation.id==1;
-            //charger la liste des lieux operation
-            this.operationPlaces = [ {id:1,label:'INCONNU'},{id:3,label:'INTERNET'},{id:4,label:'AUTRES'}]
-
-            if(this.data.isLocalisable==false)
-            {
-              this.operationPlaceSelected = {id:2,label:'N/A'};
-              this.data.operationDetail.gMapAddress.id=2;
-            }
-            else
-            //selectionner le lieu de l'operation dans la liste
-            if(this.data.operationDetail.gMapAddress.id==1)
-              this.operationPlaceSelected= this.operationPlaces[0];
-            else if(this.data.operationDetail.gMapAddress.id==3)
-              this.operationPlaceSelected= this.operationPlaces[1];
-            else
-            {
-              this.operationPlaceSelected= this.operationPlaces[2];
-              this.gMapSearchInfo = <IGMapSearchInfo> { 
-                idGMapAddress: this.data.operationDetail.gMapAddress.id,
-                operationPositionSearch: this.data.operationLabelTemp,
-                operationPlaceSearch: this.data.placeLabelTemp
-                }
-
-            }
-
-          //creation du formulaire
-          this.createForms();
-          //charger la liste OperationMethod
-          this.loadOperationMethodList();
-          //charger la liste OperationTypeFamily
-          this.loadOperationTypeFamilyList();
-          //charger la liste OperationType
-          this.loadOperationTypeSelect(this.data.operationTypeFamily.id);
-          //charger la liste Operation
-          this.loadOperationList(this.data.operationMethod.id,this.data.operationType.id);
-
-
-
-        });
-
-      });
-
-  }
-
-  loadOperationTypeSelect(idOperationTypeFamily: number) {
-    //charger la liste OperationType
-    this._referentialService.operationTypeService.GetSelectList(idOperationTypeFamily,EnumSelectType.empty)
-      .subscribe(response => {
-        this.operationTypes = response;
-      });
-  }
-  
-  loadOperationMethodList() {
-
-
-    this._referentialService.operationMethodService.GetSelectList(EnumSelectType.aucun)
-        .subscribe(response => {
-          this.operationMethods = response;
-
-        });
-  }
-  
-  loadOperationTypeFamilyList() {
-    this._referentialService.operationTypeFamilyService.GetSelectList(this.data.idMovement,EnumSelectType.inconnu)
-    .subscribe(response => {
-      this.operationTypeFamilies = response;
-
+      this._store.dispatch(new LoadAsifDetail(<FilterAsifDetail> {idAsif:idAccountStatementFile,idUser: this.user.id}));
     });
+
   }
 
-  loadOperationList(idOperationMethod:number,idOperationType: number) {
-    this._referentialService.operationService.GetList(idOperationMethod,idOperationType)
-      .subscribe(response => {
-        this.operations = response;
+  bindAsifDetail(value: any) {
+    console.log('this.asifDetailForm.controls',this.asifDetailForm.controls['operationTransverse'].value);
+    this.asifDetail.operationTransverse.listSelected = this.asifDetailForm.controls['operationTransverse'].value; 
 
-      });
+
   }
 
   createForms() {
 
-    this.operationForm = this.formBuilder.group({
-        operationMethod: [this.data.operationMethod, [Validators.required]],
-        operationTypeFamily: [this.data.operationTypeFamily, [Validators.required, ValidateIsUnknown]],
-        operationType: [this.data.operationType, [Validators.required, ValidateIsUnknown]],
-        operation: [this.data.operation,[Validators.required, ValidateIsUnknown]],
-        amountOperation: [this.data.amountOperation,[Validators.required]],
-        labelOperation: [this.data.labelOperation,[Validators.required]],
-        dateIntegration: [this.datePipe.transform(this.data.dateIntegration,"dd/MM/yyyy"),[Validators.required]],
-        operationKeywordTemp: [this.data.operationKeywordTemp,[Validators.required]],
-        placeKeywordTemp: [this.data.placeKeywordTemp,[ValidatorIfLocalisable(this.operationPlaceSelected,this.data.isLocalisable)]],
-        operationPlace: [this.operationPlaceSelected,[Validators.required, ValidateIsUnknown]]
+    this.asifDetailForm = this._formBuilder.group({
+        operationMethod: [this.asifDetail.operationMethod.selected, [Validators.required]],
+        operationTypeFamily: [this.asifDetail.operationTypeFamily.selected, [Validators.required, ValidateIsUnknown]],
+        operationType: [this.asifDetail.operationType.selected, [Validators.required, ValidateIsUnknown]],
+        operation: [this.asifDetail.operation.selected,[Validators.required, ValidateIsUnknown]],
+        operationTransverse: [this.asifDetail.operationTransverse.listSelected],
+        amountOperation: [this.asifDetail.amountOperation,[Validators.required]],
+        labelOperation: [this.asifDetail.labelOperation,[Validators.required]],
+        dateIntegration: [this._datePipe.transform(this.asifDetail.dateIntegration,"dd/MM/yyyy"),[Validators.required]],
+        operationKeywordTemp: [this.asifDetail.operationKeywordTemp,[Validators.required]],
+        placeKeywordTemp: [this.asifDetail.placeKeywordTemp,[ValidatorIfLocalisable(this.asifDetail.operationPlace.selected,this.asifDetail.isLocalisable)]],
+        operationPlace: [this.asifDetail.operationPlace.selected,[Validators.required, ValidateIsUnknown]]
       });
 
-      this.operationForm.get('operationTypeFamily')
-        .valueChanges
+      this.asifDetailForm.get('operationTypeFamily').valueChanges
         .subscribe(val => {
-          this.loadOperationTypeSelect(val.id);
+          console.log(val);
+          this._store.dispatch(new asifDetailChangeOperationTypeFamily(val));
         });
       
-      this.operationForm.get('operationType')
-        .valueChanges
+      this.asifDetailForm.get('operationType').valueChanges
         .subscribe(val => {
-          this.loadOperationList(this.data.operationMethod.id,val.id);
+          let operationFilter=<OperationFilter> { operationType: val, operationMethod:this.asifDetail.operationMethod.selected}
+          this._store.dispatch(new asifDetailChangeOperationType(operationFilter));
         });
       
-      this.operationForm.get('operationPlace')
+      this.asifDetailForm.get('operationPlace')
         .valueChanges
         .subscribe(val => {
-          this.operationPlaceSelected=val;
-          this.data.operationDetail.gMapAddress.id = val.id!=4 ? val.id : this.data.operationDetail.gMapAddress.id;
+          this.asifDetail.operationPlace.selected=val;
+          this.asifDetail.operationDetail.gMapAddress.id = val.id!=4 ? val.id : this.asifDetail.operationDetail.gMapAddress.id;
 
-          this.gMapSearchInfo=null;
+          this.asifDetail.gMapSearchInfo=null;
           // this.data.isLocalisable=false;
-          if(this.operationPlaceSelected.id==4)
+          if(this.asifDetail.operationPlace.selected.id==4)
           {
             // this.data.isLocalisable=true;
-            this.gMapSearchInfo = <IGMapSearchInfo> { 
-              idGMapAddress: val.id!=4 ? val.id : this.data.operationDetail.gMapAddress.id,
-              operationPositionSearch: this.data.operationLabelTemp,
-              operationPlaceSearch: this.data.placeLabelTemp
+            this.asifDetail.gMapSearchInfo = <GMapSearchInfo> { 
+              idGMapAddress: val.id!=4 ? val.id : this.asifDetail.operationDetail.gMapAddress.id,
+              operationPositionSearch: this.asifDetail.operationLabelTemp,
+              operationPlaceSearch: this.asifDetail.placeLabelTemp
             };
 
           } 
 
         });
  
-      this.operationAddForm = this.formBuilder.group({
-        operationLabelTemp: [this.data.operationLabelTemp,[Validators.required]]
+      this.operationAddForm = this._formBuilder.group({
+        operationLabelTemp: [this.asifDetail.operationLabelTemp,[Validators.required]]
+      });
 
+      this.operationTransverseAddForm = this._formBuilder.group({
+        operationTransverse: [null,[Validators.required]]
       });
   }
 
   
 
   addOperation() {
-    const operationMethod:ISelect = this.operationForm.value.operationMethod;
-    const operationType: ISelect  =this.operationForm.value.operationType;
+    const operationMethod:ISelect = this.asifDetailForm.value.operationMethod;
+    const operationType: ISelect  =this.asifDetailForm.value.operationType;
     const keyword: string = this.operationAddForm.value.operationKeywordTemp;
     const label: string = this.operationAddForm.value.operationLabelTemp;
     
@@ -246,57 +163,79 @@ categories: string[];
     
     this._referentialService.operationService.Create(operation)
       .subscribe(operation => {
-
+          let operationSelect = <ISelect>{id:operation.id,label:operation.label};
           //maj du data avec les infos operation
-          this.data.operation = <ISelect>{id:operation.id,label:operation.label};
-          this.operationForm.controls['operation'].setValue(this.data.operation);
-
+          this.asifDetail.operation.selected = operationSelect;
+          this.asifDetailForm.controls['operation'].setValue(this.asifDetail.operation.selected);
 
           //Ajout de la nouvelle opération dans la liste Operation
-          this.operations.push(operation);
+          this.asifDetail.operation.list.push(operationSelect);
           this.isNewOperationTemplate=false;
 
-          // //charger la liste Operation
-          // this.referentialService.GetOperationList(this.data.operationMethod.id,this.data.operationType.id)
-          // .subscribe(response => {
-          //   this.operations = response;
-
-          //   this.isNewOperationTemplate=false;
-          // });
-          this.notificationService.success('Enregistrement effectué', `L'opération est enregistrée`);
-      },
-      error => {
-        this.notificationService.error('Echec de l\'enregistrement', error);
+          this._notificationService.success('Enregistrement effectué', `L'opération est enregistrée`);
       });
+      // error => {
+      //   this._notificationService.error('Echec de l\'enregistrement', error);
+      // });
+
+  }
+
+  addOperationTransverse() {
+    const label: string = this.operationTransverseAddForm.value.operationTransverse;
+
+    
+    const operationTransverse: OperationTransverse = <OperationTransverse> {
+      id:0,
+      label:label,
+      idUser:this.user.id
+    };
+    
+    this._referentialService.operationTransverseService.Create(operationTransverse)
+      .subscribe(operationTransverse => {
+          let operationTransverseSelect = <ISelect>{id:operationTransverse.id,label:operationTransverse.label};
+          //maj du data avec les infos operation transverse
+          this.asifDetail.operationTransverse.listSelected.push(operationTransverseSelect); // = <ISelect>{id:operationTransverseSelect.id,label:operationTransverse.label};
+          this.asifDetailForm.controls['operationTransverse'].setValue(this.asifDetail.operationTransverse.listSelected);
+
+          //Ajout de la nouvelle opération transverse dans la liste Operation transverse
+          this.asifDetail.operationTransverse.list.push(operationTransverseSelect);
+          this.isNewOperationTemplate=false;
+
+          this._notificationService.success('Enregistrement effectué', `L'opération transverse est enregistrée`);
+      });
+      // error => {
+      //   this._notificationService.error('Echec de l\'enregistrement', error);
+      // });
 
   }
 
   updateAsif() {
 
-    this.data.amountOperation = this.operationForm.value.amountOperation;
-    this.data.labelOperation = this.operationForm.value.labelOperation;
-    this.data.operationMethod = this.operationForm.value.operationMethod;
-    this.data.operationType = this.operationForm.value.operationType;
-    this.data.operationTypeFamily = this.operationForm.value.operationTypeFamily;
-    this.data.operation = this.operationForm.value.operation;
+    this.asifDetail.amountOperation = this.asifDetailForm.value.amountOperation;
+    this.asifDetail.labelOperation = this.asifDetailForm.value.labelOperation;
+    this.asifDetail.operationMethod.selected = this.asifDetailForm.value.operationMethod;
+    this.asifDetail.operationType.selected = this.asifDetailForm.value.operationType;
+    this.asifDetail.operationTypeFamily.selected = this.asifDetailForm.value.operationTypeFamily;
+    this.asifDetail.operation.selected = this.asifDetailForm.value.operation;
     
-    this.data.operationKeywordTemp = this.operationForm.value.operationKeywordTemp;
-    this.data.placeKeywordTemp = this.operationForm.value.placeKeywordTemp;
+    this.asifDetail.operationKeywordTemp = this.asifDetailForm.value.operationKeywordTemp;
+    this.asifDetail.placeKeywordTemp = this.asifDetailForm.value.placeKeywordTemp;
 
-    this._asifService.update(this.data)
+    this._asifService.update(this.asifDetail)
     .subscribe(resp=> {
       if(resp==true)
       {
-        this.notificationService.success('Enregistrement effectué', `Le relevé est enregistré`);
+        this._notificationService.success('Enregistrement effectué', `Le relevé est enregistré`);
         this._store.dispatch(new LoadAsifTableDatas(this.filterAsif.selected));
       }
       else {
-        this.notificationService.error('Echec de l\'enregistrement');
+        this._notificationService.error('Echec de l\'enregistrement');
       }
-    },
-    error => {
-      this.notificationService.error('Echec de l\'enregistrement', error);
     });
+    // ,
+    // error => {
+    //   this.notificationService.error('Echec de l\'enregistrement', error);
+    // });
 
   }
 
@@ -307,7 +246,7 @@ categories: string[];
   }
 
   onChangeGMapAddress($event) {
-    this.data.operationDetail.gMapAddress=$event;
+    this.asifDetail.operationDetail.gMapAddress=$event;
   }
 
   movePrevious() {

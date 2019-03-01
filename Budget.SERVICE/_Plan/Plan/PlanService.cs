@@ -17,6 +17,7 @@ namespace Budget.SERVICE
         private readonly IPlanUserRepository _planUserRepository;
         private readonly IUserRepository _userRepository;
         private readonly IPlanPosteRepository _planPosteRepository;
+        
         //private readonly IPlanService _planService;
 
         public PlanService(
@@ -78,6 +79,7 @@ namespace Budget.SERVICE
             return _planRepository.GetById(idPlan);
         }
 
+        
         public void Create(Plan plan)
         {
             _planRepository.Create(plan);
@@ -87,6 +89,8 @@ namespace Budget.SERVICE
         {
             _planRepository.Update(plan);
         }
+
+
 
 
     }

@@ -13,6 +13,8 @@ import { ISelectGroup, SelectYear } from "app/main/_models/generics/select.model
 import { PlanDetail, PlanTable } from "app/main/_models/plan/plan.model";
 import { PlanForTracking } from "app/main/_models/plan/plan-tracking.model";
 import { Observable } from "rxjs";
+import { PlanAmountFilter } from "app/main/_models/filters/plan-amount.filter";
+import { AsTable } from "app/main/_models/account-statement.model";
 
 @Injectable()
 export class PlanService {
@@ -55,7 +57,7 @@ export class PlanService {
 
     savePlanDetail(planDetail: PlanDetail) {
         return this.http
-            .post(`${this.baseUrl}plan-details/save`,planDetail)
+            .post(`${this.baseUrl}plans/plan-details/save`,planDetail)
             .map(res=><number>res);
             // .catch(this.errorService.handleError);
     }
@@ -120,6 +122,13 @@ export class PlanService {
             .get(`${this.baseUrl}plans/users/${idUser}/list`)
             .map(response => <SelectYear[]>response)
             .catch(this.errorService.handleError);
+    }
+
+    getPlanAmountTable(PlanAmountFilter: PlanAmountFilter) {
+        return this.http
+        .post(`${this.baseUrl}plan-amounts/filter`,PlanAmountFilter)
+        .map(response => <AsTable[]>response)
+        // .catch(this.errorService.handleError);
     }
 
 }

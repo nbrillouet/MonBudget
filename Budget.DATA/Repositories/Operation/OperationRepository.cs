@@ -18,18 +18,18 @@ namespace Budget.DATA.Repositories
 
         public List<Operation> GetSelectList(int idOperationMethod, int idOperationType)
         {
-            var operationUnknown = Context.Operation
-                .Where(x => x.Id == 1) //ajout ligne inconnue
-                .FirstOrDefault();
+            //var operationUnknown = Context.Operation
+            //    .Where(x => x.Id == 1) //ajout ligne inconnue
+            //    .FirstOrDefault();
 
-            var operations = Context.Operation
+            var results = Context.Operation
                 .Where(x => x.IdOperationMethod == idOperationMethod
                     && x.IdOperationType==idOperationType)
                 .OrderBy(x => x.Label)
                 .ToList();
-            var results = new List<Operation>();
-            results.Add(operationUnknown);
-            results.AddRange(operations);
+            //var results = new List<Operation>();
+            //results.Add(operationUnknown);
+            //results.AddRange(operations);
 
             return results;
         }
@@ -93,24 +93,24 @@ namespace Budget.DATA.Repositories
             return Context.Operation.ToList().OrderBy(x => x.Label).ToList();
         }
 
-        public List<GenericList> GetGenericList()
-        {
-            List<Operation> operations = GetAllByOrder();
-            List<GenericList> GenericLists = new List<GenericList>();
-            foreach (var item in operations)
-            {
-                GenericList genericList = new GenericList();
-                genericList.value = item.Id;
-                genericList.text = item.Label;
-                GenericLists.Add(genericList);
-            }
-            return GenericLists;
-        }
+        //public List<GenericList> GetGenericList()
+        //{
+        //    List<Operation> operations = GetAllByOrder();
+        //    List<GenericList> GenericLists = new List<GenericList>();
+        //    foreach (var item in operations)
+        //    {
+        //        GenericList genericList = new GenericList();
+        //        genericList.value = item.Id;
+        //        genericList.text = item.Label;
+        //        GenericLists.Add(genericList);
+        //    }
+        //    return GenericLists;
+        //}
 
-        public List<Operation> GetByIdMovement(int idMovement)
+        public List<Operation> GetByIdMovement(EnumMovement enumMovement)
         {
             return Context.Operation
-                .Where(x => x.OperationType.OperationTypeFamily.IdMovement == idMovement)
+                .Where(x => x.OperationType.OperationTypeFamily.IdMovement == (int)enumMovement)
                 .Include(x=>x.OperationType)
                 .ToList();
                 //.OrderBy(x => x.OperationType.OperationTypeFamily.Label)

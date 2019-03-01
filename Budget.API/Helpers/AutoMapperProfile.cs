@@ -47,8 +47,8 @@ namespace Budget.API.Helpers
            
   
 
-            CreateMap<Pagination, FilterAccountStatementImportFile>();
-            CreateMap<Pagination, FilterAccountStatementImport>();
+            //CreateMap<Pagination, FilterAccountStatementImportFile>();
+            //CreateMap<Pagination, FilterAccountStatementImport>();
 
             //CreateMap<AccountStatementImportFile, AsifForListDto>();
 

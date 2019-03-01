@@ -67,9 +67,9 @@
         <!-- / HEADER -->
             
         <div class="content-card">
-            <div *ngIf="(asifTableFilter$ | async).loadingInfo.loaded">
-                <asif-state></asif-state>
-            </div>
+            <!-- <div *ngIf="(asifTableFilter$ | async).loadingInfo.loaded"> -->
+                <asif-state style="height:100%;" *ngIf="(asifTableFilter$ | async).loadingInfo.loaded"></asif-state>
+            <!-- </div> -->
 
             <div class="spinner-container" *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">
                 En cours...

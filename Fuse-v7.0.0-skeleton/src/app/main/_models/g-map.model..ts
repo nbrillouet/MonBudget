@@ -19,10 +19,34 @@ export interface IGMapAddress {
     gMapTypes: ISelect[];
 }
 
+export class GMapAddress {
+    id: number;
+    formattedAddress: string;
+    lat: number;
+    lng: number;
+    gMapAdministrativeAreaLevel1: ISelect;
+    gMapAdministrativeAreaLevel2: ISelect;
+    gMapCountry: ISelect;
+    gMapLocality: ISelect;
+    gMapNeighborhood: ISelect;
+    gMapPostalCode: ISelect;
+    gMapRoute: ISelect;
+    gMapStreetNumber: ISelect;
+    gMapSublocalityLevel1: ISelect;
+    gMapSublocalityLevel2: ISelect;
+    gMapTypes: ISelect[];
+}
+
 export interface IGMapSearchInfo {
     idGMapAddress: number,
     operationPositionSearch: string,
     operationPlaceSearch: string
+}
+
+export class GMapSearchInfo {
+    idGMapAddress: number;
+    operationPositionSearch: string;
+    operationPlaceSearch: string;
 }
 
 export interface IGeocode {
