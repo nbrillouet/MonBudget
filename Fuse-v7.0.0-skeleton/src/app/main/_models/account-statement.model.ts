@@ -1,6 +1,8 @@
 
-import { IOperationDetail } from "./operation-detail.model";
+import { IOperationDetail, OperationDetail } from "./operation-detail.model";
 import { ISelect, ISelectColor } from "./generics/select.model";
+import { ComboSimple, ComboMultiple } from "./generics/combo.model";
+import { GMapSearchInfo } from "./g-map.model.";
 
 
 export interface IAsTable {
@@ -29,12 +31,38 @@ export class AsTable implements IAsTable {
     plans: ISelectColor[];
 }
 
-export interface IAsDetail extends IAsTable {
+export class AsDetail {
+    id: number;
+    operation : ComboSimple<ISelect>;
+    operationMethod: ComboSimple<ISelect>;
+    operationType: ComboSimple<ISelect>;
+    operationTypeFamily: ComboSimple<ISelect>;
+    operationPlace: ComboSimple<ISelect>;
+    operationTransverse: ComboMultiple<ISelect>;
+
+    amountOperation : number;
+    labelOperation: string;
+    dateIntegration: Date;
+    idDuplicated: boolean;
+
     idMovement: number;
     logoName: string;
+    logoUrl: string;
+    // operationKeywordTemp: string;
+    // operationLabelTemp: string;
+    // placeLabelTemp: string;
+    // placeKeywordTemp: string;
     isLocalisable: boolean;
-    operationDetail: IOperationDetail;
+    operationDetail: OperationDetail;
+    gMapSearchInfo: GMapSearchInfo;
 }
+
+// export interface IAsDetail extends IAsTable {
+//     idMovement: number;
+//     logoName: string;
+//     isLocalisable: boolean;
+//     operationDetail: IOperationDetail;
+// }
 
 
 // export interface ITableInfo<T> {

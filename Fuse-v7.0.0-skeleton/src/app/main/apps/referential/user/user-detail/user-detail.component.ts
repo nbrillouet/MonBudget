@@ -87,6 +87,7 @@ export class UserDetailComponent implements OnInit {
 
     this.activatedRoute.data.subscribe(data => {
       this.user = data['user'];
+      console.log('this.user',this.user);
       this.gMapSearchInfo = <IGMapSearchInfo> { 
         idGMapAddress: this.user.idGMapAddress,
         operationPositionSearch:"",
@@ -161,6 +162,7 @@ export class UserDetailComponent implements OnInit {
  
   updateUserAvatar(avatarUrl)
   {
+    console.log('avatarUrl',avatarUrl);
     this.user.avatarUrl=avatarUrl;
   }
 

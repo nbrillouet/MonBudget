@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { AccountStatementListFilterService } from '../account-statement-list-filter.service';
-import { NotificationsService } from 'angular2-notifications';
-import { FilterAccountStatement } from 'app/main/_models/Filters/filter-account-statement';
-import { OperationTypeFamilyService } from 'app/main/_services/Referential/operation-type-family.service';
 import { ISelectGroup, ISelect } from 'app/main/_models/generics/select.model';
-import { ReferentialService } from 'app/main/_services/Referential/referential.service';
-// import { ReferentialService } from 'app/main/_services/referential.service';
-// import { ReferentialTestService } from 'app/main/_services/Referential/referential.service';
+import { Store, Select } from '@ngxs/store';
+import { FilterAsTable } from 'app/main/_models/filters/account-statement.filter';
+import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
+import { Observable } from 'rxjs';
+import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
+import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
 
 @Component({
   selector: 'operation-type-family-filter',
@@ -15,63 +14,38 @@ import { ReferentialService } from 'app/main/_services/Referential/referential.s
   styleUrls: ['./operation-type-family-filter.component.scss']
 })
 export class OperationTypeFamilyFilterComponent implements OnInit {
-
+  @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
+  
+  asTableFilter: FilterAsTable;
   operationTypeFamilyForm: FormGroup;
-  filter: FilterAccountStatement;
-  operationTypeFamilies : ISelectGroup[];
+
+  stopPropagation:boolean=true;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private accountStatementListFilterService: AccountStatementListFilterService,
-    // private operationTypeFamilyService: OperationTypeFamilyService,
-    private _referentialService: ReferentialService,
-    private notificationService: NotificationsService
+    private _formBuilder: FormBuilder,
+    private _store: Store
   ) { 
 
-    this.operationTypeFamilyForm = this.formBuilder.group({
-      operationTypeFamily: [undefined]
+    this.asTableFilter$.subscribe(filter => {
+      this.asTableFilter = filter.filters;
     });
-
-    this.accountStatementListFilterService.filter
-      .subscribe(filter => {
-        this.filter = filter;
- 
-        this.operationTypeFamilyForm.controls['operationTypeFamily'].setValue(filter.operationTypeFamilySelected);
-        
-      });
-  }
-
-  getOperationTypeFamilyList() {
-
-    this._referentialService.operationTypeFamilyService.GetSelectGroupList()
-      .subscribe(response => {
-     
-        this.operationTypeFamilies = response;
-      },
-      error => {
-          this.notificationService.error('Echec de chargement', error);
-      });
   }
 
   ngOnInit() {
-    this.getOperationTypeFamilyList();
+    this.operationTypeFamilyForm = this._formBuilder.group({
+      operationTypeFamilies: [this.asTableFilter.selected.operationTypeFamilies]
+    });
   }
   
-  
+  applyFilter() {
+    //suppression du menu
+    var element=document.getElementsByClassName("content-filter").item(0);
+    element.parentElement.remove();
 
-   onTypeChanged(evt): void {
-   
-   }
+    this.asTableFilter.selected.operationTypeFamilies = this.operationTypeFamilyForm.value.operationTypeFamilies;
+    this.asTableFilter.selected.pagination.currentPage = 0;
 
-   applyFilter() {
-    
-    this.filter.operationTypeFamilySelected = this.operationTypeFamilyForm.value.operationTypeFamily;
-
-    if (this.filter.operationTypeFamilySelected != undefined) {
- 
-      this.filter.pagination.currentPage = 1;
-      this.accountStatementListFilterService.changeFilter(this.filter);
-    }
+    this._store.dispatch(new LoadAsTableFilter(this.asTableFilter));
 
    }
 
@@ -79,5 +53,12 @@ export class OperationTypeFamilyFilterComponent implements OnInit {
     return o1 && o2 ? o1.id === o2.id : o1 === o2;
 
   }
+  stopPropagationFct(value: boolean){
+    this.stopPropagation=value;
+   }
+  // testStopPropagation($event){
+  //   if(this.stopPropagation)
+  //    $event.stopPropagation();
+  // }
 
 }

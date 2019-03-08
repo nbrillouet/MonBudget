@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { AccountStatementListFilterService } from '../account-statement-list-filter.service';
-import { NotificationsService } from 'angular2-notifications';
-import { FilterAccountStatement } from 'app/main/_models/Filters/filter-account-statement';
-import { OperationTypeService } from 'app/main/_services/Referential/operation-type.service';
 import { ISelect } from 'app/main/_models/generics/select.model';
+import { FilterAsTable } from 'app/main/_models/filters/account-statement.filter';
+import { Store, Select } from '@ngxs/store';
+import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
+import { Observable } from 'rxjs';
+import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
+import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
 
 @Component({
   selector: 'operation-type-filter',
@@ -12,71 +14,39 @@ import { ISelect } from 'app/main/_models/generics/select.model';
   styleUrls: ['./operation-type-filter.component.scss']
 })
 export class OperationTypeFilterComponent implements OnInit {
-
+  @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
+  
+  asTableFilter: FilterAsTable;
   operationTypeForm: FormGroup;
-  filter: FilterAccountStatement;
-  operationTypes : ISelect[];
-  isLoaded: boolean;
-  constructor(
-    private formBuilder: FormBuilder,
-    private accountStatementListFilterService: AccountStatementListFilterService,
-    private operationTypeService: OperationTypeService,
-    private notificationService: NotificationsService
-  ) { 
 
-    this.operationTypeForm = this.formBuilder.group({
-      operationType: [undefined]
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _store: Store
+  ) { 
+    this.asTableFilter$.subscribe(filter => {
+      this.asTableFilter = filter.filters;
     });
 
-    this.accountStatementListFilterService.filter
-      .subscribe(filter => {
-        this.filter = filter;
-  
-        this.operationTypeForm.controls['operationType'].setValue(filter.operationTypeSelected);
-        this.getOperationTypeList();
-      });
-
   }
-
-  getOperationTypeList() {
-    let operationTypeFamilySelected : ISelect[] = this.filter.operationTypeFamilySelected == null ? [] : this.filter.operationTypeFamilySelected;
-
-    this.operationTypeService.GetSelectListByOperationTypeFamily(operationTypeFamilySelected)
-      .subscribe(response => {
-        this.operationTypes = response;
-        this.isLoaded=true;
-      },
-      error => {
-          this.notificationService.error('Echec de chargement', error);
-      });
-  }
-
+ 
   ngOnInit() {
-
+    this.operationTypeForm = this._formBuilder.group({
+      operationTypes: [this.asTableFilter.selected.operationTypes]
+    });
   }
+    
+
+  applyFilter(){
   
-  ngOnDestroy() {
+    this.asTableFilter.selected.operationTypes = this.operationTypeForm.value.operationTypes;
+    this.asTableFilter.selected.pagination.currentPage = 0;
 
-  }
-  ngOnChanges(){
+    this._store.dispatch(new LoadAsTableFilter(this.asTableFilter));
 
-   }
-
-   onTypeChanged(evt): void {
-  
-   }
-
-   applyFilter(){
-  
-    this.filter.operationTypeSelected = this.operationTypeForm.value.operationType;
-        
-    if (this.filter.operationTypeSelected != undefined) {
-        this.filter.pagination.currentPage = 1;
-        // this.filter.position='operation';
-        this.accountStatementListFilterService.changeFilter(this.filter);
-    }
-
-     
+    //suppression du menu
+    var element=document.getElementsByClassName("content-filter").item(0);
+    element.parentElement.remove();
    }
 
    compareObjects(o1: ISelect, o2: ISelect) {

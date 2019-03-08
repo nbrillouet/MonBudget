@@ -1,10 +1,7 @@
 import { TableInfo, DataInfos } from "app/main/_models/generics/table-info.model";
-// import { AsifTable } from "app/main/_models/account-statement-import-file/account-statement-import-file.model";
 import { State, Selector, Action, StateContext, Store } from "@ngxs/store";
 import { NotificationsService } from "angular2-notifications";
 import { LoadAsifTableDatas, LoadAsifTableDatasSuccess, ClearAsifTableDatas } from "./asif-list.action";
-// import { AsifService } from "app/main/apps/account-statement-import/account-statement-import-file/asif.service";
-import { FilterAsifTableSelected } from "app/main/_models/filters/account-statement-import-file.filter";
 import { AsifTable } from "app/main/_models/account-statement-import/account-statement-import-file.model";
 import { AsifService } from "app/main/apps/account-statement-import-file/asif.service";
 import { UpdatePaginationAsifTableFilter } from "../asif-list-filter/asif-list-filter.action";
@@ -66,10 +63,10 @@ export class AsifTableState {
         state.loadingInfo.loaded = true;
         state.loadingInfo.loading = false;
         state.datas = action.payload.datas;
-        state.pagination = action.payload.pagination;
+        // state.pagination = action.payload.pagination;
 
         context.patchState(state);
-        console.log('asif list refresh done');
+
 
         this._store.dispatch(new UpdatePaginationAsifTableFilter(action.payload.pagination));
     }

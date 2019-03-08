@@ -5,14 +5,25 @@ import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { NotificationsService } from 'angular2-notifications';
 import { ValidateIsUnknown, ValidatorIfLocalisable } from './account-statement-detail.validator';
-import { AccountStatementService } from '../account-statement.service';
-import { IAsDetail } from 'app/main/_models/account-statement.model';
-import { IOperation } from 'app/main/_models/operation.model';
-import { IGMapSearchInfo } from 'app/main/_models/g-map.model.';
+import { AsDetail } from 'app/main/_models/account-statement.model';
+import { IOperation, OperationFilter } from 'app/main/_models/operation.model';
+import { GMapSearchInfo } from 'app/main/_models/g-map.model.';
 import { ISelect, EnumSelectType } from 'app/main/_models/generics/select.model';
-import { OperationTypeFamilyService } from 'app/main/_services/Referential/operation-type-family.service';
-import { OperationMethodService } from 'app/main/_services/Referential/operation-method.service';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
+import { AsService } from '../account-statement.service';
+import { FilterAsTable, FilterAsDetail } from 'app/main/_models/filters/account-statement.filter';
+import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
+import { AsDetailState } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.state';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { DataInfo } from 'app/main/_models/generics/detail-info.model';
+import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
+import { LoadAsDetail, asDetailChangeOperationTypeFamily, asDetailChangeOperationType } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.action';
+import { OperationTransverse } from 'app/main/_models/referential/operation-transverse.model';
+import { IUser } from 'app/main/_models/user.model';
+import { LoadAsTableDatas } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.action';
+import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
+import { LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.action';
 
 
 @Component({
@@ -22,188 +33,144 @@ import { ReferentialService } from 'app/main/_services/Referential/referential.s
   animations : fuseAnimations
 })
 export class AccountStatementDetailComponent implements OnInit {
+  @Select(AsDetailState.get) asDetail$: Observable<DataInfo<AsDetail>>;
+  @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
+
+  user: IUser;
+  filterAsTable: FilterAsTable;
+  asDetail: AsDetail;
+  formLoaded: boolean;
 
   idAccount: number;
-  idAccountStatement: number;
-
-  data: IAsDetail;
-  operationMethods: ISelect[];
-  operationTypeFamilies: ISelect[];
-  operationTypes: ISelect[];
-  operationPlaces: ISelect[];
-  operationPlaceSelected: ISelect;
-  operations: ISelect[];
-  logoUrl: string;
-    
-  operationForm: FormGroup;
+     
+  asDetailForm: FormGroup;
   operationAddForm: FormGroup;
-  // operationGeoLocForm: FormGroup;
-  
-  geoDetailVisible: boolean;
-  geoVisible: boolean;
-  
-  gMapSearchInfo: IGMapSearchInfo;
+  operationTransverseAddForm: FormGroup;
   
   isNewOperationTemplate: boolean;
-  isNewOperationTemplateAvailable: boolean; //visibilité du panneau creation d'operation
-  categories: string[];
-  
-  
+  isNewOperationTransverseTemplate: boolean;
+
     constructor(
-      private activatedRoute: ActivatedRoute,
-      private accountStatementService: AccountStatementService,
+
+      private _activatedRoute: ActivatedRoute,
+      private _store : Store,
+      private _asService: AsService,
       private _referentialService: ReferentialService,
-      private formBuilder: FormBuilder,
-      private datePipe: DatePipe,
-      private notificationService: NotificationsService
+      private _formBuilder: FormBuilder,
+      private _datePipe: DatePipe,
+      private _notificationService: NotificationsService
   
     ) {
-        this.logoUrl = "assets/images/Otf/OtfInconnu_128.png";
+      this.asTableFilter$.subscribe(asifTableFilter=>{
+        // this.filterAs = JSON.parse(JSON.stringify(asifTableFilter.filters));
+        console.log('sub this.filterAsTable',this.filterAsTable);
+        this.filterAsTable = asifTableFilter.filters;
+        
+        console.log('sub this.filterAsTable',this.filterAsTable);
+      });
+  
+      this.asDetail$.subscribe(asDetail=>{
+        console.log('asDetail',asDetail);
+        if(asDetail.loadingInfo.loaded) {
+          // this.asDetail = JSON.parse(JSON.stringify(asDetail.datas));
+          this.asDetail = asDetail.datas;
+          //creation du formulaire
+          this.createForms();
+          this.formLoaded=true;
+        }
+      });
+
+        // this.logoUrl = "assets/images/Otf/OtfInconnu_128.png";
      }
   
     ngOnInit() {
-  
-      this.activatedRoute.params.subscribe(routeParams => {
-        // this.idImport = routeParams['idImport'];
+      
+      this._activatedRoute.params.subscribe(routeParams => {
         this.idAccount = routeParams['idAccount'];
-        this.idAccountStatement = routeParams['idAccountStatement'];
-
-
-        //Charger le detail de l'operation
-        this.accountStatementService
-          .getById(this.idAccountStatement)
-          .subscribe(response=> {
-            this.data = response;
-
-            if(this.data.logoName!=null)
-              this.logoUrl = `assets/images/Otf/${this.data.logoName}_128.png`;
-              this.isNewOperationTemplateAvailable = this.data.operation.id==1;
-              //charger la liste des lieux operation
-              this.operationPlaces = [ {id:1,label:'INCONNU'},{id:3,label:'INTERNET'},{id:4,label:'AUTRES'}]
-
-              //selectionner le lieu de l'operation dans la liste
-              if(this.data.operationDetail.gMapAddress.id==1)
-                this.operationPlaceSelected= this.operationPlaces[0];
-              else if(this.data.operationDetail.gMapAddress.id==3)
-                this.operationPlaceSelected= this.operationPlaces[1];
-              else
-              {
-                this.operationPlaceSelected= this.operationPlaces[2];
-                this.gMapSearchInfo = <IGMapSearchInfo> { 
-                  idGMapAddress: this.data.operationDetail.gMapAddress.id
-                  // operationPositionSearch: this.data.operationLabelTemp,
-                  // operationPlaceSearch: this.data.placeLabelTemp
-                  }
- 
-              }
+        let idAccountStatement = routeParams['idAccountStatement'];
+        this.user = JSON.parse(localStorage.getItem('currentUser'));
   
-            //creation du formulaire
-            this.createForms();
-            //charger la liste OperationMethod
-            this.loadOperationMethodList();
-            //charger la liste OperationTypeFamily
-            this.loadOperationTypeFamilyList();
-            //charger la liste OperationType
-            this.loadOperationTypeSelect(this.data.operationTypeFamily.id);
-            //charger la liste Operation
-            this.loadOperationList();
-  
-  
-
-          });
-  
-        });
-  
-    }
-  
-    onOperationTypeFamilyChange(idOperationtypeFamily: number) {
-
-      this.loadOperationTypeSelect(idOperationtypeFamily);
-    }
-  
-    loadOperationTypeSelect(idOperationTypeFamily: number) {
-      //charger la liste OperationType
-      this._referentialService.operationTypeService.GetSelectList(idOperationTypeFamily,EnumSelectType.empty)
-      .subscribe(response => {
-        this.operationTypes = response;
-
+        this._store.dispatch(new LoadAsDetail(<FilterAsDetail> {idAs:idAccountStatement,idUser: this.user.id}));
+        console.log('------------');
+        //chargement si page chargé directement sans passer par la liste
+        if(this.filterAsTable && this.filterAsTable.selected.idAccount==null && this.idAccount!=null) {
+          console.log('load filerAsTable I');
+          let filter = new FilterAsTable();
+          
+          filter.selected.idAccount=this.idAccount;
+          console.log('load filerAsTable II');
+          this._store.dispatch(new LoadAsTableFilter(filter));
+          this._store.dispatch(new LoadAsSolde(filter.selected));
+        }
       });
     }
-    
-    loadOperationMethodList() {
-      this._referentialService.operationMethodService.GetSelectList(EnumSelectType.aucun)
-          .subscribe(response => {
-            this.operationMethods = response;
-
-          });
-    }
-    
-    loadOperationTypeFamilyList() {
-      this._referentialService.operationTypeFamilyService.GetSelectList(this.data.idMovement,EnumSelectType.empty)
-      .subscribe(response => {
-        this.operationTypeFamilies = response;
-
-      });
-    }
-  
-    loadOperationList() {
-      this._referentialService.operationService.GetSelectList(this.data.operationMethod.id,this.data.operationType.id,EnumSelectType.empty)
-      .subscribe(response => {
-        this.operations = response;
-
-      });
-    }
+      
   
     createForms() {
   
-      this.operationForm = this.formBuilder.group({
-          operationMethod: [this.data.operationMethod, [Validators.required]],
-          operationTypeFamily: [this.data.operationTypeFamily, [Validators.required, ValidateIsUnknown]],
-          operationType: [this.data.operationType, [Validators.required, ValidateIsUnknown]],
-          operation: [this.data.operation,[Validators.required, ValidateIsUnknown]],
-          amountOperation: [this.data.amountOperation,[Validators.required]],
-          labelOperation: [this.data.labelOperation,[Validators.required]],
-          dateIntegration: [this.datePipe.transform(this.data.dateIntegration,"dd/MM/yyyy"),[Validators.required]],
-          operationKeywordTemp: [this.data.operationDetail.keywordOperation,[Validators.required]],
-          placeKeywordTemp: [this.data.operationDetail.keywordPlace,[ValidatorIfLocalisable(this.data.isLocalisable)]],
-  
-          operationPlace: [this.operationPlaceSelected,[Validators.required, ValidateIsUnknown]]
+      this.asDetailForm = this._formBuilder.group({
+          operationMethod: [this.asDetail.operationMethod.selected, [Validators.required]],
+          operationTypeFamily: [this.asDetail.operationTypeFamily.selected, [Validators.required, ValidateIsUnknown]],
+          operationType: [this.asDetail.operationType.selected, [Validators.required, ValidateIsUnknown]],
+          operation: [this.asDetail.operation.selected,[Validators.required, ValidateIsUnknown]],
+          operationTransverse: [this.asDetail.operationTransverse.listSelected],
+          amountOperation: [this.asDetail.amountOperation,[Validators.required]],
+          labelOperation: [this.asDetail.labelOperation,[Validators.required]],
+          dateIntegration: [this._datePipe.transform(this.asDetail.dateIntegration,"dd/MM/yyyy"),[Validators.required]],
+          operationKeywordTemp: [this.asDetail.operationDetail.keywordOperation,[Validators.required]],
+          placeKeywordTemp: [this.asDetail.operationDetail.keywordPlace,[ValidatorIfLocalisable(this.asDetail.isLocalisable)]],
+          operationPlace: [this.asDetail.operationPlace.selected,[Validators.required, ValidateIsUnknown]]
         });
   
-        this.operationForm.get('operationTypeFamily')
-          .valueChanges
-          .subscribe(val => {
-    
-            this.onOperationTypeFamilyChange(val.id);
-          });
-        
-        this.operationForm.get('operationPlace')
-          .valueChanges
-          .subscribe(val => {
-            this.gMapSearchInfo = <IGMapSearchInfo> { 
-              idGMapAddress: val.id!=4 ? val.id : this.data.operationDetail.gMapAddress.id
-              // operationPositionSearch: this.data.operationLabelTemp,
-              // operationPlaceSearch: this.data.placeLabelTemp
-            };
-            
-            this.data.operationDetail.gMapAddress.id = val.id!=4 ? val.id : this.data.operationDetail.gMapAddress.id;
-            // const placeKeywordTemp = val.id==3 ? '--INTERNET--' : this.data.placeKeywordTemp;
-            // this.operationForm.controls['placeKeywordTemp'].setValue(placeKeywordTemp);
-            
+      this.asDetailForm.get('operationTypeFamily').valueChanges
+        .subscribe(val => {
+          console.log(val);
+          this._store.dispatch(new asDetailChangeOperationTypeFamily(val));
+        });
+      
+      this.asDetailForm.get('operationType').valueChanges
+        .subscribe(val => {
+          let operationFilter=<OperationFilter> { operationType: val, operationMethod:this.asDetail.operationMethod.selected}
+          this._store.dispatch(new asDetailChangeOperationType(operationFilter));
+        });
+      
+      this.asDetailForm.get('operationPlace')
+        .valueChanges
+        .subscribe(val => {
+          console.log('val',val);
+          this.asDetail.operationPlace.selected=val;
+          //this.asDetail.operationDetail.gMapAddress.id = val.id!=4 ? val.id : this.asDetail.operationDetail.gMapAddress.id;
 
-          });
-   
-        this.operationAddForm = this.formBuilder.group({
+          this.asDetail.gMapSearchInfo=null;
+          // this.data.isLocalisable=false;
+          if(this.asDetail.operationPlace.selected.id==4)
+          {
+            
+            // this.data.isLocalisable=true;
+            this.asDetail.gMapSearchInfo = <GMapSearchInfo> { 
+              idGMapAddress: this.asDetail.operationDetail.gMapAddress.id!=4 ? 1 : this.asDetail.operationDetail.gMapAddress.id,
+              operationPositionSearch: this.asDetail.operationDetail.keywordOperation,
+              operationPlaceSearch: this.asDetail.operationDetail.keywordPlace
+            };
+            console.log('chargement gMapSearchInfo',this.asDetail.gMapSearchInfo);
+          } 
+        });
+
+       
+      this.operationAddForm = this._formBuilder.group({
           operationLabelTemp: [null,[Validators.required]]
+        });
   
+      this.operationTransverseAddForm = this._formBuilder.group({
+          operationTransverse: [null,[Validators.required]]
         });
     }
   
     
   
     addOperation() {
-      const operationMethod:ISelect = this.operationForm.value.operationMethod;
-      const operationType: ISelect  =this.operationForm.value.operationType;
+      const operationMethod:ISelect = this.asDetailForm.value.operationMethod;
+      const operationType: ISelect  = this.asDetailForm.value.operationType;
       const keyword: string = this.operationAddForm.value.operationKeywordTemp;
       const label: string = this.operationAddForm.value.operationLabelTemp;
       
@@ -218,51 +185,94 @@ export class AccountStatementDetailComponent implements OnInit {
       
       this._referentialService.operationService.Create(operation)
         .subscribe(operation => {
- 
-              //maj du data avec les infos operation
-              this.data.operation = <ISelect>{id:operation.id,label:operation.label};
-              this.operationForm.controls['operation'].setValue(this.data.operation);
-  
-   
-              //charger la liste Operation
-            this._referentialService.operationService.GetSelectList(this.data.operationMethod.id,0,EnumSelectType.empty)
-            .subscribe(response => {
-              this.operations = response;
-        
-  
-         
-              this.isNewOperationTemplate=false;
-            });
-            this.notificationService.success('Enregistrement effectué', `L'opération est enregistrée`);
-        },
-        error => {
-          this.notificationService.error('Echec de l\'enregistrement', error);
+            let operationSelect = <ISelect>{id:operation.id,label:operation.label};
+            //maj du data avec les infos operation
+            this.asDetail.operation.selected = operationSelect;
+            this.asDetailForm.controls['operation'].setValue(this.asDetail.operation.selected);
+            this.asDetailForm.markAsDirty();
+
+            //Ajout de la nouvelle opération dans la liste Operation
+            this.asDetail.operation.list.push(operationSelect);
+            this.isNewOperationTemplate=false;
+            console.log('this.isNewOperationTemplate',this.isNewOperationTemplate);
+            this._notificationService.success('Enregistrement effectué', `L'opération est enregistrée`);
         });
   
     }
-  
-    updateAsif() {
-  
-      this.data.amountOperation = this.operationForm.value.amountOperation;
-      this.data.labelOperation = this.operationForm.value.labelOperation;
-      this.data.operationMethod = this.operationForm.value.operationMethod;
-      this.data.operationType = this.operationForm.value.operationType;
-      this.data.operationTypeFamily = this.operationForm.value.operationTypeFamily;
-      this.data.operation = this.operationForm.value.operation;
+    
+    addOperationTransverse() {
+      const label: string = this.operationTransverseAddForm.value.operationTransverse;
+        
+      const operationTransverse: OperationTransverse = <OperationTransverse> {
+        id:0,
+        label:label,
+        idUser:this.user.id
+      };
       
+      this._referentialService.operationTransverseService.Create(operationTransverse)
+        .subscribe(operationTransverse => {
+            let operationTransverseSelect = <ISelect>{id:operationTransverse.id,label:operationTransverse.label};
+            //maj du data avec les infos operation transverse
+            this.asDetail.operationTransverse.listSelected.push(operationTransverseSelect);
+            this.asDetailForm.controls['operationTransverse'].setValue(this.asDetail.operationTransverse.listSelected);
+            this.asDetailForm.markAsDirty();
+
+            //Ajout de la nouvelle opération transverse dans la liste Operation transverse
+            this.asDetail.operationTransverse.list.push(operationTransverseSelect);
+            this.isNewOperationTransverseTemplate=false;
+            
+            this._notificationService.success('Enregistrement effectué', `L'opération transverse est enregistrée`);
+        });
  
     }
-  
     
+    updateAs() {
+
+      this.asDetail.amountOperation = this.asDetailForm.value.amountOperation;
+      this.asDetail.labelOperation = this.asDetailForm.value.labelOperation;
+      this.asDetail.operationMethod.selected = this.asDetailForm.value.operationMethod;
+      this.asDetail.operationType.selected = this.asDetailForm.value.operationType;
+      this.asDetail.operationTypeFamily.selected = this.asDetailForm.value.operationTypeFamily;
+      this.asDetail.operation.selected = this.asDetailForm.value.operation;
+      
+      // this.asDetail.operationKeywordTemp = this.asDetailForm.value.operationKeywordTemp;
+      // this.asDetail.placeKeywordTemp = this.asDetailForm.value.placeKeywordTemp;
   
+      this._asService.update(this.asDetail).subscribe(resp=> {
+        if(resp==true)
+        {
+          this._notificationService.success('Enregistrement effectué', `Le relevé est enregistré`);
+          console.log('this.filterAsTable',this.filterAsTable);
+          console.log('this.filterAsTable.selected',this.filterAsTable.selected);
+          
+          this._store.dispatch(new LoadAsTableDatas(this.filterAsTable.selected));
+        }
+        else {
+          this._notificationService.error('Echec de l\'enregistrement');
+        }
+      });
+      // ,
+      // error => {
+      //   this.notificationService.error('Echec de l\'enregistrement', error);
+      // });
+  
+    }
+
+    bindAsDetail(value: any) {
+      console.log('this.asDetailForm.controls',this.asDetailForm.controls['operationTransverse'].value);
+      this.asDetail.operationTransverse.listSelected = this.asDetailForm.controls['operationTransverse'].value; 
+    }
+
+    onChangeGMapAddress($event) {
+      this.asDetail.operationDetail.gMapAddress=$event;
+    }
+
     compareObjects(o1: any, o2: any) {
       if(o1.label == o2.label && o1.id == o2.id )
       return true;
       else return false
     }
   
-    onChangeGMapAddress($event) {
-      this.data.operationDetail.gMapAddress=$event;
-    }
+    
 
 }

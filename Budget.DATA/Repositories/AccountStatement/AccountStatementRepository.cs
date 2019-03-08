@@ -20,32 +20,32 @@ namespace Budget.DATA.Repositories
         {
         }
 
-        public AccountStatement GetForDetailById(int id)
-        {
-            var accountStatement = Context.AccountStatement
-                .Include(x => x.Operation)
-                .Include(x => x.OperationMethod)
-                .Include(x => x.OperationType)
-                    .ThenInclude(x => x.OperationTypeFamily)
-                .Include(x=>x.OperationDetail)
-                .Include(x=>x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel1)
-                .Include(x => x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel2)
-                .Include(x => x.OperationDetail.GMapAddress.gMapCountry)
-                .Include(x => x.OperationDetail.GMapAddress.gMapLocality)
-                .Include(x => x.OperationDetail.GMapAddress.gMapNeighborhood)
-                .Include(x => x.OperationDetail.GMapAddress.gMapPostalCode)
-                .Include(x => x.OperationDetail.GMapAddress.gMapRoute)
-                .Include(x => x.OperationDetail.GMapAddress.gMapStreetNumber)
-                .Include(x => x.OperationDetail.GMapAddress.gMapSublocalityLevel1)
-                .Include(x => x.OperationDetail.GMapAddress.gMapSublocalityLevel2)
-                .Where(x => x.Id == id)
-                .FirstOrDefault();
+        //public AccountStatement GetForDetailById(int id)
+        //{
+        //    var accountStatement = Context.AccountStatement
+        //        .Include(x => x.Operation)
+        //        .Include(x => x.OperationMethod)
+        //        .Include(x => x.OperationType)
+        //            .ThenInclude(x => x.OperationTypeFamily)
+        //        .Include(x=>x.OperationDetail)
+        //        .Include(x=>x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel1)
+        //        .Include(x => x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel2)
+        //        .Include(x => x.OperationDetail.GMapAddress.gMapCountry)
+        //        .Include(x => x.OperationDetail.GMapAddress.gMapLocality)
+        //        .Include(x => x.OperationDetail.GMapAddress.gMapNeighborhood)
+        //        .Include(x => x.OperationDetail.GMapAddress.gMapPostalCode)
+        //        .Include(x => x.OperationDetail.GMapAddress.gMapRoute)
+        //        .Include(x => x.OperationDetail.GMapAddress.gMapStreetNumber)
+        //        .Include(x => x.OperationDetail.GMapAddress.gMapSublocalityLevel1)
+        //        .Include(x => x.OperationDetail.GMapAddress.gMapSublocalityLevel2)
+        //        .Where(x => x.Id == id)
+        //        .FirstOrDefault();
 
-            return accountStatement;
+        //    return accountStatement;
 
-        }
+        //}
 
-        public PagedList<AccountStatement> Get(FilterAccountStatement filter)
+        public PagedList<AccountStatement> GetAsTable(FilterAsTableSelected filter)
         {
             var accountStatements = Context.AccountStatement
                 .Include(x => x.Operation)
@@ -59,30 +59,30 @@ namespace Budget.DATA.Repositories
                 accountStatements = accountStatements.Where(x => x.IdAccount == filter.IdAccount);
             }
 
-            if (filter.OperationMethodSelected != null && filter.OperationMethodSelected.Count>0)
+            if (filter.OperationMethods != null && filter.OperationMethods.Count > 0)
             {
-                var idOperationMethods = filter.OperationMethodSelected.Select(x => x.Id).ToList();
+                var idOperationMethods = filter.OperationMethods.Select(x => x.Id).ToList();
 
                 accountStatements = accountStatements.Where(x => idOperationMethods.Contains(x.IdOperationMethod));
             }
 
-            if (filter.OperationSelected != null && filter.OperationSelected.Count > 0)
+            if (filter.Operations != null && filter.Operations.Count > 0)
             {
-                var idOperations = filter.OperationSelected.Select(x => x.Id).ToList();
+                var idOperations = filter.Operations.Select(x => x.Id).ToList();
 
                 accountStatements = accountStatements.Where(x => idOperations.Contains(x.IdOperation));
             }
 
-            if (filter.OperationTypeFamilySelected != null && filter.OperationTypeFamilySelected.Count > 0)
+            if (filter.OperationTypeFamilies != null && filter.OperationTypeFamilies.Count > 0)
             {
-                var idOperationTypeFamilies = filter.OperationTypeFamilySelected.Select(x => x.Id).ToList();
+                var idOperationTypeFamilies = filter.OperationTypeFamilies.Select(x => x.Id).ToList();
 
                 accountStatements = accountStatements.Where(x => idOperationTypeFamilies.Contains(x.IdOperationTypeFamily));
             }
 
-            if (filter.OperationTypeSelected != null && filter.OperationTypeSelected.Count > 0)
+            if (filter.OperationTypes != null && filter.OperationTypes.Count > 0)
             {
-                var idOperationTypes = filter.OperationTypeSelected.Select(x => x.Id).ToList();
+                var idOperationTypes = filter.OperationTypes.Select(x => x.Id).ToList();
 
                 accountStatements = accountStatements.Where(x => idOperationTypes.Contains(x.IdOperationType));
             }
@@ -90,7 +90,7 @@ namespace Budget.DATA.Repositories
             if (filter.DateIntegrationMin != null)
             {
                 accountStatements = accountStatements
-                    .Where(x => x.DateIntegration>= filter.DateIntegrationMin);
+                    .Where(x => x.DateIntegration >= filter.DateIntegrationMin);
 
                 if (filter.DateIntegrationMax != null)
                 {
@@ -98,20 +98,20 @@ namespace Budget.DATA.Repositories
                         .Where(x => x.DateIntegration <= filter.DateIntegrationMax);
                 }
             }
-            else if(filter.MonthYearSelected!=null)
+            else if (filter.MonthYear != null)
             {
-                var date = Convert.ToDateTime($"01/{filter.MonthYearSelected.Month.Id}/{filter.MonthYearSelected.Year}");
+                var date = Convert.ToDateTime($"01/{filter.MonthYear.Month.Id}/{filter.MonthYear.Year}");
                 var dateMin = DateHelper.GetFirstDayOfMonth(date);
                 var dateMax = DateHelper.GetLastDayOfMonth(date);
 
                 accountStatements = accountStatements
-                        .Where(x => x.DateIntegration >= dateMin && x.DateIntegration<= dateMax);
+                        .Where(x => x.DateIntegration >= dateMin && x.DateIntegration <= dateMax);
 
             }
             if (filter.AmountMin != null)
             {
                 accountStatements = accountStatements
-                    .Where(x => x.AmountOperation>= filter.AmountMin);
+                    .Where(x => x.AmountOperation >= filter.AmountMin);
             }
             if (filter.AmountMax != null)
             {
@@ -122,7 +122,7 @@ namespace Budget.DATA.Repositories
             string columnSorted;
             if (filter.Pagination.SortColumn.Contains("operationTypeFamily"))
             {
-                columnSorted=$"OperationType.{filter.Pagination.SortColumn}.Label";
+                columnSorted = $"OperationType.{filter.Pagination.SortColumn}.Label";
             }
             else
                 columnSorted = filter.Pagination.SortColumn.Contains("operation") ? $"{filter.Pagination.SortColumn}.Label" : filter.Pagination.SortColumn;
@@ -135,31 +135,33 @@ namespace Budget.DATA.Repositories
             {
                 accountStatements = accountStatements.OrderByDescending(columnSorted);
             }
-            var results= PagedListRepository<AccountStatement>.Create(accountStatements, filter.Pagination);
+            var results = PagedListRepository<AccountStatement>.Create(accountStatements, filter.Pagination);
             return results;
         }
 
-        //public async Task<PagedList<AccountStatement>> GetAsync(FilterAccountStatement filter)
-        //{
-        //    var accountStatements = Context.AccountStatement
-        //        .Include(x => x.Operation)
-        //        .Include(x => x.OperationMethod)
-        //        .Include(x => x.OperationType)
-        //        .Include(x => x.OperationType.OperationTypeFamily)
-        //        .AsQueryable();
+        public AccountStatement GetAsDetail(int id)
+        {
+            var accountStatement = Context.AccountStatement
+                .Include(x => x.Operation)
+                .Include(x => x.OperationMethod)
+                .Include(x => x.OperationType)
+                .Include(x => x.OperationTypeFamily)
+                .Include(x => x.OperationDetail)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel1)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel2)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapCountry)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapLocality)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapNeighborhood)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapPostalCode)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapRoute)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapStreetNumber)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapSublocalityLevel1)
+                    .Include(x => x.OperationDetail.GMapAddress.gMapSublocalityLevel2)
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
 
-        //    if (filter.IdAccount != null)
-        //    {
-        //        accountStatements = accountStatements.Where(x => x.IdAccount == filter.IdAccount);
-        //    }
-
-        //    if (filter.Pagination.SortDirection == "asc")
-        //        accountStatements = accountStatements.OrderBy(filter.Pagination.SortColumn);
-        //    else
-        //        accountStatements = accountStatements.OrderByDescending(filter.Pagination.SortColumn);
-
-        //    return await PagedListRepository<AccountStatement>.CreateAsync(accountStatements, filter.Pagination.CurrentPage.Value, filter.Pagination.ItemsPerPage.Value);
-        //}
+            return accountStatement;
+        }
 
         public List<AccountStatement> GetByDateIdOperationTypeFamilyList(List<int> idOperationtypeFamilyList, DateTime dateMin,DateTime dateMax)
         {

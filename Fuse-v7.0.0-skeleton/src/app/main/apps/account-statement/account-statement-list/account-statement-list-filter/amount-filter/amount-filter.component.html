@@ -1,7 +1,6 @@
-
+<!--  -->
 <div class="content-filter"
-
-  (click)="testStopPropagation($event)"
+  (click)="$event.stopPropagation()"
   (keyup)="$event.stopPropagation()" 
   (keydown)="$event.stopPropagation()">
     <form name="amountForm" [formGroup]="amountForm" class="product w-100-p" fxLayout="column" fxFlex>

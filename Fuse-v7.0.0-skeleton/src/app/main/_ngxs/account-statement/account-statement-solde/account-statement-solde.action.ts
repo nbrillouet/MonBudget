@@ -1,4 +1,4 @@
-import { AsFilter } from "app/main/_models/Filters/filter-account-statement";
+import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 
 
 export const AS_SOLDE_LOAD = 'as-solde-load';
@@ -8,7 +8,7 @@ export const AS_SOLDE_CHANGE = 'as-solde-change';
 export class LoadAsSolde {
     static readonly type = AS_SOLDE_LOAD;
  
-    constructor(public payload: any) { }
+    constructor(public payload: FilterAsTableSelected) { }
 }
 
 export class LoadAsSoldeSuccess {
@@ -20,5 +20,5 @@ export class LoadAsSoldeSuccess {
 export class ChangeAsSoldeFilter {
     static readonly type = AS_SOLDE_CHANGE;
  
-    constructor(public payload: AsFilter) { }
+    constructor(public payload: FilterAsTableSelected) { }
 }

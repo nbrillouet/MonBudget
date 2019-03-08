@@ -1,86 +1,52 @@
-import { Component, OnInit, Input, OnDestroy, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AccountStatementListFilterService } from '../account-statement-list-filter.service';
-import { ISubscription } from 'rxjs/Subscription';
-import { NotificationsService } from 'angular2-notifications';
-import { FilterAccountStatement } from 'app/main/_models/Filters/filter-account-statement';
-// import { ReferentialService } from 'app/main/_services/referential.service';
 import { ISelect } from 'app/main/_models/generics/select.model';
-import { ReferentialService } from 'app/main/_services/Referential/referential.service';
-// import { ReferentialTestService } from 'app/main/_services/Referential/referential.service';
+import { Select, Store } from '@ngxs/store';
+import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
+import { Observable } from 'rxjs';
+import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
+import { FilterAsTable } from 'app/main/_models/filters/account-statement.filter';
+import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
 
 @Component({
   selector: 'operation-filter',
   templateUrl: './operation-filter.component.html',
   styleUrls: ['./operation-filter.component.scss']
 })
-export class OperationFilterComponent implements OnInit, OnDestroy {
-
-  @Input() openFilter: boolean;
+export class OperationFilterComponent implements OnInit {
+  @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
   
+  asTableFilter: FilterAsTable;
   operationForm: FormGroup;
-  filter: FilterAccountStatement;
-  $filter: ISubscription;
-  operations : ISelect[];
-  isLoaded: boolean;
+  
   constructor(
-    private formBuilder: FormBuilder,
-    private accountStatementListFilterService: AccountStatementListFilterService,
-    private _referentialService: ReferentialService,
-    private notificationService: NotificationsService
+    private _formBuilder: FormBuilder,
+    private _store: Store
   ) { 
-
-    this.operationForm = this.formBuilder.group({
-      operation: [undefined]
+    
+    this.asTableFilter$.subscribe(filter => {
+      this.asTableFilter = filter.filters;
     });
 
-    this.accountStatementListFilterService.filter
-      .subscribe(filter => {
-        this.filter = filter;
-  
-        this.operationForm.controls['operation'].setValue(filter.operationSelected);
-        this.getOperationList();
-      });
-
-  }
-
-  getOperationList() {
-    let operationMethodSelected : ISelect[] = this.filter.operationMethodSelected == null ? [] : this.filter.operationMethodSelected;
-
-    this._referentialService.operationService.GetSelectListByOperationMethods(operationMethodSelected)
-      .subscribe(response => {
-        this.operations = response;
-        this.isLoaded=true;
-      },
-      error => {
-          this.notificationService.error('Echec de chargement', error);
-      });
   }
 
   ngOnInit() {
-
+    this.operationForm = this._formBuilder.group({
+      operations: [this.asTableFilter.selected.operations]
+    });
   }
   
-  ngOnDestroy() {
-
-  }
- 
-
-   onTypeChanged(evt): void {
- 
-   }
-
+  
    applyFilter(){
     
-    this.filter.operationSelected = this.operationForm.value.operation;
-        
-    if (this.filter.operationSelected != undefined) {
-        this.filter.pagination.currentPage = 1;
-        // this.filter.position='operation';
-        this.accountStatementListFilterService.changeFilter(this.filter);
-    }
+    this.asTableFilter.selected.operations = this.operationForm.value.operations;
+    this.asTableFilter.selected.pagination.currentPage = 0;
+    
+    this._store.dispatch(new LoadAsTableFilter(this.asTableFilter));
 
-   
+    //suppression du menu
+    var element=document.getElementsByClassName("content-filter").item(0);
+    element.parentElement.remove();
    }
 
    compareObjects(o1: ISelect, o2: ISelect) {

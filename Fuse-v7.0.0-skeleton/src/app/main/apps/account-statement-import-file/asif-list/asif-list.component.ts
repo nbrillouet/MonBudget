@@ -3,7 +3,7 @@ import { DataSource } from '@angular/cdk/table';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { CollectionViewer } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, SortDirection } from '@angular/material';
 
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -30,7 +30,7 @@ import { LoadAsifTableDatas } from 'app/main/_ngxs/account-statement-import-file
   styleUrls: ['./asif-list.component.scss'],
   animations : fuseAnimations
 })
-export class AsifListComponent implements OnInit, AfterViewInit {
+export class AsifListComponent implements OnInit {
   @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
   @Select(AsifTableState.get) asifTable$: Observable<DataInfos<AsifTable>>;
 
@@ -63,53 +63,62 @@ export class AsifListComponent implements OnInit, AfterViewInit {
     private _store: Store
     // private changeDetectorRefs: ChangeDetectorRef
     ) {
+      
+      
       this.asifTable$.subscribe(asifTable=>{
+        // if(asifTable.loadingInfo.loaded) {
           this.dataSource.data = asifTable.datas; 
+        // }
       });
       
    }
 
   ngOnInit() {
     this.asifTableFilter$.subscribe(asifTableFilter=>{
-      this.filterAsif = JSON.parse(JSON.stringify(asifTableFilter.filters));
+
+      // this.filterAsif = JSON.parse(JSON.stringify(asifTableFilter.filters));
+      this.filterAsif = asifTableFilter.filters;
+      // this.paginator.pageIndex = this.filterAsif.selected.pagination.currentPage;
+      // this.sort.active = this.filterAsif.selected.pagination.sortColumn;
+      // this.sort.direction = <SortDirection>this.filterAsif.selected.pagination.sortDirection;
+      
+      // this.loadPage();
+
     });
  
   }
   
-  ngAfterViewInit(): void {
-    
-    
-  }
-  
+ 
   async delay(ms: number) {
     await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
   }
 
-  onPageChangeEvent($event) {
+  onPageChangeEvent($event: MatPaginator) {
+    this.filterAsif.selected.pagination.currentPage = this.paginator.pageIndex;
     this.loadPage();
   }
   
   onSortChangeEvent($event): void {
-    console.log('$event',$event);
     this.filterAsif.selected.pagination.currentPage=0;
     this.loadPage();
   }
 
   loadPage() {
-    this.filterAsif.selected.pagination.itemsPerPage = this.paginator.pageSize;
+    this.filterAsif.selected.pagination.nbItemsPerPage = this.paginator.pageSize;
     this.filterAsif.selected.pagination.sortColumn = this.sort.active;
     this.filterAsif.selected.pagination.sortDirection = this.sort.direction;
+
+    // let toto = this.filterAsif = JSON.parse(JSON.stringify(this.filterAsif));
     
     // this.delay(3000).then(any=>{
-      this._store.dispatch(new LoadAsifTableDatas(this.filterAsif.selected));
+      this._store.dispatch(new ChangeAsifTableFilter(this.filterAsif.selected));
+
+      // this._store.dispatch(new LoadAsifTableDatas(this.filterAsif.selected));
     // });
     
 
   }
-  onRowMouseOver($event) {
-    console.log($event);
-  }
-
+ 
   detail(data) {
     this.router.navigate(
       [`apps/account-statement-imports/${this.filterAsif.selected.idImport}/account-statement-import-files/${data.id}/detail`]);

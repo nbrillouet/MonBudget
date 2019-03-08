@@ -5,17 +5,16 @@ import { Observable } from 'rxjs';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterAsiTable } from 'app/main/_models/filters/account-statement-import.filter';
 import { Pagination } from 'app/main/_models/pagination.model';
-import { ChangeAsiTableFilter } from 'app/main/_ngxs/account-statement-import/asi-list-filter/asi-list-filter.action';
+import { ChangeAsiTableFilter, LoadAsiTableFilter } from 'app/main/_ngxs/account-statement-import/asi-list-filter/asi-list-filter.action';
 
 @Component({
   selector: 'asi-filter',
   templateUrl: './asi-filter.component.html',
   styleUrls: ['./asi-filter.component.scss']
 })
-export class AsiFilterComponent implements OnInit,AfterViewInit {
+export class AsiFilterComponent implements OnInit {
   @Select(AsiTableFilterState.get) asiTableFilter$: Observable<FilterInfo<FilterAsiTable>>;
-  filter: FilterAsiTable;
-  // selectedIndex: number;
+  filterAsi: FilterAsiTable;
 
   constructor(
     private _store : Store
@@ -25,22 +24,17 @@ export class AsiFilterComponent implements OnInit,AfterViewInit {
 
   ngOnInit() {
     this.asiTableFilter$.subscribe(asiTableFilter=>{
-      this.filter = JSON.parse(JSON.stringify(asiTableFilter.filters));
-      // this.filter = filter.filters;
+      this.filterAsi = asiTableFilter.filters; // JSON.parse(JSON.stringify(asiTableFilter.filters));
     });
-  }
-
-  ngAfterViewInit() {
-
   }
 
   onTabChanged($event) {
 
-    this.filter.selected.indexTabBank=$event.index;
-    this.filter.selected.pagination=new Pagination();
-    this.filter.selected.idBank = this.filter.banks[$event.index].id;
+    this.filterAsi.selected.indexTabBank=$event.index;
+    this.filterAsi.selected.idBank = this.filterAsi.banks[$event.index].id;
+    console.log('this.filterAsi.selected',this.filterAsi.selected);
+    this._store.dispatch(new LoadAsiTableFilter(this.filterAsi));
 
-    this._store.dispatch(new ChangeAsiTableFilter(this.filter));
 
   }
 

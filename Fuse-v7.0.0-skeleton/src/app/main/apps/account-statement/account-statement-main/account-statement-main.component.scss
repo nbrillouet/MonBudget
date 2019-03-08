@@ -19,6 +19,26 @@
 overflow: hidden !important;
 }
 
+// .mat-tab-group {
+//     overflow:auto;
+// }
+
+.mat-tab-group {
+    height: 100% !important;
+
+    .mat-tab-body-wrapper {
+        height: 100% !important;
+
+    }
+    .mat-tab-label {
+        background-color: #FFFFFF !important;
+    }
+
+    .mat-tab-label-container {
+        padding: 0 24px;
+    }
+}
+
 // .anim-icon {
 //     animation: rotating 3s linear infinite;
 // }

@@ -32,6 +32,7 @@ import { OperationTransverse } from 'app/main/_models/referential/operation-tran
 export class AsifDetailComponent implements OnInit {
 @Select(AsifDetailState.get) asifDetail$: Observable<DataInfo<AsifDetail>>;
 @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
+
 user: IUser;
 filterAsif: FilterAsifTable;
 formLoaded: boolean;
@@ -53,6 +54,7 @@ isNewOperationTransverseTemplate: boolean;
     private _notificationService: NotificationsService,
     private _asifService: AsifService
   ) {
+
     this.asifTableFilter$.subscribe(asifTableFilter=>{
       this.filterAsif = JSON.parse(JSON.stringify(asifTableFilter.filters));
     });
@@ -65,6 +67,7 @@ isNewOperationTransverseTemplate: boolean;
           this.formLoaded=true;
       }
     });
+    
    }
 
   ngOnInit() {
@@ -82,7 +85,6 @@ isNewOperationTransverseTemplate: boolean;
   bindAsifDetail(value: any) {
     console.log('this.asifDetailForm.controls',this.asifDetailForm.controls['operationTransverse'].value);
     this.asifDetail.operationTransverse.listSelected = this.asifDetailForm.controls['operationTransverse'].value; 
-
 
   }
 
@@ -118,15 +120,15 @@ isNewOperationTransverseTemplate: boolean;
         .valueChanges
         .subscribe(val => {
           this.asifDetail.operationPlace.selected=val;
-          this.asifDetail.operationDetail.gMapAddress.id = val.id!=4 ? val.id : this.asifDetail.operationDetail.gMapAddress.id;
-
+          // this.asifDetail.operationDetail.gMapAddress.id = val.id!=4 ? val.id : this.asifDetail.operationDetail.gMapAddress.id;
+          console.log(val,val);
           this.asifDetail.gMapSearchInfo=null;
           // this.data.isLocalisable=false;
           if(this.asifDetail.operationPlace.selected.id==4)
           {
             // this.data.isLocalisable=true;
             this.asifDetail.gMapSearchInfo = <GMapSearchInfo> { 
-              idGMapAddress: val.id!=4 ? val.id : this.asifDetail.operationDetail.gMapAddress.id,
+              idGMapAddress: this.asifDetail.operationDetail.gMapAddress.id!=4 ? 1 : this.asifDetail.operationDetail.gMapAddress.id,
               operationPositionSearch: this.asifDetail.operationLabelTemp,
               operationPlaceSearch: this.asifDetail.placeLabelTemp
             };
@@ -148,7 +150,7 @@ isNewOperationTransverseTemplate: boolean;
 
   addOperation() {
     const operationMethod:ISelect = this.asifDetailForm.value.operationMethod;
-    const operationType: ISelect  =this.asifDetailForm.value.operationType;
+    const operationType: ISelect  = this.asifDetailForm.value.operationType;
     const keyword: string = this.operationAddForm.value.operationKeywordTemp;
     const label: string = this.operationAddForm.value.operationLabelTemp;
     
@@ -167,11 +169,12 @@ isNewOperationTransverseTemplate: boolean;
           //maj du data avec les infos operation
           this.asifDetail.operation.selected = operationSelect;
           this.asifDetailForm.controls['operation'].setValue(this.asifDetail.operation.selected);
+          this.asifDetailForm.markAsDirty();
 
           //Ajout de la nouvelle opération dans la liste Operation
           this.asifDetail.operation.list.push(operationSelect);
           this.isNewOperationTemplate=false;
-
+                      
           this._notificationService.success('Enregistrement effectué', `L'opération est enregistrée`);
       });
       // error => {
@@ -182,7 +185,6 @@ isNewOperationTransverseTemplate: boolean;
 
   addOperationTransverse() {
     const label: string = this.operationTransverseAddForm.value.operationTransverse;
-
     
     const operationTransverse: OperationTransverse = <OperationTransverse> {
       id:0,
@@ -196,16 +198,14 @@ isNewOperationTransverseTemplate: boolean;
           //maj du data avec les infos operation transverse
           this.asifDetail.operationTransverse.listSelected.push(operationTransverseSelect); // = <ISelect>{id:operationTransverseSelect.id,label:operationTransverse.label};
           this.asifDetailForm.controls['operationTransverse'].setValue(this.asifDetail.operationTransverse.listSelected);
+          this.asifDetailForm.markAsDirty();
 
           //Ajout de la nouvelle opération transverse dans la liste Operation transverse
           this.asifDetail.operationTransverse.list.push(operationTransverseSelect);
-          this.isNewOperationTemplate=false;
+          this.isNewOperationTransverseTemplate=false;
 
           this._notificationService.success('Enregistrement effectué', `L'opération transverse est enregistrée`);
       });
-      // error => {
-      //   this._notificationService.error('Echec de l\'enregistrement', error);
-      // });
 
   }
 

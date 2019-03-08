@@ -39,8 +39,11 @@ namespace Budget.SERVICE
         public List<SelectGroupDto> GetSelectGroup()
         {
             var operationTypeFamilies = _operationTypeFamilyRepository.GetAllByOrder();
-            var credit = operationTypeFamilies.Where(x => x.IdMovement == 1).ToList();
-            var debit = operationTypeFamilies.Where(x => x.IdMovement == 2).ToList();
+            var twoWays = operationTypeFamilies.Where(x => x.IdMovement == (int)EnumMovement.TwoWays).ToList();
+            var credit = operationTypeFamilies.Where(x => x.IdMovement == (int)EnumMovement.Credit).ToList();
+            credit.AddRange(twoWays);
+            var debit = operationTypeFamilies.Where(x => x.IdMovement == (int)EnumMovement.Debit).ToList();
+            debit.AddRange(twoWays);
             List<SelectGroupDto> selectGroups = new List<SelectGroupDto>();
             selectGroups.Add(GetSelectGroup(credit,"Crédit"));
             selectGroups.Add(GetSelectGroup(debit, "Débit"));
@@ -60,11 +63,6 @@ namespace Budget.SERVICE
             return selectGroupDto;
         }
 
-        //public List<GenericList> GetGenericList()
-        //{
-        //    return _operationTypeFamilyRepository.GetGenericList();
-        //}
-
         public OperationTypeFamily GetById(int idOperationTypeFamily)
         {
             return _operationTypeFamilyRepository.GetById(idOperationTypeFamily);
@@ -74,11 +72,6 @@ namespace Budget.SERVICE
         {
             return _operationTypeFamilyRepository.GetAllByOrder();
         }
-        
-        //public List<OperationTypeFamily> GetByIdMovement(EnumMovement enumMovement, EnumSelect enumSelect)
-        //{
-        //    return _operationTypeFamilyRepository.GetByIdMovement(enumMovement, enumSelect);
-        //}
 
         public List<SelectGroupDto> GetSelectGroupListByIdPoste(int idPoste)
         {

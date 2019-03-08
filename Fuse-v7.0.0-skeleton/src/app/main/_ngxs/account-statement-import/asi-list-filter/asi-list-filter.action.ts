@@ -1,5 +1,5 @@
 import { Pagination } from "app/main/_models/pagination.model";
-import { FilterAsiTable } from "app/main/_models/filters/account-statement-import.filter";
+import { FilterAsiTable, FilterAsiTableSelected } from "app/main/_models/filters/account-statement-import.filter";
 
 export const ASI_TABLE_FILTER_LOAD = 'asi-table-filter-load';
 export const ASI_TABLE_FILTER_LOAD_SUCCESS = 'asi-table-filter-load-success';
@@ -15,13 +15,13 @@ export class LoadAsiTableFilter {
 export class LoadAsiTableFilterSuccess {
     static readonly type = ASI_TABLE_FILTER_LOAD_SUCCESS;
  
-    constructor(public payload: any) { }
+    constructor(public payload: FilterAsiTable) { }
 }
 
 export class ChangeAsiTableFilter {
     static readonly type = ASI_TABLE_FILTER_CHANGE;
  
-    constructor(public payload: FilterAsiTable) { }
+    constructor(public payload: FilterAsiTableSelected) { }
 }
 
 export class UpdatePaginationAsiTableFilter {

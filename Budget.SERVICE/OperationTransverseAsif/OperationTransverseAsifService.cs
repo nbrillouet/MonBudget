@@ -34,5 +34,11 @@ namespace Budget.SERVICE
 
             return selectList;
         }
+
+        public bool Update(List<SelectDto> operationTransverses,int idAsif)
+        {
+            var result = _operationTransverseAsifRepository.Update(operationTransverses, idAsif);
+            return result;
+        }
     }
 }

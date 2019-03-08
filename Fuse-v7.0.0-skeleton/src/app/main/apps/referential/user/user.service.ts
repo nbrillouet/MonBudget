@@ -52,10 +52,10 @@ export class UserService {
         let queryString = '?';
 
         // if(page !=null && itemsPerPage !=null) {
-        if(pagination.currentPage !=null && pagination.itemsPerPage !=null)
+        if(pagination.currentPage !=null && pagination.nbItemsPerPage !=null)
         {
             queryString += 'pageNumber=' + pagination.currentPage 
-                + '&pageSize=' + pagination.itemsPerPage 
+                + '&pageSize=' + pagination.nbItemsPerPage 
                 + '&sortColumn=' + pagination.sortColumn 
                 + '&sortDirection=' + pagination.sortDirection;
         }

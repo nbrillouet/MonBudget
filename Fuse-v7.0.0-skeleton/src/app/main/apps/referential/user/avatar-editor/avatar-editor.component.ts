@@ -41,9 +41,10 @@ export class AvatarEditorComponent implements OnInit {
   }
 
   initializeUploader() {
+    console.log('init upload');
     this.uploader = new FileUploader({
       url: this.baseUrl + 'users/' + this.user.id + '/avatar',
-      authToken: 'Bearer ' + localStorage.getItem('budgetToken'),
+      authToken: 'Bearer ' + localStorage.getItem('currentUser'),
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,

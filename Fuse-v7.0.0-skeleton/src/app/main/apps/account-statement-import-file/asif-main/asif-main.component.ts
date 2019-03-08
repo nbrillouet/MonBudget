@@ -45,16 +45,13 @@ export class AsifMainComponent implements OnInit {
     this.activatedRoute.params.subscribe(routeParams => {
       this.filterAsif = new FilterAsifTable();
       this.filterAsif.selected.idImport=routeParams['idImport'];
-      this._store.dispatch(new ChangeAsifTableFilter(this.filterAsif));
+      this._store.dispatch(new LoadAsifTableFilter(this.filterAsif));
     });
-
   }
   
   ngOnInit() {       
     this.asifTableFilter$.subscribe(asifTableFilter=>{
-      //deep copy
-      this.filterAsif = JSON.parse(JSON.stringify(asifTableFilter.filters));
-
+      this.filterAsif = asifTableFilter.filters;
     });
   }
 
@@ -62,7 +59,7 @@ export class AsifMainComponent implements OnInit {
 
     this.filterAsif.selected.account=this.filterAsif.accounts.find(x=>x.id==$event.id);
 
-    this._store.dispatch(new ChangeAsifTableFilter(this.filterAsif));
+    this._store.dispatch(new LoadAsifTableFilter(this.filterAsif));
 
   }
 

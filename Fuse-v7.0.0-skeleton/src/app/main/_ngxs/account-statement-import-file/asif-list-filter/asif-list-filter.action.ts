@@ -1,4 +1,4 @@
-import { FilterAsifTable } from "app/main/_models/filters/account-statement-import-file.filter";
+import { FilterAsifTable, FilterAsifTableSelected } from "app/main/_models/filters/account-statement-import-file.filter";
 import { Pagination } from "app/main/_models/pagination.model";
 
 export const ASIF_TABLE_FILTER_LOAD = 'asif-table-filter-load';
@@ -15,13 +15,13 @@ export class LoadAsifTableFilter {
 export class LoadAsifTableFilterSuccess {
     static readonly type = ASIF_TABLE_FILTER_LOAD_SUCCESS;
  
-    constructor(public payload: any) { }
+    constructor(public payload: FilterAsifTable) { }
 }
 
 export class ChangeAsifTableFilter {
     static readonly type = ASIF_TABLE_FILTER_CHANGE;
  
-    constructor(public payload: FilterAsifTable) { }
+    constructor(public payload: FilterAsifTableSelected) { }
 }
 
 export class UpdatePaginationAsifTableFilter {

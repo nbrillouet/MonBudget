@@ -164,14 +164,14 @@ namespace Budget.SERVICE
 
         }
 
-        public List<AsGridDto> GetPlanAmountTable(FilterPlanAmount filter)
+        public List<AsForTableDto> GetPlanAmountTable(FilterPlanAmount filter)
         {
             if (filter.IdPlanPoste.HasValue)
             {
                 List<PlanPosteReference> planPosteReferences = _planPosteReferenceService.GetByIdPlanPoste(filter.IdPlanPoste.Value);
-                List<AsGridDto> asGridDto = _accountStatementService.GetByPlanPosteReferences(planPosteReferences,filter.MonthYear);
+                List<AsForTableDto> asForTableDto = _accountStatementService.GetByPlanPosteReferences(planPosteReferences,filter.MonthYear);
 
-                return asGridDto;
+                return asForTableDto;
 
             }
 

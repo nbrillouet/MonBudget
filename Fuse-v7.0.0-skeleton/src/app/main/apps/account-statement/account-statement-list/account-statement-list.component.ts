@@ -1,19 +1,17 @@
 
-import { Component, OnInit, Input, ViewChild, SimpleChanges, SimpleChange, ViewChildren, ViewContainerRef, ComponentFactory, ViewEncapsulation } from '@angular/core';
-import { DataSource } from '@angular/cdk/table';
-import { CollectionViewer } from '@angular/cdk/collections';
+import { Component, OnInit, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
-import { AccountStatementService } from '../account-statement.service';
-import { AccountStatementListFilterService } from './account-statement-list-filter/account-statement-list-filter.service';
 import { fuseAnimations } from '@fuse/animations';
-import { FilterAccountStatement, AsFilter } from 'app/main/_models/Filters/filter-account-statement';
 import { Store, Select } from '@ngxs/store';
-import { LoadAsDatas } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.action';
-import { AsListState } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.state';
 import { AsTable } from 'app/main/_models/account-statement.model';
-import { TableInfo } from 'app/main/_models/generics/table-info.model';
+import { DataInfos } from 'app/main/_models/generics/table-info.model';
+import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
+import { AsTableState } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.state';
+import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
+import { FilterAsTable } from 'app/main/_models/filters/account-statement.filter';
+import { ChangeAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
 
 
 @Component({
@@ -25,149 +23,91 @@ import { TableInfo } from 'app/main/_models/generics/table-info.model';
 })
 
 export class AccountStatementListComponent implements OnInit {
-  @Select(AsListState.get) tableInfo$: Observable<TableInfo<AsTable,AsFilter>>;
-
-  
-  @Input() idAccount: number;
-
+  @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
+  @Select(AsTableState.get) asTable$: Observable<DataInfos<AsTable>>;
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   
+  dataSource = new MatTableDataSource<AsTable>();// AsifDataSource;
+  filterAs: FilterAsTable;
 
   idAccountStatement: number;
-  filter: AsFilter;
-  selectedIndex:number = 0;
-  dataSource : AccountStatementImportFileDataSource;
+  // filter: AsFilter;
+  selectedIndex: number = 0;
+  // dataSource: AccountStatementImportFileDataSource;
   displayedColumns = ['id','plan','operationMethod','operationTypeFamily','operationType','operation','dateIntegration','amountOperation','button'];
   
-  isExpansionDetailRow = (i: number, row: any) => row.hasOwnProperty('detailRow');
-  expandedElement: any;
+  // isExpansionDetailRow = (i: number, row: any) => row.hasOwnProperty('detailRow');
+  // expandedElement: any;
 
   templateFor:string;
-  loading: boolean=false;
-  datas:any;
+  // loading: boolean=false;
+  // datas:any;
 
   constructor(
-    private router: Router,
-    private store: Store) {
-     
-      
-      this.dataSource = new AccountStatementImportFileDataSource(this.store);
+    private _router: Router,
+    private _store: Store) {
+
+      this.asTable$.subscribe(asifTable=>{
+        this.dataSource.data = asifTable.datas; 
+      });
 
    }
 
   ngOnInit() {
-    this.tableInfo$.subscribe(gridInfo => {
-      if(this.filter != gridInfo.filter)
-      {
-        this.filter = gridInfo.filter;
-    
-        this.dataSource.load(this.filter);
-      }
+    this.asTableFilter$.subscribe(asTableFilter=>{
+      this.filterAs = asTableFilter.filters;
     });
   
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-
-  }
-
   onPageChangeEvent(event) {
-   
-    this.filter.pagination.currentPage = this.paginator.pageIndex;
+    this.filterAs.selected.pagination.currentPage = this.paginator.pageIndex;
     this.loadPage();
   }
   
   onSortChangeEvent(event): void {
-   
-    this.filter.pagination.currentPage=0;
+    this.filterAs.selected.pagination.currentPage=0;
     this.loadPage();
-  }
-
-  onRowClick(data) {
-   
   }
 
   loadPage() {
 
-    this.filter.pagination.itemsPerPage = this.paginator.pageSize;
-    this.filter.pagination.sortColumn = this.sort.active;
-    this.filter.pagination.sortDirection = this.sort.direction;
+    this.filterAs.selected.pagination.nbItemsPerPage = this.paginator.pageSize;
+    this.filterAs.selected.pagination.sortColumn = this.sort.active;
+    this.filterAs.selected.pagination.sortDirection = this.sort.direction;
 
-    this.dataSource.load(this.filter);
+    this._store.dispatch(new ChangeAsTableFilter(this.filterAs.selected));
   }
 
   hasFilterData(filter:string) {
-    
+    if(!this.filterAs)
+      return false;
     if(filter=='operation')
-      return this.filter!=null && this.filter.operationSelected!=null && this.filter.operationSelected.length>0;
+      return this.filterAs.selected!=null && this.filterAs.selected.operations!=null && this.filterAs.selected.operations.length>0;
     if(filter=='operationMethod')
     {
-      return this.filter!=null && this.filter.operationMethodSelected!=null && this.filter.operationMethodSelected.length>0;
+      return this.filterAs.selected!=null && this.filterAs.selected.operationMethods!=null && this.filterAs.selected.operationMethods.length>0;
     }
     if(filter=='operationTypeFamily')
-      return this.filter!=null && this.filter.operationTypeFamilySelected!=null && this.filter.operationTypeFamilySelected.length>0;
+      return this.filterAs.selected!=null && this.filterAs.selected.operationTypeFamilies!=null && this.filterAs.selected.operationTypeFamilies.length>0;
     if(filter=='operationType')
-      return this.filter!=null && this.filter.operationTypeSelected!=null && this.filter.operationTypeSelected.length>0;
+      return this.filterAs.selected!=null && this.filterAs.selected.operationTypes!=null && this.filterAs.selected.operationTypes.length>0;
     if(filter=='dateIntegration')
-      return this.filter!=null && this.filter.dateIntegrationMin!=null;
+      return this.filterAs.selected!=null && this.filterAs.selected.dateIntegrationMin!=null;
     if(filter=='amount')
-      return this.filter!=null && this.filter.amountMin!=null;
+      return this.filterAs.selected!=null && this.filterAs.selected.amountMin!=null;
       
   }
 
   detail(data) {
    
-    this.router.navigate(
-      [`apps/account-statements/accounts/${this.idAccount}/account-statements/${data.id}/detail`]);
+    this._router.navigate(
+      [`apps/account-statements/accounts/${this.filterAs.selected.idAccount}/account-statements/${data.id}/detail`]);
   }
 
 
 }
 
-export class AccountStatementImportFileDataSource extends DataSource<TableInfo<AsTable,AsFilter>> {
 
-  @Select(AsListState.get) gridInfo$: Observable<TableInfo<AsTable,AsFilter>>;
-
-  constructor (
-    private store: Store
-    ) {
-    super();
-  }
-
-  connect(collectionViewer: CollectionViewer): Observable<any[]> {
-    return this.gridInfo$.map(x=>x.dataInfos.datas);
-  }
-
-  disconnect(collectionViewer: CollectionViewer): void {
-  }
-  
-  clear()
-  {
-  }
-
-  load(filter: FilterAccountStatement) {
-  
-    if(filter.idAccount!=null)
-    {
-
-    
-      
-      this.store.dispatch(new LoadAsDatas(filter));
-
-      // this.accountStatementService.get(filter)
-      //   .subscribe((res: IPageList<IAsGrid>) => {
-          
-      //     let toto:any[]=[];
-      //     res.datas.forEach(element => toto.push(element, { detailRow: true, element }));
-      //     // this.accountStatementImportFilesSubject.next(toto);
-      //     // this.paginationSubject.next(res.pagination);
-      //     // this.loadingSubject.next(false);
-   
-          
-      //   });
-    }
-
-    }
-  }

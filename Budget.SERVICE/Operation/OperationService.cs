@@ -49,9 +49,15 @@ namespace Budget.SERVICE
             return selectList;
         }
 
-        public List<SelectDto> GetSelectList(List<SelectDto> operationMethods)
+        //public List<SelectDto> GetSelectList(List<SelectDto> operationMethods)
+        //{
+        //    var operations = _operationRepository.GetSelectList(operationMethods);
+        //    return _mapper.Map<List<SelectDto>>(operations);
+        //}
+
+        public List<SelectDto> GetSelectList(List<SelectDto> operationTypes)
         {
-            var operations = _operationRepository.GetSelectList(operationMethods);
+            var operations = _operationRepository.GetSelectList(operationTypes);
             return _mapper.Map<List<SelectDto>>(operations);
         }
 

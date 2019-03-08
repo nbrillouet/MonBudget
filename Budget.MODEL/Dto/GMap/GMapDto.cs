@@ -20,6 +20,14 @@ namespace Budget.MODEL.Dto
         public SelectDto gMapStreetNumber { get; set; }
         public SelectDto gMapSublocalityLevel1 { get; set; }
         public SelectDto gMapSublocalityLevel2 { get; set; }
-        public List<SelectDto> GMapTypes { get; set; }
+        public List<GMapTypeDto> GMapTypes { get; set; }
     }
+
+    public class GMapTypeDto
+    {
+        public int Id { get; set; }
+        public string Keyword { get; set; }
+        public string Label { get; set; }
+    }
+    
 }

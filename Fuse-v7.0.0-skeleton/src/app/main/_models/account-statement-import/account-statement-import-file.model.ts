@@ -40,7 +40,4 @@ export class AsifDetail {
     isLocalisable: boolean;
     operationDetail: OperationDetail;
     gMapSearchInfo: GMapSearchInfo;
-
-
-
 }

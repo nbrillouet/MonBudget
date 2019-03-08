@@ -79,7 +79,8 @@ namespace Budget.API.Controllers
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.NameIdentifier,userRetrieve.Id.ToString()),
-                    new Claim(ClaimTypes.Name, userRetrieve.UserName)
+                    new Claim(ClaimTypes.Name, userRetrieve.UserName),
+                    new Claim(ClaimTypes.Locality, "fr")
                 }),
 
                 Expires = DateTime.Now.AddDays(1),

@@ -12,7 +12,7 @@ export class TableInfo<T,U>  {
 
 export class DataInfos<T> {
     datas: T[];
-    pagination: Pagination;
+    // pagination: Pagination;
     loadingInfo : LoadingInfo;
 
     constructor(){

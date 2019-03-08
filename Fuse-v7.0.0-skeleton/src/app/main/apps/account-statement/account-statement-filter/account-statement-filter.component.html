@@ -1,4 +1,5 @@
-<div fxLayout="row" fxLayoutAlign="space-between">
+<div 
+    fxLayout="row" fxLayoutAlign="space-between">
     <div fxflex fxLayoutAlign="start center">
         <div *ngFor="let item of months"
 
@@ -9,20 +10,27 @@
             {{ item.label }}
         </div>
     </div>
-    <div fxflex fxLayoutAlign="end center">
-      <div class="selected-project">{{filter.monthYearSelected.year}}</div>
+    <div fxflex fxLayoutAlign="end center" >
+        <div *ngIf="(asTableFilter$ | async).loadingInfo.loaded; else emptyYear" 
+            class="selected-project"
+        >
+            {{ (asTableFilter$ | async).filters.selected.monthYear.year }}
+        </div>
+        <ng-template #emptyYear>
+            <div class="selected-project"><mat-spinner [diameter]="15"></mat-spinner></div>
+        </ng-template>
 
-      <button mat-icon-button 
-          class="project-selector" 
-          [matMenuTriggerFor]="projectsMenu"
-          aria-label="Select project">
-          <mat-icon>more_horiz</mat-icon>
-      </button>
+        <button mat-icon-button 
+            class="project-selector" 
+            [matMenuTriggerFor]="projectsMenu"
+            aria-label="Select project">
+            <mat-icon>more_horiz</mat-icon>
+        </button>
 
-      <mat-menu #projectsMenu="matMenu">
-          <button mat-menu-item *ngFor="let year of years" (click)="updateYearSelected(year)">
-              <span>{{year}}</span>
-          </button>
-      </mat-menu>
+        <mat-menu #projectsMenu="matMenu">
+            <button mat-menu-item *ngFor="let year of years" (click)="updateYearSelected(year)">
+                <span>{{year}}</span>
+            </button>
+        </mat-menu>
   </div>
 </div>

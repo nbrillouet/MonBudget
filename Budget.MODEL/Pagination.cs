@@ -4,33 +4,30 @@ using System.Text;
 
 namespace Budget.MODEL
 {
-        //public class Pagination 
-        //{
-        //    private const int MaxPageSize = 50;
-        //    public int PageNumber { get; set; } = 1;
-
-        //    private int pageSize = 10;
-        //    public int PageSize
-        //    {
-        //        get { return pageSize; }
-        //        set { pageSize = (value > MaxPageSize) ? MaxPageSize : value; }
-        //    }
-
-        //    public string SortColumn { get; set; } = "id";
-        //    public string SortDirection { get; set; } = "desc";
-
-        //}
 
     public class Pagination
     {
-        public int? CurrentPage { get; set; }
-        public int? ItemsPerPage { get; set; }
+        public int CurrentPage { get; set; }
+        public int NbItemsPerPage { get; set; }
         public string SortColumn { get; set; }
         public string SortDirection { get; set; }
-        public int? TotalItems { get; set; }
-        public int? TotalPages { get; set; }
-        
+        public int TotalItems { get; set; }
+        public int TotalPages { get; set; }
 
-
+        public Pagination()
+        {
+            CurrentPage = 0;
+            NbItemsPerPage = 15;
+            SortColumn = "id";
+            SortDirection = EnumSortDirection.asc.ToString();
+            TotalItems = 0;
+            TotalPages = 0;
+        }
     }
+
+    public enum EnumSortDirection {
+        asc = 0,
+        desc = 1
+    }
+
 }

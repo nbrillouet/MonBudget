@@ -1,15 +1,15 @@
-export interface IPagination {
-    currentPage: number;
-    itemsPerPage: number;
-    totalItems: number;
-    totalPages: number;
-    sortColumn: string;
-    sortDirection: string;
-}
+// export interface IPagination {
+//     currentPage: number;
+//     nbItemsPerPage: number;
+//     totalItems: number;
+//     totalPages: number;
+//     sortColumn: string;
+//     sortDirection: string;
+// }
 
-export class Pagination implements IPagination {
+export class Pagination {
     currentPage: number;
-    itemsPerPage: number;
+    nbItemsPerPage: number;
     totalItems: number;
     totalPages: number;
     sortColumn: string;
@@ -17,10 +17,9 @@ export class Pagination implements IPagination {
 
     constructor() {
         this.currentPage= 0;
-        this.itemsPerPage= 15;
+        this.nbItemsPerPage= 15;
         this.sortColumn= 'id';
         this.sortDirection= 'asc';
-
         this.totalItems = 0;
         this.totalPages = 0;
     }
@@ -30,7 +29,7 @@ export class Pagination implements IPagination {
 
 export class PaginatedResult<T> {
     result: T;
-    pagination: IPagination;
+    pagination: Pagination;
 }
 
 

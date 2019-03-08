@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AccountStatementListFilterService } from '../account-statement-list-filter.service';
-import { NotificationsService } from 'angular2-notifications';
 import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import { Moment } from 'moment';
-import { FilterAccountStatement } from 'app/main/_models/Filters/filter-account-statement';
 import { ISelect } from 'app/main/_models/generics/select.model';
+import { FilterAsTable } from 'app/main/_models/filters/account-statement.filter';
+import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
+import { Observable } from 'rxjs';
+import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
+import { Select, Store } from '@ngxs/store';
+import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
 
 @Component({
   selector: 'date-integration-filter',
@@ -25,70 +28,61 @@ import { ISelect } from 'app/main/_models/generics/select.model';
   ]
 })
 export class DateIntegrationFilterComponent implements OnInit {
-
+  @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
+  
   dateIntegrationForm: FormGroup;
-  filter: FilterAccountStatement;
+  asTableFilter: FilterAsTable;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private accountStatementListFilterService: AccountStatementListFilterService,
-
-    private notificationService: NotificationsService
+    private _formBuilder: FormBuilder,
+    private _store: Store
   ) { 
 
-
-    this.accountStatementListFilterService.filter
-      .subscribe(filter => {
-        this.filter = filter;
-
-
-      });
+    this.asTableFilter$.subscribe(filter => {
+      this.asTableFilter = filter.filters;
+    });
 
   }
 
   ngOnInit() {
 
-    this.dateIntegrationForm = this.formBuilder.group({
-        dateIntegrationMin: [this.filter.dateIntegrationMin],
-        dateIntegrationMax: [this.filter.dateIntegrationMax]
+    this.dateIntegrationForm = this._formBuilder.group({
+        dateIntegrationMin: [this.asTableFilter.selected.dateIntegrationMin],
+        dateIntegrationMax: [this.asTableFilter.selected.dateIntegrationMax]
       });
 
   }
-  
-  ngOnDestroy() {
-
-  }
-  ngOnChanges(){
-
-   }
-
-   onTypeChanged(evt): void {
-
-   }
+    
 
    applyFilter(){
-    var mt:Moment = <Moment>this.dateIntegrationForm.value.dateIntegrationMin;
-    
-
-    var dt = mt.toDate();
-    dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
-    this.filter.dateIntegrationMin = dt;
-    
-    mt = this.dateIntegrationForm.value.dateIntegrationMax;
-    dt = mt.toDate();
-    dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
-    this.filter.dateIntegrationMax = dt;
-
-    if (this.filter.dateIntegrationMin != undefined) {
-        this.filter.pagination.currentPage = 1;
-        this.accountStatementListFilterService.changeFilter(this.filter);
+    if (this.dateIntegrationForm.value.dateIntegrationMin!=null){
+      var mt:Moment = <Moment>this.dateIntegrationForm.value.dateIntegrationMin;
+      
+      var dt = mt.toDate();
+      dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
+      this.asTableFilter.selected.dateIntegrationMin = dt;
     }
+    
+    if(this.dateIntegrationForm.value.dateIntegrationMax) {
+      mt = this.dateIntegrationForm.value.dateIntegrationMax;
+      dt = mt.toDate();
+      dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
+      this.asTableFilter.selected.dateIntegrationMax = dt;
+    }
+
+    // if (this.asTableFilter.selected.dateIntegrationMin != null || this.asTableFilter.selected.dateIntegrationMax !=null) {
+    this.asTableFilter.selected.pagination.currentPage = 0;
+    this._store.dispatch(new LoadAsTableFilter(this.asTableFilter));
+    // }
+
+    //suppression du menu
+    var element=document.getElementsByClassName("content-filter").item(0);
+    element.parentElement.remove();
 
    }
 
    compareObjects(o1: ISelect, o2: ISelect) {
     return o1 && o2 ? o1.id === o2.id : o1 === o2;
-
- }
+  }
 
 }

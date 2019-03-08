@@ -1,3 +1,4 @@
+ 
  <div class="example-container"> 
 <!-- <div class="table-scrolled">  -->
     <mat-table 
@@ -141,12 +142,13 @@
         <div style="color:#4285F3" fxLayout="row">chargement...</div>
     </div> 
 </div> 
-<!-- </div>  -->
-    <!-- <mat-paginator *ngIf="(asifTableFilter$ | async).loadingInfo.loaded && (asifTableFilter$ | async).filters.selected.pagination as pagination" -->
-<mat-paginator *ngIf="(asifTable$ | async).pagination as pagination"
+
+
+<!-- <mat-paginator *ngIf="(asifTable$ | async).pagination as pagination" -->
+<mat-paginator 
     (page)="onPageChangeEvent($event)"
-    [length]="pagination.totalItems" 
-    [pageSize]="pagination.itemsPerPage"
+    [length]="(asifTableFilter$ | async).filters.selected.pagination.totalItems" 
+    [pageSize]="(asifTableFilter$ | async).filters.selected.pagination.nbItemsPerPage"
     [pageSizeOptions]="[15, 100, 200]">
 </mat-paginator>
 

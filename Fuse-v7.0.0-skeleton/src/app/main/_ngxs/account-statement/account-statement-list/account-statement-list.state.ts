@@ -1,34 +1,27 @@
-import { State, Selector, Action, StateContext } from "@ngxs/store";
-import { AccountStatementService } from "app/main/apps/account-statement/account-statement.service";
-import { AsFilter } from "app/main/_models/Filters/filter-account-statement";
+import { DataInfos } from "app/main/_models/generics/table-info.model";
 import { AsTable } from "app/main/_models/account-statement.model";
-import { LoadAsDatas, LoadAsDatasSuccess, ChangeAsFilter } from "./account-statement-list.action";
-import { TableInfo } from "app/main/_models/generics/table-info.model";
+import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
+import { AsService } from "app/main/apps/account-statement/account-statement.service";
+import { LoadAsTableDatas, LoadAsTableDatasSuccess, ClearAsTableDatas } from "./account-statement-list.action";
+import { UpdatePaginationAsTableFilter } from "../account-statement-list-filter/account-statement-filter.action";
 
-export class AsTableStateModel extends TableInfo<AsTable,AsFilter> {
-   
+export class AsTableStateModel extends DataInfos<AsTable> {
     constructor () {
         super();
-        this.filter = new AsFilter();
     }
 }
 
-// var loading = <LoadingInfo> {loading:false,loaded:false}
-// var gridInfo = <GridInfo<IAsGrid>> {datas:null,pagination:null,loadingInfo:loading};
-let tableInfo = new AsTableStateModel();
-
+let asTableStateModel = new AsTableStateModel();
 @State<AsTableStateModel>({
-    
-    name: 'accountStatementTable',
-    defaults : tableInfo 
-    // {
-    //     gridInfo: gridInfo
-    // }
+    name: 'AsTable',
+    defaults : asTableStateModel
 })
 
-export class AsListState {
-    constructor(private accountStatementService: AccountStatementService) {
-        
+export class AsTableState {
+    constructor(
+        private _asService: AsService,
+        private _store: Store
+    ) {
     }
 
     @Selector()
@@ -36,54 +29,48 @@ export class AsListState {
         return state;
     }
 
-    @Selector()
-    static getFilter(state: AsFilter) {
-        return state.filter;
-    }
+    // @Selector()
+    // static getFilter(state: AsTableStateModel) {
+    //     return state.filter;
+    // }
 
-    @Action(LoadAsDatas)
-    loadGrid(context: StateContext<AsTableStateModel>, action: LoadAsDatas) {
+    async delay(ms: number) {
+        await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+      }
+
+    @Action(LoadAsTableDatas)
+    loadGrid(context: StateContext<AsTableStateModel>, action: LoadAsTableDatas) {
         const state = context.getState();
-        state.dataInfos.loadingInfo.loaded=false;
-        state.dataInfos.loadingInfo.loading=true;
-        state.filter = action.payload;
-        state.dataInfos.datas = null;
-        
-        // state.pagination = new Pagination();
-        context.patchState(state);
+        state.loadingInfo.loaded=false;
+        state.loadingInfo.loading=true;
 
-        this.accountStatementService.get(action.payload)
+        state.datas = null;
+        context.patchState(state);
+        
+        console.log('action.payload', action.payload);
+        // this.delay(3000).then(any=>{
+        this._asService.getAsTable(action.payload)
             .subscribe(result=> {
-                context.dispatch(new LoadAsDatasSuccess(result));
-            })
-
+                context.dispatch(new LoadAsTableDatasSuccess(result));
+            });
+        // });
     }
 
-    @Action(LoadAsDatasSuccess)
-    loadSuccess(context: StateContext<AsTableStateModel>, action: LoadAsDatasSuccess) {
+    @Action(LoadAsTableDatasSuccess)
+    loadSuccess(context: StateContext<AsTableStateModel>, action: LoadAsTableDatasSuccess) {
         let state = context.getState();
-        state.dataInfos.loadingInfo.loaded = true;
-        state.dataInfos.loadingInfo.loading = false;
-        state.dataInfos.datas = action.payload.datas;
-
-        state.filter.pagination = action.payload.pagination;
-
+        state.loadingInfo.loaded = true;
+        state.loadingInfo.loading = false;
+        state.datas = action.payload.datas;
 
         context.patchState(state);
-        
+
+        this._store.dispatch(new UpdatePaginationAsTableFilter(action.payload.pagination));
     }
 
-    @Action(ChangeAsFilter)
-    changeFilter(context: StateContext<AsTableStateModel>, action: ChangeAsFilter) {
-        const state = context.getState();
-        state.filter=action.payload
-
-        // state.loadingInfo.loaded=false;
-        // state.loadingInfo.loading=true;
-        // state.datas = null;
-        // state.pagination = new Pagination();
-        context.patchState(state);
-        context.dispatch(new LoadAsDatas(action.payload));
+    @Action(ClearAsTableDatas)
+    clear(context: StateContext<AsTableStateModel>) {
+        return context.setState(new AsTableStateModel());
     }
 
 

@@ -10,18 +10,15 @@
 // }
 
 .example-container {
-    display: flex;
-    flex-direction: column;
-    max-height: 95%;
-    // height: 90%;
-    // overflow: hidden;
-    // min-width: 300px;
+  display: flex;
+  flex-direction: column;
   }
   
   .mat-table {
-    overflow: auto;
+    overflow-y: auto !important;
     width: 100% !important;
-    // height: 800px !important;
+    height:100%;
+    max-height:65vh;
   }
   
   .element-row {
@@ -94,9 +91,10 @@
   // }
 
   .mat-paginator-container {
-    min-height: 36px !important;
-    max-height: 36px !important;
-    padding:    2px !important;
+    min-height: 35px !important;
+    max-height: 35px !important;
+    margin-top: 30px !important;
+    // padding:    2px !important;
   }
 
   .dot {

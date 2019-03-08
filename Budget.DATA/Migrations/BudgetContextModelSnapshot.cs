@@ -627,7 +627,10 @@ namespace Budget.DATA.Migrations
 
                     b.Property<string>("Label")
                         .IsRequired()
-                        .HasColumnName("LABEL");
+                        .HasColumnName("KEYWORD");
+
+                    b.Property<string>("LabelFr")
+                        .HasColumnName("LABEL_FR");
 
                     b.HasKey("Id");
 
@@ -760,6 +763,27 @@ namespace Budget.DATA.Migrations
                     b.HasIndex("IdUser");
 
                     b.ToTable("OPERATION_TRANSVERSE");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.OperationTransverseAs", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<int>("IdAccountStatement")
+                        .HasColumnName("ID_ACCOUNT_STATEMENT");
+
+                    b.Property<int>("IdOperationTransverse")
+                        .HasColumnName("ID_OPERATION_TRANSVERSE");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdAccountStatement");
+
+                    b.HasIndex("IdOperationTransverse");
+
+                    b.ToTable("OPERATION_TRANSVERSE_AS");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.OperationTransverseAsif", b =>
@@ -1360,6 +1384,19 @@ namespace Budget.DATA.Migrations
                     b.HasOne("Budget.MODEL.User", "User")
                         .WithMany()
                         .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.OperationTransverseAs", b =>
+                {
+                    b.HasOne("Budget.MODEL.Database.AccountStatement", "AccountStatement")
+                        .WithMany()
+                        .HasForeignKey("IdAccountStatement")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.OperationTransverse", "OperationTransverse")
+                        .WithMany()
+                        .HasForeignKey("IdOperationTransverse")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

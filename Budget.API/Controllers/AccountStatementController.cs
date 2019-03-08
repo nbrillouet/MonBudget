@@ -22,45 +22,65 @@ namespace Budget.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IAccountStatementService _accountStatementService;
+        private readonly IFilterService _filterService;
 
         public AccountStatementController(
             IMapper mapper,
-            IAccountStatementService accountStatementService
+            IAccountStatementService accountStatementService,
+            IFilterService filterService
+
             )
         {
             _mapper = mapper;
             _accountStatementService = accountStatementService;
+            _filterService = filterService;
 
 
         }
 
-        //[HttpGet]
-        //[Route("accounts/{idAccount}/account-statements")]
-        //public async Task<IActionResult> Get(int idAccount, [FromQuery] Pagination pagination)
-        //{
-        //    var filter = _mapper.Map(pagination, new FilterAccountStatement());
-        //    filter.IdAccount = idAccount;
-        //    var accountStatements = await _accountStatementService.GetAsync(filter);
+        [HttpPost]
+        [Route("table-filter")]
+        public IActionResult getAsTableFilter([FromBody] FilterAsTableSelected filter)
+        {
+            var result = _filterService.GetFilterAsTable(filter);
 
-        //    var asGridDto = _mapper.Map<IEnumerable<AsGridDto>>(accountStatements);
-        //    Response.AddPagination(accountStatements.CurrentPage, accountStatements.PageSize, accountStatements.TotalCount, accountStatements.TotalPages);
-
-        //    return Ok(asGridDto);
-        //}
+            return Ok(result);
+        }
 
         [HttpPost]
         [Route("filter")]
-        public async Task<IActionResult> Get([FromBody] FilterAccountStatement filter)
+        public IActionResult getAsTable([FromBody] FilterAsTableSelected filter)
         {
-            var pagedList = _accountStatementService.Get(filter);
+            var pagedList = _accountStatementService.GetAsTable(filter);
 
             return Ok(pagedList);
 
         }
 
+        [HttpGet]
+        [Route("{idAs}/users/{idUser}/detail")]
+        public IActionResult GetAsDetail(int idAs, int idUser)
+        {
+
+            var asifDto = _accountStatementService.GetAsDetail(idAs, idUser);
+
+            return Ok(asifDto);
+        }
+
+
+        //[HttpPost]
+        //[Route("filter")]
+        //public async Task<IActionResult> Get([FromBody] FilterAccountStatement filter)
+        //{
+        //    var pagedList = _accountStatementService.Get(filter);
+
+        //    return Ok(pagedList);
+
+        //}
+
         [HttpPost]
         [Route("solde-filter")]
-        public async Task<IActionResult> GetSolde([FromBody] FilterAccountStatement filter)
+        public async Task<IActionResult> GetSolde([FromBody] FilterAsTableSelected filter)
         {
             var pagedList = _accountStatementService.GetSolde(filter);
 
@@ -68,14 +88,30 @@ namespace Budget.API.Controllers
 
         }
 
-        [HttpGet]
-        [Route("{id}/detail")]
-        public IActionResult GetById(int id)
+        [HttpPost]
+        [Route("update")]
+        public IActionResult update([FromBody] AsDetailDto asDetailDto)
         {
-            var asDto =  _accountStatementService.GetForDetailById(id);
+            try
+            {
+                var result = _accountStatementService.Update(asDetailDto);
 
-            return Ok(asDto);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
+
+        //[HttpGet]
+        //[Route("{id}/detail")]
+        //public IActionResult GetById(int id)
+        //{
+        //    var asDto =  _accountStatementService.GetForDetailById(id);
+
+        //    return Ok(asDto);
+        //}
 
         //[HttpGet]
         //[Route("accounts/{idAccount}/date-start/{dateStart}/date-end/{dateEnd}/is-with-ITransfer/{isWithITranfer}/Solde")]

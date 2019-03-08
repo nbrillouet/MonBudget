@@ -10,6 +10,6 @@ namespace Budget.SERVICE.GMap
     {
         GMapAddressDto Create(GMapAddressDto gMapAddressDto);
         //GMapAddress Create(GMapAddress gMapAddress);
-        GMapAddressDto GetById(int id);
+        GMapAddressDto GetById(int id, EnumLanguage enumLanguage);
     }
 }

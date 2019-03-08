@@ -28,6 +28,10 @@ export class AsifTableFilterState {
             
     }
 
+    async delay(ms: number) {
+        await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+      }
+
     @Selector()
     static get(state: AsifTableFilterStateModel) {
  
@@ -50,7 +54,6 @@ export class AsifTableFilterState {
         context.patchState(state);
         this._asifService.getAsifTableFilter(action.payload.selected)
             .subscribe(result=> {
-
                 context.dispatch(new LoadAsifTableFilterSuccess(result));
             });
 
@@ -58,50 +61,65 @@ export class AsifTableFilterState {
 
     @Action(LoadAsifTableFilterSuccess)
     loadSuccess(context: StateContext<AsifTableFilterStateModel>, action: LoadAsifTableFilterSuccess) {
+        
+        //conserver le payload
+        let payload = JSON.parse(JSON.stringify(action.payload.selected));
+
         let state = context.getState();
         state.loadingInfo.loaded = true;
         state.loadingInfo.loading = false;
-        state.filters = new FilterAsifTable();
-        state.filters.selected.idImport = action.payload.selected.idImport;
-
+        state.filters = action.payload;
+        //state.filters.selected.idImport = action.payload.selected.idImport;
         context.patchState(state);
-
-        context.dispatch(new ChangeAsifTableFilter(action.payload));
+        
+        context.dispatch(new ChangeAsifTableFilter(payload));
         
     }
-
+        // this.delay(3000).then(any=>{
     @Action(ChangeAsifTableFilter)
     changeFilter(context: StateContext<AsifTableFilterStateModel>, action: ChangeAsifTableFilter) {
-        const state = context.getState();
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
-        context.patchState(state);
-        
-        if(this.ReloadFilters(state.filters,action.payload)) {
-            
-            context.dispatch(new LoadAsifTableFilter(action.payload));
-        }
-        else {
-            if(this.HasChangedState(state.filters.selected,action.payload.selected)) {
-                state.filters = action.payload;
-                context.patchState(state);
 
-                this._store.dispatch(new LoadAsifTableDatas(state.filters.selected));
-            }
+        // const state = context.getState();
+
+        
+        // state.loadingInfo.loaded=false;
+        // state.loadingInfo.loading=true;
+        
+        // context.patchState(state);
+        
+
+        this._store.dispatch(new LoadAsifTableDatas(action.payload));
+
+
+        // if(this.ReloadFilters(state.filters,action.payload)) {
             
-                state.loadingInfo.loaded=true;
-                state.loadingInfo.loading=false;
-                context.patchState(state);
+        //     context.dispatch(new LoadAsifTableFilter(action.payload));
+        // }
+        // else {
+        //     if(this.HasChangedState(state.filters.selected,action.payload.selected)) {
+        //         state.filters = action.payload;
+        //         context.patchState(state);
+                
+        //             this._store.dispatch(new LoadAsifTableDatas(state.filters.selected));
+               
+        //     }
             
-        }
+        //         state.loadingInfo.loaded=true;
+        //         state.loadingInfo.loading=false;
+        //         context.patchState(state);
+            
+        // }
+
      }
 
     @Action(UpdatePaginationAsifTableFilter)
     UpdatePaginationAsifTableFilter(context: StateContext<AsifTableFilterStateModel>, action: UpdatePaginationAsifTableFilter) {
         const state = context.getState();
-
+        
         state.filters.selected.pagination = action.payload;
-        context.patchState(state);
+        // this.delay(3000).then(any=>{
+            context.patchState(state);
+        // });
     }
 
     HasChangedState( state: FilterAsifTableSelected, payload : FilterAsifTableSelected ) {

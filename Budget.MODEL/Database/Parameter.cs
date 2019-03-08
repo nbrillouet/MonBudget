@@ -21,4 +21,10 @@ namespace Budget.MODEL.Database
         [ForeignKey("IdUser")]
         public User User { get; set; }
     }
+
+    public enum EnumLanguage
+    {
+        fr =1,
+        en =2
+    }
 }

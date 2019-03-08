@@ -1,5 +1,4 @@
 import { AsifDetail } from "app/main/_models/account-statement-import/account-statement-import-file.model";
-import { ComboSimple } from "app/main/_models/generics/combo.model";
 import { ISelect } from "app/main/_models/generics/select.model";
 import { OperationFilter } from "app/main/_models/operation.model";
 import { FilterAsifDetail } from "app/main/_models/filters/account-statement-import-file.filter";

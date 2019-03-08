@@ -34,19 +34,19 @@ namespace Budget.DATA.Repositories
             return results;
         }
 
-        public List<Operation> GetSelectList(List<SelectDto> operationMethods)
+        public List<Operation> GetSelectList(List<SelectDto> operationTypes)
         {
             List<Operation> results;
-            if (operationMethods.Count==0)
+            if (operationTypes==null || !operationTypes.Any())
             {
                 results = Context.Operation
                     .ToList();
             }
             else
             {
-                var idOperationMethods = operationMethods.Select(x => x.Id).ToList();
+                var idOperationTypes = operationTypes.Select(x => x.Id).ToList();
                 results = Context.Operation
-                    .Where(x => idOperationMethods.Contains(x.IdOperationMethod))
+                    .Where(x => idOperationTypes.Contains(x.IdOperationType))
                     .ToList();
             }
 

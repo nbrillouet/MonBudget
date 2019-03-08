@@ -11,9 +11,8 @@ namespace Budget.DATA.Repositories
 {
     public interface IAccountStatementRepository : IBaseRepository<AccountStatement>
     {
-        AccountStatement GetForDetailById(int id);
-        //Task<PagedList<AccountStatement>> GetAsync(FilterAccountStatement filter);
-        PagedList<AccountStatement> Get(FilterAccountStatement filter);
+        PagedList<AccountStatement> GetAsTable(FilterAsTableSelected filter);
+        AccountStatement GetAsDetail(int id);
 
         List<AccountStatement> GetByDatePlanPosteReferenceList(List<PlanPosteReference> planPosteReferences, DateTime dateMin, DateTime dateMax);
 

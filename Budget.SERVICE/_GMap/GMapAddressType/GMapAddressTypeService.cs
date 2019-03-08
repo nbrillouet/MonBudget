@@ -1,5 +1,6 @@
 ﻿using Budget.DATA.Repositories.GMap;
 using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,11 +9,15 @@ namespace Budget.SERVICE.GMap
 {
     public class GMapAddressTypeService : IGMapAddressTypeService
     {
+        private readonly IGMapTypeService _gMapTypeService;
         private readonly IGMapAddressTypeRepository _gMapAddressTypeRepository;
 
-        public GMapAddressTypeService(IGMapAddressTypeRepository gMapAddressTypeRepository)
+        public GMapAddressTypeService(
+            IGMapTypeService gMapTypeService,
+            IGMapAddressTypeRepository gMapAddressTypeRepository)
         {
             _gMapAddressTypeRepository = gMapAddressTypeRepository;
+            _gMapTypeService = gMapTypeService;
         }
 
         public GMapAddressType Create(GMapAddressType gMapAddressType)
@@ -20,7 +25,7 @@ namespace Budget.SERVICE.GMap
             return _gMapAddressTypeRepository.Create(gMapAddressType);
         }
 
-        public List<GMapAddressType> Create(int idGMapAddress, List<GMapType> gMapTypes)
+        public List<GMapAddressType> Create(int idGMapAddress, List<GMapTypeDto> gMapTypes)
         {
             List<GMapAddressType> gMapAddressTypes = new List<GMapAddressType>();
             foreach (var gMapType in gMapTypes)
@@ -36,9 +41,11 @@ namespace Budget.SERVICE.GMap
             return gMapAddressTypes;
         }
 
-        public List<GMapType> GetByIdGMapAddress(int id)
+        public List<GMapTypeDto> GetByIdGMapAddress(int id, EnumLanguage enumLanguage)
         {
-            return _gMapAddressTypeRepository.GetByIdGMapAddress(id);
+            var results = _gMapAddressTypeRepository.GetByIdGMapAddress(id);
+
+            return _gMapTypeService.GetGMapTypeDto(results, enumLanguage);
         }
 
     }

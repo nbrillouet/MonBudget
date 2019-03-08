@@ -33,7 +33,7 @@ namespace Budget.DATA.Repositories
         public List<OperationType> GetByOperationTypeFamilies(List<SelectDto> OperationTypeFamilies)
         {
             List<OperationType> results;
-            if (OperationTypeFamilies.Count == 0)
+            if (OperationTypeFamilies==null || !OperationTypeFamilies.Any())
             {
                 results = Context.OperationType
                     .OrderBy(x=>x.Label)

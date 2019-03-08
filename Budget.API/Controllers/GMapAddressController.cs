@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Budget.API.Helpers;
+using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using Budget.SERVICE.GMap;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Budget.API.Controllers
@@ -31,7 +34,8 @@ namespace Budget.API.Controllers
         [Route("{id}/GMapAddress")]
         public IActionResult Get(int id)
         {
-            var gMapAddress = _gMapAddressService.GetById(id);
+            string toto = HttpContext.User.FindFirst(ClaimTypes.Locality)?.Value;
+            var gMapAddress = _gMapAddressService.GetById(id, (EnumLanguage)Enum.Parse(typeof(EnumLanguage),toto));
 
             return Ok(gMapAddress);
 

@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-// import { FilterAccountStatement } from '../../../../../../_models/Filters/FilterAccountStatement';
-import { AccountStatementListFilterService } from '../account-statement-list-filter.service';
-import { FilterAccountStatement, AsFilter } from 'app/main/_models/Filters/filter-account-statement';
 import { Select, Store } from '@ngxs/store';
-// import { AsFilterState } from 'app/main/_ngxs/account-statement/account-statement-filter/account-statement-filter.state';
 import { Observable } from 'rxjs';
-import { AsListState } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.state';
-import { ChangeAsFilter } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.action';
-// import { ChangeAsFilter } from 'app/main/_ngxs/account-statement/account-statement-filter/account-statement-filter.action';
+import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
+import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
+import { FilterAsTable } from 'app/main/_models/filters/account-statement.filter';
+import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
 
 @Component({
   selector: 'amount-filter',
@@ -16,79 +13,57 @@ import { ChangeAsFilter } from 'app/main/_ngxs/account-statement/account-stateme
   styleUrls: ['./amount-filter.component.scss']
 })
 export class AmountFilterComponent implements OnInit {
-  @Select(AsListState.getFilter) filter$: Observable<AsFilter>;
+  @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
+
   stopPropagation:boolean=true;
   amountForm: FormGroup;
-  filter: FilterAccountStatement;
+  asTableFilter: FilterAsTable;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private accountStatementListFilterService: AccountStatementListFilterService,
-    private store: Store
+    private _formBuilder: FormBuilder,
+    private _store: Store
   ) {
 
-    this.filter$.subscribe(filter=> {
-      this.filter = filter;
+    this.asTableFilter$.subscribe(filter=> {
+      this.asTableFilter = filter.filters;
     })
-
-    // this.accountStatementListFilterService.filter
-    //   .subscribe(filter => {
-    //     this.filter = filter;
- 
-    //   });
 
   }
 
   ngOnInit() {
-    this.stopPropagation=true;
-    this.amountForm = this.formBuilder.group({
-      amountMin: [this.filter.amountMin],
-      amountMax: [this.filter.amountMax]
+    // this.stopPropagation=true;
+    this.amountForm = this._formBuilder.group({
+      amountMin: [this.asTableFilter.selected.amountMin],
+      amountMax: [this.asTableFilter.selected.amountMax]
       });
 
   }
-  
-  ngOnDestroy() {
-
-  }
-  ngOnChanges(){
-
-   }
-
-  //  onTypeChanged(evt): void {
-   //  }
+    
 
    applyFilter(){
 
-    //  this.stopPropagation=false;
     let amountMin: number = this.amountForm.value.amountMin;
     let amountMax: number = this.amountForm.value.amountMax;
     var element=document.getElementsByClassName("content-filter").item(0);
-    element.removeAttribute('click');
+    // element.removeAttribute('click');
+    element.parentElement.remove();
 
+    this.asTableFilter.selected.amountMin = amountMin;
+    this.asTableFilter.selected.amountMax = amountMax;
+    this.asTableFilter.selected.pagination.currentPage=0;
 
-    this.filter.amountMin = amountMin;
-    this.filter.amountMax = amountMax;
-    this.filter.pagination.currentPage=0;
-
-    // if (this.filter.amountMin != undefined) {
-        // this.filter.pagination.currentPage = 1;
-        // this.accountStatementListFilterService.changeFilter(this.filter);
-        this.store.dispatch(new ChangeAsFilter(this.filter));
-
-    // }
+    this._store.dispatch(new LoadAsTableFilter(this.asTableFilter));
 
    }
 
    stopPropagationFct(value: boolean){
-
     this.stopPropagation=value;
    }
 
-   testStopPropagation($event){
-     if(this.stopPropagation)
-      $event.stopPropagation();
-   }
+  //  testStopPropagation($event){
+  //    if(this.stopPropagation)
+  //     $event.stopPropagation();
+  //  }
 
 
 }

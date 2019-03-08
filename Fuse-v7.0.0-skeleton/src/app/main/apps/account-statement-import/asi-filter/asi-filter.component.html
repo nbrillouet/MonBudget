@@ -1,5 +1,5 @@
 <mat-tab-group 
-    *ngIf="(asiTableFilter$ | async).loadingInfo.loaded && (asiTableFilter$ | async).filters as filters" 
+    *ngIf="(asiTableFilter$ | async).filters as filters" 
     [selectedIndex]="filters.selected.indexTabBank"
     (selectedTabChange)="onTabChanged($event)"
 >

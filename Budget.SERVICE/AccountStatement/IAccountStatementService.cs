@@ -11,15 +11,17 @@ namespace Budget.SERVICE
 {
     public interface IAccountStatementService
     {
-        AsDetailDto GetForDetailById(int id);
-        PagedList<AsGridDto> Get(FilterAccountStatement filter);
-        SoldeDto GetSolde(FilterAccountStatement filter);
+        PagedList<AsForTableDto> GetAsTable(FilterAsTableSelected filter);
+        AsDetailDto GetAsDetail(int idAs, int idUser);
+        //AsDetailDto GetForDetailById(int id);
+        //PagedList<AsGridDto> Get(FilterAccountStatement filter);
+        SoldeDto GetSolde(FilterAsTableSelected filter);
         //Task<PagedList<AccountStatement>> GetAsync(FilterAccountStatement filter);
-        List<AsGridDto> GetByPlanPosteReferences(List<PlanPosteReference> planPosteReferences,MonthYear monthYear);
+        List<AsForTableDto> GetByPlanPosteReferences(List<PlanPosteReference> planPosteReferences,MonthYear monthYear);
         Boolean Save(List<AccountStatement> accountStatements);
 
         SoldeDto GetSolde(int idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer);
-
+        bool Update(AsDetailDto asDetailDto);
 
     }
 }

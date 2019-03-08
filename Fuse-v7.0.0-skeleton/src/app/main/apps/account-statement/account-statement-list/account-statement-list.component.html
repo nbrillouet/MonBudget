@@ -26,8 +26,6 @@
                 >
                     {{plan.id}}
                 </div>
-            <!-- <span *ngFor="let plan of data.plans">{{plan.label}}</span> -->
-            
         </mat-cell>
     </ng-container>
 
@@ -62,7 +60,7 @@
             </div>
     
             <mat-menu #menuOperation="matMenu" [overlapTrigger]="false">
-                <operation-filter [openFilter]="true" *ngIf="templateFor==='col3'"></operation-filter>
+                <operation-filter *ngIf="templateFor==='col3'"></operation-filter>
             </mat-menu>
         </mat-header-cell>
         <mat-cell style="flex: 0 0 15%;" *matCellDef="let data">
@@ -185,13 +183,11 @@
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
         
         <mat-row 
-            
             *cdkRowDef="let data; columns: displayedColumns;"
             matRipple
             [@animate]="{value:'*',params:{y:'100%'}}"
             class="element-row" 
-            [class.expanded]="expandedElement == data"
-            (click)="expandedElement = data"
+            [matTooltip]="data.labelOperation"
         >
         </mat-row>
         
@@ -200,40 +196,33 @@
             [@detailExpand]="row.element == expandedElement ? 'expanded' : 'collapsed'"
             style="overflow: hidden"> 
         </mat-row> -->
-   
-        
     </mat-table>
 
-
-
-    <div *ngIf="(tableInfo$ | async).dataInfos.loadingInfo.loading"
+    <div *ngIf="(asTable$ | async).loadingInfo.loading"
         class="h-96 w-100-p"
         fxLayout="column"
         fxLayoutAlign="center center">
         <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
         <div style="color:#4285F3" fxLayout="row">chargement...</div>
     </div> 
-    <!-- <div *ngIf="dataSource.loading$ | async;"
-        class="h-96 w-100-p"
-        fxLayout="column"
-        fxLayoutAlign="center center">
-        <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
-        <div style="color:#4285F3" fxLayout="row">chargement...</div>
-    </div>  -->
 
-    <!-- <p class="empty-result" *ngIf="(dataSource.pagination$ | async)?.totalItems==0 && (dataSource.loading$ | async)==false;">Aucun résultat</p> -->
-    <p class="empty-result" *ngIf="(tableInfo$ | async).dataInfos.loadingInfo.loaded && (tableInfo$ | async).filter.pagination.totalItems==0">Aucun résultat</p>
-    <!-- <p *ngIf="(gridInfo$ | async).loadingInfo.loaded &&  (gridInfo$ | async).filter.pagination as pagination">
-        total items: {{pagination.totalItems}} item perPage: {{pagination.itemsPerPage}}
-    </p> -->
-    <mat-paginator *ngIf="(tableInfo$ | async).filter.pagination as pagination"
-        (page)="onPageChangeEvent($event)"
-        [length]="pagination.totalItems" 
-        [pageSize]="pagination.itemsPerPage"
-        [pageSizeOptions]="[15, 100, 200]">
-    </mat-paginator>
-
+    
+    <p class="empty-result" 
+        *ngIf="(asTable$ | async).loadingInfo.loaded 
+            && (asTable$ | async).datas.length==0"
+    >
+        Aucun résultat
+    </p>
 </div>
+
+<mat-paginator *ngIf="(asTableFilter$ | async).loadingInfo.loaded"
+    (page)="onPageChangeEvent($event)"
+    [length]="(asTableFilter$ | async).filters.selected.pagination.totalItems" 
+    [pageSize]="(asTableFilter$ | async).filters.selected.pagination.nbItemsPerPage"
+    [pageSizeOptions]="[15, 100, 200]">
+</mat-paginator>
+
+
     
 
 

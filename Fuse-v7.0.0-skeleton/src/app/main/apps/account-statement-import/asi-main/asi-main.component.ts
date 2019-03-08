@@ -8,9 +8,9 @@ import { IAsifGroupByAccounts } from 'app/main/_models/account-statement-import-
 import { AreaImport, IAccount } from 'app/main/_models/account.model';
 import { Store } from '@ngxs/store';
 import { FilterAsiTable } from 'app/main/_models/filters/account-statement-import.filter';
-import { ChangeAsiTableFilter } from 'app/main/_ngxs/account-statement-import/asi-list-filter/asi-list-filter.action';
+import { ChangeAsiTableFilter, LoadAsiTableFilter } from 'app/main/_ngxs/account-statement-import/asi-list-filter/asi-list-filter.action';
 import { FilterAsifTable } from 'app/main/_models/filters/account-statement-import-file.filter';
-import { ChangeAsifTableFilter } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.action';
+import { ChangeAsifTableFilter, LoadAsifTableFilter } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.action';
 import { AsiService } from '../asi.service';
 
 
@@ -50,33 +50,16 @@ export class AsiMainComponent implements OnInit {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
       this.filterAsi = new FilterAsiTable();
       this.filterAsi.selected.idUser=this.user.id;
-      this._store.dispatch(new ChangeAsiTableFilter(this.filterAsi));
+      this._store.dispatch(new LoadAsiTableFilter(this.filterAsi));
 
     }
     
   ngOnInit() {
-    
-    // this.user = JSON.parse(localStorage.getItem('currentUser'));
 
     this.fileInProgress= false;
-    // this.onSelectedRowsChangedSubscription =
-    //         this._asiService.onSelectedRowsChanged
-    //             .subscribe(selectedRows => {
-    //                 this.hasSelectedRows = selectedRows.length > 0;
-    //             });
+
   }
 
-  // ngOnChanges(changes: SimpleChanges) {
-
-
-  //   let acc: SimpleChange = changes.account;
-  //   this.accountSelected = acc.currentValue;
-  // }
-
-  // ngOnDestroy()
-  // {
-  //     this.onSelectedRowsChangedSubscription.unsubscribe();
-  // }
 
   getFileInProgress($event) {
     this.fileInProgress=$event;
@@ -95,31 +78,15 @@ export class AsiMainComponent implements OnInit {
 
   getUploadResponse($event) {
 
-
     this.filterAsif = new FilterAsifTable();
     this.filterAsif.selected.idImport=$event.idImport;
-    this._store.dispatch(new ChangeAsifTableFilter(this.filterAsif));
+
+    this._store.dispatch(new LoadAsifTableFilter(this.filterAsif));
 
     this.router.navigate([`${this.filterAsif.selected.idImport}/account-statement-import-files`], {relativeTo:this.activatedRoute});
 
-    // this.router.navigate(
-    //   [`${$event.idImport}/accounts/${this.accountSelected.id}/account-statement-import-files`],
-    //   {relativeTo:this.activatedRoute});
+
   }
 
-  
-
-
-  // idImportChanged($event) {
-
-  //   //chargement du account import file correspondant
-  //   this.importStatementService.getAsifAccounts($event)
-  //     .subscribe(response => {
-  //         this.asifAccounts = response;
-  //         this.accountSelected = response.accounts[0];
-  //         this.fileSuccess = true;
-  //         this.areaImport.fileView=true;
-  //     });
-  // }
 
 }

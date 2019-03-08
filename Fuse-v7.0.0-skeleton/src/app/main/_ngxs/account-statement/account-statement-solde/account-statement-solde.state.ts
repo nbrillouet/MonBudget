@@ -1,14 +1,14 @@
 import { DetailInfo } from "app/main/_models/generics/detail-info.model";
-import { AsFilter } from "app/main/_models/Filters/filter-account-statement";
 import { State, Selector, StateContext, Action } from "@ngxs/store";
-import { AccountStatementService } from "app/main/apps/account-statement/account-statement.service";
+import { AsService } from "app/main/apps/account-statement/account-statement.service";
 import { LoadAsSolde, LoadAsSoldeSuccess, ChangeAsSoldeFilter } from "./account-statement-solde.action";
 import { AsSolde } from "app/main/_models/account-statement.model";
+import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 
-export class AsSoldeStateModel extends DetailInfo<AsSolde,AsFilter> {
+export class AsSoldeStateModel extends DetailInfo<AsSolde,FilterAsTableSelected> {
     constructor () {
         super();
-        this.filter = new AsFilter();
+        this.filter = new FilterAsTableSelected();
     }
 }
 
@@ -16,13 +16,13 @@ let detailInfo = new AsSoldeStateModel();
 
 @State<AsSoldeStateModel>({
     
-    name: 'accountStatementSolde',
+    name: 'asSolde',
     defaults : detailInfo 
 })
 
 export class AsSoldeState {
     constructor(
-        private _accountStatementService: AccountStatementService
+        private _asService: AsService
     ) {
         
     }
@@ -33,8 +33,8 @@ export class AsSoldeState {
     }
 
     @Selector()
-    static getFilter(state: AsFilter) {
-        return state.filter;
+    static getFilter(state: FilterAsTableSelected) {
+        return state;
     }
 
     @Action(LoadAsSolde)
@@ -47,7 +47,7 @@ export class AsSoldeState {
 
         context.patchState(state);
 
-        this._accountStatementService.getSolde(action.payload)
+        this._asService.getAsSolde(action.payload)
             .subscribe(result=> {
 
                 context.dispatch(new LoadAsSoldeSuccess(result));
@@ -66,15 +66,15 @@ export class AsSoldeState {
         
     }
 
-    @Action(ChangeAsSoldeFilter)
-    changeFilter(context: StateContext<AsSoldeStateModel>, action: ChangeAsSoldeFilter) {
-        const state = context.getState();
-        state.filter=action.payload
+    // @Action(ChangeAsSoldeFilter)
+    // changeFilter(context: StateContext<AsSoldeStateModel>, action: ChangeAsSoldeFilter) {
+    //     const state = context.getState();
+    //     state.filter=action.payload
 
 
-        context.patchState(state);
-        context.dispatch(new LoadAsSolde(action.payload));
-    }
+    //     context.patchState(state);
+    //     context.dispatch(new LoadAsSolde(action.payload));
+    // }
 
 
 

@@ -7,7 +7,7 @@ import { AsifTableFilterState } from 'app/main/_ngxs/account-statement-import-fi
 import { Observable } from 'rxjs';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterAsifTable } from 'app/main/_models/filters/account-statement-import-file.filter';
-import { ChangeAsifTableFilter } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.action';
+import { ChangeAsifTableFilter, LoadAsifTableFilter } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.action';
 import { AsiService } from '../../account-statement-import/asi.service';
 // import { AsiService } from '../../account-statement-import.service';
 
@@ -32,7 +32,9 @@ export class AsifStateComponent implements OnInit {
   ) { 
     this.asifTableFilter$.subscribe(asifTableFilter=>{
       //deep copy
-      this.filter = JSON.parse(JSON.stringify(asifTableFilter.filters));
+      if(asifTableFilter.loadingInfo.loaded) {
+        this.filter = asifTableFilter.filters;
+      }
     })
   }
 
@@ -45,7 +47,7 @@ export class AsifStateComponent implements OnInit {
     this.filter.selected.indexTabAsifState=$event.index;
     this.filter.selected.asifState = this.filter.asifStates[$event.index]; //.find(x=>x.id==$event.index);
 
-    this._store.dispatch(new ChangeAsifTableFilter(this.filter));
+    this._store.dispatch(new LoadAsifTableFilter(this.filter));
 
   }
 

@@ -104,6 +104,9 @@ namespace Budget.API
             services.AddScoped<IOperationTransverseAsifService, OperationTransverseAsifService>();
             services.AddScoped<IOperationTransverseAsifRepository, OperationTransverseAsifRepository>();
 
+            services.AddScoped<IOperationTransverseAsService, OperationTransverseAsService>();
+            services.AddScoped<IOperationTransverseAsRepository, OperationTransverseAsRepository>();
+            
             services.AddScoped<IPlanService, PlanService>();
             services.AddScoped<IPlanRepository, PlanRepository>();
 

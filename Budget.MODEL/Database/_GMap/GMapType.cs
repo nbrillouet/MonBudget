@@ -13,7 +13,10 @@ namespace Budget.MODEL.Database
         public int Id { get; set; }
 
         [Required]
-        [Column("LABEL")]
-        public string Label { get; set; }
+        [Column("KEYWORD")]
+        public string Keyword { get; set; }
+
+        [Column("LABEL_FR")]
+        public string LabelFr { get; set; }
     }
 }

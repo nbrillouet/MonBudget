@@ -1,13 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AccountStatementListFilterService } from '../account-statement-list-filter.service';
-import { NotificationsService } from 'angular2-notifications';
-import { FilterAccountStatement } from 'app/main/_models/Filters/filter-account-statement';
-// import { ReferentialService } from 'app/main/_services/referential.service';
+import { Component, OnInit} from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ISelect, EnumSelectType } from 'app/main/_models/generics/select.model';
-import { OperationMethodService } from 'app/main/_services/Referential/operation-method.service';
-import { ReferentialService } from 'app/main/_services/Referential/referential.service';
-// import { ReferentialTestService } from 'app/main/_services/Referential/referential.service';
+import { Store, Select } from '@ngxs/store';
+import { FilterAsTable } from 'app/main/_models/filters/account-statement.filter';
+import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
+import { Observable } from 'rxjs';
+import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
+import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
 
 
 @Component({
@@ -16,81 +15,43 @@ import { ReferentialService } from 'app/main/_services/Referential/referential.s
   styleUrls: ['./operation-method-filter.component.scss']
 })
 export class OperationMethodFilterComponent implements OnInit {
-
- 
+  @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
+  
+  asTableFilter: FilterAsTable;
   operationMethodForm: FormGroup;
-  filter: FilterAccountStatement;
-  operationMethods: ISelect[];
-
 
   constructor(
-    private formBuilder: FormBuilder,
-    private accountStatementListFilterService: AccountStatementListFilterService,
-    private notificationService: NotificationsService,
-    // private _operationMethodService: OperationMethodService
-    private _referentialService: ReferentialService
+    private _formBuilder: FormBuilder,
+    private _store: Store
 
   ) { 
 
-    this.operationMethodForm = this.formBuilder.group({
-      operationMethod: [undefined]
-    });
-    
-    this.accountStatementListFilterService.filter
-      .subscribe(filter => {
-        this.filter = filter;
-
-        this.operationMethodForm.controls['operationMethod'].setValue(filter.operationMethodSelected);
-        this.getOperationMethodList();
+    this.asTableFilter$.subscribe(filter => {
+        this.asTableFilter = filter.filters;
       });
 
   }
-  
-
-  getOperationMethodList() {
-    this._referentialService.operationMethodService.GetSelectList(EnumSelectType.empty)
-    .subscribe(response => {
-        this.operationMethods=response;
-    },
-    error => {
-        this.notificationService.error('Echec de chargement', error);
-    });
-  }
 
   ngOnInit() {
- 
+
+    this.operationMethodForm = this._formBuilder.group({
+      operationMethod: [this.asTableFilter.selected.operationMethods]
+    });
 
   }
   
-  ngOnDestroy() {
-    // this.$filter.unsubscribe();
-  }
 
-  ngOnChanges(){
-
-//     if(this.openFilter && this.triggerMenu) {
-
-//        this.triggerMenu.openMenu();
-//      }
-   }
-
-   onTypeChanged(evt): void {
- 
-   }
-
-   updateAsif(){
+  applyFilter(){
   
-    this.filter.operationMethodSelected = this.operationMethodForm.value.operationMethod;
-    
-    if (this.filter.operationMethodSelected != undefined) {
-        this.filter.pagination.currentPage = 1;
-        this.filter.operationSelected=null;
+    this.asTableFilter.selected.operationMethods = this.operationMethodForm.value.operationMethod;
+    this.asTableFilter.selected.pagination.currentPage = 0;
 
-        this.accountStatementListFilterService.changeFilter(this.filter);
-    }
+    this._store.dispatch(new LoadAsTableFilter(this.asTableFilter));
 
-
-   }
+    //suppression du menu
+    var element=document.getElementsByClassName("content-filter").item(0);
+    element.parentElement.remove();
+  }
 
    compareObjects(o1: ISelect, o2: ISelect) {
      return o1 && o2 ? o1.id === o2.id : o1 === o2;

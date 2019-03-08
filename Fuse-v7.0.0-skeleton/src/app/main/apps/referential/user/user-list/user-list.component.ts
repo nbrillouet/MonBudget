@@ -1,22 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-// import { IUser } from '../../../../../_models/user.model';
-// import { PaginatedResult } from '../../../_models/IPagination';
-// import { IPagination, Pagination, MatPagination, PaginatedResult } from '../../../../../_models/pagination.model';
-import { UserService } from '../user.service';
-import { SimpleNotificationsModule } from 'angular2-notifications';
-import { NotificationsService } from 'angular2-notifications';
-// import { fuseAnimations } from '../../../../../../core/animations';
 import { DataSource } from '@angular/cdk/table';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute } from '@angular/router';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { CollectionViewer } from '@angular/cdk/collections';
-import { map, filter, tap } from 'rxjs/operators';
-import { merge } from 'rxjs/observable/merge';
 import { fuseAnimations } from '@fuse/animations';
-import { Pagination, PaginatedResult } from 'app/main/_models/pagination.model';
-import { IUser, UserTable } from 'app/main/_models/user.model';
+import { UserTable } from 'app/main/_models/user.model';
 import { UserTableFilterState } from 'app/main/_ngxs/user/user-list-filter/user-list-filter.state';
 import { Select, Store } from '@ngxs/store';
 import { UserTableState } from 'app/main/_ngxs/user/user-list/user-list.state';
@@ -25,7 +12,7 @@ import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterUserTable } from 'app/main/_models/filters/user.filter';
 import { ChangeUserTableFilter } from 'app/main/_ngxs/user/user-list-filter/user-list-filter.action';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
+import { MatPaginator, MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-userList',
@@ -104,7 +91,7 @@ export class UserListComponent implements OnInit {
   }
 
   loadPage() {
-    this.filterUser.selected.pagination.itemsPerPage = this.paginator.pageSize;
+    this.filterUser.selected.pagination.nbItemsPerPage = this.paginator.pageSize;
     this.filterUser.selected.pagination.sortColumn = this.sort.active;
     this.filterUser.selected.pagination.sortDirection = this.sort.direction;
 

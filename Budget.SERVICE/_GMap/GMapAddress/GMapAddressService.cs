@@ -57,25 +57,15 @@ namespace Budget.SERVICE.GMap
             _gMapAddressTypeService = gMapAddressTypeService;
         }
 
-        public GMapAddressDto GetById(int id)
+        public GMapAddressDto GetById(int id, EnumLanguage enumLanguage)
         {
             GMapAddress gMapAddress = _gMapAddressRepository.GetById(id);
             GMapAddressDto gMapAddressDto = _mapper.Map<GMapAddressDto>(gMapAddress);
             if(gMapAddressDto!=null)
-                gMapAddressDto.GMapTypes= _mapper.Map<List<SelectDto>>(_gMapAddressTypeService.GetByIdGMapAddress(id));
+                gMapAddressDto.GMapTypes= _gMapAddressTypeService.GetByIdGMapAddress(id, enumLanguage);
 
             return gMapAddressDto;
         }
-
-        //public GMapAddressDto Create(GMapAddressDto gMapAddressDto)
-        //{
-        //    var gMapAddress = Create(_mapper.Map<GMapAddress>(gMapAddressDto));
-            
-            
-
-
-        //    return _mapper.Map<GMapAddressDto>(gMapAddress);
-        //}
 
         public GMapAddressDto Create(GMapAddressDto gMapAddressDto)
         {
@@ -102,7 +92,7 @@ namespace Budget.SERVICE.GMap
             gMapAddress.idGMapSublocalityLevel1 = gMapSublocalityLevel1.Id;
             gMapAddress.idGMapSublocalityLevel2 = gMapSublocalityLevel2.Id;
 
-            List<GMapType> gMapTypes = _gMapTypeService.GetByLabelOrCreate(_mapper.Map<List<GMapType>>(gMapAddressDto.GMapTypes));
+            List<GMapTypeDto> gMapTypes = _gMapTypeService.GetByLabelOrCreate(_mapper.Map<List<GMapType>>(gMapAddressDto.GMapTypes), EnumLanguage.fr);
             
 
             //Recherche si adresse existe deja
@@ -114,12 +104,12 @@ namespace Budget.SERVICE.GMap
 
                 //creation du GMapAddressType
                 List<GMapAddressType> gMapAddressTypes = _gMapAddressTypeService.Create(gMapAddress.Id, gMapTypes);
-                gMapAddressDto.GMapTypes = _mapper.Map<List<SelectDto>>(gMapTypes);
+                gMapAddressDto.GMapTypes = gMapTypes; // _mapper.Map<List<SelectDto>>(gMapTypes);
             }
             else
             {
                 gMapAddressDto = _mapper.Map<GMapAddressDto>(gMapAddressDuplicate);
-                gMapAddressDto.GMapTypes = _mapper.Map<List<SelectDto>>(_gMapAddressTypeService.GetByIdGMapAddress(gMapAddressDuplicate.Id));
+                gMapAddressDto.GMapTypes = gMapTypes; // _mapper.Map<List<SelectDto>>(_gMapAddressTypeService.GetByIdGMapAddress(gMapAddressDuplicate.Id));
             }
 
             return gMapAddressDto;

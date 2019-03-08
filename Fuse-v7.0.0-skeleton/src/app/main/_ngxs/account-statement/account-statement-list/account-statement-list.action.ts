@@ -1,23 +1,22 @@
-import { AsFilter } from "app/main/_models/Filters/filter-account-statement";
+import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 
-export const AS_LIST_LOAD = 'as-list-load';
-export const AS_LIST_LOAD_SUCCESS = 'as-list-load-success';
-export const AS_FILTER_CHANGE = 'as-filter-change';
+export const AS_TABLE_LOAD = 'as-table-load';
+export const AS_TABLE_LOAD_SUCCESS = 'as-table-load-success';
+export const AS_TABLE_CLEAR = 'as-table-clear';
 
-export class LoadAsDatas {
-    static readonly type = AS_LIST_LOAD;
+export class LoadAsTableDatas {
+    static readonly type = AS_TABLE_LOAD;
+ 
+    constructor(public payload: FilterAsTableSelected) { }
+}
+
+export class LoadAsTableDatasSuccess {
+    static readonly type = AS_TABLE_LOAD_SUCCESS;
  
     constructor(public payload: any) { }
 }
 
-export class LoadAsDatasSuccess {
-    static readonly type = AS_LIST_LOAD_SUCCESS;
- 
-    constructor(public payload: any) { }
-}
-
-export class ChangeAsFilter {
-    static readonly type = AS_FILTER_CHANGE;
- 
-    constructor(public payload: AsFilter) { }
+export class ClearAsTableDatas {
+    static readonly type = AS_TABLE_CLEAR;
+    // constructor(public payload: any) { }
 }

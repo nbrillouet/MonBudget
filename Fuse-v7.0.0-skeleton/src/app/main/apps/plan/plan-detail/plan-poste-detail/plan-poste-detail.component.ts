@@ -182,7 +182,6 @@ export class PlanPosteDetailComponent implements OnInit  {
     let tata:PlanPosteUserForDetail;
     tata= this.data.planPosteUser.filter(x=>x.user.id!=planPosteUser.user.id)[0];
 
-
     toto.percentage=$event.value;
     tata.percentage = 100-toto.percentage;
 

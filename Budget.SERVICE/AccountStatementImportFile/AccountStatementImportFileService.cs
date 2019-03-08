@@ -119,8 +119,8 @@ namespace Budget.SERVICE
 
             asifDetailDto.OperationTransverse = new ComboMultiple<SelectDto>
             {
-                List = _referentialService.OperationTransverseService.GetSelectList(idUser, EnumSelectType.Aucun),
-                ListSelected = _operationTransverseAsifService.GetOperationTransverseSelectList(idAsif, EnumSelectType.Aucun)
+                List = _referentialService.OperationTransverseService.GetSelectList(idUser, EnumSelectType.Empty),
+                ListSelected = _operationTransverseAsifService.GetOperationTransverseSelectList(idAsif, EnumSelectType.Empty)
             };
 
             List<SelectDto> operationDetailList = null;
@@ -380,15 +380,22 @@ namespace Budget.SERVICE
             asif.OperationKeywordTemp = asifDetailDto.OperationKeywordTemp;
             asif.PlaceKeywordTemp = asifDetailDto.PlaceKeywordTemp;
 
-            asif.IdOperationDetail = asifDetailDto.OperationDetail.Id;
-            //mise à jour des données GMapAddress
-            //if (asifDetailDto.OperationDetail.Id==0 || asifDetailDto.OperationDetail.Id==2)
-            //{
-            //    throw new Exception("l'adresse ne peut être vide ou inconnu");
-            //}
-            if (asifDetailDto.OperationDetail.GMapAddress.Id == 3)
+            switch(asifDetailDto.OperationPlace.Selected.Id)
             {
-                asifDetailDto.PlaceKeywordTemp = "--INTERNET--";
+                case 2:
+                    asifDetailDto.OperationDetail.GMapAddress.Id = 2;
+                    asifDetailDto.OperationDetail.KeywordOperation = asifDetailDto.OperationKeywordTemp;
+                    asifDetailDto.OperationDetail.KeywordPlace = null;
+                    break;
+                case 3:
+                    asifDetailDto.OperationDetail.GMapAddress.Id = 3;
+                    asifDetailDto.OperationDetail.KeywordOperation = asifDetailDto.OperationKeywordTemp;
+                    asifDetailDto.OperationDetail.KeywordPlace = "--INTERNET--";
+                    break;
+                default:
+                    asifDetailDto.OperationDetail.KeywordOperation = asifDetailDto.OperationKeywordTemp;
+                    asifDetailDto.OperationDetail.KeywordPlace = asifDetailDto.PlaceKeywordTemp;
+                    break;
             }
 
             //Recherche si operation detail existe déjà, sinon creation
@@ -397,12 +404,15 @@ namespace Budget.SERVICE
                 Id = 0,
                 IdOperation = asifDetailDto.Operation.Selected.Id,
                 IdGMapAddress = asifDetailDto.OperationDetail.GMapAddress.Id,
-                KeywordOperation = asifDetailDto.OperationKeywordTemp,
-                KeywordPlace = asifDetailDto.PlaceKeywordTemp
+                KeywordOperation = asifDetailDto.OperationDetail.KeywordOperation,
+                KeywordPlace = asifDetailDto.OperationDetail.KeywordPlace
             };
             operationDetail = _operationDetailService.GetOrCreate(operationDetail);
             asif.IdOperationDetail = operationDetail.Id;
 
+
+            //Mise à jour de l'operationTransverse
+            _operationTransverseAsifService.Update(asifDetailDto.OperationTransverse.ListSelected, asifDetailDto.Id);
 
             //Mise à jour de l'asifState et du duplicate
             asif = _accountStatementImportFileRepository.UpdateAsifState(asif);

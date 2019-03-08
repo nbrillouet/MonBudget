@@ -74,7 +74,7 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(d => d.Color, o => o.MapFrom(s => s.LogoClassName));
 
 
-            CreateMap<AccountStatement, AsGridDto>()
+            CreateMap<AccountStatement, AsForTableDto>()
                 .ForMember(d => d.OperationTypeFamily, o => o.MapFrom(s => s.OperationType.OperationTypeFamily));
 
             CreateMap<OperationMethod, SelectDto>();
@@ -94,11 +94,16 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(d => d.OperationMethod, o => o.Ignore())
                 .ForMember(d => d.OperationType, o => o.Ignore())
                 .ForMember(d => d.OperationTypeFamily, o => o.Ignore());
-                //.ForMember(d => d.OperationDetail, o => o.Ignore());
+
 
             CreateMap<AccountStatement, AsDetailDto>()
-                .ForMember(dest => dest.LogoName, opt => opt.MapFrom(source => source.OperationType.OperationTypeFamily.LogoClassName))
-                .ForMember(d => d.OperationTypeFamily, o => o.MapFrom(s => s.OperationType.OperationTypeFamily));
+                .ForMember(d => d.LogoName, opt => opt.MapFrom(source => source.OperationTypeFamily.LogoClassName))
+                //trouver l'url à partir de la className
+                .ForMember(d => d.LogoUrl, o => o.ResolveUsing(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName)))
+                .ForMember(d => d.Operation, o => o.Ignore())
+                .ForMember(d => d.OperationMethod, o => o.Ignore())
+                .ForMember(d => d.OperationType, o => o.Ignore())
+                .ForMember(d => d.OperationTypeFamily, o => o.Ignore());
 
             //Plan
             CreateMap<Plan, PlanForDetailDto>()

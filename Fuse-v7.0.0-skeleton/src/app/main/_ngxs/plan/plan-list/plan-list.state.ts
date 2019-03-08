@@ -1,14 +1,10 @@
 import { PlanFilter } from "app/main/_models/Filters/plan.filter";
-// import { PlanTable } from "app/main/_models/plan.model";
 import { TableInfo } from "app/main/_models/generics/table-info.model";
 import { Selector, Action, StateContext, State } from "@ngxs/store";
 import { LoadPlanTableDatas, LoadPlanTableDatasSuccess, ChangePlanTableFilter, ClearPlanTableDatas } from "./plan-list.action";
 import { PlanService } from "app/main/apps/plan/plan.service";
-import { AccountStatementService } from "app/main/apps/account-statement/account-statement.service";
 import { NotificationsService } from "angular2-notifications";
-import { SelectYear } from "app/main/_models/generics/select.model";
 import { PlanTable } from "app/main/_models/plan/plan.model";
-import { DetailInfo } from "app/main/_models/generics/detail-info.model";
 
 export class PlanTableStateModel extends TableInfo<PlanTable,PlanFilter> {
     constructor () {

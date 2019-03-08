@@ -150,10 +150,6 @@
                                 </div>
 
                                 <form *ngIf="isNewOperationTemplate"  name="operationAddForm" [formGroup]="operationAddForm" >
- 
-                                    <!-- <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
-                                        <div class="h2 secondary-text">Proposition d'opération</div>
-                                    </div> -->
                                     <div class="w-100-p" fxLayout="row">
                                         <mat-form-field class="w-90-p" appearance="outline" floatLabel="always" fxFlex>
                                             <mat-label>Proposition d'opération</mat-label>
@@ -171,10 +167,10 @@
                                     
                                     <button mat-raised-button 
                                         class="save-product-button mat-white-bg mt-16 mt-sm-0"
-                                        [disabled]="operationAddForm.invalid || asifDetailForm.get('operationType').errors" (click)="addOperation()">
+                                        [disabled]="operationAddForm.invalid || operationAddForm.get('operationLabelTemp').errors" (click)="addOperation()">
                                         <span>VALIDER</span>
                                     </button>
-                                    <mat-error *ngIf="asifDetailForm.get('operationType').errors && asifDetailForm.get('operationType').hasError('isUnknown')">
+                                    <mat-error *ngIf="operationAddForm.get('operationLabelTemp').errors && operationAddForm.get('operationLabelTemp').hasError('isUnknown')">
                                         <p>L'opération doit contenir un libellé</p>
                                     </mat-error>
                                 </form>

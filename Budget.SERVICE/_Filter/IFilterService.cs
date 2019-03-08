@@ -9,6 +9,7 @@ namespace Budget.SERVICE
 {
     public interface IFilterService
     {
+        FilterAsTable GetFilterAsTable(FilterAsTableSelected filter);
         FilterAsiTable GetFilterAsiTable(FilterAsiTableSelected filter);
         FilterAsifTable GetFilterAsifTable(FilterAsifTableSelected filter);
         FilterUserTable GetFilterUserTable(FilterUserTableSelected filter);

@@ -1,14 +1,8 @@
 import { NgModule } from '@angular/core';
 import { AccountStatementMainComponent } from './account-statement-main/account-statement-main.component';
-// import { AuthGuard } from '../../../../_guards/auth.guard';
-// import { SharedModule } from '../../../../core/modules/shared.module';
 import { RouterModule } from '@angular/router';
-// import { FuseWidgetModule } from '../../../../core/components/widget/widget.module';
 import { AccountStatementFilterComponent } from './account-statement-filter/account-statement-filter.component';
-// import { WidgetsModule } from '../../widgets/widgets.module';
-import { AccountStatementService } from './account-statement.service';
 import { AccountStatementListComponent } from './account-statement-list/account-statement-list.component';
-import { AccountStatementListFilterService } from './account-statement-list/account-statement-list-filter/account-statement-list-filter.service';
 import { OperationFilterComponent } from './account-statement-list/account-statement-list-filter/operation-filter/operation-filter.component';
 import { OperationMethodFilterComponent } from './account-statement-list/account-statement-list-filter/operation-method-filter/operation-method-filter.component';
 import { OperationTypeFamilyFilterComponent } from './account-statement-list/account-statement-list-filter/operation-type-family-filter/operation-type-family-filter.component';
@@ -22,10 +16,13 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseWidgetModule } from '@fuse/components';
 import { WidgetsModule } from '../widgets/widgets.module';
 import { NgxsModule } from '@ngxs/store';
-import { AsListState } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.state';
 import { AsSoldeState } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { environment } from 'environments/environment';
+import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
+import { AsTableState } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.state';
+import { AsService } from './account-statement.service';
+import { AsDetailState } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.state';
 
 
 const routes = [
@@ -65,9 +62,10 @@ const routes = [
     WidgetsModule,
     GMapModule,
     NgxsModule.forFeature([
-      AsListState,
+      AsTableFilterState,
+      AsTableState,
+      AsDetailState,
       AsSoldeState
-
   ])
   
   
@@ -85,8 +83,7 @@ const routes = [
     AccountStatementDetailComponent
   ],
   providers : [
-    AccountStatementService,
-    AccountStatementListFilterService
+    AsService
   ]
 })
 export class AccountStatementModule { }

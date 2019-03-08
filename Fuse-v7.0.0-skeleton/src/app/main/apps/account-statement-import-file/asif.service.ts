@@ -57,7 +57,10 @@ baseUrl = environment.apiUrl;
     getAsifTableFilter(filter: FilterAsifTableSelected) {
         return this.http
             .post(`${this.baseUrl}account-statement-import-files/table-filter`,filter)
-            .map(response => <FilterAsifTable>response);
+            .map((response: FilterAsifTable) => {
+                return response;
+            });
+            // FilterAsifTable
     }
 
     getAsifDetail(filterAsifDetail: FilterAsifDetail) {

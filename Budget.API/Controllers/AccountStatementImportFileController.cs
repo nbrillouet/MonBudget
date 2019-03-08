@@ -44,9 +44,9 @@ namespace Budget.API.Controllers
         [Route("table-filter")]
         public IActionResult getAsifTableFilter([FromBody] FilterAsifTableSelected filter)
         {
-            var result = _filterService.GetFilterAsifTable(filter);
+           var result = _filterService.GetFilterAsifTable(filter);
 
-            return Ok(result);
+           return Ok(result);
         }
 
         [HttpPost]
@@ -56,14 +56,12 @@ namespace Budget.API.Controllers
             var pagedList = _accountStatementImportFileService.GetAsifTable(filter);
 
             return Ok(pagedList);
-
         }
 
         [HttpGet]
         [Route("{idAsif}/users/{idUser}/detail")]
         public IActionResult GetAsifDetail(int idAsif,int idUser)
         {
-
             var asifDto = _accountStatementImportFileService.GetAsifDetail(idAsif, idUser);
             
             return Ok(asifDto);

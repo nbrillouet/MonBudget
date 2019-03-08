@@ -1,42 +1,69 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { ErrorService } from 'app/main/_services/error.service';
-import { FilterAccountStatement } from 'app/main/_models/Filters/filter-account-statement';
-import { IAsDetail } from 'app/main/_models/account-statement.model';
+import { FilterAsTableSelected, FilterAsTable, FilterAsDetail } from 'app/main/_models/filters/account-statement.filter';
+import { AsTable, AsDetail } from 'app/main/_models/account-statement.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
-export class AccountStatementService {
+export class AsService {
     baseUrl = environment.apiUrl;
 
     constructor(
-        private http: HttpClient,
-        private errorService: ErrorService
+        private http: HttpClient
     ) { }
+    
+    getAsTableFilter(filter: FilterAsTableSelected) {
+        return this.http
+            .post(`${this.baseUrl}account-statements/table-filter`,filter)
+            .map((response: FilterAsTable) => {
+                return response;
+            });
+    }
 
-    get(filter: FilterAccountStatement) {
+    getAsTable (filter: FilterAsTableSelected) {
         return this.http
             .post(`${this.baseUrl}account-statements/filter`,filter)
-            .map((response) => {
+            .map((response: AsTable) => {
                 return response;
-            })
-            .catch(this.errorService.handleError);
+            });
     }
 
-    getById(id: number) {
+    getAsDetail(filterAsDetail: FilterAsDetail) {
         return this.http
-            .get(`${this.baseUrl}account-statements/${id}/detail`)
-            .map(response => <IAsDetail>response)
-            .catch(this.errorService.handleError);
+            .get(this.baseUrl + `account-statements/${filterAsDetail.idAs}/users/${filterAsDetail.idUser}/detail`)
+            .map(response => <AsDetail>response)
+            // .catch(this.errorService.handleError);
     }
 
-    getSolde (filter: FilterAccountStatement) {
+    // get(filter: FilterAccountStatement) {
+    //     return this.http
+    //         .post(`${this.baseUrl}account-statements/filter`,filter)
+    //         .map((response) => {
+    //             return response;
+    //         })
+    //         .catch(this.errorService.handleError);
+    // }
+
+    // getById(id: number) {
+    //     return this.http
+    //         .get(`${this.baseUrl}account-statements/${id}/detail`)
+    //         .map(response => <IAsDetail>response);
+    // }
+
+    getAsSolde (filter: FilterAsTableSelected) {
         return this.http
             .post(`${this.baseUrl}account-statements/solde-filter`,filter)
             .map((response) => {
                 return response;
-            })
-            .catch(this.errorService.handleError);
+            });
+    }
+
+    update(asDetail: AsDetail) {
+        return this.http
+            .post(`${this.baseUrl}account-statements/update`,asDetail)
+            .map(resp=><boolean>resp);
+
     }
 
 

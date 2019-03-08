@@ -19,7 +19,7 @@ namespace Budget.DATA.Repositories.GMap
             foreach (var gMapType in gMapTypes)
             {
                 var result = Context.GMapType
-                    .Where(x => x.Label == gMapType.Label)
+                    .Where(x => x.Keyword == gMapType.Keyword.ToUpper())
                     .FirstOrDefault();
 
                 if (result != null)
