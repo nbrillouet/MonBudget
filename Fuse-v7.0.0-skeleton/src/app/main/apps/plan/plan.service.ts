@@ -14,7 +14,7 @@ import { PlanDetail, PlanTable } from "app/main/_models/plan/plan.model";
 import { PlanForTracking } from "app/main/_models/plan/plan-tracking.model";
 import { Observable } from "rxjs";
 import { PlanAmountFilter } from "app/main/_models/filters/plan-amount.filter";
-import { AsTable } from "app/main/_models/account-statement.model";
+import { AsTable } from "app/main/_models/account-statement/account-statement-table.model";
 
 @Injectable()
 export class PlanService {

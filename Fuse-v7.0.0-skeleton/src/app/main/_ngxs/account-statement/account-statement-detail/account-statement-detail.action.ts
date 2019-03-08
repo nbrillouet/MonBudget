@@ -1,7 +1,7 @@
 import { FilterAsDetail } from "app/main/_models/filters/account-statement.filter";
-import { AsDetail } from "app/main/_models/account-statement.model";
 import { ISelect } from "app/main/_models/generics/select.model";
 import { OperationFilter } from "app/main/_models/operation.model";
+import { AsDetail } from "app/main/_models/account-statement/account-statement-detail.model";
 
 export const AS_DETAIL_LOAD = 'as-detail-load';
 export const AS_DETAIL_LOAD_SUCCESS = 'as-detail-load-success';

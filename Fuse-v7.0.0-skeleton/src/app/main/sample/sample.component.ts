@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
 
 import { locale as english } from './i18n/en';
-import { locale as turkish } from './i18n/tr';
+import { locale as french } from './i18n/fr';
 import { IUser } from '../_models/user.model';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -27,6 +27,6 @@ export class SampleComponent
         private _fuseTranslationLoaderService: FuseTranslationLoaderService
     )
     {
-        this._fuseTranslationLoaderService.loadTranslations(english, turkish);
+        this._fuseTranslationLoaderService.loadTranslations(english, french);
     }
 }

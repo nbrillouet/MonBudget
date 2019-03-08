@@ -1,6 +1,7 @@
 ﻿using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
+using Budget.MODEL.Dto.Finance;
 using Microsoft.EntityFrameworkCore;
 
 using System;
@@ -75,6 +76,7 @@ namespace Budget.DATA
 
         //Procedures NOT MAPPED
         public virtual DbSet<SoldeDto> SoldeDto { get; set; }
+        public virtual DbSet<AsEvolutionDto> AsEvolutionDto { get; set; }
         public DbQuery<VPlanGlobal> VPlanGlobal { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

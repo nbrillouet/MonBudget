@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { Store, Select } from '@ngxs/store';
 import { Observable, combineLatest } from 'rxjs';
-import { AsTable, AsSolde } from 'app/main/_models/account-statement.model';
+import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
 import { map } from 'rxjs/operators';
 import { TableInfo } from 'app/main/_models/generics/table-info.model';
 import { AsSoldeState } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.state';
@@ -13,6 +13,7 @@ import { FilterAsTable, FilterAsTableSelected } from 'app/main/_models/filters/a
 import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
 import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
+import { AsSolde } from 'app/main/_models/account-statement/account-statement-solde.model';
 
 
 @Component({

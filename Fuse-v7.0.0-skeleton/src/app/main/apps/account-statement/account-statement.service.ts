@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { ErrorService } from 'app/main/_services/error.service';
 import { FilterAsTableSelected, FilterAsTable, FilterAsDetail } from 'app/main/_models/filters/account-statement.filter';
-import { AsTable, AsDetail } from 'app/main/_models/account-statement.model';
+import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
 import { HttpClient } from '@angular/common/http';
+import { AsDetail } from 'app/main/_models/account-statement/account-statement-detail.model';
 
 @Injectable()
 export class AsService {
@@ -64,6 +65,14 @@ export class AsService {
             .post(`${this.baseUrl}account-statements/update`,asDetail)
             .map(resp=><boolean>resp);
 
+    }
+
+    getAsChartEvolutionBrut (filter: FilterAsTableSelected) {
+        return this.http
+            .post(`${this.baseUrl}account-statements/solde-filter`,filter)
+            .map((response) => {
+                return response;
+            });
     }
 
 

@@ -20,31 +20,6 @@ namespace Budget.DATA.Repositories
         {
         }
 
-        //public AccountStatement GetForDetailById(int id)
-        //{
-        //    var accountStatement = Context.AccountStatement
-        //        .Include(x => x.Operation)
-        //        .Include(x => x.OperationMethod)
-        //        .Include(x => x.OperationType)
-        //            .ThenInclude(x => x.OperationTypeFamily)
-        //        .Include(x=>x.OperationDetail)
-        //        .Include(x=>x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel1)
-        //        .Include(x => x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel2)
-        //        .Include(x => x.OperationDetail.GMapAddress.gMapCountry)
-        //        .Include(x => x.OperationDetail.GMapAddress.gMapLocality)
-        //        .Include(x => x.OperationDetail.GMapAddress.gMapNeighborhood)
-        //        .Include(x => x.OperationDetail.GMapAddress.gMapPostalCode)
-        //        .Include(x => x.OperationDetail.GMapAddress.gMapRoute)
-        //        .Include(x => x.OperationDetail.GMapAddress.gMapStreetNumber)
-        //        .Include(x => x.OperationDetail.GMapAddress.gMapSublocalityLevel1)
-        //        .Include(x => x.OperationDetail.GMapAddress.gMapSublocalityLevel2)
-        //        .Where(x => x.Id == id)
-        //        .FirstOrDefault();
-
-        //    return accountStatement;
-
-        //}
-
         public PagedList<AccountStatement> GetAsTable(FilterAsTableSelected filter)
         {
             var accountStatements = Context.AccountStatement
@@ -253,91 +228,15 @@ namespace Budget.DATA.Repositories
 
         public SoldeDto GetSolde(int idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer)
         {
-           // var idAccountParameter = new SqlParameter("@idAccount", soldeDto.IdAccount);
-           // var dateStartParameter = new SqlParameter("@dateStart", soldeDto.DateStart);
-           // //dateStartParameter.Value = soldeDto.DateStart;
-           // var dateEndParameter = new SqlParameter("@dateEnd", soldeDto.DateEnd);
-           // //dateEndParameter.Value = soldeDto.DateEnd;
-           // var isWithITransferParameter = new SqlParameter("@isWithITransfer", soldeDto.IsWithITransfer);
-
-           // object[] parameters =
-           //{
-           //     idAccountParameter,
-           //     dateStartParameter,
-           //     dateEndParameter,
-           //     isWithITransferParameter
-           // };
-
             return Context.Set<SoldeDto>()
-                //.FromSql("spGetSolde @idAccount,@dateStart,@dateEnd,@isWithITransfer", parameters)
                 .FromSql("spGetSolde @idAccount,@dateStart,@dateEnd,@isWithITransfer",
-                    //parameters : new[] { idAccount , dateMin , dateMax , isWithITransfer })
                     new SqlParameter("@idAccount", idAccount),
                     new SqlParameter("@dateStart", dateMin),
                     new SqlParameter("@dateEnd", dateMax),
                     new SqlParameter("@isWithITransfer", isWithITransfer))
                 .FirstOrDefault();
         }
-        //public SoldeDto GetSolde(SoldeDto soldeDto)
-        //{
-        //    var idAccountParameter = new SqlParameter("@idAccount", soldeDto.IdAccount);
-        //    var dateStartParameter = new SqlParameter("@dateStart", soldeDto.DateStart);
-        //    //dateStartParameter.Value = soldeDto.DateStart;
-        //    var dateEndParameter = new SqlParameter("@dateEnd", soldeDto.DateEnd);
-        //    //dateEndParameter.Value = soldeDto.DateEnd;
-        //    var isWithITransferParameter = new SqlParameter("@isWithITransfer", soldeDto.IsWithITransfer);
-
-        //    object[] parameters =
-        //   {
-        //        idAccountParameter,
-        //        dateStartParameter,
-        //        dateEndParameter,
-        //        isWithITransferParameter
-        //    };
-
-        //    return Context.SoldeDto
-        //        //.FromSql("spGetSolde @idAccount,@dateStart,@dateEnd,@isWithITransfer", parameters)
-        //        .FromSql("spGetSolde @idAccount,@dateStart,@dateEnd,@isWithITransfer", 
-        //            new SqlParameter("@idAccount", soldeDto.IdAccount),
-        //            new SqlParameter("@dateStart", soldeDto.DateStart),
-        //            new SqlParameter("@dateEnd", soldeDto.DateEnd),
-        //            new SqlParameter("@isWithITransfer", soldeDto.IsWithITransfer))
-        //        .FirstOrDefault();
-
-        //}
-
-        //public double GetSum(DateTime startDate, DateTime endDate, int idMovement, int idAccount)
-        //{
-        //    var startDateParameter = new SqlParameter("@startDate", startDate);
-        //    var endDateParameter = new SqlParameter("@endDate", endDate);
-        //    var idMovementParameter = new SqlParameter("@idMovement", idMovement);
-        //    var idAccountParameter = new SqlParameter("@idAccount", idAccount);
-
-        //    var returnValue = new SqlParameter("@total", SqlDbType.Decimal)
-        //    {
-        //        Direction = ParameterDirection.Output,
-        //        Precision = 30,
-        //        Scale = 2
-        //    };
-        //    object[] parameters =
-        //    {
-        //        startDateParameter,
-        //        endDateParameter,
-        //        idMovementParameter,
-        //        idAccountParameter,
-        //        returnValue
-        //    };
-
-        //    string command = string.Format("exec spGetAccountStatementSum @startDate,@endDate,@idMovement,@idAccount,@total OUTPUT");
-        //    Context.Database.ExecuteSqlCommand(command, parameters);
-        //    //var toto = Context.Database.SqlQuery<decimal>(command, parameters); 
-        //    double value;
-        //    bool result = double.TryParse(returnValue.Value.ToString(), out value);
-        //    if (!result)
-        //        value = 0;
-
-        //    return Convert.ToDouble(value);
-        //}
+        
 
 
     }

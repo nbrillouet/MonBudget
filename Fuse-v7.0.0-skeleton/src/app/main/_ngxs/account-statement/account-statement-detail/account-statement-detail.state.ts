@@ -1,11 +1,11 @@
 import { DataInfo } from "app/main/_models/generics/detail-info.model";
-import { AsDetail } from "app/main/_models/account-statement.model";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { AsService } from "app/main/apps/account-statement/account-statement.service";
 import { ReferentialService } from "app/main/_services/Referential/referential.service";
 import { LoadAsDetail, LoadAsDetailSuccess, asDetailChangeOperationTypeFamily, asDetailChangeOperationTypeFamilySuccess, asDetailChangeOperationType, asDetailChangeOperationTypeSuccess } from "./account-statement-detail.action";
 import { ComboSimple } from "app/main/_models/generics/combo.model";
 import { ISelect, EnumSelectType } from "app/main/_models/generics/select.model";
+import { AsDetail } from "app/main/_models/account-statement/account-statement-detail.model";
 
 export class AsDetailStateModel extends DataInfo<AsDetail> {
     constructor () {

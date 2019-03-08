@@ -1,5 +1,5 @@
 import { TableInfo } from "app/main/_models/generics/table-info.model";
-import { AsTable } from "app/main/_models/account-statement.model";
+import { AsTable } from "app/main/_models/account-statement/account-statement-table.model";
 import { PlanAmountFilter } from "app/main/_models/filters/plan-amount.filter";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { PlanService } from "app/main/apps/plan/plan.service";

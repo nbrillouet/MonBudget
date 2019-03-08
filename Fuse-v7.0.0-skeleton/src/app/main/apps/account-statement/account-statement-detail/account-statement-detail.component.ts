@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { NotificationsService } from 'angular2-notifications';
 import { ValidateIsUnknown, ValidatorIfLocalisable } from './account-statement-detail.validator';
-import { AsDetail } from 'app/main/_models/account-statement.model';
 import { IOperation, OperationFilter } from 'app/main/_models/operation.model';
 import { GMapSearchInfo } from 'app/main/_models/g-map.model.';
 import { ISelect, EnumSelectType } from 'app/main/_models/generics/select.model';
@@ -24,6 +23,7 @@ import { IUser } from 'app/main/_models/user.model';
 import { LoadAsTableDatas } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.action';
 import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
 import { LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.action';
+import { AsDetail } from 'app/main/_models/account-statement/account-statement-detail.model';
 
 
 @Component({

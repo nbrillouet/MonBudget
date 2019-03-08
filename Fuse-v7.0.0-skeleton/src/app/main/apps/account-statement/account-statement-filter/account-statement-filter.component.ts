@@ -3,7 +3,7 @@ import { DateTimeFactory } from 'app/main/_models/date-time.model';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
-import { AsTable } from 'app/main/_models/account-statement.model';
+import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
 import { TableInfo } from 'app/main/_models/generics/table-info.model';
 import { ISelect } from 'app/main/_models/generics/select.model';
 import { ChangeAsSoldeFilter, LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.action';

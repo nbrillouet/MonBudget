@@ -5,7 +5,7 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { Store, Select } from '@ngxs/store';
-import { AsTable } from 'app/main/_models/account-statement.model';
+import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
 import { DataInfos } from 'app/main/_models/generics/table-info.model';
 import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
 import { AsTableState } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.state';

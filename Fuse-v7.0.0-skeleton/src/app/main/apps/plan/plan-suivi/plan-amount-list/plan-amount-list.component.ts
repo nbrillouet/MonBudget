@@ -6,7 +6,7 @@ import { ChangePlanAmountTableFilter } from 'app/main/_ngxs/plan/plan-amount-lis
 import { PlanAmountTableState } from 'app/main/_ngxs/plan/plan-amount-list/plan-amount-list.state';
 import { Observable } from 'rxjs';
 import { TableInfo } from 'app/main/_models/generics/table-info.model';
-import { AsTable } from 'app/main/_models/account-statement.model';
+import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
 
 @Component({
   selector: 'plan-amount-list',

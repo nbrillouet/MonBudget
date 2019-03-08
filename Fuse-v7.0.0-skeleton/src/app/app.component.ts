@@ -13,7 +13,7 @@ import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.
 
 import { navigation } from 'app/navigation/navigation';
 import { locale as navigationEnglish } from 'app/navigation/i18n/en';
-import { locale as navigationTurkish } from 'app/navigation/i18n/tr';
+import { locale as navigationFrench } from 'app/navigation/i18n/fr';
 import { Select, Store } from '@ngxs/store';
 import { IUser } from './main/_models/user.model';
 import { NavigationService } from './main/_services/navigation.service';
@@ -82,16 +82,16 @@ export class AppComponent implements OnInit, OnDestroy
 
 
         // Add languages
-        this._translateService.addLangs(['en', 'tr']);
+        this._translateService.addLangs(['en', 'fr']);
 
         // Set the default language
-        this._translateService.setDefaultLang('en');
+        this._translateService.setDefaultLang('fr');
 
         // Set the navigation translations
-        this._fuseTranslationLoaderService.loadTranslations(navigationEnglish, navigationTurkish);
+        this._fuseTranslationLoaderService.loadTranslations(navigationEnglish, navigationFrench);
 
         // Use a language
-        this._translateService.use('en');
+        this._translateService.use('fr');
 
         /**
          * ----------------------------------------------------------------------------------------------------
@@ -100,7 +100,7 @@ export class AppComponent implements OnInit, OnDestroy
          */
 
         /**
-         * If you are using a language other than the default one, i.e. Turkish in this case,
+         * If you are using a language other than the default one, i.e. French in this case,
          * you may encounter an issue where some of the components are not actually being
          * translated when your app first initialized.
          *
@@ -109,14 +109,14 @@ export class AppComponent implements OnInit, OnDestroy
          * service.
          **/
 
-        // Set the default language to 'en' and then back to 'tr'.
+        // Set the default language to 'en' and then back to 'fr'.
         // '.use' cannot be used here as ngxTranslate won't switch to a language that's already
         // been selected and there is no way to force it, so we overcome the issue by switching
         // the default language back and forth.
         /**
          setTimeout(() => {
             this._translateService.setDefaultLang('en');
-            this._translateService.setDefaultLang('tr');
+            this._translateService.setDefaultLang('fr');
          });
          */
 

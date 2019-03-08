@@ -130,35 +130,6 @@ namespace Budget.SERVICE
             return asDetailDto;
         }
 
-        //public AsDetailDto GetForDetailById(int id)
-        //{
-        //    var accountStatement = _accountStatementRepository.GetForDetailById(id);
-        //    var asDetailDto = _mapper.Map<AsDetailDto>(accountStatement);
-
-        //    return asDetailDto;
-        //}
-
-        //public async Task<PagedList<AccountStatement>> GetAsync(FilterAccountStatement filter)
-        //{
-        //    var accountStatements = await _accountStatementRepository.GetAsync(filter);
-        //    return accountStatements;
-        //}
-
-
-        //public PagedList<AsGridDto> Get(FilterAccountStatement filter)
-        //{
-        //    var pagedList = _accountStatementRepository.Get(filter);
-
-        //    var result = new PagedList<AsGridDto>(_mapper.Map<List<AsGridDto>>(pagedList.Datas), pagedList.Pagination);
-
-        //    foreach (var data in result.Datas)
-        //    {
-        //        data.Plans=_accountStatementPlanService.GetPlansByIdAccountStatement(data.Id,data.DateIntegration.Value.Year);
-        //    }
-                        
-        //    return result;
-        //}
-
         public List<AsForTableDto> GetByPlanPosteReferences(List<PlanPosteReference> planPosteReferences,MonthYear monthYear)
         {
             DateTime minDate = Convert.ToDateTime($"01/{monthYear.Month.Id}/{monthYear.Year}");
@@ -175,7 +146,7 @@ namespace Budget.SERVICE
             return _accountStatementRepository.Save(accountStatements);
         }
 
-        public SoldeDto GetSolde(int idAccount,DateTime dateMin,DateTime dateMax,bool isWithITransfer)
+        private SoldeDto GetSolde(int idAccount,DateTime dateMin,DateTime dateMax,bool isWithITransfer)
         {
             return _accountStatementRepository.GetSolde(idAccount,dateMin, dateMax, isWithITransfer);
         }

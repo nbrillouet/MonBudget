@@ -20,7 +20,7 @@ namespace Budget.SERVICE
         List<AsForTableDto> GetByPlanPosteReferences(List<PlanPosteReference> planPosteReferences,MonthYear monthYear);
         Boolean Save(List<AccountStatement> accountStatements);
 
-        SoldeDto GetSolde(int idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer);
+        //SoldeDto GetSolde(int idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer);
         bool Update(AsDetailDto asDetailDto);
 
     }
