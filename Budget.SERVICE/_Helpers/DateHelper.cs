@@ -25,5 +25,38 @@ namespace Budget.SERVICE._Helpers
 
             return age;
         }
+
+        public static string GetLabelMonthShort(string monthNumber)
+        {
+            switch (monthNumber)
+            {
+                case "01":
+                    return "Jan";
+                case "02":
+                    return "Fev";
+                case "03":
+                    return "Mar";
+                case "04":
+                    return "Avr";
+                case "05":
+                    return "Mai";
+                case "06":
+                    return "Jui";
+                case "07":
+                    return "Juil";
+                case "08":
+                    return "Aou";
+                case "09":
+                    return "Sep";
+                case "10":
+                    return "Oct";
+                case "11":
+                    return "Nov";
+                case "12":
+                    return "Dec";
+                default:
+                    throw new Exception("No Month for this");
+            }
+        }
     }
 }

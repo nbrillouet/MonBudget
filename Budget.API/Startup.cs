@@ -71,6 +71,10 @@ namespace Budget.API
             services.AddScoped<IAccountStatementService, AccountStatementService>();
             services.AddScoped<IAccountStatementRepository, AccountStatementRepository>();
 
+            services.AddScoped<IAccountStatementChartService, AccountStatementChartService>();
+            services.AddScoped<IAccountStatementChartRepository, AccountStatementChartRepository>();
+            
+
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAccountRepository, AccountRepository>();
 
@@ -116,8 +120,8 @@ namespace Budget.API
             services.AddScoped<IPlanPosteFrequencyService, PlanPosteFrequencyService>();
             services.AddScoped<IPlanPosteFrequencyRepository, PlanPosteFrequencyRepository>();
 
-            services.AddScoped<IFrequencyService, FrequencyService>();
-            services.AddScoped<IFrequencyRepository, FrequencyRepository>();
+            services.AddScoped<IMonthService, MonthService>();
+            services.AddScoped<IMonthRepository, MonthRepository>();
 
             services.AddScoped<IPlanPosteUserService, PlanPosteUserService>();
             services.AddScoped<IPlanPosteUserRepository, PlanPosteUserRepository>();
@@ -196,6 +200,7 @@ namespace Budget.API
             services.AddScoped<IVPlanGlobalRepository, VPlanGlobalRepository>();
 
             services.AddScoped<IFilterService, FilterService>();
+            
             services.AddTransient<ReferentialService>();
 
             services.AddScoped<IContextTransaction, ContextTransaction>();

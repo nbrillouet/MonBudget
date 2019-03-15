@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Budget.MODEL.Database
 {
-    [Table("PLAN_POSTE_USER")]
+    [Table("PLAN_POSTE_USER", Schema = "plan")]
     public class PlanPosteUser
     {
         [Column("ID")]

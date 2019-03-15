@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Budget.MODEL.Database
 {
-    [Table("REFERENCE_TABLE")]
+    [Table("REFERENCE_TABLE", Schema = "plan")]
     public class ReferenceTable
     {
         [Column("ID")]

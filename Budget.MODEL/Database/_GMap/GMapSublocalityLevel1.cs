@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Budget.MODEL.Database
 {
-    [Table("GMAP_SUBLOCALITY_LEVEL_1")]
+    [Table("GMAP_SUBLOCALITY_LEVEL_1", Schema = "gmap")]
     public class GMapSublocalityLevel1
     {
         [Column("ID")]

@@ -62,9 +62,9 @@ toto:boolean=false;
           this.widget = WidgetCardChartBarModel.getEmptyGraph;
           // this.widget.datasets=null;
 
-          this.widget.datasets = x.datasets;
+          this.widget.datasets = x.dataSets;
           this.widget.labels = x.labels.map(x=>x.label);
-          this.getScale(x.datasets[0].data);
+          this.getScale(x.dataSets[0].data);
           //force refresh graph
           setTimeout(() => {
             this._chart.refresh();

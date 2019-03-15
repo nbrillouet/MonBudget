@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Budget.MODEL.Database
 {
-    [Table("GMAP_ADDRESS_TYPE")]
+    [Table("GMAP_ADDRESS_TYPE", Schema = "gmap")]
     public class GMapAddressType
     {
         [Column("ID")]

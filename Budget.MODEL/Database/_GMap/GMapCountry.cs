@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Budget.MODEL.Database
 {
-    [Table("GMAP_COUNTRY")]
+    [Table("GMAP_COUNTRY", Schema = "gmap")]
     public class GMapCountry
     {
         [Column("ID")]

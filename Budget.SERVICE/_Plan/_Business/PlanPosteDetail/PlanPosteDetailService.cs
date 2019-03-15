@@ -18,7 +18,7 @@ namespace Budget.SERVICE
         private readonly IReferenceTableService _referenceTableService;
         private readonly IPlanPosteReferenceService _planPosteReferenceService;
         private readonly IPlanPosteFrequencyService _planPosteFrequencyService;
-        private readonly IFrequencyService _frequencyService;
+        private readonly IMonthService _frequencyService;
         private readonly IAccountStatementPlanService _accountStatementPlanService;
 
 
@@ -30,7 +30,7 @@ namespace Budget.SERVICE
             IReferenceTableService referenceTableService,
             IPlanPosteReferenceService planPosteReferenceService,
             IPlanPosteFrequencyService planPosteFrequencyService,
-            IFrequencyService frequencyService,
+            IMonthService frequencyService,
             IAccountStatementPlanService accountStatementPlanService
 
             )

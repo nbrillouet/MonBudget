@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Budget.MODEL.Database
 {
-    [Table("PLAN_POSTE_FREQUENCY")]
+    [Table("PLAN_POSTE_FREQUENCY", Schema = "plan")]
     public class PlanPosteFrequency
     {
         [Column("ID")]
@@ -21,7 +21,8 @@ namespace Budget.MODEL.Database
         public int IdFrequency { get; set; }
 
         [ForeignKey("IdFrequency")]
-        public Frequency Frequency { get; set; }
+        public Month Frequency { get; set; }
+
         [Column("PREVIEW_AMOUNT")]
         public double PreviewAmount { get; set; }
     }

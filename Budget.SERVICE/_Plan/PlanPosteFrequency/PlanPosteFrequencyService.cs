@@ -12,17 +12,17 @@ namespace Budget.SERVICE
     {
         private readonly IMapper _mapper;
         private readonly IPlanPosteFrequencyRepository _planPosteFrequencyRepository;
-        private readonly IFrequencyService _frequencyService;
+        private readonly IMonthService _monthService;
 
         public PlanPosteFrequencyService(
             IMapper mapper,
             IPlanPosteFrequencyRepository planPosteFrequencyRepository,
-            IFrequencyService frequencyService
+            IMonthService monthService
         )
         {
             _mapper = mapper;
             _planPosteFrequencyRepository = planPosteFrequencyRepository;
-            _frequencyService = frequencyService;
+            _monthService = monthService;
         }
 
         public List<PlanPosteFrequencyForDetailDto> GetByIdPlanPoste(int idPlanPoste)
@@ -42,7 +42,7 @@ namespace Budget.SERVICE
         public List<PlanPosteFrequencyForDetailDto> InitForCreation()
         {
             List<PlanPosteFrequencyForDetailDto> PlanPosteFrequenciesForDetailDto = new List<PlanPosteFrequencyForDetailDto>();
-            List<FrequencyDto> frequencies = _frequencyService.GetAll();
+            List<Month> frequencies = _monthService.GetAll();
             foreach(var frequency in frequencies)
             {
                 PlanPosteFrequencyForDetailDto planPosteFrequencyForDetailDto = new PlanPosteFrequencyForDetailDto

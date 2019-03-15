@@ -72,44 +72,12 @@
                 fullwidth>
 
                 <mat-tab label="Evolution">
-
-                    <div class="grey-100-bg" 
-                        fxLayout="column" 
-                        [@animateStagger]="{value:'50'}"
-                    >
+                    <as-chart-evolution
                         
-                        <div class="position-relative p-24 mat-blue-600-bg"
-                             fxLayoutAlign="space-between center">
-                            <div fxLayout="column" fxLayoutAlign="start start">
-                                <span class="h2">Dépenses</span>
-                                <span class="h5 secondary-text">Suivi des dépenses sur la période</span>
-                            </div>
-                        </div>
-
-                        <div fxLayoutWrap fxLayout="row" *fuseIfOnDom>
-   
-                          <widget-card-chart-bar
-                            class="mr-40"
-                              [@animate]="{value:'*',params:{y:'100%'}}" 
-                              fxFlex=33
-                              >
-                          </widget-card-chart-bar>
-                          
-                          <widget-card-chart-bar
-                            class="mr-40"
-                              [@animate]="{value:'*',params:{y:'100%'}}" 
-                              fxFlex=33
-                              >
-                          </widget-card-chart-bar>
-
-                          <widget-card-chart-bar
-                            class="mr-40"
-                              [@animate]="{value:'*',params:{y:'100%'}}" 
-                              fxFlex=33
-                              >
-                          </widget-card-chart-bar>
-                        </div>
-                    </div>
+                        *ngIf="selectedIndex == 0"
+                        [@animateStagger]="{value:'50'}">
+                    </as-chart-evolution>
+                    
                           <!-- <div fxFlex="100" class="title pb-24 font-size-18 font-weight-300">
                               Comparaison année précédente sur la même période
                           </div>

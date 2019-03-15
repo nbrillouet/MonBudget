@@ -1,6 +1,6 @@
 
 
-<div class="widget" >
+<div class="p-12" >
     
     <div class="fuse-card">
         
@@ -12,26 +12,31 @@
             <div fxLayout="row">chargement...</div>
         </div>
         
-        <div *ngIf="isLoaded" class="p-16 pb-0" fxLayout="row" fxLayoutAlign="start end" fxLayoutWrap>
-            <div class="pr-16">
-                <div class="h3 secondary-text">Conversion</div>
-                <div class="font-size-32 font-weight-300 line-height-1 mt-8">
-                    {{widget.conversion.value}}
+        <div *ngIf="isLoaded" class="p-12 pb-0" fxLayout="row" fxLayoutAlign="space-between end" fxLayoutWrap>
+            <div >
+                <div class="h3 secondary-text">{{widget.title.label}}</div>
+                <div class="font-size-24 font-weight-300 line-height-1 mt-8">
+                    {{widget.title.averageAmount}} €
                 </div>
             </div>
 
-            <div class="py-4 font-size-16" fxLayout="row" fxLayoutAlign="start center">
-                <div fxFlex="row" fxLayoutAlign="start center" class="green-fg"
-                     *ngIf="widget.conversion.ofTarget > 0">
+            <div class="py-6 font-size-12" fxLayout="row" fxLayoutAlign="end center">
+                <div fxFlex="row" fxLayoutAlign="end center" class="green-fg"
+                     *ngIf="widget.title.ratioAmount > 0">
                     <mat-icon class="green-fg mr-4">trending_up</mat-icon>
-                    <span>{{widget.conversion.ofTarget}}%</span>
+                    <span>{{widget.title.ratioAmount}}%</span>
                 </div>
-                <div fxFlex="row" fxLayoutAlign="start center" class="red-fg"
-                     *ngIf="widget.conversion.ofTarget < 0">
+                <div fxFlex="row" fxLayoutAlign="end center" class="red-fg"
+                     *ngIf="widget.title.ratioAmount < 0">
                     <mat-icon class="red-fg mr-4">trending_down</mat-icon>
-                    <span>{{widget.conversion.ofTarget}}%</span>
+                    <span>{{widget.title.ratioAmount}}%</span>
                 </div>
-                <div class="ml-4 text-nowrap">of target</div>
+                <div fxFlex="row" fxLayoutAlign="end center" class="grey-fg"
+                     *ngIf="widget.title.ratioAmount == 0">
+                    <mat-icon class="grey-fg mr-4">trending_flat</mat-icon>
+                    <span>{{widget.title.ratioAmount}}%</span>
+                </div>
+                <div class="ml-4 text-nowrap">{{widget.title.ratioLabel}}</div>
             </div>
 
         </div>

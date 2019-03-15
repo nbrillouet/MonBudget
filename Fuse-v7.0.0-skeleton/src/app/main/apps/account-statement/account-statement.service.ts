@@ -69,7 +69,15 @@ export class AsService {
 
     getAsChartEvolutionBrut (filter: FilterAsTableSelected) {
         return this.http
-            .post(`${this.baseUrl}account-statements/solde-filter`,filter)
+            .post(`${this.baseUrl}account-statement-charts/chart-evolution-brut`,filter)
+            .map((response) => {
+                return response;
+            });
+    }
+
+    getAsChartEvolutionNoIntTransfer(filter: FilterAsTableSelected) {
+        return this.http
+            .post(`${this.baseUrl}account-statement-charts/chart-evolution-no-int-transfer`,filter)
             .map((response) => {
                 return response;
             });

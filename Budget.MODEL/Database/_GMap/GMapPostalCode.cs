@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Budget.MODEL.Database
 {
-    [Table("GMAP_POSTAL_CODE")]
+    [Table("GMAP_POSTAL_CODE", Schema = "gmap")]
     public class GMapPostalCode
     {
         [Column("ID")]

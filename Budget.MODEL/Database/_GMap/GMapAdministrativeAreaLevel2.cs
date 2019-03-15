@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Budget.MODEL.Database
 {
-    [Table("GMAP_ADMINISTRATIVE_AREA_LEVEL_2")]
+    [Table("GMAP_ADMINISTRATIVE_AREA_LEVEL_2", Schema = "gmap")]
     public class GMapAdministrativeAreaLevel2
     {
         [Column("ID")]

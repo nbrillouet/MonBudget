@@ -130,7 +130,7 @@ export class PlanPosteDetailComponent implements OnInit  {
  
     return  <BaseChart>({
           
-      datasets: [
+      dataSets: [
         {
           label: a,
           data : b
@@ -152,9 +152,9 @@ export class PlanPosteDetailComponent implements OnInit  {
     //mise à jour des données du data
     this.data.planPosteFrequencies[index].previewAmount=this.chartValue.yValue;
     //mise à jour des données du charDataset
-    this.chartDataset.datasets[0].data[index]=+this.chartValue.yValue;
+    this.chartDataset.dataSets[0].data[index]=+this.chartValue.yValue;
     
-    let toto = this.chartDataset.datasets[0].data;
+    let toto = this.chartDataset.dataSets[0].data;
     this.chartDataset = this.getChartDatas('Montant Prévisionnel',toto,this.data.planPosteFrequencies.map(x=>x.frequency));
 
   
@@ -163,13 +163,13 @@ export class PlanPosteDetailComponent implements OnInit  {
 
   validatePreviewAmountForAll() {
     this.chartValue.yValue=this.form.controls['amount'].value;
-    for(let i=0;i<this.chartDataset.datasets[0].data.length;i++)
+    for(let i=0;i<this.chartDataset.dataSets[0].data.length;i++)
     {
       this.data.planPosteFrequencies[i].previewAmount=this.chartValue.yValue;
-      this.chartDataset.datasets[0].data[i]=+this.chartValue.yValue;
+      this.chartDataset.dataSets[0].data[i]=+this.chartValue.yValue;
     }
 
-    let toto = this.chartDataset.datasets[0].data;
+    let toto = this.chartDataset.dataSets[0].data;
     this.chartDataset = this.getChartDatas('Montant Prévisionnel',toto,this.data.planPosteFrequencies.map(x=>x.frequency));
   }
 

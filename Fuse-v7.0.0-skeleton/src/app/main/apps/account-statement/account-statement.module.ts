@@ -23,6 +23,8 @@ import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-sta
 import { AsTableState } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.state';
 import { AsService } from './account-statement.service';
 import { AsDetailState } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.state';
+import { AsChartState } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.state';
+import { AsChartEvolutionComponent } from './account-statement-chart/as-chart-evolution/as-chart-evolution.component';
 
 
 const routes = [
@@ -65,7 +67,8 @@ const routes = [
       AsTableFilterState,
       AsTableState,
       AsDetailState,
-      AsSoldeState
+      AsSoldeState,
+      AsChartState
   ])
   
   
@@ -80,7 +83,8 @@ const routes = [
     OperationTypeFilterComponent,
     DateIntegrationFilterComponent,
     AmountFilterComponent,
-    AccountStatementDetailComponent
+    AccountStatementDetailComponent,
+    AsChartEvolutionComponent
   ],
   providers : [
     AsService

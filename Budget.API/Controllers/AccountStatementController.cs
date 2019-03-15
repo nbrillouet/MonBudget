@@ -104,31 +104,7 @@ namespace Budget.API.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("{id}/detail")]
-        //public IActionResult GetById(int id)
-        //{
-        //    var asDto =  _accountStatementService.GetForDetailById(id);
-
-        //    return Ok(asDto);
-        //}
-
-        //[HttpGet]
-        //[Route("accounts/{idAccount}/date-start/{dateStart}/date-end/{dateEnd}/is-with-ITransfer/{isWithITranfer}/Solde")]
-        //public IActionResult GetSolde(int idAccount,DateTime dateStart,DateTime dateEnd,int isWithITransfer)
-        //{
-        //    SoldeDto soldeDto = new SoldeDto
-        //    {
-        //        IdAccount = idAccount,
-        //        DateStart = dateStart,
-        //        DateEnd = dateEnd,
-        //        IsWithITransfer = isWithITransfer
-        //    };
-
-        //    var solde = _accountStatementService.GetSolde(soldeDto);
-
-        //    return Ok(solde);
-        //}
+        
 
     }
 }

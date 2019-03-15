@@ -56,7 +56,6 @@ export class GMapSearchComponent implements OnInit,OnChanges {
         this.searchVisible = this.gMapAddress.id == 1;
         this.isFormLoaded = true;
 
-        
        });
 
   }

@@ -19,7 +19,7 @@ namespace Budget.SERVICE
         private readonly IReferenceTableRepository _referenceTableRepository;
         private readonly IPlanPosteReferenceService _planPosteReferenceService;
         private readonly IPlanPosteFrequencyService _planPosteFrequencyService;
-        private readonly IFrequencyService _frequencyService;
+        private readonly IMonthService _frequencyService;
 
 
         public PlanPosteService(
@@ -30,7 +30,7 @@ namespace Budget.SERVICE
             IReferenceTableRepository referenceTableRepository,
             IPlanPosteReferenceService planPosteReferenceService,
             IPlanPosteFrequencyService planPosteFrequencyService,
-            IFrequencyService frequencyService)
+            IMonthService frequencyService)
         {
             _mapper = mapper;
             _planPosteRepository = planPosteRepository;

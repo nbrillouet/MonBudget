@@ -68,7 +68,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BANK");
+                    b.ToTable("BANK","ref");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.Account", b =>
@@ -108,7 +108,7 @@ namespace Budget.DATA.Migrations
                         .HasName("IX_AccountNumber")
                         .HasFilter("[NUMBER] IS NOT NULL");
 
-                    b.ToTable("ACCOUNT");
+                    b.ToTable("ACCOUNT","ref");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.AccountStatement", b =>
@@ -177,7 +177,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdOperationTypeFamily");
 
-                    b.ToTable("ACCOUNT_STATEMENT");
+                    b.ToTable("ACCOUNT_STATEMENT","as");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.AccountStatementImport", b =>
@@ -204,7 +204,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdUser");
 
-                    b.ToTable("ACCOUNT_STATEMENT_IMPORT");
+                    b.ToTable("ACCOUNT_STATEMENT_IMPORT","as");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.AccountStatementImportFile", b =>
@@ -300,7 +300,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdOperationTypeFamily");
 
-                    b.ToTable("ACCOUNT_STATEMENT_IMPORT_FILE");
+                    b.ToTable("ACCOUNT_STATEMENT_IMPORT_FILE","as");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.AccountStatementPlan", b =>
@@ -321,7 +321,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdPlan");
 
-                    b.ToTable("ACCOUNT_STATEMENT_PLAN");
+                    b.ToTable("ACCOUNT_STATEMENT_PLAN","as");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.AccountType", b =>
@@ -336,7 +336,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ACCOUNT_TYPE");
+                    b.ToTable("ACCOUNT_TYPE","ref");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.BankFileDefinition", b =>
@@ -357,7 +357,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BANK_FILE_DEFINITION");
+                    b.ToTable("BANK_FILE_DEFINITION","ref");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.Frequency", b =>
@@ -374,7 +374,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FREQUENCY");
+                    b.ToTable("FREQUENCY","plan");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.GMapAddress", b =>
@@ -445,7 +445,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("idGMapSublocalityLevel2");
 
-                    b.ToTable("GMAP_ADDRESS");
+                    b.ToTable("GMAP_ADDRESS","gmap");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.GMapAddressType", b =>
@@ -466,7 +466,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdGMapType");
 
-                    b.ToTable("GMAP_ADDRESS_TYPE");
+                    b.ToTable("GMAP_ADDRESS_TYPE","gmap");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.GMapAdministrativeAreaLevel1", b =>
@@ -481,7 +481,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GMAP_ADMINISTRATIVE_AREA_LEVEL_1");
+                    b.ToTable("GMAP_ADMINISTRATIVE_AREA_LEVEL_1","gmap");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.GMapAdministrativeAreaLevel2", b =>
@@ -496,7 +496,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GMAP_ADMINISTRATIVE_AREA_LEVEL_2");
+                    b.ToTable("GMAP_ADMINISTRATIVE_AREA_LEVEL_2","gmap");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.GMapCountry", b =>
@@ -511,7 +511,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GMAP_COUNTRY");
+                    b.ToTable("GMAP_COUNTRY","gmap");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.GMapLocality", b =>
@@ -526,7 +526,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GMAP_LOCALITY");
+                    b.ToTable("GMAP_LOCALITY","gmap");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.GMapNeighborhood", b =>
@@ -541,7 +541,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GMAP_NEIGHBORHOOD");
+                    b.ToTable("GMAP_NEIGHBORHOOD","gmap");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.GMapPostalCode", b =>
@@ -556,7 +556,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GMAP_POSTAL_CODE");
+                    b.ToTable("GMAP_POSTAL_CODE","gmap");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.GMapRoute", b =>
@@ -571,7 +571,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GMAP_ROUTE");
+                    b.ToTable("GMAP_ROUTE","gmap");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.GMapStreetNumber", b =>
@@ -586,7 +586,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GMAP_STREET_NUMBER");
+                    b.ToTable("GMAP_STREET_NUMBER","gmap");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.GMapSublocalityLevel1", b =>
@@ -601,7 +601,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GMAP_SUBLOCALITY_LEVEL_1");
+                    b.ToTable("GMAP_SUBLOCALITY_LEVEL_1","gmap");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.GMapSublocalityLevel2", b =>
@@ -616,7 +616,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GMAP_SUBLOCALITY_LEVEL_2");
+                    b.ToTable("GMAP_SUBLOCALITY_LEVEL_2","gmap");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.GMapType", b =>
@@ -625,7 +625,7 @@ namespace Budget.DATA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("ID");
 
-                    b.Property<string>("Label")
+                    b.Property<string>("Keyword")
                         .IsRequired()
                         .HasColumnName("KEYWORD");
 
@@ -634,7 +634,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GMAP_TYPE");
+                    b.ToTable("GMAP_TYPE","gmap");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.Operation", b =>
@@ -668,7 +668,7 @@ namespace Budget.DATA.Migrations
                         .IsUnique()
                         .HasName("IX_OperationKey");
 
-                    b.ToTable("OPERATION");
+                    b.ToTable("OPERATION","ref");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.OperationDetail", b =>
@@ -700,7 +700,7 @@ namespace Budget.DATA.Migrations
                         .HasName("IX_Keyword")
                         .HasFilter("[KEYWORD_OPERATION] IS NOT NULL AND [KEYWORD_PLACE] IS NOT NULL");
 
-                    b.ToTable("OPERATION_DETAIL");
+                    b.ToTable("OPERATION_DETAIL","ref");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.OperationMethod", b =>
@@ -715,7 +715,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OPERATION_METHOD");
+                    b.ToTable("OPERATION_METHOD","ref");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.OperationMethodLexical", b =>
@@ -741,7 +741,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdOperationMethod");
 
-                    b.ToTable("OPERATION_METHOD_LEXICAL");
+                    b.ToTable("OPERATION_METHOD_LEXICAL","ref");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.OperationTransverse", b =>
@@ -762,7 +762,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdUser");
 
-                    b.ToTable("OPERATION_TRANSVERSE");
+                    b.ToTable("OPERATION_TRANSVERSE","ref");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.OperationTransverseAs", b =>
@@ -783,7 +783,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdOperationTransverse");
 
-                    b.ToTable("OPERATION_TRANSVERSE_AS");
+                    b.ToTable("OPERATION_TRANSVERSE_AS","as");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.OperationTransverseAsif", b =>
@@ -804,7 +804,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdOperationTransverse");
 
-                    b.ToTable("OPERATION_TRANSVERSE_ASIF");
+                    b.ToTable("OPERATION_TRANSVERSE_ASIF","as");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.OperationType", b =>
@@ -824,7 +824,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdOperationTypeFamily");
 
-                    b.ToTable("OPERATION_TYPE");
+                    b.ToTable("OPERATION_TYPE","ref");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.OperationTypeFamily", b =>
@@ -850,7 +850,7 @@ namespace Budget.DATA.Migrations
                         .IsUnique()
                         .HasName("IX_OTF_Id_IdMovement");
 
-                    b.ToTable("OPERATION_TYPE_FAMILY");
+                    b.ToTable("OPERATION_TYPE_FAMILY","ref");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.Parameter", b =>
@@ -870,7 +870,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdUser");
 
-                    b.ToTable("PARAMETER");
+                    b.ToTable("PARAMETER","gen");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.Plan", b =>
@@ -891,7 +891,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PLAN");
+                    b.ToTable("PLAN","plan");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.PlanPoste", b =>
@@ -920,7 +920,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdReferenceTable");
 
-                    b.ToTable("PLAN_POSTE");
+                    b.ToTable("PLAN_POSTE","plan");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.PlanPosteFrequency", b =>
@@ -944,7 +944,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdPlanPoste");
 
-                    b.ToTable("PLAN_POSTE_FREQUENCY");
+                    b.ToTable("PLAN_POSTE_FREQUENCY","plan");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.PlanPosteReference", b =>
@@ -968,7 +968,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdReferenceTable");
 
-                    b.ToTable("PLAN_POSTE_REFERENCE");
+                    b.ToTable("PLAN_POSTE_REFERENCE","plan");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.PlanPosteUser", b =>
@@ -995,7 +995,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdPlanUser");
 
-                    b.ToTable("PLAN_POSTE_USER");
+                    b.ToTable("PLAN_POSTE_USER","plan");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.PlanUser", b =>
@@ -1018,7 +1018,7 @@ namespace Budget.DATA.Migrations
                         .IsUnique()
                         .HasName("IX_PlanUser");
 
-                    b.ToTable("PLAN_USER");
+                    b.ToTable("PLAN_USER","plan");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.Poste", b =>
@@ -1032,7 +1032,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("POSTE");
+                    b.ToTable("POSTE","plan");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.ReferenceTable", b =>
@@ -1049,7 +1049,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("REFERENCE_TABLE");
+                    b.ToTable("REFERENCE_TABLE","plan");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.UserAccount", b =>
@@ -1070,7 +1070,97 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdUser");
 
-                    b.ToTable("USER_ACCOUNT");
+                    b.ToTable("USER_ACCOUNT","user");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.VPlanGlobal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<double?>("AmountOperation")
+                        .HasColumnName("AMOUNT_OPERATION");
+
+                    b.Property<DateTime?>("DateIntegration")
+                        .HasColumnName("DATE_INTEGRATION");
+
+                    b.Property<int?>("IdAccountStatement")
+                        .HasColumnName("ID_ACCOUNT_STATEMENT");
+
+                    b.Property<int?>("IdPlan")
+                        .HasColumnName("ID_PLAN");
+
+                    b.Property<int?>("IdPlanPoste")
+                        .HasColumnName("ID_PLAN_POSTE");
+
+                    b.Property<int?>("IdPoste")
+                        .HasColumnName("ID_POSTE");
+
+                    b.Property<int?>("IdReference")
+                        .HasColumnName("ID_REFERENCE");
+
+                    b.Property<string>("LabelReference")
+                        .HasColumnName("LABEL_REFERENCE");
+
+                    b.Property<int?>("Month")
+                        .HasColumnName("MONTH");
+
+                    b.Property<string>("PlanPosteLabel")
+                        .HasColumnName("PLAN_POSTE_LABEL");
+
+                    b.Property<double?>("PreviewAmount")
+                        .HasColumnName("PREVIEW_AMOUNT");
+
+                    b.Property<int?>("Year")
+                        .HasColumnName("YEAR");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("V_PLAN_GLOBAL","plan");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database._Generic.Month", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID");
+
+                    b.Property<string>("LabelFrLong")
+                        .HasColumnName("LABEL_LONG");
+
+                    b.Property<string>("LabelFrShort")
+                        .HasColumnName("LABEL_SHORT");
+
+                    b.Property<string>("LanguageCode")
+                        .HasColumnName("LANGUAGE_CODE");
+
+                    b.Property<string>("Number")
+                        .HasColumnName("NUMBER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MONTH","gen");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Dto.Finance.AsEvolutionDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("Balance");
+
+                    b.Property<double>("Credit");
+
+                    b.Property<double>("Debit");
+
+                    b.Property<string>("Month");
+
+                    b.Property<int>("Year");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AsEvolutionDto");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Dto.SoldeDto", b =>
@@ -1134,7 +1224,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdGMapAddress");
 
-                    b.ToTable("USER");
+                    b.ToTable("USER","user");
                 });
 
             modelBuilder.Entity("Budget.MODEL.UserShortcut", b =>
@@ -1162,7 +1252,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdUser");
 
-                    b.ToTable("USER_SHORTCUT");
+                    b.ToTable("USER_SHORTCUT","user");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.Account", b =>
