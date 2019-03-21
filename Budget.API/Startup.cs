@@ -54,6 +54,9 @@ namespace Budget.API
             services.AddScoped<IUserShortcutService, UserShortcutService>();
             services.AddScoped<IUserShortcutRepository, UserShortcutRepository>();
 
+            services.AddScoped<IUserCustomOtfService, UserCustomOtfService>();
+            services.AddScoped<IUserCustomOtfRepository, UserCustomOtfRepository>();
+            
             services.AddScoped<IBankService, BankService>();
             services.AddScoped<IBankRepository, BankRepository>();
 

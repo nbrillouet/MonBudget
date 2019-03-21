@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Budget.DATA.Repositories;
 using Budget.HELPER;
+using Budget.MODEL;
 using Budget.MODEL.Dto;
-using Budget.MODEL.Dto.Chart;
-using Budget.MODEL.Dto.Finance;
 using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
@@ -16,15 +15,20 @@ namespace Budget.SERVICE
     {
         private readonly IMapper _mapper;
         private readonly IAccountStatementChartRepository _accountStatementChartRepository;
-
+        private readonly IUserCustomOtfService _userCustomOtfService;
+        private readonly ReferentialService _referentialService;
 
         public AccountStatementChartService(
             IMapper mapper,
-            IAccountStatementChartRepository accountStatementChartRepository
+            IAccountStatementChartRepository accountStatementChartRepository,
+            IUserCustomOtfService userCustomOtfService,
+            ReferentialService referentialService
             )
         {
             _mapper = mapper;
             _accountStatementChartRepository = accountStatementChartRepository;
+            _userCustomOtfService = userCustomOtfService;
+            _referentialService = referentialService;
         }
 
         public AsChartEvolutionCdb GetAsChartEvolutionBrut(FilterAsTableSelected filterAsTableSelected)
@@ -39,16 +43,24 @@ namespace Budget.SERVICE
 
         private AsChartEvolutionCdb GetAsChartEvolutionCdb(FilterAsTableSelected filterAsTableSelected, string evolutionType)
         {
-            List<AsEvolutionDto> asEvolutionDtos = GetAsEvolutionDto(filterAsTableSelected, evolutionType);
+            List<AsEvolutionCdbDto> asEvolutionCdbDtos = GetAsEvolutionDto(filterAsTableSelected, evolutionType);
 
             AsChartEvolutionCdb asChartEvolutionCdb = new AsChartEvolutionCdb();
-            asChartEvolutionCdb.Debit = GetWidgetCardChartBar(asEvolutionDtos, EnumAmountState.Debit);
-            asChartEvolutionCdb.Credit = GetWidgetCardChartBar(asEvolutionDtos, EnumAmountState.Credit);
-            asChartEvolutionCdb.Balance = GetWidgetCardChartBar(asEvolutionDtos, EnumAmountState.Balance);
+            asChartEvolutionCdb.Debit = GetWidgetCardChartBar(asEvolutionCdbDtos
+                .Select(x => new BaseChartData { Id = x.Id, Month = x.Month, Year = x.Year, Amount = x.Debit })
+                .ToList(), EnumAmountState.Debit.ToString());
+
+            asChartEvolutionCdb.Credit = GetWidgetCardChartBar(asEvolutionCdbDtos
+                .Select(x => new BaseChartData { Id = x.Id, Month = x.Month, Year = x.Year, Amount = x.Credit })
+                .ToList(), EnumAmountState.Credit.ToString());
+
+            asChartEvolutionCdb.Balance = GetWidgetCardChartBar(asEvolutionCdbDtos
+                .Select(x => new BaseChartData { Id = x.Id, Month = x.Month, Year = x.Year, Amount = x.Balance })
+                .ToList(), EnumAmountState.Balance.ToString());
 
             return asChartEvolutionCdb;
         }
-        private List<AsEvolutionDto> GetAsEvolutionDto(FilterAsTableSelected filterAsTableSelected,string evolutionType)
+        private List<AsEvolutionCdbDto> GetAsEvolutionDto(FilterAsTableSelected filterAsTableSelected,string evolutionType)
         {
             var date = Convert.ToDateTime($"01/{filterAsTableSelected.MonthYear.Month.Id}/{filterAsTableSelected.MonthYear.Year}");
             var dateMax = DateHelper.GetLastDayOfMonth(date);
@@ -65,25 +77,26 @@ namespace Budget.SERVICE
             }
         }
 
-        private WidgetCardChartBar GetWidgetCardChartBar(List<AsEvolutionDto> AsEvolutions, EnumAmountState enumAmountState)
+        private WidgetCardChartBar GetWidgetCardChartBar(List<BaseChartData> baseChartDatas, string chartLabel)
         {
             WidgetCardChartBar widgetCardChartBar = new WidgetCardChartBar();
 
             List<double> datas = new List<double>();
             List<string> colors = new List<string>();
-            foreach (var AsEvolution in AsEvolutions)
+            foreach (var baseChartData in baseChartDatas)
             {
                 widgetCardChartBar.Chart.Labels.Add(new SelectDto() {
-                    Id = Int32.Parse(AsEvolution.Month),
-                    Label = $"{DateHelper.GetLabelMonthShort(AsEvolution.Month)} {AsEvolution.Year}"
+                    Id = Int32.Parse(baseChartData.Month),
+                    Label = $"{DateHelper.GetLabelMonthShort(baseChartData.Month)} {baseChartData.Year}"
                     });
 
-                var amount = enumAmountState == EnumAmountState.Debit 
-                    ? AsEvolution.Debit : enumAmountState == EnumAmountState.Credit
-                    ? AsEvolution.Credit : enumAmountState == EnumAmountState.Balance
-                    ? AsEvolution.Balance : 0;
-                datas.Add(amount);
-                colors.Add(amount >= 0 
+                //var amount = enumAmountState == EnumAmountState.Debit 
+                //    ? AsEvolution.Debit : enumAmountState == EnumAmountState.Credit
+                //    ? AsEvolution.Credit : enumAmountState == EnumAmountState.Balance
+                //    ? AsEvolution.Balance : 0;
+
+                datas.Add(baseChartData.Amount);
+                colors.Add(baseChartData.Amount >= 0 
                     ? ChartHelper.GetChartColor(EnumChartBarColor.Green.ToString()) 
                     : ChartHelper.GetChartColor(EnumChartBarColor.Red.ToString()));
                 
@@ -91,7 +104,7 @@ namespace Budget.SERVICE
 
             widgetCardChartBar.Chart.DataSets.Add(new DataSet()
             {
-                Label = enumAmountState.ToString(),
+                Label = chartLabel,
                 Data = datas
             });
             widgetCardChartBar.Chart.Colors.Add(new Color
@@ -99,7 +112,7 @@ namespace Budget.SERVICE
                 BackgroundColor = colors
             });
 
-            widgetCardChartBar.Title.Label = enumAmountState.ToString();
+            widgetCardChartBar.Title.Label = chartLabel;
             widgetCardChartBar.Title.AverageAmount = Math.Round(widgetCardChartBar.Chart.DataSets[0].Data.Average(),2);
             widgetCardChartBar.Title.RatioAmount = Math.Round(widgetCardChartBar.Chart.DataSets[0].Data[widgetCardChartBar.Chart.DataSets[0].Data.Count - 1] * 100 / widgetCardChartBar.Title.AverageAmount,2);
             widgetCardChartBar.Title.RatioLabel = $" pour {widgetCardChartBar.Chart.Labels.Last().Label }";
@@ -112,6 +125,53 @@ namespace Budget.SERVICE
             widgetCardChartBar.IsLoaded = true;
 
             return widgetCardChartBar;
+        }
+
+        public List<WidgetCardChartBar> GetAsChartEvolutionCustomOtf(FilterAsTableSelected filterAsTableSelected)
+        {
+            //Rechercher les operationTypeFamily favori pour l'utilisateur
+            List<SelectDto> otfs = _userCustomOtfService.GetOperationTypeFamilySelect(filterAsTableSelected.IdUser.Value, filterAsTableSelected.IdAccount.Value);
+            List<WidgetCardChartBar> widgetCardChartBars = new List<WidgetCardChartBar>();
+            foreach (var otf in otfs)
+            {
+                var baseChartDatas = GetAsEvolutionCustomOtf(filterAsTableSelected, otf.Id);
+                WidgetCardChartBar widgetCardChartBar = GetWidgetCardChartBar(baseChartDatas, otf.Label);
+                widgetCardChartBars.Add(widgetCardChartBar);
+            }
+
+            return widgetCardChartBars;
+        }
+
+        private List<BaseChartData> GetAsEvolutionCustomOtf(FilterAsTableSelected filterAsTableSelected, int idOperationTypeFamily)
+        {
+            var date = Convert.ToDateTime($"01/{filterAsTableSelected.MonthYear.Month.Id}/{filterAsTableSelected.MonthYear.Year}");
+            var dateMax = DateHelper.GetLastDayOfMonth(date);
+            var dateMin = DateHelper.GetFirstDayOfMonth(dateMax.AddMonths(-12));
+
+            return _accountStatementChartRepository.GetAsChartEvolutionCustomOtf(filterAsTableSelected.IdAccount.Value, idOperationTypeFamily, dateMin, dateMax);
+
+        }
+
+        public AsChartEvolutionCustomOtfFilter GetAsChartEvolutionCustomOtfFilter(FilterAsTableSelected filter)
+        {
+            var operationTypeFamilies = _referentialService.OperationTypeFamilyService.GetSelectGroup();
+            AsChartEvolutionCustomOtfFilter asChartEvolutionCustomOtfFilter = new AsChartEvolutionCustomOtfFilter {
+                Selected = new AsChartEvolutionCustomOtfFilterSelected
+                {
+                    IdUser = filter.IdUser.Value,
+                    IdAccount = filter.IdAccount.Value,
+                    MonthYear = filter.MonthYear,
+                    OperationTypeFamilies = _userCustomOtfService.GetOperationTypeFamilySelect(filter.IdUser.Value, filter.IdAccount.Value)
+                },
+                OperationTypeFamilies = operationTypeFamilies,
+            };
+
+            return asChartEvolutionCustomOtfFilter;
+        }
+
+        public bool UpdateAsChartEvolutionCustomOtfFilter(AsChartEvolutionCustomOtfFilterSelected filter)
+        {
+            return _userCustomOtfService.Update(filter);
         }
     }
 }

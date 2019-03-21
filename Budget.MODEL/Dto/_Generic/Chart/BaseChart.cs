@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Budget.MODEL.Dto.Chart
+namespace Budget.MODEL.Dto
 {
+    public class BaseChartData
+    {
+        public int Id { get; set; }
+        public string Month { get; set; }
+        public int Year { get; set; }
+        public double Amount { get; set; }
+    }
+
     public class BaseChart
     {
         public List<DataSet> DataSets { get; set; }

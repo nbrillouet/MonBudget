@@ -21,30 +21,26 @@ isLoaded: boolean;
   ngOnChanges(changes: SimpleChanges) {
     this.widgetCardChartBar = changes.widgetCardChartBar.currentValue;
     this.isLoaded = false;
-    console.log('this.isLoaded',this.isLoaded);
-    if(this.widgetCardChartBar!=null) {
-      // this.isLoaded = this.widgetCardChartBar.isLoaded;
-      if(this.widgetCardChartBar.isLoaded) {
-        
-        
-          this.widget = null;
-          this.widget= WidgetCardChartBarSkeleton.getEmptyGraph;
-          this.widget.datasets = this.widgetCardChartBar.chart.dataSets;
-          this.widget.labels = this.widgetCardChartBar.chart.labels.map(x=>x.label);
-          this.widget.colors = this.widgetCardChartBar.chart.colors;
-          this.widget.title = this.widgetCardChartBar.title;
-          this.widget.options.scales.yAxes = this.widgetCardChartBar.chart.options.scales.yAxes;
 
-          //force refresh graph
-          setTimeout(() => {
-            this._chart.refresh();
-          }, 10);
-        
+    if(this.widgetCardChartBar!=null) {
+      if(this.widgetCardChartBar.isLoaded) {
+
+        this.widget = null;
+        this.widget= WidgetCardChartBarSkeleton.getEmptyGraph;
+        this.widget.datasets = this.widgetCardChartBar.chart.dataSets;
+        this.widget.labels = this.widgetCardChartBar.chart.labels.map(x=>x.label);
+        this.widget.colors = this.widgetCardChartBar.chart.colors;
+        this.widget.title = this.widgetCardChartBar.title;
+        this.widget.options.scales.yAxes = this.widgetCardChartBar.chart.options.scales.yAxes;
+
+        //force refresh graph
+        setTimeout(() => {
+          this._chart.refresh();
+        }, 10);
      
-      this.isLoaded=true;
-      console.log('this.isLoaded',this.isLoaded);
-    }
-      // this.isLoaded=true;
+        this.isLoaded=true;
+
+      }
     }
  
   }

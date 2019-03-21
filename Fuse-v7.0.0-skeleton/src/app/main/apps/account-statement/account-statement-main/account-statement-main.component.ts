@@ -14,7 +14,7 @@ import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-stat
 import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { AsSolde } from 'app/main/_models/account-statement/account-statement-solde.model';
-import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionNoIntTransfer } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
+import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionNoIntTransfer, LoadAsChartEvolutionCustomOtf, LoadAsChartEvolution } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
 import { AsChartState } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.state';
 import { AsChart } from 'app/main/_models/account-statement/account-statement-chart.model';
 import { WidgetCardChartBar } from 'app/main/_models/chart/widget-card-chart-bar.model';
@@ -58,11 +58,15 @@ selectedIndex: number = 0;
           {
             this.filterAs = new FilterAsTable();
             this.filterAs.selected.idAccount=idAccount;
-      
+            let user = JSON.parse(localStorage.getItem('currentUser'));
+            this.filterAs.selected.idUser=user.id;
+
             this._store.dispatch(new LoadAsTableFilter(this.filterAs));
             this._store.dispatch(new LoadAsSolde(this.filterAs.selected));
-            this._store.dispatch(new LoadAsChartEvolutionBrut(this.filterAs.selected));
-            this._store.dispatch(new LoadAsChartEvolutionNoIntTransfer(this.filterAs.selected));
+            this._store.dispatch(new LoadAsChartEvolution(this.filterAs.selected));
+            // this._store.dispatch(new LoadAsChartEvolutionBrut(this.filterAs.selected));
+            // this._store.dispatch(new LoadAsChartEvolutionNoIntTransfer(this.filterAs.selected));
+            // this._store.dispatch(new LoadAsChartEvolutionCustomOtf(this.filterAs.selected));
           }
       });
 

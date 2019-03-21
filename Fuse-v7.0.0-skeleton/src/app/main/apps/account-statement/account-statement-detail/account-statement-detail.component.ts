@@ -24,7 +24,7 @@ import { LoadAsTableDatas } from 'app/main/_ngxs/account-statement/account-state
 import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
 import { LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.action';
 import { AsDetail } from 'app/main/_models/account-statement/account-statement-detail.model';
-import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionNoIntTransfer } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
+import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionNoIntTransfer, LoadAsChartEvolutionCustomOtf, LoadAsChartEvolution } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
 
 
 @Component({
@@ -102,8 +102,10 @@ export class AccountStatementDetailComponent implements OnInit {
           console.log('load filerAsTable II');
           this._store.dispatch(new LoadAsTableFilter(filter));
           this._store.dispatch(new LoadAsSolde(filter.selected));
-          this._store.dispatch(new LoadAsChartEvolutionBrut(filter.selected));
-          this._store.dispatch(new LoadAsChartEvolutionNoIntTransfer(filter.selected));
+          this._store.dispatch(new LoadAsChartEvolution(filter.selected));
+          // this._store.dispatch(new LoadAsChartEvolutionBrut(filter.selected));
+          // this._store.dispatch(new LoadAsChartEvolutionNoIntTransfer(filter.selected));
+          // this._store.dispatch(new LoadAsChartEvolutionCustomOtf(filter.selected));
         }
       });
     }

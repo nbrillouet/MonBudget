@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -9,31 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Dtos\Account\**" />
-    <Content Remove="Dtos\Account\**" />
-    <EmbeddedResource Remove="Dtos\Account\**" />
-    <None Remove="Dtos\Account\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Dtos\ShortcutDto.cs" />
-    <Compile Remove="Dtos\UserForAvatarCreationDto.cs" />
-    <Compile Remove="Dtos\UserForDetailedDto.cs" />
-    <Compile Remove="Dtos\UserForListDto.cs" />
-    <Compile Remove="Dtos\UserForLoginDto.cs" />
-    <Compile Remove="Dtos\UserForRegisterDto.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
-    <PackageReference Include="CloudinaryDotNet" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.7.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Budget.SERVICE;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
-using Budget.API.Dtos;
 using System.Security.Claims;
 using Microsoft.Extensions.Options;
 using Budget.API.Helpers;

@@ -22,14 +22,16 @@ namespace Budget.SERVICE._Helpers
                 //trouver l'age a partir de la date de naissance
                 .ForMember(dest => dest.Age, opt =>
                 {
-                    opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
+                    opt.MapFrom(d => d.DateOfBirth.CalculateAge());
+                    //opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                 });
 
             CreateMap<User, UserForTableDto>()
                 //trouver l'age a partir de la date de naissance
                 .ForMember(dest => dest.Age, opt =>
                 {
-                    opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
+                    //opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
+                    opt.MapFrom(d => d.DateOfBirth.CalculateAge());
                 });
 
 
@@ -37,7 +39,8 @@ namespace Budget.SERVICE._Helpers
                 //trouver l'age a partir de la date de naissance
                 .ForMember(dest => dest.Age, opt =>
                 {
-                    opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
+                    //opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
+                    opt.MapFrom(d => d.DateOfBirth.CalculateAge());
                 })
                 .ForMember(d => d.Banks, o => o.Ignore());
                 //.ForMember(d => d.Accounts, o => o.MapFrom(s => s.UserAccounts.Select(ua => ua.Account).ToList()));
@@ -89,7 +92,8 @@ namespace Budget.SERVICE._Helpers
             CreateMap<AccountStatementImportFile, AsifDetailDto>()
                 .ForMember(d => d.LogoName, opt => opt.MapFrom(source => source.OperationTypeFamily.LogoClassName))
                 //trouver l'url à partir de la className
-                .ForMember(d => d.LogoUrl, o => o.ResolveUsing(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName)))
+                //.ForMember(d => d.LogoUrl, o => o.ResolveUsing(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName)))
+                .ForMember(d => d.LogoUrl, o => o.MapFrom(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName)))
                 .ForMember(d => d.Operation, o => o.Ignore())
                 .ForMember(d => d.OperationMethod, o => o.Ignore())
                 .ForMember(d => d.OperationType, o => o.Ignore())
@@ -99,7 +103,8 @@ namespace Budget.SERVICE._Helpers
             CreateMap<AccountStatement, AsDetailDto>()
                 .ForMember(d => d.LogoName, opt => opt.MapFrom(source => source.OperationTypeFamily.LogoClassName))
                 //trouver l'url à partir de la className
-                .ForMember(d => d.LogoUrl, o => o.ResolveUsing(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName)))
+                //.ForMember(d => d.LogoUrl, o => o.ResolveUsing(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName)))
+                .ForMember(d => d.LogoUrl, o => o.MapFrom(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName)))
                 .ForMember(d => d.Operation, o => o.Ignore())
                 .ForMember(d => d.OperationMethod, o => o.Ignore())
                 .ForMember(d => d.OperationType, o => o.Ignore())

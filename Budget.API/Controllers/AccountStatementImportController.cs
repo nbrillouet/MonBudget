@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using Budget.SERVICE;
 using Budget.MODEL;
-using Budget.API.Dtos;
 using Budget.API.Helpers;
 using System.IO;
 using System.Text;
@@ -90,7 +89,7 @@ namespace Budget.API.Controllers
 
         [HttpPost]
         [Route("users/{idUser}/upload-file")]
-        public async Task<IActionResult> UploadFile(int idUser, AccountStatementImportForUploadDto asifuDto)
+        public async Task<IActionResult> UploadFile(int idUser, AsiForUploadDto asifuDto)
         {
 
             var user = await _userService.GetByIdAsync(idUser);
@@ -119,21 +118,6 @@ namespace Budget.API.Controllers
             return Ok(asifGroupByAccounts);
         }
 
-        //[HttpGet]
-        //[Route("imports/{idImport}/accounts/{idAccount}/asif-states")]
-        //public IActionResult GetAsifStates(int idImport, int idAccount)
-        //{
-        //    var results = _accountStatementImportFileService.GetAsifStates(idImport,idAccount);
-
-        //    return Ok(results);
-        //}
-
-        //[HttpGet]
-        //[Route("imports/{idImport}/accounts")]
-        //public IActionResult GetAsifAccounts(int idImport)
-        //{
-        //    var results = _accountStatementImportFileService.GetListDto(idImport); 
-        //    return Ok(results);
-        //}
+        
     }
 }

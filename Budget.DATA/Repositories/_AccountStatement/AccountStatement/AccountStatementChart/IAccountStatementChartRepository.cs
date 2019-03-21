@@ -1,16 +1,17 @@
-﻿using Budget.MODEL.Database;
-using Budget.MODEL.Dto.Finance;
-using Budget.MODEL.Filter;
+﻿using Budget.MODEL;
+using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace Budget.DATA.Repositories
 {
     public interface IAccountStatementChartRepository : IBaseRepository<AccountStatement>
     {
-        List<AsEvolutionDto> GetAsChartEvolutionBrut(int idAccount, DateTime dateMin, DateTime dateMax);
-        List<AsEvolutionDto> GetAsChartEvolutionNoIntTransfer(int idAccount, DateTime dateMin, DateTime dateMax);
+        List<AsEvolutionCdbDto> GetAsChartEvolutionBrut(int idAccount, DateTime dateMin, DateTime dateMax);
+        List<AsEvolutionCdbDto> GetAsChartEvolutionNoIntTransfer(int idAccount, DateTime dateMin, DateTime dateMax);
+        List<BaseChartData> GetAsChartEvolutionCustomOtf(int idAccount,int idOperationTypeFamily, DateTime dateMin, DateTime dateMax);
     }
 
 }

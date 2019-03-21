@@ -8,6 +8,7 @@ namespace Budget.MODEL.Filter
 {
     public class FilterAsTableSelected
     {
+        public int? IdUser { get; set; }
         public int? IdAccount { get; set; }
         public List<SelectDto> OperationMethods { get; set; }
         public List<SelectDto> OperationTypeFamilies { get; set; }

@@ -51,8 +51,8 @@ export class OperationTypeFamilyFilterComponent implements OnInit {
 
    compareObjects(o1: ISelect, o2: ISelect) {
     return o1 && o2 ? o1.id === o2.id : o1 === o2;
-
   }
+  
   stopPropagationFct(value: boolean){
     this.stopPropagation=value;
    }

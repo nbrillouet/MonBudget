@@ -15,14 +15,37 @@ namespace Budget.DATA.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Budget.MODEL.AsEvolutionCdbDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Balance");
+
+                    b.Property<double>("Credit");
+
+                    b.Property<double>("Debit");
+
+                    b.Property<string>("Month");
+
+                    b.Property<int>("Year");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AsEvolutionDto");
+                });
 
             modelBuilder.Entity("Budget.MODEL.Bank", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AddressBank")
                         .HasColumnName("ADDRESS_BANK")
@@ -75,7 +98,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<double>("AlertThreshold")
                         .HasColumnName("ALERT_THRESHOLD");
@@ -115,7 +139,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<double>("AmountOperation")
                         .HasColumnName("AMOUNT_OPERATION");
@@ -184,7 +209,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateImport")
                         .HasColumnName("DATE_IMPORT");
@@ -211,7 +237,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<double>("AmountOperation")
                         .HasColumnName("AMOUNT_OPERATION");
@@ -307,7 +334,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdAccountStatement")
                         .HasColumnName("ID_ACCOUNT_STATEMENT");
@@ -317,9 +345,11 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdAccountStatement");
-
                     b.HasIndex("IdPlan");
+
+                    b.HasIndex("IdAccountStatement", "IdPlan")
+                        .IsUnique()
+                        .HasName("IX_ASP_IdAccountStatement_IdPlan");
 
                     b.ToTable("ACCOUNT_STATEMENT_PLAN","as");
                 });
@@ -328,7 +358,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label")
                         .HasColumnName("LABEL")
@@ -343,7 +374,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdBankFamily")
                         .HasColumnName("ID_BANK_FAMILY");
@@ -360,28 +392,12 @@ namespace Budget.DATA.Migrations
                     b.ToTable("BANK_FILE_DEFINITION","ref");
                 });
 
-            modelBuilder.Entity("Budget.MODEL.Database.Frequency", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
-
-                    b.Property<string>("MonthLabel")
-                        .HasColumnName("MONTH_LABEL");
-
-                    b.Property<int>("MonthNumber")
-                        .HasColumnName("MONTH_NUMBER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FREQUENCY","plan");
-                });
-
             modelBuilder.Entity("Budget.MODEL.Database.GMapAddress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("FormattedAddress")
                         .IsRequired()
@@ -452,7 +468,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdGMapAddress")
                         .HasColumnName("ID_GMAP_ADDRESS");
@@ -473,7 +490,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -488,7 +506,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -503,7 +522,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -518,7 +538,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -533,7 +554,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -548,7 +570,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -563,7 +586,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -578,7 +602,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -593,7 +618,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -608,7 +634,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -623,7 +650,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Keyword")
                         .IsRequired()
@@ -637,11 +665,36 @@ namespace Budget.DATA.Migrations
                     b.ToTable("GMAP_TYPE","gmap");
                 });
 
+            modelBuilder.Entity("Budget.MODEL.Database.Month", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LabelLong")
+                        .HasColumnName("LABEL_LONG");
+
+                    b.Property<string>("LabelShort")
+                        .HasColumnName("LABEL_SHORT");
+
+                    b.Property<string>("LanguageCode")
+                        .HasColumnName("LANGUAGE_CODE");
+
+                    b.Property<string>("Number")
+                        .HasColumnName("NUMBER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MONTH","gen");
+                });
+
             modelBuilder.Entity("Budget.MODEL.Database.Operation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdOperationMethod")
                         .HasColumnName("ID_OPERATION_METHOD");
@@ -675,7 +728,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdGMapAddress")
                         .HasColumnName("ID_GMAP_ADDRESS");
@@ -707,7 +761,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label")
                         .HasColumnName("LABEL")
@@ -722,7 +777,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdBankFamily")
                         .HasColumnName("ID_BANK_FAMILY");
@@ -748,7 +804,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdUser")
                         .HasColumnName("ID_USER");
@@ -769,7 +826,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdAccountStatement")
                         .HasColumnName("ID_ACCOUNT_STATEMENT");
@@ -790,7 +848,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdAccountStatementImportFile")
                         .HasColumnName("ID_ACCOUNT_STATEMENT_IMPORT_FILE");
@@ -811,7 +870,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdOperationTypeFamily")
                         .HasColumnName("ID_OPERATION_TYPE_FAMILY");
@@ -831,7 +891,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdMovement")
                         .HasColumnName("ID_MOVEMENT");
@@ -857,7 +918,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdUser")
                         .HasColumnName("ID_USER");
@@ -877,7 +939,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Color")
                         .HasColumnName("COLOR");
@@ -898,7 +961,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdPlan")
                         .HasColumnName("ID_PLAN");
@@ -927,7 +991,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdFrequency")
                         .HasColumnName("ID_FREQUENCY");
@@ -951,7 +1016,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdPlanPoste")
                         .HasColumnName("ID_PLAN_POSTE");
@@ -975,7 +1041,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdPlanPoste")
                         .HasColumnName("ID_PLAN_POSTE");
@@ -1002,7 +1069,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdPlan")
                         .HasColumnName("ID_PLAN");
@@ -1025,7 +1093,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label")
                         .HasColumnName("LABEL");
@@ -1039,7 +1108,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Label")
                         .HasColumnName("LABEL");
@@ -1056,7 +1126,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdAccount")
                         .HasColumnName("ID_ACCOUNT");
@@ -1073,11 +1144,41 @@ namespace Budget.DATA.Migrations
                     b.ToTable("USER_ACCOUNT","user");
                 });
 
+            modelBuilder.Entity("Budget.MODEL.Database.UserCustomOtf", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("IdAccount")
+                        .HasColumnName("ID_ACCOUNT");
+
+                    b.Property<int>("IdOperationTypeFamily")
+                        .HasColumnName("ID_OPERATION_TYPE_FAMILY");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnName("ID_USER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdAccount");
+
+                    b.HasIndex("IdUser");
+
+                    b.HasIndex("IdOperationTypeFamily", "IdUser", "IdAccount")
+                        .IsUnique()
+                        .HasName("IX_UCO_IdOperationTypeFamily_IdUser_IdAccount");
+
+                    b.ToTable("USER_CUSTOM_OTF","user");
+                });
+
             modelBuilder.Entity("Budget.MODEL.Database.VPlanGlobal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<double?>("AmountOperation")
                         .HasColumnName("AMOUNT_OPERATION");
@@ -1120,47 +1221,19 @@ namespace Budget.DATA.Migrations
                     b.ToTable("V_PLAN_GLOBAL","plan");
                 });
 
-            modelBuilder.Entity("Budget.MODEL.Database._Generic.Month", b =>
+            modelBuilder.Entity("Budget.MODEL.Dto.BaseChartData", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                    b.Property<int>("Id");
 
-                    b.Property<string>("LabelFrLong")
-                        .HasColumnName("LABEL_LONG");
-
-                    b.Property<string>("LabelFrShort")
-                        .HasColumnName("LABEL_SHORT");
-
-                    b.Property<string>("LanguageCode")
-                        .HasColumnName("LANGUAGE_CODE");
-
-                    b.Property<string>("Number")
-                        .HasColumnName("NUMBER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MONTH","gen");
-                });
-
-            modelBuilder.Entity("Budget.MODEL.Dto.Finance.AsEvolutionDto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<double>("Balance");
-
-                    b.Property<double>("Credit");
-
-                    b.Property<double>("Debit");
+                    b.Property<double>("Amount");
 
                     b.Property<string>("Month");
 
                     b.Property<int>("Year");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id", "Amount");
 
-                    b.ToTable("AsEvolutionDto");
+                    b.ToTable("BaseChartData");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Dto.SoldeDto", b =>
@@ -1182,7 +1255,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AvatarUrl")
                         .HasColumnName("AVATAR_URL");
@@ -1231,7 +1305,8 @@ namespace Budget.DATA.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID");
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Icon")
                         .HasColumnName("ICON");
@@ -1539,7 +1614,7 @@ namespace Budget.DATA.Migrations
 
             modelBuilder.Entity("Budget.MODEL.Database.PlanPosteFrequency", b =>
                 {
-                    b.HasOne("Budget.MODEL.Database.Frequency", "Frequency")
+                    b.HasOne("Budget.MODEL.Database.Month", "Frequency")
                         .WithMany()
                         .HasForeignKey("IdFrequency")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -1598,6 +1673,24 @@ namespace Budget.DATA.Migrations
 
                     b.HasOne("Budget.MODEL.User", "User")
                         .WithMany("UserAccounts")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.UserCustomOtf", b =>
+                {
+                    b.HasOne("Budget.MODEL.Database.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("IdAccount")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.OperationTypeFamily", "OperationTypeFamily")
+                        .WithMany()
+                        .HasForeignKey("IdOperationTypeFamily")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.User", "User")
+                        .WithMany()
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

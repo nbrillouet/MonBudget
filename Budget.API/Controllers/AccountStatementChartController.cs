@@ -1,4 +1,6 @@
-﻿using Budget.MODEL.Filter;
+﻿using Budget.MODEL;
+using Budget.MODEL.Dto;
+using Budget.MODEL.Filter;
 using Budget.SERVICE;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -41,5 +43,33 @@ namespace Budget.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost]
+        [Route("chart-evolution-custom-otf")]
+        public IActionResult GetAsChartEvolutionCustomOtf([FromBody] FilterAsTableSelected filter)
+        {
+            var result = _accountStatementChartService.GetAsChartEvolutionCustomOtf(filter);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("chart-evolution-custom-otf-filter")]
+        public IActionResult GetAsChartEvolutionCustomOtfFilter([FromBody] FilterAsTableSelected filter)
+        {
+            var result = _accountStatementChartService.GetAsChartEvolutionCustomOtfFilter(filter);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("chart-evolution-custom-otf-filter/update")]
+        public IActionResult UpdateAsChartEvolutionCustomOtfFilter([FromBody] AsChartEvolutionCustomOtfFilterSelected filter)
+        {
+            var result = _accountStatementChartService.UpdateAsChartEvolutionCustomOtfFilter(filter);
+
+            return Ok(result);
+        }
+        
     }
 }

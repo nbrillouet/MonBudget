@@ -1,12 +1,7 @@
 ﻿using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
-using Budget.MODEL.Dto.Finance;
 using Microsoft.EntityFrameworkCore;
-
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Budget.DATA
 {
@@ -29,6 +24,8 @@ namespace Budget.DATA
         
         public DbSet<User> User { get; set; }
         public DbSet<UserShortcut> Shortcut { get; set; }
+        public DbSet<UserCustomOtf> UserCustomOtf { get; set; }
+
         public DbSet<Bank> Bank { get; set; }
         public DbSet<AccountType> AccountType { get; set; }
         public DbSet<Account> Account { get; set; }
@@ -42,6 +39,8 @@ namespace Budget.DATA
         public DbSet<Operation> Operation { get; set; }
         public DbSet<AccountStatement> AccountStatement { get; set; }
         public DbSet<AccountStatementPlan> AccountStatementPlan { get; set; }
+        
+        
         public DbSet<AccountStatementImport> AccountStatementImport { get; set; }
         public DbSet<BankFileDefinition> BankFileDefinition { get; set; }
         public DbSet<AccountStatementImportFile> AccountStatementImportFile { get; set; }
@@ -77,7 +76,8 @@ namespace Budget.DATA
 
         //Procedures NOT MAPPED
         public virtual DbSet<SoldeDto> SoldeDto { get; set; }
-        public virtual DbSet<AsEvolutionDto> AsEvolutionDto { get; set; }
+        public virtual DbSet<AsEvolutionCdbDto> AsEvolutionDto { get; set; }
+        public virtual DbSet<BaseChartData> BaseChartData { get; set; }
         //public DbQuery<VPlanGlobal> VPlanGlobal { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -118,10 +118,23 @@ namespace Budget.DATA
                 .HasName("IX_OTF_Id_IdMovement")
                 .IsUnique();
 
+            modelBuilder.Entity<AccountStatementPlan>()
+                .HasIndex(p => new { p.IdAccountStatement, p.IdPlan })
+                .HasName("IX_ASP_IdAccountStatement_IdPlan")
+                .IsUnique();
+
+            modelBuilder.Entity<UserCustomOtf>()
+                .HasIndex(p => new { p.IdOperationTypeFamily, p.IdUser, p.IdAccount })
+                .HasName("IX_UCO_IdOperationTypeFamily_IdUser_IdAccount")
+                .IsUnique();
             //modelBuilder
             //    .Query<VPlanGlobal>().ToView("V_PLAN_GLOBAL");
 
 
+
+            //Clef composite pour (une clef primaire ne suffit pas pour les proc stock: dans EF meme clef, meme resultat)
+            modelBuilder.Entity<BaseChartData>()
+                .HasKey(a => new { a.Id, a.Amount });
         }
     }
 }

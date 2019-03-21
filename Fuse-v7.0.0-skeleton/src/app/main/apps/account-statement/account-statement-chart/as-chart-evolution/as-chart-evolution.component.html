@@ -70,8 +70,53 @@
 </div>
 </div>
 
+<div class="position-relative pt-24 pl-24 pr-24 pb-10 mat-blue-600-bg"
+    fxLayoutAlign="space-between center">
+  <div fxLayout="column" fxLayoutAlign="start start">
+      <span class="h2">Evolution de catégories personnalisées</span>
+      <span class="h5 secondary-text">Evolution sur les 12 derniers mois. Comparaison de la moyenne des 12 derniers mois avec le mois en cours</span>
+  </div>
+  <form *ngIf="(asChart$ | async).datas.asChartEvolution.customOtfs.filter as filter"
+      name="operationForm" 
+      [formGroup]="customOtfForm" fxFlex="20"
+      class="mt-12" fxLayout="column" >
+        <mat-form-field appearance="outline" floatLabel="always" >
+            <mat-label>Catégorie d'opérations</mat-label>
+            <mat-select class="mini-select" 
+                formControlName="operationTypeFamilies" 
+                [compareWith]="compareObjects" 
+                placeholder="Catégorie d'opérations" 
+                (selectionChange)="change($event)"
+                multiple>
+              
+              <mat-optgroup *ngFor="let group of filter.operationTypeFamilies" [label]="group.label">
+                <mat-option *ngFor="let item of group.selects" [value]="item">
+                  {{ item.label }}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+  
+        </mat-form-field>
+  
+        <!-- <button mat-raised-button 
+          class="save-product-button mat-white-bg mt-16 mt-sm-0"
+          [disabled]= "customOtfForm.invalid || customOtfForm.pristine"
+          (click)="applyFilter()">
+            <span>APPLIQUER</span>
+        </button> -->
+    </form>
+</div>
 
-
+<div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let asChartEvolutionCustomOtf of asChartEvolutionCustomOtfs" >
+    <div>
+        <widget-card-chart-bar [widgetCardChartBar]="asChartEvolutionCustomOtf"
+            
+            [@animate]="{value:'*',params:{y:'100%'}}" 
+            fxFlex=30
+        >
+        </widget-card-chart-bar>
+      </div>
+</div>
 
 
 

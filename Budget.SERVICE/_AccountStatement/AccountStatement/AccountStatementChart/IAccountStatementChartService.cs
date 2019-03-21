@@ -1,5 +1,5 @@
-﻿using Budget.MODEL.Dto.Chart;
-using Budget.MODEL.Dto.Finance;
+﻿using Budget.MODEL;
+using Budget.MODEL.Dto;
 using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
@@ -11,5 +11,8 @@ namespace Budget.SERVICE
     {
         AsChartEvolutionCdb GetAsChartEvolutionBrut(FilterAsTableSelected filterAsTableSelected);
         AsChartEvolutionCdb GetAsChartEvolutionNoIntTransfer(FilterAsTableSelected filterAsTableSelected);
+        List<WidgetCardChartBar> GetAsChartEvolutionCustomOtf(FilterAsTableSelected filterAsTableSelected);
+        AsChartEvolutionCustomOtfFilter GetAsChartEvolutionCustomOtfFilter(FilterAsTableSelected filter);
+        bool UpdateAsChartEvolutionCustomOtfFilter(AsChartEvolutionCustomOtfFilterSelected filter);
     }
 }

@@ -1,9 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Budget.MODEL.Dto
 {
+    public class AsiForUploadDto
+    {
+        public IFormFile File { get; set; }
+    }
+
     public class AsiForListDto
     {
         public int Id { get; set; }

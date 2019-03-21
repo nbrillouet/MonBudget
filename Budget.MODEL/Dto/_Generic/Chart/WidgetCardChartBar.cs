@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Budget.MODEL.Dto.Chart
+namespace Budget.MODEL.Dto
 {
     public class WidgetCardChartBar
     {

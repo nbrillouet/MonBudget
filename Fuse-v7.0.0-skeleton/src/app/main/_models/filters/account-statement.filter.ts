@@ -4,6 +4,7 @@ import { ISelect, ISelectGroup } from "../generics/select.model";
 
 export class FilterAsTableSelected {
     idAccount: number = null;
+    idUser: number = null;
     operationMethods: ISelect[] = null;
     operationTypeFamilies: ISelect[] = null;
     operationTypes: ISelect[] = null;

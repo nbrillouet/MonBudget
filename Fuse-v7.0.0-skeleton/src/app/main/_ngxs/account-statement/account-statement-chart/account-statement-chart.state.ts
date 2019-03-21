@@ -1,9 +1,11 @@
 import { DataInfo } from "app/main/_models/generics/detail-info.model";
-import { AsChart, AsChartEvolutionCdb } from "app/main/_models/account-statement/account-statement-chart.model";
+import { AsChart, AsChartEvolutionCdb, AsChartEvolutionCustomOtf, AsChartEvolutionCustomOtfFilter, AsChartEvolutionCustomOtfFilterSelected } from "app/main/_models/account-statement/account-statement-chart.model";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { AsService } from "app/main/apps/account-statement/account-statement.service";
-import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionBrutSuccess, LoadAsChartEvolutionNoIntTransfer, LoadAsChartEvolutionNoIntTransferSuccess } from "./account-statement-chart.action";
+import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionBrutSuccess, LoadAsChartEvolutionNoIntTransfer, LoadAsChartEvolutionNoIntTransferSuccess, LoadAsChartEvolutionCustomOtfSuccess, LoadAsChartEvolutionCustomOtf, LoadAsChartEvolutionSuccess, LoadAsChartEvolution, LoadAsChartEvolutionCustomOtfFilterSuccess, LoadAsChartEvolutionCustomOtfFilter, UpdateAsChartEvolutionCustomOtfFilter, UpdateAsChartEvolutionCustomOtfFilterSuccess } from "./account-statement-chart.action";
 import { WidgetCardChartBar } from "app/main/_models/chart/widget-card-chart-bar.model";
+import { Observable, zip } from "rxjs";
+import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 
 
 export class AsChartStateModel extends DataInfo<AsChart> {
@@ -34,10 +36,57 @@ export class AsChartState {
         return state;
     }
 
-    // @Selector()
-    // static getFilter(state: PlanTableComboFilterStateModel) {
-    //     return state.filter;
-    // }
+    @Action(LoadAsChartEvolution)
+    loadAsChartEvolution(context: StateContext<AsChartStateModel>, action: LoadAsChartEvolution) {
+        const state = context.getState();
+        
+        state.loadingInfo.loaded=false;
+        state.loadingInfo.loading=true;
+
+        console.log('AsChartEvolution-->ACTION.PAYLOAD',action.payload);
+        // state.datas.asChartEvolution=null;
+        
+        context.patchState(state);
+
+        zip(   
+            context.dispatch(new LoadAsChartEvolutionBrut(action.payload)),
+            context.dispatch(new LoadAsChartEvolutionNoIntTransfer(action.payload)),
+            context.dispatch(new LoadAsChartEvolutionCustomOtfFilter(action.payload)),
+            context.dispatch(new LoadAsChartEvolutionCustomOtf(action.payload))
+        ).subscribe(x=>{
+            context.dispatch(new LoadAsChartEvolutionSuccess());
+        });
+        
+            
+            
+        //     document$, (name: string, document: string) => ({name, document}))
+        // .subscribe(pair => {
+        //     this.name = pair.name;
+        //     this.document = pair.document;
+        //     this.showForm();
+        // });
+        // context.dispatch(new LoadAsChartEvolutionBrut(action.payload));
+        // context.dispatch(new LoadAsChartEvolutionNoIntTransfer(action.payload));
+        // context.dispatch(new LoadAsChartEvolutionCustomOtf(action.payload));
+
+        // this._asService.getAsChartEvolutionBrut(action.payload)
+        //     .subscribe(result=> {
+        //         context.dispatch(new LoadAsChartEvolutionBrutSuccess(<AsChartEvolutionCdb>result));
+        //     });
+
+    }
+
+    @Action(LoadAsChartEvolutionSuccess)
+    LoadAsChartEvolutionSuccess(context: StateContext<AsChartStateModel>, action: LoadAsChartEvolutionSuccess) {
+        let state = context.getState();
+        state.loadingInfo.loaded = true;
+        state.loadingInfo.loading = false;
+
+        context.patchState(state);
+
+    }
+
+
 
     @Action(LoadAsChartEvolutionBrut)
     loadAsChartEvolutionBrut(context: StateContext<AsChartStateModel>, action: LoadAsChartEvolutionBrut) {
@@ -90,7 +139,6 @@ export class AsChartState {
             .subscribe(result=> {
                 context.dispatch(new LoadAsChartEvolutionNoIntTransferSuccess(<AsChartEvolutionCdb>result));
             });
-
     }
 
     @Action(LoadAsChartEvolutionNoIntTransferSuccess)
@@ -104,10 +152,88 @@ export class AsChartState {
         context.patchState(state);
 
         console.log(state.loadingInfo.loaded);
-
     }
 
+    @Action(LoadAsChartEvolutionCustomOtf)
+    loadAsChartEvolutionCustomOtf(context: StateContext<AsChartStateModel>, action: LoadAsChartEvolutionCustomOtf) {
+        const state = context.getState();
+        
+        // state.loadingInfo.loaded=false;
+        // state.loadingInfo.loading=true;
 
+        // console.log('AsChartEvolutionCustomOtf-->state.datas',state.datas);
+        state.datas.asChartEvolution.customOtfs.widgetCardChartBars = null;
+        context.patchState(state);
+
+        this._asService.getAsChartEvolutionCustomOtf(action.payload)
+            .subscribe(result=> {
+                context.dispatch(new LoadAsChartEvolutionCustomOtfSuccess(<WidgetCardChartBar[]>result));
+            });
+    }
+
+    @Action(LoadAsChartEvolutionCustomOtfSuccess)
+    LoadAsChartEvolutionCustomOtfSuccess(context: StateContext<AsChartStateModel>, action: LoadAsChartEvolutionCustomOtfSuccess) {
+        let state = context.getState();
+        // state.loadingInfo.loaded = true;
+        // state.loadingInfo.loading = false;
+        // console.log('customOtf',action.payload);
+        state.datas.asChartEvolution.customOtfs.widgetCardChartBars = action.payload;
+
+        context.patchState(state);
+
+        // console.log(state.loadingInfo.loaded);
+    }
     
+    @Action(LoadAsChartEvolutionCustomOtfFilter)
+    loadAsChartEvolutionCustomOtfFilter(context: StateContext<AsChartStateModel>, action: LoadAsChartEvolutionCustomOtfFilter) {
+        const state = context.getState();
+
+        console.log('AsChartEvolutionCustomOtf-->state.datas',state.datas);
+        state.datas.asChartEvolution.customOtfs.filter.selected = new AsChartEvolutionCustomOtfFilterSelected();
+        state.datas.asChartEvolution.customOtfs.filter.operationTypeFamilies = [] ;
+
+        context.patchState(state);
+        this._asService.getAsChartEvolutionCustomOtfFilter(action.payload)
+            .subscribe(result=> {
+                context.dispatch(new LoadAsChartEvolutionCustomOtfFilterSuccess(<AsChartEvolutionCustomOtfFilter>result));
+            });
+    }
+
+    @Action(LoadAsChartEvolutionCustomOtfFilterSuccess)
+    LoadAsChartEvolutionCustomOtfFilterSuccess(context: StateContext<AsChartStateModel>, action: LoadAsChartEvolutionCustomOtfFilterSuccess) {
+        let state = context.getState();
+        // state.loadingInfo.loaded = true;
+        // state.loadingInfo.loading = false;
+        console.log('customOtfFilter',action.payload);
+        state.datas.asChartEvolution.customOtfs.filter = action.payload;
+
+        context.patchState(state);
+
+    }
     
+
+    @Action(UpdateAsChartEvolutionCustomOtfFilter)
+    UpdateAsChartEvolutionCustomOtfFilter(context: StateContext<AsChartStateModel>, action: UpdateAsChartEvolutionCustomOtfFilter) {
+
+        this._asService.updateAsChartEvolutionCustomOtfFilter(action.payload)
+            .subscribe(result=> {
+                context.dispatch(new UpdateAsChartEvolutionCustomOtfFilterSuccess(<AsChartEvolutionCustomOtfFilterSelected>action.payload));
+            });
+    }
+
+    @Action(UpdateAsChartEvolutionCustomOtfFilterSuccess)
+    UpdateAsChartEvolutionCustomOtfFilterSuccess(context: StateContext<AsChartStateModel>, action: UpdateAsChartEvolutionCustomOtfFilterSuccess) {
+        // let state = context.getState();
+        
+        let filterAsTableSelected = <FilterAsTableSelected> {
+            idAccount : action.payload.idAccount,
+            idUser: action.payload.idUser,
+            monthYear: action.payload.monthYear
+        };
+        
+        context.dispatch(new LoadAsChartEvolutionCustomOtfFilter(filterAsTableSelected));
+        context.dispatch(new LoadAsChartEvolutionCustomOtf(filterAsTableSelected));
+
+
+    }
 }

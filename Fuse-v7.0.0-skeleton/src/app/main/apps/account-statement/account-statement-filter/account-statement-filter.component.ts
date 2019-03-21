@@ -11,7 +11,7 @@ import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-sta
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterAsTable } from 'app/main/_models/filters/account-statement.filter';
 import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
-import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionNoIntTransfer } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
+import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionNoIntTransfer, LoadAsChartEvolutionCustomOtf } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
 
 @Component({
   selector: 'account-statement-filter',
@@ -51,8 +51,9 @@ export class AccountStatementFilterComponent implements OnInit {
     console.log('this.asTableFilter',this.asTableFilter);
     
     this._store.dispatch(new LoadAsSolde(this.asTableFilter.selected));
-    this._store.dispatch(new LoadAsChartEvolutionBrut(this.asTableFilter.selected));
-    this._store.dispatch(new LoadAsChartEvolutionNoIntTransfer(this.asTableFilter.selected));
+    // this._store.dispatch(new LoadAsChartEvolutionBrut(this.asTableFilter.selected));
+    // this._store.dispatch(new LoadAsChartEvolutionNoIntTransfer(this.asTableFilter.selected));
+    // this._store.dispatch(new LoadAsChartEvolutionCustomOtf(this.asTableFilter.selected));
     this._store.dispatch(new LoadAsTableFilter(this.asTableFilter));
     
 
@@ -63,6 +64,7 @@ export class AccountStatementFilterComponent implements OnInit {
     this._store.dispatch(new LoadAsSolde(this.asTableFilter.selected));
     this._store.dispatch(new LoadAsChartEvolutionBrut(this.asTableFilter.selected));
     this._store.dispatch(new LoadAsChartEvolutionNoIntTransfer(this.asTableFilter.selected));
+    this._store.dispatch(new LoadAsChartEvolutionCustomOtf(this.asTableFilter.selected));
     this._store.dispatch(new LoadAsTableFilter(this.asTableFilter));
     
   }

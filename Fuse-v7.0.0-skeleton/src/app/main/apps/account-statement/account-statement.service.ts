@@ -5,6 +5,8 @@ import { FilterAsTableSelected, FilterAsTable, FilterAsDetail } from 'app/main/_
 import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
 import { HttpClient } from '@angular/common/http';
 import { AsDetail } from 'app/main/_models/account-statement/account-statement-detail.model';
+import { ISelect } from 'app/main/_models/generics/select.model';
+import { AsChartEvolutionCustomOtfFilter, AsChartEvolutionCustomOtfFilterSelected } from 'app/main/_models/account-statement/account-statement-chart.model';
 
 @Injectable()
 export class AsService {
@@ -82,6 +84,31 @@ export class AsService {
                 return response;
             });
     }
+
+    getAsChartEvolutionCustomOtf(filter: FilterAsTableSelected) {
+        return this.http
+            .post(`${this.baseUrl}account-statement-charts/chart-evolution-custom-otf`,filter)
+            .map((response) => {
+                return response;
+            });
+    }
+
+    getAsChartEvolutionCustomOtfFilter(filter: FilterAsTableSelected) {
+        return this.http
+            .post(`${this.baseUrl}account-statement-charts/chart-evolution-custom-otf-filter`,filter)
+            .map((response) => {
+                return response;
+            });
+    }
+
+    updateAsChartEvolutionCustomOtfFilter(filter: AsChartEvolutionCustomOtfFilterSelected){
+        return this.http
+            .post(`${this.baseUrl}account-statement-charts/chart-evolution-custom-otf-filter/update`,filter)
+            .map((response) => {
+                return response;
+            });
+    }
+
 
 
 }
