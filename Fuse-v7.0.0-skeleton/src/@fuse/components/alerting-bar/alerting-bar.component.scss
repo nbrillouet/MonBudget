@@ -1,0 +1,234 @@
+@import "src/@fuse/scss/fuse";
+
+:host {
+
+    .fuse-search-bar {
+        display: flex;
+        flex: 0 1 auto;
+        min-width: 64px;
+        height: 64px;
+        font-size: 13px;
+
+        @include media-breakpoint('xs') {
+            height: 56px;
+        }
+
+        .fuse-search-bar-content {
+            display: flex;
+            flex: 1 1 auto;
+            align-items: center;
+            justify-content: flex-start;
+
+            .fuse-search-bar-expander,
+            .fuse-search-bar-collapser {
+                cursor: pointer;
+                padding: 0 20px;
+                margin: 0;
+                width: 64px !important;
+                height: 64px !important;
+                line-height: 64px !important;
+
+                @include media-breakpoint('xs') {
+                    height: 56px !important;
+                    line-height: 56px !important;
+                }
+            }
+
+            .fuse-search-bar-loader {
+                width: 64px !important;
+                height: 64px !important;
+                line-height: 64px !important;
+
+                @include media-breakpoint('xs') {
+                    height: 56px !important;
+                    line-height: 56px !important;
+                }
+            }
+
+            .fuse-search-bar-collapser {
+                display: none;
+            }
+
+            #fuse-search-bar-input {
+                display: none;
+                flex: 1 0 auto;
+                min-height: 64px;
+                font-size: 16px;
+                background-color: transparent;
+                color: currentColor;
+            }
+        }
+
+        &.expanded {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 10;
+
+            .fuse-search-bar-content {
+
+                #fuse-search-bar-input {
+                    display: flex;
+                }
+
+                .fuse-search-bar-collapser {
+                    display: flex;
+                }
+            }
+        }
+    }
+
+    body {
+
+        &.fuse-search-bar-expanded {
+
+            #toolbar {
+                z-index: 999 !important;
+            }
+        }
+    }
+
+    .green {
+        // font-size: 32px;
+
+        color: #09D261;
+      }
+      .mat-icon {
+      height: 40px;
+      width:40px;
+      font-size: 40px;
+      }
+}
+
+
+
+
+
+
+
+
+
+.f-modal-alert {
+    padding-top: 3px;
+}
+
+.f-modal-alert .f-modal-icon {
+	border-radius: 50%;
+	border: 4px solid gray;
+	box-sizing: content-box;
+	height: 32px;
+	// position: relative;
+	width: 32px;
+
+	// Warning icon
+	
+	&.f-modal-warning {
+		border-color: #EB4A4A;
+		
+		&:before {
+			animation: pulseWarning 2s linear infinite;
+			border-radius: 50%;
+			content: "";
+			display: inline-block;
+			height: 100%;
+			opacity: 0;
+            position: absolute;
+            margin-left:-16px;
+			width: 100%;
+		}
+		
+		&:after {
+			// background-color: #fff;
+			border-radius: 50%;
+			content: '';
+			display: block;
+			height: 100%;
+			position: absolute;
+			width: 100%;
+			z-index: 1;
+		}
+	}
+
+	&.f-modal-warning .f-modal-body {
+		background-color: #EB4A4A;
+		border-radius: 5px;
+		height: 18px;
+		left: 50%;
+		margin-left: -2px;
+		position: absolute;
+		top: 3px;
+		width: 3px;
+		z-index: 2;
+	}
+
+	&.f-modal-warning .f-modal-dot {
+		background-color: #EB4A4A;
+		border-radius: 50%;
+		bottom: 2px;
+		height: 7px;
+		left: 50%;
+		margin-left: -3px;
+		position: absolute;
+		width: 5px;
+		z-index: 2;
+	}
+	
+	+ .f-modal-icon {
+		margin-top: 10px;
+	}
+}
+
+.scaleWarning {
+    animation: scaleWarning 0.75s infinite alternate;
+}
+
+.pulseWarningIns {
+    animation: pulseWarningIns 0.75s infinite alternate;
+}
+
+@keyframes scaleWarning {
+	0% {
+		transform: scale(1);
+	}
+	
+	30% {
+		transform: scale(1.02);
+	}
+	
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes pulseWarning {
+	0% {
+		background-color: #fff;
+		transform: scale(1);
+		opacity: 0.5;
+	}
+
+	30% {
+		background-color: #fff;
+		transform: scale(1);
+		opacity: 0.5;
+	}
+
+	100% {
+		background-color: #EB4A4A;
+		transform: scale(2);
+		opacity: 0;
+	}
+}
+
+@keyframes pulseWarningIns {
+    0% {
+        background-color: #EB4A4A;
+    }
+
+    100% {
+        background-color: #EB4A4A;
+    }
+}
+

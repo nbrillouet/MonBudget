@@ -1,0 +1,25 @@
+<div class="fuse-search-bar" >
+
+  <div class="fuse-search-bar-content" *ngIf="haveWarning; else noWarning">
+
+      <label class="pl-12" style="padding-top: 5px;">
+          <button mat-icon-button >
+              <div class="f-modal-alert">
+                <div class="f-modal-icon f-modal-warning scaleWarning">
+                    <span class="f-modal-body pulseWarningIns"></span>
+                    <span class="f-modal-dot pulseWarningIns"></span>
+                  </div>
+              </div>
+          </button>
+      </label>
+  </div>
+
+  <ng-template #noWarning>
+      <label class="pl-12" style="padding-top: 12px;" >
+          <button mat-icon-button class="green" matTooltip="Aucune alerte détectée" >
+              <mat-icon [ngStyle]="{'color':'white'}" class="logo-icon s-32" >alarm_off</mat-icon>
+          </button>
+      </label>
+  </ng-template>
+
+</div>
