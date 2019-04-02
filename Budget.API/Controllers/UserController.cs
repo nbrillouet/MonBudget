@@ -183,12 +183,12 @@ namespace Budget.API.Controllers
         /// <param name="idUser"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{idUser}/banks")]
-        public IActionResult GetBanks(int idUser)
+        [Route("{idUser}/bankAgencies")]
+        public IActionResult GetBankAgencies(int idUser)
         {
-            var banks = _userService.GetBanks(idUser);
+            var bankAgencies = _userService.GetBankAgencies(idUser);
 
-            return Ok(banks);
+            return Ok(bankAgencies);
         }
     }
 }

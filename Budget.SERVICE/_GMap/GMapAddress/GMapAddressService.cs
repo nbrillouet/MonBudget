@@ -92,7 +92,7 @@ namespace Budget.SERVICE.GMap
             gMapAddress.idGMapSublocalityLevel1 = gMapSublocalityLevel1.Id;
             gMapAddress.idGMapSublocalityLevel2 = gMapSublocalityLevel2.Id;
 
-            List<GMapTypeDto> gMapTypes = _gMapTypeService.GetByLabelOrCreate(_mapper.Map<List<GMapType>>(gMapAddressDto.GMapTypes), EnumLanguage.fr);
+            List<GMapTypeDto> gMapTypes = _gMapTypeService.GetByKeywordOrCreate(_mapper.Map<List<GMapType>>(gMapAddressDto.GMapTypes), EnumLanguage.FR);
             
 
             //Recherche si adresse existe deja

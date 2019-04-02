@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Input, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ViewEncapsulation, SimpleChanges, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
@@ -22,13 +22,15 @@ import { ChangeAsTableFilter } from 'app/main/_ngxs/account-statement/account-st
   encapsulation: ViewEncapsulation.None
 })
 
-export class AccountStatementListComponent implements OnInit {
+export class AccountStatementListComponent implements OnInit, OnChanges {
   @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
   @Select(AsTableState.get) asTable$: Observable<DataInfos<AsTable>>;
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  
+
+  @Input() headerPanelVisible: boolean;
+
   dataSource = new MatTableDataSource<AsTable>();// AsifDataSource;
   filterAs: FilterAsTable;
 
@@ -60,6 +62,12 @@ export class AccountStatementListComponent implements OnInit {
       this.filterAs = asTableFilter.filters;
     });
   
+  }
+  
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('changes.headerPanelVisible',changes.headerPanelVisible);
+    // const name: SimpleChange = changes.headerPanelVisible;
+    this.headerPanelVisible = changes.headerPanelVisible.currentValue;
   }
 
   onPageChangeEvent(event) {

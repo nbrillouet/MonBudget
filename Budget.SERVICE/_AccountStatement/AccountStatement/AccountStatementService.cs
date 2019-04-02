@@ -146,9 +146,9 @@ namespace Budget.SERVICE
             return _accountStatementRepository.Save(accountStatements);
         }
 
-        private SoldeDto GetSolde(int idAccount,DateTime dateMin,DateTime dateMax,bool isWithITransfer)
+        private SoldeDto GetSolde(int? idUser, int? idAccount,DateTime dateMin,DateTime dateMax,bool isWithITransfer)
         {
-            return _accountStatementRepository.GetSolde(idAccount,dateMin, dateMax, isWithITransfer);
+            return _accountStatementRepository.GetSolde(idUser,idAccount, dateMin, dateMax, isWithITransfer);
         }
 
         public SoldeDto GetSolde(FilterAsTableSelected filter)
@@ -156,8 +156,42 @@ namespace Budget.SERVICE
             var date = Convert.ToDateTime($"01/{filter.MonthYear.Month.Id}/{filter.MonthYear.Year}");
             var dateMin = DateHelper.GetFirstDayOfMonth(date);
             var dateMax = DateHelper.GetLastDayOfMonth(date);
+            var solde = GetSolde(filter.IdUser, filter.IdAccount, dateMin, dateMax, filter.IsWithITransfer);
 
-            return GetSolde(filter.IdAccount.Value, dateMin, dateMax, filter.IsWithITransfer);
+            var t = GetAsInternalTransfer(filter);
+            return solde;
+        }
+
+        public List<InternalTransferDto> GetAsInternalTransfer(FilterAsTableSelected filter)
+        {
+            List<InternalTransferDto> internalTransferDtos = new List<InternalTransferDto>();
+
+            var date = Convert.ToDateTime($"01/{filter.MonthYear.Month.Id}/{filter.MonthYear.Year}");
+            var dateMin = DateHelper.GetFirstDayOfMonth(date);
+            var dateMax = DateHelper.GetLastDayOfMonth(date);
+
+            var accountStatements = _accountStatementRepository.GetAsInternalTransfer(filter.IdAccount, dateMin, dateMax);
+            var asDtos = _mapper.Map<List<AsForTableDto>>(accountStatements);
+            foreach(var asDtoFirst in asDtos)
+            {
+                AsForTableDto asDtoSecond=null; // = new AsForTableDto();
+                AccountStatement asCouple = _accountStatementRepository.GetAsInternalTransferCouple(asDtoFirst.Id);
+                if (asCouple != null)
+                {
+                    var account = _referentialService.AccountService.GetFullById(asCouple.IdAccount);
+                    asCouple.Account = account;
+                    asDtoSecond = _mapper.Map<AsForTableDto>(asCouple);
+                }
+
+                InternalTransferDto internalTransferDto = new InternalTransferDto() {
+                    asFirst= asDtoFirst,
+                    asSecond = asDtoSecond
+                };
+                internalTransferDtos.Add(internalTransferDto);
+
+            }
+
+            return internalTransferDtos;
         }
 
         public bool Update(AsDetailDto asDetailDto)

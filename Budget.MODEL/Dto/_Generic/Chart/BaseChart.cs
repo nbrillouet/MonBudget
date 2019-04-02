@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Budget.HELPER;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,7 +10,12 @@ namespace Budget.MODEL.Dto
         public int Id { get; set; }
         public string Month { get; set; }
         public int Year { get; set; }
-        public double Amount { get; set; }
+        private double _amount;
+        public double Amount
+        {
+            get => MathHelper.RoundIt(_amount, 2);
+            set => _amount = MathHelper.RoundIt(value, 2);
+        }
     }
 
     public class BaseChart

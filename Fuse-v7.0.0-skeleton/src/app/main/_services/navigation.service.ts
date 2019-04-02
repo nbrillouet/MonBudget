@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { ErrorService } from './error.service';
 import { IUser } from '../_models/user.model';
-import { IBankAccounts } from '../_models/bank.model';
 import { HttpClient } from '@angular/common/http';
+import { IBankAgencyAccounts } from '../_models/referential/bankAgency.model';
 
 @Injectable()
 export class NavigationService {
@@ -58,7 +58,7 @@ constructor(
         return importMenu;
     }
 
-    getBankMenu(banks: IBankAccounts[]){
+    getBankMenu(banks: IBankAgencyAccounts[]){
         var bankMenu = {
             id   : 'bank',
             title: 'Vos comptes',
@@ -70,11 +70,18 @@ constructor(
         for(let bank of banks)
         {
             let bankChild = {
-                id   : bank.labelBankShort,
-                title: bank.labelBankShort,
+                id   : bank.labelShort,
+                title: bank.labelShort,
                 type : 'collapsable',
                 children: []
             };
+            let accountChild = {
+                id   : -1,
+                title: 'Tous les comptes',
+                type : 'item',
+                url  : `/apps/account-statements/accounts/ALL`
+            };
+            bankChild.children.push(accountChild);
             for(let account of bank.accounts)
             {
                 let accountChild = {

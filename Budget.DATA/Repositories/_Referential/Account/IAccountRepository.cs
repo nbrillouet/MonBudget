@@ -9,8 +9,7 @@ namespace Budget.DATA.Repositories
     {
         Account GetForDetailById(int id);
         Account GetByNumber(string number);
-
-        List<Account> GetByIdBank(int idBank);
+        List<Account> GetByIdBankAgency(int idBankAgency);
 
         //new int Create(Account account);
         new Account Create(Account account);

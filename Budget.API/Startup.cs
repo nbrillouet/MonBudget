@@ -57,8 +57,8 @@ namespace Budget.API
             services.AddScoped<IUserCustomOtfService, UserCustomOtfService>();
             services.AddScoped<IUserCustomOtfRepository, UserCustomOtfRepository>();
             
-            services.AddScoped<IBankService, BankService>();
-            services.AddScoped<IBankRepository, BankRepository>();
+            services.AddScoped<IBankAgencyService, BankAgencyService>();
+            services.AddScoped<IBankAgencyRepository, BankAgencyRepository>();
 
             services.AddScoped<IAccountStatementImportService, AccountStatementImportService>();
             services.AddScoped<IAccountStatementImportRepository, AccountStatementImportRepository>();
@@ -195,6 +195,9 @@ namespace Budget.API
 
             services.AddScoped<IGMapTypeService, GMapTypeService>();
             services.AddScoped<IGMapTypeRepository, GMapTypeRepository>();
+
+            services.AddScoped<IGMapTypeLanguageService, GMapTypeLanguageService>();
+            services.AddScoped<IGMapTypeLanguageRepository, GMapTypeLanguageRepository>();
 
             services.AddScoped<IGMapAddressTypeService, GMapAddressTypeService>();
             services.AddScoped<IGMapAddressTypeRepository, GMapAddressTypeRepository>();

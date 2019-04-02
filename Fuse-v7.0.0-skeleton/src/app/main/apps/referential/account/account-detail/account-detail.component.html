@@ -68,8 +68,8 @@
                           <div class="tab-content p-24" fusePerfectScrollbar>
                             
                             <mat-form-field class="w-100-p" >
-                                <mat-select formControlName="bank" placeholder="Banque" [compareWith]="compareObjects" >
-                                    <mat-option *ngFor="let item of banks" [value]="item">
+                                <mat-select formControlName="bankAgency" placeholder="Banque" [compareWith]="compareObjects" >
+                                    <mat-option *ngFor="let item of bankAgencies" [value]="item">
                                         {{ item.label }}
                                     </mat-option>
                                 </mat-select>

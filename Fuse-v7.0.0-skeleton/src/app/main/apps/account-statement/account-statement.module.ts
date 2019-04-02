@@ -25,6 +25,8 @@ import { AsService } from './account-statement.service';
 import { AsDetailState } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.state';
 import { AsChartState } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.state';
 import { AsChartEvolutionComponent } from './account-statement-chart/as-chart-evolution/as-chart-evolution.component';
+import { AsInternalTransferCoupleComponent } from './account-statement-internal-transfer/as-internal-transfer-couple/as-internal-transfer-couple.component';
+import { AsInternalTransferMainComponent } from './account-statement-internal-transfer/as-internal-transfer-main/as-internal-transfer-main.component';
 
 
 const routes = [
@@ -70,8 +72,7 @@ const routes = [
       AsSoldeState,
       AsChartState
   ])
-  
-  
+    
   ],
   declarations: [
     AccountStatementMainComponent,
@@ -84,7 +85,9 @@ const routes = [
     DateIntegrationFilterComponent,
     AmountFilterComponent,
     AccountStatementDetailComponent,
-    AsChartEvolutionComponent
+    AsChartEvolutionComponent,
+    AsInternalTransferMainComponent,
+    AsInternalTransferCoupleComponent
   ],
   providers : [
     AsService

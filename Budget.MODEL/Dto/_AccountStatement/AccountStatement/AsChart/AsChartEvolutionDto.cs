@@ -44,7 +44,7 @@ namespace Budget.MODEL
     public class AsChartEvolutionCustomOtfFilterSelected
     {
         public int IdUser { get; set; }
-        public int IdAccount { get; set; }
+        public int? IdAccount { get; set; }
         public MonthYear MonthYear { get; set; }
         public List<SelectDto> OperationTypeFamilies { get; set; }
     }

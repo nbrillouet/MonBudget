@@ -9,7 +9,7 @@ import { AsifTableFilterState } from 'app/main/_ngxs/account-statement-import-fi
 import { Observable } from 'rxjs';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterAsifTable, FilterAsifDetail } from 'app/main/_models/filters/account-statement-import-file.filter';
-import { LoadAsifDetail, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationType } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.action';
+import { LoadAsifDetail, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationType, LoadAsifDetailSuccess } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.action';
 import { AsifDetailState } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.state';
 import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 import { AsifDetail } from 'app/main/_models/account-statement-import/account-statement-import-file.model';
@@ -120,22 +120,28 @@ isNewOperationTransverseTemplate: boolean;
         .valueChanges
         .subscribe(val => {
           this.asifDetail.operationPlace.selected=val;
-          // this.asifDetail.operationDetail.gMapAddress.id = val.id!=4 ? val.id : this.asifDetail.operationDetail.gMapAddress.id;
-          console.log(val,val);
+
           this.asifDetail.gMapSearchInfo=null;
-          // this.data.isLocalisable=false;
           if(this.asifDetail.operationPlace.selected.id==4)
           {
-            // this.data.isLocalisable=true;
             this.asifDetail.gMapSearchInfo = <GMapSearchInfo> { 
-              idGMapAddress: this.asifDetail.operationDetail.gMapAddress.id!=4 ? 1 : this.asifDetail.operationDetail.gMapAddress.id,
+              idGMapAddress: this.asifDetail.operationDetail.gMapAddress.id>4 ? this.asifDetail.operationDetail.gMapAddress.id : 1, //this.asifDetail.operationDetail.gMapAddress.id!=4 ? 1 : this.asifDetail.operationDetail.gMapAddress.id,
               operationPositionSearch: this.asifDetail.operationLabelTemp,
               operationPlaceSearch: this.asifDetail.placeLabelTemp
             };
+          }
 
-          } 
-
+          this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
         });
+
+      this.asifDetailForm.get('amountOperation')
+      .valueChanges
+      .subscribe(val=> {
+        console.log('this.asifDetail',this.asifDetail);
+        this.asifDetail.amountOperation = val;
+        this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
+      });
+
  
       this.operationAddForm = this._formBuilder.group({
         operationLabelTemp: [this.asifDetail.operationLabelTemp,[Validators.required]]
@@ -144,9 +150,7 @@ isNewOperationTransverseTemplate: boolean;
       this.operationTransverseAddForm = this._formBuilder.group({
         operationTransverse: [null,[Validators.required]]
       });
-  }
-
-  
+  }  
 
   addOperation() {
     const operationMethod:ISelect = this.asifDetailForm.value.operationMethod;
@@ -177,9 +181,6 @@ isNewOperationTransverseTemplate: boolean;
                       
           this._notificationService.success('Enregistrement effectué', `L'opération est enregistrée`);
       });
-      // error => {
-      //   this._notificationService.error('Echec de l\'enregistrement', error);
-      // });
 
   }
 
@@ -242,11 +243,14 @@ isNewOperationTransverseTemplate: boolean;
   compareObjects(o1: any, o2: any) {
     if(o1.label == o2.label && o1.id == o2.id )
     return true;
-    else return false
+    else return false;
   }
 
   onChangeGMapAddress($event) {
     this.asifDetail.operationDetail.gMapAddress=$event;
+    this.asifDetail.gMapSearchInfo.idGMapAddress = $event.id;
+    this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
+    
   }
 
   movePrevious() {

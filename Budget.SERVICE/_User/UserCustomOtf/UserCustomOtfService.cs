@@ -31,7 +31,7 @@ namespace Budget.SERVICE
 
         }
 
-        public List<SelectDto> GetOperationTypeFamilySelect (int idUser,int idAccount)
+        public List<SelectDto> GetOperationTypeFamilySelect (int idUser,int? idAccount)
         {
             var otfs = _userCustomOtfRepository.GetOperationTypeFamilySelect(idUser, idAccount);
             return _mapper.Map<List<SelectDto>>(otfs);
@@ -42,7 +42,7 @@ namespace Budget.SERVICE
         public bool Update(AsChartEvolutionCustomOtfFilterSelected filter)
         {
             //Suppression des items pour l'utilisateur et le le compte
-            var userCustomOtfs = Get(filter.IdUser, filter.IdAccount);
+            var userCustomOtfs = Get(filter.IdUser, filter.IdAccount.Value);
             foreach(var userCustomOtf in userCustomOtfs)
             {
                 _userCustomOtfRepository.Delete(userCustomOtf);
@@ -55,7 +55,7 @@ namespace Budget.SERVICE
                 UserCustomOtf userCustomOtf = new UserCustomOtf
                 {
                     Id = 0,
-                    IdAccount = filter.IdAccount,
+                    IdAccount = filter.IdAccount.Value,
                     IdUser = filter.IdUser,
                     IdOperationTypeFamily = otf.Id
                 };

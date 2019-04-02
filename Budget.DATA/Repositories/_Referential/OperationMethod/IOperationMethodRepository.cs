@@ -12,11 +12,5 @@ namespace Budget.DATA.Repositories
 
         new int Create(OperationMethod operationMethod);
 
-
-
-        //OperationMethod GetOperationMethodByFileLabel(string operationLabel, int idBank);
-        //OperationMethod GetById(int idOperationMethod);
-
-
     }
 }

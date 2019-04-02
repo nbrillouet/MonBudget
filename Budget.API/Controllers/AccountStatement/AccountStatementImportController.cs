@@ -25,27 +25,21 @@ namespace Budget.API.Controllers
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IAccountStatementImportService _accountStatementImportService;
-        //private readonly IBankService _bankService;
         private readonly IAccountStatementImportFileService _accountStatementImportFileService;
         private readonly IFilterService _filterService;
-        //private readonly IAccountService _accountService;
 
         public AccountStatementImportController(
             IAccountStatementImportService accountStatementImportService,
             IUserService userService,
-            //IBankService bankService,
             IAccountStatementImportFileService accountStatementImportFileService,
             IMapper mapper,
-            //IAccountService accountService,
             IFilterService filterService
             )
         {
             _mapper = mapper;
             _accountStatementImportService = accountStatementImportService;
-            //_bankService = bankService;
             _userService = userService;
             _accountStatementImportFileService = accountStatementImportFileService;
-            //_accountService = accountService;
             _filterService = filterService;
         }
 
@@ -69,13 +63,13 @@ namespace Budget.API.Controllers
         }
 
         [HttpGet]
-        [Route("users/{idUser}/banks")]
-        public async Task<IActionResult> GetDistinctBank(int idUser)
+        [Route("users/{idUser}/bankAgencies")]
+        public IActionResult GetDistinctBankAgencies(int idUser)
         {
-            var banks = await _accountStatementImportService.GetDistinctBankAsync(idUser);
-            var banksDto = _mapper.Map<IEnumerable<BankForListDto>>(banks);
+            var bankAgencies = _accountStatementImportService.GetDistinctBankAgencies(idUser);
+            var bankAgenciesDto = _mapper.Map<IEnumerable<BankAgencyForListDto>>(bankAgencies);
 
-            return Ok(banksDto);
+            return Ok(bankAgenciesDto);
 
         }
 

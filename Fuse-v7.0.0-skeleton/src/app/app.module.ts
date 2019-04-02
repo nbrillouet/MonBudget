@@ -27,12 +27,10 @@ import { GoogleMapService } from './main/_services/google-map.service';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
-// import { ReferentialService } from './main/_services/referential.service';
 import { OperationTypeFamilyService } from './main/_services/Referential/operation-type-family.service';
 import { OperationTypeService } from './main/_services/Referential/operation-type.service';
 import { AccountService } from './main/_services/Referential/account.service';
 import { NavigationService } from './main/_services/navigation.service';
-import { BankService } from './main/_services/Referential/bank.service';
 import { AccountTypeService } from './main/_services/Referential/account-type.service';
 import { DatePipe } from '@angular/common';
 import { UserDetailResolver } from './main/apps/referential/user/user-detail/user-detail.resolver';
@@ -48,12 +46,12 @@ import { NavigationState } from './main/_ngxs/navigation/navigation.state';
 import { PlanService } from './main/apps/plan/plan.service';
 import { ReferentialServiceModule } from './main/_services/Referential/referential.service.module';
 import { UserDetailState } from './main/_ngxs/user/user-detail/user-detail.state';
+import { BankAgencyService } from './main/_services/Referential/bank.service';
 
 const NGXS_MODULES = [
     NgxsModule.forRoot([]),
     NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production ? true : false }),
 ]
-
 
 const appRoutes: Routes = [
     { path : 'pages', loadChildren: './main/pages/pages.module#FusePagesModule' },
@@ -126,7 +124,7 @@ const appRoutes: Routes = [
         // OperationMethodService,
         AccountService,
         NavigationService,
-        BankService,
+        BankAgencyService,
         AccountTypeService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

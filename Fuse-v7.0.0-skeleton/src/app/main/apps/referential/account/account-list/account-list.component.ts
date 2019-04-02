@@ -1,24 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-// import { fuseAnimations } from '../../../../../../core/animations';
-import { ActivatedRoute } from '@angular/router';
-// import { IBankAccounts } from '../../../../../_models/bank.model';
-// import { IAccount, IAccountForDetail } from '../../../../../_models/account.model';
 import { MatDialogRef, MatDialog } from '@angular/material';
-// import { FuseConfirmDialogComponent } from '../../../../../../core/components/confirm-dialog/confirm-dialog.component';
-// import { AccountService } from '../../../../../_services/Referential/account.service';
-// import { IUser } from '../../../../../_models/user.model';
 import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '@fuse/animations';
-import { IBankAccounts } from 'app/main/_models/bank.model';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
-import { AccountService } from 'app/main/_services/Referential/account.service';
 import { IAccountForDetail, IAccount } from 'app/main/_models/account.model';
 import { IUser } from 'app/main/_models/user.model';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
-// import { ReferentialTestService } from 'app/main/_services/Referential/referential.service';
+import { IBankAgencyAccounts } from 'app/main/_models/referential/bankAgency.model';
 
 @Component({
   selector: 'app-account-list',
@@ -29,7 +20,7 @@ import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.sta
 export class AccountListComponent implements OnInit {
 @Select(UserDetailState.getUser) user$: Observable<IUser>;
 
-banks: IBankAccounts[];
+bankAgencies: IBankAgencyAccounts[];
 checkboxes: number[]=[];
 hasSelectedAccounts: boolean = false;
 linkUserToolTip: string;
@@ -43,14 +34,12 @@ confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
     private _referentialService: ReferentialService,
     private notificationService: NotificationsService
   ) {
-    // this.activatedRoute.data.subscribe(data => {
-    //   this.banks = data['banks'];
-    // })
+ 
 
     this.user$.subscribe((user:IUser) => {
       if(user) {
 
-          this.banks = user.banks;
+          this.bankAgencies = user.bankAgencies;
       }
     });
   }
@@ -88,8 +77,7 @@ confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
             let user: IUser = JSON.parse(localStorage.getItem('user'));
             this._referentialService.accountService.delete(user.id,account)
             .subscribe(next => {
-              this.deleteFromBanks(account.id);
-              // this.accountForm.reset(this.account);
+              this.deleteFromBankAgencies(account.id);
               this.notificationService.success('Suppression réussi', 'Compte supprimé');
             }, error => {
               this.notificationService.error('Echec suppression', error);
@@ -112,13 +100,13 @@ confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
     this.linkUserToolTip=label;
   }
 
-  deleteFromBanks(idAccount:number) {
+  deleteFromBankAgencies(idAccount:number) {
         
-    for(let bank of this.banks)
+    for(let bankAgency of this.bankAgencies)
     {
-      var index = bank.accounts.findIndex(x=>x.id==idAccount);
+      var index = bankAgency.accounts.findIndex(x=>x.id==idAccount);
       if (index > -1) {
-        bank.accounts.splice(index, 1);
+        bankAgency.accounts.splice(index, 1);
         break;
       }
     }

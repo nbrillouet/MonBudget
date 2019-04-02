@@ -51,35 +51,22 @@ namespace Budget.DATA.Repositories
                 .FirstOrDefault();
         }
 
-        //public async Task<PagedList<User>> GetUsers(Pagination userParams)
-        //{
-        //    var users = Context.User.Include(x => x.Shortcuts).AsQueryable();
-
-        //    //paging.SortColumn = String.IsNullOrEmpty(paging.SortColumn) ? "Id" : paging.SortColumn;
-        //    if (userParams.SortDirection == "asc")
-        //        users = users.OrderBy(userParams.SortColumn);
-        //    else
-        //        users = users.OrderByDescending(userParams.SortColumn);
-
-        //    return await PagedListRepository<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
-        //}
-
-        public List<Bank> GetBanks(int idUser)
+        public List<BankAgency> GetBankAgencies(int idUser)
         {
             List<Account> results = Context.UserAccount
                 .Where(x => x.IdUser == idUser)
                 .Select(x => x.Account)
-                .Include(x => x.Bank)
+                .Include(x => x.BankAgency)
                 .Include(x => x.AccountType)
                 .Include(x=>x.UserAccounts)
                     .ThenInclude(ua=>ua.User)
                 .ToList();
 
-            var banks = results.Select(x => x.Bank).ToList();
-            var distinctBanks= banks.GroupBy(x =>x.Id)
+            var bankAgencies = results.Select(x => x.BankAgency).ToList();
+            var distinctBankAgencies= bankAgencies.GroupBy(x =>x.Id)
                 .Select(x=>x.FirstOrDefault())
                 .ToList();
-            return distinctBanks;
+            return distinctBankAgencies;
         }
     }
 }

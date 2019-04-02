@@ -108,7 +108,7 @@ namespace Budget.SERVICE
             switch (accountStatementImportFile.OperationMethod.Id)
             {
                 case (int)EnumOperationMethod.PaiementCarte:
-                    switch (accountStatementImportFile.Account.IdBank)
+                    switch (accountStatementImportFile.Account.IdBankAgency)
                     {
                         case (int)EnumBankFamily.BanquePopulaire:
                             return GetKeywordPlaceForCardPaymentBpvf(accountStatementImportFile);
@@ -116,7 +116,7 @@ namespace Budget.SERVICE
                     }
                     break;
                 case (int)EnumOperationMethod.RetraitCarte:
-                    switch (accountStatementImportFile.Account.IdBank)
+                    switch (accountStatementImportFile.Account.IdBankAgency)
                     {
                         case (int)EnumBankFamily.BanquePopulaire:
                             return GetKeywordPlaceForCashWithdrawal(accountStatementImportFile);

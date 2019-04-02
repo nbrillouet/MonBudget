@@ -5,7 +5,7 @@ export interface IAccountStatementImport {
     id : number;
     idUser : number;
     user : ISelect; 
-    bank : ISelect; 
+    bankAgency : ISelect; 
     fileImport : string;
     dateImport : Date;
 }

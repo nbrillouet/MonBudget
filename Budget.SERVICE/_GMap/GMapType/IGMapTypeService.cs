@@ -8,7 +8,7 @@ namespace Budget.SERVICE.GMap
 {
     public interface IGMapTypeService
     {
-        List<GMapTypeDto> GetByLabelOrCreate(List<GMapType> gMapTypes, EnumLanguage enumLangugae);
+        List<GMapTypeDto> GetByKeywordOrCreate(List<GMapType> gMapTypes, EnumLanguage enumLanguage);
         List<GMapTypeDto> GetGMapTypeDto(List<GMapType> gMapTypes, EnumLanguage enumLanguage);
     }
 

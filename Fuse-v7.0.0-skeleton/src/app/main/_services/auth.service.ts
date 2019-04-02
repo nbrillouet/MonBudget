@@ -19,11 +19,10 @@ import { ISelect } from '../_models/generics/select.model';
 
 @Injectable()
 export class AuthService {
-    // baseUrl = 'http://localhost:5001/api/auth/';
     baseUrl = environment.apiUrl;
     userToken: any;
     decodedToken : any;
-    // jwtHleper:JwtHelper = new JwtHelper();
+
     currentUser: IUser;
     private avatarUrl = new BehaviorSubject<string>('assets/images/avatars/profile.jpg');
     currentAvatarUrl = this.avatarUrl.asObservable();
@@ -33,11 +32,7 @@ export class AuthService {
     currentShortcuts = this.shortcuts.asObservable();
 
     constructor(
-        // private http: Http,
-        // private authHttp: AuthHttp,
         private errorService: ErrorService,
-        private navigationService: NavigationService,
-        private fuseNavigationService: FuseNavigationService,
         private http: HttpClient) { }
     
     loadUserProfile(user: IUser) {
@@ -45,7 +40,7 @@ export class AuthService {
         this.changeAvatar(user.avatarUrl);
         this.changeShortcuts(user.shortcuts);
 
-        this.GetBanks(user.id)
+        this.GetBankAgencies(user.id)
             .subscribe(resp=>{
                 // var userMenu = new FuseNavigationModel();
                 // userMenu.model[0].children.push(this.navigationService.getReferentialMenu(user));
@@ -65,9 +60,9 @@ export class AuthService {
         this.shortcuts.next(shortcuts);
     }
 
-    GetBanks(idUser:number) {
+    GetBankAgencies(idUser:number) {
         return this.http
-            .get(this.baseUrl + `users/${idUser}/banks`)
+            .get(this.baseUrl + `users/${idUser}/bankAgencies`)
             .map(response => <ISelect[]>response)
             .catch(this.errorService.handleError);
     }

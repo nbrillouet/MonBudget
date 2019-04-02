@@ -8,6 +8,7 @@
     <Compile Remove="Migrations\20190321082329_alterBaseChartData.cs" />
     <Compile Remove="Migrations\20190321091250_AlterBaseChartData.cs" />
     <Compile Remove="Migrations\20190321091537_AlterBaseChartData.cs" />
+    <Compile Remove="Migrations\20190401123854_alterGMap.cs" />
   </ItemGroup>
 
   <ItemGroup>

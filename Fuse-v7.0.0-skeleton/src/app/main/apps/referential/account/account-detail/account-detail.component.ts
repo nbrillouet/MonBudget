@@ -4,15 +4,9 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '@fuse/animations';
 import { IAccountForDetail } from 'app/main/_models/account.model';
-import { BankService } from 'app/main/_services/Referential/bank.service';
-import { AccountTypeService } from 'app/main/_services/Referential/account-type.service';
-import { AccountService } from 'app/main/_services/Referential/account.service';
 import { IUser } from 'app/main/_models/user.model';
 import { ISelect, EnumSelectType } from 'app/main/_models/generics/select.model';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
-// import { ReferentialService } from 'app/main/_services/referential.service';
-// import { ReferentialTestService } from 'app/main/_services/Referential/referential.service';
-
 
 @Component({
   selector: 'account-detail',
@@ -22,26 +16,23 @@ import { ReferentialService } from 'app/main/_services/Referential/referential.s
 })
 export class AccountDetailComponent implements OnInit {
 account: IAccountForDetail;
-banks: ISelect[];
+bankAgencies: ISelect[];
 accountTypes: ISelect[];
 pageType: string;
 accountForm: FormGroup;
 
   constructor(
-    private activatedRoute : ActivatedRoute,
-    private formBuilder: FormBuilder,
-    // private bankService: BankService,
-    // private accountTypeService: AccountTypeService,
+    private _activatedRoute : ActivatedRoute,
+    private _formBuilder: FormBuilder,
     private _referentialService: ReferentialService,
-    // private accountService: AccountService,
-    private notificationService: NotificationsService,
+    private _notificationService: NotificationsService,
   ) {
-      this.activatedRoute.data.subscribe(data => {
+      this._activatedRoute.data.subscribe(data => {
         this.account = data['account'];
         this.pageType=this.account.id==0 ? 'new' : 'edit';
         this.accountForm = this.createAccountForm();
 
-        this.loadBankList();
+        this.loadBankAgencyList();
         this.loadAccountTypeList();
 
       })
@@ -51,21 +42,21 @@ accountForm: FormGroup;
   }
 
   createAccountForm() {
-        return this.formBuilder.group({
+        return this._formBuilder.group({
             id              : [this.account.id],
             number          : [this.account.number],
             label           : [this.account.label],
-            bank            : [this.account.bank],
+            bankAgency      : [this.account.bankAgency],
             startAmount     : [this.account.startAmount],
             accountType     : [this.account.accountType],   
             alertThreshold  : [this.account.alertThreshold]
         });
   }
 
-  loadBankList() {
-    this._referentialService.bankService.GetSelectList(-1)
+  loadBankAgencyList() {
+    this._referentialService.bankAgencyService.GetSelectList(-1)
         .subscribe(response => {
-          this.banks = response;
+          this.bankAgencies = response;
         });
   }
 
@@ -82,9 +73,9 @@ accountForm: FormGroup;
     this._referentialService.accountService.update(this.account)
       .subscribe(next => {
         this.accountForm.reset(this.account);
-        this.notificationService.success('Sauvegarde réussi', 'Compte enregistré');
+        this._notificationService.success('Sauvegarde réussi', 'Compte enregistré');
       }, error => {
-        this.notificationService.error('Echec sauvegarde', error);
+        this._notificationService.error('Echec sauvegarde', error);
       })
 
   }
@@ -97,15 +88,15 @@ accountForm: FormGroup;
     this._referentialService.accountService.create(user.id,this.account)
       .subscribe(next => {
         this.accountForm.reset(this.account);
-        this.notificationService.success('Sauvegarde réussi', 'Compte enregistré');
+        this._notificationService.success('Sauvegarde réussi', 'Compte enregistré');
       }, error => {
-        this.notificationService.error('Echec sauvegarde', error);
+        this._notificationService.error('Echec sauvegarde', error);
       })
   }
 
   bindAccount(value: IAccountForDetail) {
     this.account.id=value.id;
-    this.account.bank=value.bank;
+    this.account.bankAgency=value.bankAgency;
     this.account.accountType=value.accountType;
     this.account.label=value.label;
     this.account.number=value.number;

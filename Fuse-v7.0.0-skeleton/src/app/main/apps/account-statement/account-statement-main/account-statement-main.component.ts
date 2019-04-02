@@ -18,6 +18,7 @@ import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionNoIntTransfer, LoadAsChar
 import { AsChartState } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.state';
 import { AsChart } from 'app/main/_models/account-statement/account-statement-chart.model';
 import { WidgetCardChartBar } from 'app/main/_models/chart/widget-card-chart-bar.model';
+import { FuseConfigService } from '@fuse/services/config.service';
 
 
 @Component({
@@ -34,22 +35,25 @@ export class AccountStatementMainComponent implements OnInit {
 filterAs: FilterAsTable;
 selectedIndex: number = 0;
 
-
+headerPanelIsVisible: boolean = false;
+headerPanelIcon:string;
+fuseConfig:any;
 // idAccount: number;
 // idTab: number;
 
 
   constructor(
     private _activatedRoute: ActivatedRoute,
-    private _store: Store
+    private _store: Store,
+    private _fuseConfigService: FuseConfigService,
   ) {
 
     combineLatest(this._activatedRoute.params, this._activatedRoute.queryParams)
       .pipe(map(results => ({idAccount: results[0].idAccount, idTab: results[1].idTab})))
       .subscribe(results => {
-        let idAccount = results.idAccount;
+        let idAccount = results.idAccount=='ALL' ? null : results.idAccount;
         let idTab = results.idTab;
- 
+        console.log('idAccount',idAccount);
         if(idTab!=null)
           {
             this.selectedIndex = idTab;
@@ -64,22 +68,34 @@ selectedIndex: number = 0;
             this._store.dispatch(new LoadAsTableFilter(this.filterAs));
             this._store.dispatch(new LoadAsSolde(this.filterAs.selected));
             this._store.dispatch(new LoadAsChartEvolution(this.filterAs.selected));
-            // this._store.dispatch(new LoadAsChartEvolutionBrut(this.filterAs.selected));
-            // this._store.dispatch(new LoadAsChartEvolutionNoIntTransfer(this.filterAs.selected));
-            // this._store.dispatch(new LoadAsChartEvolutionCustomOtf(this.filterAs.selected));
+
           }
       });
 
-      
+      //prendre en compte le fuseConfig
+      this._fuseConfigService.config
+            .subscribe((config) => {
+                // Update the stored config
+                this.fuseConfig = config;
+            });
 
   }
 
   ngOnInit() {
+    this.onHeaderPanelClick();
   }
 
   onTabClick($event){
 
     this.selectedIndex=$event.index;
+  }
+
+  onHeaderPanelClick() {
+    this.headerPanelIsVisible = this.headerPanelIsVisible ? false : true;
+    this.headerPanelIcon = this.headerPanelIsVisible ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
+    this.fuseConfig.layout.toolbar.hidden=!this.headerPanelIsVisible;
+    this._fuseConfigService.setConfig(this.fuseConfig);
+
   }
 
 }

@@ -14,7 +14,7 @@ namespace Budget.MODEL.Dto
     {
         public int Id { get; set; }
         public SelectDto User { get; set; }
-        public SelectDto Bank { get; set; }
+        public SelectDto BankAgency { get; set; }
         public string FileImport { get; set; }
         public DateTime DateImport { get; set; }
     }
@@ -23,7 +23,7 @@ namespace Budget.MODEL.Dto
     {
         public int Id { get; set; }
         public SelectDto User { get; set; }
-        public SelectDto Bank { get; set; }
+        public SelectDto BankAgency { get; set; }
         public string FileImport { get; set; }
         public DateTime DateImport { get; set; }
     }

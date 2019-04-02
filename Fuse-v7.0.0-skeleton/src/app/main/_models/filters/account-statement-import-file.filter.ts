@@ -19,7 +19,7 @@ export class FilterAsifTableSelected {
 }
 
 export class FilterAsifTable {
-    asiBankLabel: string;
+    asiBankAgencyLabel: string;
     asiDateImport: Date;
     accounts: ISelect[];
     asifStates: ISelect[];

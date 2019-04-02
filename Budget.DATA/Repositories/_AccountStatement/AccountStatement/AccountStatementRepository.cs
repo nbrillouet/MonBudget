@@ -226,18 +226,47 @@ namespace Budget.DATA.Repositories
             return true;
         }
 
-        public SoldeDto GetSolde(int idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer)
+        public SoldeDto GetSolde(int? idUser, int? idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer)
         {
             return Context.Set<SoldeDto>()
-                .FromSql("[as].spGetSolde @idAccount,@dateStart,@dateEnd,@isWithITransfer",
-                    new SqlParameter("@idAccount", idAccount),
+                .FromSql("[as].spGetSolde @idUser,@idAccount,@dateStart,@dateEnd,@isWithITransfer",
+                    new SqlParameter("@idUser", idUser ?? (object)DBNull.Value),
+                    new SqlParameter("@idAccount", idAccount ?? (object)DBNull.Value),
                     new SqlParameter("@dateStart", dateMin),
                     new SqlParameter("@dateEnd", dateMax),
                     new SqlParameter("@isWithITransfer", isWithITransfer))
                 .FirstOrDefault();
         }
-        
 
+        public List<AccountStatement> GetAsInternalTransfer(int? idAccount, DateTime dateMin, DateTime dateMax)
+        {
+            var its = Context.AccountStatement
+                .Include(x => x.Operation)
+                .Include(x => x.OperationMethod)
+                .Include(x => x.OperationType)
+                .Include(x => x.OperationType.OperationTypeFamily)
+                .Include(x => x.Account.BankAgency)
+                .AsQueryable();
 
+            if (idAccount.HasValue)
+            {
+                its = its.Where(x => x.IdAccount == idAccount.Value);
+            }
+            its = its.Where(
+                x => x.DateIntegration >= dateMin && 
+                x.DateIntegration <= dateMax && 
+                x.IdOperationMethod==4 && 
+                x.IdOperationTypeFamily==6);
+
+            return its.ToList();
+        }
+
+        public AccountStatement GetAsInternalTransferCouple(int idAccountStatement)
+        {
+            return Context.Set<AccountStatement>()
+               .FromSql("[as].spGetAsInternalTransferCouple @idAccountStatement",
+                   new SqlParameter("@idAccountStatement", idAccountStatement))
+               .FirstOrDefault();
+        }
     }
 }

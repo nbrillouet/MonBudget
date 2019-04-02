@@ -14,8 +14,8 @@ namespace Budget.DATA.Repositories
         PagedList<User> GetUserTable(FilterUserTableSelected filter);
 
         User GetForDetailById(int id);
-        //Task<PagedList<User>> GetUsers(Pagination userParams);
-        List<Bank> GetBanks(int idUser);
+
+        List<BankAgency> GetBankAgencies(int idUser);
     }
 
 }

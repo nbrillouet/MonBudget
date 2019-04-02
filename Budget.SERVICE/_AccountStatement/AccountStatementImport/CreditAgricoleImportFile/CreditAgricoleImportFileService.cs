@@ -47,7 +47,7 @@ namespace Budget.SERVICE
 
         public StreamReader FormatFile(StreamReader reader, User user)
         {
-            List<BankFileDefinition> bankFileDefinitions = _bankFileDefinitionService.GetByIdBank((int)EnumBankFamily.CreditAgricole);
+            List<BankFileDefinition> bankFileDefinitions = _bankFileDefinitionService.GetByIdBankFamily((int)EnumBankFamily.CreditAgricole);
             
             reader.DiscardBufferedData();
             reader.BaseStream.Seek(0, SeekOrigin.Begin);

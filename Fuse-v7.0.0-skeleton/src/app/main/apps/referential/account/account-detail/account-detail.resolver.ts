@@ -49,7 +49,7 @@ export class AccountDetailResolver implements Resolve<IAccountForDetail> {
             id : 0,
             number : null,
             label : null,
-            bank : {id:1,label:'INCONNU'},
+            bankAgency : {id:1,label:'INCONNU'},
             accountType: {id:1,label:'INCONNU'},
             alertThreshold: 0,
             startAmount: 0,

@@ -57,7 +57,7 @@ export class AsiListComponent implements OnInit {
   }
  
   onTabChanged($event) {
-    this.filterAsi.selected.idBank = this.filterAsi.banks[$event.index].id;
+    this.filterAsi.selected.idBankAgency = this.filterAsi.bankAgencies[$event.index].id;
 
     this._store.dispatch(new LoadAsiTableFilter(this.filterAsi));
 

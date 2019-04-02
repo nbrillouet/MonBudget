@@ -191,7 +191,7 @@ export class AppComponent implements OnInit, OnDestroy
                                     'children': []
                             }];
                             this.navigation[0].children.push(this.navigationService.getReferentialMenu(user));
-                            this.navigation[0].children.push(this.navigationService.getBankMenu(user.banks));
+                            this.navigation[0].children.push(this.navigationService.getBankMenu(user.bankAgencies));
                             this.navigation[0].children.push(this.navigationService.getImportAccountMenu());
                             this.navigation[0].children.push(this.navigationService.getPlanMenu());
                             this.store.dispatch(new AddNavigation(this.navigation));

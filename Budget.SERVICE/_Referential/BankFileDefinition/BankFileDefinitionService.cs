@@ -31,9 +31,9 @@ namespace Budget.SERVICE
             return _bankFileDefinitionRepository.GetAllWithNoUnknown();
         }
 
-        public List<BankFileDefinition> GetByIdBank(int idBank)
+        public List<BankFileDefinition> GetByIdBankFamily(int idBankFamily)
         {
-            return _bankFileDefinitionRepository.GetByIdBank(idBank);
+            return _bankFileDefinitionRepository.GetByIdBankFamily(idBankFamily);
         }
 
         //public List<GenericList> GetGenericList()

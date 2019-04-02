@@ -24,7 +24,7 @@ namespace Budget.MODEL.Database
 
     public enum EnumLanguage
     {
-        fr =1,
-        en =2
+        FR =1,
+        EN =2
     }
 }

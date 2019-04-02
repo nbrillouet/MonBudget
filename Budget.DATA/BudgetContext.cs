@@ -26,7 +26,7 @@ namespace Budget.DATA
         public DbSet<UserShortcut> Shortcut { get; set; }
         public DbSet<UserCustomOtf> UserCustomOtf { get; set; }
 
-        public DbSet<Bank> Bank { get; set; }
+        public DbSet<BankAgency> BankAgency { get; set; }
         public DbSet<AccountType> AccountType { get; set; }
         public DbSet<Account> Account { get; set; }
         public DbSet<OperationTypeFamily> OperationTypeFamily { get; set; }
@@ -63,6 +63,7 @@ namespace Budget.DATA
         public DbSet<GMapSublocalityLevel2> GMapSublocalityLevel2 { get; set; }
         public DbSet<OperationDetail> OperationDetail { get; set; }
         public DbSet<GMapType> GMapType { get; set; }
+        public DbSet<GMapTypeLanguage> GMapTypeLanguage { get; set; }
         public DbSet<GMapAddressType> GMapAddressType { get; set; }
         public DbSet<Plan> Plan { get; set; }
         public DbSet<PlanUser> PlanUser { get; set; }

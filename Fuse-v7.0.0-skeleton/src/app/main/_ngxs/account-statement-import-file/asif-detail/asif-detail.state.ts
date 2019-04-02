@@ -86,7 +86,7 @@ export class AsifDetailState {
         context.patchState(state);
         this._referentialService.operationTypeService.GetSelectList(action.payload.id,EnumSelectType.inconnu)
             .subscribe(result=> {
-                console.log('change operationType: go api');
+                console.log('asif: change operationType: state',state);
                 context.dispatch(new asifDetailChangeOperationTypeFamilySuccess(result));
             });
     }

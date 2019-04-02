@@ -1,18 +1,18 @@
 <mat-tab-group 
     *ngIf="(asiTableFilter$ | async).filters as filters" 
-    [selectedIndex]="filters.selected.indexTabBank"
+    [selectedIndex]="filters.selected.indexTabBankAgency"
     (selectedTabChange)="onTabChanged($event)"
 >
-    <mat-tab *ngFor="let bank of filters.banks;index as i" [label]="bank.label">
+    <mat-tab *ngFor="let bankAgency of filters.bankAgencies;index as i" [label]="bankAgency.label">
       <ng-template mat-tab-label>
-          <img [src]="bank.color" [alt]="bank.label">
-          {{bank.label}}
+          <img [src]="bankAgency.color" [alt]="bankAgency.label">
+          {{bankAgency.label}}
       </ng-template>
 
-      <asi-list *ngIf="filters.selected.indexTabBank == i"></asi-list>
+      <asi-list *ngIf="filters.selected.indexTabBankAgency == i"></asi-list>
     </mat-tab>
 </mat-tab-group>
     
 <p class="empty-result" *ngIf="(asiTableFilter$ | async).loadingInfo.loaded 
     && (asiTableFilter$ | async).filters
-    && (asiTableFilter$ | async).filters.banks==null">Aucun résultat</p>
+    && (asiTableFilter$ | async).filters.bankAgencies==null">Aucun résultat</p>

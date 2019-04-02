@@ -1,4 +1,5 @@
-﻿using Budget.DATA.Repositories.GMap;
+﻿using AutoMapper;
+using Budget.DATA.Repositories.GMap;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using System;
@@ -9,16 +10,23 @@ namespace Budget.SERVICE.GMap
 {
     public class GMapTypeService : IGMapTypeService
     {
+        private readonly IMapper _mapper;
+        private readonly IGMapTypeLanguageService _gMapTypeLanguageService;
         private readonly IGMapTypeRepository _gMapTypeRepository;
 
-        public GMapTypeService(IGMapTypeRepository gMapTypeRepository)
+        public GMapTypeService(
+            IGMapTypeLanguageService gMapTypeLanguageService,
+            IGMapTypeRepository gMapTypeRepository,
+            IMapper mapper)
         {
+            _gMapTypeLanguageService = gMapTypeLanguageService;
             _gMapTypeRepository = gMapTypeRepository;
+            _mapper = mapper;
         }
 
-        public List<GMapTypeDto> GetByLabelOrCreate(List<GMapType> gMapTypes, EnumLanguage enumLanguage)
+        public List<GMapTypeDto> GetByKeywordOrCreate(List<GMapType> gMapTypes, EnumLanguage enumLanguage)
         {
-            var results = _gMapTypeRepository.GetByLabelOrCreate(gMapTypes);
+            var results = _gMapTypeRepository.GetByKeywordOrCreate(gMapTypes);
 
             return GetGMapTypeDto(results,enumLanguage);
 
@@ -29,12 +37,11 @@ namespace Budget.SERVICE.GMap
             List<GMapTypeDto> GMapTypeDtos = new List<GMapTypeDto>();
             foreach (var item in gMapTypes)
             {
-                switch (enumLanguage)
-                {
-                    case EnumLanguage.fr:
-                        GMapTypeDtos.Add(new GMapTypeDto { Id = item.Id, Keyword = item.Keyword, Label = item.LabelFr != null ? item.LabelFr : item.Keyword });
-                        break;
-                }
+                GMapTypeLanguage gMapTypeLanguage = _gMapTypeLanguageService.Get(item.Id,enumLanguage);
+                GMapTypeDto gMapTypeDto = _mapper.Map<GMapTypeDto>(item);
+                gMapTypeDto.Label = gMapTypeLanguage != null ? gMapTypeLanguage.Label : item.Keyword;
+
+                GMapTypeDtos.Add(gMapTypeDto);
             }
 
             return GMapTypeDtos;

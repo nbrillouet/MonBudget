@@ -10,12 +10,10 @@ namespace Budget.DATA.Repositories
 {
     public interface IAccountStatementImportRepository : IBaseRepository<AccountStatementImport>
     {
-        List<Bank> GetDistinctBank(int idUser);
+        List<BankAgency> GetDistinctBankAgencies(int idUser);
         PagedList<AccountStatementImport> GetAsiTable(FilterAsiTableSelected filter);
 
         AccountStatementImport GetByIdForDetail(int id);
-        //Task<PagedList<AccountStatementImport>> GetAsync(FilterAccountStatementImport filter);
-        Task<List<Bank>> GetDistinctBankAsync(int idUser);
         
         List<AccountStatement> ImportFile();
         new int Create(AccountStatementImport entity);

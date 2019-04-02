@@ -1,4 +1,5 @@
 ﻿using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Budget.DATA.Repositories.GMap
         {
         }
 
-        public List<GMapType> GetByLabelOrCreate(List<GMapType> gMapTypes)
+        public List<GMapType> GetByKeywordOrCreate(List<GMapType> gMapTypes)
         {
             List<GMapType> results = new List<GMapType>();
 
@@ -23,7 +24,10 @@ namespace Budget.DATA.Repositories.GMap
                     .FirstOrDefault();
 
                 if (result != null)
+                {
                     results.Add(result);
+                }
+   
                 else
                 {
                     gMapType.Id = 0;

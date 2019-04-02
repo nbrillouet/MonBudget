@@ -3,67 +3,62 @@
     <!-- CENTER -->
     <div class="top-bg accent header-1-background"></div>
     <div class="center">
-            <div class="header-2-background accent p-12 pb-0" fxLayout="column" fxLayoutAlign="space-between">
-                    <div class="left-side" fxLayout="row" fxLayoutAlign="space-between">
-                        <div  fxLayout="column" fxLayoutAlign="space-between"> 
-                            <div fxLayout="row" fxLayoutAlign="space-between center" >
-                                <div fxLayout="row" fxLayoutAlign="start center" >
-                                    <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-                                        account_balance
-                                    </mat-icon>
-                                    
-                                    <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                                        Compte courant 
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- <div class="logo my-12 m-sm-0"
-                            >
-                                <mat-icon class="logo-icon mr-16 " *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">account_balance</mat-icon>
-                                <span class="logo-text h2" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Compte courant (999999999)</span>
-                        </div> -->
-                        
-
-                        <div *ngIf="(asSolde$ | async).dataInfos.datas as solde; else emptySolde" fxLayout="column" >
-                            <div class='pb-8' fxLayout="row" fxLayoutAlign="end space-between">
-                                <mat-chip-list *ngIf="(asSolde$ | async).dataInfos.datas as solde; else emptySolde">
-                                    <mat-chip class="mat-chip-green" >Crédit: {{solde.credit}} €</mat-chip>
-                                    <mat-chip class="mat-chip-red" >Débit: {{solde.debit}} €</mat-chip>
-                                    <mat-chip [ngClass]="solde.total>0 ? 'mat-chip-green' : 'mat-chip-red'" >Balance: {{solde.total}} €</mat-chip>
-                                </mat-chip-list>
-                            </div>
-                            <div fxLayout="row" fxLayoutAlign="end center">
-                                <mat-chip-list>
-                                    <mat-chip [ngClass]="solde.solde>0 ? 'mat-chip-green' : 'mat-chip-red'" >Solde au {{solde.dateEnd }}: {{solde.solde}} €</mat-chip>
-                                </mat-chip-list>
-                            </div>
-                        </div>
-                        <ng-template #emptySolde>
-                            <div fxLayout="column" >
-                                <div class='pb-8' fxLayout="row" fxLayoutAlign="end space-between">
-                                    <mat-chip-list>
-                                        <mat-chip>Crédit: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
-                                        <mat-chip>Débit: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
-                                        <mat-chip>Balance: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
-                                    </mat-chip-list>
-                                </div>
-                                <div fxLayout="row" fxLayoutAlign="end center">
-                                    <mat-chip-list>
-                                        <mat-chip>Solde: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
-                                    </mat-chip-list>
-                                </div>
-                            </div>
-                        </ng-template>
-
-                    </div>
+        <div style="height:15px;text-align:center;cursor:pointer;" class="test accent" (click)="onHeaderPanelClick()">
+            <mat-icon style="font-size:20px;margin-top:-2px;">{{headerPanelIcon}}</mat-icon>
+        </div>
+        <div *ngIf="headerPanelIsVisible" class="header-2-background accent p-12 pb-0 pt-6" fxLayout="column" fxLayoutAlign="space-between">
+            <div  class="left-side" fxLayout="row" fxLayoutAlign="space-between">
+                <div  fxLayout="column" fxLayoutAlign="space-between"> 
+                    <div fxLayout="row" fxLayoutAlign="space-between center" >
+                        <div fxLayout="row" fxLayoutAlign="start center" >
+                            <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                                account_balance
+                            </mat-icon>
                             
-                    <account-statement-filter *fuseIfOnDom [@animate]="{value:'*',params:{x:'50px'}}"></account-statement-filter>
-
+                            <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                                Compte courant 
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="content-card">
+                <div *ngIf="(asSolde$ | async).dataInfos.datas as solde; else emptySolde" fxLayout="column" >
+                    <div class='pb-8' fxLayout="row" fxLayoutAlign="end space-between">
+                        <mat-chip-list *ngIf="(asSolde$ | async).dataInfos.datas as solde; else emptySolde">
+                            <mat-chip class="mat-chip-green" >Crédit: {{solde.credit}} €</mat-chip>
+                            <mat-chip class="mat-chip-red" >Débit: {{solde.debit}} €</mat-chip>
+                            <mat-chip [ngClass]="solde.total>0 ? 'mat-chip-green' : 'mat-chip-red'" >Balance: {{solde.total}} €</mat-chip>
+                        </mat-chip-list>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="end center">
+                        <mat-chip-list>
+                            <mat-chip [ngClass]="solde.solde>0 ? 'mat-chip-green' : 'mat-chip-red'" >Solde au {{solde.dateEnd }}: {{solde.solde}} €</mat-chip>
+                        </mat-chip-list>
+                    </div>
+                </div>
+                <ng-template #emptySolde>
+                    <div fxLayout="column" >
+                        <div class='pb-8' fxLayout="row" fxLayoutAlign="end space-between">
+                            <mat-chip-list>
+                                <mat-chip>Crédit: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
+                                <mat-chip>Débit: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
+                                <mat-chip>Balance: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
+                            </mat-chip-list>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end center">
+                            <mat-chip-list>
+                                <mat-chip>Solde: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
+                            </mat-chip-list>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+            <account-statement-filter *fuseIfOnDom [@animate]="{value:'*',params:{x:'50px'}}"></account-statement-filter>
+        </div>
+
+        
+
+        <div class="content-card">
 
             <mat-tab-group 
                 [selectedIndex]="selectedIndex" 
@@ -72,8 +67,7 @@
                 fullwidth>
 
                 <mat-tab label="Evolution">
-                    <as-chart-evolution
-                        
+                    <as-chart-evolution [headerPanelVisible]="headerPanelIsVisible"
                         *ngIf="selectedIndex == 0"
                         [@animateStagger]="{value:'50'}">
                     </as-chart-evolution>
@@ -104,7 +98,7 @@
 
                 </mat-tab>
 
-                <mat-tab label="Budget Summary">
+                <mat-tab label="Catégorisation">
 
                     <!-- WIDGET GROUP -->
                     <div class="widget-group grey-100-bg" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom
@@ -304,107 +298,11 @@
                 </mat-tab>
 
                 <mat-tab label="Relevés" >
-                        <!-- <div class="tab-content p-24" fusePerfectScrollbar> -->
-                      <!-- <div > -->
-                          <account-statement-list style="height:100%;" *ngIf="selectedIndex == 2"></account-statement-list>
-                      <!-- </div> -->
-                    <!-- <div class="widget-group grey-100-bg" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom
-                         [@animateStagger]="{value:'50'}">
+                    <account-statement-list [headerPanelVisible]="headerPanelIsVisible" style="height:100%;" *ngIf="selectedIndex == 2"></account-statement-list>
+                </mat-tab>
 
-                       
-                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="row"
-                                     fxFlex="100">
-
-                           
-                            <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
-
-                                <div class="p-24 mb-8 border-bottom" fxLayout="row"
-                                     fxLayoutAlign="space-between center">
-                                    <div class="h2">{{widgets.widget11.title}}</div>
-                                    <div class="text-boxed red-bg white-fg m-0">
-                                        {{widgets.widget11.table.rows.length}}
-                                        members
-                                    </div>
-                                </div>
-
-                                <mat-table #table [dataSource]="widget11.dataSource">
-
-                                  
-                                    <ng-container cdkColumnDef="avatar">
-                                        <mat-header-cell fxFlex="64px" *cdkHeaderCellDef></mat-header-cell>
-                                        <mat-cell fxFlex="64px" *cdkCellDef="let contact">
-                                            <img class="avatar" *ngIf="contact.avatar" [alt]="contact.name"
-                                                 [src]="contact.avatar"/>
-                                        </mat-cell>
-                                    </ng-container>
-
-                                   
-                                    <ng-container cdkColumnDef="name">
-                                        <mat-header-cell *cdkHeaderCellDef>Name</mat-header-cell>
-                                        <mat-cell *cdkCellDef="let contact">
-                                            <p class="text-truncate font-weight-600">{{contact.name}}
-                                                {{contact.lastName}}</p>
-                                        </mat-cell>
-                                    </ng-container>
-
-                                 
-                                    <ng-container cdkColumnDef="position">
-                                        <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-sm>Position
-                                        </mat-header-cell>
-                                        <mat-cell *cdkCellDef="let contact" fxHide fxShow.gt-sm>
-                                            <p class="position text-truncate">
-                                                {{contact.position}}
-                                            </p>
-                                        </mat-cell>
-                                    </ng-container>
-
-                                    
-                                    <ng-container cdkColumnDef="office">
-                                        <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-md>Office
-                                        </mat-header-cell>
-                                        <mat-cell *cdkCellDef="let contact" fxHide fxShow.gt-md>
-                                            <p class="office text-truncate">
-                                                {{contact.office}}
-                                            </p>
-                                        </mat-cell>
-                                    </ng-container>
-
-                                  
-                                    <ng-container cdkColumnDef="email">
-                                        <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-sm>Email
-                                        </mat-header-cell>
-                                        <mat-cell *cdkCellDef="let contact" fxHide fxShow.gt-sm>
-                                            <p class="email text-truncate">
-                                                {{contact.email}}
-                                            </p>
-                                        </mat-cell>
-                                    </ng-container>
-
-                                
-                                    <ng-container cdkColumnDef="phone">
-                                        <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-md>Phone
-                                        </mat-header-cell>
-                                        <mat-cell *cdkCellDef="let contact" fxHide fxShow.gt-md>
-                                            <p class="phone text-truncate">
-                                                {{contact.phone}}
-                                            </p>
-                                        </mat-cell>
-                                    </ng-container>
-
-                                    <mat-header-row
-                                        *cdkHeaderRowDef="widgets.widget11.table.columns"></mat-header-row>
-                                    <mat-row *cdkRowDef="let contact; columns: widgets.widget11.table.columns;">
-                                    </mat-row>
-                                </mat-table>
-                            </div>
-                    
-
-                        </fuse-widget>
-                     
-
-                    </div> -->
-                
-
+                <mat-tab label="Virements internes">
+                    <as-internal-transfer-main style="height:100%;" *ngIf="selectedIndex == 3"></as-internal-transfer-main>
                 </mat-tab>
             </mat-tab-group>
 </div>

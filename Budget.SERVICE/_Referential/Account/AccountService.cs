@@ -46,14 +46,19 @@ namespace Budget.SERVICE
             return _accountRepository.GetAll();
         }
 
-        public List<Account> GetByIdBank(int idBank)
+        public List<Account> GetByIdBankAgency(int idBankAgency)
         {
-            return _accountRepository.GetByIdBank(idBank);
+            return _accountRepository.GetByIdBankAgency(idBankAgency);
+        }
+
+        public Account GetFullById(int id)
+        {
+            return _accountRepository.GetForDetailById(id);
         }
 
         public AccountForDetailDto GetForDetailById(int id)
         {
-            var account = _accountRepository.GetForDetailById(id);
+            var account = GetFullById(id);
             var accountForDetail = _mapper.Map<AccountForDetailDto>(account);
             //Recherche des comptes liés
             accountForDetail.LinkedUsers = _mapper.Map<List<SelectDto>>(account.UserAccounts.Select(x => x.User).ToList()); 
@@ -64,7 +69,7 @@ namespace Budget.SERVICE
         public void Update(AccountForDetailDto accountForDetailDto)
         {
             var account = _accountRepository.GetById(accountForDetailDto.Id);
-            account.IdBank = accountForDetailDto.Bank.Id;
+            account.IdBankAgency = accountForDetailDto.BankAgency.Id;
             account.IdAccountType = accountForDetailDto.AccountType.Id;
             account.Label = accountForDetailDto.Label;
             account.Number = accountForDetailDto.Number;
@@ -82,7 +87,7 @@ namespace Budget.SERVICE
             {
                 account = new Account
                 {
-                    IdBank = accountForDetailDto.Bank.Id,
+                    IdBankAgency = accountForDetailDto.BankAgency.Id,
                     IdAccountType = accountForDetailDto.AccountType.Id,
                     Label = accountForDetailDto.Label,
                     Number = accountForDetailDto.Number,

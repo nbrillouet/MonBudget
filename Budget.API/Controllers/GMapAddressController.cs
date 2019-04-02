@@ -34,8 +34,8 @@ namespace Budget.API.Controllers
         [Route("{id}/GMapAddress")]
         public IActionResult Get(int id)
         {
-            string toto = HttpContext.User.FindFirst(ClaimTypes.Locality)?.Value;
-            var gMapAddress = _gMapAddressService.GetById(id, (EnumLanguage)Enum.Parse(typeof(EnumLanguage),toto));
+            string languageCode = HttpContext.User.FindFirst(ClaimTypes.Locality)?.Value.ToUpper();
+            var gMapAddress = _gMapAddressService.GetById(id, (EnumLanguage)Enum.Parse(typeof(EnumLanguage),languageCode));
 
             return Ok(gMapAddress);
 

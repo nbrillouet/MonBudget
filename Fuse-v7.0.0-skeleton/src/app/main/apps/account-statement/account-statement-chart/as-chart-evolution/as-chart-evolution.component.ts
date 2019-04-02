@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, SimpleChange, OnChanges } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { AsChartState } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.state';
 import { Observable } from 'rxjs';
@@ -17,8 +17,10 @@ import { UpdateAsChartEvolutionCustomOtfFilter } from 'app/main/_ngxs/account-st
   animations   : fuseAnimations
 })
 
-export class AsChartEvolutionComponent implements OnInit {
+export class AsChartEvolutionComponent implements OnInit,OnChanges {
   @Select(AsChartState.get) asChart$: Observable<DataInfo<AsChart>>;
+
+  @Input() headerPanelVisible: boolean;
 
   customOtfForm: FormGroup;
 
@@ -62,6 +64,12 @@ export class AsChartEvolutionComponent implements OnInit {
   ngOnInit() {
     
 
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('changes.headerPanelVisible',changes.headerPanelVisible);
+    // const name: SimpleChange = changes.headerPanelVisible;
+    this.headerPanelVisible = changes.headerPanelVisible.currentValue;;
   }
 
   onChanges() {

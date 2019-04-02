@@ -24,7 +24,7 @@
                         *ngIf="(asifTableFilter$ | async).loadingInfo.loaded"
                     >
                         <div  fxLayout="column">
-                            <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">{{(asifTableFilter$ | async).filters.asiBankLabel}}</span>
+                            <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">{{(asifTableFilter$ | async).filters.asiBankAgencyLabel}}</span>
                             <span class="logo-text h3" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Import du {{(asifTableFilter$ | async).filters.asiDateImport | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
                         </div>
                     </div>
@@ -44,7 +44,6 @@
                         <mat-icon>more_horiz</mat-icon>
                     </button>
 
-                    <!-- [routerLink]="['/apps/account-statement-import-archives',idImport,'accounts',account.id,'account-statement-import-files']" -->
                     <mat-menu #projectsMenu="matMenu">
                         <button mat-menu-item *ngFor="let account of accounts" (click)="AccountChange(account)"  >
                             <span>{{account.label}}</span>

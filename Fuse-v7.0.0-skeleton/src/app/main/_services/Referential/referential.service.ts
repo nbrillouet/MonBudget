@@ -4,10 +4,9 @@ import { OperationTypeFamilyService } from "./operation-type-family.service";
 import { OperationTypeService } from "./operation-type.service";
 import { AccountTypeService } from "./account-type.service";
 import { AccountService } from "./account.service";
-import { BankService } from "./bank.service";
 import { OperationService } from "./operation.service";
 import { OperationTransverseService } from "./operation-tranverse.service";
-// import { OperationService } from "./operation.service";
+import { BankAgencyService } from "./bank.service";
 
 //FACADE
 @Injectable()
@@ -30,13 +29,13 @@ export class ReferentialService {
       return this._accountService;
     }
   
-    //BankService
-    private _bankService: BankService;
-    public get bankService(): BankService {
-        if(!this._bankService){
-        this._bankService = this.injector.get(BankService);
+    //BankAgencyService
+    private _bankAgencyService: BankAgencyService;
+    public get bankAgencyService(): BankAgencyService {
+        if(!this._bankAgencyService){
+        this._bankAgencyService = this.injector.get(BankAgencyService);
         }
-        return this._bankService;
+        return this._bankAgencyService;
     }
 
     //Operation

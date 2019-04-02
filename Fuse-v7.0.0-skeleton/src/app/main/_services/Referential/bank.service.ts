@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ISelect } from "app/main/_models/generics/select.model";
 
 @Injectable()
-export class BankService {
+export class BankAgencyService {
 baseUrl = environment.apiUrl;
 
     constructor(
@@ -15,7 +15,7 @@ baseUrl = environment.apiUrl;
 
     GetSelectList(idSelectType: number) {
         return this.http
-        .get(this.baseUrl + `referential/banks/select-type/${idSelectType}/select-list`)
+        .get(this.baseUrl + `referential/bankAgencies/select-type/${idSelectType}/select-list`)
         .map(response => <ISelect[]>response);
         // .catch(this.errorService.handleError);
     }

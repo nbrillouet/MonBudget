@@ -1,6 +1,7 @@
   
-<div class="example-container">
-    <mat-table class="account-statement-import-histo-table"
+<div class="example-container"
+    [ngClass]="headerPanelVisible ? 'scrollable-small' : 'scrollable-large'">
+    <mat-table class="mat-table"
         #table [dataSource]="dataSource"
         [@animateStagger]="{value:'50'}"
         matSort matSortActive="id" matSortDirection="asc" matSortDisableClear 

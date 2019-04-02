@@ -37,10 +37,10 @@ namespace Budget.SERVICE
         {
             var user =  _userRepository.GetForDetailById(id);
 
-            var banks = GetBanks(id);
+            var bankAgencies = GetBankAgencies(id);
 
             var userForDetailDto = _mapper.Map<UserForDetailDto>(user);
-            userForDetailDto.Banks = banks;
+            userForDetailDto.BankAgencies = bankAgencies;
 
             return userForDetailDto;
         }
@@ -85,23 +85,23 @@ namespace Budget.SERVICE
             _userRepository.Update(user);
         }
 
-        public List<BankAccountsDto> GetBanks(int idUser)
+        public List<BankAgencyAccountsDto> GetBankAgencies(int idUser)
         {
-            var banks = _userRepository.GetBanks(idUser);
+            var bankAgencies = _userRepository.GetBankAgencies(idUser);
 
-            var bankAccountsDtos = _mapper.Map<List<BankAccountsDto>>(banks);
-            foreach (var bank in bankAccountsDtos)
+            var bankAgencyAccountsDtos = _mapper.Map<List<BankAgencyAccountsDto>>(bankAgencies);
+            foreach (var bankAgency in bankAgencyAccountsDtos)
             {
-                foreach (var account in bank.Accounts)
+                foreach (var account in bankAgency.Accounts)
                 {
-                    var acc = banks.SelectMany(x => x.Accounts).Distinct().Where(u => u.Id == account.Id).FirstOrDefault();
+                    var acc = bankAgencies.SelectMany(x => x.Accounts).Distinct().Where(u => u.Id == account.Id).FirstOrDefault();
                     var idx = acc.UserAccounts.FindIndex(x => x.IdUser == idUser);
                     acc.UserAccounts.RemoveAt(idx);
                     account.LinkedUsers = _mapper.Map<List<SelectDto>>(acc.UserAccounts.Select(x => x.User).ToList());
                 }
                     
             }
-            return bankAccountsDtos;
+            return bankAgencyAccountsDtos;
         }
 
 

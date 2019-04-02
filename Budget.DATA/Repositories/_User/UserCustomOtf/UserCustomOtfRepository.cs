@@ -11,14 +11,20 @@ namespace Budget.DATA.Repositories
         {
         }
 
-        public List<OperationTypeFamily> GetOperationTypeFamilySelect(int idUser, int idAccount)
+        public List<OperationTypeFamily> GetOperationTypeFamilySelect(int idUser, int? idAccount)
         {
             var results = Context.UserCustomOtf
-                .Where(x => x.IdUser == idUser && x.IdAccount== idAccount)
-                .Select(x => x.OperationTypeFamily)
-                .ToList();
+                .Where(x => x.IdUser == idUser)
+                .AsQueryable();
 
-            return results;
+            if(idAccount.HasValue)
+            {
+                results = results.Where(x => x.IdAccount == idAccount.Value);
+            }
+
+            var output = results.Select(x => x.OperationTypeFamily);
+
+            return output.ToList();
         }
 
         public List<UserCustomOtf> Get(int idUser, int idAccount)

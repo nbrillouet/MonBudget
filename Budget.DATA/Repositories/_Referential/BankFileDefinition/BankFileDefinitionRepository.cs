@@ -17,22 +17,8 @@ namespace Budget.DATA.Repositories
         {
             return Context.BankFileDefinition.Where(x => x.Id != (int)EnumBankFamily.Inconnu).ToList();
         }
-
-        //public List<GenericList> GetGenericList()
-        //{
-        //    List<BankFileDefinition> bankFileDefinitions = GetAll();
-        //    List<GenericList> GenericLists = new List<GenericList>();
-        //    foreach (var item in bankFileDefinitions)
-        //    {
-        //        GenericList genericList = new GenericList();
-        //        genericList.value = item.Id;
-        //        genericList.text = item.LabelField;
-        //        GenericLists.Add(genericList);
-        //    }
-        //    return GenericLists;
-        //}
-
-        public List<BankFileDefinition> GetByIdBank(int idBankFamily)
+        
+        public List<BankFileDefinition> GetByIdBankFamily(int idBankFamily)
         {
             return Context.BankFileDefinition
                 .Where(x => x.IdBankFamily == idBankFamily)

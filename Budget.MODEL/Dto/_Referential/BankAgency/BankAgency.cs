@@ -4,22 +4,22 @@ using System.Text;
 
 namespace Budget.MODEL.Dto
 {
-    public class BankAccountsDto
+    public class BankAgencyAccountsDto
     {
         public int Id { get; set; }
-        public string LabelBankShort { get; set; }
-        public string LabelBankLong { get; set; }
+        public string LabelShort { get; set; }
+        public string LabelLong { get; set; }
         public string LogoClassName { get; set; }
         public List<AccountForDetailDto> Accounts { get; set; }
     }
 
-    public class BankForListDto
+    public class BankAgencyForListDto
     {
         public int Id { get; set; }
-        public string LabelBankShort { get; set; }
-        public string LabelBankLong { get; set; }
-        public string AddressBank { get; set; }
-        public int PostalCodeBank { get; set; }
+        public string LabelShort { get; set; }
+        public string LabelLong { get; set; }
+        //public string AddressBank { get; set; }
+        //public int PostalCodeBank { get; set; }
         public string AdviserFirstName { get; set; }
         public string AdviserLastName { get; set; }
         public string AdviserMail { get; set; }
@@ -29,9 +29,4 @@ namespace Budget.MODEL.Dto
         public string FolderFileSave { get; set; }
     }
 
-    //public class BankForSelectDto
-    //{
-    //    public int Id { get; set; }
-    //    public string LabelBankLong { get; set; }
-    //}
 }

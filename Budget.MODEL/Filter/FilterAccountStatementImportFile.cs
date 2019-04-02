@@ -24,7 +24,7 @@ namespace Budget.MODEL.Filter
 
     public class FilterAsifTable
     {
-        public string AsiBankLabel { get; set; }
+        public string AsiBankAgencyLabel { get; set; }
         public DateTime AsiDateImport { get; set; }
         public List<SelectDto> Accounts { get; set; }
         public List<SelectDto> AsifStates { get; set; }

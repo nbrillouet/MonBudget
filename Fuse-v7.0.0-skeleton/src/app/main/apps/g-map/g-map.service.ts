@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { ErrorService } from 'app/main/_services/error.service';
 import { Observable } from 'rxjs';
-import { IGeocode, IGMapAddress } from 'app/main/_models/g-map.model.';
+import { IGeocode, GMapAddress } from 'app/main/_models/g-map.model.';
 // import { IGMapAddress, IGeocode } from '../../../_models/g-map.model.';
 import { HttpClient } from '@angular/common/http';
 
@@ -31,14 +31,14 @@ baseUrl = environment.apiUrl;
     getById(id: number) {
         return this.http
             .get(this.baseUrl + `GMapAddresses/${id}/GMapAddress`)
-            .map(response => <IGMapAddress>response)
+            .map(response => <GMapAddress>response)
             .catch(this.errorService.handleError);
     }
 
-    saveGMapAddress(gMapAddress: IGMapAddress) {
+    saveGMapAddress(gMapAddress: GMapAddress) {
         return this.http
             .post(this.baseUrl + `GMapAddresses/save`,gMapAddress)
-            .map(response => <IGMapAddress>response)
+            .map(response => <GMapAddress>response)
             .catch(this.errorService.handleError);
     }
 

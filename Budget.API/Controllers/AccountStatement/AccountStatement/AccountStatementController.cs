@@ -20,18 +20,18 @@ namespace Budget.API.Controllers
     [Route("api/account-statements")]
     public class AccountStatementController : Controller
     {
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
         private readonly IAccountStatementService _accountStatementService;
         private readonly IFilterService _filterService;
 
         public AccountStatementController(
-            IMapper mapper,
+            //IMapper mapper,
             IAccountStatementService accountStatementService,
             IFilterService filterService
 
             )
         {
-            _mapper = mapper;
+            //_mapper = mapper;
             _accountStatementService = accountStatementService;
             _filterService = filterService;
 

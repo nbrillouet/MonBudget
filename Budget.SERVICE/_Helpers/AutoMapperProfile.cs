@@ -42,7 +42,7 @@ namespace Budget.SERVICE._Helpers
                     //opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                     opt.MapFrom(d => d.DateOfBirth.CalculateAge());
                 })
-                .ForMember(d => d.Banks, o => o.Ignore());
+                .ForMember(d => d.BankAgencies, o => o.Ignore());
                 //.ForMember(d => d.Accounts, o => o.MapFrom(s => s.UserAccounts.Select(ua => ua.Account).ToList()));
 
             CreateMap<UserForDetailDto, User>()
@@ -65,20 +65,22 @@ namespace Budget.SERVICE._Helpers
             CreateMap<Account, SelectDto>()
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.Number + " - " + s.Label));
 
-            CreateMap<AccountType, BankAccountsDto>();
+            CreateMap<AccountType, BankAgencyAccountsDto>();
 
-            CreateMap<Bank, BankAccountsDto>();
-            CreateMap<Bank, BankForListDto>(); 
-            CreateMap<Bank, SelectDto>()
-                .ForMember(d=>d.Label,o=>o.MapFrom(s=>s.LabelBankLong));
-            CreateMap<Bank, SelectColorDto>()
+            CreateMap<BankAgency, BankAgencyAccountsDto>();
+            CreateMap<BankAgency, BankAgencyForListDto>(); 
+            CreateMap<BankAgency, SelectDto>()
+                .ForMember(d=>d.Label,o=>o.MapFrom(s=>s.LabelLong));
+            CreateMap<BankAgency, SelectColorDto>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
-                .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelBankLong))
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong))
                 .ForMember(d => d.Color, o => o.MapFrom(s => s.LogoClassName));
 
 
             CreateMap<AccountStatement, AsForTableDto>()
-                .ForMember(d => d.OperationTypeFamily, o => o.MapFrom(s => s.OperationType.OperationTypeFamily));
+                .ForMember(d => d.OperationTypeFamily, o => o.MapFrom(s => s.OperationType.OperationTypeFamily))
+                .ForMember(d => d.BankAgency, o => o.MapFrom(s => s.Account.BankAgency));
+                //.ForMember(d=>d.Account, o=>o.MapFrom(s=>s.Account))
 
             CreateMap<OperationMethod, SelectDto>();
             CreateMap<Operation, SelectDto>();
@@ -168,7 +170,8 @@ namespace Budget.SERVICE._Helpers
             CreateMap<GMapStreetNumber, SelectDto>();
             CreateMap<GMapSublocalityLevel1, SelectDto>();
             CreateMap<GMapSublocalityLevel2, SelectDto>();
-            CreateMap<GMapType, SelectDto>();
+            CreateMap<GMapType, GMapTypeDto>()
+                .ForMember(d => d.Label, o => o.Ignore());
 
             CreateMap<GMapAddressDto, GMapAddress>()
                 .ForMember(d => d.idGMapAdministrativeAreaLevel1, o => o.MapFrom(s => s.gMapAdministrativeAreaLevel1.Id))

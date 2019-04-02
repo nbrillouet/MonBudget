@@ -8,26 +8,26 @@ using System.Text;
 
 namespace Budget.MODEL
 {
-    [Table("BANK", Schema = "ref")]
-    public class Bank
+    [Table("BANK_AGENCY", Schema = "ref")]
+    public class BankAgency
     {
         [Column("ID")]
         public int Id { get; set; }
 
-        [Column("LABEL_BANK_SHORT")]
+        [Column("LABEL_SHORT")]
         [StringLength(50)]
-        public string LabelBankShort { get; set; }
+        public string LabelShort { get; set; }
 
-        [Column("LABEL_BANK_LONG")]
+        [Column("LABEL_LONG")]
         [StringLength(50)]
-        public string LabelBankLong { get; set; }
+        public string LabelLong { get; set; }
 
-        [Column("ADDRESS_BANK")]
-        [StringLength(50)]
-        public string AddressBank { get; set; }
+        //[Column("ADDRESS_BANK")]
+        //[StringLength(50)]
+        //public string AddressBank { get; set; }
 
-        [Column("POSTAL_CODE_BANK")]
-        public int PostalCodeBank { get; set; }
+        //[Column("POSTAL_CODE_BANK")]
+        //public int PostalCodeBank { get; set; }
 
         [Column("ADVISER_FIRST_NAME")]
         [StringLength(50)]
@@ -58,7 +58,13 @@ namespace Budget.MODEL
 
         public List<Account> Accounts { get; set; }
 
-        public Bank()
+        [Column("ID_GMAP_ADDRESS")]
+        public int IdGMapAddress { get; set; }
+
+        [ForeignKey("IdGMapAddress")]
+        public GMapAddress GMapAddress { get; set; }
+
+        public BankAgency()
         {
             Accounts = new List<Account>();
         }

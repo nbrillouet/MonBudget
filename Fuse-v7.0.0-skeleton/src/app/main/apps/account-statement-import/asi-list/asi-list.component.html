@@ -1,13 +1,4 @@
 
-<!-- <mat-tab-group 
-    *ngIf="(asiTableFilter$ | async).loadingInfo.loaded && (asiTableFilter$ | async).filters as filters" 
-    (selectedTabChange)="onTabChanged($event)"
->
-    <mat-tab *ngFor="let bank of filters.banks" [label]="bank.label">
-        <ng-template mat-tab-label>
-            <img [src]="bank.color" [alt]="bank.label">
-            {{bank.label}}
-        </ng-template> -->
         
         <mat-table class="account-statement-import-table"
           #table [dataSource]="dataSource"
@@ -15,11 +6,10 @@
           matSort matSortActive="id" matSortDirection="asc" matSortDisableClear 
           (matSortChange)="onSortChangeEvent($event)"
         >
-            <!-- checkBox Column -->
+
             <ng-container matColumnDef="checkbox" >
                 <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let data">
-                        <!-- (change)="onSelectedChange($event,data.id)" -->
                     <mat-checkbox 
                        
                         (click)="$event.stopPropagation()"
@@ -52,14 +42,6 @@
     
             <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"></mat-header-row>
                 
-            <!-- <mat-row *cdkRowDef="let data; columns: displayedColumns;"
-                (click)="onRowClick(data)"
-                [ngClass]="{'mat-light-blue-50-bg':checkboxes[data.id]}"
-                matRipple
-                [@animate]="{value:'*',params:{y:'100%'}}">>
-            </mat-row> -->
-            <!-- [class.expanded]="expandedElement == data" -->
-            <!-- (click)="expandedElement = data" -->
             <mat-row 
                 *cdkRowDef="let data; columns: displayedColumns;"
                 matRipple
@@ -84,7 +66,4 @@
             [pageSize]="pagination.itemsPerPage"
             [pageSizeOptions]="[3, 5, 10]">
         </mat-paginator>
-    <!-- </mat-tab>
-</mat-tab-group>
-
-<p class="empty-result" *ngIf="(asiTableFilter$ | async).loadingInfo.loaded && (asiTableFilter$ | async).filters.banks.length==0">Aucun résultat</p> -->
+    

@@ -20,7 +20,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             .pipe(
                 catchError((err: HttpErrorResponse) => {
                     console.log('ErrorInterceptor',err);
-                    if (err.status==0) {
+                    if (err.status==0 || err.status==500) {
                         this._router.navigate(
                             [`pages/errors/error-500`]);
                     }
@@ -31,20 +31,21 @@ export class ErrorInterceptor implements HttpInterceptor {
                     }
 
 
-                    let error = '';
+                    // let error = '';
                     if(err.error) {
-                        for (let [key, value] of Object.entries(err.error)) {  
-                            this._notification.error(key,value);
+                        this._notification.error(err.statusText,err.error,);
+                        // for (let [key, value] of Object.entries(err.error)) {  
+                        //     this._notification.error(key,value);
 
-                          }
+                        //   }
 
                     }else {
-                        this._notification.error(err.error.message,err.statusText);
+                        this._notification.error(err.statusText,err.error.message);
 
                     }
 
 
-                    return throwError(error);
+                    return throwError(err);
                 }))
     }
 }

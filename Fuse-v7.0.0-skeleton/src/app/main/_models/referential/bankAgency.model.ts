@@ -1,11 +1,12 @@
-import { IAccountForDetail } from "./account.model";
+import { IAccountForDetail } from "../account.model";
 
-export interface IBank {
+export interface IBankAgency {
     id : number;
-    labelBankShort : string;
-    labelBankLong : string;
-    addressBank : string;
-    postalCodeBank : number;
+    labelShort : string;
+    labelLong : string;
+
+    // addressBank : string;
+    // postalCodeBank : number;
     adviserFirstName : string;
     adviserLastName : string;
     adviserMail : string;
@@ -15,10 +16,10 @@ export interface IBank {
     folderFileSave : string;
 }
 
-export interface IBankAccounts {
+export interface IBankAgencyAccounts {
     id : number;
-    labelBankShort : string;
-    labelBankLong : string;
+    labelShort : string;
+    labelLong : string;
     logoClassName : string;
     accounts: IAccountForDetail[];
 }

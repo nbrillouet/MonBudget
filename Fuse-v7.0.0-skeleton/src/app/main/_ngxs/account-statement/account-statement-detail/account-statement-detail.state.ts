@@ -82,7 +82,7 @@ export class AsDetailState {
         context.patchState(state);
         this._referentialService.operationTypeService.GetSelectList(action.payload.id,EnumSelectType.inconnu)
             .subscribe(result=> {
-                console.log('change operationType: go api');
+                console.log('operationType: state',state);
                 context.dispatch(new asDetailChangeOperationTypeFamilySuccess(result));
             });
     }

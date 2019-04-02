@@ -1,23 +1,23 @@
 import { ISelect } from "./generics/select.model";
 
 
-export interface IGMapAddress {
-    id: number;
-    formattedAddress: string;
-    lat: number;
-    lng: number;
-    gMapAdministrativeAreaLevel1: ISelect;
-    gMapAdministrativeAreaLevel2: ISelect;
-    gMapCountry: ISelect;
-    gMapLocality: ISelect;
-    gMapNeighborhood: ISelect;
-    gMapPostalCode: ISelect;
-    gMapRoute: ISelect;
-    gMapStreetNumber: ISelect;
-    gMapSublocalityLevel1: ISelect;
-    gMapSublocalityLevel2: ISelect;
-    gMapTypes: ISelect[];
-}
+// export interface IGMapAddress {
+//     id: number;
+//     formattedAddress: string;
+//     lat: number;
+//     lng: number;
+//     gMapAdministrativeAreaLevel1: ISelect;
+//     gMapAdministrativeAreaLevel2: ISelect;
+//     gMapCountry: ISelect;
+//     gMapLocality: ISelect;
+//     gMapNeighborhood: ISelect;
+//     gMapPostalCode: ISelect;
+//     gMapRoute: ISelect;
+//     gMapStreetNumber: ISelect;
+//     gMapSublocalityLevel1: ISelect;
+//     gMapSublocalityLevel2: ISelect;
+//     gMapTypes: ISelect[];
+// }
 
 export class GMapAddress {
     id: number;
@@ -34,7 +34,7 @@ export class GMapAddress {
     gMapStreetNumber: ISelect;
     gMapSublocalityLevel1: ISelect;
     gMapSublocalityLevel2: ISelect;
-    gMapTypes: ISelect[];
+    gMapTypes: IGMapType[];
 }
 
 export interface IGMapSearchInfo {
@@ -47,6 +47,12 @@ export class GMapSearchInfo {
     idGMapAddress: number;
     operationPositionSearch: string;
     operationPlaceSearch: string;
+}
+
+export interface IGMapType {
+    id: number;
+    keyword: string;
+    label: string;
 }
 
 export interface IGeocode {

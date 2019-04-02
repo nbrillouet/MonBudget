@@ -25,15 +25,6 @@ export class AsifMainComponent implements OnInit {
   @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
   
   filterAsif: FilterAsifTable;
-
-  idImport: number;
-  idAccount: number;
-
-  accountStatementImport: IAccountStatementImport;
-  accounts: IAccount[];
-  accountSelected: IAccount;
-  
-  isSaveable: boolean;
   loading: boolean;
 
   constructor(
@@ -65,7 +56,7 @@ export class AsifMainComponent implements OnInit {
 
   SaveInAccountStatement() {
     this.loading=true;
-    this._asifService.saveInAccountStatement(this.idImport)
+    this._asifService.saveInAccountStatement(this.filterAsif.selected.idImport)
     .subscribe(resp=>{
         this._notificationService.success('Enregistrement effectué', `Les relevés sont enregistrés`);
         this.loading=false;

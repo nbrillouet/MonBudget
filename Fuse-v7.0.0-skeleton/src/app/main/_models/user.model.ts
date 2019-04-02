@@ -1,6 +1,6 @@
 import { IUserShortcut } from "./user-shortcut.model";
-import { IBankAccounts } from "./bank.model";
 import { Injectable } from "@angular/core";
+import { IBankAgencyAccounts } from "./referential/bankAgency.model";
 
 
 export class UserTable {
@@ -29,7 +29,7 @@ export interface IUser {
     IdAvatarCloud : string;
     avatarUrl: string;
     shortcuts: IUserShortcut[];
-    banks: IBankAccounts[];
+    bankAgencies: IBankAgencyAccounts[];
 }
 
 export class User implements IUser {
@@ -46,7 +46,7 @@ export class User implements IUser {
     IdAvatarCloud : string;
     avatarUrl: string;
     shortcuts: IUserShortcut[];
-    banks: IBankAccounts[];
+    bankAgencies: IBankAgencyAccounts[];
 }
 
 export interface IUserForLabel {

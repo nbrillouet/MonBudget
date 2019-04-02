@@ -211,15 +211,15 @@
                           
                           
                           <div fxLayout='column' fxLayoutWrap class="cards">
-                              <div fxFlex="20" class="example-card" *ngFor="let bank of user.banks">
+                              <div fxFlex="20" class="example-card" *ngFor="let bankAgency of user.bankAgencies">
                               <mat-card class="example-card">
                               <mat-card-header>
                                       
                                       <!-- mat-card-avatar -->
-                                <img mat-card-avatar src="{{bank.logoClassName}}"   alt="bank logo">
+                                <img mat-card-avatar src="{{bankAgency.logoClassName}}"   alt="bank agency logo">
                                 <!-- <div mat-card-avatar class="example-header-image"></div> -->
-                                <mat-card-title>{{bank.labelBankLong}}</mat-card-title>
-                                <mat-card-subtitle>{{bank.labelBankShort}}</mat-card-subtitle>
+                                <mat-card-title>{{bankAgency.labelLong}}</mat-card-title>
+                                <mat-card-subtitle>{{bankAgency.labelShort}}</mat-card-subtitle>
                               </mat-card-header>
                               
                               <mat-card-content>
@@ -230,7 +230,7 @@
                                           <div style="width:20%;margin-top:7px;">Numéro de compte</div>
                                           <div style="width:20%;margin-top:7px;">Nom du compte</div>
                                       </div>
-                                      <div fxFlex="20" fxLayout='row' *ngFor="let account of bank.accounts">
+                                      <div fxFlex="20" fxLayout='row' *ngFor="let account of bankAgency.accounts">
                                           <!-- <mat-divider></mat-divider> -->
                                           <!-- [(ngModel)]="checkboxes[account.id]"  -->
                                           <!-- (ngModelChange)="onSelectedChange(account.id)" -->

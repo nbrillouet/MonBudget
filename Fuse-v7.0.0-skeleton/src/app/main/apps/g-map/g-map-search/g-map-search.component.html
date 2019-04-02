@@ -107,16 +107,22 @@
             <div class="w-100-p" fxLayout="row">
                 <mat-form-field class="w-100-p" >
                     <mat-chip-list #chipList>
-                        <mat-chip *ngFor="let type of gMapAddress.gMapTypes" [selectable]="true"
-                                    [removable]="true" (removed)="remove(type)">
+                            <!-- [selectable]="true"
+                            >
+                            {{type.label}}
+                            <mat-icon matChipRemove>cancel</mat-icon> -->
+                        <mat-chip *ngFor="let type of gMapAddress.gMapTypes"
+                            [removable]="true" (removed)="remove(type)" >
                             {{type.label}}
                             <mat-icon matChipRemove>cancel</mat-icon>
                         </mat-chip>
+                        <!--  -->
                         <input placeholder="Types d'établissement"
                                 [matChipInputFor]="chipList"
                                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                 [matChipInputAddOnBlur]="true"
-                                (matChipInputTokenEnd)="add($event)">
+                                (matChipInputTokenEnd)="add($event)"
+                        >
                     </mat-chip-list>
                 </mat-form-field>
             </div>

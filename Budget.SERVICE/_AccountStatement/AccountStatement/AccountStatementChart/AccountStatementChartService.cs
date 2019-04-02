@@ -69,9 +69,9 @@ namespace Budget.SERVICE
             switch(evolutionType)
             {
                 case "Brut":
-                    return _accountStatementChartRepository.GetAsChartEvolutionBrut(filterAsTableSelected.IdAccount.Value, dateMin, dateMax);
+                    return _accountStatementChartRepository.GetAsChartEvolutionBrut(filterAsTableSelected.IdAccount, dateMin, dateMax);
                 case "NoIntTransfer":
-                    return _accountStatementChartRepository.GetAsChartEvolutionNoIntTransfer(filterAsTableSelected.IdAccount.Value, dateMin, dateMax); ;
+                    return _accountStatementChartRepository.GetAsChartEvolutionNoIntTransfer(filterAsTableSelected.IdAccount, dateMin, dateMax); ;
                 default:
                     throw new Exception("No matching Evolution type ");
             }
@@ -113,13 +113,14 @@ namespace Budget.SERVICE
             });
 
             widgetCardChartBar.Title.Label = chartLabel;
-            widgetCardChartBar.Title.AverageAmount = Math.Round(widgetCardChartBar.Chart.DataSets[0].Data.Average(),2);
-            widgetCardChartBar.Title.RatioAmount = Math.Round(widgetCardChartBar.Chart.DataSets[0].Data[widgetCardChartBar.Chart.DataSets[0].Data.Count - 1] * 100 / widgetCardChartBar.Title.AverageAmount,2);
-            widgetCardChartBar.Title.RatioLabel = $" pour {widgetCardChartBar.Chart.Labels.Last().Label }";
+            widgetCardChartBar.Title.AverageAmount = datas.Count>0 ? Math.Round(datas.Average(),2) : 0;
+            var lastData = datas.Count > 0 ? datas[datas.Count - 1] : 0; //widgetCardChartBar.Chart.DataSets[0].Data[widgetCardChartBar.Chart.DataSets[0].Data.Count - 1];
+            widgetCardChartBar.Title.RatioAmount = datas.Count > 0 ? Math.Round((lastData- widgetCardChartBar.Title.AverageAmount) * 100 / Math.Abs(widgetCardChartBar.Title.AverageAmount),2) : 0;
+            widgetCardChartBar.Title.RatioLabel = datas.Count > 0 ? $" pour {widgetCardChartBar.Chart.Labels.Last().Label }" : "données inexistantes";
 
             YAxe yAxe = new YAxe();
-            yAxe.Ticks.Min = widgetCardChartBar.Chart.DataSets[0].Data.Min();
-            yAxe.Ticks.Max = widgetCardChartBar.Chart.DataSets[0].Data.Max();
+            yAxe.Ticks.Min = datas.Count > 0 ? widgetCardChartBar.Chart.DataSets[0].Data.Min() : 0;
+            yAxe.Ticks.Max = datas.Count > 0 ? widgetCardChartBar.Chart.DataSets[0].Data.Max() : 0;
             widgetCardChartBar.Chart.Options.Scales.YAxes.Add(yAxe);
 
             widgetCardChartBar.IsLoaded = true;
@@ -130,7 +131,7 @@ namespace Budget.SERVICE
         public List<WidgetCardChartBar> GetAsChartEvolutionCustomOtf(FilterAsTableSelected filterAsTableSelected)
         {
             //Rechercher les operationTypeFamily favori pour l'utilisateur
-            List<SelectDto> otfs = _userCustomOtfService.GetOperationTypeFamilySelect(filterAsTableSelected.IdUser.Value, filterAsTableSelected.IdAccount.Value);
+            List<SelectDto> otfs = _userCustomOtfService.GetOperationTypeFamilySelect(filterAsTableSelected.IdUser.Value, filterAsTableSelected.IdAccount);
             List<WidgetCardChartBar> widgetCardChartBars = new List<WidgetCardChartBar>();
             foreach (var otf in otfs)
             {
@@ -148,7 +149,7 @@ namespace Budget.SERVICE
             var dateMax = DateHelper.GetLastDayOfMonth(date);
             var dateMin = DateHelper.GetFirstDayOfMonth(dateMax.AddMonths(-12));
 
-            return _accountStatementChartRepository.GetAsChartEvolutionCustomOtf(filterAsTableSelected.IdAccount.Value, idOperationTypeFamily, dateMin, dateMax);
+            return _accountStatementChartRepository.GetAsChartEvolutionCustomOtf(filterAsTableSelected.IdAccount, idOperationTypeFamily, dateMin, dateMax);
 
         }
 
@@ -159,9 +160,9 @@ namespace Budget.SERVICE
                 Selected = new AsChartEvolutionCustomOtfFilterSelected
                 {
                     IdUser = filter.IdUser.Value,
-                    IdAccount = filter.IdAccount.Value,
+                    IdAccount = filter.IdAccount,
                     MonthYear = filter.MonthYear,
-                    OperationTypeFamilies = _userCustomOtfService.GetOperationTypeFamilySelect(filter.IdUser.Value, filter.IdAccount.Value)
+                    OperationTypeFamilies = _userCustomOtfService.GetOperationTypeFamilySelect(filter.IdUser.Value, filter.IdAccount)
                 },
                 OperationTypeFamilies = operationTypeFamilies,
             };

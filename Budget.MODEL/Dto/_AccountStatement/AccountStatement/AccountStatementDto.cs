@@ -15,6 +15,8 @@ namespace Budget.MODEL.Dto
         public double AmountOperation { get; set; }
         public string LabelOperation { get; set; }
         public List<SelectColorDto> Plans { get; set; }
+        public SelectDto Account { get; set; }
+        public SelectDto BankAgency { get; set; }
     }
 
     public class AsDetailDto

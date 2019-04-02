@@ -63,25 +63,20 @@ export class AccountStatementDetailComponent implements OnInit {
   
     ) {
       this.asTableFilter$.subscribe(asifTableFilter=>{
-        // this.filterAs = JSON.parse(JSON.stringify(asifTableFilter.filters));
         console.log('sub this.filterAsTable',this.filterAsTable);
         this.filterAsTable = asifTableFilter.filters;
-        
         console.log('sub this.filterAsTable',this.filterAsTable);
       });
   
       this.asDetail$.subscribe(asDetail=>{
         console.log('asDetail',asDetail);
         if(asDetail.loadingInfo.loaded) {
-          // this.asDetail = JSON.parse(JSON.stringify(asDetail.datas));
           this.asDetail = asDetail.datas;
           //creation du formulaire
           this.createForms();
           this.formLoaded=true;
         }
       });
-
-        // this.logoUrl = "assets/images/Otf/OtfInconnu_128.png";
      }
   
     ngOnInit() {
@@ -103,9 +98,7 @@ export class AccountStatementDetailComponent implements OnInit {
           this._store.dispatch(new LoadAsTableFilter(filter));
           this._store.dispatch(new LoadAsSolde(filter.selected));
           this._store.dispatch(new LoadAsChartEvolution(filter.selected));
-          // this._store.dispatch(new LoadAsChartEvolutionBrut(filter.selected));
-          // this._store.dispatch(new LoadAsChartEvolutionNoIntTransfer(filter.selected));
-          // this._store.dispatch(new LoadAsChartEvolutionCustomOtf(filter.selected));
+
         }
       });
     }

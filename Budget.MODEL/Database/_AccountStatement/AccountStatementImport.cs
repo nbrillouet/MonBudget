@@ -16,11 +16,11 @@ namespace Budget.MODEL.Database
         [ForeignKey("IdUser")]
         public User User { get; set; }
 
-        [Column("ID_BANK")]
-        public int IdBank { get; set; }
+        [Column("ID_BANK_AGENCY")]
+        public int IdBankAgency { get; set; }
 
-        [ForeignKey("IdBank")]
-        public Bank Bank { get; set; }
+        [ForeignKey("IdBankAgency")]
+        public BankAgency BankAgency { get; set; }
 
         [Column("FILE_IMPORT")]
         public string FileImport { get; set; }

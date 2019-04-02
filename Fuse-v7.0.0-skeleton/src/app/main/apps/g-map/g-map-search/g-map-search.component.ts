@@ -2,10 +2,10 @@ import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitte
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { GMapService } from '../g-map.service';
 import { MatChipInputEvent } from '@angular/material';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '@fuse/animations';
-import { IGMapSearchInfo, IGMapAddress, IGeocode } from 'app/main/_models/g-map.model.';
+import { IGMapSearchInfo, GMapAddress, IGeocode, IGMapType } from 'app/main/_models/g-map.model.';
 import { ISelect } from 'app/main/_models/generics/select.model';
 
 @Component({
@@ -16,10 +16,10 @@ import { ISelect } from 'app/main/_models/generics/select.model';
 })
 export class GMapSearchComponent implements OnInit,OnChanges {
   @Input() gMapSearchInfo: IGMapSearchInfo;
-  @Output() changeGMapAddress = new EventEmitter<IGMapAddress>();
+  @Output() changeGMapAddress = new EventEmitter<GMapAddress>();
 
   gMapSearchForm: FormGroup;
-  gMapAddress: IGMapAddress;
+  gMapAddress: GMapAddress;
   geoLocalisation : IGeocode;
 
   isFormLoaded: boolean;
@@ -49,13 +49,13 @@ export class GMapSearchComponent implements OnInit,OnChanges {
     this.gMapService
       .getById(this.gMapSearchInfo.idGMapAddress)
       .subscribe(resp=> {
-        console.log('this.gMapAddress',resp);
+        // console.log('this.gMapAddress',resp);
         this.gMapAddress = resp;
         this.createForm();
         this.addressVisible = this.gMapAddress.id!=1 && this.gMapAddress.id!=3;
         this.searchVisible = this.gMapAddress.id == 1;
         this.isFormLoaded = true;
-
+        console.log('this.gMapAddress ',this.gMapAddress );
        });
 
   }
@@ -113,17 +113,15 @@ export class GMapSearchComponent implements OnInit,OnChanges {
           this.gMapSearchForm.controls['subLocalityLevel1'].setValue(this.gMapAddress.gMapSublocalityLevel1.label);
           this.gMapSearchForm.controls['subLocalityLevel2'].setValue(this.gMapAddress.gMapSublocalityLevel2.label);
 
-
           this.gMapService
             .saveGMapAddress(this.gMapAddress)
             .subscribe(resp=>{
               this.gMapAddress= resp;
- 
+              console.log('this.gMapAddress',this.gMapAddress);
               this.showSearch(false);
               this.changeGMapAddress.emit(this.gMapAddress);
             })
 
-          
         }
         else
           this.notificationService.error('Echec de la localisation', 'veuillez préciser votre recherche');
@@ -139,15 +137,15 @@ export class GMapSearchComponent implements OnInit,OnChanges {
       if (index > -1) {
         result.types.splice(index, 1);
       }
-      let types = new Array<ISelect>();
+      let gMaptypes = new Array<IGMapType>();
       let idx: number =0;
-      for(let toto of result.types)
+      for(let gmapType of result.types)
       {
-        types.push({id: idx,label: toto})
+        gMaptypes.push({id: idx,keyword:gmapType.trim().toUpperCase(),label: null})
         idx++;
       }
 
-      let gMapAddress = <IGMapAddress> {
+      let gMapAddress = <GMapAddress> {
         id : 0,
         formattedAddress: result.formatted_address,
         lat: result.geometry.location.lat,
@@ -162,7 +160,7 @@ export class GMapSearchComponent implements OnInit,OnChanges {
         gMapStreetNumber: <ISelect> { id:0, label: this.getInAddressComponents(result,'street_number') },
         gMapSublocalityLevel1: <ISelect> { id:0, label: this.getInAddressComponents(result,'sublocality_level_1') },
         gMapSublocalityLevel2: <ISelect> { id:0, label: this.getInAddressComponents(result,'sublocality_level_2') },
-        gMapTypes: <ISelect[]> types
+        gMapTypes: <IGMapType[]> gMaptypes
       }
 
       return gMapAddress;
@@ -190,29 +188,29 @@ export class GMapSearchComponent implements OnInit,OnChanges {
   }
 
   remove(type)
-    {
-        const index = this.gMapAddress.gMapTypes.indexOf(type);
+  {
+      const index = this.gMapAddress.gMapTypes.indexOf(type);
 
-        if ( index >= 0 )
-        {
-          this.gMapAddress.gMapTypes.splice(index, 1);
-        }
+      if ( index >= 0 )
+      {
+        this.gMapAddress.gMapTypes.splice(index, 1);
+      }
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.gMapAddress.gMapTypes.push({id:0,keyword:value.trim().toUpperCase(),label:null});
     }
 
-    add(event: MatChipInputEvent): void {
-      const input = event.input;
-      const value = event.value;
-  
-      // Add our fruit
-      if ((value || '').trim()) {
-        this.gMapAddress.gMapTypes.push({id:0,label:value.trim()});
-      }
-  
-      // Reset the input value
-      if (input) {
-        input.value = '';
-      }
+    // Reset the input value
+    if (input) {
+      input.value = '';
     }
+  }
 
     showSearch(value: boolean) {
       this.searchVisible=value;

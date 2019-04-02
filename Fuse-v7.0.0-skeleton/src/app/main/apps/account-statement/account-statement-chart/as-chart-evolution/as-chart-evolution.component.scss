@@ -1,9 +1,12 @@
-.scroll-enable {
-    // display: flex;
-    // flex-direction: column;
+.scrollable-small {
     overflow-y: auto !important;
-    max-height:72vh;
-    }
+    max-height:70vh;
+}
+
+.scrollable-large {
+    overflow-y: auto !important;
+    max-height:91vh;
+}
 
 .mini-select {
     font-size:12px;

@@ -20,7 +20,7 @@ namespace Budget.SERVICE
         //Task<PagedList<User>> GetUsers(Pagination userParams);
         void Update(UserForDetailDto entity);
         void Update(User entity);
-        List<BankAccountsDto> GetBanks(int idUser);
+        List<BankAgencyAccountsDto> GetBankAgencies(int idUser);
 
     }
 }

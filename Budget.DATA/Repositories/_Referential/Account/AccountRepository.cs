@@ -17,7 +17,7 @@ namespace Budget.DATA.Repositories
         {
             return Context.Account
                 .Where(x => x.Id == id)
-                .Include(x => x.Bank)
+                .Include(x => x.BankAgency)
                 .Include(x => x.AccountType)
                 .Include(x=>x.UserAccounts)
                     .ThenInclude(ua=>ua.User)
@@ -28,7 +28,7 @@ namespace Budget.DATA.Repositories
         {
             return Context.Account
                 .Where(x => x.Number == number)
-                .Include(x=>x.Bank)
+                .Include(x=>x.BankAgency)
                 .FirstOrDefault();
         }
 
@@ -40,9 +40,9 @@ namespace Budget.DATA.Repositories
             return account;
         }
 
-        public List<Account> GetByIdBank(int idBank)
+        public List<Account> GetByIdBankAgency(int idBankAgency)
         {
-            return Context.Account.Where(x => x.Id != (int)EnumAccount.Inconnu && x.IdBank == idBank).ToList();
+            return Context.Account.Where(x => x.Id != (int)EnumAccount.Inconnu && x.IdBankAgency == idBankAgency).ToList();
         }
     }
 }

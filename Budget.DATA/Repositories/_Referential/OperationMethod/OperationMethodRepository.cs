@@ -30,23 +30,6 @@ namespace Budget.DATA.Repositories
 
             return operationMethod.Id;
         }
-        public OperationMethod GetOperationMethodByFileLabel(string operationLabel, int idBank)
-        {
-            return new OperationMethod();
-        }
-
-        //public List<GenericList> GetGenericList()
-        //{
-        //    List<OperationMethod> operationMethods = GetAllByOrder();
-        //    List<GenericList> GenericLists = new List<GenericList>();
-        //    foreach (var item in operationMethods)
-        //    {
-        //        GenericList genericList = new GenericList();
-        //        genericList.value = item.Id;
-        //        genericList.text = item.Label;
-        //        GenericLists.Add(genericList);
-        //    }
-        //    return GenericLists;
-        //}
+        
     }
 }

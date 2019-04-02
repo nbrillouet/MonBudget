@@ -10,22 +10,22 @@ namespace Budget.API.Controllers.Referential
 {
     [Authorize]
     [Produces("application/json")]
-    [Route("api/referential/banks")]
-    public class BankController : Controller
+    [Route("api/referential/bankAgencies")]
+    public class BankAgencyController : Controller
     {
-        private IBankService _bankService;
+        private IBankAgencyService _bankAgencyService;
 
-        public BankController(
-            IBankService bankService
+        public BankAgencyController(
+            IBankAgencyService bankAgencyService
         )
         {
-            _bankService = bankService;
+            _bankAgencyService = bankAgencyService;
         }
 
         [HttpGet("select-type/{idSelectType}/select-list")]
         public IActionResult GetSelectList(int idSelectType)
         {
-            var selectListDto = _bankService.GetSelectList(idSelectType);
+            var selectListDto = _bankAgencyService.GetSelectList(idSelectType);
 
             return Ok(selectListDto);
         }

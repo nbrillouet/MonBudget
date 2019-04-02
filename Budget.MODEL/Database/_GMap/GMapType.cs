@@ -16,7 +16,7 @@ namespace Budget.MODEL.Database
         [Column("KEYWORD")]
         public string Keyword { get; set; }
 
-        [Column("LABEL_FR")]
-        public string LabelFr { get; set; }
+        //[Column("LABEL_FR")]
+        //public string LabelFr { get; set; }
     }
 }

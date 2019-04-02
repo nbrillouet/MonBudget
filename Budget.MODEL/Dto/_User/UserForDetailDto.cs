@@ -19,7 +19,7 @@ namespace Budget.MODEL.Dto
         public string IdAvatarCloud { get; set; }
         public string AvatarUrl { get; set; }
         public List<UserShortcutDto> Shortcuts { get; set; }
-        public List<BankAccountsDto> Banks { get; set; }
+        public List<BankAgencyAccountsDto> BankAgencies { get; set; }
     }
 
     public class UserForConnectionDto

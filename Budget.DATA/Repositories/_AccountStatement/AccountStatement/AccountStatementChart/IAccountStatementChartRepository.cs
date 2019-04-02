@@ -9,9 +9,9 @@ namespace Budget.DATA.Repositories
 {
     public interface IAccountStatementChartRepository : IBaseRepository<AccountStatement>
     {
-        List<AsEvolutionCdbDto> GetAsChartEvolutionBrut(int idAccount, DateTime dateMin, DateTime dateMax);
-        List<AsEvolutionCdbDto> GetAsChartEvolutionNoIntTransfer(int idAccount, DateTime dateMin, DateTime dateMax);
-        List<BaseChartData> GetAsChartEvolutionCustomOtf(int idAccount,int idOperationTypeFamily, DateTime dateMin, DateTime dateMax);
+        List<AsEvolutionCdbDto> GetAsChartEvolutionBrut(int? idAccount, DateTime dateMin, DateTime dateMax);
+        List<AsEvolutionCdbDto> GetAsChartEvolutionNoIntTransfer(int? idAccount, DateTime dateMin, DateTime dateMax);
+        List<BaseChartData> GetAsChartEvolutionCustomOtf(int? idAccount,int idOperationTypeFamily, DateTime dateMin, DateTime dateMax);
     }
 
 }

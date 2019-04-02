@@ -8,9 +8,8 @@ namespace Budget.DATA.Repositories
 {
     public interface IBankFileDefinitionRepository : IBaseRepository<BankFileDefinition>
     {
-        //List<GenericList> GetGenericList();
         List<BankFileDefinition> GetAllWithNoUnknown();
-        List<BankFileDefinition> GetByIdBank(int idBank);
+        List<BankFileDefinition> GetByIdBankFamily(int idBankFamily);
 
     }
 }

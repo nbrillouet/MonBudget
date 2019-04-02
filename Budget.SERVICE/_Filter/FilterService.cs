@@ -14,8 +14,6 @@ namespace Budget.SERVICE
         private readonly IAccountStatementImportService _accountStatementImportService;
         private readonly IAccountStatementImportFileService _accountStatementImportFileService;
         private readonly ReferentialService _referentialService;
-        //private readonly IOperationTypeFamilyService _operationTypeFamilyService;
-
 
 
         public FilterService(
@@ -64,11 +62,11 @@ namespace Budget.SERVICE
             FilterAsiTable filterAsiTable = new FilterAsiTable();
             filterAsiTable.Selected = filter;
 
-            var Banks = _accountStatementImportService.GetDistinctBank(filter.IdUser.Value);
-            var BanksDto = _mapper.Map<List<SelectColorDto>>(Banks);
-            filterAsiTable.Banks = BanksDto;
+            var BankAgencies = _accountStatementImportService.GetDistinctBankAgencies(filter.IdUser.Value);
+            var BankAgenciesDto = _mapper.Map<List<SelectColorDto>>(BankAgencies);
+            filterAsiTable.BankAgencies = BankAgenciesDto;
 
-            filterAsiTable.Selected.IdBank = filter.IdBank==null ? BanksDto[0].Id : filter.IdBank;
+            filterAsiTable.Selected.IdBankAgency = filter.IdBankAgency == null ? BankAgenciesDto[0].Id : filter.IdBankAgency;
 
             return filterAsiTable;
         }
@@ -79,7 +77,7 @@ namespace Budget.SERVICE
             filterAsifTable.Selected = filter;
 
             var asi = _accountStatementImportService.GetForDetailById(filter.IdImport.Value);
-            filterAsifTable.AsiBankLabel = asi.Bank.Label;
+            filterAsifTable.AsiBankAgencyLabel = asi.BankAgency.Label;
             filterAsifTable.AsiDateImport = asi.DateImport;
 
             var accounts = _accountStatementImportFileService.GetAccountSelectListByIdImport(filter.IdImport.Value);
@@ -95,22 +93,13 @@ namespace Budget.SERVICE
 
         }
 
-        //public List<SelectDto> GetOperationMethodSelectList(EnumSelectType enumSelectType)
-        //{
-        //    return _operationMethodService.GetSelectList(enumSelectType);
-        //}
-
         public FilterUserTable GetFilterUserTable(FilterUserTableSelected filter)
         {
             FilterUserTable filterUserTable = new FilterUserTable();
             filterUserTable.Selected = filter;
 
             return filterUserTable;
-
         }
-
-
-
 
     }
 

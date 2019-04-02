@@ -11,12 +11,8 @@ namespace Budget.SERVICE
 {
     public interface IAccountStatementImportService
     {
-        List<Bank> GetDistinctBank(int idUser);
+        List<BankAgency> GetDistinctBankAgencies(int idUser);
         PagedList<AsiForTableDto> GetAsiTable(FilterAsiTableSelected filter);
-        
-
-        //Task<PagedList<AccountStatementImport>> GetAsync(FilterAccountStatementImport filter);
-        Task<List<Bank>> GetDistinctBankAsync(int idUser);
         Task<AccountStatementImport> GetByIdAsync(int idImport);
         AccountStatementImport GetById(int idImport);
         AsiForListDto GetForDetailById(int idImport);

@@ -4,21 +4,21 @@ import { Pagination } from "../pagination.model";
 
 export class FilterAsiTableSelected {
     idUser: number;
-    idBank: number;
-    indexTabBank: number;
+    idBankAgency: number;
+    indexTabBankAgency: number;
     pagination: Pagination;
 
     constructor () {
         this.idUser = null;
-        this.idBank = null;
+        this.idBankAgency = null;
         this.pagination = new Pagination();
-        this.indexTabBank = 0;
+        this.indexTabBankAgency = 0;
         // this.pagination = new Pagination();
     }
 }
 
 export class FilterAsiTable {
-    banks: ISelect[];
+    bankAgencies: ISelect[];
     selected: FilterAsiTableSelected;
 
     constructor () {

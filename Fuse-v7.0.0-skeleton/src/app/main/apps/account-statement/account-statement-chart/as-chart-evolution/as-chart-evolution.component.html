@@ -1,7 +1,8 @@
 
-<div class="scroll-enable grey-100-bg">
-<div fxLayout="column" >
-    
+<div class="grey-100-bg"
+    [ngClass]="headerPanelVisible ? 'scrollable-small' : 'scrollable-large'"
+>
+<div fxLayout="column">
     <div class="position-relative pt-24 pl-24 pr-24 pb-10 mat-blue-600-bg"
           fxLayoutAlign="space-between center">
         <div fxLayout="column" fxLayoutAlign="start start">
