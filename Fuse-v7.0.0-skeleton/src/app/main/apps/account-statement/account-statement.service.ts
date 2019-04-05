@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { AsDetail } from 'app/main/_models/account-statement/account-statement-detail.model';
 import { ISelect } from 'app/main/_models/generics/select.model';
 import { AsChartEvolutionCustomOtfFilter, AsChartEvolutionCustomOtfFilterSelected } from 'app/main/_models/account-statement/account-statement-chart.model';
+import { InternalTransferCouple } from 'app/main/_models/account-statement/account-statement-internal-transfer.model';
 
 @Injectable()
 export class AsService {
@@ -36,23 +37,7 @@ export class AsService {
         return this.http
             .get(this.baseUrl + `account-statements/${filterAsDetail.idAs}/users/${filterAsDetail.idUser}/detail`)
             .map(response => <AsDetail>response)
-            // .catch(this.errorService.handleError);
     }
-
-    // get(filter: FilterAccountStatement) {
-    //     return this.http
-    //         .post(`${this.baseUrl}account-statements/filter`,filter)
-    //         .map((response) => {
-    //             return response;
-    //         })
-    //         .catch(this.errorService.handleError);
-    // }
-
-    // getById(id: number) {
-    //     return this.http
-    //         .get(`${this.baseUrl}account-statements/${id}/detail`)
-    //         .map(response => <IAsDetail>response);
-    // }
 
     getAsSolde (filter: FilterAsTableSelected) {
         return this.http
@@ -60,6 +45,12 @@ export class AsService {
             .map((response) => {
                 return response;
             });
+    }
+
+    getAsInternalTransferCouple(filter: FilterAsTableSelected) {
+        return this.http
+            .post(`${this.baseUrl}account-statement-internal-transfers/list-filter`,filter)
+            .map(resp=><InternalTransferCouple[]>resp);
     }
 
     update(asDetail: AsDetail) {

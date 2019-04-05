@@ -7,7 +7,7 @@ import { TableInfo } from 'app/main/_models/generics/table-info.model';
 import { ChangePlanForTrackingFilter } from 'app/main/_ngxs/plan-tracking/plan-tracking.action';
 import { IUser } from 'app/main/_models/user.model';
 import { PlanService } from '../plan.service';
-import { IMonthYear, MonthYear } from 'app/main/_models/date-time.model';
+import { IMonthYear, MonthYear } from 'app/main/_models/generics/date-time.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ISelect, SelectYear } from 'app/main/_models/generics/select.model';
 import { DetailInfo } from 'app/main/_models/generics/detail-info.model';

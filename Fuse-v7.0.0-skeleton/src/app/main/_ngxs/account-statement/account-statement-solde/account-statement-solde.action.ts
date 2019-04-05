@@ -1,6 +1,5 @@
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 
-
 export const AS_SOLDE_LOAD = 'as-solde-load';
 export const AS_SOLDE_LOAD_SUCCESS = 'as-solde-load-success';
 export const AS_SOLDE_CHANGE = 'as-solde-change';

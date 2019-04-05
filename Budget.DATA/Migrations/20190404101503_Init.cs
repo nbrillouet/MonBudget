@@ -15,13 +15,13 @@ namespace Budget.DATA.Migrations
                 name: "as");
 
             migrationBuilder.EnsureSchema(
-                name: "plan");
-
-            migrationBuilder.EnsureSchema(
                 name: "gmap");
 
             migrationBuilder.EnsureSchema(
                 name: "gen");
+
+            migrationBuilder.EnsureSchema(
+                name: "plan");
 
             migrationBuilder.EnsureSchema(
                 name: "user");
@@ -44,13 +44,27 @@ namespace Budget.DATA.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BaseChartData",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false),
+                    Amount = table.Column<double>(nullable: false),
+                    Month = table.Column<string>(nullable: true),
+                    Year = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BaseChartData", x => new { x.Id, x.Amount });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SoldeDto",
                 columns: table => new
                 {
-                    Credit = table.Column<decimal>(nullable: false),
-                    Debit = table.Column<decimal>(nullable: false),
-                    Total = table.Column<decimal>(nullable: false),
-                    Solde = table.Column<decimal>(nullable: false)
+                    Credit = table.Column<double>(nullable: false),
+                    Debit = table.Column<double>(nullable: false),
+                    Total = table.Column<double>(nullable: false),
+                    Solde = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -221,27 +235,11 @@ namespace Budget.DATA.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    KEYWORD = table.Column<string>(nullable: false),
-                    LABEL_FR = table.Column<string>(nullable: true)
+                    KEYWORD = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GMAP_TYPE", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FREQUENCY",
-                schema: "plan",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    MONTH_NUMBER = table.Column<int>(nullable: false),
-                    MONTH_LABEL = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FREQUENCY", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -329,43 +327,19 @@ namespace Budget.DATA.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BANK",
+                name: "BANK_FAMILY",
                 schema: "ref",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    LABEL_BANK_SHORT = table.Column<string>(maxLength: 50, nullable: true),
-                    LABEL_BANK_LONG = table.Column<string>(maxLength: 50, nullable: true),
-                    ADDRESS_BANK = table.Column<string>(maxLength: 50, nullable: true),
-                    POSTAL_CODE_BANK = table.Column<int>(nullable: false),
-                    ADVISER_FIRST_NAME = table.Column<string>(maxLength: 50, nullable: true),
-                    ADVISER_LAST_NAME = table.Column<string>(maxLength: 50, nullable: true),
-                    ADVISER_MAIL = table.Column<string>(maxLength: 50, nullable: true),
-                    ADVISER_FIXED_PHONE = table.Column<string>(maxLength: 30, nullable: true),
-                    ADVISER_MOBILE_PHONE = table.Column<string>(maxLength: 30, nullable: true),
-                    LOGO_CLASS_NAME = table.Column<string>(maxLength: 30, nullable: true),
-                    FOLDER_FILE_SAVE = table.Column<string>(nullable: true)
+                    LABEL_SHORT = table.Column<string>(maxLength: 50, nullable: true),
+                    LABEL_LONG = table.Column<string>(maxLength: 50, nullable: true),
+                    LOGO_CLASS_NAME = table.Column<string>(maxLength: 30, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BANK", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BANK_FILE_DEFINITION",
-                schema: "ref",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ID_BANK_FAMILY = table.Column<int>(nullable: false),
-                    LABEL_FIELD = table.Column<string>(maxLength: 50, nullable: true),
-                    LABEL_ORDER = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BANK_FILE_DEFINITION", x => x.ID);
+                    table.PrimaryKey("PK_BANK_FAMILY", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -495,6 +469,29 @@ namespace Budget.DATA.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GMAP_TYPE_LANGUAGE",
+                schema: "gmap",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ID_GMAP_TYPE = table.Column<int>(nullable: false),
+                    LANGUAGE_CODE = table.Column<string>(nullable: false),
+                    LABEL = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GMAP_TYPE_LANGUAGE", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_GMAP_TYPE_LANGUAGE_GMAP_TYPE_ID_GMAP_TYPE",
+                        column: x => x.ID_GMAP_TYPE,
+                        principalSchema: "gmap",
+                        principalTable: "GMAP_TYPE",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PLAN_POSTE",
                 schema: "plan",
                 columns: table => new
@@ -533,34 +530,24 @@ namespace Budget.DATA.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ACCOUNT",
+                name: "BANK_FILE_DEFINITION",
                 schema: "ref",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    NUMBER = table.Column<string>(maxLength: 50, nullable: true),
-                    LABEL = table.Column<string>(maxLength: 50, nullable: true),
-                    ID_BANK = table.Column<int>(nullable: false),
-                    START_AMOUNT = table.Column<double>(nullable: false),
-                    ID_ACCOUNT_TYPE = table.Column<int>(nullable: false),
-                    ALERT_THRESHOLD = table.Column<double>(nullable: false)
+                    ID_BANK_FAMILY = table.Column<int>(nullable: false),
+                    LABEL_FIELD = table.Column<string>(maxLength: 50, nullable: true),
+                    LABEL_ORDER = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ACCOUNT", x => x.ID);
+                    table.PrimaryKey("PK_BANK_FILE_DEFINITION", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_ACCOUNT_ACCOUNT_TYPE_ID_ACCOUNT_TYPE",
-                        column: x => x.ID_ACCOUNT_TYPE,
+                        name: "FK_BANK_FILE_DEFINITION_BANK_FAMILY_ID_BANK_FAMILY",
+                        column: x => x.ID_BANK_FAMILY,
                         principalSchema: "ref",
-                        principalTable: "ACCOUNT_TYPE",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ACCOUNT_BANK_ID_BANK",
-                        column: x => x.ID_BANK,
-                        principalSchema: "ref",
-                        principalTable: "BANK",
+                        principalTable: "BANK_FAMILY",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -641,6 +628,44 @@ namespace Budget.DATA.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BANK_AGENCY",
+                schema: "ref",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    LABEL_SHORT = table.Column<string>(maxLength: 50, nullable: true),
+                    LABEL_LONG = table.Column<string>(maxLength: 50, nullable: true),
+                    ADVISER_FIRST_NAME = table.Column<string>(maxLength: 50, nullable: true),
+                    ADVISER_LAST_NAME = table.Column<string>(maxLength: 50, nullable: true),
+                    ADVISER_MAIL = table.Column<string>(maxLength: 50, nullable: true),
+                    ADVISER_FIXED_PHONE = table.Column<string>(maxLength: 30, nullable: true),
+                    ADVISER_MOBILE_PHONE = table.Column<string>(maxLength: 30, nullable: true),
+                    LOGO_CLASS_NAME = table.Column<string>(maxLength: 30, nullable: true),
+                    FOLDER_FILE_SAVE = table.Column<string>(nullable: true),
+                    ID_GMAP_ADDRESS = table.Column<int>(nullable: false),
+                    ID_BANK_FAMILY = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BANK_AGENCY", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_BANK_AGENCY_BANK_FAMILY_ID_BANK_FAMILY",
+                        column: x => x.ID_BANK_FAMILY,
+                        principalSchema: "ref",
+                        principalTable: "BANK_FAMILY",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BANK_AGENCY_GMAP_ADDRESS_ID_GMAP_ADDRESS",
+                        column: x => x.ID_GMAP_ADDRESS,
+                        principalSchema: "gmap",
+                        principalTable: "GMAP_ADDRESS",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "USER",
                 schema: "user",
                 columns: table => new
@@ -687,10 +712,10 @@ namespace Budget.DATA.Migrations
                 {
                     table.PrimaryKey("PK_PLAN_POSTE_FREQUENCY", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_PLAN_POSTE_FREQUENCY_FREQUENCY_ID_FREQUENCY",
+                        name: "FK_PLAN_POSTE_FREQUENCY_MONTH_ID_FREQUENCY",
                         column: x => x.ID_FREQUENCY,
-                        principalSchema: "plan",
-                        principalTable: "FREQUENCY",
+                        principalSchema: "gen",
+                        principalTable: "MONTH",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -764,6 +789,39 @@ namespace Budget.DATA.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ACCOUNT",
+                schema: "ref",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    NUMBER = table.Column<string>(maxLength: 50, nullable: true),
+                    LABEL = table.Column<string>(maxLength: 50, nullable: true),
+                    ID_BANK_AGENCY = table.Column<int>(nullable: false),
+                    START_AMOUNT = table.Column<double>(nullable: false),
+                    ID_ACCOUNT_TYPE = table.Column<int>(nullable: false),
+                    ALERT_THRESHOLD = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ACCOUNT", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_ACCOUNT_ACCOUNT_TYPE_ID_ACCOUNT_TYPE",
+                        column: x => x.ID_ACCOUNT_TYPE,
+                        principalSchema: "ref",
+                        principalTable: "ACCOUNT_TYPE",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ACCOUNT_BANK_AGENCY_ID_BANK_AGENCY",
+                        column: x => x.ID_BANK_AGENCY,
+                        principalSchema: "ref",
+                        principalTable: "BANK_AGENCY",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ACCOUNT_STATEMENT_IMPORT",
                 schema: "as",
                 columns: table => new
@@ -771,7 +829,7 @@ namespace Budget.DATA.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ID_USER = table.Column<int>(nullable: false),
-                    ID_BANK = table.Column<int>(nullable: false),
+                    ID_BANK_AGENCY = table.Column<int>(nullable: false),
                     FILE_IMPORT = table.Column<string>(nullable: true),
                     DATE_IMPORT = table.Column<DateTime>(nullable: false)
                 },
@@ -779,10 +837,10 @@ namespace Budget.DATA.Migrations
                 {
                     table.PrimaryKey("PK_ACCOUNT_STATEMENT_IMPORT", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_ACCOUNT_STATEMENT_IMPORT_BANK_ID_BANK",
-                        column: x => x.ID_BANK,
+                        name: "FK_ACCOUNT_STATEMENT_IMPORT_BANK_AGENCY_ID_BANK_AGENCY",
+                        column: x => x.ID_BANK_AGENCY,
                         principalSchema: "ref",
-                        principalTable: "BANK",
+                        principalTable: "BANK_AGENCY",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -868,35 +926,6 @@ namespace Budget.DATA.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "USER_ACCOUNT",
-                schema: "user",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ID_USER = table.Column<int>(nullable: false),
-                    ID_ACCOUNT = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_USER_ACCOUNT", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_USER_ACCOUNT_ACCOUNT_ID_ACCOUNT",
-                        column: x => x.ID_ACCOUNT,
-                        principalSchema: "ref",
-                        principalTable: "ACCOUNT",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_USER_ACCOUNT_USER_ID_USER",
-                        column: x => x.ID_USER,
-                        principalSchema: "user",
-                        principalTable: "USER",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "USER_SHORTCUT",
                 schema: "user",
                 columns: table => new
@@ -948,6 +977,72 @@ namespace Budget.DATA.Migrations
                         column: x => x.ID_OPERATION,
                         principalSchema: "ref",
                         principalTable: "OPERATION",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "USER_ACCOUNT",
+                schema: "user",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ID_USER = table.Column<int>(nullable: false),
+                    ID_ACCOUNT = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_USER_ACCOUNT", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_USER_ACCOUNT_ACCOUNT_ID_ACCOUNT",
+                        column: x => x.ID_ACCOUNT,
+                        principalSchema: "ref",
+                        principalTable: "ACCOUNT",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_USER_ACCOUNT_USER_ID_USER",
+                        column: x => x.ID_USER,
+                        principalSchema: "user",
+                        principalTable: "USER",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "USER_CUSTOM_OTF",
+                schema: "user",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ID_USER = table.Column<int>(nullable: false),
+                    ID_ACCOUNT = table.Column<int>(nullable: false),
+                    ID_OPERATION_TYPE_FAMILY = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_USER_CUSTOM_OTF", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_USER_CUSTOM_OTF_ACCOUNT_ID_ACCOUNT",
+                        column: x => x.ID_ACCOUNT,
+                        principalSchema: "ref",
+                        principalTable: "ACCOUNT",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_USER_CUSTOM_OTF_OPERATION_TYPE_FAMILY_ID_OPERATION_TYPE_FAMILY",
+                        column: x => x.ID_OPERATION_TYPE_FAMILY,
+                        principalSchema: "ref",
+                        principalTable: "OPERATION_TYPE_FAMILY",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_USER_CUSTOM_OTF_USER_ID_USER",
+                        column: x => x.ID_USER,
+                        principalSchema: "user",
+                        principalTable: "USER",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1273,10 +1368,10 @@ namespace Budget.DATA.Migrations
                 column: "ID_OPERATION_TYPE_FAMILY");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ACCOUNT_STATEMENT_IMPORT_ID_BANK",
+                name: "IX_ACCOUNT_STATEMENT_IMPORT_ID_BANK_AGENCY",
                 schema: "as",
                 table: "ACCOUNT_STATEMENT_IMPORT",
-                column: "ID_BANK");
+                column: "ID_BANK_AGENCY");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ACCOUNT_STATEMENT_IMPORT_ID_USER",
@@ -1327,16 +1422,17 @@ namespace Budget.DATA.Migrations
                 column: "ID_OPERATION_TYPE_FAMILY");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ACCOUNT_STATEMENT_PLAN_ID_ACCOUNT_STATEMENT",
-                schema: "as",
-                table: "ACCOUNT_STATEMENT_PLAN",
-                column: "ID_ACCOUNT_STATEMENT");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ACCOUNT_STATEMENT_PLAN_ID_PLAN",
                 schema: "as",
                 table: "ACCOUNT_STATEMENT_PLAN",
                 column: "ID_PLAN");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ASP_IdAccountStatement_IdPlan",
+                schema: "as",
+                table: "ACCOUNT_STATEMENT_PLAN",
+                columns: new[] { "ID_ACCOUNT_STATEMENT", "ID_PLAN" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_OPERATION_TRANSVERSE_AS_ID_ACCOUNT_STATEMENT",
@@ -1441,6 +1537,12 @@ namespace Budget.DATA.Migrations
                 column: "ID_GMAP_TYPE");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GMAP_TYPE_LANGUAGE_ID_GMAP_TYPE",
+                schema: "gmap",
+                table: "GMAP_TYPE_LANGUAGE",
+                column: "ID_GMAP_TYPE");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PLAN_POSTE_ID_PLAN",
                 schema: "plan",
                 table: "PLAN_POSTE",
@@ -1514,10 +1616,10 @@ namespace Budget.DATA.Migrations
                 column: "ID_ACCOUNT_TYPE");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ACCOUNT_ID_BANK",
+                name: "IX_ACCOUNT_ID_BANK_AGENCY",
                 schema: "ref",
                 table: "ACCOUNT",
-                column: "ID_BANK");
+                column: "ID_BANK_AGENCY");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AccountNumber",
@@ -1526,6 +1628,24 @@ namespace Budget.DATA.Migrations
                 column: "NUMBER",
                 unique: true,
                 filter: "[NUMBER] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BANK_AGENCY_ID_BANK_FAMILY",
+                schema: "ref",
+                table: "BANK_AGENCY",
+                column: "ID_BANK_FAMILY");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BANK_AGENCY_ID_GMAP_ADDRESS",
+                schema: "ref",
+                table: "BANK_AGENCY",
+                column: "ID_GMAP_ADDRESS");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BANK_FILE_DEFINITION_ID_BANK_FAMILY",
+                schema: "ref",
+                table: "BANK_FILE_DEFINITION",
+                column: "ID_BANK_FAMILY");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OPERATION_ID_OPERATION_METHOD",
@@ -1610,6 +1730,25 @@ namespace Budget.DATA.Migrations
                 column: "ID_USER");
 
             migrationBuilder.CreateIndex(
+                name: "IX_USER_CUSTOM_OTF_ID_ACCOUNT",
+                schema: "user",
+                table: "USER_CUSTOM_OTF",
+                column: "ID_ACCOUNT");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_USER_CUSTOM_OTF_ID_USER",
+                schema: "user",
+                table: "USER_CUSTOM_OTF",
+                column: "ID_USER");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UCO_IdOperationTypeFamily_IdUser_IdAccount",
+                schema: "user",
+                table: "USER_CUSTOM_OTF",
+                columns: new[] { "ID_OPERATION_TYPE_FAMILY", "ID_USER", "ID_ACCOUNT" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_USER_SHORTCUT_ID_USER",
                 schema: "user",
                 table: "USER_SHORTCUT",
@@ -1620,6 +1759,9 @@ namespace Budget.DATA.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AsEvolutionDto");
+
+            migrationBuilder.DropTable(
+                name: "BaseChartData");
 
             migrationBuilder.DropTable(
                 name: "SoldeDto");
@@ -1637,15 +1779,15 @@ namespace Budget.DATA.Migrations
                 schema: "as");
 
             migrationBuilder.DropTable(
-                name: "MONTH",
-                schema: "gen");
-
-            migrationBuilder.DropTable(
                 name: "PARAMETER",
                 schema: "gen");
 
             migrationBuilder.DropTable(
                 name: "GMAP_ADDRESS_TYPE",
+                schema: "gmap");
+
+            migrationBuilder.DropTable(
+                name: "GMAP_TYPE_LANGUAGE",
                 schema: "gmap");
 
             migrationBuilder.DropTable(
@@ -1677,6 +1819,10 @@ namespace Budget.DATA.Migrations
                 schema: "user");
 
             migrationBuilder.DropTable(
+                name: "USER_CUSTOM_OTF",
+                schema: "user");
+
+            migrationBuilder.DropTable(
                 name: "USER_SHORTCUT",
                 schema: "user");
 
@@ -1697,8 +1843,8 @@ namespace Budget.DATA.Migrations
                 schema: "gmap");
 
             migrationBuilder.DropTable(
-                name: "FREQUENCY",
-                schema: "plan");
+                name: "MONTH",
+                schema: "gen");
 
             migrationBuilder.DropTable(
                 name: "PLAN_POSTE",
@@ -1737,7 +1883,7 @@ namespace Budget.DATA.Migrations
                 schema: "ref");
 
             migrationBuilder.DropTable(
-                name: "BANK",
+                name: "BANK_AGENCY",
                 schema: "ref");
 
             migrationBuilder.DropTable(
@@ -1746,6 +1892,10 @@ namespace Budget.DATA.Migrations
 
             migrationBuilder.DropTable(
                 name: "OPERATION",
+                schema: "ref");
+
+            migrationBuilder.DropTable(
+                name: "BANK_FAMILY",
                 schema: "ref");
 
             migrationBuilder.DropTable(

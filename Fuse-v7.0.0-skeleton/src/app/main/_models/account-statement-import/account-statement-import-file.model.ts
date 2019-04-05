@@ -2,6 +2,12 @@ import { ISelect } from "../generics/select.model";
 import { OperationDetail } from "../operation-detail.model";
 import { ComboSimple, ComboMultiple } from "../generics/combo.model";
 import { GMapSearchInfo } from "../g-map.model.";
+import { IAccount } from "../account.model";
+
+export interface IAsifGroupByAccounts {
+    accounts : IAccount[],
+    idImport: number
+}
 
 export class AsifTable {
     id: number;

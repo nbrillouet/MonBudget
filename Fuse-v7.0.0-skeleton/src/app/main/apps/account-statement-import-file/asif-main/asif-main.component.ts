@@ -2,8 +2,6 @@ import { Component, OnInit,OnChanges, SimpleChange, SimpleChanges, Input, ViewEn
 import { ActivatedRoute } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '@fuse/animations';
-import { IAccountStatementImport } from 'app/main/_models/account-statement-import.model';
-import { IAccount } from 'app/main/_models/account.model';
 import { AsifService } from '../asif.service';
 import { Store, Select } from '@ngxs/store';
 import { LoadAsifTableFilter, ChangeAsifTableFilter } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.action';
@@ -11,7 +9,6 @@ import { AsifTableFilterState } from 'app/main/_ngxs/account-statement-import-fi
 import { Observable } from 'rxjs';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterAsifTable } from 'app/main/_models/filters/account-statement-import-file.filter';
-import { AsiService } from '../../account-statement-import/asi.service';
 
 @Component({
   selector: 'asif-main',

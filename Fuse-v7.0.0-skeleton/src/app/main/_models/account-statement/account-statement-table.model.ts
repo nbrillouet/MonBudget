@@ -3,6 +3,8 @@ import { ISelect, ISelectColor } from "../generics/select.model";
 
 export class AsTable {
     id: number;
+    account: ISelect;
+    bankAgency: ISelect;
     operation : ISelect;
     operationMethod: ISelect;
     operationType: ISelect;

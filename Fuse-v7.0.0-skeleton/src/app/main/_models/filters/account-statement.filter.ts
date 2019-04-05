@@ -1,5 +1,5 @@
 import { Pagination } from "../pagination.model";
-import { IMonthYear, DateTimeFactory } from "../date-time.model";
+import { IMonthYear, DateTimeFactory } from "../generics/date-time.model";
 import { ISelect, ISelectGroup } from "../generics/select.model";
 
 export class FilterAsTableSelected {

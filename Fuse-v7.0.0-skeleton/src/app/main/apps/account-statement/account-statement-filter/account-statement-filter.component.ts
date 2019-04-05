@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DateTimeFactory } from 'app/main/_models/date-time.model';
+import { DateTimeFactory } from 'app/main/_models/generics/date-time.model';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 

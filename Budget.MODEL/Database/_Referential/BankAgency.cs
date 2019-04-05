@@ -1,12 +1,11 @@
 ﻿
-using Budget.MODEL.Database;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Budget.MODEL
+namespace Budget.MODEL.Database
 {
     [Table("BANK_AGENCY", Schema = "ref")]
     public class BankAgency
@@ -63,6 +62,12 @@ namespace Budget.MODEL
 
         [ForeignKey("IdGMapAddress")]
         public GMapAddress GMapAddress { get; set; }
+
+        [Column("ID_BANK_FAMILY")]
+        public int IdBankFamily { get; set; }
+
+        [ForeignKey("IdBankFamily")]
+        public BankFamily BankFamily { get; set; }
 
         public BankAgency()
         {

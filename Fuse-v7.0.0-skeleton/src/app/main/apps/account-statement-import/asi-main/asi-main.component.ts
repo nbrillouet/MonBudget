@@ -4,7 +4,6 @@ import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { IUser } from 'app/main/_models/user.model';
-import { IAsifGroupByAccounts } from 'app/main/_models/account-statement-import-file.model';
 import { AreaImport, IAccount } from 'app/main/_models/account.model';
 import { Store } from '@ngxs/store';
 import { FilterAsiTable } from 'app/main/_models/filters/account-statement-import.filter';
@@ -25,19 +24,14 @@ export class AsiMainComponent implements OnInit {
   user: IUser;
   filterAsi: FilterAsiTable;
   filterAsif: FilterAsifTable
-  
   fileInProgress: boolean;
   fileError: boolean;
   fileSuccess: boolean;
-  uploadResponse : IAsifGroupByAccounts;
   areaImport : AreaImport ={'historicView':true,'fileView':false,'errorView':false,'loadingView':false};
-
   hasSelectedRows: boolean;
   onSelectedRowsChangedSubscription: Subscription;
-
   projects : any[];
   project : any;
-  asifAccounts : IAsifGroupByAccounts;
   accountSelected: IAccount;
 
   constructor(

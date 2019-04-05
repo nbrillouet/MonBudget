@@ -1,4 +1,4 @@
-import { ISelect, SelectYear } from "./generics/select.model";
+import { ISelect, SelectYear } from "./select.model";
 
 // export interface IMonth {
 //     id: number;

@@ -33,19 +33,10 @@ export class AccountStatementListComponent implements OnInit, OnChanges {
 
   dataSource = new MatTableDataSource<AsTable>();// AsifDataSource;
   filterAs: FilterAsTable;
-
   idAccountStatement: number;
-  // filter: AsFilter;
   selectedIndex: number = 0;
-  // dataSource: AccountStatementImportFileDataSource;
   displayedColumns = ['id','plan','operationMethod','operationTypeFamily','operationType','operation','dateIntegration','amountOperation','button'];
-  
-  // isExpansionDetailRow = (i: number, row: any) => row.hasOwnProperty('detailRow');
-  // expandedElement: any;
-
   templateFor:string;
-  // loading: boolean=false;
-  // datas:any;
 
   constructor(
     private _router: Router,
@@ -65,8 +56,6 @@ export class AccountStatementListComponent implements OnInit, OnChanges {
   }
   
   ngOnChanges(changes: SimpleChanges) {
-    console.log('changes.headerPanelVisible',changes.headerPanelVisible);
-    // const name: SimpleChange = changes.headerPanelVisible;
     this.headerPanelVisible = changes.headerPanelVisible.currentValue;
   }
 

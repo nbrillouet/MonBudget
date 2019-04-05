@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'as-internal-transfer-couple',
@@ -12,4 +12,5 @@ export class AsInternalTransferCoupleComponent implements OnInit {
   ngOnInit() {
   }
 
+  
 }

@@ -6,15 +6,6 @@ using Microsoft.EntityFrameworkCore;
 namespace Budget.DATA
 {
 
-    /// <summary>
-    /// changement DATABASE
-    /// --> table operation_place mettre à NULL les departement pour id 1 / 20 / 27
-    /// --> remplacer l'id 2 (bordeaux) par NON APPLICABLE : 
-    ///   update OPERATION_PLACE set city = 'N/A'  WHERE id=2
-    ///   update OPERATION_PLACE set DEPARTMENT = NULL  WHERE id = 2
-    ///   update OPERATION_PLACE set keyword = '--FAKE_KEYWORD--'  WHERE id = 2
-    ///   insert into OPERATION_PLACE values( 'BORDEAUX','33','33BORDEAUX')
-    /// </summary>
     public class BudgetContext : DbContext
     {
         public BudgetContext(DbContextOptions<BudgetContext> options) : base(options)
@@ -27,6 +18,9 @@ namespace Budget.DATA
         public DbSet<UserCustomOtf> UserCustomOtf { get; set; }
 
         public DbSet<BankAgency> BankAgency { get; set; }
+        public DbSet<BankFileDefinition> BankFileDefinition { get; set; }
+        public DbSet<BankFamily> BankFamily { get; set; }
+
         public DbSet<AccountType> AccountType { get; set; }
         public DbSet<Account> Account { get; set; }
         public DbSet<OperationTypeFamily> OperationTypeFamily { get; set; }
@@ -42,7 +36,7 @@ namespace Budget.DATA
         
         
         public DbSet<AccountStatementImport> AccountStatementImport { get; set; }
-        public DbSet<BankFileDefinition> BankFileDefinition { get; set; }
+        
         public DbSet<AccountStatementImportFile> AccountStatementImportFile { get; set; }
         public DbSet<Month> Month { get; set; }
         

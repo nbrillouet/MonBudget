@@ -1,14 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
 import { environment } from "environments/environment";
 import { ErrorService } from "app/main/_services/error.service";
-import { IAsifState, IAsifDetail, IAsifGrid } from "app/main/_models/account-statement-import-file.model";
-import { IAccount } from "app/main/_models/account.model";
-import { Pagination, PaginatedResult } from "app/main/_models/pagination.model";
 import { HttpClient } from '@angular/common/http';
 import { FilterAsifTableSelected, FilterAsifTable, FilterAsifDetail } from "app/main/_models/filters/account-statement-import-file.filter";
 import { AsifTable, AsifDetail } from "app/main/_models/account-statement-import/account-statement-import-file.model";
-// import { AsifTable } from "app/main/_models/account-statement-import-file/account-statement-import-file.model";
 
 @Injectable()
 export class AsifService {
@@ -73,7 +68,7 @@ baseUrl = environment.apiUrl;
     getById(id: number) {
         return this.http
             .get(this.baseUrl + `account-statement-import-files/${id}/detail`)
-            .map(response => <IAsifDetail>response)
+            .map(response => <AsifDetail>response)
             .catch(this.errorService.handleError);
     }
 

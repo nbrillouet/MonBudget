@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20190321082329_alterBaseChartData.cs" />
-    <Compile Remove="Migrations\20190321091250_AlterBaseChartData.cs" />
-    <Compile Remove="Migrations\20190321091537_AlterBaseChartData.cs" />
-    <Compile Remove="Migrations\20190401123854_alterGMap.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />

@@ -66,7 +66,7 @@ namespace Budget.SERVICE
             var BankAgenciesDto = _mapper.Map<List<SelectColorDto>>(BankAgencies);
             filterAsiTable.BankAgencies = BankAgenciesDto;
 
-            filterAsiTable.Selected.IdBankAgency = filter.IdBankAgency == null ? BankAgenciesDto[0].Id : filter.IdBankAgency;
+            filterAsiTable.Selected.IdBankAgency = BankAgenciesDto.Count==0 ? null : filter.IdBankAgency == null ? BankAgenciesDto[0].Id : filter.IdBankAgency;
 
             return filterAsiTable;
         }

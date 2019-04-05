@@ -6,7 +6,7 @@ namespace Budget.MODEL.Dto
 {
     public class InternalTransferDto
     {
-        public AsForTableDto asFirst { get; set; }
-        public AsForTableDto asSecond { get; set; }
+        public AsForTableDto AsFirst { get; set; }
+        public AsForTableDto AsSecond { get; set; }
     }
 }

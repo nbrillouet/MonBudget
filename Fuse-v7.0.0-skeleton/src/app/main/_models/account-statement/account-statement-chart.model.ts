@@ -1,6 +1,6 @@
 import { WidgetCardChartBar } from "../chart/widget-card-chart-bar.model";
 import { ISelectGroup, ISelect } from "../generics/select.model";
-import { IMonthYear } from "../date-time.model";
+import { IMonthYear } from "../generics/date-time.model";
 
 export class AsChart {
     asChartEvolution: AsChartEvolution;

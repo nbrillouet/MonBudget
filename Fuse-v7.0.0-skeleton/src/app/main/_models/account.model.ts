@@ -1,4 +1,3 @@
-import { IAccountType } from "./account-type.model";
 import { ISelect } from "./generics/select.model";
 import { IBankAgency } from "./referential/bankAgency.model";
 
@@ -10,7 +9,7 @@ export interface IAccount {
     bankAgency : IBankAgency,
     startAmount: number,
     idAccountType : number,
-    accountType: IAccountType,
+    accountType: ISelect,
     alertThreshold: number
 }
 

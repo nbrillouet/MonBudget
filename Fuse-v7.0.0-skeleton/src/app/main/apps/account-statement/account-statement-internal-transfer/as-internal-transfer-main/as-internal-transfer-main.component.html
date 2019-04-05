@@ -1,3 +1,53 @@
-<p>
-  as-internal-transfer-main works!
-</p>
+<div class="example-container"
+  [ngClass]="headerPanelVisible ? 'scrollable-small' : 'scrollable-large'">
+  <div *ngIf="(asInternalTransferCouple$ | async).dataInfos.datas as couples">
+    <div >
+      <mat-accordion class='example-headers-align'>
+          <mat-expansion-panel *ngFor="let couple of couples" >
+            <mat-expansion-panel-header
+              [ngClass]="couple.asSecond==null ? 'bg-color' : 'bg-color-none'"
+            >
+              <mat-panel-title 
+                [ngClass]="couple.asSecond==null ? 'bg-color' : 'bg-color-none'"
+              >
+                <mat-icon *ngIf="couple.asSecond==null" class="red-icon">warning</mat-icon>
+                <mat-icon *ngIf="couple.asSecond!=null" class="green-icon">check_circle</mat-icon>
+              </mat-panel-title>
+
+              <mat-panel-description
+                [ngClass]="couple.asSecond==null ? 'bg-color' : 'bg-color-none'"
+              >
+              <div>{{couple.asFirst.labelOperation}} </div>
+                
+                
+              </mat-panel-description>
+              
+              <mat-panel-description
+              [ngClass]="couple.asSecond==null ? 'bg-color' : 'bg-color-none'">
+                <div>{{couple.asFirst.dateIntegration | date:'dd/MM/yyyy'}}</div>
+                <div>{{couple.asFirst.amountOperation}} €</div>
+              </mat-panel-description>
+
+            </mat-expansion-panel-header>
+            <div *ngIf="couple.asSecond!=null">
+                <div fxLayout="row" *ngIf="couple.asFirst.amountOperation>0">
+                    <mat-icon class="green-icon">subdirectory_arrow_left</mat-icon>
+                    Réception depuis le compte:
+                </div>
+                <div fxLayout="row" *ngIf="couple.asFirst.amountOperation<0">
+                    <mat-icon class="red-icon">subdirectory_arrow_right</mat-icon>
+                    <div >Emission vers le compte:</div>
+                </div>
+                <div><b fxFlex="30">Banque:</b> {{couple.asSecond.bankAgency.label}}</div>
+                <div><b fxFlex="30">Agence bancaire:</b> {{couple.asSecond.account.label}}</div>
+                <div><b fxFlex="30">Libellé opération:</b> {{couple.asSecond.labelOperation}}</div>
+                <div><b fxFlex="30">Date opération:</b> {{couple.asSecond.dateIntegration | date:'dd/MM/yyyy'}} </div>
+                <div><b fxFlex="30">Montant opération:</b> {{couple.asSecond.amountOperation}} € </div>   
+            </div>
+            
+          </mat-expansion-panel>
+          <br>
+      </mat-accordion>
+    </div>
+  </div>
+</div>

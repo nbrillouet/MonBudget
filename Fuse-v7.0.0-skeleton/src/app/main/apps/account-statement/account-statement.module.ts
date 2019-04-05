@@ -27,6 +27,7 @@ import { AsChartState } from 'app/main/_ngxs/account-statement/account-statement
 import { AsChartEvolutionComponent } from './account-statement-chart/as-chart-evolution/as-chart-evolution.component';
 import { AsInternalTransferCoupleComponent } from './account-statement-internal-transfer/as-internal-transfer-couple/as-internal-transfer-couple.component';
 import { AsInternalTransferMainComponent } from './account-statement-internal-transfer/as-internal-transfer-main/as-internal-transfer-main.component';
+import { AsInternalTransferState } from 'app/main/_ngxs/account-statement/account-statement-internal-transfer/as-internal-transfer.state';
 
 
 const routes = [
@@ -70,7 +71,8 @@ const routes = [
       AsTableState,
       AsDetailState,
       AsSoldeState,
-      AsChartState
+      AsChartState,
+      AsInternalTransferState
   ])
     
   ],

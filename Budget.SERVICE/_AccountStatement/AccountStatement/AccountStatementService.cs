@@ -158,7 +158,6 @@ namespace Budget.SERVICE
             var dateMax = DateHelper.GetLastDayOfMonth(date);
             var solde = GetSolde(filter.IdUser, filter.IdAccount, dateMin, dateMax, filter.IsWithITransfer);
 
-            var t = GetAsInternalTransfer(filter);
             return solde;
         }
 
@@ -184,8 +183,8 @@ namespace Budget.SERVICE
                 }
 
                 InternalTransferDto internalTransferDto = new InternalTransferDto() {
-                    asFirst= asDtoFirst,
-                    asSecond = asDtoSecond
+                    AsFirst= asDtoFirst,
+                    AsSecond = asDtoSecond
                 };
                 internalTransferDtos.Add(internalTransferDto);
 

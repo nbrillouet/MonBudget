@@ -40,58 +40,6 @@ namespace Budget.DATA.Migrations
                     b.ToTable("AsEvolutionDto");
                 });
 
-            modelBuilder.Entity("Budget.MODEL.BankAgency", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AdviserFirstName")
-                        .HasColumnName("ADVISER_FIRST_NAME")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("AdviserFixedPhone")
-                        .HasColumnName("ADVISER_FIXED_PHONE")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("AdviserLastName")
-                        .HasColumnName("ADVISER_LAST_NAME")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("AdviserMail")
-                        .HasColumnName("ADVISER_MAIL")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("AdviserMobilePhone")
-                        .HasColumnName("ADVISER_MOBILE_PHONE")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("FolderFileSave")
-                        .HasColumnName("FOLDER_FILE_SAVE");
-
-                    b.Property<int>("IdGMapAddress")
-                        .HasColumnName("ID_GMAP_ADDRESS");
-
-                    b.Property<string>("LabelLong")
-                        .HasColumnName("LABEL_LONG")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("LabelShort")
-                        .HasColumnName("LABEL_SHORT")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("LogoClassName")
-                        .HasColumnName("LOGO_CLASS_NAME")
-                        .HasMaxLength(30);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdGMapAddress");
-
-                    b.ToTable("BANK_AGENCY","ref");
-                });
-
             modelBuilder.Entity("Budget.MODEL.Database.Account", b =>
                 {
                     b.Property<int>("Id")
@@ -368,6 +316,87 @@ namespace Budget.DATA.Migrations
                     b.ToTable("ACCOUNT_TYPE","ref");
                 });
 
+            modelBuilder.Entity("Budget.MODEL.Database.BankAgency", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdviserFirstName")
+                        .HasColumnName("ADVISER_FIRST_NAME")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("AdviserFixedPhone")
+                        .HasColumnName("ADVISER_FIXED_PHONE")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("AdviserLastName")
+                        .HasColumnName("ADVISER_LAST_NAME")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("AdviserMail")
+                        .HasColumnName("ADVISER_MAIL")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("AdviserMobilePhone")
+                        .HasColumnName("ADVISER_MOBILE_PHONE")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("FolderFileSave")
+                        .HasColumnName("FOLDER_FILE_SAVE");
+
+                    b.Property<int>("IdBankFamily")
+                        .HasColumnName("ID_BANK_FAMILY");
+
+                    b.Property<int>("IdGMapAddress")
+                        .HasColumnName("ID_GMAP_ADDRESS");
+
+                    b.Property<string>("LabelLong")
+                        .HasColumnName("LABEL_LONG")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("LabelShort")
+                        .HasColumnName("LABEL_SHORT")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("LogoClassName")
+                        .HasColumnName("LOGO_CLASS_NAME")
+                        .HasMaxLength(30);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdBankFamily");
+
+                    b.HasIndex("IdGMapAddress");
+
+                    b.ToTable("BANK_AGENCY","ref");
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.BankFamily", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LabelLong")
+                        .HasColumnName("LABEL_LONG")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("LabelShort")
+                        .HasColumnName("LABEL_SHORT")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("LogoClassName")
+                        .HasColumnName("LOGO_CLASS_NAME")
+                        .HasMaxLength(30);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BANK_FAMILY","ref");
+                });
+
             modelBuilder.Entity("Budget.MODEL.Database.BankFileDefinition", b =>
                 {
                     b.Property<int>("Id")
@@ -386,6 +415,8 @@ namespace Budget.DATA.Migrations
                         .HasColumnName("LABEL_ORDER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdBankFamily");
 
                     b.ToTable("BANK_FILE_DEFINITION","ref");
                 });
@@ -1349,14 +1380,6 @@ namespace Budget.DATA.Migrations
                     b.ToTable("USER_SHORTCUT","user");
                 });
 
-            modelBuilder.Entity("Budget.MODEL.BankAgency", b =>
-                {
-                    b.HasOne("Budget.MODEL.Database.GMapAddress", "GMapAddress")
-                        .WithMany()
-                        .HasForeignKey("IdGMapAddress")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Budget.MODEL.Database.Account", b =>
                 {
                     b.HasOne("Budget.MODEL.Database.AccountType", "AccountType")
@@ -1364,7 +1387,7 @@ namespace Budget.DATA.Migrations
                         .HasForeignKey("IdAccountType")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Budget.MODEL.BankAgency", "BankAgency")
+                    b.HasOne("Budget.MODEL.Database.BankAgency", "BankAgency")
                         .WithMany("Accounts")
                         .HasForeignKey("IdBankAgency")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -1410,7 +1433,7 @@ namespace Budget.DATA.Migrations
 
             modelBuilder.Entity("Budget.MODEL.Database.AccountStatementImport", b =>
                 {
-                    b.HasOne("Budget.MODEL.BankAgency", "BankAgency")
+                    b.HasOne("Budget.MODEL.Database.BankAgency", "BankAgency")
                         .WithMany()
                         .HasForeignKey("IdBankAgency")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -1468,6 +1491,27 @@ namespace Budget.DATA.Migrations
                     b.HasOne("Budget.MODEL.Database.Plan", "Plan")
                         .WithMany()
                         .HasForeignKey("IdPlan")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.BankAgency", b =>
+                {
+                    b.HasOne("Budget.MODEL.Database.BankFamily", "BankFamily")
+                        .WithMany()
+                        .HasForeignKey("IdBankFamily")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.GMapAddress", "GMapAddress")
+                        .WithMany()
+                        .HasForeignKey("IdGMapAddress")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.BankFileDefinition", b =>
+                {
+                    b.HasOne("Budget.MODEL.Database.BankFamily", "BankFamily")
+                        .WithMany()
+                        .HasForeignKey("IdBankFamily")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

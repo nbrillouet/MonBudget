@@ -11,10 +11,12 @@ namespace Budget.MODEL.Database
     {
         [Column("ID")]
         public int Id { get; set; }
+
         [Column("ID_BANK_FAMILY")]
         public int IdBankFamily { get; set; }
-        //[ForeignKey("IdBank")]
-        //public Bank Bank { get; set; }
+
+        [ForeignKey("IdBankFamily")]
+        public BankFamily BankFamily { get; set; }
         [Column("LABEL_FIELD")]
         [StringLength(50)]
         public string LabelField { get; set; }

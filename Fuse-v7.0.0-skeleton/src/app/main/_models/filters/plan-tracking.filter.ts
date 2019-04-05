@@ -1,4 +1,4 @@
-import { IMonthYear } from "../date-time.model";
+import { IMonthYear } from "../generics/date-time.model";
 
 export class FilterPlanTracking {
     idPlan: number;

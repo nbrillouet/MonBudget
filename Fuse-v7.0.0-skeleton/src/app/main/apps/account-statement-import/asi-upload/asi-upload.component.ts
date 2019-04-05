@@ -2,10 +2,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { NotificationsService } from 'angular2-notifications';
 import { IUser } from 'app/main/_models/user.model';
-import { IAsifGroupByAccounts } from 'app/main/_models/account-statement-import-file.model';
+
 import { AuthService } from 'app/main/_services/auth.service';
 import { environment } from 'environments/environment';
 import { fuseAnimations } from '@fuse/animations';
+import { IAsifGroupByAccounts } from 'app/main/_models/account-statement-import/account-statement-import-file.model';
 
 @Component({
   selector: 'asi-upload',

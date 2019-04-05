@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
-import { DateTimeFactory, IMonthYear, MonthYear } from 'app/main/_models/date-time.model';
+import { DateTimeFactory, IMonthYear, MonthYear } from 'app/main/_models/generics/date-time.model';
 import { SelectYear, ISelect } from 'app/main/_models/generics/select.model';
 
 @Component({
