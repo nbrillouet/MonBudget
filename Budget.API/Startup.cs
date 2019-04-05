@@ -267,9 +267,24 @@ namespace Budget.API
             });
             //app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
+            
             app.UseAuthentication();
 
-            app.UseMvc();
+            //utilisation du wwwRoot:
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseMvc(routes =>
+            {
+                routes.MapSpaFallbackRoute(
+                    name:"spa-fallback",
+                    defaults: new {controller = "Fallback", action="Index"}
+                    );
+            });
+            //--
+
+
+            //sans utilisation root:
+            //app.UseMvc();
         }
     }
 }
