@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Budget.HELPER1\Budget.HELPER.csproj" />
+    <ProjectReference Include="..\Budget.HELPER\Budget.HELPER.csproj" />
     <ProjectReference Include="..\Budget.MODEL\Budget.MODEL.csproj" />
   </ItemGroup>
 

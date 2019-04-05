@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Budget.MODEL", "Budget.MODE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Budget.SERVICE", "Budget.SERVICE\Budget.SERVICE.csproj", "{D327D8DE-9C88-47C5-9AB0-1C79114DEE6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Budget.HELPER", "Budget.HELPER1\Budget.HELPER.csproj", "{AB8AB9EF-BD71-499C-A494-4E50A7075CEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Budget.HELPER", "Budget.HELPER\Budget.HELPER.csproj", "{AB8AB9EF-BD71-499C-A494-4E50A7075CEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
