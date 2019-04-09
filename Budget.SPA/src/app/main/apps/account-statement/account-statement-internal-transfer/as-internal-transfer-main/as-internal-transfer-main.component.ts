@@ -19,7 +19,7 @@ export class AsInternalTransferMainComponent implements OnInit, OnChanges {
   @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
   @Select(AsInternalTransferState.get) asInternalTransferCouple$: Observable<DetailInfo<InternalTransferCouple[],FilterAsTableSelected>>;
   
-  @Input() headerPanelVisible: boolean;
+  @Input() headerPanelIsVisible: boolean;
   
   constructor(
     private _store: Store
@@ -36,6 +36,6 @@ export class AsInternalTransferMainComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.headerPanelVisible = changes.headerPanelVisible.currentValue;
+    this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
   }
 }

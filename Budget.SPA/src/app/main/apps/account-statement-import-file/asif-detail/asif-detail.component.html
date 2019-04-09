@@ -60,7 +60,7 @@
 
                     <mat-tab-group>
                         <mat-tab label="Détail">
-                            <div class="tab-content p-24" fusePerfectScrollbar>
+                            <div class="example-container tab-content p-24" >
                             <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
                                 <mat-label>Libellé opération</mat-label>
                                 <input matInput
@@ -93,7 +93,7 @@
                         </mat-tab>
 
                         <mat-tab label="Classification">
-                            <div class="tab-content p-24" fusePerfectScrollbar>
+                            <div class="example-container tab-content p-24">
                                 <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
                                     <mat-label>Méthodes d'opération</mat-label>
                                     <mat-select formControlName="operationMethod" placeholder="Méthodes d'opération" [compareWith]="compareObjects" >
@@ -269,7 +269,7 @@
                         </mat-tab>
                         
                         <mat-tab label="Géolocalisation" [disabled]="asifDetail && !asifDetail.isLocalisable">
-                            <div class="tab-content p-24" fusePerfectScrollbar>
+                            <div class="example-container tab-content p-24" >
                                 <mat-error *ngIf="asifDetailForm.get('operationPlace').errors && asifDetailForm.get('operationPlace').hasError('isUnknown')">
                                     <p>La sélection ne doit pas être inconnue</p>
                                 </mat-error>

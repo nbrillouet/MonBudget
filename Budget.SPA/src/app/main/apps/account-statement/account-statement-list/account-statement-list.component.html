@@ -1,12 +1,11 @@
   
 <div class="example-container"
-    [ngClass]="headerPanelVisible ? 'scrollable-small' : 'scrollable-large'">
+    [ngClass]="headerPanelIsVisible ? 'scrollable-small' : 'scrollable-large'">
     <mat-table class="mat-table"
         #table [dataSource]="dataSource"
         [@animateStagger]="{value:'50'}"
         matSort matSortActive="id" matSortDirection="asc" matSortDisableClear 
         (matSortChange)="onSortChangeEvent($event)"
-        
     >
 
     <!-- id -->

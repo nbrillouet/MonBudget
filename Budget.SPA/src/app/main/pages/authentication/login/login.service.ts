@@ -11,7 +11,7 @@ import { AuthService } from 'app/main/_services/auth.service';
 
 @Injectable()
 export class LoginService {
-    baseUrl = 'http://localhost:5001/api/auth/'
+    // baseUrl = 'http://localhost:5001/api/auth/'
     userToken: any;
     currentUser: IUser;
 

@@ -74,10 +74,10 @@ fuseConfig:any;
 
       //prendre en compte le fuseConfig
       this._fuseConfigService.config
-            .subscribe((config) => {
-                // Update the stored config
-                this.fuseConfig = config;
-            });
+      .subscribe((config) => {
+          // Update the stored config
+          this.fuseConfig = config;
+      });
 
   }
 

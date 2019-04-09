@@ -1,5 +1,5 @@
 <div class="example-container"
-  [ngClass]="headerPanelVisible ? 'scrollable-small' : 'scrollable-large'">
+  [ngClass]="headerPanelIsVisible ? 'scrollable-small' : 'scrollable-large'">
   <div *ngIf="(asInternalTransferCouple$ | async).dataInfos.datas as couples">
     <div >
       <mat-accordion class='example-headers-align'>

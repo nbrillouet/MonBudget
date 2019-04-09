@@ -29,7 +29,7 @@ export class AccountStatementListComponent implements OnInit, OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  @Input() headerPanelVisible: boolean;
+  @Input() headerPanelIsVisible: boolean;
 
   dataSource = new MatTableDataSource<AsTable>();// AsifDataSource;
   filterAs: FilterAsTable;
@@ -56,7 +56,7 @@ export class AccountStatementListComponent implements OnInit, OnChanges {
   }
   
   ngOnChanges(changes: SimpleChanges) {
-    this.headerPanelVisible = changes.headerPanelVisible.currentValue;
+    this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
   }
 
   onPageChangeEvent(event) {

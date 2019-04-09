@@ -22,6 +22,7 @@ import { AsifService } from '../asif.service';
 import { LoadAsifTableDatas } from 'app/main/_ngxs/account-statement-import-file/asif-list/asif-list.action';
 import { IUser } from 'app/main/_models/user.model';
 import { OperationTransverse } from 'app/main/_models/referential/operation-transverse.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'asif-detail',
@@ -134,14 +135,31 @@ isNewOperationTransverseTemplate: boolean;
           this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
         });
 
-      this.asifDetailForm.get('amountOperation')
-      .valueChanges
-      .subscribe(val=> {
-        console.log('this.asifDetail',this.asifDetail);
-        this.asifDetail.amountOperation = val;
+      // this.asifDetailForm.get('amountOperation')
+      //   .valueChanges
+      //   .subscribe(val=> {
+      //     this.asifDetail.amountOperation = val;
+      //     this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
+      //   });
+      
+      this.asifDetailForm.valueChanges.subscribe(val=>{
+        this.asifDetail.operationMethod.selected = val.operationMethod;
+        this.asifDetail.operationTypeFamily.selected = val.operationTypeFamily;
+        this.asifDetail.operationType.selected = val.operationType;
+        this.asifDetail.operation.selected = val.operation;
+        this.asifDetail.operationTransverse.listSelected = val.operationTransverse;
+        this.asifDetail.amountOperation = val.amountOperation;
+        this.asifDetail.labelOperation = val.labelOperation;
+        this.asifDetail.dateIntegration = moment(val.dateIntegration,'DD/MM/YYYY').toDate();
+        this.asifDetail.operationKeywordTemp = val.operationKeywordTemp;
+        this.asifDetail.placeKeywordTemp = val.placeKeywordTemp;
+        this.asifDetail.placeKeywordTemp = val.placeKeywordTemp;
+        this.asifDetail.operationPlace.selected = val.operationPlace;
+
+        console.log('val',val);
+        console.log('new Date(val.dateIntegration)',moment(val.dateIntegration,'DD/MM/YYYY'));
         this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
       });
-
  
       this.operationAddForm = this._formBuilder.group({
         operationLabelTemp: [this.asifDetail.operationLabelTemp,[Validators.required]]

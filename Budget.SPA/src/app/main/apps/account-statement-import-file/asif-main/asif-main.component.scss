@@ -1,5 +1,50 @@
 @import 'src/@fuse/scss/fuse';
 
+.header-1-background {
+    background-color: #9B9B9B;
+    background: url('/assets/images/backgrounds/bck_1.png') no-repeat;
+}
+
+.header-2-background {
+    background-color: #9B9B9B;
+    background: url('/assets/images/backgrounds/bck_22.png') no-repeat;
+    min-height:120px !important;
+    max-height:120px !important;
+    height:120px !important;
+}
+
+.test {
+    background: url('/assets/images/backgrounds/bck_21.png') no-repeat;
+}
+
+.selected-project {
+    // position: absolute;
+    bottom: 0px;
+    left:42px;
+    background: rgba(0, 0, 0, 0.12);
+    color: #FFFFFF;
+
+    padding: 8px 16px;
+    height: 40px;
+    line-height: 24px;
+    font-size: 16px;
+    border-radius: 0 8px 0 0;
+}
+
+.project-selector {
+    // position: absolute;
+    left:0px;
+    bottom: 0px;
+
+    margin-left: 1px;
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 8px 0 0 0;
+    mat-icon {
+        color: #FFFFFF;
+    }
+}
+
 #products {
 
     .header {
@@ -14,30 +59,8 @@
             max-height: 176px !important;
         }
 
-        .selected-project {
-            position: absolute;
-            bottom: 0px;
-            left:42px;
-            background: rgba(0, 0, 0, 0.12);
-            color: #FFFFFF;
-            padding: 8px 16px;
-            height: 40px;
-            line-height: 24px;
-            font-size: 16px;
-            border-radius: 0 8px 0 0;
-        }
-        .project-selector {
-            position: absolute;
-            left:0px;
-            bottom: 0px;
-            margin-left: 1px;
-            border-radius: 0;
-            background: rgba(0, 0, 0, 0.12);
-            border-radius: 8px 0 0 0;
-            mat-icon {
-                color: #FFFFFF;
-            }
-        }
+        
+        
     }
 
     .content {

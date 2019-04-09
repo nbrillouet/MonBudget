@@ -1,6 +1,8 @@
  
- <div class="example-container"> 
-<!-- <div class="table-scrolled">  -->
+ <div class="example-container"
+    [ngClass]="headerPanelIsVisible ? 'scrollable-small' : 'scrollable-large'"
+ > 
+
     <mat-table 
             #table [dataSource]="dataSource"
             [@animateStagger]="{value:'50'}"

@@ -9,6 +9,7 @@ import { AsifTableFilterState } from 'app/main/_ngxs/account-statement-import-fi
 import { Observable } from 'rxjs';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterAsifTable } from 'app/main/_models/filters/account-statement-import-file.filter';
+import { FuseConfigService } from '@fuse/services/config.service';
 
 @Component({
   selector: 'asif-main',
@@ -24,13 +25,18 @@ export class AsifMainComponent implements OnInit {
   filterAsif: FilterAsifTable;
   loading: boolean;
 
+  headerPanelIsVisible: boolean = false;
+  headerPanelIcon:string;
+  fuseConfig:any;
+
   constructor(
-    private activatedRoute: ActivatedRoute,
+    private _activatedRoute: ActivatedRoute,
     private _asifService: AsifService,
     private _store: Store,
-    private _notificationService: NotificationsService
+    private _notificationService: NotificationsService,
+    private _fuseConfigService: FuseConfigService
   ) {
-    this.activatedRoute.params.subscribe(routeParams => {
+    this._activatedRoute.params.subscribe(routeParams => {
       this.filterAsif = new FilterAsifTable();
       this.filterAsif.selected.idImport=routeParams['idImport'];
       this._store.dispatch(new LoadAsifTableFilter(this.filterAsif));
@@ -41,6 +47,15 @@ export class AsifMainComponent implements OnInit {
     this.asifTableFilter$.subscribe(asifTableFilter=>{
       this.filterAsif = asifTableFilter.filters;
     });
+
+    //prendre en compte le fuseConfig
+    this._fuseConfigService.config
+    .subscribe((config) => {
+        // Update the stored config
+        this.fuseConfig = config;
+    });
+
+    this.onHeaderPanelClick();
   }
 
   AccountChange($event) {
@@ -63,6 +78,14 @@ export class AsifMainComponent implements OnInit {
       this._notificationService.error('Echec de l\'enregistrement', error);
       this.loading=false;
     });
+
+  }
+
+  onHeaderPanelClick() {
+    this.headerPanelIsVisible = this.headerPanelIsVisible ? false : true;
+    this.headerPanelIcon = this.headerPanelIsVisible ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
+    this.fuseConfig.layout.toolbar.hidden=!this.headerPanelIsVisible;
+    this._fuseConfigService.setConfig(this.fuseConfig);
 
   }
  

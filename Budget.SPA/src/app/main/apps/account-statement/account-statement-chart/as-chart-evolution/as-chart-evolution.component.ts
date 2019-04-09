@@ -20,7 +20,7 @@ import { UpdateAsChartEvolutionCustomOtfFilter } from 'app/main/_ngxs/account-st
 export class AsChartEvolutionComponent implements OnInit,OnChanges {
   @Select(AsChartState.get) asChart$: Observable<DataInfo<AsChart>>;
 
-  @Input() headerPanelVisible: boolean;
+  @Input() headerPanelIsVisible: boolean;
 
   customOtfForm: FormGroup;
 
@@ -67,9 +67,9 @@ export class AsChartEvolutionComponent implements OnInit,OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('changes.headerPanelVisible',changes.headerPanelVisible);
-    // const name: SimpleChange = changes.headerPanelVisible;
-    this.headerPanelVisible = changes.headerPanelVisible.currentValue;;
+    console.log('changes.headerPanelIsVisible',changes.headerPanelIsVisible);
+    // const name: SimpleChange = changes.headerPanelIsVisible;
+    this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;;
   }
 
   onChanges() {

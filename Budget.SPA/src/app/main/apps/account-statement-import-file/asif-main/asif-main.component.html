@@ -1,26 +1,29 @@
 <div id="products" class="page-layout carded fullwidth inner-scroll">
 
   <!-- TOP BACKGROUND -->
-  <div class="top-bg accent"></div>
+  <div class="top-bg accent header-1-background"></div>
   <!-- / TOP BACKGROUND -->
 
     <!-- CENTER -->
     <div class="center">
+        <div style="height:15px;text-align:center;cursor:pointer;" class="test accent" (click)="onHeaderPanelClick()">
+            <mat-icon style="font-size:20px;margin-top:-2px;">{{headerPanelIcon}}</mat-icon>
+        </div>
         <!-- HEADER -->
-        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
-            <div fxLayout="row" fxLayoutAlign="start center">
-                <div class="left-side" style="margin-bottom:30px;" fxLayout="row" *ngIf="loading">
-                    <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+        <div *ngIf="headerPanelIsVisible" class="header-2-background accent p-12 pb-0 pt-6"   >
+            <div fxLayout="row" fxLayoutAlign="space-between start" >
+                <div class="left-side" fxLayout="row" *ngIf="loading">
+                    <div fxLayout="row" fxLayoutAlign="start center">
                         <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Enregistrement des relevés</span>
                     </div>
                 </div>
 
-                <div class="left-side" style="margin-bottom:30px;" fxLayout="row" *ngIf="!loading">
-                    <button class="mr-0 mr-sm-16" mat-icon-button [routerLink]="'/apps/account-statement-imports'">
+                <div style="height:70px;" fxLayout="row" fxLayoutAlign="space-between start" *ngIf="!loading">
+                    <button  mat-icon-button [routerLink]="'/apps/account-statement-imports'">
                         <mat-icon>arrow_back</mat-icon>
                     </button>
 
-                    <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center"
+                    <div fxLayout="row" fxLayoutAlign="start center"
                         *ngIf="(asifTableFilter$ | async).loadingInfo.loaded"
                     >
                         <div  fxLayout="column">
@@ -33,41 +36,44 @@
                     </div>
                 </div>
 
-                <div fxLayout="row" *ngIf="(asifTableFilter$ | async).loadingInfo.loaded && (asifTableFilter$ | async).filters.accounts as accounts">
-
-                    <div class="selected-project">{{(asifTableFilter$ | async).filters.selected.account.label}}</div>
-
-                    <button mat-icon-button 
-                        class="project-selector" 
-                        [matMenuTriggerFor]="projectsMenu"
-                        aria-label="Select project">
-                        <mat-icon>more_horiz</mat-icon>
-                    </button>
-
-                    <mat-menu #projectsMenu="matMenu">
-                        <button mat-menu-item *ngFor="let account of accounts" (click)="AccountChange(account)"  >
-                            <span>{{account.label}}</span>
-                        </button>
-                    </mat-menu>
-
-                </div>
+                <button mat-raised-button 
+                    class="save-product-button white mt-16 mt-sm-0"
+                    (click)="SaveInAccountStatement()"
+                    [disabled]="loading"
+                    >
+                <span>SAUVEGARDER</span>
+            
+                </button>
+                
 
             </div>
 
-            <button mat-raised-button style="margin-bottom:30px;"
-                class="save-product-button white mt-16 mt-sm-0"
-                (click)="SaveInAccountStatement()"
-                [disabled]="loading">
-                <span>SAUVEGARDER</span>
-            
-            </button>
+            <div fxLayout="row" *ngIf="(asifTableFilter$ | async).loadingInfo.loaded && (asifTableFilter$ | async).filters.accounts as accounts">
+
+                <div class="selected-project">{{(asifTableFilter$ | async).filters.selected.account.label}}</div>
+
+                <button mat-icon-button 
+                    class="project-selector" 
+                    [matMenuTriggerFor]="projectsMenu"
+                    aria-label="Select project">
+                    <mat-icon>more_horiz</mat-icon>
+                </button>
+
+                <mat-menu #projectsMenu="matMenu">
+                    <button mat-menu-item *ngFor="let account of accounts" (click)="AccountChange(account)"  >
+                        <span>{{account.label}}</span>
+                    </button>
+                </mat-menu>
+
+            </div>
+   
 
         </div>
         <!-- / HEADER -->
             
         <div class="content-card">
             <!-- <div *ngIf="(asifTableFilter$ | async).loadingInfo.loaded"> -->
-                <asif-state style="height:100%;" ></asif-state>
+            <asif-state [headerPanelIsVisible]="headerPanelIsVisible" style="height:100%;" ></asif-state>
             <!-- </div> -->
 
             <div class="spinner-container" *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">

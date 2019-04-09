@@ -1,5 +1,17 @@
 @import 'src/@fuse/scss/fuse';
 
+.header-1-background {
+    background-color: #9B9B9B;
+    background: url('/assets/images/backgrounds/bck_1.png') no-repeat;
+}
+.header-2-background {
+    background-color: #9B9B9B;
+    background: url('/assets/images/backgrounds/bck_2.png') no-repeat;
+    min-height:120px !important;
+    max-height:120px !important;
+    height:120px !important;
+}
+
 #products {
 
     .header {

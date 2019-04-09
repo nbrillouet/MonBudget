@@ -239,6 +239,22 @@ namespace Budget.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                //Add our new middleware to the pipeline
+                app.UseMiddleware<RequestTrackerMiddleware>();
+                //Add Cors
+                app.UseCors(builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                });
+                //app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
+                //Add Authentication
+                app.UseAuthentication();
+
+                //Add Mvc
+                app.UseMvc();
             }
             else
             {
@@ -256,30 +272,56 @@ namespace Budget.API
                         }
                     });
                 });
+
+                //Add our new middleware to the pipeline
+                app.UseMiddleware<RequestTrackerMiddleware>();
+                //Add Cors
+                app.UseCors(builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                });
+                //app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
+                //Add Authentication
+                app.UseAuthentication();
+
+                //utilisation du wwwRoot pour production:
+                app.UseDefaultFiles();
+                app.UseStaticFiles();
+                app.UseMvc(routes =>
+                {
+                    routes.MapSpaFallbackRoute(
+                        name: "spa-fallback",
+                        defaults: new { controller = "Fallback", action = "Index" }
+                        );
+                });
+                //--
             }
 
-            //Add our new middleware to the pipeline
-            app.UseMiddleware<RequestTrackerMiddleware>();
-            app.UseCors(builder =>
-            {
-                builder.WithOrigins("http://localhost:4200")
-                .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
-            });
-            //app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            ////Add our new middleware to the pipeline
+            //app.UseMiddleware<RequestTrackerMiddleware>();
+            ////Add Cors
+            //app.UseCors(builder =>
+            //{
+            //    builder.WithOrigins("http://localhost:4200")
+            //    .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+            //});
+            ////app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
-            
-            app.UseAuthentication();
+            ////Add Authentication
+            //app.UseAuthentication();
 
-            //utilisation du wwwRoot:
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
-            app.UseMvc(routes =>
-            {
-                routes.MapSpaFallbackRoute(
-                    name:"spa-fallback",
-                    defaults: new {controller = "Fallback", action="Index"}
-                    );
-            });
+            ////utilisation du wwwRoot pour production:
+            //app.UseDefaultFiles();
+            //app.UseStaticFiles();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapSpaFallbackRoute(
+            //        name:"spa-fallback",
+            //        defaults: new {controller = "Fallback", action="Index"}
+            //        );
+            //});
             //--
 
 

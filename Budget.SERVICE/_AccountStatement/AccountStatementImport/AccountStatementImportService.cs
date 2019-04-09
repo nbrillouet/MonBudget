@@ -212,22 +212,26 @@ namespace Budget.SERVICE
             //if (accountStatementImport.Id == 0)
             //{
                 //Enregistrement
-                var asi = _accountStatementImportRepository.CreateWithTran(accountStatementImport);
-                accountStatementImport = _accountStatementImportRepository.GetById(asi.Id);
+            var asi = _accountStatementImportRepository.CreateWithTran(accountStatementImport);
+            accountStatementImport = _accountStatementImportRepository.GetById(asi.Id);
 
-                //Enregistrement du fichier
-                //chemin d'enregistrement
-                string dir = _parameterService.GetImportFileDir(accountStatementImport.User.Id);
-                dir = dir + accountStatementImport.BankAgency.LabelShort + "\\";
-                accountStatementImport.File.DiscardBufferedData();
+            //Enregistrement du fichier
+            //chemin d'enregistrement
+            string dir = _parameterService.GetImportFileDir(accountStatementImport.User.Id);
+            if (String.IsNullOrEmpty(dir))
+            {
+                throw new Exception($"Veuillez configurer un dossier de sauvegarde des relevés dans Rérérentiel/utilisateur avant de poursuivre.");
+            }
+            dir = dir + accountStatementImport.BankAgency.LabelShort + "\\";
+            accountStatementImport.File.DiscardBufferedData();
 
-                accountStatementImport.File.BaseStream.Seek(0, SeekOrigin.Begin);
-                using (var writer = new StreamWriter(dir + accountStatementImport.FileImport, append: false, encoding: Encoding.GetEncoding(1252)))
-                {
-                    writer.Write(accountStatementImport.File.ReadToEnd());
-                }
+            accountStatementImport.File.BaseStream.Seek(0, SeekOrigin.Begin);
+            using (var writer = new StreamWriter(dir + accountStatementImport.FileImport, append: false, encoding: Encoding.GetEncoding(1252)))
+            {
+                writer.Write(accountStatementImport.File.ReadToEnd());
+            }
 
-                _accountStatementImportRepository.CreateWithTran(accountStatementImport);
+            _accountStatementImportRepository.CreateWithTran(accountStatementImport);
 
 
            
