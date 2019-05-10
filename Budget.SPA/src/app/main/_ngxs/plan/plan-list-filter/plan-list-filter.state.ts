@@ -1,9 +1,11 @@
-import { State, Selector, Action, StateContext } from "@ngxs/store";
+// import { State, Selector, Action, StateContext } from "app/main/_ngxs/plan/plan-list-filter/node_modules/@ngxs/store";
 import { DataInfo } from "app/main/_models/generics/detail-info.model";
 import { PlanTableComboFilter } from "app/main/_models/Filters/plan.filter";
 import { PlanService } from "app/main/apps/plan/plan.service";
-import { NotificationsService } from "angular2-notifications";
+// import { NotificationsService } from "app/main/_ngxs/plan/plan-list-filter/node_modules/angular2-notifications";
 import { LoadPlanTableComboFilter, LoadPlanTableComboFilterSuccess, ChangePlanTableComboFilter } from "./plan-list-filter.action";
+import { State, Selector, Action, StateContext } from "@ngxs/store";
+import { NotificationsService } from "angular2-notifications";
 
 
 export class PlanTableComboFilterStateModel extends DataInfo<PlanTableComboFilter> {

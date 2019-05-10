@@ -80,18 +80,6 @@ namespace Budget.MODEL.Database
         [Column("DATE_IMPORT")]
         public DateTime DateImport { get; set; }
 
-        [NotMapped]
-        public bool IsLocalisable
-        {
-            get
-            {
-                return (IdOperationMethod == (int)EnumOperationMethod.PaiementCarte || IdOperationMethod == (int)EnumOperationMethod.RetraitCarte);
-            }
-        }
-
-        [NotMapped]
-        public string LabelOperationCopy { get; set; }
-
         [Column("OPERATION_LABEL_TEMP")]
         public string OperationLabelTemp { get; set; }
         [Column("OPERATION_KEYWORD_TEMP")]
@@ -112,11 +100,41 @@ namespace Budget.MODEL.Database
         [Column("IS_DUPLICATED")]
         public bool IsDuplicated { get; set; }
 
+        [NotMapped]
+        public bool IsLocalisable
+        {
+            get
+            {
+                return (IdOperationMethod == (int)EnumOperationMethod.PaiementCarte || IdOperationMethod == (int)EnumOperationMethod.RetraitCarte);
+            }
+        }
+
+        [NotMapped]
+        public string LabelOperationCopy { get; set; }
+
+        [NotMapped]
+        public UnknownId UnknownId { get; set; }
+
+        public AccountStatementImportFile()
+        {
+            UnknownId = new UnknownId();
+        }
+
     }
     public enum EnumAsifState
     {
         Complete = 1,
         MethodLess = 2,
         OperationLess = 3
+    }
+
+    public class UnknownId
+    {
+        public int IdOperationMethod { get; set; }
+        public int IdAccount { get; set; }
+        public int IdOperation { get; set; }
+        public int IdOperationDetail { get; set; }
+        public int IdOperationTypeFamily { get; set; }
+        public int IdOperationType { get; set; }
     }
 }

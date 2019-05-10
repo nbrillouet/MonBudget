@@ -16,11 +16,10 @@ namespace Budget.DATA
         public DbSet<User> User { get; set; }
         public DbSet<UserShortcut> Shortcut { get; set; }
         public DbSet<UserCustomOtf> UserCustomOtf { get; set; }
-
-        public DbSet<BankAgency> BankAgency { get; set; }
+        public DbSet<BankSubFamily> BankAgency { get; set; }
         public DbSet<BankFileDefinition> BankFileDefinition { get; set; }
         public DbSet<BankFamily> BankFamily { get; set; }
-
+        public DbSet<Movement> Movement { get; set; }
         public DbSet<AccountType> AccountType { get; set; }
         public DbSet<Account> Account { get; set; }
         public DbSet<OperationTypeFamily> OperationTypeFamily { get; set; }
@@ -33,17 +32,11 @@ namespace Budget.DATA
         public DbSet<Operation> Operation { get; set; }
         public DbSet<AccountStatement> AccountStatement { get; set; }
         public DbSet<AccountStatementPlan> AccountStatementPlan { get; set; }
-        
-        
         public DbSet<AccountStatementImport> AccountStatementImport { get; set; }
-        
         public DbSet<AccountStatementImportFile> AccountStatementImportFile { get; set; }
         public DbSet<Month> Month { get; set; }
-        
         public DbSet<Parameter> Parameter { get; set; }
         public DbSet<UserAccount> UserAccount { get; set; }
-
-
         public DbSet<GMapAddress> GMapAddress { get; set; }
         public DbSet<GMapAdministrativeAreaLevel1> GMapAdministrativeAreaLevel1 { get; set; }
         public DbSet<GMapAdministrativeAreaLevel2> GMapAdministrativeAreaLevel2 { get; set; }
@@ -99,9 +92,14 @@ namespace Budget.DATA
                 .IsUnique();
 
             modelBuilder.Entity<OperationDetail>()
-                .HasIndex(p => new { p.KeywordOperation, p.KeywordPlace})
+                .HasIndex(p => new { p.KeywordOperation, p.KeywordPlace, p.IdUserGroup })
                 .HasName("IX_Keyword")
                 .IsUnique();
+
+            //modelBuilder.Entity<OperationDetail>()
+            //    .HasIndex(p => new { p.KeywordOperation, p.KeywordPlace,p.IdUser})
+            //    .HasName("IX_Keyword")
+            //    .IsUnique();
 
             modelBuilder.Entity<PlanUser>()
                 .HasIndex(p => new { p.IdPlan, p.IdUser })

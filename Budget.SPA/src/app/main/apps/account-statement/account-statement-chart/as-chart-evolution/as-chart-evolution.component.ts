@@ -79,7 +79,7 @@ export class AsChartEvolutionComponent implements OnInit,OnChanges {
           
           let filter = <AsChartEvolutionCustomOtfFilterSelected> {
             idAccount : this.asChartEvolutionCustomOtfFilter.selected.idAccount,
-            idUser: this.asChartEvolutionCustomOtfFilter.selected.idUser,
+            user: this.asChartEvolutionCustomOtfFilter.selected.user,
             monthYear: this.asChartEvolutionCustomOtfFilter.selected.monthYear,
             operationTypeFamilies:val
           };

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
-import { IUserCurrent, IUser, UserLoaded } from 'app/main/_models/user.model';
+import { IUser, UserLoaded, IUserForLabel } from 'app/main/_models/user.model';
 import { LoadUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.action';
 
 @Injectable()
@@ -33,7 +33,7 @@ export class JwtInterceptor implements HttpInterceptor {
         
     }
 
-    loadCurrentUser(currentUser:IUserCurrent) {
+    loadCurrentUser(currentUser:IUserForLabel) {
 
         this.store.dispatch(new LoadUserDetail(<IUser>currentUser));
         this.userLoaded.isLoaded=true;

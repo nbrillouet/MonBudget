@@ -197,7 +197,7 @@ namespace Budget.SERVICE
             AccountStatementImport accountStatementImport = new AccountStatementImport
             {
                 IdBankAgency = bankAgency.Id,
-                FileImport = String.Format("{0}_{1}.csv", DateTime.Now.ToString("yyyyMMdd"), bankAgency.LabelShort),
+                FileImport = String.Format("{0}_{1}.csv", DateTime.Now.ToString("yyyyMMdd"), bankAgency.BankSubFamily.LabelShort),
                 DateImport = DateTime.Now,
                 File = reader,
                 IdUser = user.Id,
@@ -222,7 +222,7 @@ namespace Budget.SERVICE
             {
                 throw new Exception($"Veuillez configurer un dossier de sauvegarde des relevés dans Rérérentiel/utilisateur avant de poursuivre.");
             }
-            dir = dir + accountStatementImport.BankAgency.LabelShort + "\\";
+            dir = dir + accountStatementImport.BankAgency.BankSubFamily.LabelShort + "\\";
             accountStatementImport.File.DiscardBufferedData();
 
             accountStatementImport.File.BaseStream.Seek(0, SeekOrigin.Begin);
@@ -252,7 +252,7 @@ namespace Budget.SERVICE
                     if (account == null)
                         throw new Exception($"Compte bancaire inconnu: {accountNumber}");
                     if (account.IdBankAgency != firstAccount.BankAgency.Id)
-                        throw new Exception($"Ce compte: {accountNumber}, n'est pas un compte de: {firstAccount.BankAgency.LabelShort}");
+                        throw new Exception($"Ce compte: {accountNumber}, n'est pas un compte de: {firstAccount.BankAgency.BankSubFamily.LabelShort}");
                 }
             }
             else

@@ -23,16 +23,14 @@ namespace Budget.MODEL.Database
         [Column("KEYWORD_PLACE")]
         public string KeywordPlace { get; set; }
 
-        //[Column("ID_OPERATION_PLACE")]
-        //public int IdOperationPlace { get; set; }
-
-        //[ForeignKey("IdOperationPlace")]
-        //public OperationPlace operationPlace { get; set; }
-
         [Column("ID_GMAP_ADDRESS")]
         public int IdGMapAddress { get; set; }
 
         [ForeignKey("IdGMapAddress")]
         public GMapAddress GMapAddress { get; set; }
+        [Column("ID_USER_GROUP")]
+        public int IdUserGroup { get; set; }
+        [Column("IS_MANDATORY")]
+        public bool IsMandatory { get; set; }
     }
 }

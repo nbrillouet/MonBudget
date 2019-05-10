@@ -1,0 +1,104 @@
+<div id="product" class="page-layout carded fullwidth" fusePerfectScrollbar>
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <!-- (click)="movePrevious()" -->
+                <button class="mr-0 mr-sm-16" mat-icon-button 
+                    [routerLink]="['/apps/referential/operations/operation-type-families']">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div class="product-image mr-8 mr-sm-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    <img *ngIf="formLoaded && otfDetail" [src]="'assets/images/Otf/'+otfDetail.logoClassName.selected.label+'_128.png'">
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                     *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2" *ngIf="formLoaded && otfDetail && idOperationTypeFamily!=-1" >
+                        {{otfDetail.label}}
+                    </div>
+                    <div class="h2" *ngIf="formLoaded && otfDetail && idOperationTypeFamily==-1" >
+                            Nouvelle catégorie d'opération
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Détail de la catégorie d'opérations</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+            <button mat-raised-button *ngIf="formLoaded && otfDetail"
+                class="save-product-button mat-white-bg mt-16 mt-sm-0"
+                [disabled]= "otfDetailForm.invalid || otfDetailForm.pristine"
+                (click)="saveOtf()"
+            >
+                <span>ENREGISTRER</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card white">
+
+            <form *ngIf="formLoaded && otfDetail" 
+                name="otfDetailForm" 
+                [formGroup]="otfDetailForm" 
+                class="product w-100-p" 
+                fxLayout="column" fxFlex
+            >
+                <div class="example-container tab-content p-24" >
+
+                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                        <mat-label>Libellé catégorie opération</mat-label>
+                        <input matInput
+                            name="label"
+                            formControlName="label"
+                            placeholder="Libellé catégorie opération">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
+                        <mat-label>Mouvement</mat-label>
+                        <mat-select formControlName="movement" placeholder="Mouvement" [compareWith]="compareObjects" >
+                            <mat-option *ngFor="let item of otfDetail.movement.list" [value]="item">
+                                {{ item.label }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
+                        <mat-label>Icône</mat-label>
+                        <mat-select formControlName="logoClassName" placeholder="Icône" [compareWith]="compareObjects" >
+                            <mat-option *ngFor="let item of otfDetail.logoClassName.list" [value]="item">
+                                <img [src]="'assets/images/Otf/'+item.label+'_32.png'">
+                                {{ item.label }}
+                            </mat-option>
+                        </mat-select>
+                        
+                        
+                        <!-- <div fxLayout="row" fxLayoutAlign="space-between center">
+                            <input matInput>
+                            <img *ngFor="let item of otfDetail.logoClassName.list" [src]="'assets/images/Otf/'+item.label+'_32.png'">
+                            
+                        </div> -->
+                    </mat-form-field>
+                </div>
+
+                </form> 
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+</div>
+
+

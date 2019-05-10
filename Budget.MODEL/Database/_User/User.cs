@@ -36,17 +36,12 @@ namespace Budget.MODEL
         [ForeignKey("IdGMapAddress")]
         public GMapAddress GMapAddress { get; set; }
 
-
-        //[Column("COUNTRY")]
-        //public string Country { get; set; }
-        //[Column("CITY")]
-        //public string City { get; set; }
-        //[Column("POSTAL_CODE")]
-        //public int PostalCode { get; set; }
         [Column("AVATAR_URL")]
         public string AvatarUrl { get; set;}
         [Column("ID_AVATAR_CLOUD")]
         public string IdAvatarCloud { get; set; }
+        [Column("ID_USER_GROUP")]
+        public int IdUserGroup { get; set; }
         public List<UserShortcut> Shortcuts { get; set; }
         public virtual List<UserAccount> UserAccounts { get; set; }
 

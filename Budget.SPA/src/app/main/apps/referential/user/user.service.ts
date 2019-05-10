@@ -4,18 +4,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-// import { environment } from '../../../../../../environments/environment';
-// import { IUser } from '../../../../_models/user.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-// import { AuthHttp } from 'angular2-jwt';
 import { environment } from 'environments/environment';
 import { ErrorService } from 'app/main/_services/error.service';
 import { Pagination, PaginatedResult } from 'app/main/_models/pagination.model';
 import { IUser, UserTable } from 'app/main/_models/user.model';
 import { IUserShortcut } from 'app/main/_models/user-shortcut.model';
-// import { PaginatedResult, Pagination } from '../../../../_models/pagination.model';
-// import { ErrorService } from '../../../../_services/error.service';
-// import { IUserShortcut } from '../../../../_models/user-shortcut.model';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/shareReplay';
 import { FilterUserTableSelected, FilterUserTable } from 'app/main/_models/filters/user.filter';
@@ -26,7 +20,6 @@ export class UserService {
     onUserChanged: BehaviorSubject<any> = new BehaviorSubject({});
 
     constructor(
-        // private authHttp: AuthHttp,
         private http: HttpClient,
         private errorService: ErrorService
     ) { }
@@ -38,7 +31,6 @@ export class UserService {
         .map((response: UserTable) => {
             return response;
         });
-        // .catch(this.errorService.handleError);
     }
 
     getUserTableFilter(filter: FilterUserTableSelected) {

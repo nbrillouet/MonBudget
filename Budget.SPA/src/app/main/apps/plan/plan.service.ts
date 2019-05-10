@@ -18,7 +18,8 @@ import { AsTable } from "app/main/_models/account-statement/account-statement-ta
 
 @Injectable()
 export class PlanService {
-    baseUrl = environment.apiUrl;
+baseUrl = environment.apiUrl;
+user = JSON.parse(localStorage.getItem('currentUser'));
 
     constructor(
         private http: HttpClient,
@@ -78,35 +79,15 @@ export class PlanService {
 
     GetPlanPosteForDetailById(idPlanPoste: number,idPlan:number,idPoste:number) {
         return this.http
-        .get(`${this.baseUrl}plan-postes/${idPlanPoste}/plans/${idPlan}/postes/${idPoste}/plan-poste-detail`)
+        .get(`${this.baseUrl}plan-postes/${idPlanPoste}/users/${this.user.id}/plans/${idPlan}/postes/${idPoste}/plan-poste-detail`)
         .map(response => <PlanPosteForDetail>response)
         .catch(this.errorService.handleError);
     }
 
     GetPlanPosteReferenceByIdReferenceTable(planPosteReferenceFilter:PlanPosteReferenceFilter) {
         return this.http
-            .get(`${this.baseUrl}plan-poste-references/plan-postes/${planPosteReferenceFilter.idPlanPoste}/reference-table/${planPosteReferenceFilter.idReferenceTable}/postes/${planPosteReferenceFilter.idPoste}/combo-reference`)
-            .map(response => <ComboMultiple<ISelectGroup>>response)
-            .catch(this.errorService.handleError);
-        // switch(planPosteReferenceFilter) {
-        //     case 1:
-        //         return this.http
-        //         .get(`${this.baseUrl}referential/operation-type-families/postes/${idPoste}`)
-        //         .map(response => <ListForCombo<ISelectGroup>>response)
-        //         .catch(this.errorService.handleError);
-            
-        //     case 2:
-        //         return this.http
-        //         .get(`${this.baseUrl}referential/operation-types/postes/${idPoste}`)
-        //         .map(response => <ListForCombo<ISelectGroup>>response)
-        //         .catch(this.errorService.handleError);
-
-        //     case 3:
-        //         return this.http
-        //         .get(`${this.baseUrl}referential/operations/postes/${idPoste}`)
-        //         .map(response => <ListForCombo<ISelectGroup>>response)
-        //         .catch(this.errorService.handleError);
-        // }
+            .get(`${this.baseUrl}plan-poste-references/users/${this.user.id}/plan-postes/${planPosteReferenceFilter.idPlanPoste}/reference-table/${planPosteReferenceFilter.idReferenceTable}/postes/${planPosteReferenceFilter.idPoste}/combo-reference`)
+            .map(response => <ComboMultiple<ISelectGroup>>response);
 
     }
 

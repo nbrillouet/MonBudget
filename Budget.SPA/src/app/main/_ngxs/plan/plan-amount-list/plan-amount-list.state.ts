@@ -1,10 +1,12 @@
 import { TableInfo } from "app/main/_models/generics/table-info.model";
 import { AsTable } from "app/main/_models/account-statement/account-statement-table.model";
 import { PlanAmountFilter } from "app/main/_models/filters/plan-amount.filter";
-import { State, Selector, Action, StateContext } from "@ngxs/store";
+// import { State, Selector, Action, StateContext } from "app/main/_ngxs/plan/plan-amount-list/node_modules/@ngxs/store";
 import { PlanService } from "app/main/apps/plan/plan.service";
-import { NotificationsService } from "angular2-notifications";
+// import { NotificationsService } from "app/main/_ngxs/plan/plan-amount-list/node_modules/angular2-notifications";
 import { LoadPlanAmountTableDatas, LoadPlanAmountTableDatasSuccess, ChangePlanAmountTableFilter, ClearPlanAmountTableDatas } from "./plan-amount-list.action";
+import { State, Selector, Action, StateContext } from "@ngxs/store";
+import { NotificationsService } from "angular2-notifications";
 
 export class PlanAmountTableStateModel extends TableInfo<AsTable,PlanAmountFilter> {
     constructor () {

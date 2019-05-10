@@ -12,24 +12,16 @@ import { IGeocode } from '../_models/g-map.model.';
 export class GoogleMapService {
 
     constructor(
-        private http: HttpClient,
-        private errorService: ErrorService) {}
+        private http: HttpClient
+    ) {}
 
     GetGeoById(cityName: string) : Observable<any> {
         
         return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${cityName}&key=AIzaSyD6F176dnusdXdDH35db9iOGGlCiZYNDvw`)
             .map(response => <IGeocode>response);
-            // .catch(this.errorService.handleError);
-  }
 
-
-
-        // return this.http
-        //     .get(`https://httpbin.org/get`)
-            
-            //)
-            //.map(response => <any>response)
-            // .catch(this.errorService.handleError);
     }
 
-// }
+}
+
+

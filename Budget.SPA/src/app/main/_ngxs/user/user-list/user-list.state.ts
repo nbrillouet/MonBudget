@@ -1,10 +1,12 @@
 import { DataInfos } from "app/main/_models/generics/table-info.model";
 import { UserTable } from "app/main/_models/user.model";
-import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
+// import { State, Store, Selector, Action, StateContext } from "app/main/_ngxs/user/user-list/node_modules/@ngxs/store";
 import { UserService } from "app/main/apps/referential/user/user.service";
-import { NotificationsService } from "angular2-notifications";
+// import { NotificationsService } from "app/main/_ngxs/user/user-list/node_modules/angular2-notifications";
 import { LoadUserTableDatas, LoadUserTableDatasSuccess, ClearUserTableDatas } from "./user-list.action";
 import { UpdatePaginationUserTableFilter } from "../user-list-filter/user-list-filter.action";
+import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
+import { NotificationsService } from "angular2-notifications";
 
 export class UserTableStateModel extends DataInfos<UserTable> {
     constructor () {

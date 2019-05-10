@@ -20,22 +20,17 @@ namespace Budget.API.Controllers
     [Route("api/account-statements")]
     public class AccountStatementController : Controller
     {
-        //private readonly IMapper _mapper;
         private readonly IAccountStatementService _accountStatementService;
         private readonly IFilterService _filterService;
 
         public AccountStatementController(
-            //IMapper mapper,
             IAccountStatementService accountStatementService,
             IFilterService filterService
 
             )
         {
-            //_mapper = mapper;
             _accountStatementService = accountStatementService;
             _filterService = filterService;
-
-
         }
 
         [HttpPost]
@@ -58,25 +53,14 @@ namespace Budget.API.Controllers
         }
 
         [HttpGet]
-        [Route("{idAs}/users/{idUser}/detail")]
-        public IActionResult GetAsDetail(int idAs, int idUser)
+        [Route("detail")]
+        public IActionResult GetAsDetail([FromBody] FilterAsDetail filter)
         {
 
-            var asifDto = _accountStatementService.GetAsDetail(idAs, idUser);
+            var asifDto = _accountStatementService.GetAsDetail(filter);
 
             return Ok(asifDto);
         }
-
-
-        //[HttpPost]
-        //[Route("filter")]
-        //public async Task<IActionResult> Get([FromBody] FilterAccountStatement filter)
-        //{
-        //    var pagedList = _accountStatementService.Get(filter);
-
-        //    return Ok(pagedList);
-
-        //}
 
         [HttpPost]
         [Route("solde-filter")]

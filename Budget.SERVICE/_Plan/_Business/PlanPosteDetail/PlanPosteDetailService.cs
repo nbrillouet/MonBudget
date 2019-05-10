@@ -46,7 +46,7 @@ namespace Budget.SERVICE
             _accountStatementPlanService = accountStatementPlanService;
         }
 
-        public PlanPosteForDetailDto GetForDetailById(int id)
+        public PlanPosteForDetailDto GetForDetailById(int idUser, int id)
         {
             var planPoste = _planPosteService.GetById(id);
 
@@ -59,7 +59,7 @@ namespace Budget.SERVICE
 
             planPosteForDetailDto.PlanPosteUser = _planPosteUserService.GetByIdPlanPoste(planPoste.Id);
 
-            planPosteForDetailDto.PlanPosteReference = _planPosteReferenceService.GetListForComboByIdPlanPoste(planPoste.Id, planPoste.ReferenceTable.Id, planPoste.Poste.Id);
+            planPosteForDetailDto.PlanPosteReference = _planPosteReferenceService.GetListForComboByIdPlanPoste(idUser, planPoste.Id, planPoste.ReferenceTable.Id, planPoste.Poste.Id);
 
             planPosteForDetailDto.PlanPosteFrequencies = _planPosteFrequencyService.GetByIdPlanPoste(planPoste.Id);
 
@@ -68,7 +68,7 @@ namespace Budget.SERVICE
             return planPosteForDetailDto;
         }
 
-        public PlanPosteForDetailDto GetForDetailById(int id, int idPlan, int idPoste)
+        public PlanPosteForDetailDto GetForDetailById(int idUser, int id, int idPlan, int idPoste)
         {
             PlanPosteForDetailDto planPosteForDetailDto = new PlanPosteForDetailDto();
             planPosteForDetailDto.IdPlan = idPlan;

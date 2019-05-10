@@ -1,22 +1,15 @@
 ﻿using Budget.MODEL;
 using Budget.MODEL.Database;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Budget.MODEL.Dto;
 
 namespace Budget.SERVICE
 {
     public interface IOperationDetailService 
     {
-        OperationDetail GetForAddressById(int id);
-        OperationDetail GetByIdOperation(int idOperation);
-        OperationDetail GetByKeywordOperation(string operationLabel, int idOperationMethod, EnumMovement enumMovement);
-        OperationDetail GetByKeywords(string operationLabel, int idOperationMethod, EnumMovement enumMovement);
-        KeyLabel GetKeywordPlaceByParsingLabel(AccountStatementImportFile accountStatementImportFile);
-        OperationDetail GetByOperationDetail(OperationDetail operationDetail);
-        OperationDetail FindKeywordPlace(string operationLabel);
-        //OperationDetail Create(OperationDetail operationDetail);
+        OperationDetail GetByKeywordOperation(int idUserGroup, string operationLabel, int idOperationMethod, EnumMovement enumMovement);
+        OperationDetail GetByKeywords(int idUserGroup, string operationLabel, int idOperationMethod, EnumMovement enumMovement);
+        OperationDetail FindKeywordPlace(int idUserGroup, string operationLabel);
+        OperationDetail GetUnknown(int idUserGroup);
         OperationDetail GetOrCreate(OperationDetail operationDetail);
-
     }
 }

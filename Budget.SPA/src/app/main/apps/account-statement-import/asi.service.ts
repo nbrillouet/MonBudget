@@ -11,15 +11,19 @@ import { HttpClient } from '@angular/common/http';
 import { FilterAsiTable, FilterAsiTableSelected } from 'app/main/_models/filters/account-statement-import.filter';
 import { DataInfos } from 'app/main/_models/generics/table-info.model';
 import { AsiTable } from 'app/main/_models/account-statement-import/account-statement-import.model';
+import { IUser } from 'app/main/_models/user.model';
 
 @Injectable()
 export class AsiService {
 baseUrl = environment.apiUrl;
+user : IUser;
 
     constructor(
         private http: HttpClient,
         private errorService: ErrorService
-    ) { }
+    ) { 
+        this.user = JSON.parse(localStorage.getItem('currentUser'));
+    }
     
     getAsiTableFilter(filter: FilterAsiTableSelected) {
         return this.http
@@ -32,8 +36,7 @@ baseUrl = environment.apiUrl;
         .post(`${this.baseUrl}account-statement-import/filter`,filter)
         .map((response: DataInfos<AsiTable>) => {
             return response;
-        })
-        .catch(this.errorService.handleError);
+        });
     }
 
 

@@ -10,34 +10,33 @@ namespace Budget.MODEL.Database
     public class OperationTypeFamily
     {
         [Column("ID")]
-        //[Index("IX_OTF_Id_IdMovement", 1, IsUnique = true)]
         public int Id { get; set; }
 
         [Column("LABEL")]
         [StringLength(50)]
         public string Label { get; set; }
 
-        //[Index("IX_OTF_Id_IdMovement", 2, IsUnique = true)]
         [Column("ID_MOVEMENT")]
         public int IdMovement { get; set; }
+        [ForeignKey("IdMovement")]
+        public Movement Movement { get; set; }
 
         [Column("LOGO_CLASS_NAME")]
         [StringLength(30)]
         public string LogoClassName { get; set; }
 
+        [Column("ID_USER_GROUP")]
+        public int IdUserGroup { get; set; }
+
+        [Column("IS_MANDATORY")]
+        public bool IsMandatory { get; set; }
+
     }
 
-    public enum EnumOperationTypeFamily
-    {
-        //InconnuCredit = 1,
-        //InconnuDebit = 24
-        Inconnu = 1
-    }
+    //public enum EnumOperationTypeFamily
+    //{
+    //    Inconnu = 1
+    //}
 
-    public enum EnumMovement
-    {
-        Credit = 1,
-        Debit = 2,
-        TwoWays = 3
-    }
+
 }

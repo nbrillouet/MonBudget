@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -9,11 +9,11 @@ import { AsifTableFilterState } from 'app/main/_ngxs/account-statement-import-fi
 import { Observable } from 'rxjs';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterAsifTable, FilterAsifDetail } from 'app/main/_models/filters/account-statement-import-file.filter';
-import { LoadAsifDetail, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationType, LoadAsifDetailSuccess } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.action';
+import { LoadAsifDetail, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationType, LoadAsifDetailSuccess, ClearAsifDetail } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.action';
 import { AsifDetailState } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.state';
 import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 import { AsifDetail } from 'app/main/_models/account-statement-import/account-statement-import-file.model';
-import { OperationFilter, IOperation } from 'app/main/_models/operation.model';
+import { IOperation } from 'app/main/_models/referential/operation.model';
 import { GMapSearchInfo } from 'app/main/_models/g-map.model.';
 import { ISelect } from 'app/main/_models/generics/select.model';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
@@ -23,6 +23,7 @@ import { LoadAsifTableDatas } from 'app/main/_ngxs/account-statement-import-file
 import { IUser } from 'app/main/_models/user.model';
 import { OperationTransverse } from 'app/main/_models/referential/operation-transverse.model';
 import * as moment from 'moment';
+import { FilterOperation } from 'app/main/_models/filters/operation.filter';
 
 @Component({
   selector: 'asif-detail',
@@ -30,7 +31,7 @@ import * as moment from 'moment';
   styleUrls: ['./asif-detail.component.scss'],
   animations : fuseAnimations
 })
-export class AsifDetailComponent implements OnInit {
+export class AsifDetailComponent implements OnInit, OnDestroy {
 @Select(AsifDetailState.get) asifDetail$: Observable<DataInfo<AsifDetail>>;
 @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
 
@@ -44,6 +45,7 @@ operationAddForm: FormGroup;
 operationTransverseAddForm: FormGroup;
 isNewOperationTemplate: boolean;
 isNewOperationTransverseTemplate: boolean;
+firstLoad: boolean=true;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -62,10 +64,17 @@ isNewOperationTransverseTemplate: boolean;
 
     this.asifDetail$.subscribe(asifDetail=>{
       if(asifDetail.loadingInfo.loaded) {
+
         this.asifDetail = JSON.parse(JSON.stringify(asifDetail.datas));
+        console.log('firstLoad',this.firstLoad);
+        console.log('this.asifDetail',this.asifDetail);
+        if(this.firstLoad) {
           //creation du formulaire
           this.createForms();
-          this.formLoaded=true;
+          this.firstLoad=false;
+        }
+
+        this.formLoaded=true;
       }
     });
     
@@ -83,6 +92,10 @@ isNewOperationTransverseTemplate: boolean;
 
   }
 
+  ngOnDestroy() {
+    this._store.dispatch(new ClearAsifDetail());
+  }
+
   bindAsifDetail(value: any) {
     console.log('this.asifDetailForm.controls',this.asifDetailForm.controls['operationTransverse'].value);
     this.asifDetail.operationTransverse.listSelected = this.asifDetailForm.controls['operationTransverse'].value; 
@@ -90,7 +103,7 @@ isNewOperationTransverseTemplate: boolean;
   }
 
   createForms() {
-
+    console.log('this.asifDetail.labelOperation',this.asifDetail.labelOperation);
     this.asifDetailForm = this._formBuilder.group({
         operationMethod: [this.asifDetail.operationMethod.selected, [Validators.required]],
         operationTypeFamily: [this.asifDetail.operationTypeFamily.selected, [Validators.required, ValidateIsUnknown]],
@@ -113,7 +126,7 @@ isNewOperationTransverseTemplate: boolean;
       
       this.asifDetailForm.get('operationType').valueChanges
         .subscribe(val => {
-          let operationFilter=<OperationFilter> { operationType: val, operationMethod:this.asifDetail.operationMethod.selected}
+          let operationFilter=<FilterOperation> { operationType: val, operationMethod:this.asifDetail.operationMethod.selected}
           this._store.dispatch(new asifDetailChangeOperationType(operationFilter));
         });
       
@@ -135,13 +148,7 @@ isNewOperationTransverseTemplate: boolean;
           this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
         });
 
-      // this.asifDetailForm.get('amountOperation')
-      //   .valueChanges
-      //   .subscribe(val=> {
-      //     this.asifDetail.amountOperation = val;
-      //     this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
-      //   });
-      
+     
       this.asifDetailForm.valueChanges.subscribe(val=>{
         this.asifDetail.operationMethod.selected = val.operationMethod;
         this.asifDetail.operationTypeFamily.selected = val.operationTypeFamily;
@@ -156,8 +163,6 @@ isNewOperationTransverseTemplate: boolean;
         this.asifDetail.placeKeywordTemp = val.placeKeywordTemp;
         this.asifDetail.operationPlace.selected = val.operationPlace;
 
-        console.log('val',val);
-        console.log('new Date(val.dateIntegration)',moment(val.dateIntegration,'DD/MM/YYYY'));
         this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
       });
  
@@ -267,6 +272,7 @@ isNewOperationTransverseTemplate: boolean;
   onChangeGMapAddress($event) {
     this.asifDetail.operationDetail.gMapAddress=$event;
     this.asifDetail.gMapSearchInfo.idGMapAddress = $event.id;
+        
     this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
     
   }

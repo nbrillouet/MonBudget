@@ -2,6 +2,7 @@
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using Budget.MODEL.Dto.Select;
+using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,29 +11,17 @@ namespace Budget.SERVICE
 {
     public interface IOperationTypeService
     {
-
+        List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationTypeFamilies);
         List<SelectDto> GetSelectList(int idOperationTypeFamily, EnumSelectType enumSelectType);
-        List<SelectDto> GetSelectList(List<SelectDto> operationTypeFamilies);
-
-
-        OperationType GetByIdWithOperationTypeFamily(int idOperationType);
-
-        List<OperationType> GetAll();
-        //List<OperationType> GetByIdOperationTypeFamily(int idOperationTypeFamily, EnumSelect enumSelect);
-        OperationType GetFirstByIdOperationTypeFamily(int idOperationTypeFamily);
-        OperationType GetById(int idOperationType);
-        List<OperationType> GetByIdMovement(EnumMovement enumMovement);
-
-        //List<GenericList> GetGenericList();
-        //List<GenericList> GetGenericListByIdOperationTypeFamily(int IdOperationTypeFamily, EnumSelect enumSelect);
-        //List<GenericList> GetGenericListByIdMovement(EnumMovement enumMovement);
-
-        List<SelectGroupDto> GetSelectGroupListByIdPoste(int idPoste);
-        List<SelectGroupDto> GetSelectGroupListByIdList(List<int> idList);
+        List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste);
         List<SelectDto> GetSelectListByIdList(List<int> idList);
+        OperationType GetByIdWithOperationTypeFamily(int idOperationType);
+        OperationType GetUnknown(int idUserGroup);
+        PagedList<OtForTableDto> GetOtTable(FilterOtTableSelected filter);
+        OtForDetailDto GetOtDetail(int idOperationType, int idUserGroup);
 
-        int Create(OperationType operationType);
-        void Update(OperationType operationType);
-        void Delete(OperationType operationType);
+        OtForDetailDto SaveOtDetail(OtForDetailDto otForDetailDto);
+        bool DeleteOtDetail(int idOt);
+
     }
 }

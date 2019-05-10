@@ -1,5 +1,6 @@
-import { State, Selector, Action, StateContext } from "@ngxs/store";
+// import { State, Selector, Action, StateContext } from "app/main/_ngxs/navigation/node_modules/@ngxs/store";
 import { LoadNavigation, LoadNavigationSuccess, AddNavigation } from "./navigation.action";
+import { State, Selector, Action, StateContext } from "@ngxs/store";
 
 export class NavigationStateModel {
     navigation: any;

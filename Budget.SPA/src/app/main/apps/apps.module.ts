@@ -15,6 +15,11 @@ const routes = [
         canActivate: [AuthGuard]
     },
     {
+        path        : 'referential/operations',
+        loadChildren: './referential/operation/operation.module#OperationModule',
+        canActivate: [AuthGuard]
+    },
+    {
         path        : 'account-statement-imports',
         loadChildren: './account-statement-import/asi.module#AsiModule',
         canActivate: [AuthGuard]

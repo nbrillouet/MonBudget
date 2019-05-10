@@ -10,17 +10,14 @@ namespace Budget.SERVICE
 {
     public interface IOperationService 
     {
-        List<SelectDto> GetSelectList(int idOperationMethod,int idOperationType, EnumSelectType enumSelectType);
-        List<SelectDto> GetSelectList(List<SelectDto> operationMethods);
-        List<SelectGroupDto> GetSelectGroupListByIdPoste(int idPoste);
+        SelectDto GetUnknown(int idUserGroup);
+        List<SelectDto> GetSelectList(int idUserGroup, int idOperationMethod, int idOperationType, EnumSelectType enumSelectType);
+        List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationMethods);
+        List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste);
         List<SelectDto> GetSelectListByIdList(List<int> idList);
+        
 
-        Operation GetById(int idOperation);
-        List<Operation> GetAllByOrder();
-        List<Operation> GetAllByIdOperationMethod(int idOperationMethod);
-        List<Operation> GetAllByIdOperationTypeFamily(int idOperationTypeFamily);
-
-        Operation Add(Operation operation);
+        Operation Create(Operation operation);
         void Update(Operation operation);
         void Delete(Operation operation);
 

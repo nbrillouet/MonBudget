@@ -1,10 +1,11 @@
 import { TableInfo, DataInfos } from "app/main/_models/generics/table-info.model";
-import { State, Selector, Action, StateContext, Store } from "@ngxs/store";
-import { NotificationsService } from "angular2-notifications";
+// import { State, Selector, Action, StateContext, Store } from "app/main/_ngxs/account-statement-import-file/asif-list/node_modules/@ngxs/store";
+// import { NotificationsService } from "app/main/_ngxs/account-statement-import-file/asif-list/node_modules/angular2-notifications";
 import { LoadAsifTableDatas, LoadAsifTableDatasSuccess, ClearAsifTableDatas } from "./asif-list.action";
 import { AsifTable } from "app/main/_models/account-statement-import/account-statement-import-file.model";
 import { AsifService } from "app/main/apps/account-statement-import-file/asif.service";
 import { UpdatePaginationAsifTableFilter } from "../asif-list-filter/asif-list-filter.action";
+import { State, Selector, Action, StateContext, Store } from "@ngxs/store";
 
 
 export class AsifTableStateModel extends DataInfos<AsifTable> {
@@ -23,8 +24,9 @@ let tableInfo = new AsifTableStateModel();
 export class AsifTableState {
     constructor(
         private _asifService: AsifService,
-        private _store: Store,
-        private _notification: NotificationsService) {
+        private _store: Store
+        // private _notification: NotificationsService
+        ) {
     }
 
     @Selector()

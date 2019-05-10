@@ -4,9 +4,6 @@ export interface IBankAgency {
     id : number;
     labelShort : string;
     labelLong : string;
-
-    // addressBank : string;
-    // postalCodeBank : number;
     adviserFirstName : string;
     adviserLastName : string;
     adviserMail : string;

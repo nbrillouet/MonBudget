@@ -55,12 +55,16 @@ export interface IUserForLabel {
     firstName: string;
 }
 
-export interface IUserCurrent {
+export interface IUserForGroup {
     id: number;
-    lastName: string;
-    firstName: string;
-    
+    idUserGroup: number;
 }
+// export interface IUserCurrent {
+//     id: number;
+//     lastName: string;
+//     firstName: string;
+    
+// }
 
 @Injectable()
 export class UserLoaded {

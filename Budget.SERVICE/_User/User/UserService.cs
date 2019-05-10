@@ -57,10 +57,10 @@ namespace Budget.SERVICE
         //    return _userRepository.GetUsers(userParams);
         //}
 
-        public Task<List<User>> GetAllAsync()
-        {
-            return _userRepository.GetAllAsync();
-        }
+        //public Task<List<User>> GetAllAsync()
+        //{
+        //    return _userRepository.GetAllAsync();
+        //}
 
         public List<User> GetAll()
         {
@@ -85,11 +85,11 @@ namespace Budget.SERVICE
             _userRepository.Update(user);
         }
 
-        public List<BankAgencyAccountsDto> GetBankAgencies(int idUser)
+        public List<BankAgencyWithAccountsDto> GetBankAgencies(int idUser)
         {
             var bankAgencies = _userRepository.GetBankAgencies(idUser);
 
-            var bankAgencyAccountsDtos = _mapper.Map<List<BankAgencyAccountsDto>>(bankAgencies);
+            var bankAgencyAccountsDtos = _mapper.Map<List<BankAgencyWithAccountsDto>>(bankAgencies);
             foreach (var bankAgency in bankAgencyAccountsDtos)
             {
                 foreach (var account in bankAgency.Accounts)

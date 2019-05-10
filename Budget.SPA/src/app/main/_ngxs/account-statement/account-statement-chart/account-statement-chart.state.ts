@@ -1,11 +1,11 @@
 import { DataInfo } from "app/main/_models/generics/detail-info.model";
-import { AsChart, AsChartEvolutionCdb, AsChartEvolutionCustomOtf, AsChartEvolutionCustomOtfFilter, AsChartEvolutionCustomOtfFilterSelected } from "app/main/_models/account-statement/account-statement-chart.model";
-import { State, Selector, Action, StateContext } from "@ngxs/store";
+import { AsChart, AsChartEvolutionCdb, AsChartEvolutionCustomOtfFilter, AsChartEvolutionCustomOtfFilterSelected } from "app/main/_models/account-statement/account-statement-chart.model";
 import { AsService } from "app/main/apps/account-statement/account-statement.service";
 import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionBrutSuccess, LoadAsChartEvolutionNoIntTransfer, LoadAsChartEvolutionNoIntTransferSuccess, LoadAsChartEvolutionCustomOtfSuccess, LoadAsChartEvolutionCustomOtf, LoadAsChartEvolutionSuccess, LoadAsChartEvolution, LoadAsChartEvolutionCustomOtfFilterSuccess, LoadAsChartEvolutionCustomOtfFilter, UpdateAsChartEvolutionCustomOtfFilter, UpdateAsChartEvolutionCustomOtfFilterSuccess } from "./account-statement-chart.action";
 import { WidgetCardChartBar } from "app/main/_models/chart/widget-card-chart-bar.model";
-import { Observable, zip } from "rxjs";
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
+import { State, Selector, Action, StateContext } from "@ngxs/store";
+import { zip } from "rxjs";
 
 
 export class AsChartStateModel extends DataInfo<AsChart> {
@@ -227,7 +227,7 @@ export class AsChartState {
         
         let filterAsTableSelected = <FilterAsTableSelected> {
             idAccount : action.payload.idAccount,
-            idUser: action.payload.idUser,
+            user: action.payload.user,
             monthYear: action.payload.monthYear
         };
         

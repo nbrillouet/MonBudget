@@ -61,9 +61,9 @@ namespace Budget.SERVICE
 
         }
 
-        public AsDetailDto GetAsDetail(int idAs, int idUser)
+        public AsDetailDto GetAsDetail(FilterAsDetail filter)
         {
-            var accountStatement = _accountStatementRepository.GetAsDetail(idAs);
+            var accountStatement = _accountStatementRepository.GetAsDetail(filter.IdAs.Value);
             var asDetailDto = _mapper.Map<AsDetailDto>(accountStatement);
 
             asDetailDto.OperationMethod = new ComboSimple<SelectDto>
@@ -73,7 +73,7 @@ namespace Budget.SERVICE
             };
             asDetailDto.OperationTypeFamily = new ComboSimple<SelectDto>
             {
-                List = _referentialService.OperationTypeFamilyService.GetSelectList((EnumMovement)asDetailDto.IdMovement, EnumSelectType.Inconnu),
+                List = _referentialService.OperationTypeFamilyService.GetSelectList(filter.User.IdUserGroup, (EnumMovement)asDetailDto.IdMovement, EnumSelectType.Inconnu),
                 Selected = new SelectDto { Id = accountStatement.OperationTypeFamily.Id, Label = accountStatement.OperationTypeFamily.Label }
             };
             asDetailDto.OperationType = new ComboSimple<SelectDto>
@@ -84,14 +84,14 @@ namespace Budget.SERVICE
 
             asDetailDto.Operation = new ComboSimple<SelectDto>
             {
-                List = _referentialService.OperationService.GetSelectList(accountStatement.OperationMethod.Id, accountStatement.OperationType.Id, EnumSelectType.Inconnu),
+                List = _referentialService.OperationService.GetSelectList(filter.User.IdUserGroup, accountStatement.OperationMethod.Id, accountStatement.OperationType.Id, EnumSelectType.Inconnu),
                 Selected = new SelectDto { Id = accountStatement.Operation.Id, Label = accountStatement.Operation.Label }
             };
 
             asDetailDto.OperationTransverse = new ComboMultiple<SelectDto>
             {
-                List = _referentialService.OperationTransverseService.GetSelectList(idUser, EnumSelectType.Empty),
-                ListSelected = _operationTransverseAsService.GetOperationTransverseSelectList(idAs, EnumSelectType.Empty)
+                List = _referentialService.OperationTransverseService.GetSelectList(filter.User.IdUserGroup, EnumSelectType.Empty),
+                ListSelected = _operationTransverseAsService.GetOperationTransverseSelectList(filter.IdAs.Value, EnumSelectType.Empty)
             };
 
             List<SelectDto> operationDetailList = null;
@@ -156,7 +156,7 @@ namespace Budget.SERVICE
             var date = Convert.ToDateTime($"01/{filter.MonthYear.Month.Id}/{filter.MonthYear.Year}");
             var dateMin = DateHelper.GetFirstDayOfMonth(date);
             var dateMax = DateHelper.GetLastDayOfMonth(date);
-            var solde = GetSolde(filter.IdUser, filter.IdAccount, dateMin, dateMax, filter.IsWithITransfer);
+            var solde = GetSolde(filter.User.Id, filter.IdAccount, dateMin, dateMax, filter.IsWithITransfer);
 
             return solde;
         }
@@ -207,8 +207,6 @@ namespace Budget.SERVICE
             accountStatement.IdOperationType = asDetailDto.OperationType.Selected.Id;
             accountStatement.IdOperationTypeFamily = asDetailDto.OperationTypeFamily.Selected.Id;
 
-            //accountStatement.IdOperationDetail = asDetailDto.OperationDetail.Id;
-
             switch (asDetailDto.OperationPlace.Selected.Id)
             {
                 case 2:
@@ -223,16 +221,18 @@ namespace Budget.SERVICE
                     break;
             }
 
+            //TODO mettre a jour dans userOperationDetail
             //Recherche si operation detail existe déjà, sinon creation
             OperationDetail operationDetail = new OperationDetail
             {
                 Id = 0,
+                IdUserGroup = asDetailDto.User.IdUserGroup,
                 IdOperation = asDetailDto.Operation.Selected.Id,
                 IdGMapAddress = asDetailDto.OperationDetail.GMapAddress.Id,
                 KeywordOperation = asDetailDto.OperationDetail.KeywordOperation,
                 KeywordPlace = asDetailDto.OperationDetail.KeywordPlace
             };
-            operationDetail = _operationDetailService.GetOrCreate(operationDetail);
+            operationDetail = _referentialService.OperationDetailService.GetOrCreate(operationDetail);
             accountStatement.IdOperationDetail = operationDetail.Id;
 
             //Mise à jour de l'operationTransverse

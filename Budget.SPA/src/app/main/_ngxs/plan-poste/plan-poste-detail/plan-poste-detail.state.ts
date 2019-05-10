@@ -1,10 +1,10 @@
 import { DetailInfo } from "app/main/_models/generics/detail-info.model";
 import { PlanPosteForDetail } from "app/main/_models/plan.model";
 import { PlanPosteDetailFilter, PlanPosteReferenceFilter } from "app/main/_models/filters/plan-poste.filter";
-import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { PlanService } from "app/main/apps/plan/plan.service";
-import { NotificationsService } from "angular2-notifications";
 import { LoadPlanPosteDetailDatas, LoadPlanPosteDetailDatasSuccess, ChangePlanPosteDetailFilter, ClearPlanPosteDetailDatas, ChangePlanPosteReference } from "./plan-poste-detail.action";
+import { State, Selector, Action, StateContext } from "@ngxs/store";
+import { NotificationsService } from "angular2-notifications";
 
 export class PlanPosteDetailStateModel extends DetailInfo<PlanPosteForDetail,PlanPosteDetailFilter> {
     
@@ -12,7 +12,6 @@ export class PlanPosteDetailStateModel extends DetailInfo<PlanPosteForDetail,Pla
         super();
         this.filter = new PlanPosteDetailFilter();
     }
-
 }
 
 let detailInfo = new PlanPosteDetailStateModel();

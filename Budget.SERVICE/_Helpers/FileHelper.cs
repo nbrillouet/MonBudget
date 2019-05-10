@@ -41,40 +41,6 @@ namespace Budget.SERVICE._Helpers
 
         public static string GetOperationLabelFromOperationLabelWork(string operationLabel, string operationLabelWork)
         {
-            //recherche du label de l'operation en comparant le libellé work operation du libellé operation
-            //int j = -1;
-            //string label = string.Empty;
-            //for (int i = 0; i < operationLabel.Length; i++)
-            //{
-            //    char c = Convert.ToChar(operationLabel.Substring(i, 1));
-            //    if (!Char.IsNumber(c) && !FileHelper.GetExcludedChars().Contains(c))
-            //    {
-            //        if (!Equals(c, ' '))
-            //            j++;
-            //        if (j > operationLabelWork.Length - 1)
-            //            break;
-
-            //        char cTemp = Convert.ToChar(operationLabelWork.Substring(j, 1));
-            //        if (Char.ToUpper(c).Equals(cTemp) || Equals(c, ' '))
-            //        {
-            //            label = label + c;
-            //        }
-            //    }
-            //}
-
-            //label = label.Trim();
-
-            ////Recherche de tous les mots commencant par la 1ere lettre du work dans le label
-            //var foundIndexes = new List<int>();
-            //for (int i = 0; i < operationLabel.Length; i++)
-            //    if (operationLabel[i] == Convert.ToChar(operationLabelWork.Substring(0,1))) foundIndexes.Add(i);
-
-            ////mettre en string de longueur 4 
-            //foreach(var index in foundIndexes)
-            //{
-
-            //}
-
 
             int j =0;
             string label = string.Empty;
@@ -85,8 +51,6 @@ namespace Budget.SERVICE._Helpers
                 char c = Convert.ToChar(operationLabel.Substring(i, 1));
                 if (!GetExcludedChars().Contains(c))
                 {
-                    //j = !Equals(c, ' ') ? j+1 : j;
-
                     if (j > operationLabelWork.Length - 1)
                         break;
 

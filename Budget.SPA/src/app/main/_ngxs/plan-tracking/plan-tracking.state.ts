@@ -1,12 +1,13 @@
 import { DetailInfo } from "app/main/_models/generics/detail-info.model";
 import { FilterPlanTracking } from "app/main/_models/filters/plan-tracking.filter";
-import { State, Selector, Action, StateContext } from "@ngxs/store";
+// import { State, Selector, Action, StateContext } from "app/main/_ngxs/plan-tracking/node_modules/@ngxs/store";
 import { PlanService } from "app/main/apps/plan/plan.service";
-import { NotificationsService } from "angular2-notifications";
+// import { NotificationsService } from "app/main/_ngxs/plan-tracking/node_modules/angular2-notifications";
 // import { LoadPlanTracking, LoadPlanTrackingSuccess, ChangePlanTrackingFilter, ClearPlanTracking } from "./plan-tracking.action";
 import { PlanForTracking } from "app/main/_models/plan/plan-tracking.model";
 import { LoadPlanForTracking, LoadPlanForTrackingSuccess, ChangePlanForTrackingFilter, ClearPlanForTracking } from "./plan-tracking.action";
-
+import { State, Selector, Action, StateContext } from "@ngxs/store";
+import { NotificationsService } from "angular2-notifications";
 
 
 export class PlanForTrackingStateModel extends DetailInfo<PlanForTracking,FilterPlanTracking> {
@@ -28,7 +29,6 @@ export class PlanForTrackingState {
     constructor(
         private _planService: PlanService,
         private _notification: NotificationsService) {
-        
     }
 
     @Selector()

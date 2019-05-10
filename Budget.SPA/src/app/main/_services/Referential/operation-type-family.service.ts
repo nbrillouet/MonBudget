@@ -7,24 +7,24 @@ import { ISelectGroup, EnumSelectType, ISelect } from 'app/main/_models/generics
 @Injectable()
 export class OperationTypeFamilyService {
 baseUrl = environment.apiUrl;
+user = JSON.parse(localStorage.getItem('currentUser'));
 
     constructor(
-        private http: HttpClient,
-        private errorService: ErrorService
+        private http: HttpClient
     ) { }
 
     GetSelectGroupList() {
         return this.http
-        .get(this.baseUrl + `referential/operation-type-families/select-group-list`)
+        .get(this.baseUrl + `referential/operation-type-families/users/${this.user.id}/select-group-list`)
         .map(response => <ISelectGroup[]>response);
-        // .catch(this.errorService.handleError);
     }
 
     GetSelectList(idMovement: number,enumSelectType: EnumSelectType) {
         return this.http
-        .get(this.baseUrl + `referential/operation-type-families/movements/${idMovement}/selectType/${<number>enumSelectType}/select-list`)
+        .get(this.baseUrl + `referential/operation-type-families/user-groups/${this.user.idUserGroup}/movements/${idMovement}/select-type/${<number>enumSelectType}/select-list`)
         .map(response => <ISelect[]>response);
-        // .catch(this.handleError);
     }
+
+    
 
 }

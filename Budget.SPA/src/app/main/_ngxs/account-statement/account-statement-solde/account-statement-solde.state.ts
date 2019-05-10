@@ -1,9 +1,9 @@
 import { DetailInfo } from "app/main/_models/generics/detail-info.model";
-import { State, Selector, StateContext, Action } from "@ngxs/store";
 import { AsService } from "app/main/apps/account-statement/account-statement.service";
-import { LoadAsSolde, LoadAsSoldeSuccess, ChangeAsSoldeFilter } from "./account-statement-solde.action";
+import { LoadAsSolde, LoadAsSoldeSuccess } from "./account-statement-solde.action";
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 import { AsSolde } from "app/main/_models/account-statement/account-statement-solde.model";
+import { State, Selector, StateContext, Action } from "@ngxs/store";
 
 export class AsSoldeStateModel extends DetailInfo<AsSolde,FilterAsTableSelected> {
     constructor () {

@@ -1,8 +1,9 @@
 import { ISelect } from "../generics/select.model";
-import { OperationDetail } from "../operation-detail.model";
+import { OperationDetail } from "../referential/operation-detail.model";
 import { ComboSimple, ComboMultiple } from "../generics/combo.model";
 import { GMapSearchInfo } from "../g-map.model.";
 import { IAccount } from "../account.model";
+import { IUserForGroup } from "../user.model";
 
 export interface IAsifGroupByAccounts {
     accounts : IAccount[],
@@ -24,6 +25,7 @@ export class AsifTable {
 
 export class AsifDetail {
     id: number;
+    user: IUserForGroup;
     operation : ComboSimple<ISelect>;
     operationMethod: ComboSimple<ISelect>;
     operationType: ComboSimple<ISelect>;
@@ -46,4 +48,6 @@ export class AsifDetail {
     isLocalisable: boolean;
     operationDetail: OperationDetail;
     gMapSearchInfo: GMapSearchInfo;
+
 }
+

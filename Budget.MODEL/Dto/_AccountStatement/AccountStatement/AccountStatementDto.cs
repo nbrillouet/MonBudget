@@ -22,6 +22,7 @@ namespace Budget.MODEL.Dto
     public class AsDetailDto
     {
         public int Id { get; set; }
+        public UserForGroupDto User { get; set; }
         public ComboSimple<SelectDto> Operation { get; set; }
         public ComboSimple<SelectDto> OperationMethod { get; set; }
         public ComboSimple<SelectDto> OperationType { get; set; }
@@ -37,21 +38,10 @@ namespace Budget.MODEL.Dto
         public int IdMovement { get; set; }
         public string LogoName { get; set; }
         public string LogoUrl { get; set; }
-        //public string OperationKeywordTemp { get; set; }
-        //public string OperationLabelTemp { get; set; }
-        //public string PlaceLabelTemp { get; set; }
-        //public string PlaceKeywordTemp { get; set; }
         public bool IsLocalisable { get; set; }
         public OperationDetailDto OperationDetail { get; set; }
         public GMapSearchInfoDto GMapSearchInfo { get; set; }
 
     }
 
-    //public class AsDetailDto : AsForTableDto
-    //{
-    //    public int IdMovement { get; set; }
-    //    public string LogoName { get; set; }
-    //    public bool isLocalisable { get; set; }
-    //    public OperationDetailDto OperationDetail { get; set; }
-    //}
 }

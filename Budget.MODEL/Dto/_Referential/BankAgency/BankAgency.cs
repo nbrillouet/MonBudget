@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Budget.MODEL.Dto
 {
-    public class BankAgencyAccountsDto
+    public class BankAgencyWithAccountsDto
     {
         public int Id { get; set; }
         public string LabelShort { get; set; }
@@ -18,15 +18,8 @@ namespace Budget.MODEL.Dto
         public int Id { get; set; }
         public string LabelShort { get; set; }
         public string LabelLong { get; set; }
-        //public string AddressBank { get; set; }
-        //public int PostalCodeBank { get; set; }
-        public string AdviserFirstName { get; set; }
-        public string AdviserLastName { get; set; }
-        public string AdviserMail { get; set; }
-        public string AdviserFixedPhone { get; set; }
-        public string AdviserMobilePhone { get; set; }
         public string LogoClassName { get; set; }
-        public string FolderFileSave { get; set; }
+
     }
 
 }

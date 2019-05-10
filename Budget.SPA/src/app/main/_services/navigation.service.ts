@@ -39,8 +39,18 @@ constructor(
             url  : '/apps/referential/accounts'
         };
 
+        var operationMenu = {
+            id   : 'operations',
+            title: 'Opérations',
+            // 'translate': 'NAV.USER.TITLE',
+            type : 'item',
+            url  : '/apps/referential/operations/operation-type-families'
+        };
+
+
         referentialMenu.children.push(userMenu);
         referentialMenu.children.push(accountMenu);
+        referentialMenu.children.push(operationMenu);
         
         return referentialMenu;
 

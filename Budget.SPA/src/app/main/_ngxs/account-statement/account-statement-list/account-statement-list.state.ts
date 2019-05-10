@@ -1,9 +1,9 @@
 import { DataInfos } from "app/main/_models/generics/table-info.model";
 import { AsTable } from "app/main/_models/account-statement/account-statement-table.model";
-import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
 import { AsService } from "app/main/apps/account-statement/account-statement.service";
 import { LoadAsTableDatas, LoadAsTableDatasSuccess, ClearAsTableDatas } from "./account-statement-list.action";
 import { UpdatePaginationAsTableFilter } from "../account-statement-list-filter/account-statement-filter.action";
+import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
 
 export class AsTableStateModel extends DataInfos<AsTable> {
     constructor () {

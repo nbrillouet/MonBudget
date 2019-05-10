@@ -75,12 +75,21 @@ export class AuthService {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
 
                     localStorage.setItem('currentUser', JSON.stringify(user));
+                    console.log('user', user);
                 }
              
                 return user;
             }));
     }
 
+    register(model: any)
+    {
+        return null;
+
+        // return this.http.post(this.baseUrl + 'auth/register',model, this.requestOptions())
+        //     .catch(this.errorService.handleError);
+    }
+    
     // login(username: string, password: string) {
     //     return this.http.post<any>('/api/login', { username, password })
     //     .pipe(map(user => {
@@ -122,13 +131,7 @@ export class AuthService {
     //     }).catch(this.errorService.handleError);
     // }
 
-    register(model: any)
-    {
-        return null;
 
-        // return this.http.post(this.baseUrl + 'auth/register',model, this.requestOptions())
-        //     .catch(this.errorService.handleError);
-    }
 
     loggedIn(){
         return null;

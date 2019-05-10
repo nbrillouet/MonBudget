@@ -15,61 +15,54 @@ namespace Budget.SERVICE
     {
         private readonly IMapper _mapper;
         private readonly IPlanPosteReferenceRepository _planPosteReferenceRepository;
-        private readonly IOperationTypeService _operationTypeService;
-        private readonly IOperationTypeFamilyService _operationTypeFamilyService;
-        private readonly IOperationService _operationService;
-
+        private readonly ReferentialService _referentialService;
 
         public PlanPosteReferenceService(
             IMapper mapper,
             IPlanPosteReferenceRepository planPosteReferenceRepository,
-            IOperationTypeService operationTypeService,
-            IOperationTypeFamilyService operationTypeFamilyService,
-            IOperationService operationService
+            ReferentialService referentialService
         )
         {
             _mapper = mapper;
             _planPosteReferenceRepository = planPosteReferenceRepository;
-            _operationTypeService = operationTypeService;
-            _operationTypeFamilyService = operationTypeFamilyService;
-            _operationService = operationService;
+            _referentialService = referentialService;
         }
 
        
-        public ComboMultiple<SelectGroupDto> GetListForComboByIdPlanPoste(int IdPlanPoste, int idReferenceTable, int idPoste)
+        public ComboMultiple<SelectGroupDto> GetListForComboByIdPlanPoste(int idUserGroup, int idPlanPoste, int idReferenceTable, int idPoste)
         {
             ComboMultiple<SelectGroupDto> result = new ComboMultiple<SelectGroupDto>();
 
-            List<PlanPosteReference> planPosteReferences = Get(IdPlanPoste, idReferenceTable);
+            List<PlanPosteReference> planPosteReferences = Get(idPlanPoste, idReferenceTable);
             List<int> idList = planPosteReferences.Select(x => x.IdReference ).ToList();
 
             switch (idReferenceTable)
             {
                 case 1: //OPERATION_TYPE_FAMILY
-                    result.List = _operationTypeFamilyService.GetSelectGroupListByIdPoste(idPoste);
-                    result.ListSelected = _operationTypeFamilyService.GetSelectListByIdList(idList);
+                    result.List = _referentialService.OperationTypeFamilyService.GetSelectGroupListByIdPoste(idUserGroup, idPoste);
+                    result.ListSelected = _referentialService.OperationTypeFamilyService.GetSelectListByIdList(idList);
                     break;
                 case 2: // "OPERATION_TYPE"
-                    result.List = _operationTypeService.GetSelectGroupListByIdPoste(idPoste);
-                    result.ListSelected = _operationTypeService.GetSelectListByIdList(idList);
+                    result.List = _referentialService.OperationTypeService.GetSelectGroupListByIdPoste(idUserGroup, idPoste);
+                    result.ListSelected = _referentialService.OperationTypeService.GetSelectListByIdList(idList);
                     break;
                 case 3: //TODO OPERATION
-                    result.List = _operationService.GetSelectGroupListByIdPoste(idPoste);
-                    result.ListSelected = _operationService.GetSelectListByIdList(idList);
+                    result.List = _referentialService.OperationService.GetSelectGroupListByIdPoste(idUserGroup, idPoste);
+                    result.ListSelected = _referentialService.OperationService.GetSelectListByIdList(idList);
                     break;
             }
 
             return result;
         }
 
-        public List<PlanPosteReference> GetByIdPlanPoste(int IdPlanPoste)
+        public List<PlanPosteReference> GetByIdPlanPoste(int idPlanPoste)
         {
-            return _planPosteReferenceRepository.GetByIdPlanPoste(IdPlanPoste);
+            return _planPosteReferenceRepository.GetByIdPlanPoste(idPlanPoste);
         }
 
-        public List<PlanPosteReference> Get(int IdPlanPoste,int idReferenceTable)
+        public List<PlanPosteReference> Get(int idPlanPoste,int idReferenceTable)
         {
-            return _planPosteReferenceRepository.Get(IdPlanPoste, idReferenceTable);
+            return _planPosteReferenceRepository.Get(idPlanPoste, idReferenceTable);
         }
 
         public void DeleteByIdPlanPoste(int idPlanPoste)

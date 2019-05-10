@@ -50,29 +50,24 @@ namespace Budget.DATA.Repositories
 
             return results;
         }
-
-        //public async Task<List<BankAgency>> GetDistinctBankAsync(int idUser)
-        //{
-        //    var Banks = Context.AccountStatementImport
-        //        .Include(x => x.BankAgency)
-        //        .Where(x=>x.IdUser == idUser)
-        //        .Select(x=>x.BankAgency)
-        //        .Distinct()
-        //        .AsQueryable();
-
-        //    return await Banks.ToListAsync();
-        //}
+                
 
         public List<BankAgency> GetDistinctBankAgencies(int idUser)
         {
-            var BankAgencies = Context.AccountStatementImport
+            var accountStatementImport = Context.AccountStatementImport
                 .Include(x => x.BankAgency)
+                    .ThenInclude(x=>x.BankSubFamily)
+                        .ThenInclude(x=>x.BankFamily)
                 .Where(x => x.IdUser == idUser)
+                //.Select(x => x.BankAgency)
+                //.Distinct()
+                .ToList();
+            var bankAgencies = accountStatementImport
                 .Select(x => x.BankAgency)
                 .Distinct()
                 .ToList();
 
-            return BankAgencies;
+            return bankAgencies;
         }
 
         public new int Create(AccountStatementImport entity)

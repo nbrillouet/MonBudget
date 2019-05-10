@@ -10,7 +10,7 @@ namespace Budget.MODEL.Dto
         public int Id { get; set; }
         public string Number { get; set; }
         public string Label { get; set; }
-        public BankAgency BankAgency { get; set; }
+        public BankSubFamily BankAgency { get; set; }
         public double StartAmount { get; set; }
         public AccountType AccountType { get; set; }
         public double AlertThreshold { get; set; }

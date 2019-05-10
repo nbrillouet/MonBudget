@@ -1,7 +1,6 @@
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
-import { AsChartEvolutionCdb, AsChartEvolutionCustomOtf, AsChartEvolution, AsChartEvolutionCustomOtfFilter, AsChartEvolutionCustomOtfFilterSelected } from "app/main/_models/account-statement/account-statement-chart.model";
+import { AsChartEvolutionCdb, AsChartEvolutionCustomOtfFilter, AsChartEvolutionCustomOtfFilterSelected } from "app/main/_models/account-statement/account-statement-chart.model";
 import { WidgetCardChartBar } from "app/main/_models/chart/widget-card-chart-bar.model";
-import { ISelect } from "app/main/_models/generics/select.model";
 
 export const AS_CHART_EVOLUTION_LOAD = 'as-chart-evolution-load';
 export const AS_CHART_EVOLUTION_LOAD_SUCCESS = 'as-chart-evolution-load-success';

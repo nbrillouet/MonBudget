@@ -1,11 +1,11 @@
 import { DataInfo } from "app/main/_models/generics/detail-info.model";
 import { AsifDetail } from "app/main/_models/account-statement-import/account-statement-import-file.model";
 import { AsifService } from "app/main/apps/account-statement-import-file/asif.service";
-import { State, Selector, Action, StateContext } from "@ngxs/store";
-import { LoadAsifDetail, LoadAsifDetailSuccess, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationTypeFamilySuccess, asifDetailChangeOperationType, asifDetailChangeOperationTypeSuccess } from "./asif-detail.action";
+import { LoadAsifDetail, LoadAsifDetailSuccess, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationTypeFamilySuccess, asifDetailChangeOperationType, asifDetailChangeOperationTypeSuccess, ClearAsifDetail } from "./asif-detail.action";
 import { ReferentialService } from "app/main/_services/Referential/referential.service";
 import { EnumSelectType, ISelect } from "app/main/_models/generics/select.model";
 import { ComboSimple } from "app/main/_models/generics/combo.model";
+import { State, Selector, Action, StateContext } from "@ngxs/store";
 
 export class AsifDetailStateModel extends DataInfo<AsifDetail> {
     constructor () {
@@ -68,6 +68,11 @@ export class AsifDetailState {
         context.patchState(state);
 
         // context.dispatch(new ChangeAsifTableFilter(action.payload));
+    }
+
+    @Action(ClearAsifDetail)
+    clear(context: StateContext<AsifDetailStateModel>) {
+        return context.setState(new AsifDetailStateModel());
     }
 
     //====================================

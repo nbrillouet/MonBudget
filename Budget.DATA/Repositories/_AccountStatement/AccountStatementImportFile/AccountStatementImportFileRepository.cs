@@ -357,10 +357,11 @@ namespace Budget.DATA.Repositories
                 item.IsDuplicated = true;
             }
 
+
             //determination du State
-            if (item.IdOperation != 1 && item.IdOperationMethod != 1 && item.IdOperationDetail!=1)
+            if (item.IdOperation != item.UnknownId.IdOperation && item.IdOperationMethod != item.UnknownId.IdOperationMethod && item.IdOperationDetail!= item.UnknownId.IdOperationDetail)
                 item.EnumAsifState = EnumAsifState.Complete;
-            else if (item.IdOperationMethod == 1)
+            else if (item.IdOperationMethod == item.UnknownId.IdOperationMethod)
                 item.EnumAsifState = EnumAsifState.MethodLess;
             else //if (item.IdOperation == 1)
                 item.EnumAsifState = EnumAsifState.OperationLess;

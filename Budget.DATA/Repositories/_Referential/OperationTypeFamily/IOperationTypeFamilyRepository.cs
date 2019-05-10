@@ -1,5 +1,6 @@
 ﻿using Budget.MODEL;
 using Budget.MODEL.Database;
+using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,17 +9,15 @@ namespace Budget.DATA.Repositories
 {
     public interface IOperationTypeFamilyRepository : IBaseRepository<OperationTypeFamily>
     {
-
-        List<OperationTypeFamily> GetByIdMovement(EnumMovement enumMovement);
-
-        List<OperationTypeFamily> GetAllByOrder();
-
-        //List<GenericList> GetGenericList();
-        //List<GenericList> GetGenericListByIdMovement(EnumMovement enumMovement, EnumSelect enumSelect);
-        //List<OperationTypeFamily> GetByIdMovement(EnumMovement enumMovement, EnumSelect enumSelect);
-
+        List<OperationTypeFamily> GetByIdMovement(int idUserGroup, EnumMovement enumMovement);
+        List<OperationTypeFamily> GetByIdUserGroup(int idUserGroup);
+        List<OperationTypeFamily> GetAllByOrder(int idUserGroup);
         List<OperationTypeFamily> GetByIdList(List<int> idList);
+        PagedList<OperationTypeFamily> GetOtfTable(FilterOtfTableSelected filter);
+        OperationTypeFamily GetOtfDetail(int idOperationTypeFamily);
+        OperationTypeFamily GetUnknown(int idUserGroup);
 
-        new int Create(OperationTypeFamily operationTypeFamily);
+        void DeleteWithEscalation(OperationTypeFamily operationTypeFamily);
+
     }
 }

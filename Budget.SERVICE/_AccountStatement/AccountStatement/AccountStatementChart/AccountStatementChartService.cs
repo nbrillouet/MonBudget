@@ -131,7 +131,7 @@ namespace Budget.SERVICE
         public List<WidgetCardChartBar> GetAsChartEvolutionCustomOtf(FilterAsTableSelected filterAsTableSelected)
         {
             //Rechercher les operationTypeFamily favori pour l'utilisateur
-            List<SelectDto> otfs = _userCustomOtfService.GetOperationTypeFamilySelect(filterAsTableSelected.IdUser.Value, filterAsTableSelected.IdAccount);
+            List<SelectDto> otfs = _userCustomOtfService.GetOperationTypeFamilySelect(filterAsTableSelected.User.IdUserGroup, filterAsTableSelected.IdAccount);
             List<WidgetCardChartBar> widgetCardChartBars = new List<WidgetCardChartBar>();
             foreach (var otf in otfs)
             {
@@ -155,14 +155,14 @@ namespace Budget.SERVICE
 
         public AsChartEvolutionCustomOtfFilter GetAsChartEvolutionCustomOtfFilter(FilterAsTableSelected filter)
         {
-            var operationTypeFamilies = _referentialService.OperationTypeFamilyService.GetSelectGroup();
+            var operationTypeFamilies = _referentialService.OperationTypeFamilyService.GetSelectGroup(filter.User.IdUserGroup);
             AsChartEvolutionCustomOtfFilter asChartEvolutionCustomOtfFilter = new AsChartEvolutionCustomOtfFilter {
                 Selected = new AsChartEvolutionCustomOtfFilterSelected
                 {
-                    IdUser = filter.IdUser.Value,
+                    IdUser = filter.User.Id,
                     IdAccount = filter.IdAccount,
                     MonthYear = filter.MonthYear,
-                    OperationTypeFamilies = _userCustomOtfService.GetOperationTypeFamilySelect(filter.IdUser.Value, filter.IdAccount)
+                    OperationTypeFamilies = _userCustomOtfService.GetOperationTypeFamilySelect(filter.User.Id, filter.IdAccount)
                 },
                 OperationTypeFamilies = operationTypeFamilies,
             };

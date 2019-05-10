@@ -63,7 +63,7 @@ fuseConfig:any;
             this.filterAs = new FilterAsTable();
             this.filterAs.selected.idAccount=idAccount;
             let user = JSON.parse(localStorage.getItem('currentUser'));
-            this.filterAs.selected.idUser=user.id;
+            // this.filterAs.selected.user=user.id;
 
             this._store.dispatch(new LoadAsTableFilter(this.filterAs));
             this._store.dispatch(new LoadAsSolde(this.filterAs.selected));

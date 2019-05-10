@@ -77,5 +77,10 @@ namespace Budget.DATA.Repositories
             Context.Set<T>().Remove(entity);
             Context.SaveChanges();
         }
+
+        public void DeleteWithTran(T entity)
+        {
+            Context.Set<T>().Remove(entity);
+        }
     }
 }

@@ -10,14 +10,11 @@ baseUrl = environment.apiUrl;
 
     constructor(
         private _http: HttpClient
-        // private _errorService: ErrorService
     ) { }
 
     GetSelectList(enumSelectType: EnumSelectType) {
         return this._http
             .get(this.baseUrl + `referential/operation-methods/select-type/${<number>enumSelectType}/select-list`)
             .map(response => <ISelect[]>response);
-            // .catch(this.handleError);
-            
     }
 }

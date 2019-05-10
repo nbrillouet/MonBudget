@@ -12,8 +12,8 @@ namespace Budget.SERVICE
     {
         void DeleteByIdPlanPoste(int idPlanPoste);
         void Create(PlanPosteReference planPosteReference);
-        ComboMultiple<SelectGroupDto> GetListForComboByIdPlanPoste(int IdPlanPoste, int idReferenceTable, int idPoste);
-        List<PlanPosteReference> GetByIdPlanPoste(int IdPlanPoste);
+        ComboMultiple<SelectGroupDto> GetListForComboByIdPlanPoste(int idUser, int idPlanPoste, int idReferenceTable, int idPoste);
+        List<PlanPosteReference> GetByIdPlanPoste(int idPlanPoste);
     }
 
 

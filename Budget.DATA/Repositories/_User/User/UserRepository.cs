@@ -57,6 +57,7 @@ namespace Budget.DATA.Repositories
                 .Where(x => x.IdUser == idUser)
                 .Select(x => x.Account)
                 .Include(x => x.BankAgency)
+                    .ThenInclude(x=>x.BankSubFamily)
                 .Include(x => x.AccountType)
                 .Include(x=>x.UserAccounts)
                     .ThenInclude(ua=>ua.User)

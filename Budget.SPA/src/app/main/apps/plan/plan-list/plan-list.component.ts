@@ -23,7 +23,7 @@ import { ChangePlanTableFilter } from 'app/main/_ngxs/plan/plan-list/plan-list.a
   selector: 'plan-list',
   templateUrl: './plan-list.component.html',
   styleUrls: ['./plan-list.component.scss'],
-  animations   : fuseAnimations,
+  animations   : fuseAnimations
 })
 export class PlanListComponent implements OnInit {
 @Select(PlanTableState.get) tableInfo$: Observable<TableInfo<PlanTable,PlanFilter>>;
@@ -90,10 +90,6 @@ hasCheckboxes: boolean;
       //     this.confirmDialogRef = null;
       // });
     }
-  
-    // detail(planTable: SelectYear) {
-      
-    // }
 
     changeComboYearSelected(year) {
 

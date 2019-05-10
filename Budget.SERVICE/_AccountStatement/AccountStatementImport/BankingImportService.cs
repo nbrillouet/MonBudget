@@ -11,9 +11,9 @@ namespace Budget.SERVICE
     public abstract class BankingImportService
     {
         public abstract List<AccountStatementImportFile> ImportFile(StreamReader reader, AccountStatementImport accountStatementImport, User user);
-        protected abstract OperationInformation GetOperationInformationByParsingLabel(string label, string labelWork, OperationMethod operationMethod);
-        protected abstract OperationInformation GetOperationInformationForCardPayment(string label, string labelWork, string operationMethodKeyword);
-        protected abstract OperationInformation GetOperationInformationForCashWithdrawal(string label, string labelWork, string operationMethodKeyword);
+        protected abstract OperationInformation GetOperationInformationByParsingLabel(int idUserGroup, string label, string labelWork, OperationMethod operationMethod);
+        protected abstract OperationInformation GetOperationInformationForCardPayment(int idUserGroup, string label, string labelWork, string operationMethodKeyword);
+        protected abstract OperationInformation GetOperationInformationForCashWithdrawal(int idUserGroup, string label, string labelWork, string operationMethodKeyword);
         protected abstract OperationInformation GetOperationInformationForCotisation(string label, string labelWork, string operationMethodKeyword);
         protected abstract OperationInformation GetOperationInformationForVirement(string label, string labelWork, string operationMethodKeyword);
         protected abstract OperationInformation GetOperationInformationForRemiseCheque(string label, string labelWork, string operationMethodKeyword);

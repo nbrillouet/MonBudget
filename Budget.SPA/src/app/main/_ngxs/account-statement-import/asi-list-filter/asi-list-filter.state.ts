@@ -1,9 +1,9 @@
-import { State, Selector, Action, StateContext, Store } from "@ngxs/store";
 import { FilterInfo } from "app/main/_models/generics/filter.info.model";
 import { FilterAsiTable, FilterAsiTableSelected } from "app/main/_models/filters/account-statement-import.filter";
 import { LoadAsiTableFilter, LoadAsiTableFilterSuccess, ChangeAsiTableFilter, UpdatePaginationAsiTableFilter } from "./asi-list-filter.action";
 import { LoadAsiTableDatas } from "../asi-list/asi-list.action";
 import { AsiService } from "app/main/apps/account-statement-import/asi.service";
+import { State, Selector, Action, StateContext, Store } from "@ngxs/store";
 
 export class AsiTableFilterStateModel extends FilterInfo<FilterAsiTable> {
     constructor () {

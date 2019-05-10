@@ -1,9 +1,10 @@
 import { FilterInfo } from "app/main/_models/generics/filter.info.model";
 import { FilterUserTable, FilterUserTableSelected } from "app/main/_models/filters/user.filter";
-import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
+// import { State, Store, Selector, Action, StateContext } from "app/main/_ngxs/user/user-list-filter/node_modules/@ngxs/store";
 import { UserService } from "app/main/apps/referential/user/user.service";
 import { LoadUserTableFilter, LoadUserTableFilterSuccess, ChangeUserTableFilter, UpdatePaginationUserTableFilter } from "./user-list-filter.action";
 import { LoadUserTableDatas } from "../user-list/user-list.action";
+import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
 
 
 export class UserTableFilterStateModel extends FilterInfo<FilterUserTable> {

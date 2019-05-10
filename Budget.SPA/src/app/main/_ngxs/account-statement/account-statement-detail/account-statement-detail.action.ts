@@ -1,7 +1,7 @@
 import { FilterAsDetail } from "app/main/_models/filters/account-statement.filter";
 import { ISelect } from "app/main/_models/generics/select.model";
-import { OperationFilter } from "app/main/_models/operation.model";
 import { AsDetail } from "app/main/_models/account-statement/account-statement-detail.model";
+import { FilterOperation } from "app/main/_models/filters/operation.filter";
 
 export const AS_DETAIL_LOAD = 'as-detail-load';
 export const AS_DETAIL_LOAD_SUCCESS = 'as-detail-load-success';
@@ -38,7 +38,7 @@ export class asDetailChangeOperationTypeFamilySuccess {
 //OperationType CHANGE
 export class asDetailChangeOperationType {
     static readonly type = AS_DETAIL_OPERATION_TYPE_CHANGE;
-    constructor(public payload: OperationFilter) { }
+    constructor(public payload: FilterOperation) { }
 }
 
 export class asDetailChangeOperationTypeSuccess {

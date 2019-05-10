@@ -46,10 +46,6 @@ namespace Budget.SERVICE
         {
             return _operationMethodRepository.GetAllForEdit();
         }
-        //public List<GenericList> GetGenericList()
-        //{
-        //    return _operationMethodRepository.GetGenericList();
-        //}
 
         public List<OperationMethod> GetAllByOrder()
         {

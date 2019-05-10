@@ -29,20 +29,25 @@ namespace Budget.DATA.Repositories
             return Context.Account
                 .Where(x => x.Number == number)
                 .Include(x=>x.BankAgency)
+                    .ThenInclude(x=>x.BankSubFamily)
+                        .ThenInclude(x=>x.BankFamily)
                 .FirstOrDefault();
         }
 
-        public new Account Create(Account account)
-        {
-            Context.Set<Account>().Add(account);
-            Context.SaveChanges();
+        //public new Account Create(Account account)
+        //{
+        //    Context.Set<Account>().Add(account);
+        //    Context.SaveChanges();
 
-            return account;
-        }
+        //    return account;
+        //}
 
         public List<Account> GetByIdBankAgency(int idBankAgency)
         {
-            return Context.Account.Where(x => x.Id != (int)EnumAccount.Inconnu && x.IdBankAgency == idBankAgency).ToList();
+            return Context.Account
+                .Where(x => x.Id != (int)EnumAccount.Inconnu 
+                    && x.IdBankAgency == idBankAgency)
+                .ToList();
         }
     }
 }

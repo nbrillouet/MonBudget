@@ -36,6 +36,11 @@ var routes = [
         canActivate: [app_guards_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]]
     },
     {
+        path: 'referential/operations',
+        loadChildren: './referential/operation/operation.module#OperationModule',
+        canActivate: [app_guards_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]]
+    },
+    {
         path: 'account-statement-imports',
         loadChildren: './account-statement-import/asi.module#AsiModule',
         canActivate: [app_guards_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]]

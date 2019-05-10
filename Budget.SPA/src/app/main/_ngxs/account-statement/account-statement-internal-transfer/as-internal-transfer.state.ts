@@ -1,11 +1,9 @@
 import { DetailInfo } from "app/main/_models/generics/detail-info.model";
-import { AsTable } from "app/main/_models/account-statement/account-statement-table.model";
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
-import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { AsService } from "app/main/apps/account-statement/account-statement.service";
 import { LoadAsInternalTransferCouple, LoadAsInternalTransferCoupleSuccess } from "./as-internal-transfer.action";
-import { AsSoldeStateModel } from "../account-statement-solde/account-statement-solde.state";
 import { InternalTransferCouple } from "app/main/_models/account-statement/account-statement-internal-transfer.model";
+import { State, Selector, Action, StateContext } from "@ngxs/store";
 
 export class AsInternalTransferStateModel extends DetailInfo<InternalTransferCouple[],FilterAsTableSelected> {
     constructor () {

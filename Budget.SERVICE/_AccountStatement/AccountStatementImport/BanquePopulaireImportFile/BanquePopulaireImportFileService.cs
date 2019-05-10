@@ -14,27 +14,15 @@ namespace Budget.SERVICE
     public class BanquePopulaireImportFileService : BankingImportService, IBanquePopulaireImportFileService
     {
         private readonly IAccountStatementImportFileService _asifService;
-        private readonly IAccountService _accountService;
-        private readonly IOperationMethodService _operationMethodService;
-        private readonly IOperationService _operationService;
-        private readonly IOperationTypeService _operationTypeService;
-        private readonly IOperationDetailService _operationDetailService;
+        private readonly ReferentialService _referentialService;
 
         public BanquePopulaireImportFileService(
             IAccountStatementImportFileService asifService,
-            IAccountService accountService,
-            IOperationMethodService operationMethodService,
-            IOperationService operationService,
-            IOperationTypeService operationTypeService,
-            IOperationDetailService operationDetailService
+            ReferentialService referentialService
             )
         {
             _asifService = asifService;
-            _accountService = accountService;
-            _operationMethodService = operationMethodService;
-            _operationService = operationService;
-            _operationTypeService = operationTypeService;
-            _operationDetailService = operationDetailService;
+            _referentialService = referentialService;
         }
 
 
@@ -52,7 +40,7 @@ namespace Budget.SERVICE
                 {
                     var values = line.Split(';');
 
-                    AccountStatementImportFile asif = _asifService.InitForImport();
+                    AccountStatementImportFile asif = _asifService.InitForImport(user.IdUserGroup);
                     asif.Id = currentLineNumber;
                     asif.IdImport = accountStatementImport.Id;
                     asif.DateImport = DateTime.Now;
@@ -64,11 +52,11 @@ namespace Budget.SERVICE
                     asif.AmountOperation = double.Parse(values[6].Replace(",", ".").ToString(), CultureInfo.InvariantCulture);
                     asif.DateIntegration = Convert.ToDateTime(values[1].ToString());
                     asif.IdMovement = asif.AmountOperation > 0 ? 1 : 2;
-                    asif.Account = _accountService.GetByNumber(values[0].ToString());
+                    asif.Account = _referentialService.AccountService.GetByNumber(values[0].ToString());
                     if (asif.Account != null)
                         asif.IdAccount = asif.Account.Id;
 
-                    OperationMethod operationMethod = _operationMethodService.GetOperationMethodByFileLabel(asif.LabelOperationWork, EnumBankFamily.BanquePopulaire);
+                    OperationMethod operationMethod = _referentialService.OperationMethodService.GetOperationMethodByFileLabel(asif.LabelOperationWork, EnumBankFamily.BanquePopulaire);
                     asif.IdOperationMethod = operationMethod.Id;
 
                     //Date Operation
@@ -83,7 +71,7 @@ namespace Budget.SERVICE
                     }
 
                     //Determination de operationDetail (operation+addresse) à partir des keywords
-                    OperationDetail operationDetail = _asifService.GetOperationDetail(asif);
+                    OperationDetail operationDetail = _asifService.GetOperationDetail(user.IdUserGroup, asif);
                     if (operationDetail != null)
                     {
                         asif.IdOperation = operationDetail.Operation.Id;
@@ -98,17 +86,13 @@ namespace Budget.SERVICE
                     else
                     {
                         //Determination de operationDetail (operation+addresse) à partir du label brut
-                        OperationType operationType = _operationTypeService
-                            .GetByIdWithOperationTypeFamily((int)EnumOperationType.Inconnu);
-                                //asif.AmountOperation > 0
-                                //? (int)EnumOperationType.InconnuCredit
-                                //: (int)EnumOperationType.InconnuDebit);
+                        OperationType operationType = _referentialService.OperationTypeService.GetUnknown(user.IdUserGroup);
 
                         asif.IdOperationType = operationType.Id;
                         asif.IdOperationTypeFamily = operationType.IdOperationTypeFamily;
 
                         //rechercher les labels et keyword sur libellé brut
-                        OperationInformation operationInformation = GetOperationInformationByParsingLabel(asif.LabelOperationCopy, asif.LabelOperationWork, operationMethod);
+                        OperationInformation operationInformation = GetOperationInformationByParsingLabel(user.IdUserGroup, asif.LabelOperationCopy, asif.LabelOperationWork, operationMethod);
 
                         if (operationInformation != null)
                         {
@@ -180,14 +164,14 @@ namespace Budget.SERVICE
             return null; ;
         }
 
-        protected override OperationInformation GetOperationInformationByParsingLabel(string label,string labelWork, OperationMethod operationMethod)
+        protected override OperationInformation GetOperationInformationByParsingLabel(int idUserGroup, string label,string labelWork, OperationMethod operationMethod)
         {
             switch (operationMethod.Id)
             {
                 case (int)EnumOperationMethod.PaiementCarte:
-                    return GetOperationInformationForCardPayment(label, labelWork, operationMethod.KeywordWork);
+                    return GetOperationInformationForCardPayment(idUserGroup, label, labelWork, operationMethod.KeywordWork);
                 case (int)EnumOperationMethod.RetraitCarte:
-                    return GetOperationInformationForCashWithdrawal(label, labelWork, operationMethod.KeywordWork);
+                    return GetOperationInformationForCashWithdrawal(idUserGroup, label, labelWork, operationMethod.KeywordWork);
                 case (int)EnumOperationMethod.Cotisation:
                     return GetOperationInformationForCotisation(label, labelWork, operationMethod.KeywordWork);
                 case (int)EnumOperationMethod.Virement:
@@ -204,7 +188,7 @@ namespace Budget.SERVICE
             return null;
         }
 
-        protected override OperationInformation GetOperationInformationForCardPayment(string label, string labelWork, string operationMethodKeyword)
+        protected override OperationInformation GetOperationInformationForCardPayment(int idUserGroup, string label, string labelWork, string operationMethodKeyword)
         {
             string operationLabel = string.Empty;
             string operationPlace = string.Empty;
@@ -271,7 +255,7 @@ namespace Budget.SERVICE
             return operationInformation;
         }
 
-        protected override OperationInformation GetOperationInformationForCashWithdrawal(string label, string labelWork, string operationMethodKeyword)
+        protected override OperationInformation GetOperationInformationForCashWithdrawal(int idUser, string label, string labelWork, string operationMethodKeyword)
         {
             //  Le lieu est du debut jusqu'au mot clef
             //  lieu est a mettre dans place
@@ -409,24 +393,6 @@ namespace Budget.SERVICE
                     break;
                 }
             }
-
-
-
-            ////Label se termine au premier ":" rencontré ou au premier " X"
-            //index = operationLabel.IndexOf(":");
-            //if (index > 0)
-            //{
-            //    operationLabel = operationLabel.Substring(0, index);
-            //}
-            //else 
-            //{
-            //    index = operationLabel.ToUpper().IndexOf(" X");
-            //    if (index > 0)
-            //    {
-            //        operationLabel = operationLabel.Substring(0, index);
-            //    }
-            //}
-            //operationLabel = operationLabel.Trim();
 
             OperationInformation operationInformation = new OperationInformation
             {

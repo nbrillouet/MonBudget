@@ -16,38 +16,23 @@ namespace Budget.SERVICE
     public class CreditAgricoleImportFileService : BankingImportService, ICreditAgricoleImportFileService
     {
         private readonly IParameterService _parameterService;
-        private readonly IBankFileDefinitionService _bankFileDefinitionService;
         private readonly IAccountStatementImportFileService _asifService;
-        private readonly IAccountService _accountService;
-        private readonly IOperationMethodService _operationMethodService;
-        private readonly IOperationService _operationService;
-        private readonly IOperationTypeService _operationTypeService;
-        private readonly IOperationDetailService _operationDetailService;
+        private readonly ReferentialService _referentialService;
 
         public CreditAgricoleImportFileService(
             IParameterService parameterService,
-            IBankFileDefinitionService bankFileDefinitionService,
             IAccountStatementImportFileService asifService,
-            IAccountService accountService,
-            IOperationMethodService operationMethodService,
-            IOperationService operationService,
-            IOperationTypeService operationTypeService,
-            IOperationDetailService operationDetailService
+            ReferentialService referentialService
         )
         {
             _parameterService = parameterService;
-            _bankFileDefinitionService = bankFileDefinitionService;
             _asifService = asifService;
-            _accountService = accountService;
-            _operationMethodService = operationMethodService;
-            _operationService = operationService;
-            _operationTypeService = operationTypeService;
-            _operationDetailService = operationDetailService;
+            _referentialService = referentialService;
         }
 
         public StreamReader FormatFile(StreamReader reader, User user)
         {
-            List<BankFileDefinition> bankFileDefinitions = _bankFileDefinitionService.GetByIdBankFamily((int)EnumBankFamily.CreditAgricole);
+            List<BankFileDefinition> bankFileDefinitions = _referentialService.BankFileDefinitionService.GetByIdBankFamily((int)EnumBankFamily.CreditAgricole);
             
             reader.DiscardBufferedData();
             reader.BaseStream.Seek(0, SeekOrigin.Begin);
@@ -119,7 +104,7 @@ namespace Budget.SERVICE
                 var line = reader.ReadLine();
 
                 var values = line.Split(';');
-                AccountStatementImportFile asif = _asifService.InitForImport();
+                AccountStatementImportFile asif = _asifService.InitForImport(user.IdUserGroup);
                 asif.Id = currentLineNumber;
                 asif.IdImport = accountStatementImport.Id;
                 asif.DateImport = DateTime.Now;
@@ -140,10 +125,10 @@ namespace Budget.SERVICE
                 }
 
                 asif.DateIntegration = Convert.ToDateTime(values[1].ToString());
-                asif.Account = _accountService.GetByNumber(values[0].ToString());
+                asif.Account = _referentialService.AccountService.GetByNumber(values[0].ToString());
                 asif.IdAccount = asif.Account.Id;
 
-                OperationMethod operationMethod = _operationMethodService.GetOperationMethodByFileLabel(asif.LabelOperationWork, EnumBankFamily.CreditAgricole);
+                OperationMethod operationMethod = _referentialService.OperationMethodService.GetOperationMethodByFileLabel(asif.LabelOperationWork, EnumBankFamily.CreditAgricole);
                 asif.IdOperationMethod = operationMethod.Id;
 
                 //Date Operation
@@ -158,7 +143,7 @@ namespace Budget.SERVICE
                 }
 
                 //Determination de operationDetail (operation+addresse) à partir des keywords
-                OperationDetail operationDetail = _asifService.GetOperationDetail(asif);
+                OperationDetail operationDetail = _asifService.GetOperationDetail(user.Id, asif);
                 if (operationDetail != null)
                 {
                     asif.IdOperation = operationDetail.Operation.Id;
@@ -173,13 +158,12 @@ namespace Budget.SERVICE
                 else
                 {
                     //Determination de operationDetail (operation+addresse) à partir du label brut
-                    OperationType operationType = _operationTypeService
-                        .GetByIdWithOperationTypeFamily((int)EnumOperationType.Inconnu);
+                    OperationType operationType = _referentialService.OperationTypeService.GetUnknown(user.IdUserGroup);
                     asif.IdOperationType = operationType.Id;
                     asif.IdOperationTypeFamily = operationType.IdOperationTypeFamily;
 
                     //rechercher les labels et keyword sur libellé brut
-                    OperationInformation operationInformation = GetOperationInformationByParsingLabel(asif.LabelOperation, asif.LabelOperationWork, operationMethod);
+                    OperationInformation operationInformation = GetOperationInformationByParsingLabel(user.Id, asif.LabelOperation, asif.LabelOperationWork, operationMethod);
                     if (operationInformation != null)
                     {
                         //asif.IdOperation = operationInformation.IdOperation;
@@ -189,21 +173,10 @@ namespace Budget.SERVICE
                         asif.PlaceLabelTemp = operationInformation.PlaceLabel;
 
                     }
-                    ////si localisable , rechercher label et keyword pour lieu operation
-                    //if (asif.IsLocalisable)
-                    //{
-                    //    KeyLabel keywordPlace = _operationDetailService.GetKeywordPlaceByParsingLabel(asif);
-                    //    asif.PlaceKeywordTemp = keywordPlace.Keyword;
-                    //    asif.PlaceLabelTemp = keywordPlace.Label;
-                    //}
                 }
 
                 accountStatementImportFiles.Add(asif);
-                //}
-                //else
-                //{
-                //    var toto = asif.LabelOperationWork;
-                //}
+
             }
             
 
@@ -239,14 +212,14 @@ namespace Budget.SERVICE
             return null;
         }
 
-        protected override OperationInformation GetOperationInformationByParsingLabel(string label, string labelWork, OperationMethod operationMethod)
+        protected override OperationInformation GetOperationInformationByParsingLabel(int idUserGroup, string label, string labelWork, OperationMethod operationMethod)
         {
             switch (operationMethod.Id)
             {
                 case (int)EnumOperationMethod.PaiementCarte:
-                    return GetOperationInformationForCardPayment(label, labelWork, operationMethod.KeywordWork);
+                    return GetOperationInformationForCardPayment(idUserGroup, label, labelWork, operationMethod.KeywordWork);
                 case (int)EnumOperationMethod.RetraitCarte:
-                    return GetOperationInformationForCashWithdrawal(label, labelWork, operationMethod.KeywordWork);
+                    return GetOperationInformationForCashWithdrawal(idUserGroup, label, labelWork, operationMethod.KeywordWork);
                 case (int)EnumOperationMethod.Cotisation:
                     return GetOperationInformationForCotisation(label, labelWork, operationMethod.KeywordWork);
                 case (int)EnumOperationMethod.Virement:
@@ -263,7 +236,7 @@ namespace Budget.SERVICE
             return null;
         }
 
-        protected override OperationInformation GetOperationInformationForCardPayment(string label, string labelWork, string operationMethodKeyword)
+        protected override OperationInformation GetOperationInformationForCardPayment(int idUserGroup, string label, string labelWork, string operationMethodKeyword)
         {
             string placeLabel = string.Empty;
             string placeKeyword = string.Empty;
@@ -276,7 +249,7 @@ namespace Budget.SERVICE
 
             var labelOperation = string.Empty;
             //recherche dans operation_detail le mot clef du lieu
-            var operationDetail = _operationDetailService.FindKeywordPlace(operationLabel);
+            var operationDetail = _referentialService.OperationDetailService.FindKeywordPlace(idUserGroup, operationLabel);
             if (operationDetail!=null)
             {
                 placeLabel = operationDetail.GMapAddress.gMapLocality.Label;
@@ -298,14 +271,14 @@ namespace Budget.SERVICE
         }
         
 
-        protected override OperationInformation GetOperationInformationForCashWithdrawal(string label, string labelWork, string operationMethodKeyword)
+        protected override OperationInformation GetOperationInformationForCashWithdrawal(int idUserGroup,string label, string labelWork, string operationMethodKeyword)
         {
             string placeLabel = string.Empty;
             string placeKeyword = string.Empty;
             string operationLabel = string.Empty;
 
             //recherche dans operation_detail le mot clef du lieu
-            var operationDetail = _operationDetailService.FindKeywordPlace(labelWork);
+            var operationDetail = _referentialService.OperationDetailService.FindKeywordPlace(idUserGroup, labelWork);
             if (operationDetail != null)
             {
                 placeLabel = operationDetail.GMapAddress.gMapLocality.Label;

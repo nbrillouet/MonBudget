@@ -41,15 +41,15 @@ namespace Budget.SERVICE
             filterAsTable.OperationMethods = operationMethods;
             filterAsTable.Selected.OperationMethods = filter.OperationMethods==null ? null : filter.OperationMethods;
 
-            var operationTypeFamilies = _referentialService.OperationTypeFamilyService.GetSelectGroup();
+            var operationTypeFamilies = _referentialService.OperationTypeFamilyService.GetSelectGroup(filter.User.IdUserGroup);
             filterAsTable.OperationTypeFamilies = operationTypeFamilies;
             filterAsTable.Selected.OperationTypeFamilies = filter.OperationTypeFamilies == null ? null : filter.OperationTypeFamilies;
 
-            var operationTypes = _referentialService.OperationTypeService.GetSelectList(filterAsTable.Selected.OperationTypeFamilies);
+            var operationTypes = _referentialService.OperationTypeService.GetSelectList(filter.User.IdUserGroup, filterAsTable.Selected.OperationTypeFamilies);
             filterAsTable.OperationTypes = operationTypes;
             filterAsTable.Selected.OperationTypes = filter.OperationTypes == null ? null : filter.OperationTypes;
 
-            var operations = _referentialService.OperationService.GetSelectList(filterAsTable.Selected.OperationTypes);
+            var operations = _referentialService.OperationService.GetSelectList(filter.User.IdUserGroup, filterAsTable.Selected.OperationTypes);
             filterAsTable.Operations = operations;
             filterAsTable.Selected.Operations = filter.Operations == null ? null : filter.Operations;
 
@@ -99,6 +99,32 @@ namespace Budget.SERVICE
             filterUserTable.Selected = filter;
 
             return filterUserTable;
+        }
+
+        public FilterOtfTable GetFilterOtfTable(FilterOtfTableSelected filter)
+        {
+            FilterOtfTable filterOtfTable = new FilterOtfTable
+            {
+                Selected = filter
+            };
+            var Movements = _referentialService.MovementService.GetSelectList(EnumSelectType.Empty);
+
+            filterOtfTable.Movements = Movements;
+
+            return filterOtfTable;
+        }
+
+        public FilterOtTable GetFilterOtTable(FilterOtTableSelected filter)
+        {
+            FilterOtTable filterOtTable = new FilterOtTable
+            {
+                Selected = filter
+            };
+            var Otfs = _referentialService.OperationTypeFamilyService.GetSelectList(filter.User.IdUserGroup, EnumSelectType.Empty);
+
+            filterOtTable.Otfs = Otfs;
+
+            return filterOtTable;
         }
 
     }

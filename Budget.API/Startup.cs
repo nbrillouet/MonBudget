@@ -57,8 +57,8 @@ namespace Budget.API
             services.AddScoped<IUserCustomOtfService, UserCustomOtfService>();
             services.AddScoped<IUserCustomOtfRepository, UserCustomOtfRepository>();
             
-            services.AddScoped<IBankAgencyService, BankAgencyService>();
-            services.AddScoped<IBankAgencyRepository, BankAgencyRepository>();
+            services.AddScoped<IBankSubFamilyService, BankSubFamilyService>();
+            services.AddScoped<IBankSubFamilyRepository, BankSubFamilyRepository>();
 
             services.AddScoped<IAccountStatementImportService, AccountStatementImportService>();
             services.AddScoped<IAccountStatementImportRepository, AccountStatementImportRepository>();
@@ -113,7 +113,10 @@ namespace Budget.API
 
             services.AddScoped<IOperationTransverseAsService, OperationTransverseAsService>();
             services.AddScoped<IOperationTransverseAsRepository, OperationTransverseAsRepository>();
-            
+
+            services.AddScoped<IMovementService, MovementService>();
+            services.AddScoped<IMovementRepository, MovementRepository>();
+
             services.AddScoped<IPlanService, PlanService>();
             services.AddScoped<IPlanRepository, PlanRepository>();
 
@@ -152,11 +155,6 @@ namespace Budget.API
             services.AddScoped<IPlanPosteDetailService, PlanPosteDetailService>();
             services.AddScoped<IPlanTrackingService, PlanTrackingService>();
             
-
-
-            //services.AddScoped<IOperationPlaceService, OperationPlaceService>();
-            //services.AddScoped<IOperationPlaceRepository, OperationPlaceRepository>();
-
             services.AddScoped<IParameterService, ParameterService>();
             services.AddScoped<IParameterRepository, ParameterRepository>();
 

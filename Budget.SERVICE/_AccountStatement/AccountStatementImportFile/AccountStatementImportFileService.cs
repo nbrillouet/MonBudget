@@ -21,10 +21,6 @@ namespace Budget.SERVICE
         private readonly IMapper _mapper;
         private readonly IAccountService _accountService;
         private readonly IAccountStatementService _accountStatementService;
-        private readonly IOperationDetailService _operationDetailService;
-        private readonly IGMapAddressService _gMapAddressService;
-        private readonly IGMapAddressTypeService _gMapAddressTypeService;
-        private readonly IGMapTypeService _gMapTypeService;
         private readonly IOperationTransverseAsifService _operationTransverseAsifService;
         private readonly ReferentialService _referentialService;
 
@@ -33,56 +29,20 @@ namespace Budget.SERVICE
             IAccountService accountService,
             IMapper mapper,
             IAccountStatementService accountStatementService,
-            IOperationDetailService operationDetailService,
-            IGMapAddressService gMapAddressService,
-            IGMapAddressTypeService gMapAddressTypeService,
-            IGMapTypeService gMapTypeService,
             IOperationTransverseAsifService operationTransverseAsifService,
             ReferentialService referentialService
-            //IFilterService filterService
             )
         {
             _accountStatementImportFileRepository = accountStatementImportFileRepository;
-            _accountService = accountService;
             _mapper = mapper;
+            _accountService = accountService;
             _accountStatementService = accountStatementService;
-            _operationDetailService = operationDetailService;
-            _gMapAddressService = gMapAddressService;
-            _gMapAddressTypeService = gMapAddressTypeService;
-            _gMapTypeService = gMapTypeService;
             _operationTransverseAsifService = operationTransverseAsifService;
             _referentialService = referentialService;
-            //_referentialService = referentialService;
-            //_filterService = filterService;
         }
 
-        ///// <summary>
-        ///// Nettoie le label operation provenant d'un fichier
-        ///// </summary>
-        ///// <param name="operationLabel"></param>
-        ///// <returns></returns>
-        //public string GetOperationWork(string operationLabel)
-        //{
-        //    string trimOperationLabel = operationLabel.ToUpper();
-        //    trimOperationLabel = trimOperationLabel.Replace("'", "");
-        //    trimOperationLabel = trimOperationLabel.Replace("*", "");
-        //    trimOperationLabel = trimOperationLabel.Replace("-", "");
-        //    trimOperationLabel = trimOperationLabel.Replace("/", "");
-
-        //    return trimOperationLabel;
-        //}
         public PagedList<AsifForTableDto> GetAsifTable(FilterAsifTableSelected filter)
         {
-            //if (filter.Pagination == null)
-            //{
-            //    filter.Pagination = new Pagination1
-            //    {
-            //        CurrentPage = 0,
-            //        ItemsPerPage = 15,
-            //        SortColumn = "id",
-            //        SortDirection = "asc"
-            //    };
-            //}
             var pagedList = _accountStatementImportFileRepository.GetAsifTable(filter);
 
             var result = new PagedList<AsifForTableDto>(_mapper.Map<List<AsifForTableDto>>(pagedList.Datas), pagedList.Pagination);
@@ -90,7 +50,7 @@ namespace Budget.SERVICE
             return result;
         }
 
-        public AsifDetailDto GetAsifDetail(int idAsif, int idUser)
+        public AsifDetailDto GetAsifDetail(int idAsif, int idUserGroup)
         {
             var asif = _accountStatementImportFileRepository.GetAsifDetail(idAsif);
             var asifDetailDto = _mapper.Map<AsifDetailDto>(asif);
@@ -102,7 +62,7 @@ namespace Budget.SERVICE
             };
             asifDetailDto.OperationTypeFamily = new ComboSimple<SelectDto>
             {
-                List = _referentialService.OperationTypeFamilyService.GetSelectList((EnumMovement)asifDetailDto.IdMovement, EnumSelectType.Inconnu),
+                List = _referentialService.OperationTypeFamilyService.GetSelectList(idUserGroup, (EnumMovement)asifDetailDto.IdMovement, EnumSelectType.Inconnu),
                 Selected = new SelectDto { Id = asif.OperationTypeFamily.Id, Label = asif.OperationTypeFamily.Label }
             };
             asifDetailDto.OperationType = new ComboSimple<SelectDto>
@@ -113,13 +73,13 @@ namespace Budget.SERVICE
 
             asifDetailDto.Operation = new ComboSimple<SelectDto>
             {
-                List = _referentialService.OperationService.GetSelectList(asif.OperationMethod.Id, asif.OperationType.Id, EnumSelectType.Inconnu),
+                List = _referentialService.OperationService.GetSelectList(idUserGroup, asif.OperationMethod.Id, asif.OperationType.Id, EnumSelectType.Inconnu),
                 Selected = new SelectDto { Id = asif.Operation.Id, Label = asif.Operation.Label }
             };
 
             asifDetailDto.OperationTransverse = new ComboMultiple<SelectDto>
             {
-                List = _referentialService.OperationTransverseService.GetSelectList(idUser, EnumSelectType.Empty),
+                List = _referentialService.OperationTransverseService.GetSelectList(idUserGroup, EnumSelectType.Empty),
                 ListSelected = _operationTransverseAsifService.GetOperationTransverseSelectList(idAsif, EnumSelectType.Empty)
             };
 
@@ -156,55 +116,6 @@ namespace Budget.SERVICE
                 }
             }
             
-            
-
-            //var asifDetailDto = new AsifDetailDto
-            //{
-            //    Id = asif.Id,
-            //    Operation = new ComboSimple<SelectDto>
-            //    {
-            //        List = null,
-            //        Selected = new SelectDto { Id = asif.Operation.Id, Label = asif.Operation.Label }
-            //    },
-            //    OperationMethod =new ComboSimple<SelectDto>
-            //    {
-            //        List = null,
-            //        Selected = new SelectDto { Id = asif.OperationMethod.Id, Label = asif.OperationMethod.Label }
-            //    },
-            //    OperationType = new ComboSimple<SelectDto>
-            //    {
-            //        List = null,
-            //        Selected = new SelectDto { Id = asif.OperationType.Id, Label = asif.OperationType.Label }
-            //    },
-            //    OperationTypeFamily = new ComboSimple<SelectDto>
-            //    {
-            //        List = null,
-            //        Selected = new SelectDto { Id = asif.OperationTypeFamily.Id, Label = asif.OperationTypeFamily.Label }
-            //    },
-            //    OperationPlace = new ComboSimple<SelectDto>
-            //    {
-            //        List = new List<SelectDto> { new SelectDto { Id=1,Label="INCONNU"},new SelectDto { Id=3,Label="INTERNET"},new SelectDto { Id=4,Label="Autres"} }
-            //        Selected = null
-            //    },
-            //    AmountOperation = asif.AmountOperation,
-            //    LabelOperation = asif.LabelOperation,
-            //    DateIntegration = asif.DateIntegration,
-            //    IsDuplicated = asif.IsDuplicated,
-            //    IdMovement = asif.IdMovement,
-            //    LogoName = asif.LogoName,
-            //    LogoUrl = null,
-            //    OperationKeywordTemp = asif.OperationKeywordTemp,
-            //    OperationLabelTemp = asif.OperationLabelTemp,
-            //    PlaceLabelTemp = asif.PlaceLabelTemp,
-            //    PlaceKeywordTemp = asif.PlaceKeywordTemp,
-            //    IsLocalisable = asif.IsLocalisable,
-            //    OperationDetail = asif.OperationDetail
-
-            //}
-
-
-
-
             return asifDetailDto;
         }
 
@@ -212,6 +123,7 @@ namespace Budget.SERVICE
         {
             return _accountStatementImportFileRepository.GetById(IdAccountStatementImportFile);
         }
+
         public List<string> GetDistinctAccountNumber(int idImport)
         {
             return _accountStatementImportFileRepository.GetDistinctAccountNumber(idImport);
@@ -222,19 +134,23 @@ namespace Budget.SERVICE
             _accountStatementImportFileRepository.SaveWithTran(accountStatementImportFiles);
         }
 
-        //public int Save(AccountStatementImportFile accountStatementImportFile)
-        //{
-
-        //    return _accountStatementImportFileRepository.Save(accountStatementImportFile);
-        //}
-
-        public AccountStatementImportFile InitForImport()
+        public AccountStatementImportFile InitForImport(int idUserGroup)
         {
             var accountStatementImportFile = new AccountStatementImportFile();
             accountStatementImportFile.IdAccount = (int)EnumAccount.Inconnu;
-            accountStatementImportFile.IdOperation = (int)EnumOperation.Inconnu;
             accountStatementImportFile.IdOperationMethod = (int)EnumOperationMethod.Inconnu;
-            accountStatementImportFile.IdOperationDetail = (int)EnumOperationMethod.Inconnu;
+            accountStatementImportFile.IdOperation = _referentialService.OperationService.GetUnknown(idUserGroup).Id;
+            accountStatementImportFile.IdOperationDetail = _referentialService.OperationDetailService.GetUnknown(idUserGroup).Id;
+            accountStatementImportFile.IdOperationTypeFamily = _referentialService.OperationTypeFamilyService.GetUnknown(idUserGroup).Id;
+            accountStatementImportFile.IdOperationType = _referentialService.OperationTypeService.GetUnknown(idUserGroup).Id;
+            
+            accountStatementImportFile.UnknownId.IdAccount = accountStatementImportFile.IdAccount.Value;
+            accountStatementImportFile.UnknownId.IdOperationMethod = accountStatementImportFile.IdOperationMethod;
+            accountStatementImportFile.UnknownId.IdOperation = accountStatementImportFile.IdOperation;
+            accountStatementImportFile.UnknownId.IdOperationDetail = accountStatementImportFile.IdOperationDetail;
+            accountStatementImportFile.UnknownId.IdOperationTypeFamily = accountStatementImportFile.IdOperationTypeFamily;
+            accountStatementImportFile.UnknownId.IdOperationType = accountStatementImportFile.IdOperationType;
+
             return accountStatementImportFile;
         }
 
@@ -260,19 +176,6 @@ namespace Budget.SERVICE
                 IdImport = idImport,
                 Accounts = GetAccounts(idImport)
             };
-            //asifGroupByAccounts.IdImport = idImport;
-            
-            ////selectionner les account number distincts dans l'import
-            //var accountNumbers = GetDistinctAccountNumber(idImport);
-            //foreach (string accountNumber in accountNumbers)
-            //{
-            //    AsifGroupByAccounts asifGroups = new AsifGroupByAccount();
-            //    asifGroups.Account = _accountService.GetAccountByNumber(accountNumber);
-
-            //    //asifGroups.AsifGroup = DispatchAccountStatements(idImport, asifGroups.Account.Id);
-
-            //    //asifsGroupByAccount.AsifGroupByAccountList.Add(asifGroups);
-            //}
 
             return asifGroupByAccounts;
         }
@@ -307,19 +210,10 @@ namespace Budget.SERVICE
             return _accountStatementImportFileRepository.GetAsifStates(idImport, idAccount);
         }
 
-        //public Task<PagedList<AccountStatementImportFile>> GetAsync(FilterAccountStatementImportFile filter)
-        //{
-        //    return _accountStatementImportFileRepository.GetAsync(filter);
-        //}
-
         public async Task<AsifDetailDto> GetForDetailByIdAsync(int id)
         {
             var accountStatementImportFile = await _accountStatementImportFileRepository.GetForDetailByIdAsync(id);
             var asifDetailDto = _mapper.Map<AsifDetailDto>(accountStatementImportFile);
-            
-            //recherche de la gMapAddress
-
-           // asifDetailDto.OperationDetail = accountStatementImportFile.OperationDetail; 
 
             return asifDetailDto;
         }
@@ -402,12 +296,13 @@ namespace Budget.SERVICE
             OperationDetail operationDetail = new OperationDetail
             {
                 Id = 0,
+                IdUserGroup = asifDetailDto.User.IdUserGroup,
                 IdOperation = asifDetailDto.Operation.Selected.Id,
                 IdGMapAddress = asifDetailDto.OperationDetail.GMapAddress.Id,
                 KeywordOperation = asifDetailDto.OperationDetail.KeywordOperation,
                 KeywordPlace = asifDetailDto.OperationDetail.KeywordPlace
             };
-            operationDetail = _operationDetailService.GetOrCreate(operationDetail);
+            operationDetail = _referentialService.OperationDetailService.GetOrCreate(operationDetail);
             asif.IdOperationDetail = operationDetail.Id;
 
 
@@ -424,69 +319,20 @@ namespace Budget.SERVICE
 
         }
 
-        public OperationDetail GetOperationDetail(AccountStatementImportFile accountStatementImportFile)
+        public OperationDetail GetOperationDetail(int idUserGroup, AccountStatementImportFile accountStatementImportFile)
         {
             OperationDetail operationDetail = null;
             if (accountStatementImportFile.IsLocalisable)
             {
-                operationDetail = _operationDetailService.GetByKeywords(accountStatementImportFile.LabelOperationWork, accountStatementImportFile.IdOperationMethod, (EnumMovement)accountStatementImportFile.IdMovement);
+                operationDetail = _referentialService.OperationDetailService.GetByKeywords(idUserGroup, accountStatementImportFile.LabelOperationWork, accountStatementImportFile.IdOperationMethod, (EnumMovement)accountStatementImportFile.IdMovement);
             }
             else
             {
-                operationDetail = _operationDetailService.GetByKeywordOperation(accountStatementImportFile.LabelOperationWork, accountStatementImportFile.IdOperationMethod, (EnumMovement)accountStatementImportFile.IdMovement);
+                operationDetail = _referentialService.OperationDetailService.GetByKeywordOperation(idUserGroup,accountStatementImportFile.LabelOperationWork, accountStatementImportFile.IdOperationMethod, (EnumMovement)accountStatementImportFile.IdMovement);
             }
 
             return operationDetail;
         }
-        //private AsifGroup DispatchAccountStatements(int idImport, int idAccount)
-        //{
-        //    //List<AccountStatementImportFile> accountStatementImportFiles = _accountStatementImportFileService.GetById(idAccountStatementImport, idAccount);
-        //    AsifGroup asifGroup = new AsifGroup();
-
-        //    List<AccountStatementImportFile> asifs = GetAsifFull(idImport, idAccount);
-        //    asifGroup.AccountStatementsFull = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
-        //    //accountStatementImportViewModels.AccountStatementsFull.AccountStatementType = EnumAccountStatementType.Full;
-
-        //    asifs = GetAsifComplete(idImport, idAccount);
-        //    asifGroup.AccountStatementsComplete = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
-        //    //accountStatementImportViewModels.AccountStatementsComplete.AccountStatementType = EnumAccountStatementType.Complete;
-
-        //    asifs = GetAsifMethodLess(idImport, idAccount);
-        //    asifGroup.AccountStatementsMethodLess = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
-        //    //accountStatementImportViewModels.AccountStatementsMethodLess.AccountStatementType = EnumAccountStatementType.MethodLess;
-
-        //    asifs = GetAsifOperationLess(idImport, idAccount);
-        //    asifGroup.AccountStatementsOperationLess = _mapper.Map<IEnumerable<AsifForListDto>>(asifs).ToList();
-        //    //accountStatementImportViewModels.AccountStatementsOperationLess.AccountStatementType = EnumAccountStatementType.OperationLess;
-
-        //    return asifGroup;
-
-        //}
-
-        //private List<AccountStatementImportFile> GetAsifFull(int idImport, int idAccount)
-        //{
-        //    return _accountStatementImportFileRepository.GetAsifFull(idImport, idAccount);
-        //}
-
-        //private List<AccountStatementImportFile> GetAsifComplete(int idImport, int idAccount)
-        //{
-        //    return _accountStatementImportFileRepository.GetAsifComplete(idImport, idAccount);
-        //}
-
-        //private List<AccountStatementImportFile> GetAsifMethodLess(int idImport, int idAccount)
-        //{
-        //    return _accountStatementImportFileRepository.GetAsifMethodLess(idImport, idAccount);
-        //}
-
-        //private List<AccountStatementImportFile> GetAsifOperationLess(int idImport, int idAccount)
-        //{
-        //    return _accountStatementImportFileRepository.GetAsifOperationLess(idImport, idAccount);
-        //}
-
-        //public bool HasAccountStatementImportFileWihoutPlace(int IdImport, int idAccount)
-        //{
-        //    return _accountStatementImportFileRepository.HasAccountStatementImportFileWihoutPlace(IdImport, idAccount);
-        //}
 
 
     }

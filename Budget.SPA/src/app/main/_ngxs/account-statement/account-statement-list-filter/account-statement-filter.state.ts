@@ -1,9 +1,9 @@
 import { FilterInfo } from "app/main/_models/generics/filter.info.model";
 import { FilterAsTable } from "app/main/_models/filters/account-statement.filter";
 import { AsService } from "app/main/apps/account-statement/account-statement.service";
-import { Store, State, Selector, Action, StateContext } from "@ngxs/store";
 import { LoadAsTableFilter, LoadAsTableFilterSuccess, ChangeAsTableFilter, UpdatePaginationAsTableFilter } from "./account-statement-filter.action";
 import { LoadAsTableDatas } from "../account-statement-list/account-statement-list.action";
+import { Store, State, Selector, Action, StateContext } from "@ngxs/store";
 
 export class AsTableFilterStateModel extends FilterInfo<FilterAsTable> {
     constructor () {

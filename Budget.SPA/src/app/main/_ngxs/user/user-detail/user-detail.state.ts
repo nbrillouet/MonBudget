@@ -1,9 +1,11 @@
 import { IUser, User } from "app/main/_models/user.model";
-import { State, Action, StateContext, Selector } from '@ngxs/store';
+// import { State, Action, StateContext, Selector } from 'app/main/_ngxs/user/user-detail/node_modules/@ngxs/store';
 import { AddUser, DeleteUser, User_DeleteShortcut, User_DeleteShortcutSuccess, User_AddShortcut, LoadUserDetailSuccess, LoadUserDetail } from "./user-detail.action";
 import { UserService } from "app/main/apps/referential/user/user.service";
 import { IUserShortcut } from "app/main/_models/user-shortcut.model";
+import { State, Action, StateContext, Selector } from "@ngxs/store";
 import { NotificationsService } from "angular2-notifications";
+// import { NotificationsService } from "app/main/_ngxs/user/user-detail/node_modules/angular2-notifications";
 
 export class UserDetailStateModel extends User  {
 

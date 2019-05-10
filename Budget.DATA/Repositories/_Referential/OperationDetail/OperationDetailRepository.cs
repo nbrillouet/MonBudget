@@ -13,106 +13,64 @@ namespace Budget.DATA.Repositories
         {
         }
 
-        
-        public OperationDetail GetForAddressById(int id)
-        {
-            var result = Context.OperationDetail
-                .Where(x => x.Id == id)
-                .Include(x => x.GMapAddress)
-                .Include(x => x.GMapAddress.gMapAdministrativeAreaLevel1)
-                .Include(x => x.GMapAddress.gMapAdministrativeAreaLevel2)
-                .Include(x => x.GMapAddress.gMapCountry)
-                .Include(x => x.GMapAddress.gMapLocality)
-                .Include(x => x.GMapAddress.gMapNeighborhood)
-                .Include(x => x.GMapAddress.gMapPostalCode)
-                .Include(x => x.GMapAddress.gMapRoute)
-                .Include(x => x.GMapAddress.gMapStreetNumber)
-                .Include(x => x.GMapAddress.gMapSublocalityLevel1)
-                .Include(x => x.GMapAddress.gMapSublocalityLevel2)
-                .FirstOrDefault();
 
-            return result;
+        public bool HasSameKeywords(OperationDetail operationDetail)
+        {
+            return Context.OperationDetail
+                .Where(x => x.KeywordOperation == operationDetail.KeywordOperation
+                    && x.KeywordPlace == operationDetail.KeywordPlace
+                    && x.IdUserGroup == operationDetail.IdUserGroup)
+                .Any();
         }
 
-        public OperationDetail GetByIdOperation(int idOperation)
-        {
-            var result = Context.OperationDetail
-                .Where(x => x.IdOperation == idOperation)
-                .Include(x=>x.GMapAddress)
-                .Include(x=>x.GMapAddress.gMapAdministrativeAreaLevel1)
-                .Include(x=>x.GMapAddress.gMapAdministrativeAreaLevel2)
-                .Include(x=>x.GMapAddress.gMapCountry)
-                .Include(x=>x.GMapAddress.gMapLocality)
-                .Include(x=>x.GMapAddress.gMapNeighborhood)
-                .Include(x=>x.GMapAddress.gMapPostalCode)
-                .Include(x=>x.GMapAddress.gMapRoute)
-                .Include(x=>x.GMapAddress.gMapStreetNumber)
-                .Include(x=>x.GMapAddress.gMapSublocalityLevel1)
-                .Include(x=>x.GMapAddress.gMapSublocalityLevel2)
-                .FirstOrDefault();
-
-            return result;
-        }
-
-        public List<OperationDetail> GetAllByIdOperationMethod(int idOperationMethod)
+        public List<OperationDetail> GetAllByIdOperationMethod(int idUserGroup, int idOperationMethod)
         {
             var results = Context.OperationDetail
-                .Where(x => x.Operation.IdOperationMethod == idOperationMethod)
-                .Include(x=>x.Operation)
-                .Include(x=>x.Operation.OperationType)
-                .Include(x=>x.GMapAddress)
-                .ToList();
+                .Where(x => x.IdUserGroup == idUserGroup
+                    && x.Operation.IdOperationMethod == idOperationMethod);
 
-            return results;
+            return results
+                .Include(x => x.Operation)
+                .Include(x => x.Operation.OperationType)
+                .Include(x => x.GMapAddress)
+                .ToList(); ;
         }
 
         public OperationDetail GetByOperationDetail(OperationDetail operationDetail)
         {
             OperationDetail result = null;
             result = Context.OperationDetail
-                .Where(x => x.IdOperation== operationDetail.IdOperation
+                .Where(
+                    x => x.IdUserGroup == operationDetail.IdUserGroup
+                    && x.IdOperation == operationDetail.IdOperation
                     && x.IdGMapAddress == operationDetail.IdGMapAddress
                     && x.KeywordOperation == operationDetail.KeywordOperation
-                    && x.KeywordPlace == operationDetail.KeywordPlace)
+                    && x.KeywordPlace == operationDetail.KeywordPlace
+                    )
                 .FirstOrDefault();
 
             return result;
 
-            //result = Context.OperationDetail
-            //    .Where(x => x.IdOperation == operationDetail.IdOperation
-            //        && x.IdGMapAddress == operationDetail.IdGMapAddress)
-            //    .FirstOrDefault();
-            //if (result != null)
-            //    return result;
-
-            //return result;
         }
 
-        public OperationDetail FindKeywordPlace(string operationLabel)
+        public OperationDetail FindKeywordPlace(int idUserGroup, string operationLabel)
         {
             var result = Context.OperationDetail
-                    .Where(x => operationLabel.Contains(x.KeywordPlace))
-                    .Include(x => x.GMapAddress.gMapLocality)
-                    .FirstOrDefault();
+                    .Where(x => x.IdUserGroup == idUserGroup  
+                    && operationLabel.Contains(x.KeywordPlace))
+                .Include(x => x.GMapAddress.gMapLocality);
 
-            return result;
+            return result.FirstOrDefault();
         }
 
-        public bool HasSameKeywords(OperationDetail operationDetail)
+        public OperationDetail GetUnknown(int idUserGroup)
         {
-            //if(operationDetail.KeywordPlace!=null)
-            //{
-                return Context.OperationDetail
-                    .Where(x => x.KeywordOperation == operationDetail.KeywordOperation
-                        && x.KeywordPlace == operationDetail.KeywordPlace)
-                    .Any();
-            //}
-            //else
-            //{
-            //    return Context.OperationDetail
-            //        .Where(x => x.KeywordOperation == operationDetail.KeywordOperation)
-            //        .Any();
-            //}
+            var operationDetail = Context.OperationDetail
+                .Where(x => x.IdUserGroup == idUserGroup
+                    && x.KeywordOperation== "--FAKE_KEYWORD--")
+                .FirstOrDefault();
+
+            return operationDetail;
         }
     }
 }

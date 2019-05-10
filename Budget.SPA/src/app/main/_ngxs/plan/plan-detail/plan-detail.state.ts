@@ -1,11 +1,13 @@
 
 import { PlanDetailFilter } from "app/main/_models/Filters/plan.filter";
-import { State, Selector, Action, StateContext } from "@ngxs/store";
+// import { State, Selector, Action, StateContext } from "app/main/_ngxs/plan/plan-detail/node_modules/@ngxs/store";
 import { PlanService } from "app/main/apps/plan/plan.service";
-import { NotificationsService } from "angular2-notifications";
+// import { NotificationsService } from "app/main/_ngxs/plan/plan-detail/node_modules/angular2-notifications";
 import { LoadPlanDetailDatas, LoadPlanDetailDatasSuccess, ChangePlanDetailFilter, ClearPlanDetailDatas } from "./plan-detail.action";
 import { DetailInfo } from "app/main/_models/generics/detail-info.model";
 import { PlanDetail } from "app/main/_models/plan/plan.model";
+import { State, Selector, Action, StateContext } from "@ngxs/store";
+import { NotificationsService } from "angular2-notifications";
 
 export class PlanDetailStateModel extends DetailInfo<PlanDetail,PlanDetailFilter> {
     

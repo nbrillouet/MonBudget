@@ -6,28 +6,37 @@ namespace Budget.SERVICE
 {
     public class ReferentialService
     {
+        public IBankFileDefinitionService BankFileDefinitionService { get; }
         public IOperationMethodService OperationMethodService { get; }
-        public IOperationTypeFamilyService OperationTypeFamilyService { get; }
-        public IOperationTypeService OperationTypeService { get; }
-        public IOperationService OperationService { get; }
         public IOperationTransverseService OperationTransverseService {get;}
         public IAccountService AccountService { get; }
+        public IOperationService OperationService { get; }
+        public IOperationDetailService OperationDetailService { get; }
+        public IOperationTypeService OperationTypeService { get; }
+        public IOperationTypeFamilyService OperationTypeFamilyService { get; }
+        public IMovementService MovementService { get; }
 
         public ReferentialService(
+            IBankFileDefinitionService bankFileDefinitionService,
             IOperationMethodService operationMethodService,
-            IOperationTypeFamilyService operationTypeFamilyService,
+            IOperationDetailService operationDetailService,
             IOperationTypeService operationTypeService,
-            IOperationService operationService,
             IOperationTransverseService operationTransverseService,
-            IAccountService accountService
+            IAccountService accountService,
+            IOperationService operationService,
+            IOperationTypeFamilyService operationTypeFamilyService,
+            IMovementService movementService
             )
         {
+            BankFileDefinitionService = bankFileDefinitionService;
             OperationMethodService = operationMethodService;
-            OperationTypeFamilyService = operationTypeFamilyService;
+            OperationDetailService = operationDetailService;
             OperationTypeService = operationTypeService;
-            OperationService = operationService;
             OperationTransverseService = operationTransverseService;
             AccountService = accountService;
+            OperationService = operationService;
+            OperationTypeFamilyService = operationTypeFamilyService;
+            MovementService = movementService;
         }
 
     }

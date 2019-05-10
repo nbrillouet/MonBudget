@@ -32,16 +32,20 @@ namespace Budget.MODEL.Database
 
         [ForeignKey("IdOperationType")]
         public OperationType OperationType { get; set; }
+        [Column("ID_USER_GROUP")]
+        public int IdUserGroup { get; set; }
+        [Column("IS_MANDATORY")]
+        public bool IsMandatory { get; set; }
 
         List<OperationDetail> OperationDetails { get; set; }
 
     }
 
-    public enum EnumOperation
-    {
-        Inconnu = 1,
-        RemiseCheque = 2,
-        RetraitDab = 3,
+    //public enum EnumOperation
+    //{
+    //    Inconnu = 1,
+    //    RemiseCheque = 2,
+    //    RetraitDab = 3,
 
-    }
+    //}
 }

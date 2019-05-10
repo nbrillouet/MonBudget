@@ -1,6 +1,7 @@
 import { WidgetCardChartBar } from "../chart/widget-card-chart-bar.model";
 import { ISelectGroup, ISelect } from "../generics/select.model";
 import { IMonthYear } from "../generics/date-time.model";
+import { IUserForGroup } from "../user.model";
 
 export class AsChart {
     asChartEvolution: AsChartEvolution;
@@ -44,7 +45,7 @@ export class AsChartEvolutionCustomOtfFilter {
 
 export class AsChartEvolutionCustomOtfFilterSelected {
     idAccount: number = null;
-    idUser: number = null;
+    user: IUserForGroup = null;
     monthYear: IMonthYear;
     operationTypeFamilies: ISelect[] = null;
 }

@@ -7,8 +7,8 @@ namespace Budget.SERVICE
 {
     public interface IPlanPosteDetailService
     {
-        PlanPosteForDetailDto GetForDetailById(int id, int idPlan, int idPoste);
-        PlanPosteForDetailDto GetForDetailById(int id);
+        PlanPosteForDetailDto GetForDetailById(int idUser, int id, int idPlan, int idPoste);
+        PlanPosteForDetailDto GetForDetailById(int idUser, int id);
         
         int Save(PlanPosteForDetailDto planPosteForDetailDto);
         void Delete(List<int> listIdPlanPoste);

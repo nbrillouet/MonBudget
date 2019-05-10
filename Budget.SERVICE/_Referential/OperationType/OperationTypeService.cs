@@ -4,6 +4,7 @@ using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using Budget.MODEL.Dto.Select;
+using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +17,30 @@ namespace Budget.SERVICE
         private readonly IOperationTypeRepository _operationTypeRepository;
         private readonly ISelectService _selectService;
         private readonly IMapper _mapper;
+        private readonly IOperationTypeFamilyService _operationTypeFamilyService;
 
         public OperationTypeService(
             IOperationTypeRepository operationTypeRepository,
             ISelectService selectService,
-            IMapper mapper)
+            IMapper mapper,
+            IOperationTypeFamilyService operationTypeFamilyService
+            )
         {
             _operationTypeRepository = operationTypeRepository;
             _selectService = selectService;
             _mapper = mapper;
+            _operationTypeFamilyService = operationTypeFamilyService;
+        }
+
+        public OperationType GetByIdWithOperationTypeFamily(int idOperationType)
+        {
+            return _operationTypeRepository.GetByIdWithOperationTypeFamily(idOperationType);
+        }
+
+        public List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationTypeFamilies)
+        {
+            var operationTypes = _operationTypeRepository.GetByOperationTypeFamilies(idUserGroup, operationTypeFamilies);
+            return _mapper.Map<List<SelectDto>>(operationTypes);
         }
 
         public List<SelectDto> GetSelectList(int idOperationTypeFamily, EnumSelectType enumSelectType)
@@ -35,88 +51,14 @@ namespace Budget.SERVICE
 
             return selectList;
         }
-
-        public List<SelectDto> GetSelectList(List<SelectDto> operationTypeFamilies)
-        {
-            var operationTypes = _operationTypeRepository.GetByOperationTypeFamilies(operationTypeFamilies);
-            return _mapper.Map<List<SelectDto>>(operationTypes);
-        }
-
-
-        //public List<GenericList> GetGenericList()
-        //{
-        //    return _operationTypeRepository.GetGenericList();
-        //}
-        public List<OperationType> GetAll()
-        {
-            return _operationTypeRepository.GetAll();
-        }
-        public OperationType GetById(int idOperationType)
-        {
-            return _operationTypeRepository.GetById(idOperationType);
-        }
-        //public List<OperationType> GetByIdOperationTypeFamily(int idOperationTypeFamily, EnumSelect enumSelect)
-        //{
-        //    return _operationTypeRepository.GetByIdOperationTypeFamily(idOperationTypeFamily, enumSelect);
-        //}
-        public List<OperationType> GetByIdMovement(EnumMovement enumMovement)
-        {
-            return _operationTypeRepository.GetByIdMovement(enumMovement);
-        }
-        //public List<GenericList> GetGenericListByIdMovement(EnumMovement enumMovement)
-        //{
-        //    return _operationTypeRepository.GetGenericListByIdMovement(enumMovement);
-        //}
-
-        public OperationType GetByIdWithOperationTypeFamily(int idOperationType)
-        {
-            return _operationTypeRepository.GetByIdWithOperationTypeFamily(idOperationType);
-        }
-
-        //public List<OperationType> GetAllByOrder(EnumSelect enumSelect)
-        //{
-        //    return _operationTypeRepository.GetAllByOrder(enumSelect);
-        //}
-
-        //public List<GenericList> GetGenericListByIdOperationTypeFamily(int IdOperationTypeFamily, EnumSelect enumSelect)
-        //{
-        //    return _operationTypeRepository.GetGenericListByIdOperationTypeFamily(IdOperationTypeFamily, enumSelect);
-        //}
-
-        public OperationType GetFirstByIdOperationTypeFamily(int idOperationTypeFamily)
-        {
-            return _operationTypeRepository.GetFirstByIdOperationTypeFamily(idOperationTypeFamily);
-        }
-
-        public int Create(OperationType operationType)
-        {
-            return _operationTypeRepository.Create(operationType);
-        }
-        public void Update(OperationType operationType)
-        {
-            _operationTypeRepository.Update(operationType);
-        }
-
-        public void Delete(OperationType operationType)
-        {
-            _operationTypeRepository.Delete(operationType);
-        }
-
-        public List<SelectGroupDto> GetSelectGroupListByIdPoste(int idPoste)
+        public List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste)
         {
             EnumMovement idMovement = idPoste == (int)EnumMovement.Credit ? EnumMovement.Credit : EnumMovement.Debit;
-            List<OperationType> operationTypes = _operationTypeRepository.GetByIdMovement(idMovement);
+            List<OperationType> operationTypes = _operationTypeRepository.GetByIdMovement(idUserGroup, idMovement);
 
             return GetSelectGroupList(operationTypes);
         }
-
-        public List<SelectGroupDto> GetSelectGroupListByIdList(List<int> idList)
-        {
-            List<OperationType> operationTypes = _operationTypeRepository.GetByIdList(idList);
-
-            return GetSelectGroupList(operationTypes);
-        }
-
+        
         private List<SelectGroupDto> GetSelectGroupList(List<OperationType> operationTypes)
         {
             List<SelectGroupDto> results = new List<SelectGroupDto>();
@@ -142,6 +84,70 @@ namespace Budget.SERVICE
         {
             List<OperationType> operationTypes = _operationTypeRepository.GetByIdList(idList);
             return _mapper.Map<List<SelectDto>>(operationTypes);
+        }
+
+        public OperationType GetUnknown(int idUserGroup)
+        {
+            var operationType = _operationTypeRepository.GetUnknown(idUserGroup);
+            return operationType;
+        }
+
+        public PagedList<OtForTableDto> GetOtTable(FilterOtTableSelected filter)
+        {
+            var pagedList = _operationTypeRepository.GetOtTable(filter);
+
+            var result = new PagedList<OtForTableDto>(_mapper.Map<List<OtForTableDto>>(pagedList.Datas), pagedList.Pagination);
+
+            return result;
+
+        }
+
+        public OtForDetailDto GetOtDetail(int idOperationType, int idUserGroup)
+        {
+            OperationType ot = new OperationType();
+            if (idOperationType == -1)
+            {
+                ot.OperationTypeFamily = new OperationTypeFamily { Id = 1, Label = "INCONNU" };
+            }
+            else
+            {
+                ot = _operationTypeRepository.GetOtDetail(idOperationType);
+            }
+            var otDto = _mapper.Map<OtForDetailDto>(ot);
+
+            otDto.OperationTypeFamily = new ComboSimple<SelectDto>
+            {
+                List = _operationTypeFamilyService.GetSelectList(idUserGroup, EnumSelectType.Empty),
+                Selected = new SelectDto { Id = ot.OperationTypeFamily.Id, Label = ot.OperationTypeFamily.Label }
+            };
+
+            return otDto;
+        }
+
+        public OtForDetailDto SaveOtDetail(OtForDetailDto otForDetailDto)
+        {
+            var ot = _mapper.Map<OperationType>(otForDetailDto);
+            if (ot.Id != 0)
+            {
+                _operationTypeRepository.Update(ot);
+            }
+            else
+            {
+                ot = _operationTypeRepository.Create(ot);
+            }
+
+            return _mapper.Map<OtForDetailDto>(ot); ;
+        }
+
+        public bool DeleteOtDetail(int idOt)
+        {
+            var ot = _operationTypeRepository.GetById(idOt);
+            if (ot.IsMandatory)
+                throw new Exception("Type d'opération obligatoire, suppression impossible");
+            _operationTypeRepository.DeleteWithEscalation(ot);
+
+
+            return true;
         }
 
     }

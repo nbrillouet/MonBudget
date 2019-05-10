@@ -16,9 +16,7 @@ namespace Budget.API.Controllers
     [Route("api")]
     public class PlanController : Controller
     {
-        private readonly IMapper _mapper;
         private readonly IPlanService _planService;
-        private readonly IPlanPosteService _planPosteService;
         private readonly IPlanPosteReferenceService _planPosteReferenceService;
         private readonly IPlanDetailService _planDetailService;
         private readonly IPlanPosteDetailService _planPosteDetailService;
@@ -26,9 +24,7 @@ namespace Budget.API.Controllers
         private readonly IPlanUserService _planUserService;
 
         public PlanController(
-            IMapper mapper,
             IPlanService planService,
-            IPlanPosteService planPosteService,
             IPlanPosteReferenceService planPosteReferenceService,
             IPlanDetailService planDetailService,
             IPlanPosteDetailService planPosteDetailService,
@@ -36,9 +32,7 @@ namespace Budget.API.Controllers
             IPlanUserService planUserService
             )
         {
-            _mapper = mapper;
             _planService = planService;
-            _planPosteService = planPosteService;
             _planPosteReferenceService = planPosteReferenceService;
             _planDetailService = planDetailService;
             _planPosteDetailService = planPosteDetailService;
@@ -113,20 +107,20 @@ namespace Budget.API.Controllers
             return Ok("SUPPRESSION OK");
         }
 
-        [HttpGet("plan-postes/{id}/plans/{idPlan}/postes/{idPoste}/plan-poste-detail")]
-        public IActionResult GetPlanPosteDetail(int id,int idPlan,int idPoste)
+        [HttpGet("plan-postes/{id}/Users/{idUser}/plans/{idPlan}/postes/{idPoste}/plan-poste-detail")]
+        public IActionResult GetPlanPosteDetail(int id,int idUser, int idPlan,int idPoste)
         {
             if (id != 0)
             {
-                return Ok(_planPosteDetailService.GetForDetailById(id));
+                return Ok(_planPosteDetailService.GetForDetailById(idUser,id));
             }
-            return Ok(_planPosteDetailService.GetForDetailById(id, idPlan, idPoste));
+            return Ok(_planPosteDetailService.GetForDetailById(idUser, id, idPlan, idPoste));
         }
 
-        [HttpGet("plan-poste-references/plan-postes/{idPlanPoste}/reference-table/{idReferenceTable}/postes/{idPoste}/combo-reference")]
-        public IActionResult GetPlanPosteReferenceDetail(int idPlanPoste, int idReferenceTable, int idPoste)
+        [HttpGet("plan-poste-references/users/{idUser}/plan-postes/{idPlanPoste}/reference-table/{idReferenceTable}/postes/{idPoste}/combo-reference")]
+        public IActionResult GetPlanPosteReferenceDetail(int idUser,int idPlanPoste, int idReferenceTable, int idPoste)
         {
-            return Ok(_planPosteReferenceService.GetListForComboByIdPlanPoste(idPlanPoste, idReferenceTable, idPoste));
+            return Ok(_planPosteReferenceService.GetListForComboByIdPlanPoste(idUser, idPlanPoste, idReferenceTable, idPoste));
         }
 
         [HttpPost("plans/{idPlan}/plan-tracking")]

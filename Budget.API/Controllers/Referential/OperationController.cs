@@ -15,29 +15,30 @@ namespace Budget.API.Controllers.Referential
     [Route("api/referential/operations")]
     public class OperationController : Controller
     {
-        private IOperationService _operationService;
+        //private IOperationService _operationService;
+        private readonly ReferentialService _referentialService;
 
         public OperationController(
-            IOperationService operationService
+            ReferentialService referentialService
         )
         {
-            _operationService = operationService;
+            _referentialService = referentialService;
         }
 
         [HttpGet]
-        [Route("operation-methods/{idOperationMethod}/operation-types/{idOperationType}/select-type/{enumSelectType}/operations")]
-        public IActionResult GetList(int idOperationMethod, int idOperationType,EnumSelectType enumSelectType)
+        [Route("user-groups/{idUserGroup}/operation-methods/{idOperationMethod}/operation-types/{idOperationType}/select-type/{enumSelectType}/operations")]
+        public IActionResult GetSelectList(int idUserGroup, int idOperationMethod, int idOperationType,EnumSelectType enumSelectType)
         {
-            var selectsDto = _operationService.GetSelectList(idOperationMethod, idOperationType, enumSelectType);
+            var selectsDto = _referentialService.OperationService.GetSelectList(idUserGroup,idOperationMethod, idOperationType, enumSelectType);
 
             return Ok(selectsDto);
         }
 
         [HttpPost]
-        [Route("select-list")]
-        public IActionResult GetSelectListByOperationMethods([FromBody] List<SelectDto> operationMethods)
+        [Route("user-groups/{idUserGroup}/select-list")]
+        public IActionResult GetSelectListByOperationMethods(int idUserGroup, [FromBody] List<SelectDto> operationMethods)
         {
-            var results = _operationService.GetSelectList(operationMethods);
+            var results = _referentialService.OperationService.GetSelectList(idUserGroup, operationMethods);
             return Ok(results);
         }
 
@@ -45,16 +46,8 @@ namespace Budget.API.Controllers.Referential
         [Route("create")]
         public IActionResult Create([FromBody] Operation operation)
         {
-            //try
-            //{
-            var result = _operationService.Add(operation);
+            var result = _referentialService.OperationService.Create(operation);
             return Ok(operation);
-            //}
-            //catch (Exception e)
-            //{
-            //    throw new Exception(e.Message);
-            //}
-
         }
 
     }

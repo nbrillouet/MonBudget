@@ -15,5 +15,7 @@ namespace Budget.DATA.Repositories
         T Create(T entity);
         void Update(T entity);
         void Delete(T entity);
+        T CreateWithTran(T entity);
+        void DeleteWithTran(T entity);
     }
 }

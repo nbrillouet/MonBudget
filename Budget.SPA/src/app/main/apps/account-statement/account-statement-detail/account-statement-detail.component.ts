@@ -5,9 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { NotificationsService } from 'angular2-notifications';
 import { ValidateIsUnknown, ValidatorIfLocalisable } from './account-statement-detail.validator';
-import { IOperation, OperationFilter } from 'app/main/_models/operation.model';
+import { IOperation } from 'app/main/_models/referential/operation.model';
 import { GMapSearchInfo } from 'app/main/_models/g-map.model.';
-import { ISelect, EnumSelectType } from 'app/main/_models/generics/select.model';
+import { ISelect } from 'app/main/_models/generics/select.model';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
 import { AsService } from '../account-statement.service';
 import { FilterAsTable, FilterAsDetail } from 'app/main/_models/filters/account-statement.filter';
@@ -24,7 +24,8 @@ import { LoadAsTableDatas } from 'app/main/_ngxs/account-statement/account-state
 import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
 import { LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.action';
 import { AsDetail } from 'app/main/_models/account-statement/account-statement-detail.model';
-import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionNoIntTransfer, LoadAsChartEvolutionCustomOtf, LoadAsChartEvolution } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
+import { LoadAsChartEvolution } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
+import { FilterOperation } from 'app/main/_models/filters/operation.filter';
 
 
 @Component({
@@ -86,7 +87,7 @@ export class AccountStatementDetailComponent implements OnInit {
         let idAccountStatement = routeParams['idAccountStatement'];
         this.user = JSON.parse(localStorage.getItem('currentUser'));
   
-        this._store.dispatch(new LoadAsDetail(<FilterAsDetail> {idAs:idAccountStatement,idUser: this.user.id}));
+        this._store.dispatch(new LoadAsDetail(<FilterAsDetail> {idAs:idAccountStatement}));
         console.log('------------');
         //chargement si page chargé directement sans passer par la liste
         if(this.filterAsTable && this.filterAsTable.selected.idAccount==null && this.idAccount!=null) {
@@ -128,7 +129,7 @@ export class AccountStatementDetailComponent implements OnInit {
       
       this.asDetailForm.get('operationType').valueChanges
         .subscribe(val => {
-          let operationFilter=<OperationFilter> { operationType: val, operationMethod:this.asDetail.operationMethod.selected}
+          let operationFilter=<FilterOperation> { operationType: val, operationMethod:this.asDetail.operationMethod.selected}
           this._store.dispatch(new asDetailChangeOperationType(operationFilter));
         });
       

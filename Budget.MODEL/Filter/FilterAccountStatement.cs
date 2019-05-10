@@ -8,7 +8,7 @@ namespace Budget.MODEL.Filter
 {
     public class FilterAsTableSelected
     {
-        public int? IdUser { get; set; }
+        public UserForGroupDto User { get; set; }
         public int? IdAccount { get; set; }
         public List<SelectDto> OperationMethods { get; set; }
         public List<SelectDto> OperationTypeFamilies { get; set; }
@@ -44,27 +44,12 @@ namespace Budget.MODEL.Filter
         }
     }
 
-    //public class FilterAccountStatement
-    //{
-    //    public int? IdAccount { get; set; }
-    //    public List<SelectDto> OperationSelected { get; set; }
-    //    public List<SelectDto> OperationMethodSelected { get; set; }
-    //    public List<SelectDto> OperationTypeFamilySelected { get; set; }
-    //    public List<SelectDto> OperationTypeSelected { get; set; }
-    //    public DateTime? DateIntegrationMin { get; set; }
-    //    public DateTime? DateIntegrationMax { get; set; }
-    //    public double? AmountMin { get; set; }
-    //    public double? AmountMax { get; set; }
-    //    public MonthYear MonthYearSelected { get; set; }
-    //    public Pagination Pagination { get; set; }
-    //    public bool IsWithITransfer {get;set;}
+    public class FilterAsDetail
+    {
+        public int? IdAs { get; set; }
+        public UserForGroupDto User { get; set; }
+    }
 
-    //    public FilterAccountStatement()
-    //    {
-
-    //    }
-
-    //}
 
     public class MonthYear
     {
@@ -72,11 +57,7 @@ namespace Budget.MODEL.Filter
         public int Year { get; set; }
     }
 
-    //public class Month
-    //{
-    //    public int Id { get; set; }
-    //    public string label { get; set; }
-    //}
+    
 
 
 }

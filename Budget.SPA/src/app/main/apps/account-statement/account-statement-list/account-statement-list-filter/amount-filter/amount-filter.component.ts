@@ -38,8 +38,7 @@ export class AmountFilterComponent implements OnInit {
       });
 
   }
-    
-
+  
    applyFilter(){
 
     let amountMin: number = this.amountForm.value.amountMin;

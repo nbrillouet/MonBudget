@@ -1,9 +1,10 @@
 import { FilterInfo } from "app/main/_models/generics/filter.info.model";
 import { FilterAsifTable, FilterAsifTableSelected } from "app/main/_models/filters/account-statement-import-file.filter";
-import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
+// import { State, Store, Selector, Action, StateContext } from "app/main/_ngxs/account-statement-import-file/asif-list-filter/node_modules/@ngxs/store";
 import { AsifService } from "app/main/apps/account-statement-import-file/asif.service";
 import { LoadAsifTableFilter, LoadAsifTableFilterSuccess, ChangeAsifTableFilter, UpdatePaginationAsifTableFilter } from "./asif-list-filter.action";
 import { LoadAsifTableDatas } from "../asif-list/asif-list.action";
+import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
 
 
 export class AsifTableFilterStateModel extends FilterInfo<FilterAsifTable> {

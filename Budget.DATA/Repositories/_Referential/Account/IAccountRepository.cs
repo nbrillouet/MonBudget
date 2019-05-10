@@ -11,7 +11,6 @@ namespace Budget.DATA.Repositories
         Account GetByNumber(string number);
         List<Account> GetByIdBankAgency(int idBankAgency);
 
-        //new int Create(Account account);
         new Account Create(Account account);
 
     }
