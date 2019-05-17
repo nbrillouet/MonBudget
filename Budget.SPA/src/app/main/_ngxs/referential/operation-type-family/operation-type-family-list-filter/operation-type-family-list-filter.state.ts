@@ -2,8 +2,8 @@ import { FilterOtfTable, FilterOtfTableSelected } from "app/main/_models/filters
 import { FilterInfo } from "app/main/_models/generics/filter.info.model";
 import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
 import { LoadOtfTableFilter, LoadOtfTableFilterSuccess, ChangeOtfTableFilter, UpdatePaginationOtfTableFilter } from "./operation-type-family-list-filter.action";
-import { OtfService } from "app/main/apps/referential/operation/operation-type-family/operation-type-family.service";
 import { LoadOtfTableDatas } from "../operation-type-family-list/operation-type-family-list.action";
+import { OtfService } from "app/main/apps/referential/operations/operation-type-family/operation-type-family.service";
 
 
 export class OtfTableFilterStateModel extends FilterInfo<FilterOtfTable> {
@@ -54,7 +54,7 @@ export class OtfTableFilterState {
         context.patchState(state);
         this._otfService.getOtfTableFilter(action.payload.selected)
             .subscribe(result=> {
-                console.log('pass----');
+          
                 context.dispatch(new LoadOtfTableFilterSuccess(result));
             });
 
@@ -95,8 +95,7 @@ export class OtfTableFilterState {
     }
 
     // HasChangedState( state: FilterOtfTableSelected, payload : FilterOtfTableSelected ) {
-    //     console.log('state',state);
-    //     console.log('payload',payload);
+
     //     return false;
     //     // if(payload.account == null || payload.otfState == null ) {
     //     //     return false;

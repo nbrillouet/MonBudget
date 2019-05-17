@@ -16,7 +16,7 @@ const routes = [
     },
     {
         path        : 'referential/operations',
-        loadChildren: './referential/operation/operation.module#OperationModule',
+        loadChildren: './referential/operations/operations.module#OperationsModule',
         canActivate: [AuthGuard]
     },
     {

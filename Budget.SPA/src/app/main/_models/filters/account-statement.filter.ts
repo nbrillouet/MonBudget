@@ -35,7 +35,7 @@ export class FilterAsTableSelected {
 export class FilterAsTable {
     operationMethods: ISelect[];
     operationTypeFamilies: ISelectGroup[];
-    operationTypes: ISelect[];
+    operationTypes: ISelectGroup[];
     operations: ISelect[];
 
     selected : FilterAsTableSelected;

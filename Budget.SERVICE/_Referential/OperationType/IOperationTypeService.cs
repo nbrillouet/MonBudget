@@ -11,6 +11,8 @@ namespace Budget.SERVICE
 {
     public interface IOperationTypeService
     {
+        List<SelectGroupDto> GetSelectGroup(int idUserGroup);
+        List<SelectGroupDto> GetSelectGroup(int idUserGroup, List<SelectDto> operationTypeFamilies);
         List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationTypeFamilies);
         List<SelectDto> GetSelectList(int idOperationTypeFamily, EnumSelectType enumSelectType);
         List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste);

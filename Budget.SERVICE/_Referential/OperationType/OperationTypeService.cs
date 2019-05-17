@@ -37,6 +37,60 @@ namespace Budget.SERVICE
             return _operationTypeRepository.GetByIdWithOperationTypeFamily(idOperationType);
         }
 
+        public List<SelectGroupDto> GetSelectGroup(int idUserGroup)
+        {
+            List<SelectGroupDto> results = new List<SelectGroupDto>();
+            var operationTypeFamilies = _operationTypeFamilyService.GetByIdUserGroup(idUserGroup);
+
+            return GetSelectGroup(operationTypeFamilies);
+            //foreach(var operationTypeFamily in operationTypeFamilies)
+            //{
+            //    SelectGroupDto selectGroupDto = new SelectGroupDto
+            //    {
+            //        Id = operationTypeFamily.Id,
+            //        Label = operationTypeFamily.Label
+            //    };
+            //    var operationTypes = _operationTypeRepository.GetByIdOperationTypeFamily(operationTypeFamily.Id);
+            //    var operationTypesDto = _mapper.Map<List<SelectDto>>(operationTypes);
+            //    selectGroupDto.Selects = operationTypesDto;
+
+            //    results.Add(selectGroupDto);
+            //}
+
+            //return results;
+        }
+
+        public List<SelectGroupDto> GetSelectGroup(int idUserGroup, List<SelectDto> operationTypeFamilies)
+        {
+            if(operationTypeFamilies == null || operationTypeFamilies.Count==0)
+            {
+                operationTypeFamilies = _operationTypeFamilyService.GetByIdUserGroup(idUserGroup);
+            }
+
+            return GetSelectGroup(operationTypeFamilies);
+            //var operationTypeFamilies = _operationTypeFamilyService.GetByIds(idUserGroup);
+        }
+
+        private List<SelectGroupDto> GetSelectGroup(List<SelectDto> operationTypeFamilies)
+        {
+            List<SelectGroupDto> results = new List<SelectGroupDto>();
+            foreach (var operationTypeFamily in operationTypeFamilies)
+            {
+                SelectGroupDto selectGroupDto = new SelectGroupDto
+                {
+                    Id = operationTypeFamily.Id,
+                    Label = operationTypeFamily.Label
+                };
+                var operationTypes = _operationTypeRepository.GetByIdOperationTypeFamily(operationTypeFamily.Id);
+                var operationTypesDto = _mapper.Map<List<SelectDto>>(operationTypes);
+                selectGroupDto.Selects = operationTypesDto;
+
+                results.Add(selectGroupDto);
+            }
+
+            return results;
+        }
+
         public List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationTypeFamilies)
         {
             var operationTypes = _operationTypeRepository.GetByOperationTypeFamilies(idUserGroup, operationTypeFamilies);
@@ -45,7 +99,22 @@ namespace Budget.SERVICE
 
         public List<SelectDto> GetSelectList(int idOperationTypeFamily, EnumSelectType enumSelectType)
         {
-            var selectList = _selectService.GetSelectList(enumSelectType);
+            
+            List<SelectDto> selectList = new List<SelectDto>();
+            if (enumSelectType == EnumSelectType.Inconnu)
+            {
+                var operationTypeFamily = _operationTypeFamilyService.GetById(idOperationTypeFamily);
+                var select = _mapper.Map<SelectDto>(GetUnknown(operationTypeFamily.IdUserGroup));
+                selectList.Add(select);
+            }
+            else
+            {
+                selectList = _selectService.GetSelectList(enumSelectType);
+            }
+
+
+
+            //var selectList = _selectService.GetSelectList(EnumTableRef.OperationType, operationTypeFamily.IdUserGroup,enumSelectType);
             var operationTypeFamilies = _operationTypeRepository.GetByIdOperationTypeFamily(idOperationTypeFamily);
             selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(operationTypeFamilies).ToList());
 

@@ -22,10 +22,7 @@ export class AsDetail {
     idMovement: number;
     logoName: string;
     logoUrl: string;
-    // operationKeywordTemp: string;
-    // operationLabelTemp: string;
-    // placeLabelTemp: string;
-    // placeKeywordTemp: string;
+
     isLocalisable: boolean;
     operationDetail: OperationDetail;
     gMapSearchInfo: GMapSearchInfo;

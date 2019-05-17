@@ -1,4 +1,5 @@
-﻿using Budget.SERVICE;
+﻿using Budget.MODEL.Dto;
+using Budget.SERVICE;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,7 +11,7 @@ namespace Budget.API.Controllers.Referential
 {
     [Authorize]
     [Produces("application/json")]
-    [Route("api/referential/bankSubFamilies")]
+    [Route("api/referential/bank-sub-families")]
     public class BankSubFamilyController : Controller
     {
         private IBankSubFamilyService _bankSubFamilyService;
@@ -22,10 +23,10 @@ namespace Budget.API.Controllers.Referential
             _bankSubFamilyService = bankSubFamilyService;
         }
 
-        [HttpGet("select-type/{idSelectType}/select-list")]
-        public IActionResult GetSelectList(int idSelectType)
+        [HttpGet("bank-families/{idBankFamily}/select-type/{idSelectType}/select-list")]
+        public IActionResult GetSelectList(int idBankFamily,int idSelectType)
         {
-            var selectListDto = _bankSubFamilyService.GetSelectList(idSelectType);
+            var selectListDto = _bankSubFamilyService.GetSelectList(idBankFamily,(EnumSelectType)idSelectType);
 
             return Ok(selectListDto);
         }

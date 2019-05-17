@@ -18,7 +18,8 @@ namespace Budget.DATA.Repositories
         //void Save(List<AccountStatementImportFile> accountStatementImportFiles);
         int Save(AccountStatementImportFile accountStatementImportFile);
         AccountStatementImportFile UpdateAsifState(AccountStatementImportFile item);
-        void UpdateAsifStates(int idImport);
+        //void UpdateAsifStates(int idImport);
+        void UpdateAsifStates(AccountStatementImportFile asif);
 
         bool SaveWithTran(List<AccountStatementImportFile> accountStatementImportFiles);
 
@@ -26,13 +27,8 @@ namespace Budget.DATA.Repositories
 
         List<string> GetDistinctAccountNumber(int idImport);
         List<SelectDto> GetAsifStates(int idImport, int idAccount);
-        //List<AccountStatementImportFile> GetById(int IdImport, int idAccount);
-        //List<AccountStatementImportFile> GetAsifFull(int idImport, int idAccount);
-        //List<AccountStatementImportFile> GetAsifComplete(int idImport, int idAccount);
-        //List<AccountStatementImportFile> GetAsifMethodLess(int idImport, int idAccount);
-        //List<AccountStatementImportFile> GetAsifOperationLess(int idImport, int idAccount);
-        //bool HasAccountStatementImportFileWihoutPlace(int IdImport, int idAccount);
-        //Task<PagedList<AccountStatementImportFile>> GetAsync(FilterAccountStatementImportFile filter);
+        List<AccountStatementImportFile> GetByIdImport(int IdImport);
+
         Task<AccountStatementImportFile> GetForDetailByIdAsync(int id);
         List<AccountStatementImportFile> GetAsifsWithoutDuplicate(int idImport);
 

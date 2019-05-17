@@ -207,23 +207,44 @@ namespace Budget.DATA.Repositories
             //Enregistrement si la ligne d'operation n'existe pas deja en base
             foreach (var item in accountStatements)
             {
-                var duplicate = Context.AccountStatement
-                    .Where(x => x.DateOperation == item.DateOperation
-                    && x.IdAccount == item.IdAccount
-                    && x.IdMovement == item.IdMovement
-                    && x.IdOperation == item.IdOperation
-                    && x.IdOperationMethod == item.IdOperationMethod
-                    && x.DateIntegration == item.DateIntegration
-                    && x.LabelOperation == item.LabelOperation
-                    && x.AmountOperation == item.AmountOperation).FirstOrDefault();
+                Save(item);
+                //var duplicate = Context.AccountStatement
+                //    .Where(x => x.DateOperation == item.DateOperation
+                //    && x.IdAccount == item.IdAccount
+                //    && x.IdMovement == item.IdMovement
+                //    && x.IdOperation == item.IdOperation
+                //    && x.IdOperationMethod == item.IdOperationMethod
+                //    && x.DateIntegration == item.DateIntegration
+                //    && x.LabelOperation == item.LabelOperation
+                //    && x.AmountOperation == item.AmountOperation).FirstOrDefault();
 
-                if (duplicate == null)
-                {
-                    Create(item);
-                }
+                //if (duplicate == null)
+                //{
+                //    Create(item);
+                //}
             }
 
             return true;
+        }
+
+        public AccountStatement Save(AccountStatement accountStatement)
+        {
+            var duplicate = Context.AccountStatement
+                    .Where(x => x.DateOperation == accountStatement.DateOperation
+                    && x.IdAccount == accountStatement.IdAccount
+                    && x.IdMovement == accountStatement.IdMovement
+                    && x.IdOperation == accountStatement.IdOperation
+                    && x.IdOperationMethod == accountStatement.IdOperationMethod
+                    && x.DateIntegration == accountStatement.DateIntegration
+                    && x.LabelOperation == accountStatement.LabelOperation
+                    && x.AmountOperation == accountStatement.AmountOperation).FirstOrDefault();
+
+            if (duplicate == null)
+            {
+                return Create(accountStatement);
+            }
+
+            return accountStatement;
         }
 
         public SoldeDto GetSolde(int? idUser, int? idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer)
@@ -238,8 +259,15 @@ namespace Budget.DATA.Repositories
                 .FirstOrDefault();
         }
 
-        public List<AccountStatement> GetAsInternalTransfer(int? idAccount, DateTime dateMin, DateTime dateMax)
+        public List<AccountStatement> GetAsInternalTransfer(int idUserGroup, int? idAccount, DateTime dateMin, DateTime dateMax)
         {
+            //Recherche du virement interne dans referentiel
+            var virementInterne = Context.OperationType
+                .Where(x => x.Label == "Virement interne"
+                && x.IdUserGroup == idUserGroup)
+                .FirstOrDefault();
+
+            //Recherche des virement internes dans as
             var its = Context.AccountStatement
                 .Include(x => x.Operation)
                 .Include(x => x.OperationMethod)
@@ -255,17 +283,17 @@ namespace Budget.DATA.Repositories
             its = its.Where(
                 x => x.DateIntegration >= dateMin && 
                 x.DateIntegration <= dateMax && 
-                x.IdOperationMethod==4 && 
-                x.IdOperationTypeFamily==6);
+                x.IdOperationType== virementInterne.Id);
 
             return its.ToList();
         }
 
-        public AccountStatement GetAsInternalTransferCouple(int idAccountStatement)
+        public AccountStatement GetAsInternalTransferCouple(int idUserGroup, int idAccountStatement)
         {
             return Context.Set<AccountStatement>()
-               .FromSql("[as].spGetAsInternalTransferCouple @idAccountStatement",
-                   new SqlParameter("@idAccountStatement", idAccountStatement))
+               .FromSql("[as].spGetAsInternalTransferCouple @idAccountStatement,@idUserGroup",
+                   new SqlParameter("@idAccountStatement", idAccountStatement),
+                   new SqlParameter("@idUserGroup", idUserGroup))
                .FirstOrDefault();
         }
     }

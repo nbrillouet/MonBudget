@@ -2,6 +2,7 @@
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using Budget.MODEL.Dto.Select;
+using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,11 +16,14 @@ namespace Budget.SERVICE
         List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationMethods);
         List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste);
         List<SelectDto> GetSelectListByIdList(List<int> idList);
-        
+        PagedList<OperationForTableDto> GetTable(FilterOperationTableSelected filter);
+        OperationForDetailDto GetDetail(int idOperation, int idUserGroup);
 
+        OperationForDetailDto SaveDetail(OperationForDetailDto operationForDetailDto);
         Operation Create(Operation operation);
         void Update(Operation operation);
         void Delete(Operation operation);
+        bool DeleteDetail(int idOperation);
 
     }
 }

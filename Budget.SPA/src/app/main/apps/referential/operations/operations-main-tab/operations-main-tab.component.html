@@ -1,0 +1,15 @@
+<mat-tab-group 
+    
+    [selectedIndex]="selectedIndex"
+    (selectedTabChange)="onTabChanged($event)"
+>
+    <mat-tab *ngFor="let operationField of operationFields;index as i" [label]="operationField.label">
+      <ng-template mat-tab-label>
+          {{operationField.label}}
+      </ng-template>
+
+      <operation-type-family-list [headerPanelIsVisible]="headerPanelIsVisible" *ngIf="selectedIndex == 0 && selectedIndex == i"></operation-type-family-list>
+      <operation-type-list [headerPanelIsVisible]="headerPanelIsVisible" *ngIf="selectedIndex == 1 && selectedIndex == i"></operation-type-list>
+      <operation-list [headerPanelIsVisible]="headerPanelIsVisible" *ngIf="selectedIndex == 2 && selectedIndex == i"></operation-list>
+    </mat-tab>
+</mat-tab-group>

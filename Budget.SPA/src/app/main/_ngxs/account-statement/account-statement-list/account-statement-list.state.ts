@@ -47,7 +47,6 @@ export class AsTableState {
         state.datas = null;
         context.patchState(state);
         
-        console.log('action.payload', action.payload);
         // this.delay(3000).then(any=>{
         this._asService.getAsTable(action.payload)
             .subscribe(result=> {

@@ -1,0 +1,26 @@
+<div class="content-filter"
+  (click)="$event.stopPropagation()" 
+  (keyup)="$event.stopPropagation()" 
+  (keydown)="$event.stopPropagation()">
+    <form name="dateRangeForm" [formGroup]="dateRangeForm" class="product w-100-p" fxLayout="column" fxFlex>
+      <mat-form-field class="w-100-p">
+        <input class="mini-input" matInput [matDatepicker]="dateRangeMin" formControlName="dateRangeMin" placeholder="Date {{filterDateRange.placeholder}} min"> 
+        <mat-datepicker-toggle matSuffix [for]="dateRangeMin"></mat-datepicker-toggle>
+        <mat-datepicker #dateRangeMin></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="w-100-p">
+        <input class="mini-input" matInput [matDatepicker]="dateRangeMax" formControlName="dateRangeMax" placeholder="Date {{filterDateRange.placeholder}} max"> 
+        <mat-datepicker-toggle matSuffix [for]="dateRangeMax"></mat-datepicker-toggle>
+        <mat-datepicker #dateRangeMax></mat-datepicker>
+      </mat-form-field>
+
+      <!--  -->
+      <button mat-raised-button 
+        class="save-product-button mat-white-bg mt-16 mt-sm-0"
+        [disabled]= "dateRangeForm.invalid || dateRangeForm.pristine"
+        (click)="applyFilter()">
+          <span>APPLIQUER</span>
+      </button>
+    </form>
+  </div>

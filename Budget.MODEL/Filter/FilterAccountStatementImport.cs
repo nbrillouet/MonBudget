@@ -8,7 +8,7 @@ namespace Budget.MODEL
 
     public class FilterAsiTable
     {
-        public List<SelectColorDto> BankAgencies { get; set; }
+        public List<BankAgencyDto> BankAgencies { get; set; }
         public FilterAsiTableSelected Selected { get; set; }
 
         public FilterAsiTable()

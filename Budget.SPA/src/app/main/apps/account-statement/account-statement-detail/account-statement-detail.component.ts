@@ -17,7 +17,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
-import { LoadAsDetail, asDetailChangeOperationTypeFamily, asDetailChangeOperationType } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.action';
+import { LoadAsDetail, asDetailChangeOperationTypeFamily, asDetailChangeOperationType, ClearAsDetail, LoadAsDetailSuccess } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.action';
 import { OperationTransverse } from 'app/main/_models/referential/operation-transverse.model';
 import { IUser } from 'app/main/_models/user.model';
 import { LoadAsTableDatas } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.action';
@@ -26,7 +26,7 @@ import { LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-
 import { AsDetail } from 'app/main/_models/account-statement/account-statement-detail.model';
 import { LoadAsChartEvolution } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
 import { FilterOperation } from 'app/main/_models/filters/operation.filter';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'account-statement-detail',
@@ -38,7 +38,7 @@ export class AccountStatementDetailComponent implements OnInit {
   @Select(AsDetailState.get) asDetail$: Observable<DataInfo<AsDetail>>;
   @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
 
-  user: IUser;
+  user: IUser= JSON.parse(localStorage.getItem('currentUser'));
   filterAsTable: FilterAsTable;
   asDetail: AsDetail;
   formLoaded: boolean;
@@ -51,6 +51,7 @@ export class AccountStatementDetailComponent implements OnInit {
   
   isNewOperationTemplate: boolean;
   isNewOperationTransverseTemplate: boolean;
+  firstLoad: boolean=true;
 
     constructor(
 
@@ -64,17 +65,18 @@ export class AccountStatementDetailComponent implements OnInit {
   
     ) {
       this.asTableFilter$.subscribe(asifTableFilter=>{
-        console.log('sub this.filterAsTable',this.filterAsTable);
-        this.filterAsTable = asifTableFilter.filters;
-        console.log('sub this.filterAsTable',this.filterAsTable);
+        this.filterAsTable = JSON.parse(JSON.stringify(asifTableFilter.filters));
       });
   
       this.asDetail$.subscribe(asDetail=>{
-        console.log('asDetail',asDetail);
         if(asDetail.loadingInfo.loaded) {
-          this.asDetail = asDetail.datas;
-          //creation du formulaire
-          this.createForms();
+          this.asDetail = JSON.parse(JSON.stringify(asDetail.datas));
+
+          if(this.firstLoad) {
+            //creation du formulaire
+            this.createForms();
+            this.firstLoad=false;
+          }
           this.formLoaded=true;
         }
       });
@@ -85,17 +87,14 @@ export class AccountStatementDetailComponent implements OnInit {
       this._activatedRoute.params.subscribe(routeParams => {
         this.idAccount = routeParams['idAccount'];
         let idAccountStatement = routeParams['idAccountStatement'];
-        this.user = JSON.parse(localStorage.getItem('currentUser'));
   
         this._store.dispatch(new LoadAsDetail(<FilterAsDetail> {idAs:idAccountStatement}));
-        console.log('------------');
+
         //chargement si page chargé directement sans passer par la liste
         if(this.filterAsTable && this.filterAsTable.selected.idAccount==null && this.idAccount!=null) {
-          console.log('load filerAsTable I');
           let filter = new FilterAsTable();
           
           filter.selected.idAccount=this.idAccount;
-          console.log('load filerAsTable II');
           this._store.dispatch(new LoadAsTableFilter(filter));
           this._store.dispatch(new LoadAsSolde(filter.selected));
           this._store.dispatch(new LoadAsChartEvolution(filter.selected));
@@ -103,11 +102,20 @@ export class AccountStatementDetailComponent implements OnInit {
         }
       });
     }
+    
+    ngOnDestroy() {
+      this._store.dispatch(new ClearAsDetail());
+    }
+    
+    bindAsDetail(value: any) {
       
-  
+      this.asDetail.operationTransverse.listSelected = this.asDetailForm.controls['operationTransverse'].value; 
+    }
+
     createForms() {
-  
+
       this.asDetailForm = this._formBuilder.group({
+        
           operationMethod: [this.asDetail.operationMethod.selected, [Validators.required]],
           operationTypeFamily: [this.asDetail.operationTypeFamily.selected, [Validators.required, ValidateIsUnknown]],
           operationType: [this.asDetail.operationType.selected, [Validators.required, ValidateIsUnknown]],
@@ -116,45 +124,70 @@ export class AccountStatementDetailComponent implements OnInit {
           amountOperation: [this.asDetail.amountOperation,[Validators.required]],
           labelOperation: [this.asDetail.labelOperation,[Validators.required]],
           dateIntegration: [this._datePipe.transform(this.asDetail.dateIntegration,"dd/MM/yyyy"),[Validators.required]],
+          // dateIntegration:[this.asDetail.dateIntegration.toISOString(),[Validators.required]],
           operationKeywordTemp: [this.asDetail.operationDetail.keywordOperation,[Validators.required]],
           placeKeywordTemp: [this.asDetail.operationDetail.keywordPlace,[ValidatorIfLocalisable(this.asDetail.isLocalisable)]],
           operationPlace: [this.asDetail.operationPlace.selected,[Validators.required, ValidateIsUnknown]]
         });
   
+      this.asDetailForm.get('operationMethod').valueChanges
+        .subscribe(val => {
+          this.asDetailForm.controls['operation'].setValue({id:0,label:'INCONNU'});
+        });
+
       this.asDetailForm.get('operationTypeFamily').valueChanges
         .subscribe(val => {
-          console.log(val);
           this._store.dispatch(new asDetailChangeOperationTypeFamily(val));
+          this.asDetailForm.controls['operationType'].setValue({id:0,label:'INCONNU'});
         });
       
       this.asDetailForm.get('operationType').valueChanges
         .subscribe(val => {
           let operationFilter=<FilterOperation> { operationType: val, operationMethod:this.asDetail.operationMethod.selected}
           this._store.dispatch(new asDetailChangeOperationType(operationFilter));
+          this.asDetailForm.controls['operation'].setValue({id:0,label:'INCONNU'});
+        });
+
+      this.asDetailForm.get('operation').valueChanges
+        .subscribe(val => {
+          if(this.asDetail.isLocalisable)
+            this.asDetailForm.controls['operationPlace'].setValue({id:1,label:'INCONNU'});
+          else
+            this.asDetailForm.controls['operationPlace'].setValue({id:2,label:'NA'});
         });
       
       this.asDetailForm.get('operationPlace')
         .valueChanges
         .subscribe(val => {
-          console.log('val',val);
           this.asDetail.operationPlace.selected=val;
-          //this.asDetail.operationDetail.gMapAddress.id = val.id!=4 ? val.id : this.asDetail.operationDetail.gMapAddress.id;
-
           this.asDetail.gMapSearchInfo=null;
-          // this.data.isLocalisable=false;
           if(this.asDetail.operationPlace.selected.id==4)
           {
-            
-            // this.data.isLocalisable=true;
             this.asDetail.gMapSearchInfo = <GMapSearchInfo> { 
-              idGMapAddress: this.asDetail.operationDetail.gMapAddress.id!=4 ? 1 : this.asDetail.operationDetail.gMapAddress.id,
+              idGMapAddress: this.asDetail.operationDetail.gMapAddress.id>4 ? this.asDetail.operationDetail.gMapAddress.id  : 1,
               operationPositionSearch: this.asDetail.operationDetail.keywordOperation,
               operationPlaceSearch: this.asDetail.operationDetail.keywordPlace
             };
-            console.log('chargement gMapSearchInfo',this.asDetail.gMapSearchInfo);
           } 
         });
+      
+      this.asDetailForm.valueChanges.subscribe(val=>{
 
+        this.asDetail.operationMethod.selected = val.operationMethod;
+        this.asDetail.operationTypeFamily.selected = val.operationTypeFamily;
+        this.asDetail.operationType.selected = val.operationType;
+        this.asDetail.operation.selected = val.operation;
+        this.asDetail.operationTransverse.listSelected = val.operationTransverse;
+        this.asDetail.amountOperation = val.amountOperation;
+        this.asDetail.labelOperation = val.labelOperation;
+        this.asDetail.dateIntegration = moment(val.dateIntegration,'DD/MM/YYYY').toDate();
+
+        this.asDetail.operationDetail.keywordOperation = val.operationKeywordTemp;
+        this.asDetail.operationDetail.keywordPlace = val.placeKeywordTemp;
+        this.asDetail.operationPlace.selected = val.operationPlace;
+
+        this._store.dispatch(new LoadAsDetailSuccess(this.asDetail));
+      });
        
       this.operationAddForm = this._formBuilder.group({
           operationLabelTemp: [null,[Validators.required]]
@@ -193,7 +226,7 @@ export class AccountStatementDetailComponent implements OnInit {
             //Ajout de la nouvelle opération dans la liste Operation
             this.asDetail.operation.list.push(operationSelect);
             this.isNewOperationTemplate=false;
-            console.log('this.isNewOperationTemplate',this.isNewOperationTemplate);
+
             this._notificationService.success('Enregistrement effectué', `L'opération est enregistrée`);
         });
   
@@ -227,22 +260,18 @@ export class AccountStatementDetailComponent implements OnInit {
     
     updateAs() {
 
-      this.asDetail.amountOperation = this.asDetailForm.value.amountOperation;
-      this.asDetail.labelOperation = this.asDetailForm.value.labelOperation;
-      this.asDetail.operationMethod.selected = this.asDetailForm.value.operationMethod;
-      this.asDetail.operationType.selected = this.asDetailForm.value.operationType;
-      this.asDetail.operationTypeFamily.selected = this.asDetailForm.value.operationTypeFamily;
-      this.asDetail.operation.selected = this.asDetailForm.value.operation;
+      // this.asDetail.amountOperation = this.asDetailForm.value.amountOperation;
+      // this.asDetail.labelOperation = this.asDetailForm.value.labelOperation;
+      // this.asDetail.operationMethod.selected = this.asDetailForm.value.operationMethod;
+      // this.asDetail.operationType.selected = this.asDetailForm.value.operationType;
+      // this.asDetail.operationTypeFamily.selected = this.asDetailForm.value.operationTypeFamily;
+      // this.asDetail.operation.selected = this.asDetailForm.value.operation;
       
-      // this.asDetail.operationKeywordTemp = this.asDetailForm.value.operationKeywordTemp;
-      // this.asDetail.placeKeywordTemp = this.asDetailForm.value.placeKeywordTemp;
-  
+
       this._asService.update(this.asDetail).subscribe(resp=> {
         if(resp==true)
         {
           this._notificationService.success('Enregistrement effectué', `Le relevé est enregistré`);
-          console.log('this.filterAsTable',this.filterAsTable);
-          console.log('this.filterAsTable.selected',this.filterAsTable.selected);
           
           this._store.dispatch(new LoadAsTableDatas(this.filterAsTable.selected));
         }
@@ -257,19 +286,20 @@ export class AccountStatementDetailComponent implements OnInit {
   
     }
 
-    bindAsDetail(value: any) {
-      console.log('this.asDetailForm.controls',this.asDetailForm.controls['operationTransverse'].value);
-      this.asDetail.operationTransverse.listSelected = this.asDetailForm.controls['operationTransverse'].value; 
-    }
+
 
     onChangeGMapAddress($event) {
       this.asDetail.operationDetail.gMapAddress=$event;
+      this.asDetail.gMapSearchInfo.idGMapAddress = $event.id;
+          
+      this._store.dispatch(new LoadAsDetailSuccess(this.asDetail));
+
     }
 
     compareObjects(o1: any, o2: any) {
       if(o1.label == o2.label && o1.id == o2.id )
       return true;
-      else return false
+      else return false;
     }
   
     

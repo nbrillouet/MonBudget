@@ -44,7 +44,6 @@ export class UserTableFilterState {
         state.loadingInfo.loaded=false;
         state.loadingInfo.loading=true;
         state.filters = null;
-        console.log('action.payload',action.payload);
         context.patchState(state);
         this._userService.getUserTableFilter(action.payload.selected)
             .subscribe(result=> {
@@ -74,7 +73,6 @@ export class UserTableFilterState {
 
         
         if(this.ReloadFilters(state.filters,action.payload)) {
-            console.log('passage reload');
             context.dispatch(new LoadUserTableFilter(action.payload));
         }
         else {
@@ -96,8 +94,6 @@ export class UserTableFilterState {
     }
 
     HasChangedState( state: FilterUserTableSelected, payload : FilterUserTableSelected ) {
-        console.log('state',state);
-        console.log('payload',payload);
         if (this.hasChangedState)
         {
             this.hasChangedState = false;
@@ -112,40 +108,15 @@ export class UserTableFilterState {
         if(state.keyword!=payload.keyword) {
             return true;
         }
-        // if(state.asifState==null && payload.asifState!=null) {
-        //     return true;
-        // }
-        // if(state.asifState.id!=payload.asifState.id) {
-        //     return true;
-        // }
-        // if(state.pagination != payload.pagination) {
-        //     return true;
-        // }
-        // return false;
         
     }
 
     ReloadFilters(state: FilterUserTable, payload:FilterUserTable ) {
-        console.log('passage reload',this.reloadFilters);
         if(this.reloadFilters)
         {
             this.reloadFilters=false;
             return true;
         }
-        // if(state.selected.idImport==null) {
-            
-        //     return true;
-        // }
-        
-        // if(state.selected.idImport != payload.selected.idImport) {
-            
-        //     return true;
-        // }
-
-        // if(state.selected.account && payload.selected.account && state.selected.account.id != payload.selected.account.id) {
-
-        //     return true;
-        // }
 
         return false;
     }

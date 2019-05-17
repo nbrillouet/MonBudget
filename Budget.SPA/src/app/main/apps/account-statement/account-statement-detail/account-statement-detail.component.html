@@ -65,15 +65,21 @@
                                     name="labelOperation"
                                     formControlName="labelOperation"
                                     placeholder="Libellé opération">
-                        </mat-form-field>
+                    </mat-form-field>
 
-                        <mat-form-field class="w-100-p">
-                            <input matInput
-                                    name="dateIntegration"
-                                    formControlName="dateIntegration"
-                                    placeholder="Date intégration"
-                                    >
-                        </mat-form-field>
+                    <!-- <mat-form-field class="w-100-p">
+                        <input matInput [matDatepicker]="dpIntegration" formControlName="dateIntegration" placeholder="Date intégration" disabled> 
+                        <mat-datepicker-toggle matSuffix [for]="dpIntegration"></mat-datepicker-toggle>
+                        <mat-datepicker #dpIntegration disabled="false"></mat-datepicker>
+                    </mat-form-field> -->
+
+                    <mat-form-field class="w-100-p">
+                        <input
+                            matInput
+                            name="dateIntegration"
+                            formControlName="dateIntegration"
+                            placeholder="Date intégration">
+                    </mat-form-field>
 
                         <mat-form-field class="w-100-p">
                             <input matInput

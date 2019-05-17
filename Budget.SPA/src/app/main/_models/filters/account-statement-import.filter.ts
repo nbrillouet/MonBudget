@@ -1,6 +1,7 @@
 import { ComboSimple } from "../generics/combo.model";
 import { ISelect, ISelectColor } from "../generics/select.model";
 import { Pagination } from "../pagination.model";
+import { IBankAgency } from "../referential/bank-agency.model";
 
 export class FilterAsiTableSelected {
     idUser: number;
@@ -18,7 +19,7 @@ export class FilterAsiTableSelected {
 }
 
 export class FilterAsiTable {
-    bankAgencies: ISelect[];
+    bankAgencies: IBankAgency[];
     selected: FilterAsiTableSelected;
 
     constructor () {

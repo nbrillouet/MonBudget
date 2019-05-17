@@ -32,6 +32,11 @@ namespace Budget.DATA.Repositories
             return results;
         }
 
+        //public OperationTransverseAs Update(OperationTransverseAs operationTransverseAs)
+        //{
+        //    return Updtae(operationTransverseAs);
+        //}
+
         public bool Update(List<SelectDto> operationTransverses, int idAs)
         {
             //suppression des liaisons pour l' idAs

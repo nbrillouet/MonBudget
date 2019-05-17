@@ -52,7 +52,6 @@ export class AsChartEvolutionComponent implements OnInit,OnChanges {
       this.asChartEvolutionCustomOtfs = x.datas.asChartEvolution.customOtfs.widgetCardChartBars;
       this.asChartEvolutionCustomOtfFilter = x.datas.asChartEvolution.customOtfs.filter;
       
-      console.log('this.asChartEvolutionCustomOtfFilter.operationTypeFamiliesSelected',this.asChartEvolutionCustomOtfFilter.selected.operationTypeFamilies);
       this.customOtfForm = this._formBuilder.group({
         operationTypeFamilies: [this.asChartEvolutionCustomOtfFilter.selected.operationTypeFamilies]
       });
@@ -67,7 +66,6 @@ export class AsChartEvolutionComponent implements OnInit,OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('changes.headerPanelIsVisible',changes.headerPanelIsVisible);
     // const name: SimpleChange = changes.headerPanelIsVisible;
     this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;;
   }
@@ -75,7 +73,6 @@ export class AsChartEvolutionComponent implements OnInit,OnChanges {
   onChanges() {
     this.customOtfForm.get('operationTypeFamilies').valueChanges
         .subscribe(val => {
-          console.log('changeOperationTypeFamily',val);
           
           let filter = <AsChartEvolutionCustomOtfFilterSelected> {
             idAccount : this.asChartEvolutionCustomOtfFilter.selected.idAccount,
@@ -90,7 +87,6 @@ export class AsChartEvolutionComponent implements OnInit,OnChanges {
 
   change($event) {
 
-    // console.log(this.customOtfForm.get('operationTypeFamilies').value);
     //this.asChartEvolutionCustomOtfFilter.operationTypeFamiliesSelected = this.customOtfForm.get('operationTypeFamilies').value;
     //this._store.dispatch(new UpdateAsChartEvolutionCustomOtfFilter(this.asChartEvolutionCustomOtfFilter));
 

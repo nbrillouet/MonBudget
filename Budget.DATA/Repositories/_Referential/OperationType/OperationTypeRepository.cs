@@ -29,6 +29,15 @@ namespace Budget.DATA.Repositories
                 .ToList();
         }
 
+        public List<OperationType> GetByIdUserGroup(int idUserGroup)
+        {
+            var results = Context.OperationType
+                .Where(x => x.IdUserGroup == idUserGroup);
+
+            return results.OrderBy(x => x.Label)
+                .ToList();
+        }
+
         public List<OperationType> GetByOperationTypeFamilies(int idUserGroup, List<SelectDto> OperationTypeFamilies)
         {
             List<OperationType> results;

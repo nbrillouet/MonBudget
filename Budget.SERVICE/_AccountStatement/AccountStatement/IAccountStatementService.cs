@@ -17,6 +17,7 @@ namespace Budget.SERVICE
         List<InternalTransferDto> GetAsInternalTransfer(FilterAsTableSelected filter);
         List<AsForTableDto> GetByPlanPosteReferences(List<PlanPosteReference> planPosteReferences,MonthYear monthYear);
         Boolean Save(List<AccountStatement> accountStatements);
+        AccountStatement Save(AccountStatement accountStatement);
         bool Update(AsDetailDto asDetailDto);
 
     }

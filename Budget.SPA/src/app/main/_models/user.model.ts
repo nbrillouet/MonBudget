@@ -1,6 +1,6 @@
 import { IUserShortcut } from "./user-shortcut.model";
 import { Injectable } from "@angular/core";
-import { IBankAgencyAccounts } from "./referential/bankAgency.model";
+import { IBankAgencyAccounts } from "./referential/bank-agency.model";
 
 
 export class UserTable {

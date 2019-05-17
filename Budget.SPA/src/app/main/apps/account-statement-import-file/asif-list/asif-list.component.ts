@@ -52,7 +52,6 @@ export class AsifListComponent implements OnInit, OnChanges {
   
   ngOnChanges(changes: SimpleChanges) {
     this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
-    console.log('--->value changed',this.headerPanelIsVisible);
   }
  
   async delay(ms: number) {

@@ -8,7 +8,7 @@ namespace Budget.SERVICE
 {
     public interface IAccountTypeService
     {
-        List<SelectDto> GetSelectList(int idSelectType);
+        List<SelectDto> GetSelectList(EnumSelectType enumSelectType);
         AccountType GetById(int id);
         //List<AccountType> GetAll();
 

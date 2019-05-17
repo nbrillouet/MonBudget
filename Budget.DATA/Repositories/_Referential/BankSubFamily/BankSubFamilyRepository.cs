@@ -12,7 +12,15 @@ namespace Budget.DATA.Repositories
 
         public List<BankSubFamily> GetAllOrdering()
         {
-            return Context.BankAgency
+            return Context.BankSubFamily
+                .OrderBy(x => x.LabelLong)
+                .ToList();
+        }
+
+        public List<BankSubFamily> GetByIdBankFamily(int idBankFamily)
+        {
+            return Context.BankSubFamily
+                .Where(x=>x.IdBankFamily== idBankFamily)
                 .OrderBy(x => x.LabelLong)
                 .ToList();
         }

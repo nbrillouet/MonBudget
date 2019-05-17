@@ -24,7 +24,7 @@ namespace Budget.SERVICE
         private readonly IMovementService _movementService;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IContextTransaction _contextTransaction;
-        //private readonly IOperationTypeService _operationTypeService;
+        private readonly IMailService _mailService;
 
         public OperationTypeFamilyService(
             IOperationTypeFamilyRepository operationTypeFamilyRepository,
@@ -32,7 +32,8 @@ namespace Budget.SERVICE
             IMovementService movementService,
             IMapper mapper,
             IHostingEnvironment hostingEnvironment,
-            IContextTransaction contextTransaction
+            IContextTransaction contextTransaction,
+            IMailService mailService
             //IOperationTypeService operationTypeService
             )
         {
@@ -42,12 +43,29 @@ namespace Budget.SERVICE
             _movementService = movementService;
             _hostingEnvironment = hostingEnvironment;
             _contextTransaction = contextTransaction;
+            _mailService = mailService;
             //_operationTypeService = operationTypeService;
+        }
+
+        public OperationTypeFamily GetById(int idOperationTypeFamily)
+        {
+            return _operationTypeFamilyRepository.GetById(idOperationTypeFamily);
         }
 
         public List<SelectDto> GetSelectList(int idUserGroup, EnumMovement enumMovement, EnumSelectType enumSelectType)
         {
-            var selectList = _selectService.GetSelectList(enumSelectType);
+            List<SelectDto> selectList = new List<SelectDto>();
+            if (enumSelectType == EnumSelectType.Inconnu)
+            {
+                var select = _mapper.Map<SelectDto>(GetUnknown(idUserGroup));
+                selectList.Add(select);
+            }
+            else
+            {
+                selectList = _selectService.GetSelectList(enumSelectType);
+            }
+
+            //var selectList = _selectService.GetSelectList(EnumTableRef.OperationTypeFamily, idUserGroup,  enumSelectType);
             var operationTypeFamilies = _operationTypeFamilyRepository.GetByIdMovement(idUserGroup, enumMovement);
             selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(operationTypeFamilies).ToList());
 
@@ -56,7 +74,17 @@ namespace Budget.SERVICE
 
         public List<SelectDto> GetSelectList(int idUserGroup, EnumSelectType enumSelectType)
         {
-            var selectList = _selectService.GetSelectList(enumSelectType);
+            List<SelectDto> selectList=new List<SelectDto>();
+            if (enumSelectType== EnumSelectType.Inconnu)
+            {
+                var select = _mapper.Map<SelectDto>(GetUnknown(idUserGroup));
+                selectList.Add(select);
+            }
+            else
+            {
+                selectList = _selectService.GetSelectList(enumSelectType);
+            }
+            
             var operationTypeFamilies = _operationTypeFamilyRepository.GetByIdUserGroup(idUserGroup);
             selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(operationTypeFamilies).ToList());
 
@@ -121,6 +149,12 @@ namespace Budget.SERVICE
             return results;
         }
 
+        public List<SelectDto> GetByIdUserGroup(int idUserGroup)
+        {
+            List<OperationTypeFamily> operationTypeFamilies = _operationTypeFamilyRepository.GetByIdUserGroup(idUserGroup);
+            return _mapper.Map<List<SelectDto>>(operationTypeFamilies);
+        }
+
         public PagedList<OtfForTableDto> GetOtfTable(FilterOtfTableSelected filter)
         {
             var pagedList = _operationTypeFamilyRepository.GetOtfTable(filter);
@@ -134,32 +168,35 @@ namespace Budget.SERVICE
 
         public OtfForDetailDto GetOtfDetail(int idOperationTypeFamily)
         {
-            OperationTypeFamily otf = new OperationTypeFamily();
-            if (idOperationTypeFamily == -1)
-            {
-                otf.Movement = new Movement { Id = 1, Label = "Crédit" };
-                otf.LogoClassName = "OtfInconnu";
-            }
-            else
-            {
-                otf = _operationTypeFamilyRepository.GetOtfDetail(idOperationTypeFamily);
-            }
-            var otfDto = _mapper.Map<OtfForDetailDto>(otf);
+            //_mailService.SendMailTest();
+            //OperationTypeFamily otf = new OperationTypeFamily();
+            //if (idOperationTypeFamily == -1)
+            //{
+            //    otf.Movement = new Movement { Id = 1, Label = "Crédit" };
+            //    otf.LogoClassName = "OtfInconnu";
+            //}
+            //else
+            //{
+            //    otf = _operationTypeFamilyRepository.GetOtfDetail(idOperationTypeFamily);
+            //}
+            //var otfDto = _mapper.Map<OtfForDetailDto>(otf);
 
-            otfDto.Movement = new ComboSimple<SelectDto>
-            {
-                List = _movementService.GetSelectList(EnumSelectType.Empty),
-                Selected = new SelectDto { Id = otf.Movement.Id, Label = otf.Movement.Label }
-            };
+            //otfDto.Movement = new ComboSimple<SelectDto>
+            //{
+            //    List = _movementService.GetSelectList(EnumSelectType.Empty),
+            //    Selected = new SelectDto { Id = otf.Movement.Id, Label = otf.Movement.Label }
+            //};
 
-            var logoList = GetOtfLogoList();
-            otfDto.LogoClassName = new ComboSimple<SelectDto>
-            {
-                List = logoList,
-                Selected = new SelectDto { Id = logoList.Where(x => x.Label == otf.LogoClassName).FirstOrDefault().Id, Label = otf.LogoClassName }
-            };
+            //var logoList = GetOtfLogoList();
+            //otfDto.LogoClassName = new ComboSimple<SelectDto>
+            //{
+            //    List = logoList,
+            //    Selected = new SelectDto { Id = logoList.Where(x => x.Label == otf.LogoClassName).FirstOrDefault().Id, Label = otf.LogoClassName }
+            //};
 
-            return otfDto;
+            //return otfDto;
+
+            return null;
         }
 
         public SelectDto GetUnknown(int idUserGroup)

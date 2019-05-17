@@ -1,6 +1,7 @@
 ﻿using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
+using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,6 +15,9 @@ namespace Budget.DATA.Repositories
         List<Operation> GetByIdMovement(int idUserGroup, EnumMovement enumMovement);
         List<Operation> GetByIdList(List<int> idList);
         Operation GetUnknown(int idUserGroup);
+        PagedList<Operation> GetTable(FilterOperationTableSelected filter);
+        Operation GetDetail(int idOperation);
+        //void DeleteWithEscalation(Operation operation);
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using Budget.MODEL.Dto;
+﻿using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace Budget.SERVICE
     {
         List<SelectDto> GetOperationTransverseSelectList(int IdAccountStatementFile, EnumSelectType enumSelectType);
         bool Update(List<SelectDto> operationTransverses, int idAs);
+        OperationTransverseAs Save(OperationTransverseAs operationTransverseAs);
 
     }
 

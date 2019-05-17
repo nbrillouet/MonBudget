@@ -2,8 +2,8 @@ import { ISelect } from "../generics/select.model";
 import { OperationDetail } from "../referential/operation-detail.model";
 import { ComboSimple, ComboMultiple } from "../generics/combo.model";
 import { GMapSearchInfo } from "../g-map.model.";
-import { IAccount } from "../account.model";
 import { IUserForGroup } from "../user.model";
+import { IAccount } from "../referential/account.model";
 
 export interface IAsifGroupByAccounts {
     accounts : IAccount[],

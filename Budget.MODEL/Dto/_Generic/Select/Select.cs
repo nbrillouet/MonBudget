@@ -23,7 +23,7 @@ namespace Budget.MODEL.Dto
     public class ComboSimple<T>
     {
         public List<T> List { get; set; }
-        public T Selected { get; set; }
+        public SelectDto Selected { get; set; }
     }
 
     public class ComboMultiple<T>

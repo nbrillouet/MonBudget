@@ -11,6 +11,8 @@ namespace Budget.DATA.Repositories
         List<OperationTransverse> GetOperationTransverseList(int IdAccountStatement);
         List<OperationTransverseAs> GetByIdAs(int idAsif);
 
+        OperationTransverseAs Create(OperationTransverseAs operationTransverseAs);
+        OperationTransverseAs Update(OperationTransverseAs operationTransverseAs);
         bool Update(List<SelectDto> operationTransverses, int idAsif);
     }
 

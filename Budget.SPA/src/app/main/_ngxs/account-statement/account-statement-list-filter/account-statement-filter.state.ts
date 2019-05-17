@@ -49,7 +49,7 @@ export class AsTableFilterState {
         state.loadingInfo.loaded=false;
         state.loadingInfo.loading=true;
         state.filters = null;
-        console.log('action.payload',action.payload);
+    
         context.patchState(state);
         this._asService.getAsTableFilter(action.payload.selected)
             .subscribe(result=> {

@@ -183,7 +183,7 @@ export class AppComponent implements OnInit, OnDestroy
                     this.navigation$.subscribe(result => {
                         if(!result) {
                             this._fuseNavigationService.unregister('admin-nav');
-                            this.navigation = navigation;
+                            // this.navigation = navigation;
                             this.navigation= [{'id'      : 'applications',
                                     'title'   : 'Applications',
                                     'translate': 'NAV.APPLICATIONS',
@@ -195,7 +195,6 @@ export class AppComponent implements OnInit, OnDestroy
                             this.navigation[0].children.push(this.navigationService.getImportAccountMenu());
                             this.navigation[0].children.push(this.navigationService.getPlanMenu());
                             this.store.dispatch(new AddNavigation(this.navigation));
-                            
 
                             // Register the new navigation
                             this._fuseNavigationService.register('admin-nav', this.navigation);

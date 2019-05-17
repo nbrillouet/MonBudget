@@ -28,6 +28,10 @@ import { AsChartEvolutionComponent } from './account-statement-chart/as-chart-ev
 import { AsInternalTransferCoupleComponent } from './account-statement-internal-transfer/as-internal-transfer-couple/as-internal-transfer-couple.component';
 import { AsInternalTransferMainComponent } from './account-statement-internal-transfer/as-internal-transfer-main/as-internal-transfer-main.component';
 import { AsInternalTransferState } from 'app/main/_ngxs/account-statement/account-statement-internal-transfer/as-internal-transfer.state';
+import { FilterAmountComponent } from '../web-component/mini-filter/filter-amount/filter-amount.component';
+import { FilterComboMultipleComponent } from '../web-component/mini-filter/filter-combo-multiple/filter-combo-multiple.component';
+import { FilterComboMultipleGroupComponent } from '../web-component/mini-filter/filter-combo-multiple-group/filter-combo-multiple-group.component';
+import { MiniFilterModule } from '../web-component/mini-filter/mini-filter.module';
 
 
 const routes = [
@@ -66,6 +70,7 @@ const routes = [
     FuseWidgetModule,
     WidgetsModule,
     GMapModule,
+    MiniFilterModule,
     NgxsModule.forFeature([
       AsTableFilterState,
       AsTableState,
@@ -80,12 +85,7 @@ const routes = [
     AccountStatementMainComponent,
     AccountStatementFilterComponent,
     AccountStatementListComponent,
-    OperationFilterComponent,
-    OperationMethodFilterComponent,
-    OperationTypeFamilyFilterComponent,
-    OperationTypeFilterComponent,
-    DateIntegrationFilterComponent,
-    AmountFilterComponent,
+
     AccountStatementDetailComponent,
     AsChartEvolutionComponent,
     AsInternalTransferMainComponent,

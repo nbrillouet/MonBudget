@@ -80,7 +80,7 @@ export class AsifDetailState {
     //====================================
     @Action(asifDetailChangeOperationTypeFamily)
     asifDetailChangeOperationTypeFamily(context: StateContext<AsifDetailStateModel>, action: asifDetailChangeOperationTypeFamily) {
-        console.log('change operationType: Open');
+       
         const state = context.getState();
         
         state.loadingInfo.loaded=false;
@@ -91,14 +91,14 @@ export class AsifDetailState {
         context.patchState(state);
         this._referentialService.operationTypeService.GetSelectList(action.payload.id,EnumSelectType.inconnu)
             .subscribe(result=> {
-                console.log('asif: change operationType: state',state);
+     
                 context.dispatch(new asifDetailChangeOperationTypeFamilySuccess(result));
             });
     }
 
     @Action(asifDetailChangeOperationTypeFamilySuccess)
     asifDetailChangeOperationTypeFamilySuccess(context: StateContext<AsifDetailStateModel>, action: asifDetailChangeOperationTypeFamilySuccess) {
-        console.log('change operationType: Closed');
+   
         let state = context.getState();
         state.loadingInfo.loaded = true;
         state.loadingInfo.loading = false;

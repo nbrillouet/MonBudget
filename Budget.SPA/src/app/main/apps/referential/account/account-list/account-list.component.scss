@@ -2,7 +2,22 @@
     white-space: pre-line    !important;
 }
 
+.header-1-background {
+    background-color: #9B9B9B;
+    background: url('/assets/images/backgrounds/bck_1.png') no-repeat;
+}
+
+.header-2-background {
+    background-color: #9B9B9B;
+    background: url('/assets/images/backgrounds/bck_2.png') no-repeat;
+    height:100px;
+}
+
 .list-divider {
     border: 1px solid transparent;
     border-bottom-color: #EDEEEF;
+}
+
+.cards {
+    overflow-y: scroll;
 }

@@ -56,9 +56,15 @@ namespace Budget.API
 
             services.AddScoped<IUserCustomOtfService, UserCustomOtfService>();
             services.AddScoped<IUserCustomOtfRepository, UserCustomOtfRepository>();
-            
+
+            services.AddScoped<IBankFamilyService, BankFamilyService>();
+            services.AddScoped<IBankFamilyRepository, BankFamilyRepository>();
+
             services.AddScoped<IBankSubFamilyService, BankSubFamilyService>();
             services.AddScoped<IBankSubFamilyRepository, BankSubFamilyRepository>();
+
+            services.AddScoped<IBankAgencyService, BankAgencyService>();
+            services.AddScoped<IBankAgencyRepository, BankAgencyRepository>();
 
             services.AddScoped<IAccountStatementImportService, AccountStatementImportService>();
             services.AddScoped<IAccountStatementImportRepository, AccountStatementImportRepository>();
@@ -202,6 +208,7 @@ namespace Budget.API
 
             services.AddScoped<ISelectService, SelectService>();
             services.AddScoped<IVPlanGlobalRepository, VPlanGlobalRepository>();
+            services.AddScoped<IMailService, MailService>();
 
             services.AddScoped<IFilterService, FilterService>();
             

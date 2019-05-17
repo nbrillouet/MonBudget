@@ -1,6 +1,6 @@
 import { DataInfo } from "app/main/_models/generics/detail-info.model";
 import { ReferentialService } from "app/main/_services/Referential/referential.service";
-import { LoadAsDetail, LoadAsDetailSuccess, asDetailChangeOperationTypeFamily, asDetailChangeOperationTypeFamilySuccess, asDetailChangeOperationType, asDetailChangeOperationTypeSuccess } from "./account-statement-detail.action";
+import { LoadAsDetail, LoadAsDetailSuccess, asDetailChangeOperationTypeFamily, asDetailChangeOperationTypeFamilySuccess, asDetailChangeOperationType, asDetailChangeOperationTypeSuccess, ClearAsDetail } from "./account-statement-detail.action";
 import { ComboSimple } from "app/main/_models/generics/combo.model";
 import { ISelect, EnumSelectType } from "app/main/_models/generics/select.model";
 import { AsDetail } from "app/main/_models/account-statement/account-statement-detail.model";
@@ -63,7 +63,11 @@ export class AsDetailState {
         state.datas = action.payload;
 
         context.patchState(state);
+    }
 
+    @Action(ClearAsDetail)
+    clear(context: StateContext<AsDetailStateModel>) {
+        return context.setState(new AsDetailStateModel());
     }
 
     //====================================
@@ -71,7 +75,7 @@ export class AsDetailState {
     //====================================
     @Action(asDetailChangeOperationTypeFamily)
     asDetailChangeOperationTypeFamily(context: StateContext<AsDetailStateModel>, action: asDetailChangeOperationTypeFamily) {
-        console.log('change operationType: Open');
+        
         const state = context.getState();
         
         state.loadingInfo.loaded=false;
@@ -82,14 +86,14 @@ export class AsDetailState {
         context.patchState(state);
         this._referentialService.operationTypeService.GetSelectList(action.payload.id,EnumSelectType.inconnu)
             .subscribe(result=> {
-                console.log('operationType: state',state);
+               
                 context.dispatch(new asDetailChangeOperationTypeFamilySuccess(result));
             });
     }
 
     @Action(asDetailChangeOperationTypeFamilySuccess)
     asDetailChangeOperationTypeFamilySuccess(context: StateContext<AsDetailStateModel>, action: asDetailChangeOperationTypeFamilySuccess) {
-        console.log('change operationType: Closed');
+       
         let state = context.getState();
         state.loadingInfo.loaded = true;
         state.loadingInfo.loading = false;

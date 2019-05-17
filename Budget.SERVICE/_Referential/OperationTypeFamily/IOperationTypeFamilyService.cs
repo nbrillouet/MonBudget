@@ -11,11 +11,14 @@ namespace Budget.SERVICE
 {
     public interface IOperationTypeFamilyService
     {
+        OperationTypeFamily GetById(int idOperationTypeFamily);
         List<SelectDto> GetSelectList(int idUserGroup, EnumMovement enumMovement, EnumSelectType enumSelectType);
         List<SelectDto> GetSelectList(int idUserGroup, EnumSelectType enumSelectType);
         List<SelectGroupDto> GetSelectGroup(int idUserGroup);
         List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste);
         List<SelectDto> GetSelectListByIdList(List<int> idList);
+        List<SelectDto> GetByIdUserGroup(int idUserGroup);
+
         PagedList<OtfForTableDto> GetOtfTable(FilterOtfTableSelected filter);
         OtfForDetailDto GetOtfDetail(int idOperationTypeFamily);
         SelectDto GetUnknown(int idUserGroup);

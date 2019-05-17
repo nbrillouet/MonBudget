@@ -1372,7 +1372,7 @@ namespace Budget.DATA.Migrations
                     b.Property<int?>("IdGMapAddress")
                         .HasColumnName("ID_GMAP_ADDRESS");
 
-                    b.Property<int>("IdUserGoup")
+                    b.Property<int>("IdUserGroup")
                         .HasColumnName("ID_USER_GROUP");
 
                     b.Property<string>("LastName")

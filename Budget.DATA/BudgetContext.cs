@@ -16,9 +16,10 @@ namespace Budget.DATA
         public DbSet<User> User { get; set; }
         public DbSet<UserShortcut> Shortcut { get; set; }
         public DbSet<UserCustomOtf> UserCustomOtf { get; set; }
-        public DbSet<BankSubFamily> BankAgency { get; set; }
         public DbSet<BankFileDefinition> BankFileDefinition { get; set; }
         public DbSet<BankFamily> BankFamily { get; set; }
+        public DbSet<BankSubFamily> BankSubFamily { get; set; }
+        public DbSet<BankAgency> BankAgency { get; set; }
         public DbSet<Movement> Movement { get; set; }
         public DbSet<AccountType> AccountType { get; set; }
         public DbSet<Account> Account { get; set; }

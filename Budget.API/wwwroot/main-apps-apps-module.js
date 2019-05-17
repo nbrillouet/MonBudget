@@ -37,7 +37,7 @@ var routes = [
     },
     {
         path: 'referential/operations',
-        loadChildren: './referential/operation/operation.module#OperationModule',
+        loadChildren: './referential/operations/operations.module#OperationsModule',
         canActivate: [app_guards_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]]
     },
     {

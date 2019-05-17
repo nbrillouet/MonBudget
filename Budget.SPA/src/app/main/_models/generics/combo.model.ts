@@ -1,9 +1,9 @@
-import { ISelect } from "./select.model";
+import { ISelect, ISelectGroup } from "./select.model";
 
 
 export class ComboSimple<T> {
     list: T[];
-    selected: T;
+    selected: ISelect;
 
     constructor() {
         this.list=null;
@@ -13,10 +13,20 @@ export class ComboSimple<T> {
 
 export class ComboMultiple<T> {
     list: T[];
-    listSelected: T[];
+    listSelected: ISelect[];
 
     constructor() {
         this.list=null;
         this.listSelected=null;
     }
 }
+
+// export class ComboMultipleGroup {
+//     list: ISelectGroup[];
+//     listSelected: ISelect[];
+
+//     constructor() {
+//         this.list=null;
+//         this.listSelected=null;
+//     }
+// }

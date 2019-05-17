@@ -16,11 +16,13 @@ namespace Budget.DATA.Repositories
 
         public bool HasSameKeywords(OperationDetail operationDetail)
         {
-            return Context.OperationDetail
-                .Where(x => x.KeywordOperation == operationDetail.KeywordOperation
+            var result = Context.OperationDetail
+                .Where(x => x.Id!=operationDetail.Id
+                    && x.KeywordOperation == operationDetail.KeywordOperation
                     && x.KeywordPlace == operationDetail.KeywordPlace
                     && x.IdUserGroup == operationDetail.IdUserGroup)
                 .Any();
+            return result;
         }
 
         public List<OperationDetail> GetAllByIdOperationMethod(int idUserGroup, int idOperationMethod)

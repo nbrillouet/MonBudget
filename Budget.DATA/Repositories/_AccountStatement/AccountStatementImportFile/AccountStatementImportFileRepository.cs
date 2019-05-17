@@ -17,6 +17,17 @@ namespace Budget.DATA.Repositories
         {
         }
 
+        public List<AccountStatementImportFile> GetByIdImport(int IdImport)
+        {
+            var results = Context.AccountStatementImportFile
+                .Where(x => x.IdImport == IdImport)
+                .Include(x => x.AccountStatementImport.User)
+                .ToList();
+
+            return results;
+
+        }
+
         public AccountStatementImportFile GetAsifDetail(int id)
         {
             var accountStatementImportFile = Context.AccountStatementImportFile
@@ -319,23 +330,29 @@ namespace Budget.DATA.Repositories
             return accountStatementImportFile.Id;
         }
 
-        public void UpdateAsifStates(int idImport)
-        {
-            var asifs = GetByIdImport(idImport);
-            foreach(var asif in asifs)
-            {
-                UpdateAsifState(asif);
-                Update(asif);
-            }
+        //public void UpdateAsifStates(int idImport)
+        //{
+        //    var asifs = GetByIdImport(idImport);
+        //    foreach(var asif in asifs)
+        //    {
+        //        UpdateAsifState(asif);
+        //        Update(asif);
+        //    }
 
+        //}
+
+        public void UpdateAsifStates(AccountStatementImportFile asif)
+        {
+            UpdateAsifState(asif);
+            Update(asif);
         }
 
-        private List<AccountStatementImportFile> GetByIdImport(int idImport)
-        {
-            return Context.AccountStatementImportFile
-                .Where(x => x.IdImport == idImport)
-                .ToList();
-        }
+        //private List<AccountStatementImportFile> GetByIdImport(int idImport)
+        //{
+        //    return Context.AccountStatementImportFile
+        //        .Where(x => x.IdImport == idImport)
+        //        .ToList();
+        //}
 
         public AccountStatementImportFile UpdateAsifState(AccountStatementImportFile item)
         {

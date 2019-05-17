@@ -134,7 +134,7 @@ export class PlanSuiviComponent implements OnInit {
     const dialogRef = this._dialog.open(PlanPosteDetailComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      data => console.log("Dialog output:", data)
+
       this._store.dispatch(new ClearPlanPosteDetailDatas());
     });    
   }
@@ -161,7 +161,7 @@ export class PlanSuiviComponent implements OnInit {
     const dialogRef = this._dialog.open(PlanAmountListComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      data => console.log("Dialog output:", data)
+
       this._store.dispatch(new ClearPlanAmountTableDatas());
     });    
 

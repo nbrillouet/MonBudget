@@ -17,9 +17,10 @@ namespace Budget.DATA.Repositories
         List<AccountStatement> GetByDatePlanPosteReferenceList(List<PlanPosteReference> planPosteReferences, DateTime dateMin, DateTime dateMax);
 
         Boolean Save(List<AccountStatement> accountStatements);
+        AccountStatement Save(AccountStatement accountStatement);
         SoldeDto GetSolde(int? idUser, int? idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer);
-        List<AccountStatement> GetAsInternalTransfer(int? idAccount, DateTime dateMin, DateTime dateMax);
-        AccountStatement GetAsInternalTransferCouple(int idAccountStatement);
+        List<AccountStatement> GetAsInternalTransfer(int idUserGroup, int? idAccount, DateTime dateMin, DateTime dateMax);
+        AccountStatement GetAsInternalTransferCouple(int idUserGroup, int idAccountStatement);
 
     }
 }

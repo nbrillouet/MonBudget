@@ -32,9 +32,9 @@ namespace Budget.SERVICE
             return _accountTypeRepository.GetById(id);
         }
 
-        public List<SelectDto> GetSelectList(int idSelectType)
+        public List<SelectDto> GetSelectList(EnumSelectType enumSelectType)
         {
-            var selectList = _selectService.GetSelectList((EnumSelectType)idSelectType);
+            var selectList = _selectService.GetSelectList(enumSelectType);
             var accountTypes = _accountTypeRepository.GetAllOrdering();
             selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(accountTypes).ToList());
 

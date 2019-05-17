@@ -1,0 +1,103 @@
+<div id="product" class="page-layout carded fullwidth" fusePerfectScrollbar>
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+
+      <!-- HEADER -->
+      <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+          <!-- APP TITLE -->
+          <div fxLayout="row" fxLayoutAlign="start center">
+              <!-- (click)="movePrevious()" -->
+              <button class="mr-0 mr-sm-16" mat-icon-button 
+                  [routerLink]="['/apps/referential/operations/operations']">
+                  <mat-icon>arrow_back</mat-icon>
+              </button>
+
+              <div fxLayout="column" fxLayoutAlign="start start"
+                   *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                  <div class="h2" *ngIf="formLoaded && operationDetail && idOperation!=-1" >
+                      {{operationDetail.label}}
+                  </div>
+                  <div class="h2" *ngIf="formLoaded && operationDetail && idOperation==-1" >
+                          Nouvelle opération
+                  </div>
+                  <div class="subtitle secondary-text">
+                      <span>Détail de l'opération</span>
+                  </div>
+              </div>
+          </div>
+          <!-- / APP TITLE -->
+          <button mat-raised-button *ngIf="formLoaded && operationDetail"
+              class="save-product-button mat-white-bg mt-16 mt-sm-0"
+              [disabled]= "operationDetailForm.invalid || operationDetailForm.pristine"
+              (click)="saveOt()"
+          >
+              <span>ENREGISTRER</span>
+          </button>
+      </div>
+      <!-- / HEADER -->
+
+      <!-- CONTENT CARD -->
+      <div class="content-card white">
+
+          <form *ngIf="formLoaded && operationDetail" 
+              name="operationDetailForm" 
+              [formGroup]="operationDetailForm" 
+              class="product w-100-p" 
+              fxLayout="column" fxFlex
+          >
+              <div class="example-container tab-content p-24" >
+
+                  <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                      <mat-label>Libellé type opération</mat-label>
+                      <input matInput
+                          name="label"
+                          formControlName="label"
+                          placeholder="Libellé opération">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
+                      <mat-label>Méthode opérations</mat-label>
+                      <mat-select formControlName="operationMethod" placeholder="Méthode opérations" [compareWith]="compareObjects" >
+                          <mat-option *ngFor="let item of operationDetail.operationMethod.list" [value]="item">
+                              {{ item.label }}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
+                    <mat-label>Type opérations</mat-label>
+                    <mat-select class="mini-select" 
+                      formControlName="operationType" 
+                      [compareWith]="compareObjects" 
+                      placeholder="Type opérations" >
+                    
+                    <mat-optgroup *ngFor="let group of operationDetail.operationType.list" [label]="group.label">
+                      <mat-option *ngFor="let item of group.selects" [value]="item">
+                        {{ item.label }}
+                      </mat-option>
+                    </mat-optgroup>
+                  </mat-select>
+
+                    <!-- <mat-select formControlName="operationType" placeholder="Type opérations" [compareWith]="compareObjects" >
+                        <mat-option *ngFor="let item of operationDetail.operationType.list" [value]="item">
+                            {{ item.label }}
+                        </mat-option>
+                    </mat-select> -->
+                </mat-form-field>
+
+              </div>
+
+              </form> 
+
+      </div>
+      <!-- / CONTENT CARD -->
+
+  </div>
+  <!-- / CENTER -->
+</div>

@@ -13,11 +13,8 @@ import { FuseNavigationService } from '@fuse/components/navigation/navigation.se
 })
 export class FuseNavigationComponent implements OnInit
 {
-    @Input()
-    layout = 'vertical';
-
-    @Input()
-    navigation: any;
+    @Input() layout = 'vertical';
+    @Input() navigation: any;
 
     // Private
     private _unsubscribeAll: Subject<any>;

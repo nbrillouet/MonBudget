@@ -34,8 +34,9 @@ userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:th
     }
 
     getAsifDetail(filterAsifDetail: FilterAsifDetail) {
+        filterAsifDetail.user=this.userForGroup;
         return this.http
-            .get(this.baseUrl + `account-statement-import-files/${filterAsifDetail.idAsif}/users/${filterAsifDetail.idUser}/detail`)
+            .post(this.baseUrl + `account-statement-import-files/detail`,filterAsifDetail)
             .map(response => <AsifDetail>response)
     }
 

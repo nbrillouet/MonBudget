@@ -49,13 +49,11 @@ export class GMapSearchComponent implements OnInit,OnChanges {
     this.gMapService
       .getById(this.gMapSearchInfo.idGMapAddress)
       .subscribe(resp=> {
-        // console.log('this.gMapAddress',resp);
         this.gMapAddress = resp;
         this.createForm();
         this.addressVisible = this.gMapAddress.id!=1 && this.gMapAddress.id!=3;
         this.searchVisible = this.gMapAddress.id == 1;
         this.isFormLoaded = true;
-        console.log('this.gMapAddress ',this.gMapAddress );
        });
 
   }
@@ -117,7 +115,6 @@ export class GMapSearchComponent implements OnInit,OnChanges {
             .saveGMapAddress(this.gMapAddress)
             .subscribe(resp=>{
               this.gMapAddress= resp;
-              console.log('this.gMapAddress',this.gMapAddress);
               this.showSearch(false);
               this.changeGMapAddress.emit(this.gMapAddress);
             })

@@ -80,7 +80,6 @@ export class PlanPosteListComponent implements OnInit {
     const dialogRef = this.dialog.open(PlanPosteDetailComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      data => console.log("Dialog output:", data)
       this._store.dispatch(new ClearPlanPosteDetailDatas());
     });    
   }

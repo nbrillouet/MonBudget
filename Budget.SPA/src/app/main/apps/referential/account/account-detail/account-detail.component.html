@@ -1,15 +1,15 @@
 <div id="product" class="page-layout carded fullwidth" fusePerfectScrollbar>
 
   <!-- TOP BACKGROUND -->
-  <div class="top-bg mat-accent-bg"></div>
+  <div class="top-bg accent"></div>
   <!-- / TOP BACKGROUND -->
 
     <!-- CENTER -->
     <div class="center">
     
-        <div *ngIf='accountForm'>
+
             <!-- HEADER -->
-            <div class="header white-fg" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
 
                 <!-- APP TITLE -->
                 <div fxLayout="row" fxLayoutAlign="start center">
@@ -22,16 +22,14 @@
 
                     <div class="product-image mr-8 mr-sm-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
                         <mat-icon>account_balance</mat-icon>  
-                        <!-- <img *ngIf="user.avatarUrl" [src]="user.avatarUrl">
-                        <img *ngIf="!user.avatarUrl" [src]="'assets/images/avatars/profile.jpg'"> -->
                     </div>
 
                     <div fxLayout="column" fxLayoutAlign="start start"
                         *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                        <div class="h2" *ngIf="pageType ==='edit'">
-                            {{account.number}}  {{account.label}}
+                        <div class="h2" *ngIf="formLoaded && accountDetail && accountDetail.id!=0">
+                            {{accountDetail.number}}  {{accountDetail.label}}
                         </div>
-                        <div class="h2" *ngIf="pageType ==='new'">
+                        <div class="h2" *ngIf="formLoaded && accountDetail && accountDetail.id==0">
                             Nouveau compte
                         </div>
                         <div class="subtitle secondary-text">
@@ -40,7 +38,15 @@
                     </div>
                 </div>
 
-                <button mat-raised-button
+                <button mat-raised-button *ngIf="formLoaded && accountDetail"
+                class="save-product-button mat-white-bg mt-16 mt-sm-0"
+                [disabled]= "accountForm.invalid || accountForm.pristine"
+                (click)="save()"
+                >
+                    <span>ENREGISTRER</span>
+                </button>
+
+                <!-- <button mat-raised-button
                         class="save-product-button mat-white-bg mt-16 mt-sm-0"
                         [disabled]="accountForm.invalid"
                         *ngIf="pageType ==='new'" (click)="create(accountForm)">
@@ -52,85 +58,105 @@
                         [disabled]="accountForm.invalid || accountForm.pristine"
                         *ngIf="pageType ==='edit'" (click)="update(accountForm)">
                     <span>SAUVEGARDER</span>
-                </button>
+                </button> -->
             </div>
             <!-- / HEADER -->
 
       <!-- CONTENT CARD -->
-      <div class="content-card mat-white-bg">
+      <div class="content-card white">
 
           <!-- CONTENT -->
           <div class="content">
-              <form name="accountForm" [formGroup]="accountForm" class="product w-100-p" fxLayout="column" fxFlex>
+              <form name="accountForm" 
+                *ngIf="formLoaded && accountDetail" 
+                [formGroup]="accountForm" 
+                class="product w-100-p" 
+                fxLayout="column" fxFlex>
                     <mat-tab-group>
 
-                      <mat-tab label="Informations">
+                      <mat-tab label="Agence bancaire">
                           <div class="tab-content p-24" fusePerfectScrollbar>
-                            
-                            <mat-form-field class="w-100-p" >
-                                <mat-select formControlName="bankAgency" placeholder="Banque" [compareWith]="compareObjects" >
-                                    <mat-option *ngFor="let item of bankAgencies" [value]="item">
-                                        {{ item.label }}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
+                                    <mat-label>Groupe Bancaire</mat-label>
+                                    <mat-select formControlName="bankFamily" placeholder="Groupe Bancaire" [compareWith]="compareObjects" >
+                                        <mat-option *ngFor="let item of accountDetail.bankFamily.list" [value]="item">
+                                            {{ item.label }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
 
-                            <mat-form-field class="w-100-p" >
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
+                                    <mat-label>Caisse</mat-label>
+                                    <mat-select formControlName="bankSubFamily" placeholder="Caisse" [compareWith]="compareObjects" >
+                                        <mat-option *ngFor="let item of accountDetail.bankSubFamily.list" [value]="item">
+                                            {{ item.label }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
+                                    <mat-label>Agence</mat-label>
+                                    <mat-select formControlName="bankAgency" placeholder="Agence" [compareWith]="compareObjects" >
+                                        <mat-option *ngFor="let item of accountDetail.bankAgency.list" [value]="item">
+                                            {{ item.label }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                 
+                          </div>
+                      </mat-tab>
+                      <mat-tab label="Informations">
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
+                                <mat-label>Type de compte</mat-label>
                                 <mat-select formControlName="accountType" placeholder="Type de compte" [compareWith]="compareObjects" >
-                                    <mat-option *ngFor="let item of accountTypes" [value]="item">
+                                    <mat-option *ngFor="let item of accountDetail.accountType.list" [value]="item">
                                         {{ item.label }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
 
-                            <div fxLayout="row" fxLayoutAlign="start start">
-                                <!-- <mat-icon class="mr-12 mt-12">account_circle</mat-icon> -->
-                                <mat-form-field class="w-100-p">
-                                    <input matInput
-                                        name="label"
-                                        formControlName="label"
-                                        placeholder="Nom"
-                                    >
-                                </mat-form-field>
-                            </div>
+                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-label>Libellé du compte</mat-label>
+                                <input matInput
+                                    name="label"
+                                    formControlName="label"
+                                    placeholder="Libellé du compte">
+                            </mat-form-field>
 
-                            <div fxLayout="row" fxLayoutAlign="start start">
-                                <!-- <mat-icon class="mr-12 mt-12">account_circle</mat-icon> -->
-                                <mat-form-field class="w-100-p">
-                                    <input matInput
-                                        name="number"
-                                        formControlName="number"
-                                        placeholder="Numéro de compte"
-                                    >
-                                </mat-form-field>
-                            </div>
-                            <!-- <mat-divider></mat-divider> -->
-                            
-                            <div fxLayout="row" fxLayoutAlign="start start">
-                                <mat-form-field class="w-100-p">
+                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-label>Numéro de compte</mat-label>
+                                <input matInput
+                                    name="number"
+                                    formControlName="number"
+                                    placeholder="Numéro de compte">
+                            </mat-form-field>
+
+                            <div fxLayout="row"  fxLayoutAlign="start start">
+                                
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Montant de départ</mat-label>
                                     <input matInput
                                         type="number"
                                         name="startAmount"
                                         formControlName="startAmount"
                                         placeholder="Montant de départ"
                                     >
+                                    <mat-icon matSuffix>euro_symbol</mat-icon>
                                 </mat-form-field>
 
-                                <mat-form-field class="w-100-p">
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Seuil d'alerte</mat-label>
                                     <input matInput
                                         type="number"
                                         name="alertThreshold"
                                         formControlName="alertThreshold"
                                         placeholder="Seuil d'alerte"
                                     >
+                                    <mat-icon matSuffix>euro_symbol</mat-icon>
                                 </mat-form-field>
                             </div>
-                            
-                            <!-- <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
-                                
-                            </div> -->
-
-                          </div>
+                        </div>
                       </mat-tab>
                   </mat-tab-group>
               </form>
@@ -138,6 +164,6 @@
           </div>
       </div>
 
-        </div>
+
     </div>
 </div>

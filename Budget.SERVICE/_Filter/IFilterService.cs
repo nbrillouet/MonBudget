@@ -15,6 +15,7 @@ namespace Budget.SERVICE
         FilterUserTable GetFilterUserTable(FilterUserTableSelected filter);
         FilterOtfTable GetFilterOtfTable(FilterOtfTableSelected filter);
         FilterOtTable GetFilterOtTable(FilterOtTableSelected filter);
+        FilterOperationTable GetFilterOperationTable(FilterOperationTableSelected filter);
 
     }
 

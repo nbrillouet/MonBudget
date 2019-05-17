@@ -1,0 +1,63 @@
+<div id="products" class="page-layout carded fullwidth inner-scroll">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent header-1-background"></div>
+  <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+      <div class="center">
+        <div style="height:15px;text-align:center;cursor:pointer;" class="test accent" (click)="onHeaderPanelClick()">
+            <mat-icon style="font-size:20px;margin-top:-2px;">{{headerPanelIcon}}</mat-icon>
+        </div>
+
+        <!-- HEADER -->
+        <div *ngIf="headerPanelIsVisible" class="header-2-background accent p-12 pb-0 pt-6"
+            fxLayout="column" fxLayoutAlign="center center"
+            fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+            
+            <div class="toolbar w-100-p" fxFlex fxLayout="row" fxLayoutAlign="space-between start">
+            
+              <div class="left-side" fxLayout="row">
+                  <div fxLayout="row" fxLayoutAlign="start center">
+                      <mat-icon class="logo-icon mr-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">history</mat-icon>
+                      <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Référentiel opération: {{subjectTitle}}</span>
+                  </div>
+              </div>
+
+              <button mat-raised-button
+                  class="save-product-button white mt-16 mt-sm-0"
+                  (click)="Add()"
+              >
+                  <span>NOUVEAU</span>
+              </button>
+
+            </div>
+
+        </div>
+          
+          <!-- / HEADER -->
+          <div class="content-card">
+            <!-- <mat-tab-group 
+    
+                [selectedIndex]="selectedIndex"
+                (selectedTabChange)="onTabChanged($event)"
+            >
+                <mat-tab *ngFor="let operationField of operationFields;index as i" [label]="operationField.label">
+                  <ng-template mat-tab-label>
+                      {{operationField.label}}
+                  </ng-template>
+
+                  <operation-type-family-list [headerPanelIsVisible]="headerPanelIsVisible" *ngIf="selectedIndex == 0 && selectedIndex == i"></operation-type-family-list>
+                  <operation-type-list [headerPanelIsVisible]="headerPanelIsVisible" *ngIf="selectedIndex == 1 && selectedIndex == i"></operation-type-list>
+                  <operation-list [headerPanelIsVisible]="headerPanelIsVisible" *ngIf="selectedIndex == 2 && selectedIndex == i"></operation-list>
+                </mat-tab>
+            </mat-tab-group> -->
+           
+
+            <operations-main-tab [headerPanelIsVisible]="headerPanelIsVisible" [subject]="subject" ></operations-main-tab>
+
+              
+          </div>
+      </div>
+      <!-- / CENTER -->
+  </div>

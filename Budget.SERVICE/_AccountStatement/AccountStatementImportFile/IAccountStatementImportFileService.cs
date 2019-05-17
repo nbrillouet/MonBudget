@@ -12,7 +12,7 @@ namespace Budget.SERVICE
     public interface IAccountStatementImportFileService
     {
         PagedList<AsifForTableDto> GetAsifTable(FilterAsifTableSelected filter);
-        AsifDetailDto GetAsifDetail(int idAsif,int idUserGroup);
+        AsifDetailDto GetAsifDetail(FilterAsifDetail filter);
         List<SelectDto> GetAccountSelectListByIdImport(int idImport);
         AccountStatementImportFile GetById(int IdAccountStatementImportFile);
         AccountStatementImportFile InitForImport(int idUserGroup);

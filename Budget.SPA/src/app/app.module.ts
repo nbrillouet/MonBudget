@@ -27,8 +27,6 @@ import { GoogleMapService } from './main/_services/google-map.service';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
-import { OperationTypeFamilyService } from './main/_services/Referential/operation-type-family.service';
-import { OperationTypeService } from './main/_services/Referential/operation-type.service';
 import { AccountService } from './main/_services/Referential/account.service';
 import { NavigationService } from './main/_services/navigation.service';
 import { AccountTypeService } from './main/_services/Referential/account-type.service';
@@ -46,7 +44,7 @@ import { NavigationState } from './main/_ngxs/navigation/navigation.state';
 import { PlanService } from './main/apps/plan/plan.service';
 import { ReferentialServiceModule } from './main/_services/Referential/referential.service.module';
 import { UserDetailState } from './main/_ngxs/user/user-detail/user-detail.state';
-import { BankAgencyService } from './main/_services/Referential/bank.service';
+import { BankAgencyService } from './main/_services/Referential/bank-agency.service';
 
 const NGXS_MODULES = [
     NgxsModule.forRoot([]),

@@ -57,20 +57,37 @@ namespace Budget.SERVICE._Helpers
             
             CreateMap<Account, AccountForLabelDto>();
             CreateMap<Account, AccountForDetailDto>()
+                .ForMember(d => d.AccountType, o => o.Ignore())
+                .ForMember(d => d.BankAgency, o => o.Ignore())
+                .ForMember(d => d.BankFamily, o => o.Ignore())
+                .ForMember(d => d.BankSubFamily, o => o.Ignore())
                 .ForMember(d => d.LinkedUsers, o => o.Ignore());
             CreateMap<Account, SelectDto>()
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.Number + " - " + s.Label));
 
+            CreateMap<BankFamily, BankGenericDto>();
+            CreateMap<BankFamily, SelectDto>()
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong));
+            CreateMap<BankSubFamily, SelectDto>()
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong));
+            CreateMap<BankAgency, SelectDto>();
+            CreateMap<BankSubFamily, BankGenericDto>();
+            CreateMap<BankAgency, BankAgencyDto>()
+                .ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankSubFamily.BankFamily))
+                .ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankSubFamily));
+
             CreateMap<BankAgency, BankAgencyWithAccountsDto>()
-                .ForMember(d => d.LabelLong, o => o.MapFrom(s => s.BankSubFamily.LabelLong))
-                .ForMember(d => d.LabelShort, o => o.MapFrom(s => s.BankSubFamily.LabelShort));
-            CreateMap<BankAgency, SelectDto>()
-                .ForMember(d=>d.Label,o=>o.MapFrom(s=>s.BankSubFamily.LabelLong));
+                .ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankSubFamily.BankFamily));
+                //.ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankSubFamily));
+            
+
+            //CreateMap<BankAgency, SelectDto>()
+            //    .ForMember(d=>d.Label,o=>o.MapFrom(s=>s.BankSubFamily.LabelLong));
             CreateMap<BankAgency, BankAgencyForListDto>();
-            CreateMap<BankAgency, SelectColorDto>()
-                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
-                .ForMember(d => d.Label, o => o.MapFrom(s => s.BankSubFamily.LabelLong))
-                .ForMember(d => d.Color, o => o.MapFrom(s => s.BankSubFamily.BankFamily.LogoClassName));
+            //CreateMap<BankAgency, SelectColorDto>()
+            //    .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+            //    .ForMember(d => d.Label, o => o.MapFrom(s => s.BankSubFamily.LabelLong))
+            //    .ForMember(d => d.Color, o => o.MapFrom(s => s.BankSubFamily.BankFamily.LogoClassName));
 
 
             CreateMap<AccountStatement, AsForTableDto>()
@@ -100,6 +117,17 @@ namespace Budget.SERVICE._Helpers
             CreateMap<OtForDetailDto, OperationType>()
                .ForMember(d => d.OperationTypeFamily, o => o.Ignore())
                .ForMember(d => d.IdOperationTypeFamily, o => o.MapFrom(s => s.OperationTypeFamily.Selected.Id))
+               .ForMember(d => d.IdUserGroup, o => o.MapFrom(s => s.User.IdUserGroup));
+
+            CreateMap<Operation, OperationForTableDto>();
+            CreateMap<Operation, OperationForDetailDto>()
+                .ForMember(d => d.OperationMethod, o => o.Ignore())
+                .ForMember(d => d.OperationType, o => o.Ignore());
+            CreateMap<OperationForDetailDto, Operation>()
+               .ForMember(d => d.OperationType, o => o.Ignore())
+               .ForMember(d => d.OperationMethod, o => o.Ignore())
+               .ForMember(d => d.IdOperationType, o => o.MapFrom(s => s.OperationType.Selected.Id))
+               .ForMember(d => d.IdOperationMethod, o => o.MapFrom(s => s.OperationMethod.Selected.Id))
                .ForMember(d => d.IdUserGroup, o => o.MapFrom(s => s.User.IdUserGroup));
 
             CreateMap<AccountStatementImport, AsiForListDto>();

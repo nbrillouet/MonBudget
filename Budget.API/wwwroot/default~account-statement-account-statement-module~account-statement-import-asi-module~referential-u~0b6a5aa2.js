@@ -4400,13 +4400,11 @@ var GMapSearchComponent = /** @class */ (function () {
         this.gMapService
             .getById(this.gMapSearchInfo.idGMapAddress)
             .subscribe(function (resp) {
-            // console.log('this.gMapAddress',resp);
             _this.gMapAddress = resp;
             _this.createForm();
             _this.addressVisible = _this.gMapAddress.id != 1 && _this.gMapAddress.id != 3;
             _this.searchVisible = _this.gMapAddress.id == 1;
             _this.isFormLoaded = true;
-            console.log('this.gMapAddress ', _this.gMapAddress);
         });
     };
     GMapSearchComponent.prototype.createForm = function () {
@@ -4455,7 +4453,6 @@ var GMapSearchComponent = /** @class */ (function () {
                     .saveGMapAddress(_this.gMapAddress)
                     .subscribe(function (resp) {
                     _this.gMapAddress = resp;
-                    console.log('this.gMapAddress', _this.gMapAddress);
                     _this.showSearch(false);
                     _this.changeGMapAddress.emit(_this.gMapAddress);
                 });

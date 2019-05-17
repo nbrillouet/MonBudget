@@ -1,9 +1,9 @@
 import { DataInfo } from "app/main/_models/generics/detail-info.model";
 import { OtDetail } from "app/main/_models/referential/operation-type.model";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
-import { OtService } from "app/main/apps/referential/operation/operation-type/operation-type.service";
 import { ReferentialService } from "app/main/_services/Referential/referential.service";
 import { LoadOtDetail, LoadOtDetailSuccess, ClearOtDetail } from "./operation-type-detail.action";
+import { OtService } from "app/main/apps/referential/operations/operation-type/operation-type.service";
 
 export class OtDetailStateModel extends DataInfo<OtDetail> {
     constructor () {
@@ -28,7 +28,6 @@ export class OtDetailState {
 
     @Selector()
     static get(state: OtDetailStateModel) {
-        console.log('state',state);
         return state;
     }
 

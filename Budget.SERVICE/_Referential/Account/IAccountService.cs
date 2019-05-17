@@ -9,7 +9,7 @@ namespace Budget.SERVICE
     public interface IAccountService
     {
         AccountForDetailDto GetForDetailById(int id);
-        Account GetFullById(int id);
+        Account GetFullById(int idAccount);
         Account GetById(int idAccount);
         void Update(AccountForDetailDto accountForDetailDto);
         Account Create(int idUser, AccountForDetailDto accountForDetailDto);

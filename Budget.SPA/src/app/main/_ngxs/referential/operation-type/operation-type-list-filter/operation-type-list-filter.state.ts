@@ -1,9 +1,9 @@
 import { FilterInfo } from "app/main/_models/generics/filter.info.model";
 import { FilterOtTable } from "app/main/_models/filters/operation-type.filter";
 import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
-import { OtService } from "app/main/apps/referential/operation/operation-type/operation-type.service";
 import { LoadOtTableFilter, LoadOtTableFilterSuccess, ChangeOtTableFilter, UpdatePaginationOtTableFilter } from "./operation-type-list-filter.action";
 import { LoadOtTableDatas } from "../operation-type-list/operation-type-list.action";
+import { OtService } from "app/main/apps/referential/operations/operation-type/operation-type.service";
 
 export class OtTableFilterStateModel extends FilterInfo<FilterOtTable> {
     constructor () {
@@ -44,7 +44,6 @@ export class OtTableFilterState {
         context.patchState(state);
         this._otService.getOtTableFilter(action.payload.selected)
             .subscribe(result=> {
-                console.log('pass----');
                 context.dispatch(new LoadOtTableFilterSuccess(result));
             });
 

@@ -57,11 +57,11 @@ namespace Budget.API.Controllers
             return Ok(pagedList);
         }
 
-        [HttpGet]
-        [Route("{idAsif}/users/{idUser}/detail")]
-        public IActionResult GetAsifDetail(int idAsif,int idUser)
+        [HttpPost]
+        [Route("detail")]
+        public IActionResult GetAsifDetail([FromBody] FilterAsifDetail filter)
         {
-            var asifDto = _accountStatementImportFileService.GetAsifDetail(idAsif, idUser);
+            var asifDto = _accountStatementImportFileService.GetAsifDetail(filter);
             
             return Ok(asifDto);
         }

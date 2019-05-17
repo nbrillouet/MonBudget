@@ -35,7 +35,7 @@ export class AsifDetailComponent implements OnInit, OnDestroy {
 @Select(AsifDetailState.get) asifDetail$: Observable<DataInfo<AsifDetail>>;
 @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
 
-user: IUser;
+user = JSON.parse(localStorage.getItem('currentUser'));
 filterAsif: FilterAsifTable;
 formLoaded: boolean;
 asifDetail: AsifDetail;
@@ -64,16 +64,13 @@ firstLoad: boolean=true;
 
     this.asifDetail$.subscribe(asifDetail=>{
       if(asifDetail.loadingInfo.loaded) {
-
         this.asifDetail = JSON.parse(JSON.stringify(asifDetail.datas));
-        console.log('firstLoad',this.firstLoad);
-        console.log('this.asifDetail',this.asifDetail);
+
         if(this.firstLoad) {
           //creation du formulaire
           this.createForms();
           this.firstLoad=false;
         }
-
         this.formLoaded=true;
       }
     });
@@ -85,9 +82,8 @@ firstLoad: boolean=true;
     this._activatedRoute.params.subscribe(routeParams => {
       this.idImport = routeParams['idImport'];
       let idAccountStatementFile = routeParams['idImportFile'];
-      this.user = JSON.parse(localStorage.getItem('currentUser'));
 
-      this._store.dispatch(new LoadAsifDetail(<FilterAsifDetail> {idAsif:idAccountStatementFile,idUser: this.user.id}));
+      this._store.dispatch(new LoadAsifDetail(<FilterAsifDetail> {idAsif:idAccountStatementFile}));
     });
 
   }
@@ -97,13 +93,12 @@ firstLoad: boolean=true;
   }
 
   bindAsifDetail(value: any) {
-    console.log('this.asifDetailForm.controls',this.asifDetailForm.controls['operationTransverse'].value);
     this.asifDetail.operationTransverse.listSelected = this.asifDetailForm.controls['operationTransverse'].value; 
 
   }
 
   createForms() {
-    console.log('this.asifDetail.labelOperation',this.asifDetail.labelOperation);
+
     this.asifDetailForm = this._formBuilder.group({
         operationMethod: [this.asifDetail.operationMethod.selected, [Validators.required]],
         operationTypeFamily: [this.asifDetail.operationTypeFamily.selected, [Validators.required, ValidateIsUnknown]],
@@ -113,33 +108,47 @@ firstLoad: boolean=true;
         amountOperation: [this.asifDetail.amountOperation,[Validators.required]],
         labelOperation: [this.asifDetail.labelOperation,[Validators.required]],
         dateIntegration: [this._datePipe.transform(this.asifDetail.dateIntegration,"dd/MM/yyyy"),[Validators.required]],
+        // dateIntegration: [this._datePipe.transform(this.asifDetail.dateIntegration,"dd/MM/yyyy"),[Validators.required]],
         operationKeywordTemp: [this.asifDetail.operationKeywordTemp,[Validators.required]],
         placeKeywordTemp: [this.asifDetail.placeKeywordTemp,[ValidatorIfLocalisable(this.asifDetail.operationPlace.selected,this.asifDetail.isLocalisable)]],
         operationPlace: [this.asifDetail.operationPlace.selected,[Validators.required, ValidateIsUnknown]]
       });
 
+      this.asifDetailForm.get('operationMethod').valueChanges
+        .subscribe(val => {
+          this.asifDetailForm.controls['operation'].setValue({id:1,label:'INCONNU'});
+        });
+
       this.asifDetailForm.get('operationTypeFamily').valueChanges
         .subscribe(val => {
-          console.log(val);
           this._store.dispatch(new asifDetailChangeOperationTypeFamily(val));
+          this.asifDetailForm.controls['operationType'].setValue({id:1,label:'INCONNU'});
         });
       
       this.asifDetailForm.get('operationType').valueChanges
         .subscribe(val => {
           let operationFilter=<FilterOperation> { operationType: val, operationMethod:this.asifDetail.operationMethod.selected}
           this._store.dispatch(new asifDetailChangeOperationType(operationFilter));
+          this.asifDetailForm.controls['operation'].setValue({id:1,label:'INCONNU'});
         });
-      
+
+      this.asifDetailForm.get('operation').valueChanges
+        .subscribe(val => {
+          if(this.asifDetail.isLocalisable)
+            this.asifDetailForm.controls['operationPlace'].setValue({id:1,label:'INCONNU'});
+          else
+            this.asifDetailForm.controls['operationPlace'].setValue({id:2,label:'NA'});
+          });
+
       this.asifDetailForm.get('operationPlace')
         .valueChanges
         .subscribe(val => {
           this.asifDetail.operationPlace.selected=val;
-
           this.asifDetail.gMapSearchInfo=null;
           if(this.asifDetail.operationPlace.selected.id==4)
           {
             this.asifDetail.gMapSearchInfo = <GMapSearchInfo> { 
-              idGMapAddress: this.asifDetail.operationDetail.gMapAddress.id>4 ? this.asifDetail.operationDetail.gMapAddress.id : 1, //this.asifDetail.operationDetail.gMapAddress.id!=4 ? 1 : this.asifDetail.operationDetail.gMapAddress.id,
+              idGMapAddress: this.asifDetail.operationDetail.gMapAddress.id>4 ? this.asifDetail.operationDetail.gMapAddress.id : 1, 
               operationPositionSearch: this.asifDetail.operationLabelTemp,
               operationPlaceSearch: this.asifDetail.placeLabelTemp
             };
@@ -147,7 +156,6 @@ firstLoad: boolean=true;
 
           this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
         });
-
      
       this.asifDetailForm.valueChanges.subscribe(val=>{
         this.asifDetail.operationMethod.selected = val.operationMethod;
@@ -235,15 +243,15 @@ firstLoad: boolean=true;
 
   updateAsif() {
 
-    this.asifDetail.amountOperation = this.asifDetailForm.value.amountOperation;
-    this.asifDetail.labelOperation = this.asifDetailForm.value.labelOperation;
-    this.asifDetail.operationMethod.selected = this.asifDetailForm.value.operationMethod;
-    this.asifDetail.operationType.selected = this.asifDetailForm.value.operationType;
-    this.asifDetail.operationTypeFamily.selected = this.asifDetailForm.value.operationTypeFamily;
-    this.asifDetail.operation.selected = this.asifDetailForm.value.operation;
+    // this.asifDetail.amountOperation = this.asifDetailForm.value.amountOperation;
+    // this.asifDetail.labelOperation = this.asifDetailForm.value.labelOperation;
+    // this.asifDetail.operationMethod.selected = this.asifDetailForm.value.operationMethod;
+    // this.asifDetail.operationType.selected = this.asifDetailForm.value.operationType;
+    // this.asifDetail.operationTypeFamily.selected = this.asifDetailForm.value.operationTypeFamily;
+    // this.asifDetail.operation.selected = this.asifDetailForm.value.operation;
     
-    this.asifDetail.operationKeywordTemp = this.asifDetailForm.value.operationKeywordTemp;
-    this.asifDetail.placeKeywordTemp = this.asifDetailForm.value.placeKeywordTemp;
+    // this.asifDetail.operationKeywordTemp = this.asifDetailForm.value.operationKeywordTemp;
+    // this.asifDetail.placeKeywordTemp = this.asifDetailForm.value.placeKeywordTemp;
 
     this._asifService.update(this.asifDetail)
     .subscribe(resp=> {

@@ -1,4 +1,5 @@
-﻿using Budget.SERVICE;
+﻿using Budget.MODEL.Dto;
+using Budget.SERVICE;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -26,7 +27,7 @@ namespace Budget.API.Controllers.Referential
         [HttpGet("select-type/{idSelectType}/select-list")]
         public IActionResult GetSelectList(int idSelectType)
         {
-            var selectListDto = _accountTypeService.GetSelectList(idSelectType);
+            var selectListDto = _accountTypeService.GetSelectList((EnumSelectType)idSelectType);
 
             return Ok(selectListDto);
         }

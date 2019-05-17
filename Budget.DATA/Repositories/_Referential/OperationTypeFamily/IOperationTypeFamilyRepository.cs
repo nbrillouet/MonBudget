@@ -13,6 +13,7 @@ namespace Budget.DATA.Repositories
         List<OperationTypeFamily> GetByIdUserGroup(int idUserGroup);
         List<OperationTypeFamily> GetAllByOrder(int idUserGroup);
         List<OperationTypeFamily> GetByIdList(List<int> idList);
+
         PagedList<OperationTypeFamily> GetOtfTable(FilterOtfTableSelected filter);
         OperationTypeFamily GetOtfDetail(int idOperationTypeFamily);
         OperationTypeFamily GetUnknown(int idUserGroup);

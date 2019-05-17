@@ -3,13 +3,13 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
-import { IAccountForDetail, IAccount } from 'app/main/_models/account.model';
 import { IUser } from 'app/main/_models/user.model';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
-import { IBankAgencyAccounts } from 'app/main/_models/referential/bankAgency.model';
+import { IBankAgencyAccounts } from 'app/main/_models/referential/bank-agency.model';
+import { IAccountForDetail, IAccount } from 'app/main/_models/referential/account.model';
 
 @Component({
   selector: 'app-account-list',
@@ -28,9 +28,7 @@ linkUserToolTip: string;
 confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
   constructor(
-    // private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
-    // private accountService: AccountService,
     private _referentialService: ReferentialService,
     private notificationService: NotificationsService
   ) {

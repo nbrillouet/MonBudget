@@ -26,7 +26,6 @@ export class PlanAmountListComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) filter
   ) { 
     this.planAmountFilter = filter;
-    console.log('this.planAmountFilter',this.planAmountFilter);
     this._store.dispatch(new ChangePlanAmountTableFilter(this.planAmountFilter));
   }
 

@@ -92,6 +92,7 @@ namespace Budget.SERVICE
             var bankAgencyAccountsDtos = _mapper.Map<List<BankAgencyWithAccountsDto>>(bankAgencies);
             foreach (var bankAgency in bankAgencyAccountsDtos)
             {
+                //Find linked users
                 foreach (var account in bankAgency.Accounts)
                 {
                     var acc = bankAgencies.SelectMany(x => x.Accounts).Distinct().Where(u => u.Id == account.Id).FirstOrDefault();

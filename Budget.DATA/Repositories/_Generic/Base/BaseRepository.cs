@@ -66,10 +66,13 @@ namespace Budget.DATA.Repositories
             return entity;
         }
 
-        public void Update(T entity)
+        public T Update(T entity)
         {
             Context.Entry(entity).State = EntityState.Modified;
             Context.SaveChanges();
+
+            return entity;
+
         }
 
         public void Delete(T entity)

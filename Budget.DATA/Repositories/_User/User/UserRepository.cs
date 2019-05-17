@@ -58,6 +58,7 @@ namespace Budget.DATA.Repositories
                 .Select(x => x.Account)
                 .Include(x => x.BankAgency)
                     .ThenInclude(x=>x.BankSubFamily)
+                    .ThenInclude(x=>x.BankFamily)
                 .Include(x => x.AccountType)
                 .Include(x=>x.UserAccounts)
                     .ThenInclude(ua=>ua.User)

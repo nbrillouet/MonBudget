@@ -43,7 +43,7 @@ export class AsiUploadComponent implements OnInit {
   }
 
   loadFile($event) {
-    console.log('loadFile');
+
   }
 
   initializeUploader() {

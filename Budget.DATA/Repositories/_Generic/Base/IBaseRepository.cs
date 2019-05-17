@@ -13,7 +13,7 @@ namespace Budget.DATA.Repositories
         Task<T> GetByIdAsync(int id);
         Task<T> CreateAsync(T entity);
         T Create(T entity);
-        void Update(T entity);
+        T Update(T entity);
         void Delete(T entity);
         T CreateWithTran(T entity);
         void DeleteWithTran(T entity);

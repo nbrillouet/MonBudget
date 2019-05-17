@@ -52,7 +52,7 @@ namespace Budget.API.Controllers
 
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("detail")]
         public IActionResult GetAsDetail([FromBody] FilterAsDetail filter)
         {

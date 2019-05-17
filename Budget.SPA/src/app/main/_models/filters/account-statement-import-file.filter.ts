@@ -1,6 +1,7 @@
 import { ComboSimple } from "../generics/combo.model";
 import { ISelect } from "../generics/select.model";
 import { Pagination } from "../pagination.model";
+import { IUserForGroup } from "../user.model";
 
 export class FilterAsifTableSelected {
     idImport: number;
@@ -32,6 +33,6 @@ export class FilterAsifTable {
 
 export class FilterAsifDetail {
     idAsif: number;
-    idUser: number;
+    user: IUserForGroup;
 }
 

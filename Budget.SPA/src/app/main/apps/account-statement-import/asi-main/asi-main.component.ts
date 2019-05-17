@@ -4,13 +4,13 @@ import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { IUser } from 'app/main/_models/user.model';
-import { AreaImport, IAccount } from 'app/main/_models/account.model';
 import { Store } from '@ngxs/store';
 import { FilterAsiTable } from 'app/main/_models/filters/account-statement-import.filter';
 import { ChangeAsiTableFilter, LoadAsiTableFilter } from 'app/main/_ngxs/account-statement-import/asi-list-filter/asi-list-filter.action';
 import { FilterAsifTable } from 'app/main/_models/filters/account-statement-import-file.filter';
 import { ChangeAsifTableFilter, LoadAsifTableFilter } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.action';
 import { AsiService } from '../asi.service';
+import { AreaImport, IAccount } from 'app/main/_models/referential/account.model';
 
 
 @Component({

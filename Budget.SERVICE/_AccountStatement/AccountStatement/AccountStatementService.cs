@@ -146,6 +146,11 @@ namespace Budget.SERVICE
             return _accountStatementRepository.Save(accountStatements);
         }
 
+        public AccountStatement Save(AccountStatement accountStatement)
+        {
+            return _accountStatementRepository.Save(accountStatement);
+        }
+
         private SoldeDto GetSolde(int? idUser, int? idAccount,DateTime dateMin,DateTime dateMax,bool isWithITransfer)
         {
             return _accountStatementRepository.GetSolde(idUser,idAccount, dateMin, dateMax, isWithITransfer);
@@ -169,12 +174,12 @@ namespace Budget.SERVICE
             var dateMin = DateHelper.GetFirstDayOfMonth(date);
             var dateMax = DateHelper.GetLastDayOfMonth(date);
 
-            var accountStatements = _accountStatementRepository.GetAsInternalTransfer(filter.IdAccount, dateMin, dateMax);
+            var accountStatements = _accountStatementRepository.GetAsInternalTransfer(filter.User.IdUserGroup,filter.IdAccount, dateMin, dateMax);
             var asDtos = _mapper.Map<List<AsForTableDto>>(accountStatements);
             foreach(var asDtoFirst in asDtos)
             {
                 AsForTableDto asDtoSecond=null; // = new AsForTableDto();
-                AccountStatement asCouple = _accountStatementRepository.GetAsInternalTransferCouple(asDtoFirst.Id);
+                AccountStatement asCouple = _accountStatementRepository.GetAsInternalTransferCouple(filter.User.IdUserGroup,asDtoFirst.Id);
                 if (asCouple != null)
                 {
                     var account = _referentialService.AccountService.GetFullById(asCouple.IdAccount);
@@ -200,7 +205,7 @@ namespace Budget.SERVICE
 
             //mise à jour des données
             accountStatement.AmountOperation = asDetailDto.AmountOperation;
-            accountStatement.DateIntegration = asDetailDto.DateIntegration;
+            accountStatement.DateIntegration = asDetailDto.DateIntegration.Value.Date;
             accountStatement.LabelOperation = asDetailDto.LabelOperation;
             accountStatement.IdOperation = asDetailDto.Operation.Selected.Id;
             accountStatement.IdOperationMethod = asDetailDto.OperationMethod.Selected.Id;
@@ -221,11 +226,12 @@ namespace Budget.SERVICE
                     break;
             }
 
-            //TODO mettre a jour dans userOperationDetail
+
             //Recherche si operation detail existe déjà, sinon creation
+            var idOdUnknown = _referentialService.OperationDetailService.GetUnknown(asDetailDto.User.IdUserGroup).Id;
             OperationDetail operationDetail = new OperationDetail
             {
-                Id = 0,
+                Id = asDetailDto.OperationDetail.Id== idOdUnknown ? 0 : asDetailDto.OperationDetail.Id,
                 IdUserGroup = asDetailDto.User.IdUserGroup,
                 IdOperation = asDetailDto.Operation.Selected.Id,
                 IdGMapAddress = asDetailDto.OperationDetail.GMapAddress.Id,

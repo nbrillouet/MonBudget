@@ -48,7 +48,6 @@ export class AccountStatementFilterComponent implements OnInit {
   updateMonthsSelected(month: ISelect){
     
     this.asTableFilter.selected.monthYear.month = month;
-    console.log('this.asTableFilter',this.asTableFilter);
     
     this._store.dispatch(new LoadAsSolde(this.asTableFilter.selected));
     this._store.dispatch(new LoadAsChartEvolution(this.asTableFilter.selected));

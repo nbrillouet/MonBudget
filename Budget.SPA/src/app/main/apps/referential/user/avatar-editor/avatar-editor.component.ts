@@ -1,16 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-// import { IUser } from '../../../../../_models/user.model';
 import { FileUploader } from 'ng2-file-upload';
-// import { environment } from '../../../../../../../environments/environment';
-// import { AuthService } from '../../../../../_services/auth.service';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '@fuse/animations';
 import { IUser } from 'app/main/_models/user.model';
 import { environment } from 'environments/environment';
 import { AuthService } from 'app/main/_services/auth.service';
-// import * as _ from 'underscore';
-// import { fuseAnimations } from '../../../../../../core/animations';
+import { Select, Store } from '@ngxs/store';
+import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
+import { Observable } from 'rxjs';
+import { LoadUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.action';
 
 @Component({
   selector: 'avatar-editor',
@@ -20,19 +18,28 @@ import { AuthService } from 'app/main/_services/auth.service';
 })
 
 export class AvatarEditorComponent implements OnInit {
-  @Input() user: IUser;
+  @Select(UserDetailState.getUser) user$: Observable<IUser>;
+  
   @Output() getUserAvatarChange = new EventEmitter<string>();
   
   uploader: FileUploader = new FileUploader({});
   hasBaseDropZoneOver: boolean = false;
   baseUrl = environment.apiUrl;
-  
+  user: IUser;
+
   constructor(
     private authService: AuthService,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private _store: Store
   ) { }
 
   ngOnInit() {
+    this.user$.subscribe((user:IUser) => {
+      if(user) {
+          this.user = user;
+      }
+    });
+
     this.initializeUploader();
   }
 
@@ -41,10 +48,11 @@ export class AvatarEditorComponent implements OnInit {
   }
 
   initializeUploader() {
-    console.log('init upload');
+
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.uploader = new FileUploader({
-      url: this.baseUrl + 'users/' + this.user.id + '/avatar',
-      authToken: 'Bearer ' + localStorage.getItem('currentUser'),
+      url: `${this.baseUrl}users/${this.user.id}/avatar`,
+      authToken: `Bearer ${currentUser.token}`,
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,
@@ -57,16 +65,42 @@ export class AvatarEditorComponent implements OnInit {
         const res: IUser = JSON.parse(response);
         this.user.avatarUrl = res.avatarUrl;
 
-        // this.getUserAvatarChange.emit(res.avatarUrl);
-        this.authService.changeAvatar(res.avatarUrl);
-        //pour fonctionnement meme quand refresh du navigateur:
-        this.authService.currentUser.avatarUrl = res.avatarUrl;
-        localStorage.setItem('user',JSON.stringify(this.authService.currentUser));
 
+        // this.authService.changeAvatar(res.avatarUrl);
+
+        //pour fonctionnement meme quand refresh du navigateur:
+        // this.authService.currentUser.avatarUrl = res.avatarUrl;
+        // localStorage.setItem('user',JSON.stringify(this.authService.currentUser));
+        this._store.dispatch(new LoadUserDetail(this.user))
         this.notificationService.success('Enregistrement réussi', 'Votre avatar est modifié');
 
       }
       
     }
+
+    this.uploader.onErrorItem = ((item, response, status, headers):any => {
+
+      // var error = this.handleError(response);
+      this.notificationService.error('Erreur', 'Erreur');
+      });
+
+
   }
+
+  // private handleError(error: any)
+  // {
+  //     const serverError = JSON.parse(error);
+  //     let modelStateErrors = '';
+  //     if(serverError) {
+  //         for(const key in serverError)
+  //         {
+  //             if(serverError[key]){
+  //                 modelStateErrors += serverError[key] + '\n';
+  //             }
+  //         }
+  //     }
+
+  //     return modelStateErrors;
+
+  // }
 }

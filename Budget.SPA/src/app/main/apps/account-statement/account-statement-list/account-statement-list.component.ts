@@ -11,7 +11,10 @@ import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-sta
 import { AsTableState } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.state';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterAsTable } from 'app/main/_models/filters/account-statement.filter';
-import { ChangeAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
+import { ChangeAsTableFilter, LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
+import { FilterAmount } from 'app/main/_models/filters/mini-filter/amount.filter';
+import { FilterComboMultiple, FilterComboMultipleGroup } from 'app/main/_models/filters/mini-filter/combo-multiple.filters';
+import { FilterDateRange } from 'app/main/_models/filters/mini-filter/date-range.filter';
 
 
 @Component({
@@ -38,6 +41,13 @@ export class AccountStatementListComponent implements OnInit, OnChanges {
   displayedColumns = ['id','plan','operationMethod','operationTypeFamily','operationType','operation','dateIntegration','amountOperation','button'];
   templateFor:string;
 
+  filterAmount: FilterAmount ={ placeholder:'',amountMin:null,amountMax:null };
+  filterOperationMethod: FilterComboMultiple= { placeholder:'Méthode opération',combos:null };
+  filterOperationTypeFamily: FilterComboMultipleGroup = { placeholder:'Catégorie opération',combos:null };
+  filterOperationType: FilterComboMultipleGroup = { placeholder:'Type opération',combos:null };
+  filterOperation: FilterComboMultiple = { placeholder:'Opération',combos:null };
+  filterDateIntegration: FilterDateRange = { placeholder:'Intégration',dateMin:null,dateMax:null };
+
   constructor(
     private _router: Router,
     private _store: Store) {
@@ -50,7 +60,15 @@ export class AccountStatementListComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.asTableFilter$.subscribe(asTableFilter=>{
-      this.filterAs = asTableFilter.filters;
+      if(asTableFilter.loadingInfo.loaded) {
+        this.filterAs = asTableFilter.filters;
+
+        this.filterOperationMethod.combos = {list : asTableFilter.filters.operationMethods, listSelected: asTableFilter.filters.selected.operationMethods};
+        this.filterOperationTypeFamily.combos = {list : asTableFilter.filters.operationTypeFamilies, listSelected: asTableFilter.filters.selected.operationTypeFamilies};
+        this.filterOperationType.combos = {list : asTableFilter.filters.operationTypes, listSelected: asTableFilter.filters.selected.operationTypes};
+        this.filterOperation.combos={list : asTableFilter.filters.operations, listSelected: asTableFilter.filters.selected.operations};
+        
+      }
     });
   
   }
@@ -79,22 +97,20 @@ export class AccountStatementListComponent implements OnInit, OnChanges {
   }
 
   hasFilterData(filter:string) {
-    if(!this.filterAs)
+    if(!this.filterAs && !this.filterAs.selected)
       return false;
     if(filter=='operation')
-      return this.filterAs.selected!=null && this.filterAs.selected.operations!=null && this.filterAs.selected.operations.length>0;
+      return this.filterAs.selected.operations!=null && this.filterAs.selected.operations.length>0;
     if(filter=='operationMethod')
-    {
-      return this.filterAs.selected!=null && this.filterAs.selected.operationMethods!=null && this.filterAs.selected.operationMethods.length>0;
-    }
+      return this.filterAs.selected.operationMethods!=null && this.filterAs.selected.operationMethods.length>0;
     if(filter=='operationTypeFamily')
-      return this.filterAs.selected!=null && this.filterAs.selected.operationTypeFamilies!=null && this.filterAs.selected.operationTypeFamilies.length>0;
+      return this.filterAs.selected.operationTypeFamilies!=null && this.filterAs.selected.operationTypeFamilies.length>0;
     if(filter=='operationType')
-      return this.filterAs.selected!=null && this.filterAs.selected.operationTypes!=null && this.filterAs.selected.operationTypes.length>0;
+      return this.filterAs.selected.operationTypes!=null && this.filterAs.selected.operationTypes.length>0;
     if(filter=='dateIntegration')
-      return this.filterAs.selected!=null && this.filterAs.selected.dateIntegrationMin!=null;
+      return (this.filterAs.selected.dateIntegrationMin!=null || this.filterAs.selected.dateIntegrationMax);
     if(filter=='amount')
-      return this.filterAs.selected!=null && this.filterAs.selected.amountMin!=null;
+      return (this.filterAs.selected.amountMin !=null || this.filterAs.selected.amountMax !=null) ;
       
   }
 
@@ -104,6 +120,43 @@ export class AccountStatementListComponent implements OnInit, OnChanges {
       [`apps/account-statements/accounts/${this.filterAs.selected.idAccount}/account-statements/${data.id}/detail`]);
   }
 
+  applyFilterAmount(data) {
+    this.filterAs.selected.amountMin = data.amountMin;
+    this.filterAs.selected.amountMax = data.amountMax;
+    this.applyFilter();
+  }
+
+  applyFilterOperationMethod(data) {
+    this.filterAs.selected.operationMethods = data;
+    this.applyFilter();
+  }
+
+  applyFilterOperationTypeFamily(data) {
+    this.filterAs.selected.operationTypeFamilies = data;
+    this.applyFilter();
+  }
+
+  applyFilterOperationType(data) {
+    this.filterAs.selected.operationTypes = data;
+    this.applyFilter();
+  }
+
+  applyFilterOperation(data) {
+    this.filterAs.selected.operations = data;
+    this.applyFilter();
+  }
+
+  applyFilterDateIntegration(data) {
+
+    this.filterAs.selected.dateIntegrationMin= data.dateMin;
+    this.filterAs.selected.dateIntegrationMax= data.dateMax;
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    this.filterAs.selected.pagination.currentPage=0;
+    this._store.dispatch(new LoadAsTableFilter(this.filterAs));
+  }
 
 }
 

@@ -47,8 +47,13 @@ namespace Budget.SERVICE
             operationDetail.KeywordOperation = FileHelper.ExcludeForbiddenChars(operationDetail.KeywordOperation.ToUpper());
             operationDetail.KeywordPlace = operationDetail.KeywordPlace!=null ? operationDetail.KeywordPlace.ToUpper() : null;
 
-
-            return _operationDetailRepository.Create(operationDetail);
+            if(operationDetail.Id==0)
+                return _operationDetailRepository.Create(operationDetail);
+            else
+            {
+                _operationDetailRepository.Update(operationDetail);
+                return operationDetail;
+            }
 
         }
 

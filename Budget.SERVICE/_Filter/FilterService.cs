@@ -45,7 +45,7 @@ namespace Budget.SERVICE
             filterAsTable.OperationTypeFamilies = operationTypeFamilies;
             filterAsTable.Selected.OperationTypeFamilies = filter.OperationTypeFamilies == null ? null : filter.OperationTypeFamilies;
 
-            var operationTypes = _referentialService.OperationTypeService.GetSelectList(filter.User.IdUserGroup, filterAsTable.Selected.OperationTypeFamilies);
+            var operationTypes = _referentialService.OperationTypeService.GetSelectGroup(filter.User.IdUserGroup, filterAsTable.Selected.OperationTypeFamilies);
             filterAsTable.OperationTypes = operationTypes;
             filterAsTable.Selected.OperationTypes = filter.OperationTypes == null ? null : filter.OperationTypes;
 
@@ -63,7 +63,7 @@ namespace Budget.SERVICE
             filterAsiTable.Selected = filter;
 
             var BankAgencies = _accountStatementImportService.GetDistinctBankAgencies(filter.IdUser.Value);
-            var BankAgenciesDto = _mapper.Map<List<SelectColorDto>>(BankAgencies);
+            var BankAgenciesDto = _mapper.Map<List<BankAgencyDto>>(BankAgencies);
             filterAsiTable.BankAgencies = BankAgenciesDto;
 
             filterAsiTable.Selected.IdBankAgency = BankAgenciesDto.Count==0 ? null : filter.IdBankAgency == null ? BankAgenciesDto[0].Id : filter.IdBankAgency;
@@ -125,6 +125,19 @@ namespace Budget.SERVICE
             filterOtTable.Otfs = Otfs;
 
             return filterOtTable;
+        }
+
+        public FilterOperationTable GetFilterOperationTable(FilterOperationTableSelected filter)
+        {
+            FilterOperationTable filterOperationTable = new FilterOperationTable
+            {
+                Selected = filter
+            };
+
+            filterOperationTable.OperationMethods = _referentialService.OperationMethodService.GetSelectList(EnumSelectType.Empty);
+            filterOperationTable.OperationTypes = _referentialService.OperationTypeService.GetSelectGroup(filter.User.IdUserGroup);
+
+            return filterOperationTable;
         }
 
     }

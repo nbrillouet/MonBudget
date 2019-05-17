@@ -1,9 +1,9 @@
 import { DataInfos } from "app/main/_models/generics/table-info.model";
 import { OtfTable } from "app/main/_models/referential/operation-type-family.model";
 import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
-import { OtfService } from "app/main/apps/referential/operation/operation-type-family/operation-type-family.service";
 import { LoadOtfTableDatas, LoadOtfTableDatasSuccess, ClearOtfTableDatas } from "./operation-type-family-list.action";
 import { UpdatePaginationOtfTableFilter } from "../operation-type-family-list-filter/operation-type-family-list-filter.action";
+import { OtfService } from "app/main/apps/referential/operations/operation-type-family/operation-type-family.service";
 
 export class OtfTableStateModel extends DataInfos<OtfTable> {
     constructor () {

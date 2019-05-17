@@ -1,9 +1,9 @@
 import { OtfDetail } from "app/main/_models/referential/operation-type-family.model";
-import { OtfService } from "app/main/apps/referential/operation/operation-type-family/operation-type-family.service";
 import { DataInfo } from "app/main/_models/generics/detail-info.model";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { ReferentialService } from "app/main/_services/Referential/referential.service";
 import { LoadOtfDetail, LoadOtfDetailSuccess, ClearOtfDetail } from "./operation-type-family-detail.action";
+import { OtfService } from "app/main/apps/referential/operations/operation-type-family/operation-type-family.service";
 
 
 export class OtfDetailStateModel extends DataInfo<OtfDetail> {
@@ -30,7 +30,7 @@ export class OtfDetailState {
 
     @Selector()
     static get(state: OtfDetailStateModel) {
-        console.log('state',state);
+    
         return state;
     }
 

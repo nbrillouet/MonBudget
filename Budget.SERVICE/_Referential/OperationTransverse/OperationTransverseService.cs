@@ -28,7 +28,8 @@ namespace Budget.SERVICE
 
         public List<SelectDto> GetSelectList(int idUser, EnumSelectType enumSelectType)
         {
-            var selectList = _selectService.GetSelectList(enumSelectType);
+            //var selectList = _selectService.GetSelectList(enumSelectType);
+            List<SelectDto> selectList = new List<SelectDto>();
             var results = _operationTransverseRepository.GetSelectList(idUser);
             selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(results).ToList());
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Budget.DATA.Repositories;
+using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
@@ -26,9 +27,15 @@ namespace Budget.SERVICE
             _selectService = selectService;
         }
 
+        public List<OperationTransverseAsif> GetByIdAsif(int idAsif)
+        {
+            return _operationTransverseAsifRepository.GetByIdAsif(idAsif);
+        }
+
         public List<SelectDto> GetOperationTransverseSelectList(int IdAccountStatementFile, EnumSelectType enumSelectType)
         {
-            var selectList = _selectService.GetSelectList(enumSelectType);
+            //var selectList = _selectService.GetSelectList(enumSelectType);
+            List<SelectDto> selectList = new List<SelectDto>();
             var results = _operationTransverseAsifRepository.GetOperationTransverseList(IdAccountStatementFile);
             selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(results).ToList());
 

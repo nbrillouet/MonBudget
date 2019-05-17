@@ -40,7 +40,12 @@
                 <mat-icon color="primary" *ngIf="!hasFilterData('operationMethod')">filter_list</mat-icon>
             </div>
             <mat-menu #menuOperationMethod="matMenu" [overlapTrigger]="false">
-                <operation-method-filter *ngIf="templateFor==='col2'"></operation-method-filter>
+                <filter-combo-multiple *ngIf="templateFor==='col2' && filterOperationMethod"
+                [filterComboMultiple]="filterOperationMethod"
+                (applyFilterComboMultiple)="applyFilterOperationMethod($event)"
+                >
+                </filter-combo-multiple>
+                <!-- <operation-method-filter *ngIf="templateFor==='col2'"></operation-method-filter> -->
             </mat-menu>
         </mat-header-cell >
         <mat-cell style="flex: 0 0 15%;" *matCellDef="let data">
@@ -60,7 +65,12 @@
             </div>
     
             <mat-menu #menuOperation="matMenu" [overlapTrigger]="false">
-                <operation-filter *ngIf="templateFor==='col3'"></operation-filter>
+                <filter-combo-multiple *ngIf="templateFor==='col3' && filterOperation"
+                [filterComboMultiple]="filterOperation"
+                (applyFilterComboMultiple)="applyFilterOperation($event)"
+                >
+                </filter-combo-multiple>
+                <!-- <operation-filter *ngIf="templateFor==='col3'"></operation-filter> -->
             </mat-menu>
         </mat-header-cell>
         <mat-cell style="flex: 0 0 15%;" *matCellDef="let data">
@@ -80,7 +90,12 @@
             </div>
     
             <mat-menu #menuOperationTypeFamily="matMenu" [overlapTrigger]="false">
-                <operation-type-family-filter *ngIf="templateFor==='col4'"></operation-type-family-filter>
+                <filter-combo-multiple-group *ngIf="templateFor==='col4' && filterOperationTypeFamily"
+                [filterComboMultipleGroup]="filterOperationTypeFamily"
+                (applyFilterComboMultipleGroup)="applyFilterOperationTypeFamily($event)"
+                >
+                </filter-combo-multiple-group>
+                <!-- <operation-type-family-filter *ngIf="templateFor==='col4'"></operation-type-family-filter> -->
             </mat-menu>
         </mat-header-cell>
 
@@ -101,7 +116,12 @@
             </div>
     
             <mat-menu #menuOperationType="matMenu" [overlapTrigger]="false">
-                <operation-type-filter *ngIf="templateFor==='col5'"></operation-type-filter>
+                <!-- <operation-type-filter *ngIf="templateFor==='col5'"></operation-type-filter> -->
+                <filter-combo-multiple-group *ngIf="templateFor==='col5' && filterOperationType"
+                [filterComboMultipleGroup]="filterOperationType"
+                (applyFilterComboMultipleGroup)="applyFilterOperationType($event)"
+                >
+                </filter-combo-multiple-group>
             </mat-menu>
         </mat-header-cell>
     
@@ -122,7 +142,12 @@
             </div>
     
             <mat-menu #menuDateIntegration="matMenu" [overlapTrigger]="false">
-                <date-integration-filter *ngIf="templateFor==='col6'"></date-integration-filter>
+                <filter-date-range *ngIf="templateFor==='col6' && filterDateIntegration"
+                [filterDateRange]="filterDateIntegration"
+                (applyFilterDateRange)="applyFilterDateIntegration($event)"
+                >
+                </filter-date-range>
+                <!-- <date-integration-filter *ngIf="templateFor==='col6'"></date-integration-filter> -->
             </mat-menu>
         </mat-header-cell>
     
@@ -143,7 +168,12 @@
             </div>
     
             <mat-menu #menuAmount="matMenu" [overlapTrigger]="false">
-                <amount-filter *ngIf="templateFor==='col7'"></amount-filter>
+                <filter-amount *ngIf="templateFor==='col7' && filterAmount"
+                    [filterAmount]="filterAmount"
+                    (applyFilterAmount)="applyFilterAmount($event)"
+                >
+                </filter-amount>
+                <!-- <amount-filter *ngIf="templateFor==='col7'"></amount-filter> -->
             </mat-menu>
         </mat-header-cell>
         

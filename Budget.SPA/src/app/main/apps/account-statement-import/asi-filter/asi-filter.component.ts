@@ -24,7 +24,7 @@ export class AsiFilterComponent implements OnInit {
   ngOnInit() {
     this.asiTableFilter$.subscribe(asiTableFilter=>{
       this.filterAsi = asiTableFilter.filters; // JSON.parse(JSON.stringify(asiTableFilter.filters));
-      console.log('asiTableFilter.filters',asiTableFilter.filters);
+
     });
   }
 
@@ -32,7 +32,7 @@ export class AsiFilterComponent implements OnInit {
 
     this.filterAsi.selected.indexTabBankAgency =$event.index;
     this.filterAsi.selected.idBankAgency = this.filterAsi.bankAgencies[$event.index].id;
-    console.log('this.filterAsi.selected',this.filterAsi.selected);
+
     this._store.dispatch(new LoadAsiTableFilter(this.filterAsi));
 
 

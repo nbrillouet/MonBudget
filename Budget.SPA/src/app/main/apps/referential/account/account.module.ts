@@ -6,9 +6,12 @@ import { AccountListComponent } from './account-list/account-list.component';
 // import { AuthGuard } from '../../../../../_guards/auth.guard';
 // import { AccountListResolver } from './account-list/account-list.resolver';
 import { AccountDetailComponent } from './account-detail/account-detail.component';
-import { AccountDetailResolver } from './account-detail/account-detail.resolver';
+// import { AccountDetailResolver } from './account-detail/account-detail.resolver';
 import { AuthGuard } from 'app/_guards/auth.guard';
 import { FuseSharedModule } from '@fuse/shared.module';
+import { FuseConfirmDialogModule } from '@fuse/components';
+import { NgxsModule } from '@ngxs/store';
+import { AccountForDetailState } from 'app/main/_ngxs/referential/account/account-detail/account-detail.state';
 
 const routes = [
   {
@@ -21,7 +24,7 @@ const routes = [
   {
       path     : ':idAccount',
       component: AccountDetailComponent,
-      resolve  : { account: AccountDetailResolver },
+      // resolve  : { account: AccountDetailResolver },
       canActivate: [AuthGuard]
   }
   
@@ -31,7 +34,12 @@ const routes = [
   imports: [
     CommonModule,
     FuseSharedModule,
-    RouterModule.forChild(routes)
+    FuseConfirmDialogModule,
+    RouterModule.forChild(routes),
+    NgxsModule.forFeature([
+      AccountForDetailState
+
+  ])
   ],
   declarations: [
     AccountListComponent,
@@ -39,7 +47,7 @@ const routes = [
   ],
   providers : [
     // AccountListResolver,
-    AccountDetailResolver
+    // AccountDetailResolver
   ]
 })
 export class AccountModule { }

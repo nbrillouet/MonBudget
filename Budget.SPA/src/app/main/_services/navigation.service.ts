@@ -3,7 +3,7 @@ import { environment } from '../../../environments/environment';
 import { ErrorService } from './error.service';
 import { IUser } from '../_models/user.model';
 import { HttpClient } from '@angular/common/http';
-import { IBankAgencyAccounts } from '../_models/referential/bankAgency.model';
+import { IBankAgencyAccounts } from '../_models/referential/bank-agency.model';
 
 @Injectable()
 export class NavigationService {
@@ -77,21 +77,23 @@ constructor(
             children: []
             }
         
-        for(let bank of banks)
-        {
             let bankChild = {
-                id   : bank.labelShort,
-                title: bank.labelShort,
-                type : 'collapsable',
-                children: []
-            };
-            let accountChild = {
                 id   : -1,
                 title: 'Tous les comptes',
                 type : 'item',
                 url  : `/apps/account-statements/accounts/ALL`
             };
-            bankChild.children.push(accountChild);
+            bankMenu.children.push(bankChild);
+
+        for(let bank of banks)
+        {
+            let bankChild = {
+                id   : bank.id,
+                title: bank.bankFamily.labelLong,
+                type : 'collapsable',
+                children: []
+            };
+
             for(let account of bank.accounts)
             {
                 let accountChild = {

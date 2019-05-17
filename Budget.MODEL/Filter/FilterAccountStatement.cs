@@ -33,7 +33,7 @@ namespace Budget.MODEL.Filter
     {
         public List<SelectDto> OperationMethods { get; set; }
         public List<SelectGroupDto> OperationTypeFamilies { get; set; }
-        public List<SelectDto> OperationTypes { get; set; }
+        public List<SelectGroupDto> OperationTypes { get; set; }
         public List<SelectDto> Operations { get; set; }
 
         public FilterAsTableSelected Selected { get; set; }

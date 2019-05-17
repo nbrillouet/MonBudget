@@ -1,0 +1,140 @@
+<div class="example-container"
+    [ngClass]="headerPanelIsVisible ? 'scrollable-small' : 'scrollable-large'">
+    
+  <mat-table class="mat-table"
+      #table [dataSource]="dataSource"
+      [@animateStagger]="{value:'50'}"
+      matSort matSortActive="id" matSortDirection="asc" matSortDisableClear 
+      (matSortChange)="onSortChangeEvent($event)"
+  >
+
+      <!-- id -->
+      <ng-container matColumnDef="id">
+          <mat-header-cell style="flex:0 0 70px;" *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+          <mat-cell style="flex:0 0 70px;" *matCellDef="let data">
+              <p class="text-truncate">{{data.id}}</p>
+          </mat-cell>
+      </ng-container>
+
+      <!-- OperationMethod -->
+      <ng-container matColumnDef="operationMethod" >
+        <mat-header-cell style="flex: 0 0 20%;" *matHeaderCellDef >
+            <div mat-sort-header >Méthode d'opération</div>
+    
+            <div (click)="templateFor='col2'" [matMenuTriggerFor]="menuOperationMethod"
+                fxFlex fxLayoutAlign="end start" style="cursor: pointer;">
+                <mat-icon color="warn" *ngIf="hasFilterData('operationMethod')">filter_list</mat-icon>
+                <mat-icon color="primary" *ngIf="!hasFilterData('operationMethod')">filter_list</mat-icon>
+            </div>
+    
+            <mat-menu #menuOperationMethod="matMenu" [overlapTrigger]="false">
+              <filter-combo-multiple *ngIf="templateFor==='col2' && filterOperationMethod"
+                  [filterComboMultiple]="filterOperationMethod"
+                  (applyFilterComboMultiple)="applyFilterOperationMethod($event)"
+              >
+              </filter-combo-multiple>
+            </mat-menu>
+        </mat-header-cell>
+        <mat-cell style="flex: 0 0 20%;" *matCellDef="let data">
+            <p class="text-truncate">{{data.operationMethod.label}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Operation Type -->
+    <ng-container matColumnDef="operationType" >
+        <mat-header-cell style="flex: 0 0 20%;" *matHeaderCellDef >
+            <div mat-sort-header >Type d'opération</div>
+    
+            <div (click)="templateFor='col2'" [matMenuTriggerFor]="menuOperationType"
+                fxFlex fxLayoutAlign="end start" style="cursor: pointer;">
+                <mat-icon color="warn" *ngIf="hasFilterData('operationType')">filter_list</mat-icon>
+                <mat-icon color="primary" *ngIf="!hasFilterData('operationType')">filter_list</mat-icon>
+            </div>
+    
+            <mat-menu #menuOperationType="matMenu" [overlapTrigger]="false">
+              <filter-combo-multiple-group *ngIf="templateFor==='col2' && filterOperationMethod"
+                  [filterComboMultipleGroup]="filterOperationType"
+                  (applyFilterComboMultipleGroup)="applyFilterOperationType($event)"
+              >
+              </filter-combo-multiple-group>
+            </mat-menu>
+        </mat-header-cell>
+        <mat-cell style="flex: 0 0 20%;" *matCellDef="let data">
+            <p class="text-truncate">{{data.operationType.label}}</p>
+        </mat-cell>
+    </ng-container>
+
+
+    <!-- Label -->
+    <ng-container matColumnDef="label" >
+        <mat-header-cell style="flex: 0 0 20%;"  *matHeaderCellDef >
+            <div mat-sort-header >Libellé</div>
+            
+            <div (click)="templateFor='col3'" [matMenuTriggerFor]="menuLabel" 
+                style="cursor: pointer;" fxFlex fxLayoutAlign="end start"   >
+                <mat-icon color="warn" *ngIf="hasFilterData('label')">filter_list</mat-icon>
+                <mat-icon color="primary" *ngIf="!hasFilterData('label')">filter_list</mat-icon>
+            </div>
+            <mat-menu #menuLabel="matMenu" [overlapTrigger]="false">
+              <filter-label *ngIf="templateFor==='col3' && filterOperation"
+                  [label]="filterOperation.selected.label" 
+                  (applyLabelFilter)="applyFilterLabel($event)"
+                ></filter-label>
+            </mat-menu>
+        </mat-header-cell >
+        <mat-cell style="flex: 0 0 20%;" *matCellDef="let data">
+            <p class="text-truncate">{{data.label}}</p>
+        </mat-cell>
+    </ng-container>
+
+      
+      
+    <!-- Delete--Detail -->
+    <!-- style="flex:0 0 25%;" -->
+    <ng-container matColumnDef="buttonDelete" >
+        <mat-header-cell style="flex:0 0 25%;"  *matHeaderCellDef ></mat-header-cell>
+        <mat-cell style="flex:0 0 30%;justify-content: flex-end"  *matCellDef="let data">
+            <button *ngIf="!data.isMandatory" matTooltip="Supprimer" mat-icon-button (click)="delete(data)">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <button *ngIf="!data.isMandatory" matTooltip="Détail" mat-icon-button (click)="detail(data)">
+                    <mat-icon>more_horiz</mat-icon>
+                </button>
+        </mat-cell>
+    </ng-container> 
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+    
+    <mat-row 
+        *cdkRowDef="let data; columns: displayedColumns;"
+        matRipple
+        [@animate]="{value:'*',params:{y:'100%'}}"
+        class="element-row" 
+    >
+    </mat-row>
+
+  </mat-table>
+
+  <div *ngIf="(operationTable$ | async).loadingInfo.loading"
+      class="h-96 w-100-p"
+      fxLayout="column"
+      fxLayoutAlign="center center">
+      <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
+      <div style="color:#4285F3" fxLayout="row">chargement...</div>
+  </div> 
+
+  
+  <p class="empty-result" 
+      *ngIf="(operationTable$ | async).loadingInfo.loaded 
+          && (operationTable$ | async).datas.length==0"
+  >
+      Aucun résultat
+  </p>
+</div>
+
+<mat-paginator *ngIf="(operationTableFilter$ | async).loadingInfo.loaded"
+  (page)="onPageChangeEvent($event)"
+  [length]="(operationTableFilter$ | async).filters.selected.pagination.totalItems" 
+  [pageSize]="(operationTableFilter$ | async).filters.selected.pagination.nbItemsPerPage"
+  [pageSizeOptions]="[15, 100, 200]">
+</mat-paginator>

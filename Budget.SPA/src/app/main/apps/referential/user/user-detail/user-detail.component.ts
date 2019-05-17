@@ -18,6 +18,9 @@ import { fuseAnimations } from '@fuse/animations';
 import { IUser } from 'app/main/_models/user.model';
 import { IGMapSearchInfo } from 'app/main/_models/g-map.model.';
 import { AuthService } from 'app/main/_services/auth.service';
+import { Select } from '@ngxs/store';
+import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-detail',
@@ -32,6 +35,7 @@ import { AuthService } from 'app/main/_services/auth.service';
 })
 
 export class UserDetailComponent implements OnInit {
+  @Select(UserDetailState.getUser) user$: Observable<IUser>;
 
   user : IUser;
   onUserChanged: Subscription;
@@ -56,55 +60,39 @@ export class UserDetailComponent implements OnInit {
     
     this.pageType = 'edit';
     
-  //   this.userForm = this.formBuilder.group({});
-    
-  //   this.activatedRoute.params.subscribe(routeParams => {
-  //     var idUser = routeParams['idUser'];
- 
-  //   this.userService.getUser(idUser)
-  //   .subscribe(
+    this.user$.subscribe((user:IUser) => {
+      if(user) {
+          this.user = user;
 
-  //   data => {
-  //     this.user = data['user'];
+          this.gMapSearchInfo = <IGMapSearchInfo> { 
+              idGMapAddress: this.user.idGMapAddress,
+              operationPositionSearch:"",
+              operationPlaceSearch: ""
+              };
 
-  //     this.gMapSearchInfo = <IGMapSearchInfo> { 
-  //       idGMapAddress: this.user.idGMapAddress,
-  //       operationPositionSearch:"",
-  //       operationPlaceSearch: ""
-  //       }
+          this.userForm=this.createUserForm();
+      }
+    });
+    // this.activatedRoute.data.subscribe(data => {
+    //   this.user = data['user'];
+   
+    //   this.gMapSearchInfo = <IGMapSearchInfo> { 
+    //     idGMapAddress: this.user.idGMapAddress,
+    //     operationPositionSearch:"",
+    //     operationPlaceSearch: ""
+    //     }
+
+    //   this.userForm=this.createUserForm();
       
-      
-  //     this.userForm=this.createUserForm();
-      
-  //     this.authService.currentAvatarUrl
-  //       .subscribe(avatarUrl=> this.avatarUrl = avatarUrl);
-  //   })
-  // })
-
-
-
-
-
-    this.activatedRoute.data.subscribe(data => {
-      this.user = data['user'];
-      console.log('this.user',this.user);
-      this.gMapSearchInfo = <IGMapSearchInfo> { 
-        idGMapAddress: this.user.idGMapAddress,
-        operationPositionSearch:"",
-        operationPlaceSearch: ""
-        }
-
-      this.userForm=this.createUserForm();
-      
-      this.authService.currentAvatarUrl
-        .subscribe(avatarUrl=> this.avatarUrl = avatarUrl);
-    })
+    //   this.authService.currentAvatarUrl
+    //     .subscribe(avatarUrl=> this.avatarUrl = avatarUrl);
+    // })
 
     
 
 
   }
-  // this.datePipe.transform(this.user.dateOfBirth,"dd/MM/yyyy")
+
   createUserForm()
   {
       return this.formBuilder.group({
@@ -120,24 +108,7 @@ export class UserDetailComponent implements OnInit {
       });
   }
 
-  // onSubmit({ value, valid }: { value: IUser, valid: boolean }) {
-
-  // }
-
-  // saveUser()
-  // {
-  //   const data = this.userForm.getRawValue();
-  //   data.handle = FuseUtils.handleize(data.userName);
-  //   this.userService.saveUser(data)
-  //       .then(() => {
-  //         // Trigger the subscription with new data
-  //         this.userService.onUserChanged.next(data);
-  //         this.notificationService.success('Sauvegarde réussi', 'Utilisateur enregistré');
-  //       }).catch(error => {
-  //         this.notificationService.error('Echec sauvegarde', error);
-  //   });
-  // }
-
+  
   updateUser({ value, valid }: { value: IUser, valid: boolean }) {
     this.user.id=value.id;
     this.user.userName=value.userName;
@@ -162,7 +133,7 @@ export class UserDetailComponent implements OnInit {
  
   updateUserAvatar(avatarUrl)
   {
-    console.log('avatarUrl',avatarUrl);
+
     this.user.avatarUrl=avatarUrl;
   }
 

@@ -10,6 +10,7 @@ namespace Budget.DATA.Repositories
 {
     public interface IOperationTypeRepository : IBaseRepository<OperationType>
     {
+        List<OperationType> GetByIdUserGroup(int idUserGroup);
         List<OperationType> GetByIdOperationTypeFamily(int idOperationTypeFamily);
         List<OperationType> GetByOperationTypeFamilies(int idUserGroup, List<SelectDto> OperationTypeFamilies);
         OperationType GetByIdWithOperationTypeFamily(int idOperationType);

@@ -9,7 +9,7 @@ export const AS_DETAIL_OPERATION_TYPE_FAMILY_CHANGE = 'as-detail-operation-type-
 export const AS_DETAIL_OPERATION_TYPE_FAMILY_CHANGE_SUCCESS = 'as-detail-operation-type-family-change-success'
 export const AS_DETAIL_OPERATION_TYPE_CHANGE = 'as-detail-operation-type-change'
 export const AS_DETAIL_OPERATION_TYPE_CHANGE_SUCCESS = 'as-detail-operation-type-change-success'
-
+export const AS_DETAIL_CLEAR = 'as-detail-clear';
 
 export class LoadAsDetail {
     static readonly type = AS_DETAIL_LOAD;
@@ -21,6 +21,10 @@ export class LoadAsDetailSuccess {
     static readonly type = AS_DETAIL_LOAD_SUCCESS;
  
     constructor(public payload: AsDetail) { }
+}
+
+export class ClearAsDetail {
+    static readonly type = AS_DETAIL_CLEAR;
 }
 
 //OperationTypeFamily CHANGE

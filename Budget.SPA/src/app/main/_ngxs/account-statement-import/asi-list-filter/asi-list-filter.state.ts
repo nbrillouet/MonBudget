@@ -49,7 +49,7 @@ export class AsiTableFilterState {
         state.filters = null;
         
         context.patchState(state);
-        console.log('action.payload.selected',action.payload.selected);
+   
         this._asiService.getAsiTableFilter(action.payload.selected)
             .subscribe(result=> {
 

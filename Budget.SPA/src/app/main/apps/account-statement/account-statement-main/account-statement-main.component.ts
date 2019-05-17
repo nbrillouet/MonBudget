@@ -3,22 +3,15 @@ import { ActivatedRoute } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { Store, Select } from '@ngxs/store';
 import { Observable, combineLatest } from 'rxjs';
-import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
 import { map } from 'rxjs/operators';
-import { TableInfo } from 'app/main/_models/generics/table-info.model';
 import { AsSoldeState } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.state';
-import { DetailInfo, DataInfo } from 'app/main/_models/generics/detail-info.model';
-import { ChangeAsSoldeFilter, LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.action';
+import { DetailInfo } from 'app/main/_models/generics/detail-info.model';
 import { FilterAsTable, FilterAsTableSelected } from 'app/main/_models/filters/account-statement.filter';
 import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
-import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
-import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { AsSolde } from 'app/main/_models/account-statement/account-statement-solde.model';
-import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionNoIntTransfer, LoadAsChartEvolutionCustomOtf, LoadAsChartEvolution } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
-import { AsChartState } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.state';
-import { AsChart } from 'app/main/_models/account-statement/account-statement-chart.model';
-import { WidgetCardChartBar } from 'app/main/_models/chart/widget-card-chart-bar.model';
+import { LoadAsChartEvolution } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
 import { FuseConfigService } from '@fuse/services/config.service';
+import { LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.action';
 
 
 @Component({
@@ -53,7 +46,7 @@ fuseConfig:any;
       .subscribe(results => {
         let idAccount = results.idAccount=='ALL' ? null : results.idAccount;
         let idTab = results.idTab;
-        console.log('idAccount',idAccount);
+
         if(idTab!=null)
           {
             this.selectedIndex = idTab;
