@@ -1,32 +1,33 @@
-﻿using Budget.MODEL.Database._Generic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using EASendMail;
+
 using System.Net.Mail;
-using SmtpClient = System.Net.Mail.SmtpClient;
 using System.Net;
+using MailKit.Security;
+using MimeKit;
 
 namespace Budget.SERVICE
 {
 
-    public class MailService : IMailService
+    public class MailService :IMailService
     {
-        public bool SendMailTest()
-        {
-            var mailBox = new MailBox
-            {
-                From = "nico_brillouet@hotmail.com",
-                To = "kill_me_again_77@hotmail.com",
-                Subject = "Test envoi mail",
-                Body = "Test reussi!"
-            };
+        //public async void SendMailTest()
+        //{
+        //    var mailBox = new MailBox
+        //    {
+        //        From = "nico_brillouet@hotmail.com",
+        //        To = "kill_me_again_77@hotmail.com",
+        //        Subject = "Test envoi mail",
+        //        Body = "Test reussi!"
+        //    };
 
-            return SendMail(mailBox);
-        }
+        //    //return await SendMailAsync(mailBox);
+        //}
 
-        public bool SendMail(MailBox mailBox)
+        public void SendMailAsync()
         {
+
             //SmtpMail oMail = new SmtpMail("TryIt");
             //SmtpClient oSmtp = new SmtpClient();
 
@@ -69,25 +70,76 @@ namespace Budget.SERVICE
             //    return false;
             //}
 
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Nico", "joey@friends.com"));
+            message.To.Add(new MailboxAddress("N1", "kill_me_again_77@hotmail.com"));
+            message.Subject = "How you doin?";
+            message.Body = new TextPart("plain")
+            {
+                Text = @"Hey Alice,
+
+What are you up to this weekend? Monica is throwing one of her parties on
+Saturday and I was hoping you could make it.
+
+Will you be my +1?
+
+-- Joey
+"
+            };
+
             try
             {
-                MailMessage mail = new MailMessage();
-                mail.From = new System.Net.Mail.MailAddress("nico_brillouet@hotmail.com");
-                mail.To.Add("kill_me_again_77@hotmail.com");
-                mail.Subject = "subject";
-                mail.Body = "Body";
-                mail.IsBodyHtml = false;
-                SmtpClient smtp = new SmtpClient("smtp.live.com", 587);
-                smtp.EnableSsl = true;
-                smtp.Credentials = new NetworkCredential("nico_brillouet@hotmail.com", "pass");
-                smtp.Send(mail);
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                {
+                    //587
+                    //Have tried both false and true    
+                    client.Connect("smtp-mail.outlook.com", 465, true);
+                    client.AuthenticationMechanisms.Remove("XOAUTH2");
+                    client.Authenticate("nico_brillouet@hotmail.com", "Nbr9a3xit4m?");
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+
+
+                //using (var smtp = new MailKit.Net.Smtp.SmtpClient())
+                //{
+                //    smtp.MessageSent += (sender, args) =>{  };
+                //        smtp.ServerCertificateValidationCallback = (s, c, h, e) => true;
+
+                //        smtp.Connect("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
+                //        smtp.Authenticate("nico_brillouet@hotmail.com", "Nbr9a3xit4m?");
+                //        smtp.Send(message);
+                //        smtp.Disconnect(true);
+
+                //}
+
             }
             catch (Exception ep)
             {
                 Console.WriteLine(ep.Message);
 
-            }
-            return true;
+            };
+
+
+            //try
+            //{
+            //    MailMessage mail = new MailMessage();
+            //    mail.From = new System.Net.Mail.MailAddress("nico_brillouet@hotmail.com");
+            //    mail.To.Add("kill_me_again_77@hotmail.com");
+            //    mail.Subject = "subject";
+            //    mail.Body = "Body";
+            //    mail.IsBodyHtml = false;
+            //    SmtpClient smtp = new SmtpClient("smtp.live.com", 587);
+            //    smtp.EnableSsl = true;
+            //    smtp.Credentials = new NetworkCredential("nico_brillouet@hotmail.com", "pass");
+            //    smtp.Send(mail);
+            //}
+            //catch (Exception ep)
+            //{
+            //    Console.WriteLine(ep.Message);
+
+            //}
+
         }
     }
 }

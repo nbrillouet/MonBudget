@@ -168,7 +168,8 @@ namespace Budget.SERVICE
 
         public OtfForDetailDto GetOtfDetail(int idOperationTypeFamily)
         {
-            //_mailService.SendMailTest();
+            _mailService.SendMailAsync();
+
             //OperationTypeFamily otf = new OperationTypeFamily();
             //if (idOperationTypeFamily == -1)
             //{

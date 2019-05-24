@@ -22,25 +22,36 @@ using AutoMapper;
 using Budget.SERVICE.GMap;
 using Budget.DATA.Repositories.GMap;
 using Budget.DATA.Repositories.ContextTransaction;
-
+using Microsoft.EntityFrameworkCore;
+using Budget.HELPER;
 
 namespace Budget.API
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnexion"))
-            services.AddDbContext<BudgetContext>();
-            
+
+            var DefaultConnexion = CryptoHelper.Encrypt("Server = PS10; Database = XmlToSwift_Demo; Trusted_Connection = True; MultipleActiveResultSets = true");
+            var CloudName = CryptoHelper.Encrypt("killmeagain77"); 
+            var ApiKey = CryptoHelper.Encrypt("867256855236325");
+            var ApiSecret = CryptoHelper.Encrypt("8XeXYsOBLHKvSn0FcvaLuTw862Y");
+
+            var decrypt = CryptoHelper.Decrypt(Configuration.GetConnectionString("DefaultConnexion"));
+
+            services.AddDbContext<BudgetContext>(options =>
+                options.UseSqlServer(CryptoHelper.Decrypt(Configuration.GetConnectionString("DefaultConnexion"))));
+
             services.AddCors();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper();

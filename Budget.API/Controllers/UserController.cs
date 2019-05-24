@@ -15,6 +15,7 @@ using CloudinaryDotNet.Actions;
 using Budget.MODEL;
 using Budget.MODEL.Dto;
 using Budget.MODEL.Filter;
+using Budget.HELPER;
 
 namespace Budget.API.Controllers
 {
@@ -41,9 +42,9 @@ namespace Budget.API.Controllers
             _cloudinaryConfig = cloudinaryConfig;
 
             Account acc = new Account(
-                _cloudinaryConfig.Value.CloudName,
-                _cloudinaryConfig.Value.ApiKey,
-                _cloudinaryConfig.Value.ApiSecret);
+                CryptoHelper.Decrypt(_cloudinaryConfig.Value.CloudName),
+                CryptoHelper.Decrypt(_cloudinaryConfig.Value.ApiKey),
+                CryptoHelper.Decrypt(_cloudinaryConfig.Value.ApiSecret));
 
             _cloudinary = new Cloudinary(acc);
             _filterService = filterService;

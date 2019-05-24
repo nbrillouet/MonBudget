@@ -6,6 +6,6 @@ namespace Budget.SERVICE
 {
     public interface IMailService
     {
-        bool SendMailTest();
+        void SendMailAsync();
     }
 }
