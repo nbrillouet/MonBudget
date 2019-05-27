@@ -52082,7 +52082,7 @@ var WidgetCardChartBarSkeleton = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<div class=\"p-12\" >\n    \n    <div class=\"fuse-card\">\n        \n        <div *ngIf=\"!isLoaded\" \n            class=\"h-96 w-100-p\"\n            fxLayout=\"column\"\n            fxLayoutAlign=\"center center\">\n            <mat-spinner diameter=\"40\" color=\"accent\" fxLayout=\"row\"></mat-spinner>\n            <div fxLayout=\"row\">chargement...</div>\n        </div>\n        \n        <div *ngIf=\"isLoaded\" class=\"p-12 pb-0\" fxLayout=\"row\" fxLayoutAlign=\"space-between end\" fxLayoutWrap>\n            <div >\n                <div class=\"h3 secondary-text\">{{widget.title.label}}</div>\n                <div class=\"font-size-24 font-weight-300 line-height-1 mt-8\">\n                    {{widget.title.averageAmount}} €\n                </div>\n            </div>\n\n            <div class=\"py-6 font-size-12\" fxLayout=\"row\" fxLayoutAlign=\"end center\">\n                <div fxFlex=\"row\" fxLayoutAlign=\"end center\" class=\"green-fg\"\n                     *ngIf=\"widget.title.ratioAmount > 0\">\n                    <mat-icon class=\"green-fg mr-4\">trending_up</mat-icon>\n                    <span>{{widget.title.ratioAmount}}%</span>\n                </div>\n                <div fxFlex=\"row\" fxLayoutAlign=\"end center\" class=\"red-fg\"\n                     *ngIf=\"widget.title.ratioAmount < 0\">\n                    <mat-icon class=\"red-fg mr-4\">trending_down</mat-icon>\n                    <span>{{widget.title.ratioAmount}}%</span>\n                </div>\n                <div fxFlex=\"row\" fxLayoutAlign=\"end center\" class=\"grey-fg\"\n                     *ngIf=\"widget.title.ratioAmount == 0\">\n                    <mat-icon class=\"grey-fg mr-4\">trending_flat</mat-icon>\n                    <span>{{widget.title.ratioAmount}}%</span>\n                </div>\n                <div class=\"ml-4 text-nowrap\">{{widget.title.ratioLabel}}</div>\n            </div>\n\n        </div>\n\n        <div *ngIf=\"isLoaded\" class=\"h-96 w-100-p\">\n            <canvas baseChart\n                    [datasets]=\"widget.datasets\"\n                    [labels]=\"widget.labels\"\n                    [colors]=\"widget.colors\"\n                    [options]=\"widget.options\"\n                    [chartType]=\"widget.chartType\"\n                    (chartClick)=\"chartClicked($event)\">\n            </canvas>\n        </div>\n\n    </div>\n\n</div>\n"
+module.exports = "\n\n<div class=\"p-12\" >\n    \n    <div class=\"fuse-card\">\n        \n        <div *ngIf=\"!isLoaded\" \n            class=\"h-96 w-100-p\"\n            fxLayout=\"column\"\n            fxLayoutAlign=\"center center\">\n            <mat-spinner diameter=\"40\" color=\"accent\" fxLayout=\"row\"></mat-spinner>\n            <div fxLayout=\"row\">chargement...</div>\n        </div>\n        \n        <div *ngIf=\"isLoaded\" class=\"p-12 pb-0\" fxLayout=\"row\" fxLayoutAlign=\"space-between end\" fxLayoutWrap>\n            <div >\n                <div class=\"h3 secondary-text\">{{widget.title.label}}</div>\n                <div class=\"font-size-24 font-weight-300 line-height-1 mt-8\">\n                    {{widget.title.averageAmount}} €\n                </div>\n            </div>\n\n            <div class=\"py-6 font-size-12\" fxLayout=\"row\" fxLayoutAlign=\"end center\">\n                <div fxFlex=\"row\" fxLayoutAlign=\"end center\" class=\"green-fg\"\n                     *ngIf=\"widget.title.ratioAmount > 0\">\n                    <mat-icon class=\"green-fg mr-4\">trending_up</mat-icon>\n                    <span>{{widget.title.ratioAmount}}%</span>\n                </div>\n                <div fxFlex=\"row\" fxLayoutAlign=\"end center\" class=\"red-fg\"\n                     *ngIf=\"widget.title.ratioAmount < 0\">\n                    <mat-icon class=\"red-fg mr-4\">trending_down</mat-icon>\n                    <span>{{widget.title.ratioAmount}}%</span>\n                </div>\n                <div fxFlex=\"row\" fxLayoutAlign=\"end center\" class=\"grey-fg\"\n                     *ngIf=\"widget.title.ratioAmount == 0\">\n                    <mat-icon class=\"grey-fg mr-4\">trending_flat</mat-icon>\n                    <span>{{widget.title.ratioAmount}}%</span>\n                </div>\n                <div class=\"ml-4 text-nowrap\">{{widget.title.ratioLabel}}</div>\n            </div>\n\n        </div>\n\n        <div *ngIf=\"isLoaded\" class=\"h-96 w-100-p\">\n            <canvas baseChart\n                    [datasets]=\"widget.datasets\"\n                    [labels]=\"widget.labels\"\n                    [colors]=\"widget.colors\"\n                    [options]=\"widget.options\"\n                    [chartType]=\"widget.chartType\"\n                    (chartClick)=\"chartClicked($event)\">\n            </canvas>\n        </div>\n\n        <div>\n            <ngx-charts-pie-chart\n                *fuseIfOnDom\n                [scheme]=\"widget8.scheme\"\n                [results]=\"widget8.mainChart\"\n                [legend]=\"widget8.legend\"\n                [explodeSlices]=\"widget8.explodeSlices\"\n                [labels]=\"widget8.labels\"\n                [doughnut]=\"widget8.doughnut\"\n                [gradient]=\"widget8.gradient\"\n                (select)=\"widget8.onSelect($event)\">\n            </ngx-charts-pie-chart>\n        </div>\n\n    </div>\n\n</div>\n"
 
 /***/ }),
 
@@ -52127,6 +52127,44 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var WidgetCardChartBarComponent = /** @class */ (function () {
     function WidgetCardChartBarComponent() {
+        this.widget8 = {};
+        this.widget8 = {
+            title: 'Budget Distribution',
+            mainChart: [
+                {
+                    name: 'Wireframing',
+                    value: 12
+                },
+                {
+                    name: 'Design',
+                    value: 17
+                },
+                {
+                    name: 'Coding',
+                    value: 28
+                },
+                {
+                    name: 'Marketing',
+                    value: 25
+                },
+                {
+                    name: 'Extra',
+                    value: 15
+                }
+            ],
+            legend: false,
+            explodeSlices: false,
+            labels: true,
+            doughnut: false,
+            gradient: false,
+            scheme: {
+                domain: ['#f44336', '#9c27b0', '#03a9f4', '#e91e63', '#ffc107']
+            },
+            onSelect: function (ev) {
+                console.log(ev);
+            }
+        };
+        console.log('widget8', this.widget8);
     }
     WidgetCardChartBarComponent.prototype.ngOnChanges = function (changes) {
         var _this = this;

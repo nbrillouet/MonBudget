@@ -14,8 +14,50 @@ isLoaded: boolean;
 @Input() widgetCardChartBar: WidgetCardChartBar;
 @ViewChild(BaseChartDirective) private _chart;
 
-  constructor() {
 
+widget8: any = {};
+
+
+  constructor() {
+    this.widget8 = {
+      title    : 'Budget Distribution',
+      mainChart: [
+        {
+            name : 'Wireframing',
+            value: 12
+        },
+        {
+            name : 'Design',
+            value: 17
+        },
+        {
+            name : 'Coding',
+            value: 28
+        },
+        {
+            name : 'Marketing',
+            value: 25
+        },
+        {
+            name : 'Extra',
+            value: 15
+        }
+    ],
+
+      legend       : false,
+      explodeSlices: false,
+      labels       : true,
+      doughnut     : false,
+      gradient     : false,
+      scheme       : {
+          domain: ['#f44336', '#9c27b0', '#03a9f4', '#e91e63', '#ffc107']
+      },
+      onSelect     : (ev) => {
+          console.log(ev);
+      }
+  };
+
+  console.log('widget8', this.widget8);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -42,6 +84,11 @@ isLoaded: boolean;
 
       }
     }
+
+
+
+
+    
  
   }
   
