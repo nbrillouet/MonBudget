@@ -35,6 +35,7 @@ const routes = [
         canActivate: [AuthGuard]
     }
     
+    
 ];
 
 @NgModule({

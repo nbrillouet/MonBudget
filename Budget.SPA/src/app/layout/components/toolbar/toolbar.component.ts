@@ -174,10 +174,14 @@ export class ToolbarComponent implements OnInit, OnDestroy
 
     logout()
     {
-        this._authService.userToken = null;
-        localStorage.removeItem('budgetToken');
+        // this._authService.userToken = null;
+        // localStorage.removeItem('budgetToken');
+        console.log('currentUser',localStorage.removeItem('currentUser'));
+        localStorage.removeItem('currentUser');
+        console.log('currentUser',localStorage.removeItem('currentUser'));
+
         this._authService.currentUser = null;
-        localStorage.removeItem('user');
+        // localStorage.removeItem('user');
 
         this.notif.info('logged out success','You are now logged out');
         this.router.navigate(['/pages/auth/login']);
