@@ -18,7 +18,7 @@ export class OtfService {
   
       getOtfTable (filter: FilterOtfTableSelected) {
         filter.user =  this.userForGroup;
-  
+        console.log('filter.user',filter.user);
         return this.http
           .post(`${this.baseUrl}referential/operation-type-families/filter`,filter)
           .map((response: OtfTable) => {
@@ -28,7 +28,7 @@ export class OtfService {
   
       getOtfTableFilter(filter: FilterOtfTableSelected) {
         filter.user =  this.userForGroup;
-          
+        
         return this.http
               .post(`${this.baseUrl}referential/operation-type-families/table-filter`,filter)
               .map((response: FilterOtfTable) => {
@@ -37,6 +37,7 @@ export class OtfService {
       }
 
       getOtfDetail(idOperationTypeFamily: number) {
+        // console.log('idOperationTypeFamily',idOperationTypeFamily);
         return this.http
             .get(`${this.baseUrl}referential/operation-type-families/${idOperationTypeFamily}/detail`)
             .map(response => <OtfDetail>response)

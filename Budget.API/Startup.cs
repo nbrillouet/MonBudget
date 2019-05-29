@@ -30,10 +30,13 @@ namespace Budget.API
     public class Startup
     {
         public IConfiguration Configuration { get; }
+        private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration,
+            IOptions<CloudinarySettings> cloudinaryConfig)
         {
             Configuration = configuration;
+            _cloudinaryConfig = cloudinaryConfig;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -51,6 +54,12 @@ namespace Budget.API
 
             services.AddCors();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+
+            var tutu = Configuration.GetSection("AppSettings")["Token"];
+            var tata = Configuration.GetSection("CloudinarySettings");
+            var toto = Configuration.GetSection("AppSettings");
+
+
             services.AddAutoMapper();
 
             services.AddTransient<IUserService, UserService>();
@@ -253,12 +262,13 @@ namespace Budget.API
             {
                 app.UseDeveloperExceptionPage();
 
+                var toto = _cloudinaryConfig.Value;
                 //Add our new middleware to the pipeline
                 app.UseMiddleware<RequestTrackerMiddleware>();
                 //Add Cors
                 app.UseCors(builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200")
+                    builder.WithOrigins(Configuration.GetSection("Cors")["Url"])
                     .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
                 });
                 //app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
@@ -291,7 +301,7 @@ namespace Budget.API
                 //Add Cors
                 app.UseCors(builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200")
+                    builder.WithOrigins(Configuration.GetSection("Cors")["Url"])
                     .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
                 });
                 //app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
@@ -311,6 +321,8 @@ namespace Budget.API
                 });
                 //--
             }
+
+            app.UseHttpsRedirection();
 
             ////Add our new middleware to the pipeline
             //app.UseMiddleware<RequestTrackerMiddleware>();

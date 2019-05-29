@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "https://localhost/testit",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:5001",
       "sslPort": 0
@@ -16,11 +20,12 @@
       }
     },
     "Budget.API": {
-      "commandName": "Project",
+      "commandName": "IIS",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Production"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       },
+      "ancmHostingModel": "InProcess",
       "applicationUrl": "http://localhost:5001/"
     }
   }

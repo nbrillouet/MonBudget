@@ -168,36 +168,36 @@ namespace Budget.SERVICE
 
         public OtfForDetailDto GetOtfDetail(int idOperationTypeFamily)
         {
-            _mailService.SendMailAsync();
+            //_mailService.SendMailAsync();
 
-            //OperationTypeFamily otf = new OperationTypeFamily();
-            //if (idOperationTypeFamily == -1)
-            //{
-            //    otf.Movement = new Movement { Id = 1, Label = "Crédit" };
-            //    otf.LogoClassName = "OtfInconnu";
-            //}
-            //else
-            //{
-            //    otf = _operationTypeFamilyRepository.GetOtfDetail(idOperationTypeFamily);
-            //}
-            //var otfDto = _mapper.Map<OtfForDetailDto>(otf);
+            OperationTypeFamily otf = new OperationTypeFamily();
+            if (idOperationTypeFamily == -1)
+            {
+                otf.Movement = new Movement { Id = 1, Label = "Crédit" };
+                otf.LogoClassName = "OtfInconnu";
+            }
+            else
+            {
+                otf = _operationTypeFamilyRepository.GetOtfDetail(idOperationTypeFamily);
+            }
+            var otfDto = _mapper.Map<OtfForDetailDto>(otf);
 
-            //otfDto.Movement = new ComboSimple<SelectDto>
-            //{
-            //    List = _movementService.GetSelectList(EnumSelectType.Empty),
-            //    Selected = new SelectDto { Id = otf.Movement.Id, Label = otf.Movement.Label }
-            //};
+            otfDto.Movement = new ComboSimple<SelectDto>
+            {
+                List = _movementService.GetSelectList(EnumSelectType.Empty),
+                Selected = new SelectDto { Id = otf.Movement.Id, Label = otf.Movement.Label }
+            };
 
-            //var logoList = GetOtfLogoList();
-            //otfDto.LogoClassName = new ComboSimple<SelectDto>
-            //{
-            //    List = logoList,
-            //    Selected = new SelectDto { Id = logoList.Where(x => x.Label == otf.LogoClassName).FirstOrDefault().Id, Label = otf.LogoClassName }
-            //};
+            var logoList = GetOtfLogoList();
+            otfDto.LogoClassName = new ComboSimple<SelectDto>
+            {
+                List = logoList,
+                Selected = new SelectDto { Id = logoList.Where(x => x.Label == otf.LogoClassName).FirstOrDefault().Id, Label = otf.LogoClassName }
+            };
 
-            //return otfDto;
+            return otfDto;
 
-            return null;
+
         }
 
         public SelectDto GetUnknown(int idUserGroup)

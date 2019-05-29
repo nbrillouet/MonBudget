@@ -86,12 +86,15 @@ namespace Budget.API.Controllers
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha512Signature)
             };
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
             var user = _mapper.Map<UserForConnectionDto>(userRetrieve);
             user.Token = tokenString;
             return Ok(user);
+
+            
         }
     }
 }
