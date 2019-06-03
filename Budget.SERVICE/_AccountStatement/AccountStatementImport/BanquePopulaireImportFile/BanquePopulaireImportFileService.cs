@@ -50,7 +50,7 @@ namespace Budget.SERVICE
                     asif.LabelOperationWork = _asifService.GetOperationLabelWork(asif.LabelOperationCopy);
 
                     asif.AmountOperation = double.Parse(values[6].Replace(",", ".").ToString(), CultureInfo.InvariantCulture);
-                    asif.DateIntegration = Convert.ToDateTime(values[1].ToString());
+                    asif.DateIntegration = DateTime.ParseExact(values[1].ToString(), "dd/MM/yyyy", CultureInfo.CurrentCulture); //Convert.ToDateTime(values[1].ToString());
                     asif.IdMovement = asif.AmountOperation > 0 ? 1 : 2;
                     asif.Account = _referentialService.AccountService.GetByNumber(values[0].ToString());
                     if (asif.Account != null)

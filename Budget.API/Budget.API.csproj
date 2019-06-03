@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-	<RuntimeFrameworkName>Microsoft.AspNetCore.App</RuntimeFrameworkName>
+    <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
+	  <RuntimeFrameworkName>Microsoft.AspNetCore.App</RuntimeFrameworkName>
     <UserSecretsId>9277b65b-da1e-4665-ac89-5415e532bb0c</UserSecretsId>
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
