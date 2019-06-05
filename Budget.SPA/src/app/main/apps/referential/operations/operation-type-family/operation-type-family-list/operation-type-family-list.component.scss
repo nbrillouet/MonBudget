@@ -3,16 +3,17 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto !important;
+    max-height:calc(100% - 50px) !important;
     }
     
-    .scrollable-small {
+    // .scrollable-small {
         
-      max-height:65vh;
-    }
+    //   max-height:65vh;
+    // }
   
-    .scrollable-large {
-      max-height:86vh;
-    }
+    // .scrollable-large {
+    //   max-height:86vh;
+    // }
     
     .mat-table {
       width: 100% !important;
@@ -84,13 +85,24 @@
       color:#4285F3;
     }
   
-    .mat-paginator-container {
-      min-height: 35px !important;
-      max-height: 35px !important;
-      margin-top: 30px !important;
-      // padding:    2px !important;
+    .mat-paginator {
+      position: fixed !important;
+      background-color: transparent !important;
+      bottom: 0px;
+      right: 20px;
+
+      .mat-paginator-container {
+        min-height: 50px !important;
+        max-height: 50px !important;
+      }
+    
+      .mat-paginator-page-size {
+        min-height: 50px !important;
+        max-height: 50px !important;
+        align-items: center !important;
+      }
     }
-  
+
     .dot {
       height: 25px;
       width: 25px;
@@ -106,4 +118,16 @@
         height:22px;
         width:22px;
     }
+
+    // .mat-paginator {
+    //   position: fixed;
+    //   height: 50px !important;
+    //   background-color: red;
+    //   bottom: 0px;
+    //   width: 100%;
+    //   // left: 0px;
+    //   right: 20px;
+    //   margin-bottom: 10px !important;
+    //   background-color: transparent !important;
+    // }
   

@@ -15,7 +15,7 @@ subjectTitle: string = 'Catégorie d\'opérations';
 
 headerPanelIcon: string;
 headerPanelIsVisible: boolean = false;
-fuseConfig:any;
+fullscreen: boolean;
 
 constructor(
   private _activatedRoute: ActivatedRoute,
@@ -38,16 +38,23 @@ constructor(
     }
   });
 
-  //prendre en compte le fuseConfig
+  // Subscribe to the config changes
   this._fuseConfigService.config
-  .subscribe((config) => {
-      // Update the stored config
-      this.fuseConfig = config;
+  // .pipe(takeUntil(this._unsubscribeAll))
+  .subscribe((settings) => {
+      this.fullscreen = settings.layout.toolbar.fullScreen;
   });
+
+  // //prendre en compte le fuseConfig
+  // this._fuseConfigService.config
+  // .subscribe((config) => {
+  //     // Update the stored config
+  //     this.fuseConfig = config;
+  // });
 }
 
   ngOnInit() {
-    this.onHeaderPanelClick();
+    // this.onHeaderPanelClick();
   }
 
   Add() {
@@ -55,13 +62,13 @@ constructor(
         [`apps/referential/operations/${this.subject}/new`]);
   }
 
-  onHeaderPanelClick() {
-    this.headerPanelIsVisible = this.headerPanelIsVisible ? false : true;
-    this.headerPanelIcon = this.headerPanelIsVisible ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
-    this.fuseConfig.layout.toolbar.hidden=!this.headerPanelIsVisible;
-    this._fuseConfigService.setConfig(this.fuseConfig);
+  // onHeaderPanelClick() {
+  //   this.headerPanelIsVisible = this.headerPanelIsVisible ? false : true;
+  //   this.headerPanelIcon = this.headerPanelIsVisible ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
+  //   this.fuseConfig.layout.toolbar.hidden=!this.headerPanelIsVisible;
+  //   this._fuseConfigService.setConfig(this.fuseConfig);
 
-  }
+  // }
 
   }
   

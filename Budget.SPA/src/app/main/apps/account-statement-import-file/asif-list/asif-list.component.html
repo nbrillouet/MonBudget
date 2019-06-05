@@ -1,7 +1,5 @@
  
- <div class="example-container"
-    [ngClass]="headerPanelIsVisible ? 'scrollable-small' : 'scrollable-large'"
- > 
+ <div class="example-container"> 
 
     <mat-table 
             #table [dataSource]="dataSource"
@@ -147,7 +145,7 @@
 
 
 <!-- <mat-paginator *ngIf="(asifTable$ | async).pagination as pagination" -->
-<mat-paginator 
+<mat-paginator class="footer"
     (page)="onPageChangeEvent($event)"
     [length]="(asifTableFilter$ | async).filters.selected.pagination.totalItems" 
     [pageSize]="(asifTableFilter$ | async).filters.selected.pagination.nbItemsPerPage"

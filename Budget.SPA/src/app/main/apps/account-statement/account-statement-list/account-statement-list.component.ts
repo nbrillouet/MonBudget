@@ -25,14 +25,14 @@ import { FilterDateRange } from 'app/main/_models/filters/mini-filter/date-range
   encapsulation: ViewEncapsulation.None
 })
 
-export class AccountStatementListComponent implements OnInit, OnChanges {
+export class AccountStatementListComponent implements OnInit {
   @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
   @Select(AsTableState.get) asTable$: Observable<DataInfos<AsTable>>;
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  @Input() headerPanelIsVisible: boolean;
+  // @Input() headerPanelIsVisible: boolean;
 
   dataSource = new MatTableDataSource<AsTable>();// AsifDataSource;
   filterAs: FilterAsTable;
@@ -73,9 +73,9 @@ export class AccountStatementListComponent implements OnInit, OnChanges {
   
   }
   
-  ngOnChanges(changes: SimpleChanges) {
-    this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
+  // }
 
   onPageChangeEvent(event) {
     this.filterAs.selected.pagination.currentPage = this.paginator.pageIndex;

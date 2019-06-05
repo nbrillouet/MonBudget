@@ -29,6 +29,8 @@ export class ToolbarComponent implements OnInit, OnDestroy
     horizontalNavbar: boolean;
     rightNavbar: boolean;
     hiddenNavbar: boolean;
+    fullScreen: boolean;
+    fuseConfig: any;
     languages: any;
     navigation: any;
     selectedLanguage: any;
@@ -114,9 +116,11 @@ export class ToolbarComponent implements OnInit, OnDestroy
         this._fuseConfigService.config
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((settings) => {
+                this.fuseConfig = settings;
                 this.horizontalNavbar = settings.layout.navbar.position === 'top';
                 this.rightNavbar = settings.layout.navbar.position === 'right';
                 this.hiddenNavbar = settings.layout.navbar.hidden === true;
+                this.fullScreen = settings.layout.toolbar.fullScreen;
             });
 
         // Set the selected language from default languages
@@ -145,6 +149,13 @@ export class ToolbarComponent implements OnInit, OnDestroy
     toggleSidebarOpen(key): void
     {
         this._fuseSidebarService.getSidebar(key).toggleOpen();
+    }
+
+    toggleFullscreen(): void
+    {
+        this.fuseConfig.layout.toolbar.fullScreen=!this.fullScreen;
+        this._fuseConfigService.setConfig(this.fuseConfig);
+
     }
 
     /**

@@ -17,6 +17,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { LoadOtfTableDatas } from 'app/main/_ngxs/referential/operation-type-family/operation-type-family-list/operation-type-family-list.action';
 import { ComboSimple } from 'app/main/_models/generics/combo.model';
 import { ISelect } from 'app/main/_models/generics/select.model';
+import { FuseConfigService } from '@fuse/services/config.service';
 
 @Component({
   selector: 'operation-type-family-list',
@@ -25,8 +26,8 @@ import { ISelect } from 'app/main/_models/generics/select.model';
   animations : fuseAnimations,
   encapsulation: ViewEncapsulation.None
 })
-export class OperationTypeFamilyComponent implements OnInit, OnChanges {
-  @Input() headerPanelIsVisible: boolean;
+export class OperationTypeFamilyComponent implements OnInit {
+  // @Input() headerPanelIsVisible: boolean;
   
   @Select(OtfTableFilterState.get) otfTableFilter$: Observable<FilterInfo<FilterOtfTable>>;
   @Select(OtfTableState.get) otfTable$: Observable<DataInfos<OtfTable>>;
@@ -42,7 +43,7 @@ export class OperationTypeFamilyComponent implements OnInit, OnChanges {
   templateFor:string;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   filterMovement: ComboSimple<ISelect>;
-
+ 
   constructor(
     private _store: Store,
     private dialog: MatDialog,
@@ -55,9 +56,10 @@ export class OperationTypeFamilyComponent implements OnInit, OnChanges {
       this._store.dispatch(new LoadOtfTableFilter(this.filterOtf));
 
       this.otfTable$.subscribe(asifTable=>{
-
         this.dataSource.data = asifTable.datas; 
       });
+
+      
 
    }
 
@@ -71,10 +73,10 @@ export class OperationTypeFamilyComponent implements OnInit, OnChanges {
   
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  // ngOnChanges(changes: SimpleChanges) {
 
-    this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
-  }
+  //   this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
+  // }
   
   onPageChangeEvent(event) {
     this.filterOtf.selected.pagination.currentPage = this.paginator.pageIndex;

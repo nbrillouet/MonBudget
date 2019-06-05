@@ -25,8 +25,8 @@ import { LoadOtTableDatas } from 'app/main/_ngxs/referential/operation-type/oper
   animations : fuseAnimations,
   encapsulation: ViewEncapsulation.None
 })
-export class OperationTypeListComponent implements OnInit, OnChanges {
-  @Input() headerPanelIsVisible: boolean;
+export class OperationTypeListComponent implements OnInit {
+  // @Input() headerPanelIsVisible: boolean;
   
   @Select(OtTableFilterState.get) otTableFilter$: Observable<FilterInfo<FilterOtTable>>;
   @Select(OtTableState.get) otTable$: Observable<DataInfos<OtTable>>;
@@ -73,10 +73,10 @@ export class OperationTypeListComponent implements OnInit, OnChanges {
   
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  // ngOnChanges(changes: SimpleChanges) {
 
-    this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;;
-  }
+  //   this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;;
+  // }
   
   onPageChangeEvent(event) {
     this.filterOt.selected.pagination.currentPage = this.paginator.pageIndex;

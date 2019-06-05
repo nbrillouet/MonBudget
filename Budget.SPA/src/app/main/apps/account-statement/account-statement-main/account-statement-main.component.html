@@ -66,7 +66,7 @@
                 fullwidth>
 
                 <mat-tab label="Evolution">
-                    <as-chart-evolution [headerPanelIsVisible]="headerPanelIsVisible"
+                    <as-chart-evolution 
                         *ngIf="selectedIndex == 0"
                         [@animateStagger]="{value:'50'}">
                     </as-chart-evolution>
@@ -297,11 +297,11 @@
                 </mat-tab>
 
                 <mat-tab label="Relevés" >
-                    <account-statement-list [headerPanelIsVisible]="headerPanelIsVisible" style="height:100%;" *ngIf="selectedIndex == 2"></account-statement-list>
+                    <account-statement-list style="height:100%;" *ngIf="selectedIndex == 2"></account-statement-list>
                 </mat-tab>
 
                 <mat-tab label="Virements internes">
-                    <as-internal-transfer-main [headerPanelIsVisible]="headerPanelIsVisible" style="height:100%;" *ngIf="selectedIndex == 3"></as-internal-transfer-main>
+                    <as-internal-transfer-main style="height:100%;" *ngIf="selectedIndex == 3"></as-internal-transfer-main>
                 </mat-tab>
             </mat-tab-group>
 </div>

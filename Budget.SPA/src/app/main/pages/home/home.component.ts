@@ -7,7 +7,8 @@ import { FuseConfigService } from '@fuse/services/config.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  user = JSON.parse(localStorage.getItem('currentUser'));
+  
   constructor(
     private _fuseConfig: FuseConfigService
   ) {

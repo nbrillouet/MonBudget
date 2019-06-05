@@ -56,7 +56,7 @@ const appRoutes: Routes = [
     { path : 'apps', loadChildren: './main/apps/apps.module#FuseAppsModule' },
 
     // otherwise redirect to home
-    { path: '**', redirectTo: 'apps/referential/operations/operation-type-families',canActivate: [AuthGuard] }
+    { path: '**', redirectTo: 'pages/home' }
 ];
 
 @NgModule({

@@ -17,10 +17,10 @@ import { UpdateAsChartEvolutionCustomOtfFilter } from 'app/main/_ngxs/account-st
   animations   : fuseAnimations
 })
 
-export class AsChartEvolutionComponent implements OnInit,OnChanges {
+export class AsChartEvolutionComponent implements OnInit {
   @Select(AsChartState.get) asChart$: Observable<DataInfo<AsChart>>;
 
-  @Input() headerPanelIsVisible: boolean;
+  // @Input() headerPanelIsVisible: boolean;
 
   customOtfForm: FormGroup;
 
@@ -65,10 +65,10 @@ export class AsChartEvolutionComponent implements OnInit,OnChanges {
 
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    // const name: SimpleChange = changes.headerPanelIsVisible;
-    this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;;
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   // const name: SimpleChange = changes.headerPanelIsVisible;
+  //   this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;;
+  // }
 
   onChanges() {
     this.customOtfForm.get('operationTypeFamilies').valueChanges

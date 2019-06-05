@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
   templateUrl: './operations-main-tab.component.html',
   styleUrls: ['./operations-main-tab.component.scss']
 })
-export class OperationsMainTabComponent implements OnInit, OnChanges {
+export class OperationsMainTabComponent implements OnInit {
   @Input() subject: string;
-  @Input() headerPanelIsVisible: boolean;
+  // @Input() headerPanelIsVisible: boolean;
 
   operationFields: ISelect[];
   selectedIndex:number;
@@ -45,9 +45,9 @@ export class OperationsMainTabComponent implements OnInit, OnChanges {
       }
     }
 
-    if(changes.headerPanelIsVisible) {
-      this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
-    }
+    // if(changes.headerPanelIsVisible) {
+    //   this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
+    // }
 
    }
 

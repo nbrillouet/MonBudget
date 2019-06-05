@@ -1,11 +1,26 @@
-.scrollable-small {
+.example-container-no-footer {
+    display: flex;
+    flex-direction: column;
     overflow-y: auto !important;
-    max-height:70vh;
-}
+    max-height: 100% !important; //calc(100% - 50px) !important;
+    }
 
-.scrollable-large {
-    overflow-y: auto !important;
-    max-height:91vh;
+.mat-paginator {
+    position: fixed !important;
+    background-color: transparent !important;
+    bottom: 0px;
+    right: 20px;
+
+    .mat-paginator-container {
+        min-height: 50px !important;
+        max-height: 50px !important;
+    }
+    
+    .mat-paginator-page-size {
+        min-height: 50px !important;
+        max-height: 50px !important;
+        align-items: center !important;
+    }
 }
 
 .mini-select {

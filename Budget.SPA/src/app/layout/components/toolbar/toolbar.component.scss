@@ -52,3 +52,9 @@ toolbar {
         }
     }
 }
+
+.fullscreen-exit {
+    position: fixed;
+    z-index: 999;
+    left: calc(100% - 40px);
+}

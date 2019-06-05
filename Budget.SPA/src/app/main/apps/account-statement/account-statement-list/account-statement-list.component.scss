@@ -3,17 +3,18 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto !important;
+  max-height:calc(100% - 50px) !important;
   }
   
-  .scrollable-small {
+  // .scrollable-small {
       
-    max-height:65vh;
-  }
+  //   max-height:65vh;
+  // }
 
-  .scrollable-large {
-    // overflow-y: auto !important;
-    max-height:86vh;
-  }
+  // .scrollable-large {
+  //   // overflow-y: auto !important;
+  //   max-height:86vh;
+  // }
   
   .mat-table {
     width: 100% !important;

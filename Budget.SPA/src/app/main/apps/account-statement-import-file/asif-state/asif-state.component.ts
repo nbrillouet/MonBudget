@@ -14,12 +14,12 @@ import { AsiService } from '../../account-statement-import/asi.service';
   styleUrls: ['./asif-state.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AsifStateComponent implements OnInit, OnChanges {
+export class AsifStateComponent implements OnInit {
   @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
   
   filter: FilterAsifTable
   
-  @Input() headerPanelIsVisible: boolean;
+  // @Input() headerPanelIsVisible: boolean;
 
   constructor(
     private _asiService: AsiService,
@@ -46,9 +46,9 @@ export class AsifStateComponent implements OnInit, OnChanges {
 
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
+  // }
 
   
 

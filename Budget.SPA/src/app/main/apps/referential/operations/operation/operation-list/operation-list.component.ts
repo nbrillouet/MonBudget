@@ -24,8 +24,8 @@ import { fuseAnimations } from '@fuse/animations';
   animations : fuseAnimations,
   encapsulation: ViewEncapsulation.None
 })
-export class OperationListComponent implements OnInit, OnChanges {
-  @Input() headerPanelIsVisible: boolean;
+export class OperationListComponent implements OnInit {
+  // @Input() headerPanelIsVisible: boolean;
   
   @Select(OperationTableFilterState.get) operationTableFilter$: Observable<FilterInfo<FilterOperationTable>>;
   @Select(OperationTableState.get) operationTable$: Observable<DataInfos<OperationTable>>;
@@ -76,10 +76,10 @@ export class OperationListComponent implements OnInit, OnChanges {
   
   }
   
-  ngOnChanges(changes: SimpleChanges) {
+  // ngOnChanges(changes: SimpleChanges) {
 
-    this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;;
-  }
+  //   this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;;
+  // }
   
   onPageChangeEvent(event) {
     this.filterOperation.selected.pagination.currentPage = this.paginator.pageIndex;

@@ -9,6 +9,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { FuseConfigService }    from '@fuse/services/config.service';
 import { fuseAnimations }       from '@fuse/animations';
 import { AuthService } from 'app/main/_services/auth.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector   : 'fuse-login',
@@ -22,15 +23,25 @@ export class FuseLoginComponent implements OnInit
     loginFormErrors: any;
 
     constructor(
-        private fuseConfig: FuseConfigService,
+        private _fuseConfigService: FuseConfigService,
         private formBuilder: FormBuilder,
         private authService : AuthService,
         private router: Router,
         private notif: NotificationsService
     )
     {
+        this._fuseConfigService.config
+            // .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(
+                (config) => {
+                    var titi = config;
+                    console.log('titi',titi);
+                }
+            );
+
+       
         // Configure the layout
-        this.fuseConfig.config = {
+        this._fuseConfigService.config = {
             layout: {
                 navbar   : {
                     hidden: true

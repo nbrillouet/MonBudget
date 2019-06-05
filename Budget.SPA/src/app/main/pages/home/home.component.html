@@ -2,10 +2,30 @@
 <!-- <home-navigation></home-navigation> -->
 
 <div class="wrapper">
-  <mat-toolbar></mat-toolbar>
+        <mat-toolbar *ngIf="user" color="primary">
+            <span >Bienvenue {{user.userName}}</span>
+            <span class="example-spacer"></span>
+            <button mat-mini-fab [routerLink]="'/apps/plans'" >
+                <mat-icon>verified_user</mat-icon>
+            </button>
+            <!-- <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon"></mat-icon> -->
+        </mat-toolbar>  
+
+        <mat-toolbar *ngIf="!user" color="primary">
+            <span >MonBudget.net</span>
+            <span class="example-spacer"></span>
+            <button 
+                mat-raised-button
+                [routerLink]="'/pages/auth/login'"
+                >Connexion</button>
+        </mat-toolbar>
+        
   <div class="page-header section-dark" style="background-image: url('assets/images/home/login-image.jpg')">
-      <div class="filter"></div>
+
+    <div class="filter"></div>
+
       <div class="content-center">
+
           <div class="container">
               <div class="title-brand">
                   <div class="angular-logo">

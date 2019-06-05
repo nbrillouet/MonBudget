@@ -2,16 +2,18 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto !important;
+    max-height:calc(100% - 50px) !important;
     }
-    .scrollable-small {
+
+    // .scrollable-small {
         
-      max-height:65vh;
-    }
+    //   max-height:65vh;
+    // }
   
-    .scrollable-large {
-      // overflow-y: auto !important;
-      max-height:86vh;
-    }
+    // .scrollable-large {
+    //   // overflow-y: auto !important;
+    //   max-height:86vh;
+    // }
 
 .example-headers-align .mat-expansion-panel-header-title,
 .example-headers-align .mat-expansion-panel-header-description {

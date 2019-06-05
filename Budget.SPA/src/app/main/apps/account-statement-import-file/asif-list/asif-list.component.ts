@@ -18,11 +18,11 @@ import { ChangeAsifTableFilter } from 'app/main/_ngxs/account-statement-import-f
   styleUrls: ['./asif-list.component.scss'],
   animations : fuseAnimations
 })
-export class AsifListComponent implements OnInit, OnChanges {
+export class AsifListComponent implements OnInit {
   @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
   @Select(AsifTableState.get) asifTable$: Observable<DataInfos<AsifTable>>;
 
-  @Input() headerPanelIsVisible: boolean;
+  // @Input() headerPanelIsVisible: boolean;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -50,9 +50,9 @@ export class AsifListComponent implements OnInit, OnChanges {
     });
   }
   
-  ngOnChanges(changes: SimpleChanges) {
-    this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
+  // }
  
   async delay(ms: number) {
     await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));

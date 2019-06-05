@@ -9,16 +9,22 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto !important;
+  max-height:calc(100% - 50px) !important;
   }
   
-.scrollable-small {
-    
-  max-height:65vh;
-}
+// .scrollable-small {
+ 
+//   // max-height:65vh;
+//   // max-height:55vh;
+//   // max-height:100px !important;
+//   max-height:calc(100% - 50px) !important;
 
-.scrollable-large {
-  max-height:86vh;
-}
+// }
+
+// .scrollable-large {
+//   max-height:calc(100% - 50px) !important;
+//   // max-height:86vh;
+// }
 
 .mat-table {
   width: 100% !important;
@@ -104,3 +110,15 @@
 //   max-height: 35px !important;
 //   // vertical-align: middle;
 // }
+
+.mat-paginator {
+  position: fixed;
+  height: 50px !important;
+  background-color: red;
+  bottom: 0px;
+  width: 100%;
+  // left: 0px;
+  right: 20px;
+  margin-bottom: 10px !important;
+  background-color: transparent !important;
+}

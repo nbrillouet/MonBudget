@@ -15,11 +15,11 @@ import { InternalTransferCouple } from 'app/main/_models/account-statement/accou
   templateUrl: './as-internal-transfer-main.component.html',
   styleUrls: ['./as-internal-transfer-main.component.scss']
 })
-export class AsInternalTransferMainComponent implements OnInit, OnChanges {
+export class AsInternalTransferMainComponent implements OnInit {
   @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
   @Select(AsInternalTransferState.get) asInternalTransferCouple$: Observable<DetailInfo<InternalTransferCouple[],FilterAsTableSelected>>;
   
-  @Input() headerPanelIsVisible: boolean;
+  // @Input() headerPanelIsVisible: boolean;
   
   constructor(
     private _store: Store
@@ -35,7 +35,7 @@ export class AsInternalTransferMainComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
+  // }
 }
