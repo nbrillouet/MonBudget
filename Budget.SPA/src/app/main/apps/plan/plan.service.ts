@@ -15,11 +15,13 @@ import { PlanForTracking } from "app/main/_models/plan/plan-tracking.model";
 import { Observable } from "rxjs";
 import { PlanAmountFilter } from "app/main/_models/filters/plan-amount.filter";
 import { AsTable } from "app/main/_models/account-statement/account-statement-table.model";
+import { IUserForGroup } from "app/main/_models/user.model";
 
 @Injectable()
 export class PlanService {
 baseUrl = environment.apiUrl;
 user = JSON.parse(localStorage.getItem('currentUser'));
+userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:this.user.idUserGroup} : null;
 
     constructor(
         private http: HttpClient,
@@ -57,6 +59,7 @@ user = JSON.parse(localStorage.getItem('currentUser'));
     // }
 
     savePlanDetail(planDetail: PlanDetail) {
+        console.log('go api',planDetail);
         return this.http
             .post(`${this.baseUrl}plans/plan-details/save`,planDetail)
             .map(res=><number>res);
@@ -86,7 +89,7 @@ user = JSON.parse(localStorage.getItem('currentUser'));
 
     GetPlanPosteReferenceByIdReferenceTable(planPosteReferenceFilter:PlanPosteReferenceFilter) {
         return this.http
-            .get(`${this.baseUrl}plan-poste-references/users/${this.user.id}/plan-postes/${planPosteReferenceFilter.idPlanPoste}/reference-table/${planPosteReferenceFilter.idReferenceTable}/postes/${planPosteReferenceFilter.idPoste}/combo-reference`)
+            .get(`${this.baseUrl}plan-poste-references/user-groups/${this.userForGroup.idUserGroup}/plan-postes/${planPosteReferenceFilter.idPlanPoste}/reference-table/${planPosteReferenceFilter.idReferenceTable}/postes/${planPosteReferenceFilter.idPoste}/combo-reference`)
             .map(response => <ComboMultiple<ISelectGroup>>response);
 
     }

@@ -235,6 +235,7 @@ namespace Budget.DATA.Repositories
                     && x.IdMovement == accountStatement.IdMovement
                     && x.IdOperation == accountStatement.IdOperation
                     && x.IdOperationMethod == accountStatement.IdOperationMethod
+                    && x.IdOperationDetail == accountStatement.IdOperationDetail
                     && x.DateIntegration == accountStatement.DateIntegration
                     && x.LabelOperation == accountStatement.LabelOperation
                     && x.AmountOperation == accountStatement.AmountOperation).FirstOrDefault();

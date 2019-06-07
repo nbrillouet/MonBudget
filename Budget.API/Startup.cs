@@ -42,14 +42,17 @@ namespace Budget.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var DefaultConnexion = CryptoHelper.Encrypt("Server = PS10; Database = XmlToSwift_Demo; Trusted_Connection = True; MultipleActiveResultSets = true");
+            //var DefaultConnexion = CryptoHelper.Encrypt("Server = PS10; Database = XmlToSwift_Demo; Trusted_Connection = True; MultipleActiveResultSets = true");
             //var DefaultConnexion = CryptoHelper.Encrypt("Server = nl1-wsq1.a2hosting.com; Database = monbudge_budget; user=monbudge_budget; password=9A3xit4m?");
+            //var DefaultConnexion = CryptoHelper.Encrypt(@"Server = DESKTOP-0M47AE3\SQLEXPRESS; Database = Budget; Trusted_Connection = True; MultipleActiveResultSets = true");
+
             //var CloudName = CryptoHelper.Encrypt("killmeagain77"); 
             //var ApiKey = CryptoHelper.Encrypt("867256855236325");
             //var ApiSecret = CryptoHelper.Encrypt("8XeXYsOBLHKvSn0FcvaLuTw862Y");
+            //var Token = CryptoHelper.Encrypt("some_big_key_value_here_secret");
 
             //var decrypt = CryptoHelper.Decrypt(Configuration.GetConnectionString("DefaultConnexion"));
-
+            var defaultconnection = CryptoHelper.Decrypt(Configuration.GetConnectionString("DefaultConnexion"));
             services.AddDbContext<BudgetContext>(options =>
                 options.UseSqlServer(CryptoHelper.Decrypt(Configuration.GetConnectionString("DefaultConnexion"))));
 

@@ -6,11 +6,11 @@
 
     <!-- CENTER -->
     <div class="center">
-        <div style="height:15px;text-align:center;cursor:pointer;" class="test accent" (click)="onHeaderPanelClick()">
+        <!-- <div style="height:15px;text-align:center;cursor:pointer;" class="test accent" (click)="onHeaderPanelClick()">
             <mat-icon style="font-size:20px;margin-top:-2px;">{{headerPanelIcon}}</mat-icon>
-        </div>
+        </div> -->
         <!-- HEADER -->
-        <div *ngIf="headerPanelIsVisible" class="header-2-background accent p-12 pb-0 pt-6"   >
+        <div *ngIf="!fullscreen" class="header-2-background accent p-12 pb-0 pt-6"   >
             <div fxLayout="row" fxLayoutAlign="space-between start" >
                 <div class="left-side" fxLayout="row" *ngIf="loading">
                     <div fxLayout="row" fxLayoutAlign="start center">

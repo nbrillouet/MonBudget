@@ -27,10 +27,10 @@ export class AccountStatementMainComponent implements OnInit {
 
 filterAs: FilterAsTable;
 selectedIndex: number = 0;
-
-headerPanelIsVisible: boolean = false;
-headerPanelIcon:string;
-fuseConfig:any;
+fullscreen: boolean;
+// headerPanelIsVisible: boolean = false;
+// headerPanelIcon:string;
+// fuseConfig:any;
 // idAccount: number;
 // idTab: number;
 
@@ -63,19 +63,19 @@ fuseConfig:any;
             this._store.dispatch(new LoadAsChartEvolution(this.filterAs.selected));
 
           }
-      });
+    });
 
-      //prendre en compte le fuseConfig
-      this._fuseConfigService.config
-      .subscribe((config) => {
-          // Update the stored config
-          this.fuseConfig = config;
-      });
+        // Subscribe to the config changes
+    this._fuseConfigService.config
+      // .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((settings) => {
+          this.fullscreen = settings.layout.toolbar.fullscreen;
+    });
 
   }
 
   ngOnInit() {
-    this.onHeaderPanelClick();
+    // this.onHeaderPanelClick();
   }
 
   onTabClick($event){
@@ -83,12 +83,12 @@ fuseConfig:any;
     this.selectedIndex=$event.index;
   }
 
-  onHeaderPanelClick() {
-    this.headerPanelIsVisible = this.headerPanelIsVisible ? false : true;
-    this.headerPanelIcon = this.headerPanelIsVisible ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
-    this.fuseConfig.layout.toolbar.hidden=!this.headerPanelIsVisible;
-    this._fuseConfigService.setConfig(this.fuseConfig);
+  // onHeaderPanelClick() {
+  //   this.headerPanelIsVisible = this.headerPanelIsVisible ? false : true;
+  //   this.headerPanelIcon = this.headerPanelIsVisible ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
+  //   this.fuseConfig.layout.toolbar.hidden=!this.headerPanelIsVisible;
+  //   this._fuseConfigService.setConfig(this.fuseConfig);
 
-  }
+  // }
 
 }

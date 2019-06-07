@@ -24,6 +24,7 @@ import { IUser } from 'app/main/_models/user.model';
 import { OperationTransverse } from 'app/main/_models/referential/operation-transverse.model';
 import * as moment from 'moment';
 import { FilterOperation } from 'app/main/_models/filters/operation.filter';
+import { FuseConfigService } from '@fuse/services/config.service';
 
 @Component({
   selector: 'asif-detail',
@@ -46,6 +47,7 @@ operationTransverseAddForm: FormGroup;
 isNewOperationTemplate: boolean;
 isNewOperationTransverseTemplate: boolean;
 firstLoad: boolean=true;
+fullscreen: boolean;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -55,7 +57,8 @@ firstLoad: boolean=true;
     private _store: Store,
     private _referentialService: ReferentialService,
     private _notificationService: NotificationsService,
-    private _asifService: AsifService
+    private _asifService: AsifService,
+    private _fuseConfigService: FuseConfigService
   ) {
 
     this.asifTableFilter$.subscribe(asifTableFilter=>{
@@ -73,6 +76,14 @@ firstLoad: boolean=true;
         }
         this.formLoaded=true;
       }
+    });
+
+    // Subscribe to the config changes
+    this._fuseConfigService.config
+    // .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((settings) => {
+        this.fullscreen = settings.layout.toolbar.fullscreen;
+        // console.log('fullscreen-detail',settings);
     });
     
    }

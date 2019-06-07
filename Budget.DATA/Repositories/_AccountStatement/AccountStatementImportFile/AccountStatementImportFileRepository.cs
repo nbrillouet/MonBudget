@@ -369,11 +369,11 @@ namespace Budget.DATA.Repositories
                     && x.AmountOperation == item.AmountOperation)
                 .FirstOrDefault();
 
-            if (duplicate != null)
-            {
-                item.IsDuplicated = true;
-            }
-
+            //if (duplicate != null)
+            //{
+            //    item.IsDuplicated = true;
+            //}
+            item.IsDuplicated = duplicate!=null;
 
             //determination du State
             if (item.IdOperation != item.UnknownId.IdOperation && item.IdOperationMethod != item.UnknownId.IdOperationMethod && item.IdOperationDetail!= item.UnknownId.IdOperationDetail)

@@ -59,9 +59,13 @@ export class PlanPosteFrequencyForDetail {
 
 export class Frequency {
     id: number;
-    monthNumber: number;
-    monthLabel: string;
-    monthLabelShort: string;
+    number: string;
+    labelLong: string;
+    labelShort: string;
+    languageCode: string;
+    // monthNumber: number;
+    // monthLabel: string;
+    // monthLabelShort: string;
 }
 
 

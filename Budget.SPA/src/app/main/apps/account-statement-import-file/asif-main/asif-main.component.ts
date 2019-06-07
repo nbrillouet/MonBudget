@@ -25,9 +25,10 @@ export class AsifMainComponent implements OnInit {
   filterAsif: FilterAsifTable;
   loading: boolean;
 
-  headerPanelIsVisible: boolean = false;
-  headerPanelIcon:string;
-  fuseConfig:any;
+  // headerPanelIsVisible: boolean = false;
+  // headerPanelIcon: string;
+  fullscreen: boolean;
+  // fuseConfig: any;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -48,14 +49,21 @@ export class AsifMainComponent implements OnInit {
       this.filterAsif = asifTableFilter.filters;
     });
 
-    //prendre en compte le fuseConfig
+    // Subscribe to the config changes
     this._fuseConfigService.config
-    .subscribe((config) => {
-        // Update the stored config
-        this.fuseConfig = config;
+    // .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe((settings) => {
+        this.fullscreen = settings.layout.toolbar.fullscreen;
+        // console.log('fullscreen-main',this.fullscreen);
     });
+    // //prendre en compte le fuseConfig
+    // this._fuseConfigService.config
+    // .subscribe((config) => {
+    //     // Update the stored config
+    //     this.fuseConfig = config;
+    // });
 
-    this.onHeaderPanelClick();
+    // this.onHeaderPanelClick();
   }
 
   AccountChange($event) {
@@ -81,13 +89,13 @@ export class AsifMainComponent implements OnInit {
 
   }
 
-  onHeaderPanelClick() {
-    this.headerPanelIsVisible = this.headerPanelIsVisible ? false : true;
-    this.headerPanelIcon = this.headerPanelIsVisible ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
-    this.fuseConfig.layout.toolbar.hidden=!this.headerPanelIsVisible;
-    this._fuseConfigService.setConfig(this.fuseConfig);
+  // onHeaderPanelClick() {
+  //   this.headerPanelIsVisible = this.headerPanelIsVisible ? false : true;
+  //   this.headerPanelIcon = this.headerPanelIsVisible ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
+  //   this.fuseConfig.layout.toolbar.hidden=!this.headerPanelIsVisible;
+  //   this._fuseConfigService.setConfig(this.fuseConfig);
 
-  }
+  // }
  
 
 }

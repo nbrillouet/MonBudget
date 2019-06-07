@@ -15,6 +15,7 @@ export class FuseModule
 
     static forRoot(config): ModuleWithProviders
     {
+        console.log('root-config', config);
         return {
             ngModule : FuseModule,
             providers: [

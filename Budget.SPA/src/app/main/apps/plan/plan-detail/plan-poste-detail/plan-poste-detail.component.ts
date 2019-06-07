@@ -54,6 +54,7 @@ export class PlanPosteDetailComponent implements OnInit  {
       if(x.dataInfos.loadingInfo.loaded==true)
       {
         this.data = x.dataInfos.datas;
+        console.log('this.data',this.data);
         this.description = this.data.label;
     
         this.chartDataset = this.getChartDatas('Montant Prévisionnel',this.data.planPosteFrequencies.map(x=>x.previewAmount),this.data.planPosteFrequencies.map(x=>x.frequency))
@@ -111,9 +112,9 @@ export class PlanPosteDetailComponent implements OnInit  {
   //recupere les valeurs cliquer dans le chart
   getChartInfo( $chartValue: ChartValue ) {
     this.chartValue = $chartValue;
-
+    console.log('this.data.planPosteFrequencies',this.data.planPosteFrequencies);
     this.form.controls['amount'].setValue(this.chartValue.yValue);
-    this.amountLabel = this.data.planPosteFrequencies.filter(x=>x.frequency.monthLabelShort==$chartValue.xValue)[0].frequency.monthLabel;
+    this.amountLabel = this.data.planPosteFrequencies.filter(x=>x.frequency.labelShort==$chartValue.xValue)[0].frequency.labelLong;
   }
 
   getChartDatas(a,b,c) {
@@ -122,12 +123,12 @@ export class PlanPosteDetailComponent implements OnInit  {
     {
       let select = <ISelect> {
         id:item.id,
-        label:item.monthLabelShort
+        label:item.labelShort
       }
       labels.push(select);
 
     }
- 
+    console.log('labels',labels);
     return  <BaseChart>({
           
       dataSets: [
@@ -147,14 +148,18 @@ export class PlanPosteDetailComponent implements OnInit  {
   validatePreviewAmount() {
     this.chartValue.yValue=this.form.controls['amount'].value;
     
-    let planPosteFrequency = this.data.planPosteFrequencies.filter(x=>x.frequency.monthLabelShort==this.chartValue.xValue);
-    let index = this.data.planPosteFrequencies.findIndex(x=>x.frequency.monthLabelShort==planPosteFrequency[0].frequency.monthLabelShort);
+    let planPosteFrequency = this.data.planPosteFrequencies.filter(x=>x.frequency.labelShort==this.chartValue.xValue);
+    let index = this.data.planPosteFrequencies.findIndex(x=>x.frequency.labelShort==planPosteFrequency[0].frequency.labelShort);
     //mise à jour des données du data
     this.data.planPosteFrequencies[index].previewAmount=this.chartValue.yValue;
     //mise à jour des données du charDataset
     this.chartDataset.dataSets[0].data[index]=+this.chartValue.yValue;
     
+    // console.log('this.data.planPosteFrequencies.map(x=>x.frequency)',this.data.planPosteFrequencies.map(x=>x.frequency));
+
     let toto = this.chartDataset.dataSets[0].data;
+
+    // console.log('toto',toto);
     this.chartDataset = this.getChartDatas('Montant Prévisionnel',toto,this.data.planPosteFrequencies.map(x=>x.frequency));
 
   
@@ -189,7 +194,7 @@ export class PlanPosteDetailComponent implements OnInit  {
   }
 
   onReferenceChange(value) {
-    
+    console.log('referenceChange',value);
     let planPosteReferenceFilter=<PlanPosteReferenceFilter> {
       idPlanPoste : this.data.id,
       idPoste: this.data.poste.id,

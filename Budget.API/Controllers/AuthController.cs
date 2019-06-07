@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using Budget.MODEL.Dto;
+using Budget.HELPER;
 
 namespace Budget.API.Controllers
 {
@@ -72,6 +73,7 @@ namespace Budget.API.Controllers
             }
             //generate token
             var tokenHandler = new JwtSecurityTokenHandler();
+            //var key = Encoding.ASCII.GetBytes(CryptoHelper.Decrypt(_config.GetSection("AppSettings:Token").Value));
             var key = Encoding.ASCII.GetBytes(_config.GetSection("AppSettings:Token").Value);
             var tokenDescriptor = new SecurityTokenDescriptor
             {

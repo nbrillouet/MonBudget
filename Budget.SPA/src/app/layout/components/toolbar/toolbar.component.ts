@@ -29,7 +29,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
     horizontalNavbar: boolean;
     rightNavbar: boolean;
     hiddenNavbar: boolean;
-    fullScreen: boolean;
+    fullscreen: boolean;
     fuseConfig: any;
     languages: any;
     navigation: any;
@@ -55,6 +55,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
         private router: Router
     )
     {
+        console.log('load toolbar');
         // Set the defaults
         this.userStatusOptions = [
             {
@@ -120,7 +121,9 @@ export class ToolbarComponent implements OnInit, OnDestroy
                 this.horizontalNavbar = settings.layout.navbar.position === 'top';
                 this.rightNavbar = settings.layout.navbar.position === 'right';
                 this.hiddenNavbar = settings.layout.navbar.hidden === true;
-                this.fullScreen = settings.layout.toolbar.fullScreen;
+                this.fullscreen = this.fuseConfig.layout.toolbar.fullscreen; // this.fullScreen==true ? true : settings.layout.toolbar.fullScreen;
+                console.log('toolbar-fullscreen',this.fuseConfig);
+            
             });
 
         // Set the selected language from default languages
@@ -132,6 +135,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
      */
     ngOnDestroy(): void
     {
+        console.log('destroy-toolbar');
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
@@ -153,7 +157,8 @@ export class ToolbarComponent implements OnInit, OnDestroy
 
     toggleFullscreen(): void
     {
-        this.fuseConfig.layout.toolbar.fullScreen=!this.fullScreen;
+
+        this.fuseConfig.layout.toolbar.fullscreen=!this.fullscreen;
         this._fuseConfigService.setConfig(this.fuseConfig);
 
     }

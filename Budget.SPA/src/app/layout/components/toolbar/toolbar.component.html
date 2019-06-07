@@ -1,4 +1,4 @@
-<mat-toolbar *ngIf="!fullScreen"  class="p-0 mat-elevation-z1">
+<mat-toolbar *ngIf="!fullscreen"  class="p-0 mat-elevation-z1">
 
     <div fxFlex fxFill fxLayout="row" fxLayoutAlign="start center">
 
@@ -87,19 +87,10 @@
                 class="quick-panel-toggle-button"
                 (click)="toggleFullscreen()"
                 aria-label="Plein écran">
-                <!-- <mat-icon *ngIf="fullScreen">fullscreen_exit</mat-icon> -->
-                <mat-icon *ngIf="!fullScreen">fullscreen</mat-icon>
+                <mat-icon *ngIf="!fullscreen">fullscreen</mat-icon>
             </button>
 
-            <!-- <div class="toolbar-separator" *ngIf="!hiddenNavbar && rightNavbar" fxHide fxShow.gt-xs></div> -->
 
-            <!-- <button 
-                mat-icon-button 
-                class="navbar-toggle-button"
-                (click)="toggleSidebarOpen('navbar')" fxHide.gt-md>
-                <mat-icon *ngIf="fullScreen">fullScreen_exit</mat-icon>
-                <mat-icon *ngIf="!fullScreen">fullScreen</mat-icon>
-            </button> -->
 
         </div>
 
@@ -107,7 +98,7 @@
 
 </mat-toolbar>
 
-<div *ngIf="fullScreen" class="fullscreen-exit">
+<div *ngIf="fullscreen" class="fullscreen-exit">
     <button 
         mat-icon-button
         (click)="toggleFullscreen()"

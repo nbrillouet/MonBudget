@@ -106,6 +106,7 @@ depenseVariable: PlanPoste;
     }
 
     save({ value, valid }: { value: Plan, valid: boolean }) {
+      console.log('bind');
       this.bindPlan(value);   
 
       this._planService.savePlanDetail(this.planDetail)

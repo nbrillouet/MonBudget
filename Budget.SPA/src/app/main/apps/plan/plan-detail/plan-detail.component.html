@@ -78,13 +78,13 @@
                                                 required>
                                     </mat-form-field>
 
-                                  <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-                                      <mat-label>Année</mat-label>
-                                      <input matInput placeholder="Année impliquée"
-                                              name="year"
-                                              formControlName="year"
-                                              required>
-                                  </mat-form-field>
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                        <mat-label>Année</mat-label>
+                                        <input matInput placeholder="Année impliquée"
+                                                name="year"
+                                                formControlName="year"
+                                                required>
+                                    </mat-form-field>
 
                                   <chip-autocomplete [placeHolder]="this.planDetailUserPlaceHolder" [datas]="this.planDetail.users" (getSelectedListChange)="updateSelectedUsers($event)"></chip-autocomplete>
                                   

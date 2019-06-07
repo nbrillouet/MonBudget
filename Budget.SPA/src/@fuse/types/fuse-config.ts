@@ -18,7 +18,7 @@ export interface FuseConfig
             background: string,
             hidden: boolean,
             position: 'above' | 'above-static' | 'above-fixed' | 'below' | 'below-static' | 'below-fixed',
-            fullScreen: boolean
+            fullscreen: boolean 
         }
         footer: {
             customBackgroundColor: boolean,

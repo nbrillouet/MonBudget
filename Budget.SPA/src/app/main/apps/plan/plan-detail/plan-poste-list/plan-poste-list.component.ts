@@ -31,7 +31,7 @@ export class PlanPosteListComponent implements OnInit {
     private _store: Store,
     private _notificationService: NotificationsService
     ) {
-
+ 
    }
 
   ngOnInit() {

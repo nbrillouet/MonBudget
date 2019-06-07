@@ -1,5 +1,13 @@
 @import 'src/@fuse/scss/fuse';
 
+.example-container {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto !important;
+    max-height:calc(100% - 50px) !important;
+  }
+
+
 .header-1-background {
     background-color: #9B9B9B;
     background: url('/assets/images/backgrounds/bck_1.png') no-repeat;

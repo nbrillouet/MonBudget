@@ -76,7 +76,7 @@ namespace Budget.API.Controllers
 
 
 
-        [HttpPost("plan-details/save")]
+        [HttpPost("plans/plan-details/save")]
         public IActionResult SavePlanDetail([FromBody] PlanForDetailDto planForDetailDto)
         {
             try
@@ -117,10 +117,10 @@ namespace Budget.API.Controllers
             return Ok(_planPosteDetailService.GetForDetailById(idUser, id, idPlan, idPoste));
         }
 
-        [HttpGet("plan-poste-references/users/{idUser}/plan-postes/{idPlanPoste}/reference-table/{idReferenceTable}/postes/{idPoste}/combo-reference")]
-        public IActionResult GetPlanPosteReferenceDetail(int idUser,int idPlanPoste, int idReferenceTable, int idPoste)
+        [HttpGet("plan-poste-references/user-groups/{idUserGroup}/plan-postes/{idPlanPoste}/reference-table/{idReferenceTable}/postes/{idPoste}/combo-reference")]
+        public IActionResult GetPlanPosteReferenceDetail(int idUserGroup, int idPlanPoste, int idReferenceTable, int idPoste)
         {
-            return Ok(_planPosteReferenceService.GetListForComboByIdPlanPoste(idUser, idPlanPoste, idReferenceTable, idPoste));
+            return Ok(_planPosteReferenceService.GetListForComboByIdPlanPoste(idUserGroup, idPlanPoste, idReferenceTable, idPoste));
         }
 
         [HttpPost("plans/{idPlan}/plan-tracking")]

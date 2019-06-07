@@ -46,7 +46,7 @@ export class OperationTypeFamilyComponent implements OnInit {
  
   constructor(
     private _store: Store,
-    private dialog: MatDialog,
+    private _dialog: MatDialog,
     private _router: Router,
     private _otfService: OtfService,
     private _notificationService: NotificationsService
@@ -109,7 +109,7 @@ export class OperationTypeFamilyComponent implements OnInit {
   }
 
   delete(data) {
-    this.confirmDialogRef = this.dialog.open(FuseConfirmDialogComponent, {
+    this.confirmDialogRef = this._dialog.open(FuseConfirmDialogComponent, {
       disableClose: false
     });
 

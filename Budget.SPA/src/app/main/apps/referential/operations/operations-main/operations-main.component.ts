@@ -42,7 +42,7 @@ constructor(
   this._fuseConfigService.config
   // .pipe(takeUntil(this._unsubscribeAll))
   .subscribe((settings) => {
-      this.fullscreen = settings.layout.toolbar.fullScreen;
+      this.fullscreen = settings.layout.toolbar.fullscreen;
   });
 
   // //prendre en compte le fuseConfig
