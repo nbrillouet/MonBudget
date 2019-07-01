@@ -90,7 +90,7 @@ namespace Budget.SERVICE
 
             asDetailDto.OperationTransverse = new ComboMultiple<SelectDto>
             {
-                List = _referentialService.OperationTransverseService.GetSelectList(filter.User.IdUserGroup, EnumSelectType.Empty),
+                List = _referentialService.OperationTransverseService.GetSelectList(filter.User.Id, EnumSelectType.Empty),
                 ListSelected = _operationTransverseAsService.GetOperationTransverseSelectList(filter.IdAs.Value, EnumSelectType.Empty)
             };
 

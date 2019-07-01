@@ -1,6 +1,6 @@
 import { PlanPoste } from "../plan.model";
 import { ComboMultiple } from "../generics/combo.model";
-import { ISelect } from "../generics/select.model";
+import { ISelect, ISelectGroup } from "../generics/select.model";
 
 export class Plan {
     id : number;
@@ -17,5 +17,6 @@ export class PlanTable extends Plan {
 export class PlanDetail {
     plan: Plan;
     users: ComboMultiple<ISelect>;
+    accounts: ComboMultiple<ISelectGroup>;
     planPostes: PlanPoste[];
 }

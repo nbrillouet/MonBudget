@@ -12,10 +12,11 @@ namespace Budget.DATA.Repositories
     public interface IUserRepository : IBaseRepository<User>
     {
         PagedList<User> GetUserTable(FilterUserTableSelected filter);
+        List<User> GetByIdUserGroup(int idUserGroup);
 
         User GetForDetailById(int id);
 
-        List<BankAgency> GetBankAgencies(int idUser);
+        
     }
 
 }

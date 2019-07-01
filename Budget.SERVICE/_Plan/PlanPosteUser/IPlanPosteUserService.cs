@@ -18,6 +18,6 @@ namespace Budget.SERVICE
         void Update(PlanPosteUser planPosteUser);
         void Delete(PlanPosteUser planPosteUser);
         void DeleteByIdPlanPoste(int idPlanPoste);
-        void SavePlanUserByIdPlan(int idPlan, List<SelectDto> selectUsers);
+        void Save(int idPlan, List<SelectDto> selectUsers);
     }
 }

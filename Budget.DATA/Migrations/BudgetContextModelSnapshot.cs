@@ -15,7 +15,7 @@ namespace Budget.DATA.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -1031,6 +1031,28 @@ namespace Budget.DATA.Migrations
                     b.ToTable("PLAN","plan");
                 });
 
+            modelBuilder.Entity("Budget.MODEL.Database.PlanAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("IdAccount")
+                        .HasColumnName("ID_ACCOUNT");
+
+                    b.Property<int>("IdPlan")
+                        .HasColumnName("ID_PLAN");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdAccount");
+
+                    b.HasIndex("IdPlan");
+
+                    b.ToTable("PLAN_ACCOUNT","plan");
+                });
+
             modelBuilder.Entity("Budget.MODEL.Database.PlanPoste", b =>
                 {
                     b.Property<int>("Id")
@@ -1729,6 +1751,19 @@ namespace Budget.DATA.Migrations
                     b.HasOne("Budget.MODEL.User", "User")
                         .WithMany()
                         .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.PlanAccount", b =>
+                {
+                    b.HasOne("Budget.MODEL.Database.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("IdAccount")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.Plan", "Plan")
+                        .WithMany()
+                        .HasForeignKey("IdPlan")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

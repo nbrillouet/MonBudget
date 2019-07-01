@@ -16,9 +16,10 @@ namespace Budget.SERVICE
         UserForDetailDto GetForDetailById(int id);
         //Task<List<User>> GetAllAsync();
         List<User> GetAll();
+        List<User> GetByIdUserGroup(int idUserGroup);
         void Update(UserForDetailDto entity);
         void Update(User entity);
-        List<BankAgencyWithAccountsDto> GetBankAgencies(int idUser);
+        
 
     }
 }

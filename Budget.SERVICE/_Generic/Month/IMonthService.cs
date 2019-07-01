@@ -10,6 +10,8 @@ namespace Budget.SERVICE
     {
         List<SelectDto> GetSelectAll();
         List<Month> GetAll();
+        List<Month> GetAnnual();
+
     }
 
 }

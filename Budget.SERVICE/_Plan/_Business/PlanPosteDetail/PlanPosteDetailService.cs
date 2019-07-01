@@ -20,7 +20,7 @@ namespace Budget.SERVICE
         private readonly IPlanPosteFrequencyService _planPosteFrequencyService;
         private readonly IMonthService _frequencyService;
         private readonly IAccountStatementPlanService _accountStatementPlanService;
-
+        private readonly IPlanAccountService _planAccountService;
 
         public PlanPosteDetailService(
             IMapper mapper,
@@ -31,7 +31,8 @@ namespace Budget.SERVICE
             IPlanPosteReferenceService planPosteReferenceService,
             IPlanPosteFrequencyService planPosteFrequencyService,
             IMonthService frequencyService,
-            IAccountStatementPlanService accountStatementPlanService
+            IAccountStatementPlanService accountStatementPlanService,
+            IPlanAccountService planAccountService
 
             )
         {
@@ -44,11 +45,12 @@ namespace Budget.SERVICE
             _planPosteFrequencyService = planPosteFrequencyService;
             _frequencyService = frequencyService;
             _accountStatementPlanService = accountStatementPlanService;
+            _planAccountService = planAccountService;
         }
 
-        public PlanPosteForDetailDto GetForDetailById(int idUser, int id)
+        public PlanPosteForDetailDto GetForDetailById(int idUserGroup, int idPlanPoste)
         {
-            var planPoste = _planPosteService.GetById(id);
+            var planPoste = _planPosteService.GetById(idPlanPoste);
 
             PlanPosteForDetailDto planPosteForDetailDto = _mapper.Map<PlanPosteForDetailDto>(planPoste);
             planPosteForDetailDto.Poste = _mapper.Map<SelectDto>(planPoste.Poste);
@@ -57,18 +59,19 @@ namespace Budget.SERVICE
             planPosteForDetailDto.ReferenceTable.List = _mapper.Map<List<SelectDto>>(referenceTableList);
             planPosteForDetailDto.ReferenceTable.Selected =  _mapper.Map<SelectDto>(planPoste.ReferenceTable);
 
+
+
             planPosteForDetailDto.PlanPosteUser = _planPosteUserService.GetByIdPlanPoste(planPoste.Id);
 
-            planPosteForDetailDto.PlanPosteReference = _planPosteReferenceService.GetListForComboByIdPlanPoste(idUser, planPoste.Id, planPoste.ReferenceTable.Id, planPoste.Poste.Id);
+            planPosteForDetailDto.PlanPosteReference = _planPosteReferenceService.GetListForComboByIdPlanPoste(idUserGroup, planPoste.Id, planPoste.ReferenceTable.Id, planPoste.Poste.Id);
 
             planPosteForDetailDto.PlanPosteFrequencies = _planPosteFrequencyService.GetByIdPlanPoste(planPoste.Id);
 
-            //planPosteForDetailDto.Frequencies = _frequencyService.GetSelectAll();
 
             return planPosteForDetailDto;
         }
 
-        public PlanPosteForDetailDto GetForDetailById(int idUser, int id, int idPlan, int idPoste)
+        public PlanPosteForDetailDto GetForDetailById(int idUserGroup, int idPlan, int idPoste)
         {
             PlanPosteForDetailDto planPosteForDetailDto = new PlanPosteForDetailDto();
             planPosteForDetailDto.IdPlan = idPlan;
@@ -83,7 +86,7 @@ namespace Budget.SERVICE
             
             planPosteForDetailDto.PlanPosteReference = new ComboMultiple<SelectGroupDto>();
 
-            planPosteForDetailDto.PlanPosteFrequencies = _planPosteFrequencyService.InitForCreation();
+            planPosteForDetailDto.PlanPosteFrequencies = _planPosteFrequencyService.InitForCreation(false);
 
             return planPosteForDetailDto;
         }
@@ -118,9 +121,9 @@ namespace Budget.SERVICE
                     _planPosteUserService.Create(ppu);
                 }
 
-                UpdatePlanPosteReference(planPoste.Id, planPosteForDetailDto.ReferenceTable.Selected.Id, planPosteForDetailDto.PlanPosteReference.ListSelected);
+                //UpdatePlanPosteReference(planPoste.Id, planPosteForDetailDto.ReferenceTable.Selected.Id, planPosteForDetailDto.PlanPosteReference.ListSelected);
 
-                UpdatePlanPosteFrequency(planPoste.Id, planPosteForDetailDto.PlanPosteFrequencies);
+                //UpdatePlanPosteFrequency(planPoste.Id, planPosteForDetailDto.PlanPosteFrequencies);
 
             }
             else
@@ -142,9 +145,12 @@ namespace Budget.SERVICE
                     _planPosteUserService.Update(ppu);
                 }
 
-                UpdatePlanPosteReference(planPoste.Id, planPosteForDetailDto.ReferenceTable.Selected.Id, planPosteForDetailDto.PlanPosteReference.ListSelected);
-                UpdatePlanPosteFrequency(planPoste.Id, planPosteForDetailDto.PlanPosteFrequencies);
+
             }
+
+            //UpdatePlanAccount(planPosteForDetailDto.IdPlan, planPosteForDetailDto.Accounts.ListSelected);
+            UpdatePlanPosteReference(planPoste.Id, planPosteForDetailDto.ReferenceTable.Selected.Id, planPosteForDetailDto.PlanPosteReference.ListSelected);
+            UpdatePlanPosteFrequency(planPoste.Id, planPosteForDetailDto.PlanPosteFrequencies);
 
             // MAJ accountStatementPlan: A faire apres enregistrement 
             _accountStatementPlanService.SaveByIdPlan(planPoste.IdPlan);

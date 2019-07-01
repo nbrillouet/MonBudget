@@ -35,6 +35,12 @@ namespace Budget.SERVICE
             return months;
         }
 
+        public List<Month> GetAnnual()
+        {
+            List<Month> months = _monthRepository.GetAnnual();
+            return months;
+        }
+
     }
 
 

@@ -162,6 +162,9 @@ namespace Budget.API
             services.AddScoped<IPlanUserRepository, PlanUserRepository>();
             services.AddScoped<IPlanUserService, PlanUserService>();
 
+            services.AddScoped<IPlanAccountService, PlanAccountService>();
+            services.AddScoped<IPlanAccountRepository, PlanAccountRepository>();
+
             services.AddScoped<IAccountStatementPlanRepository, AccountStatementPlanRepository>();
             services.AddScoped<IAccountStatementPlanService, AccountStatementPlanService>();
 

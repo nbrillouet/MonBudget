@@ -1,4 +1,5 @@
-﻿using Budget.MODEL.Database;
+﻿using Budget.HELPER;
+using Budget.MODEL.Database;
 using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
@@ -20,13 +21,27 @@ namespace Budget.DATA.Repositories
                 .AsQueryable();
 
             planGlobals = planGlobals.Where(x => x.IdPlan == filter.IdPlan);
-
+            
+            //planGlobals = planGlobals.Where(x => x.Month.Value == 13);
             if (filter.MonthYear != null)
             {
-                planGlobals = planGlobals.Where(x => x.Month==filter.MonthYear.Month.Id  
-                    && x.Year == filter.MonthYear.Year);
+                //ajout systématique du mois 13 (prevision annuelle)
+                planGlobals = planGlobals
+                    .Where(
+                        x => x.Month!=null
+                        &&
+                        (
+                            x.Month == 13 
+                                && x.DateIntegration <= DateHelper
+                                .GetLastDayOfMonth(Convert.ToDateTime($"01/{filter.MonthYear.Month.Id}/{filter.MonthYear.Year}"))
+                        )
+                        ||
+                        (x.Month == filter.MonthYear.Month.Id && x.Year == filter.MonthYear.Year)
+                    );
+                    //.Where(x => x.Month == 13 || (x.Month==filter.MonthYear.Month.Id  
+                    //&& x.Year == filter.MonthYear.Year));
             }
-
+            
             var results = planGlobals.ToList();
             return results;
         }

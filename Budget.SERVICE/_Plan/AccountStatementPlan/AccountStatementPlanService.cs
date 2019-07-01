@@ -12,23 +12,23 @@ namespace Budget.SERVICE
     public class AccountStatementPlanService : IAccountStatementPlanService
     {
         private readonly IMapper _mapper;
-        private readonly IAccountStatementPlanRepository _vAccountStatementPlanRepository;
+        private readonly IAccountStatementPlanRepository _accountStatementPlanRepository;
         private readonly IVPlanGlobalService _vPlanGlobalService;
         
         public AccountStatementPlanService(
             IMapper mapper,
             IVPlanGlobalService vPlanGlobalService,
-            IAccountStatementPlanRepository vAccountStatementPlanRepository
+            IAccountStatementPlanRepository accountStatementPlanRepository
             )
         {
             _mapper = mapper;
             _vPlanGlobalService = vPlanGlobalService;
-            _vAccountStatementPlanRepository = vAccountStatementPlanRepository;
+            _accountStatementPlanRepository = accountStatementPlanRepository;
         }
 
         public List<AccountStatementPlan> GetByIdPlan(int IdPlan)
         {
-            return _vAccountStatementPlanRepository.GetByIdPlan(IdPlan);
+            return _accountStatementPlanRepository.GetByIdPlan(IdPlan);
         }
 
         public void SaveByIdPlan(int idPlan)
@@ -44,7 +44,7 @@ namespace Budget.SERVICE
                     IdAccountStatement = vPlanGlobal.IdAccountStatement.Value,
                     IdPlan = idPlan
                 };
-                _vAccountStatementPlanRepository.Create(AccountStatementPlan);
+                _accountStatementPlanRepository.Create(AccountStatementPlan);
 
             }
             //List<Int32> idAccountStatementList = vPlanGlobals.Select(x => x.IdAccountStatement.Value).ToList();
@@ -55,11 +55,15 @@ namespace Budget.SERVICE
         public void DeleteByIdPlan(int IdPlan)
         {
             var accountStatementPlans = GetByIdPlan(IdPlan);
+            foreach( var accountStatementPlan in accountStatementPlans)
+            {
+                _accountStatementPlanRepository.Delete(accountStatementPlan);
+            }
         }
 
         public List<SelectColorDto> GetPlansByIdAccountStatement(int IdAccountStatement,int year)
         {
-            var accountStatementPlans = _vAccountStatementPlanRepository.GetPlansByIdAccountStatement(IdAccountStatement,year);
+            var accountStatementPlans = _accountStatementPlanRepository.GetPlansByIdAccountStatement(IdAccountStatement,year);
 
             return _mapper.Map<List<SelectColorDto>>(accountStatementPlans);
         }

@@ -724,4 +724,42 @@ export class MatColors
 
         return false;
     }
+
+    public static getColorByMatColor(matColor: string) {
+        console.log('matColor',matColor);
+        let strColor = matColor.substring(0,matColor.lastIndexOf('-'));
+        let hue = matColor.substring(matColor.lastIndexOf('-')+1);
+        
+        if(matColors[strColor][hue])
+        {
+            return matColors[strColor][hue];
+        }
+        
+        return false;
+        // console.log('strColor',strColor);
+        // console.log('hue',hue);
+        // console.log('toto',color);
+    }
+
+    public static getMatColorByColor(color: string):string {
+        let strColors = ['red','pink','purple','deep-purple','blue','indigo','light-blue','cyan','teal','green','light-green','lime','yellow','amber','orange','deep-orange','brown','grey','blue-grey','fuse-navy','fuse-white','fuse-black'];
+        let hues = ['50','100','200','300','400','500','600','700','800','900','A100','A200','A400','A700'];
+        
+        // console.log('entrance color',color);
+
+        for(var i = 0; i < strColors.length; i++){
+            for(var j = 0; j < hues.length; j++){
+                // console.log(strColors[i] + '-' + hues[j]);
+
+                // console.log('matttt',matColors[strColors[i]][hues[j]]);
+                if(matColors[strColors[i]][hues[j]]==color) {
+                    // console.log('color found',`${strColors[i]}-${hues[j]}`);
+                    return `${strColors[i]}-${hues[j]}`
+                }
+            }
+        }
+      
+        
+        return 'no-color'; // 'fuse-navy-700';
+    }
 }

@@ -51,24 +51,12 @@ namespace Budget.DATA.Repositories
                 .FirstOrDefault();
         }
 
-        public List<BankAgency> GetBankAgencies(int idUser)
+        public List<User> GetByIdUserGroup(int idUserGroup)
         {
-            List<Account> results = Context.UserAccount
-                .Where(x => x.IdUser == idUser)
-                .Select(x => x.Account)
-                .Include(x => x.BankAgency)
-                    .ThenInclude(x=>x.BankSubFamily)
-                    .ThenInclude(x=>x.BankFamily)
-                .Include(x => x.AccountType)
-                .Include(x=>x.UserAccounts)
-                    .ThenInclude(ua=>ua.User)
+            return Context.User
+                .Where(x => x.IdUserGroup == idUserGroup)
+                .OrderBy(x => x.LastName)
                 .ToList();
-
-            var bankAgencies = results.Select(x => x.BankAgency).ToList();
-            var distinctBankAgencies= bankAgencies.GroupBy(x =>x.Id)
-                .Select(x=>x.FirstOrDefault())
-                .ToList();
-            return distinctBankAgencies;
         }
     }
 }

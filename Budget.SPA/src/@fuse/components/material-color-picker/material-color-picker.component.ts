@@ -211,7 +211,7 @@ export class FuseMaterialColorPickerComponent implements ControlValueAccessor
         {
             return;
         }
-
+        console.log('this.selectedPalette',this.selectedPalette);
         // Set the selected color object
         this.selectedColor = {
             palette: this.selectedPalette,

@@ -39,11 +39,17 @@ namespace Budget.SERVICE
             return PlanPosteFrequencies;
         }
 
-        public List<PlanPosteFrequencyForDetailDto> InitForCreation()
+        public List<PlanPosteFrequencyForDetailDto> InitForCreation(bool isAnnualEstimation)
         {
+            
             List<PlanPosteFrequencyForDetailDto> PlanPosteFrequenciesForDetailDto = new List<PlanPosteFrequencyForDetailDto>();
-            List<Month> frequencies = _monthService.GetAll();
-            foreach(var frequency in frequencies)
+            List<Month> frequencies;
+            if (!isAnnualEstimation)
+                frequencies = _monthService.GetAll();
+            else
+                frequencies= _monthService.GetAnnual();
+
+            foreach (var frequency in frequencies)
             {
                 PlanPosteFrequencyForDetailDto planPosteFrequencyForDetailDto = new PlanPosteFrequencyForDetailDto
                 {

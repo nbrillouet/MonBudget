@@ -22,6 +22,7 @@ namespace Budget.API.Controllers
         private readonly IPlanPosteDetailService _planPosteDetailService;
         private readonly IPlanTrackingService _planTrackingService;
         private readonly IPlanUserService _planUserService;
+        private readonly IPlanPosteFrequencyService _planPosteFrequencyService;
 
         public PlanController(
             IPlanService planService,
@@ -29,7 +30,8 @@ namespace Budget.API.Controllers
             IPlanDetailService planDetailService,
             IPlanPosteDetailService planPosteDetailService,
             IPlanTrackingService planTrackingService,
-            IPlanUserService planUserService
+            IPlanUserService planUserService,
+            IPlanPosteFrequencyService planPosteFrequencyService
             )
         {
             _planService = planService;
@@ -38,6 +40,7 @@ namespace Budget.API.Controllers
             _planPosteDetailService = planPosteDetailService;
             _planTrackingService = planTrackingService;
             _planUserService = planUserService;
+            _planPosteFrequencyService = planPosteFrequencyService;
         }
 
         [HttpPost]
@@ -66,10 +69,10 @@ namespace Budget.API.Controllers
             return Ok(plan);
         }
 
-        [HttpGet("plans/{id}/plan-detail")]
-        public IActionResult Get(int id)
+        [HttpGet("user-groups/{idUserGroup}/plans/{idPlan}/plan-detail")]
+        public IActionResult Get(int idPlan,int idUserGroup)
         {
-            var planForDetailDto = _planDetailService.GetForDetail(id);
+            var planForDetailDto = _planDetailService.GetForDetail(idPlan, idUserGroup);
 
             return Ok(planForDetailDto);
         }
@@ -107,14 +110,14 @@ namespace Budget.API.Controllers
             return Ok("SUPPRESSION OK");
         }
 
-        [HttpGet("plan-postes/{id}/Users/{idUser}/plans/{idPlan}/postes/{idPoste}/plan-poste-detail")]
-        public IActionResult GetPlanPosteDetail(int id,int idUser, int idPlan,int idPoste)
+        [HttpGet("plan-postes/{id}/user-groups/{idUserGroup}/plans/{idPlan}/postes/{idPoste}/plan-poste-detail")]
+        public IActionResult GetPlanPosteDetail(int id,int idUserGroup, int idPlan,int idPoste)
         {
             if (id != 0)
             {
-                return Ok(_planPosteDetailService.GetForDetailById(idUser,id));
+                return Ok(_planPosteDetailService.GetForDetailById(idUserGroup,id));
             }
-            return Ok(_planPosteDetailService.GetForDetailById(idUser, id, idPlan, idPoste));
+            return Ok(_planPosteDetailService.GetForDetailById(idUserGroup, idPlan, idPoste));
         }
 
         [HttpGet("plan-poste-references/user-groups/{idUserGroup}/plan-postes/{idPlanPoste}/reference-table/{idReferenceTable}/postes/{idPoste}/combo-reference")]
@@ -141,6 +144,20 @@ namespace Budget.API.Controllers
             return Ok(results);
 
         }
+        
+        [HttpGet("plan-poste-frequencies/plan-postes/{idPlanPoste}/is-annual-estimation/{isAnnualEstimation}")]
+        public IActionResult GetPlanPosteFrequencies(int idPlanPoste,bool isAnnualEstimation)
+        {
+            if(idPlanPoste!=0)
+            {
+                var toto = _planPosteFrequencyService.GetByIdPlanPoste(idPlanPoste);
+                if ((toto.Count == 1 && !isAnnualEstimation) || (toto.Count>1 && isAnnualEstimation))
+                   return Ok(_planPosteFrequencyService.InitForCreation(isAnnualEstimation));
+                else
+                    return Ok(toto);
+            }
+            return Ok(_planPosteFrequencyService.InitForCreation(isAnnualEstimation));
 
+        }
     }
 }

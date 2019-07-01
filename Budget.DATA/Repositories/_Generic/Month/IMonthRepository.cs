@@ -8,6 +8,8 @@ namespace Budget.DATA.Repositories
     public interface IMonthRepository : IBaseRepository<Month>
     {
         List<Month> GetAllByOrder();
+        List<Month> GetAnnual();
+
     }
 
 

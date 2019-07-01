@@ -9,10 +9,11 @@ import { Select, Store } from '@ngxs/store';
 import { PlanDetailFilter } from 'app/main/_models/Filters/plan.filter';
 import { DetailInfo } from 'app/main/_models/generics/detail-info.model';
 import { PlanDetailState } from 'app/main/_ngxs/plan/plan-detail/plan-detail.state';
-import { ChangePlanDetailFilter } from 'app/main/_ngxs/plan/plan-detail/plan-detail.action';
+import { ChangePlanDetailFilter, LoadPlanDetailDatasSuccess } from 'app/main/_ngxs/plan/plan-detail/plan-detail.action';
 import { SelectYear } from 'app/main/_models/generics/select.model';
 import { PlanDetail, Plan } from 'app/main/_models/plan/plan.model';
 import { ClearPlanTableDatas } from 'app/main/_ngxs/plan/plan-list/plan-list.action';
+import { MatColors } from '@fuse/mat-colors';
 
 @Component({
   selector: 'plan-detail',
@@ -27,7 +28,8 @@ export class PlanDetailComponent implements OnInit {
 
 detailInfo: DetailInfo<PlanDetail,PlanDetailFilter>;
 planDetail: PlanDetail;
-planDetailUserPlaceHolder: string = 'utilisateur(s) impliqué(s)';
+firstLoad: boolean = true;
+// planDetailUserPlaceHolder: string = 'utilisateur(s) impliqué(s)';
 pageType: string;
 planForm: FormGroup;
 formLoaded:boolean=false;
@@ -49,16 +51,28 @@ depenseVariable: PlanPoste;
       this.detailInfo$.subscribe(x=> {
         if(x.dataInfos.loadingInfo.loaded==true)
         {
+          console.log('detailInfo',x);
           this._store.dispatch(new ClearPlanTableDatas());
           this.planDetail = x.dataInfos.datas; //this.detailInfo.dataInfos.datas;
-     
+          
           
           this.recetteTab = this.planDetail.planPostes.filter(x=>x.poste.id==1)[0];
           this.depenseFixeTab = this.planDetail.planPostes.filter(x=>x.poste.id==2)[0];
           this.depenseVariable = this.planDetail.planPostes.filter(x=>x.poste.id==3)[0];
 
           this.pageType=this.planDetail.plan.id==0 ? 'new' : 'edit';
-          this.createPlanForm();
+          if(this.firstLoad) {
+            
+            let convertColor = MatColors.getMatColorByColor(this.planDetail.plan.color);
+            if(convertColor!='no-color')
+              this.planDetail.plan.color=convertColor;
+            
+
+            //creation du formulaire
+            this.createPlanForm();
+            this.firstLoad=false;
+          }
+          
 
           this.formLoaded=true;
         }
@@ -79,43 +93,77 @@ depenseVariable: PlanPoste;
     }
 
     createPlanForm() {
-
+      
       this.planForm = this._formBuilder.group({
               id             : [this.planDetail.plan.id],
               label          : [this.planDetail.plan.label],
               year           : [this.planDetail.plan.year],
-              users          : [this.planDetail.users],
+              users          : [this.planDetail.users.listSelected],
+              accounts       : [this.planDetail.accounts.listSelected],
               color          : [this.planDetail.plan.color]
+              // color          : [MatColors.getMatColorByColor('fake')]
           });
+      
+      //trigger changement valeur combo color
+      // this.planForm.get('color').valueChanges.subscribe(val => {
+      //     console.log('change color');
+      //     this.planForm.controls['color'].setValue(val);
+      //     this.planForm.controls['color'].markAsDirty();
+      //     this.planForm.controls['color'].markAsTouched();
+      // });
+      
+
+      this.planForm.valueChanges.subscribe(value=>{
+        // console.log('entry data',value);
+        // let toto = MatColors.getColorByMatColor(value.color);
+        // let titi = MatColors.getMatColorByColor('#78909c');
+
+        // console.log('toto',toto);
+        // console.log('titi',titi);
+        this.planDetail.plan.label=value.label;
+        this.planDetail.plan.year=value.year;
+        this.planDetail.plan.color=value.color;
+        this.planDetail.accounts.listSelected=value.accounts;
+        this.planDetail.users.listSelected=value.users;
+        this._store.dispatch(new LoadPlanDetailDatasSuccess(this.planDetail));
+      });
+    
     }
 
     onColorPickerChange($event) {
-
       this.planDetail.plan.color=$event;
       this.planForm.controls['color'].setValue($event);
       this.planForm.controls['color'].markAsDirty();
       this.planForm.controls['color'].markAsTouched();
     }
 
-    updateSelectedUsers($event) {
-
-      this.planDetail.users.listSelected=$event;
-      this.planForm.controls['users'].markAsDirty();
-      this.planForm.controls['users'].markAsTouched();
-
-    }
+    // updateSelectedUsers($event) {
+    //   this.planDetail.users.listSelected=$event;
+    //   this.planForm.controls['users'].markAsDirty();
+    //   this.planForm.controls['users'].markAsTouched();
+    // }
 
     save({ value, valid }: { value: Plan, valid: boolean }) {
-      console.log('bind');
-      this.bindPlan(value);   
+      //conversion color pour enregistrement
+      this.planDetail.plan.color = MatColors.getColorByMatColor(value.color);
+      
+      console.log('this.planDetail.plan.color',this.planDetail.plan.color);
+      // this.bindPlan(value);   
 
       this._planService.savePlanDetail(this.planDetail)
         .subscribe(idPlan => {
-          this.planForm.reset(this.planDetail);
-          let planDetailFilter = <PlanDetailFilter>{
-            id:idPlan
-          };
-          this._store.dispatch(new ChangePlanDetailFilter(planDetailFilter));
+          console.log('return ok',this.planDetail);
+          this.planDetail.plan.color = MatColors.getMatColorByColor(this.planDetail.plan.color);
+          // this.planForm.reset(this.planDetail);
+          this.createPlanForm();
+
+          // this._store.dispatch(new LoadPlanDetailDatasSuccess(this.planDetail));
+          // let planDetailFilter = <PlanDetailFilter>{
+          //   id:idPlan
+          // };
+          // this._store.dispatch(new ChangePlanDetailFilter(planDetailFilter));
+
+          this._store.dispatch(new LoadPlanDetailDatasSuccess(this.planDetail));
           this._notificationService.success('Sauvegarde réussi', 'Budget enregistré');
         });
         
@@ -124,12 +172,12 @@ depenseVariable: PlanPoste;
         // })
     }
 
-    bindPlan(value: Plan) {
-      this.planDetail.plan.label=value.label;
-      this.planDetail.plan.year=value.year;
-      this.planDetail.plan.color=value.color;
+    // bindPlan(value: Plan) {
+    //   this.planDetail.plan.label=value.label;
+    //   this.planDetail.plan.year=value.year;
+    //   this.planDetail.plan.color=value.color;
    
-    }
+    // }
 
     compareObjects(o1: any, o2: any) {
       if(o1.label == o2.label && o1.id == o2.id )

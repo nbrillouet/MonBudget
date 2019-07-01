@@ -67,7 +67,7 @@ export class PlanPosteListComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width='70%';
-    dialogConfig.height='97%';
+    dialogConfig.height='85%';
     
     let idData = data==0 ? 0 : data.id;
 

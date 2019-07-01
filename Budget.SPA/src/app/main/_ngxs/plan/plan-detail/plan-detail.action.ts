@@ -6,6 +6,7 @@ export const PLAN_DETAIL_FILTER_CHANGE = 'plan-detail-filter-change';
 export const PLAN_DETAIL_CLEAR = 'plan-detail-clear';
 export const PLAN_DETAIL_SAVE = 'plan-detail-save';
 
+
 export class LoadPlanDetailDatas {
     static readonly type = PLAN_DETAIL_LOAD;
  
@@ -24,10 +25,13 @@ export class ChangePlanDetailFilter {
     constructor(public payload: PlanDetailFilter) { }
 }
 
-// export class SavePlanDetail {
-//     static readonly type = PLAN_DETAIL_SAVE;
-//     // constructor(public payload: any) { }
+// export class PlanDetailChangePlanPosteFrequencies {
+//     static readonly type = PLAN_DETAIL_CHANGE_PLAN_POSTE_FREQUENCIES;
+ 
+//     constructor(public payload: number) { }
 // }
+
+
 
 export class ClearPlanDetailDatas {
     static readonly type = PLAN_DETAIL_CLEAR;

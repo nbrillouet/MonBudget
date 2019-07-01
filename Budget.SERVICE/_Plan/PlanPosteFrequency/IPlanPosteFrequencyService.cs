@@ -10,7 +10,7 @@ namespace Budget.SERVICE
     {
         List<PlanPosteFrequency> GetBaseByIdPlanPoste(int idPlanPoste);
         List<PlanPosteFrequencyForDetailDto> GetByIdPlanPoste(int idPlanPoste);
-        List<PlanPosteFrequencyForDetailDto> InitForCreation();
+        List<PlanPosteFrequencyForDetailDto> InitForCreation(bool isAnnualEstimation);
 
         void DeleteByIdPlanPoste(int idPlanPoste);
         void Create(PlanPosteFrequency planPosteFrequency);

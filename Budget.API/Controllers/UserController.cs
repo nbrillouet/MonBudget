@@ -25,6 +25,7 @@ namespace Budget.API.Controllers
     public class UserController : Controller
     {
         private IUserService _userService;
+        private IUserAccountService _userAccountService;
         private readonly IMapper _mapper;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
         private Cloudinary _cloudinary;
@@ -34,7 +35,8 @@ namespace Budget.API.Controllers
             IUserService userService, 
             IMapper mapper,
             IOptions<CloudinarySettings> cloudinaryConfig,
-            IFilterService filterService
+            IFilterService filterService,
+            IUserAccountService userAccountService
             )
         {
             _mapper = mapper;
@@ -48,6 +50,7 @@ namespace Budget.API.Controllers
 
             _cloudinary = new Cloudinary(acc);
             _filterService = filterService;
+            _userAccountService = userAccountService;
         }
 
         [HttpPost]
@@ -187,7 +190,7 @@ namespace Budget.API.Controllers
         [Route("{idUser}/bankAgencies")]
         public IActionResult GetBankAgencies(int idUser)
         {
-            var bankAgencies = _userService.GetBankAgencies(idUser);
+            var bankAgencies = _userAccountService.GetBankAgencies(idUser);
 
             return Ok(bankAgencies);
         }

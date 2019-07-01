@@ -13,7 +13,7 @@ import { PlanListComponent } from "./plan-list/plan-list.component";
 import { PlanSuiviComponent } from "./plan-suivi/plan-suivi.component";
 import { NgxGaugeModule } from 'ngx-gauge';
 import { MonthYearSelectionComponent } from "../web-component/month-year-selection/month-year-selection.component";
-import { FuseWidgetModule } from "@fuse/components";
+import { FuseWidgetModule, FuseMaterialColorPickerModule } from "@fuse/components";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { NgxsModule } from "@ngxs/store";
 import { PlanTableState } from "app/main/_ngxs/plan/plan-list/plan-list.state";
@@ -69,6 +69,7 @@ const routes = [
       WidgetsModule,
       FuseWidgetModule,
       ColorPickerModule,
+      FuseMaterialColorPickerModule,
       NgxsModule.forFeature([
         PlanTableState,
         PlanTableComboFilterState,

@@ -7,7 +7,7 @@ namespace Budget.SERVICE
 {
     public interface IPlanDetailService
     {
-        PlanForDetailDto GetForDetail(int idPlan);
+        PlanForDetailDto GetForDetail(int idPlan, int idUserGroup);
 
         void Save(PlanForDetailDto planForDetailDto);
     }

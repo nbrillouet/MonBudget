@@ -82,7 +82,7 @@ namespace Budget.SERVICE
 
             asifDetailDto.OperationTransverse = new ComboMultiple<SelectDto>
             {
-                List = _referentialService.OperationTransverseService.GetSelectList(filter.User.IdUserGroup, EnumSelectType.Empty),
+                List = _referentialService.OperationTransverseService.GetSelectList(filter.User.Id, EnumSelectType.Empty),
                 ListSelected = _operationTransverseAsifService.GetOperationTransverseSelectList(filter.IdAsif.Value, EnumSelectType.Empty)
             };
 

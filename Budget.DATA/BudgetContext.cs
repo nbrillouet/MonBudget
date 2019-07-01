@@ -53,8 +53,11 @@ namespace Budget.DATA
         public DbSet<GMapType> GMapType { get; set; }
         public DbSet<GMapTypeLanguage> GMapTypeLanguage { get; set; }
         public DbSet<GMapAddressType> GMapAddressType { get; set; }
+
+        //===================== PLAN =================================//
         public DbSet<Plan> Plan { get; set; }
         public DbSet<PlanUser> PlanUser { get; set; }
+        public DbSet<PlanAccount> PlanAccount { get; set; }
         public DbSet<Poste> Poste { get; set; }
         public DbSet<ReferenceTable> ReferenceTable { get; set; }
         public DbSet<PlanPoste> PlanPoste { get; set; }

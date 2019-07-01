@@ -16,6 +16,7 @@ namespace Budget.SERVICE
         private readonly IPlanPosteService _planPosteService;
         private readonly IPlanPosteUserService _planPosteUserService;
         private readonly IPosteService _posteService;
+        private readonly IPlanAccountService _planAccountService;
 
 
         public PlanDetailService(
@@ -25,7 +26,8 @@ namespace Budget.SERVICE
             IPlanUserService planUserService,
             IPlanPosteService planPosteService,
             IPosteService posteService,
-            IPlanPosteUserService planPosteUserService
+            IPlanPosteUserService planPosteUserService,
+            IPlanAccountService planAccountService
 
             )
         {
@@ -36,50 +38,61 @@ namespace Budget.SERVICE
             _planPosteService = planPosteService;
             _posteService = posteService;
             _planPosteUserService = planPosteUserService;
+            _planAccountService = planAccountService;
         }
 
-        public PlanForDetailDto GetForDetail(int idPlan)
+        public PlanForDetailDto GetForDetail(int idPlan, int idUserGroup)
         {
-            var users = _userService.GetAll();
+            var users = _userService.GetByIdUserGroup(idUserGroup);
             var userList = _mapper.Map<List<SelectDto>>(users);
+
+            PlanForDetailDto planForDetailDto = new PlanForDetailDto();
+            //Recherche des accounts (list + selected)
+            planForDetailDto.Accounts = _planAccountService.GetAccountComboMultiple(idPlan, idUserGroup);
+            //recherche des users (list + selected)
+            planForDetailDto.Users = _planUserService.GetUserComboMultiple(idPlan, idUserGroup);
 
             //nouveau Plan
             if (idPlan == 0)
             {
-                PlanForDetailDto planForDetailDto = new PlanForDetailDto();
+
                 planForDetailDto.Plan = new Plan
                 {
                     Id = 0,
                     Label = null,
                     Year = DateTime.Now.Year
                 };
-                planForDetailDto.Users.List = userList;
-                planForDetailDto.Users.ListSelected = new List<SelectDto>();
-                return planForDetailDto;
+                //planForDetailDto.Accounts = _planAccountService.GetAccountComboMultiple(idPlan);
+
+                //planForDetailDto.Users.List = userList;
+                //planForDetailDto.Users.ListSelected = new List<SelectDto>();
+                //return planForDetailDto;
             }
+            else
+            { 
+                //var plan = _planService.GetById(idPlan);
 
+                //var planUsers = _planUserService.GetByIdPlan(idPlan);
+                //var usersSelected = _mapper.Map<List<SelectDto>>(planUsers);
 
-            var plan = _planService.GetById(idPlan);
+                planForDetailDto.Plan = _planService.GetById(idPlan);// _mapper.Map<PlanForDetailDto>(plan);
+                //planForDetailDto.Users = 
 
-            var planUsers = _planUserService.GetByIdPlan(idPlan);
-            var usersSelected = _mapper.Map<List<SelectDto>>(planUsers);
+                //planForDetail.Users.List = userList;
+                //planForDetail.Users.ListSelected = usersSelected;
 
-            var planForDetail = _mapper.Map<PlanForDetailDto>(plan);
-            planForDetail.Users.List = userList;
-            planForDetail.Users.ListSelected = usersSelected;
-
-            var postes = _posteService.GetAllSelect();
-            foreach(var poste in postes)
-            {
-                PlanPosteDto planPosteDto = new PlanPosteDto
+                var postes = _posteService.GetAllSelect();
+                foreach (var poste in postes)
                 {
-                    Poste = poste,
-                    List = _mapper.Map<List<PlanPosteForListDto>>(_planPosteService.Get(idPlan, poste.Id))
+                    PlanPosteDto planPosteDto = new PlanPosteDto
+                    {
+                        Poste = poste,
+                        List = _mapper.Map<List<PlanPosteForListDto>>(_planPosteService.Get(idPlan, poste.Id))
+                    };
+                    planForDetailDto.PlanPostes.Add(planPosteDto);
                 };
-                planForDetail.PlanPostes.Add(planPosteDto);
-            };
-
-            return planForDetail;
+            }
+            return planForDetailDto;
         }
 
         public void Save(PlanForDetailDto planForDetailDto)
@@ -96,9 +109,13 @@ namespace Budget.SERVICE
                 _planService.Update(plan);
             }
 
-            _planPosteUserService.SavePlanUserByIdPlan(plan.Id, planForDetailDto.Users.ListSelected);
-
+            _planPosteUserService.Save(plan.Id, planForDetailDto.Users.ListSelected);
+            _planAccountService.Save(plan.Id, planForDetailDto.Accounts.ListSelected);
 
         }
+
+
+
+        
     }
 }

@@ -1,4 +1,4 @@
-<!-- <h2 mat-dialog-title>{{description}}</h2> -->
+
 <div class="dialog-content-wrapper">
     <mat-toolbar matDialogTitle class="mat-accent m-0">
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
@@ -20,6 +20,9 @@
                         formControlName="label"
                         required>
                 </mat-form-field>
+
+                
+
 
                 <!-- <div fxLayout="row" fxLayoutAlign="space-between center" > -->
                     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
@@ -87,22 +90,38 @@
 
         <mat-tab label="Montants">  
             <div class="tab-content p-24" fusePerfectScrollbar>
-                <mat-card fxLayout="row wrap" fxLayoutAlign="start start" class="w-100-p">
-                    <mat-label class="w-100-p" style="color:#888888;padding-bottom:20px;">Montants prévisionnels</mat-label>
-                    <div class="h-260 w-380" fxLayout="row" >
-                        <widget-card-simple-chart-bar [data]="chartDataset" (getCurrentMonthInfo)="getChartInfo($event)"></widget-card-simple-chart-bar>
-                    </div>
-                    <div class="w-50-p">
-                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-                            <mat-label>{{amountLabel}}</mat-label>
-                            <input matInput formControlName="amount" placeholder="montant" />
-                        </mat-form-field>
-                        <div fxLayout="row" fxLayoutAlign="space-between center" >
-                            <div><button class="mat-raised-button" (click)="validatePreviewAmount()">Appliquer sur le mois</button></div>
-                                
-                            <div><button class="mat-raised-button" (click)="validatePreviewAmountForAll()">Appliquer sur tous les mois</button> </div>
-                        </div>
-                    </div>
+                <mat-card >
+                    <mat-card-header>
+                        <!-- <mat-card-title> -->
+                            <div class="w-100-p" fxLayout="row">
+                                <mat-label class="w-100-p" style="color:#888888;padding-bottom:20px;">Montants prévisionnels</mat-label>
+                                <mat-slide-toggle
+                                    formControlName="isAnnualEstimation"
+                                >
+                                    {{estimationToggleTxt}}
+                                </mat-slide-toggle>
+                            </div>
+                        <!-- </mat-card-title> -->
+                    </mat-card-header>
+                    
+                    <mat-card-content fxLayout="row" class="w-100-p">
+                      
+                            <div *ngIf="!data.isAnnualEstimation" class="h-260 w-420" fxLayout="row" >
+                                <widget-card-simple-chart-bar [data]="chartDataset" (getCurrentMonthInfo)="getChartInfo($event)"></widget-card-simple-chart-bar>
+                            </div>
+                            <div class="w-50-p">
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>{{amountLabel}}</mat-label>
+                                    <input matInput formControlName="amount" placeholder="montant" />
+                                </mat-form-field>
+                                <div *ngIf="!data.isAnnualEstimation" fxLayout="row" fxLayoutAlign="space-between center" >
+                                    <div><button class="mat-raised-button" (click)="validatePreviewAmount()">Appliquer sur le mois</button></div>
+                                        
+                                    <div><button class="mat-raised-button" (click)="validatePreviewAmountForAll()">Appliquer sur tous les mois</button> </div>
+                                </div>
+                            </div>
+                
+                    </mat-card-content>
                 </mat-card>
             </div>
         </mat-tab>

@@ -45,8 +45,8 @@ namespace Budget.SERVICE
                     asif.IdImport = accountStatementImport.Id;
                     asif.DateImport = DateTime.Now;
                     asif.Reference = values[4].ToString();
-                    asif.LabelOperation = values[3].ToString();
-                    asif.LabelOperationCopy = GetLabelOperationCopy(values[3].ToString());
+                    asif.LabelOperation = values[3].ToString();//.Replace("\t","").Replace("\"","");
+                    asif.LabelOperationCopy = GetLabelOperationCopy(asif.LabelOperation);
                     asif.LabelOperationWork = _asifService.GetOperationLabelWork(asif.LabelOperationCopy);
 
                     asif.AmountOperation = double.Parse(values[6].Replace(",", ".").ToString(), CultureInfo.InvariantCulture);

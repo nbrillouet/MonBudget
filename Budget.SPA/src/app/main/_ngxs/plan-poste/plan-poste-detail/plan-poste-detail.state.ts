@@ -2,7 +2,7 @@ import { DetailInfo } from "app/main/_models/generics/detail-info.model";
 import { PlanPosteForDetail } from "app/main/_models/plan.model";
 import { PlanPosteDetailFilter, PlanPosteReferenceFilter } from "app/main/_models/filters/plan-poste.filter";
 import { PlanService } from "app/main/apps/plan/plan.service";
-import { LoadPlanPosteDetailDatas, LoadPlanPosteDetailDatasSuccess, ChangePlanPosteDetailFilter, ClearPlanPosteDetailDatas, ChangePlanPosteReference } from "./plan-poste-detail.action";
+import { LoadPlanPosteDetailDatas, LoadPlanPosteDetailDatasSuccess, ChangePlanPosteDetailFilter, ClearPlanPosteDetailDatas, ChangePlanPosteReference, PlanPosteDetailChangePlanPosteFrequencies, PlanPosteDetailChangePlanPosteFrequenciesSuccess } from "./plan-poste-detail.action";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { NotificationsService } from "angular2-notifications";
 
@@ -100,6 +100,39 @@ export class PlanPosteDetailState {
     @Action(ClearPlanPosteDetailDatas)
     clear(context: StateContext<PlanPosteDetailStateModel>) {
         return context.setState(new PlanPosteDetailStateModel());
+    }
+
+    //====================================
+    //          PlanPosteFrequencies
+    //====================================
+    @Action(PlanPosteDetailChangePlanPosteFrequencies)
+    PlanPosteDetailChangePlanPosteFrequencies(context: StateContext<PlanPosteDetailStateModel>, action: PlanPosteDetailChangePlanPosteFrequencies) {
+       
+        const state = context.getState();
+        
+        state.dataInfos.loadingInfo.loaded=false;
+        state.dataInfos.loadingInfo.loading=true;
+        // state.dataInfos.datas.planPosteFrequencies = action.payload;
+        // state.datas.operationType = new ComboSimple<ISelect>();
+        
+        context.patchState(state);
+        this._planService.getPlanPosteFrequencies(action.payload)
+            .subscribe(result=> {
+     
+                context.dispatch(new PlanPosteDetailChangePlanPosteFrequenciesSuccess(result));
+            });
+    }
+
+    @Action(PlanPosteDetailChangePlanPosteFrequenciesSuccess)
+    PlanPosteDetailChangePlanPosteFrequenciesSuccess(context: StateContext<PlanPosteDetailStateModel>, action: PlanPosteDetailChangePlanPosteFrequenciesSuccess) {
+   
+        let state = context.getState();
+        state.dataInfos.loadingInfo.loaded = true;
+        state.dataInfos.loadingInfo.loading = false;
+        state.dataInfos.datas.planPosteFrequencies = action.payload;
+        // state.datas.operationType.selected = action.payload[0];
+
+        context.patchState(state);
     }
 
     

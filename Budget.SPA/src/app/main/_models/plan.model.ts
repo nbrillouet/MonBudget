@@ -29,7 +29,9 @@ export class PlanPosteForDetail {
     referenceTable: ComboSimple<ISelect>;
     planPosteUser: PlanPosteUserForDetail[];
     planPosteReference: ComboMultiple<ISelectGroup>;
+    accounts: ComboMultiple<ISelectGroup>;
     planPosteFrequencies: PlanPosteFrequencyForDetail[];
+    isAnnualEstimation: boolean;
 }
 
 export class PlanPosteForDetailSave {
@@ -42,6 +44,9 @@ export class PlanPosteForDetailSave {
     planPosteReference: ISelect[];
     planPosteFrequencies: PlanPosteFrequencyForDetail[];
 }
+
+
+
 
 export class PlanPosteUserForDetail {
     id: number;
@@ -66,6 +71,11 @@ export class Frequency {
     // monthNumber: number;
     // monthLabel: string;
     // monthLabelShort: string;
+}
+
+export class PlanPosteFrequencyFilter {
+    idPlanPoste:number;
+    isAnnualEstimation: boolean;
 }
 
 

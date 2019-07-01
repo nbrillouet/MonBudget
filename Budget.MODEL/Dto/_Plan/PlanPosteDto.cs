@@ -36,6 +36,7 @@ namespace Budget.MODEL.Dto
         public ComboSimple<SelectDto> ReferenceTable { get; set; }
         public List<PlanPosteUserForDetailDto> PlanPosteUser {get;set;}
         public ComboMultiple<SelectGroupDto> PlanPosteReference { get; set; }
+        //public ComboMultiple<SelectGroupDto> Accounts { get; set; }
         public List<PlanPosteFrequencyForDetailDto> PlanPosteFrequencies { get; set; }
         //public List<SelectDto> Frequencies { get; set; }
 

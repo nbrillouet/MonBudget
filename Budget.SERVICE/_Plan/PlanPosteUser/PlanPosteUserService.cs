@@ -59,7 +59,7 @@ namespace Budget.SERVICE
             return planPosteUsersForDetailDto;
         }
 
-        public void SavePlanUserByIdPlan(int idPlan, List<SelectDto> selectUsers)
+        public void Save(int idPlan, List<SelectDto> selectUsers)
         {
             //Suppression
             //DeleteByIdPlan(idPlan);

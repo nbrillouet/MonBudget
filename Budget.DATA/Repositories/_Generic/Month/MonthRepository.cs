@@ -13,10 +13,21 @@ namespace Budget.DATA.Repositories
 
         }
 
+        //prendre tous les mois sauf celui du lissage sur année
         public List<Month> GetAllByOrder()
         {
             var months = Context.Month
+                .Where(x=>x.Number!="XX")
                 .OrderBy(x=>x.Id)
+                .ToList();
+            return months;
+        }
+
+        public List<Month> GetAnnual()
+        {
+            var months = Context.Month
+                .Where(x => x.Number == "XX")
+                .OrderBy(x => x.Id)
                 .ToList();
             return months;
         }

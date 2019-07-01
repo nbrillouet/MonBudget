@@ -2,6 +2,7 @@
 using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
+using Budget.MODEL.Dto.Select;
 
 namespace Budget.SERVICE._Helpers
 {
@@ -78,8 +79,7 @@ namespace Budget.SERVICE._Helpers
 
             CreateMap<BankAgency, BankAgencyWithAccountsDto>()
                 .ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankSubFamily.BankFamily));
-                //.ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankSubFamily));
-            
+            //.ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankSubFamily));
 
             //CreateMap<BankAgency, SelectDto>()
             //    .ForMember(d=>d.Label,o=>o.MapFrom(s=>s.BankSubFamily.LabelLong));

@@ -15,12 +15,18 @@ namespace Budget.SERVICE
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IUserAccountService _userAccountService;
         private readonly IMapper _mapper;
         
 
-        public UserService(IUserRepository userRepository,IMapper mapper)
+        public UserService(
+            IUserRepository userRepository,
+            IMapper mapper,
+            IUserAccountService userAccountService
+            )
         {
             _userRepository = userRepository;
+            _userAccountService = userAccountService;
             _mapper = mapper;
         }
 
@@ -37,7 +43,7 @@ namespace Budget.SERVICE
         {
             var user =  _userRepository.GetForDetailById(id);
 
-            var bankAgencies = GetBankAgencies(id);
+            var bankAgencies = _userAccountService.GetBankAgencies(id);
 
             var userForDetailDto = _mapper.Map<UserForDetailDto>(user);
             userForDetailDto.BankAgencies = bankAgencies;
@@ -67,6 +73,11 @@ namespace Budget.SERVICE
             return _userRepository.GetAll();
         }
 
+        public List<User> GetByIdUserGroup(int idUserGroup)
+        {
+            return _userRepository.GetByIdUserGroup(idUserGroup);
+        }
+
         public void Update(UserForDetailDto userForDetail)
         {
             User user = _userRepository.GetById(userForDetail.Id);
@@ -85,25 +96,7 @@ namespace Budget.SERVICE
             _userRepository.Update(user);
         }
 
-        public List<BankAgencyWithAccountsDto> GetBankAgencies(int idUser)
-        {
-            var bankAgencies = _userRepository.GetBankAgencies(idUser);
-
-            var bankAgencyAccountsDtos = _mapper.Map<List<BankAgencyWithAccountsDto>>(bankAgencies);
-            foreach (var bankAgency in bankAgencyAccountsDtos)
-            {
-                //Find linked users
-                foreach (var account in bankAgency.Accounts)
-                {
-                    var acc = bankAgencies.SelectMany(x => x.Accounts).Distinct().Where(u => u.Id == account.Id).FirstOrDefault();
-                    var idx = acc.UserAccounts.FindIndex(x => x.IdUser == idUser);
-                    acc.UserAccounts.RemoveAt(idx);
-                    account.LinkedUsers = _mapper.Map<List<SelectDto>>(acc.UserAccounts.Select(x => x.User).ToList());
-                }
-                    
-            }
-            return bankAgencyAccountsDtos;
-        }
+        
 
 
     }

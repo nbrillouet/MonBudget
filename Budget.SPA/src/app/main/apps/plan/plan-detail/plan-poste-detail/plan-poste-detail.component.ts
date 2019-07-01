@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { PlanPosteForDetail, PlanPosteFrequencyForDetail, PlanPosteUserForDetail, PlanPosteForDetailSave } from 'app/main/_models/plan.model';
+import { PlanPosteForDetail, PlanPosteFrequencyForDetail, PlanPosteUserForDetail, PlanPosteForDetailSave, Frequency, PlanPosteFrequencyFilter } from 'app/main/_models/plan.model';
 import { PlanService } from '../../plan.service';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
@@ -9,12 +9,13 @@ import { PlanPosteDetailState } from 'app/main/_ngxs/plan-poste/plan-poste-detai
 import { PlanPosteDetailFilter, PlanPosteReferenceFilter } from 'app/main/_models/filters/plan-poste.filter';
 import { DetailInfo } from 'app/main/_models/generics/detail-info.model';
 import { Observable } from 'rxjs';
-import { ChangePlanPosteDetailFilter, ChangePlanPosteReference } from 'app/main/_ngxs/plan-poste/plan-poste-detail/plan-poste-detail.action';
+import { ChangePlanPosteDetailFilter, ChangePlanPosteReference, PlanPosteDetailChangePlanPosteFrequencies } from 'app/main/_ngxs/plan-poste/plan-poste-detail/plan-poste-detail.action';
 import { BaseChart, ChartValue } from 'app/main/_models/chart/base-chart.model';
 import { PlanDetailFilter } from 'app/main/_models/Filters/plan.filter';
 import { NotificationsService } from 'angular2-notifications';
-import { ChangePlanDetailFilter } from 'app/main/_ngxs/plan/plan-detail/plan-detail.action';
+// import { ChangePlanDetailFilter, PlanDetailChangePlanPosteFrequencies } from 'app/main/_ngxs/plan/plan-detail/plan-detail.action';
 import { ISelect } from 'app/main/_models/generics/select.model';
+import { ChangePlanDetailFilter } from 'app/main/_ngxs/plan/plan-detail/plan-detail.action';
 
 @Component({
   selector: 'plan-poste-detail',
@@ -27,14 +28,15 @@ export class PlanPosteDetailComponent implements OnInit  {
 
   data: PlanPosteForDetail;
   form: FormGroup;
-  description:string;
+
   referencePlaceHolder: string='Référence';
   chartDataset: BaseChart;
   chartValue: ChartValue=new ChartValue();
   amountLabel: string;
   planPosteDetailFilter: PlanPosteDetailFilter;
-
+  estimationToggleTxt: string;
   formLoaded:boolean=false;
+  firstLoad: boolean=true;
 
   constructor(
     private fb: FormBuilder,
@@ -53,27 +55,118 @@ export class PlanPosteDetailComponent implements OnInit  {
     this.detailInfo$.subscribe(x=>{
       if(x.dataInfos.loadingInfo.loaded==true)
       {
-        this.data = x.dataInfos.datas;
-        console.log('this.data',this.data);
-        this.description = this.data.label;
-    
-        this.chartDataset = this.getChartDatas('Montant Prévisionnel',this.data.planPosteFrequencies.map(x=>x.previewAmount),this.data.planPosteFrequencies.map(x=>x.frequency))
+
+        this.data = x.dataInfos.datas; // JSON.parse(JSON.stringify(x.dataInfos.datas));
+        this.data.isAnnualEstimation = this.data.planPosteFrequencies.length==1;
         
-        this.form = this.fb.group({
-          label: [this.data.label, []],
-          referenceTable: [this.data.referenceTable.selected,[]],
-          planPosteReference: [this.data.planPosteReference.listSelected,[]],
-          planPosteFrequencies: [this.data.planPosteFrequencies,[]],
-          planPosteUser: [this.data.planPosteUser,[]],
-          amount: [this.chartValue.yValue,[]]
-        });
+        if(this.firstLoad) {
+          //creation du formulaire
+          this.createForms();
+          this.firstLoad=false;
+        }
         this.formLoaded=true;
+
+        //BEGIN chargement et positionnement du graph sur 1er enregistrement
+        this.onLinkClick();
+
+        let $chartValue=<ChartValue> {
+          id:this.data.planPosteFrequencies[0].id,
+          xValue: this.data.planPosteFrequencies[0].frequency.labelShort,
+          yValue: this.data.planPosteFrequencies[0].previewAmount}
+        
+        console.log('$chartValue',$chartValue);
+        if(this.data.isAnnualEstimation)
+          this.amountLabel = 'annuel';
+        
+        this.getChartInfo($chartValue);
+        //END chargement et positionnement du graph sur 1er enregistrement
+
+
+        // this.data = x.dataInfos.datas;
+        // console.log('this.data',this.data);
+        // // console.log('this.data.planPosteReference.listSelected.length',this.data.planPosteReference.listSelected.length);
+        // this.description = this.data.label;
+    
+        // this.chartDataset = this.getChartDatas('Montant Prévisionnel',this.data.planPosteFrequencies.map(x=>x.previewAmount),this.data.planPosteFrequencies.map(x=>x.frequency))
+        
+        // this.form = this.fb.group({
+        //   label: [this.data.label, []],
+        //   referenceTable: [this.data.referenceTable.selected,[]],
+        //   planPosteReference: [this.data.planPosteReference.listSelected,[]],
+        //   planPosteFrequencies: [this.data.planPosteFrequencies,[]],
+        //   planPosteUser: [this.data.planPosteUser,[]],
+        //   amount: [this.chartValue.yValue,[]],
+        //   isAnnualEstimation: [this.data.planPosteFrequencies.length==1]
+        // });
+        
+        // console.log('-----------------------111');
+        // this.estimationToggleTxt = this.toogleIsAnnualEstimation(this.data.planPosteFrequencies.length==1);
+
+        // this.form.valueChanges.subscribe(val=>{
+          
+        // });
+
+        // this.form.get('isAnnualEstimation')
+        // .valueChanges
+        // .subscribe(isAnnualEstimation => {
+        //   console.log('-----------------------222',isAnnualEstimation);
+        //   this.data.isAnnualEstimation = isAnnualEstimation;
+        //   this.estimationToggleTxt = this.toogleIsAnnualEstimation(isAnnualEstimation);
+
+        //   //rechargement planPosteFrequencies
+        //   //let operationFilter=<FilterOperation> { operationType: val, operationMethod:this.asifDetail.operationMethod.selected}
+          
+        //   this._store.dispatch(new PlanPosteDetailChangePlanPosteFrequencies(this.data.id));
+        // });
+
+        // this.formLoaded=true;
       }
     });
 
   }
+
+  createForms() {
+    this.chartDataset = this.getChartDatas('Montant Prévisionnel',this.data.planPosteFrequencies.map(x=>x.previewAmount),this.data.planPosteFrequencies.map(x=>x.frequency))
+        
+    this.form = this.fb.group({
+      label: [this.data.label, []],
+      referenceTable: [this.data.referenceTable.selected,[]],
+      planPosteReference: [this.data.planPosteReference.listSelected,[]],
+      planPosteFrequencies: [this.data.planPosteFrequencies,[]],
+      planPosteUser: [this.data.planPosteUser,[]],
+      amount: [this.chartValue.yValue,[]],
+      isAnnualEstimation: [this.data.planPosteFrequencies.length==1]
+    });
+    
+    console.log('-----------------------111');
+    this.estimationToggleTxt = this.toogleIsAnnualEstimation(this.data.planPosteFrequencies.length==1);
+
+    this.form.valueChanges.subscribe(val=>{
+      
+    });
+
+    this.form.get('isAnnualEstimation')
+    .valueChanges
+    .subscribe(isAnnualEstimation => {
+      console.log('-----------------------222',isAnnualEstimation);
+      this.data.isAnnualEstimation = isAnnualEstimation;
+      this.estimationToggleTxt = this.toogleIsAnnualEstimation(isAnnualEstimation);
+
+      //rechargement planPosteFrequencies
+      //let operationFilter=<FilterOperation> { operationType: val, operationMethod:this.asifDetail.operationMethod.selected}
+
+      this._store.dispatch(
+        new PlanPosteDetailChangePlanPosteFrequencies(
+            <PlanPosteFrequencyFilter>{idPlanPoste:this.data.id,isAnnualEstimation:this.data.isAnnualEstimation}));
+    });
+  }
+
   ngOnInit() {
     
+  }
+
+  toogleIsAnnualEstimation(isAnnualEstimation:boolean) {
+    return isAnnualEstimation ? 'Estimation annuelle' : 'Estimation mensuelle';
   }
 
   save({ value, valid }: { value: any, valid: boolean }) {
@@ -93,16 +186,26 @@ export class PlanPosteDetailComponent implements OnInit  {
       });
   }
 
-  // save() {
-  //   this.dialogRef.close(this.form.value);
-  // }
   bindPlan(value: any) {
     this.data.label = value.label;
-    // this.data.planPosteFrequencies = value.planPosteFrequencies;
     this.data.planPosteReference.listSelected = this.form.controls['planPosteReference'].value; // value.planPosteReference;
     this.data.planPosteUser = this.form.controls['planPosteUser'].value; //] value.planPosteUser;
     this.data.referenceTable.selected = value.referenceTable;
 
+    //cas planPosteFrequencies annuel/mensuel
+    if(this.data.isAnnualEstimation) {
+      let planPosteFrequency = new PlanPosteFrequencyForDetail();
+      planPosteFrequency.id= 0;
+      planPosteFrequency.frequency= <Frequency><unknown>{ id: 13, number: 0, labelLong: '', labelShort: '', languageCode: '' };
+      planPosteFrequency.previewAmount= this.form.get('amount').value;
+
+      this.data.planPosteFrequencies=[planPosteFrequency];
+        // console.log('planPosteFrequency',planPosteFrequency);
+
+    }
+
+    // console.log('this.data',this.data);
+    // console.log('this.data.isAnnualEstimation',this.data.isAnnualEstimation);
   }
 
   close() {
@@ -111,6 +214,7 @@ export class PlanPosteDetailComponent implements OnInit  {
 
   //recupere les valeurs cliquer dans le chart
   getChartInfo( $chartValue: ChartValue ) {
+    console.log(' $chartValue', $chartValue);
     this.chartValue = $chartValue;
     console.log('this.data.planPosteFrequencies',this.data.planPosteFrequencies);
     this.form.controls['amount'].setValue(this.chartValue.yValue);
@@ -143,7 +247,7 @@ export class PlanPosteDetailComponent implements OnInit  {
 
   compareObjects(o1: ISelect, o2: ISelect) {
     return o1 && o2 ? o1.id === o2.id : o1 === o2;
-    }
+  }
 
   validatePreviewAmount() {
     this.chartValue.yValue=this.form.controls['amount'].value;
@@ -154,15 +258,9 @@ export class PlanPosteDetailComponent implements OnInit  {
     this.data.planPosteFrequencies[index].previewAmount=this.chartValue.yValue;
     //mise à jour des données du charDataset
     this.chartDataset.dataSets[0].data[index]=+this.chartValue.yValue;
-    
-    // console.log('this.data.planPosteFrequencies.map(x=>x.frequency)',this.data.planPosteFrequencies.map(x=>x.frequency));
 
     let toto = this.chartDataset.dataSets[0].data;
-
-    // console.log('toto',toto);
     this.chartDataset = this.getChartDatas('Montant Prévisionnel',toto,this.data.planPosteFrequencies.map(x=>x.frequency));
-
-  
 
   }
 
@@ -206,6 +304,7 @@ export class PlanPosteDetailComponent implements OnInit  {
     });
      
   }
+
   onLinkClick() {
   
     this.chartDataset = this.getChartDatas('Montant Prévisionnel',this.data.planPosteFrequencies.map(x=>x.previewAmount),this.data.planPosteFrequencies.map(x=>x.frequency));
