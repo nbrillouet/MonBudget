@@ -16,21 +16,27 @@ namespace Budget.API.Controllers
     [Route("api/account-statement-charts")]
     public class AccountStatementChartController: Controller
     {
-        private readonly IAccountStatementChartService _accountStatementChartService;
+        private readonly IAsChartEvolutionService _asChartEvolutionService;
+        private readonly IAsChartCategorisationService _asChartCategorisationService;
 
         public AccountStatementChartController(
-            IAccountStatementChartService accountStatementChartService
+            IAsChartEvolutionService asChartEvolutionService,
+            IAsChartCategorisationService asChartCategorisationService
 
             )
         {
-            _accountStatementChartService = accountStatementChartService;
+            _asChartEvolutionService = asChartEvolutionService;
+            _asChartCategorisationService = asChartCategorisationService;
         }
 
+        //=====================================================================================
+        //=================================  EVOLUTION  =======================================
+        //=====================================================================================
         [HttpPost]
         [Route("chart-evolution-brut")]
         public IActionResult GetAsChartEvolutionBrut([FromBody] FilterAsTableSelected filter)
         {
-            var result = _accountStatementChartService.GetAsChartEvolutionBrut(filter);
+            var result = _asChartEvolutionService.GetAsChartEvolutionBrut(filter);
 
             return Ok(result);
         }
@@ -39,7 +45,7 @@ namespace Budget.API.Controllers
         [Route("chart-evolution-no-int-transfer")]
         public IActionResult GetAsChartEvolutionNoIntTransfer([FromBody] FilterAsTableSelected filter)
         {
-            var result = _accountStatementChartService.GetAsChartEvolutionNoIntTransfer(filter);
+            var result = _asChartEvolutionService.GetAsChartEvolutionNoIntTransfer(filter);
 
             return Ok(result);
         }
@@ -48,7 +54,7 @@ namespace Budget.API.Controllers
         [Route("chart-evolution-custom-otf")]
         public IActionResult GetAsChartEvolutionCustomOtf([FromBody] FilterAsTableSelected filter)
         {
-            var result = _accountStatementChartService.GetAsChartEvolutionCustomOtf(filter);
+            var result = _asChartEvolutionService.GetAsChartEvolutionCustomOtf(filter);
 
             return Ok(result);
         }
@@ -57,7 +63,7 @@ namespace Budget.API.Controllers
         [Route("chart-evolution-custom-otf-filter")]
         public IActionResult GetAsChartEvolutionCustomOtfFilter([FromBody] FilterAsTableSelected filter)
         {
-            var result = _accountStatementChartService.GetAsChartEvolutionCustomOtfFilter(filter);
+            var result = _asChartEvolutionService.GetAsChartEvolutionCustomOtfFilter(filter);
 
             return Ok(result);
         }
@@ -66,10 +72,25 @@ namespace Budget.API.Controllers
         [Route("chart-evolution-custom-otf-filter/update")]
         public IActionResult UpdateAsChartEvolutionCustomOtfFilter([FromBody] AsChartEvolutionCustomOtfFilterSelected filter)
         {
-            var result = _accountStatementChartService.UpdateAsChartEvolutionCustomOtfFilter(filter);
+            var result = _asChartEvolutionService.UpdateAsChartEvolutionCustomOtfFilter(filter);
 
             return Ok(result);
         }
-        
+
+
+
+
+        //=====================================================================================
+        //=============================  CATEGORISATION  ======================================
+        //=====================================================================================
+        [HttpPost]
+        [Route("chart-categorisation-debit")]
+        public IActionResult GetAsChartCategorisationDebit([FromBody] FilterAsTableSelected filter)
+        {
+            var result = _asChartCategorisationService.GetAsChartCategorisationDebit(filter);
+
+            return Ok(result);
+        }
+
     }
 }

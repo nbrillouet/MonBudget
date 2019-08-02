@@ -70,6 +70,7 @@ namespace Budget.DATA
         public virtual DbSet<SoldeDto> SoldeDto { get; set; }
         public virtual DbSet<AsEvolutionCdbDto> AsEvolutionDto { get; set; }
         public virtual DbSet<BaseChartData> BaseChartData { get; set; }
+        public virtual DbSet<SelectNameValueDto<double>> SelectNameValueDto { get; set; }
         //public DbQuery<VPlanGlobal> VPlanGlobal { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

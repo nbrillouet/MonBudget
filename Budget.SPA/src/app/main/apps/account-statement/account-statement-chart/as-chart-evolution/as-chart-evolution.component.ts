@@ -3,12 +3,13 @@ import { Select, Store } from '@ngxs/store';
 import { AsChartState } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.state';
 import { Observable } from 'rxjs';
 import { DataInfo } from 'app/main/_models/generics/detail-info.model';
-import { AsChart, AsChartEvolutionCustomOtfFilter, AsChartEvolutionCustomOtfFilterSelected } from 'app/main/_models/account-statement/account-statement-chart.model';
+import { AsChartEvolutionCustomOtfFilter, AsChartEvolutionCustomOtfFilterSelected } from 'app/main/_models/account-statement/as-chart/as-chart-evolution.model';
 import { WidgetCardChartBar } from 'app/main/_models/chart/widget-card-chart-bar.model';
 import { fuseAnimations } from '@fuse/animations';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ISelect } from 'app/main/_models/generics/select.model';
 import { UpdateAsChartEvolutionCustomOtfFilter } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
+import { AsChart } from 'app/main/_models/account-statement/as-chart/as-chart.model';
 
 @Component({
   selector: 'as-chart-evolution',
@@ -19,8 +20,6 @@ import { UpdateAsChartEvolutionCustomOtfFilter } from 'app/main/_ngxs/account-st
 
 export class AsChartEvolutionComponent implements OnInit {
   @Select(AsChartState.get) asChart$: Observable<DataInfo<AsChart>>;
-
-  // @Input() headerPanelIsVisible: boolean;
 
   customOtfForm: FormGroup;
 
@@ -40,7 +39,6 @@ export class AsChartEvolutionComponent implements OnInit {
     private _store: Store
   ) {
     this.asChart$.subscribe(x=>{
-
       this.asChartEvolutionBrutDebit = x.datas.asChartEvolution.brut.debit;
       this.asChartEvolutionBrutCredit = x.datas.asChartEvolution.brut.credit;
       this.asChartEvolutionBrutBalance = x.datas.asChartEvolution.brut.balance;
@@ -51,7 +49,7 @@ export class AsChartEvolutionComponent implements OnInit {
     
       this.asChartEvolutionCustomOtfs = x.datas.asChartEvolution.customOtfs.widgetCardChartBars;
       this.asChartEvolutionCustomOtfFilter = x.datas.asChartEvolution.customOtfs.filter;
-      
+
       this.customOtfForm = this._formBuilder.group({
         operationTypeFamilies: [this.asChartEvolutionCustomOtfFilter.selected.operationTypeFamilies]
       });

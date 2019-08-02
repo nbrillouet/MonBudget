@@ -6,12 +6,14 @@ import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AsSoldeState } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.state';
 import { DetailInfo } from 'app/main/_models/generics/detail-info.model';
-import { FilterAsTable, FilterAsTableSelected } from 'app/main/_models/filters/account-statement.filter';
+import { FilterAsTableSelected } from 'app/main/_models/filters/account-statement.filter';
 import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
 import { AsSolde } from 'app/main/_models/account-statement/account-statement-solde.model';
-import { LoadAsChartEvolution } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
+import { LoadAsChartEvolution, LoadAsChartCategorisation } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.action';
+// import { Row, TableField, MatTableFilter, EnumFilterType } from '../account-statement-list/mat-table-filter/model/mat-table-filter.model';
+// import { Pagination } from 'app/main/_models/pagination.model';
 
 
 @Component({
@@ -25,22 +27,17 @@ export class AccountStatementMainComponent implements OnInit {
 
 @Select(AsSoldeState.get) asSolde$: Observable<DetailInfo<AsSolde,FilterAsTableSelected>>;
 
-filterAs: FilterAsTable;
+filterAsSelected: FilterAsTableSelected;
 selectedIndex: number = 0;
 fullscreen: boolean;
-// headerPanelIsVisible: boolean = false;
-// headerPanelIcon:string;
-// fuseConfig:any;
-// idAccount: number;
-// idTab: number;
-
+tabsLoaded=[false,false,false,false];
 
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _store: Store,
     private _fuseConfigService: FuseConfigService,
   ) {
-
+    
     combineLatest(this._activatedRoute.params, this._activatedRoute.queryParams)
       .pipe(map(results => ({idAccount: results[0].idAccount, idTab: results[1].idTab})))
       .subscribe(results => {
@@ -53,21 +50,16 @@ fullscreen: boolean;
           }
           else
           {
-            this.filterAs = new FilterAsTable();
-            this.filterAs.selected.idAccount=idAccount;
-            let user = JSON.parse(localStorage.getItem('currentUser'));
-            // this.filterAs.selected.user=user.id;
-
-            this._store.dispatch(new LoadAsTableFilter(this.filterAs));
-            this._store.dispatch(new LoadAsSolde(this.filterAs.selected));
-            this._store.dispatch(new LoadAsChartEvolution(this.filterAs.selected));
-
+            this.filterAsSelected = new FilterAsTableSelected();
+            this.filterAsSelected.idAccount=idAccount;
+            
+            this._store.dispatch(new LoadAsSolde(this.filterAsSelected));
+            this.loadTab();
           }
     });
 
-        // Subscribe to the config changes
+    // Subscribe to the config changes
     this._fuseConfigService.config
-      // .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((settings) => {
           this.fullscreen = settings.layout.toolbar.fullscreen;
     });
@@ -75,14 +67,44 @@ fullscreen: boolean;
   }
 
   ngOnInit() {
+    // console.log('this.selectedIndex',this.selectedIndex);
     // this.onHeaderPanelClick();
   }
 
   onTabClick($event){
-
     this.selectedIndex=$event.index;
+    if(!this.tabsLoaded[this.selectedIndex])
+      this.loadTab();
   }
 
+  changeAsFilter($event) {
+    this._store.dispatch(new LoadAsSolde($event));
+    this.loadTab();
+
+  }
+
+  loadTab() {
+    // console.log('-->load data Tab',this.selectedIndex);
+    this.tabsLoaded[this.selectedIndex]=true;
+    switch(this.selectedIndex) { 
+      case 0: { 
+        this._store.dispatch(new LoadAsChartEvolution(this.filterAsSelected));
+         break; 
+      } 
+      case 1: { 
+        this._store.dispatch(new LoadAsChartCategorisation(this.filterAsSelected));
+         break; 
+      } 
+      case 2: { 
+        this._store.dispatch(new LoadAsTableFilter(this.filterAsSelected));
+        break; 
+     } 
+      default: { 
+         console.warn('no tab selected') ;
+         break; 
+      } 
+   } 
+  }
   // onHeaderPanelClick() {
   //   this.headerPanelIsVisible = this.headerPanelIsVisible ? false : true;
   //   this.headerPanelIcon = this.headerPanelIsVisible ? 'keyboard_arrow_up' : 'keyboard_arrow_down';

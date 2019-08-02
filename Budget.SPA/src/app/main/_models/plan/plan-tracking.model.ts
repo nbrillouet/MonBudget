@@ -6,6 +6,10 @@ export class PlanForTrackingValue {
     gaugeValue : number;
 }
 
+export class PlanForTrackingPlanPosteValue extends PlanForTrackingValue{
+    isAnnualPreview : boolean;
+}
+
 export class PlanForTracking extends PlanForTrackingValue {
     plan: SelectYear;
     postes: PosteForTracking[];
@@ -16,7 +20,7 @@ export class PosteForTracking extends PlanForTrackingValue {
     planPostes: PlanPosteForTracking[];
 }
 
-export class PlanPosteForTracking extends PlanForTrackingValue {
+export class PlanPosteForTracking extends PlanForTrackingPlanPosteValue {
     idPlanPoste: number;
     label: string;
     planPostesUsers: PlanPosteUserForTracking[];

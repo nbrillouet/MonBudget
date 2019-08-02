@@ -51,13 +51,14 @@ namespace Budget.SERVICE
         {
             return _operationTypeFamilyRepository.GetById(idOperationTypeFamily);
         }
+               
 
         public List<SelectDto> GetSelectList(int idUserGroup, EnumMovement enumMovement, EnumSelectType enumSelectType)
         {
             List<SelectDto> selectList = new List<SelectDto>();
             if (enumSelectType == EnumSelectType.Inconnu)
             {
-                var select = _mapper.Map<SelectDto>(GetUnknown(idUserGroup));
+                var select = _mapper.Map<SelectDto>(GetByCodeUserGroupForSelect(EnumCodeOtf.INCO, idUserGroup));
                 selectList.Add(select);
             }
             else
@@ -77,7 +78,7 @@ namespace Budget.SERVICE
             List<SelectDto> selectList=new List<SelectDto>();
             if (enumSelectType== EnumSelectType.Inconnu)
             {
-                var select = _mapper.Map<SelectDto>(GetUnknown(idUserGroup));
+                var select = _mapper.Map<SelectDto>(GetByCodeUserGroupForSelect(EnumCodeOtf.INCO,idUserGroup));
                 selectList.Add(select);
             }
             else
@@ -200,11 +201,17 @@ namespace Budget.SERVICE
 
         }
 
-        public SelectDto GetUnknown(int idUserGroup)
+        public SelectDto GetByCodeUserGroupForSelect(EnumCodeOtf enumCodeOtf, int idUserGroup)
         {
-            var operationTypeFamily = _operationTypeFamilyRepository.GetUnknown(idUserGroup);
+            var operationTypeFamily = _operationTypeFamilyRepository.GetByCodeUserGroup(enumCodeOtf, idUserGroup);
             return _mapper.Map<SelectDto>(operationTypeFamily);
         }
+
+        //public SelectDto GetUnknown(int idUserGroup)
+        //{
+        //    var operationTypeFamily = _operationTypeFamilyRepository.GetUnknown(idUserGroup);
+        //    return _mapper.Map<SelectDto>(operationTypeFamily);
+        //}
 
         private List<SelectDto> GetOtfLogoList()
         {

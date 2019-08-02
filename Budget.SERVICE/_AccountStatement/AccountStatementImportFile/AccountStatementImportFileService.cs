@@ -166,7 +166,7 @@ namespace Budget.SERVICE
                 IdOperationMethod = (int)EnumOperationMethod.Inconnu,
                 IdOperation = _referentialService.OperationService.GetUnknown(idUserGroup).Id,
                 IdOperationDetail = _referentialService.OperationDetailService.GetUnknown(idUserGroup).Id,
-                IdOperationTypeFamily = _referentialService.OperationTypeFamilyService.GetUnknown(idUserGroup).Id,
+                IdOperationTypeFamily = _referentialService.OperationTypeFamilyService.GetByCodeUserGroupForSelect(EnumCodeOtf.INCO, idUserGroup).Id,
                 IdOperationType = _referentialService.OperationTypeService.GetUnknown(idUserGroup).Id
             };
         }

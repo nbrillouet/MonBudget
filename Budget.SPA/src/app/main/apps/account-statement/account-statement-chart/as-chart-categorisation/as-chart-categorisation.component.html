@@ -1,0 +1,31 @@
+<div class="example-container-no-footer grey-100-bg">
+  <div fxLayout="column">
+      <div class="position-relative pt-24 pl-24 pr-24 pb-10 mat-blue-600-bg"
+          fxLayoutAlign="space-between center">
+          <div fxLayout="column" fxLayoutAlign="start start">
+              <span class="h2">Evolution globale</span>
+              <span class="h5 secondary-text">Evolution sur les 12 derniers mois. Comparaison de la moyenne des 12 derniers mois avec le mois en cours</span>
+          </div>
+      </div>
+
+      <mat-grid-list cols="3" rowHeight="350px"  >
+          <mat-grid-tile>
+            <app-widget-card-chart-pie-select [widget]="asChartCategorisationSelectOperationMethod"
+              [@animate]="{value:'*',params:{y:'100%'}}">
+            </app-widget-card-chart-pie-select>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <app-widget-card-chart-pie-select [widget]="asChartCategorisationSelectOperationTypeFamily"
+              [@animate]="{value:'*',params:{y:'100%'}}">
+            </app-widget-card-chart-pie-select>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <app-widget-card-chart-pie-select [widget]="asChartCategorisationSelectOperationType"
+              [@animate]="{value:'*',params:{y:'100%'}}">
+            </app-widget-card-chart-pie-select>
+          </mat-grid-tile>
+      </mat-grid-list>
+
+
+  </div>
+</div>

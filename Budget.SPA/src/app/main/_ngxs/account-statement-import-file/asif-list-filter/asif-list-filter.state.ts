@@ -124,8 +124,8 @@ export class AsifTableFilterState {
     }
 
     HasChangedState( state: FilterAsifTableSelected, payload : FilterAsifTableSelected ) {
-        console.log('state',state);
-        console.log('payload',payload);
+        // console.log('state',state);
+        // console.log('payload',payload);
         
         if(payload.account == null || payload.asifState == null ) {
             return false;
@@ -142,7 +142,7 @@ export class AsifTableFilterState {
         if(state.asifState.id!=payload.asifState.id) {
             return true;
         }
-        console.log('state.pagination != payload.pagination',state.pagination != payload.pagination);
+        // console.log('state.pagination != payload.pagination',state.pagination != payload.pagination);
         if(state.pagination != payload.pagination) {
             return true;
         }

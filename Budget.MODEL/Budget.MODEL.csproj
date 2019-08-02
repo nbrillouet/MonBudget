@@ -19,8 +19,4 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Budget.HELPER\Budget.HELPER.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -1,90 +1,97 @@
-
-.example-container {
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto !important;
-  max-height:calc(100% - 50px) !important;
-  }
+// mat-table-filter {
+//   display: flex;
+//   flex-direction: column;
+//   overflow-y: auto !important;
+//   overflow-x: hidden !important;
+//   max-height:calc(100% - 50px) !important;
+//   width: 100% !important;
+//   }
+// .example-container {
+//   display: flex;
+//   flex-direction: column;
+//   overflow-y: auto !important;
+//   max-height:calc(100% - 50px) !important;
+//   }
   
-  // .scrollable-small {
+//   // .scrollable-small {
       
-  //   max-height:65vh;
-  // }
+//   //   max-height:65vh;
+//   // }
 
-  // .scrollable-large {
-  //   // overflow-y: auto !important;
-  //   max-height:86vh;
-  // }
+//   // .scrollable-large {
+//   //   // overflow-y: auto !important;
+//   //   max-height:86vh;
+//   // }
   
-  .mat-table {
-    width: 100% !important;
-    height:100%;
-    // max-height:65vh;
+//   .mat-table {
+//     width: 100% !important;
+//     height:100%;
+//     // max-height:65vh;
     
-  }
+//   }
   
-  .element-row {
-    position: relative;
-  }
+//   .element-row {
+//     position: relative;
+//   }
   
-  .element-row:not(.expanded) {
-    cursor: pointer;
-  }
+//   .element-row:not(.expanded) {
+//     cursor: pointer;
+//   }
   
-  .element-row:not(.expanded):hover {
-    background: #f5f5f5;
-  }
+//   .element-row:not(.expanded):hover {
+//     background: #f5f5f5;
+//   }
   
-  .element-row.expanded {
-    border-bottom-color: red;
-    background: #f5f5f5;
-  }
+//   .element-row.expanded {
+//     border-bottom-color: red;
+//     background: #f5f5f5;
+//   }
 
-  .ng-trigger-detailExpand {
-    background: #f5f5f5;
-  }
+//   .ng-trigger-detailExpand {
+//     background: #f5f5f5;
+//   }
 
-  .mat-row {
-    min-height: 36px;
-    max-height: 36px;
-    padding-top:0px;
-    padding-right:6px;
-    padding-bottom: 0px;
-    padding-left: 6px;
-    width: 100%;
-  }
+//   .mat-row {
+//     min-height: 36px;
+//     max-height: 36px;
+//     padding-top:0px;
+//     padding-right:6px;
+//     padding-bottom: 0px;
+//     padding-left: 6px;
+//     width: 100%;
+//   }
 
-  .mat-header-row {
-  //   position: sticky;
-  // top: 0;
-    min-height: 40px;
-    max-height: 40px;
-    padding-top:0px;
-    padding-right:6px;
-    padding-bottom: 0px;
-    padding-left: 6px;
-    width: 100%;
-  }
+//   .mat-header-row {
+//   //   position: sticky;
+//   // top: 0;
+//     min-height: 40px;
+//     max-height: 40px;
+//     padding-top:0px;
+//     padding-right:6px;
+//     padding-bottom: 0px;
+//     padding-left: 6px;
+//     width: 100%;
+//   }
 
-  .red-icon {
-    color: #F44336;
-  }
-  // .highlight{
-  //   background: #FCC7C3;
-  //   // opacity: 0.3;
-  // }
+//   .red-icon {
+//     color: #F44336;
+//   }
+//   // .highlight{
+//   //   background: #FCC7C3;
+//   //   // opacity: 0.3;
+//   // }
 
-  .text-green {
-    color: #09D261;
-  }
-  .text-red {
-    color: #F44336;
-  }
+//   .text-green {
+//     color: #09D261;
+//   }
+//   .text-red {
+//     color: #F44336;
+//   }
 
-  .empty-result {
-    text-align:center;
-    color:#4285F3;
-  }
+//   .empty-result {
+//     text-align:center;
+//     color:#4285F3;
+//   }
 
 
   // .example-container {
@@ -92,20 +99,20 @@
   //   // overflow: auto;
   // }
 
-  .mat-paginator-container {
-    min-height: 35px !important;
-    max-height: 35px !important;
-    margin-top: 30px !important;
-    // padding:    2px !important;
-  }
+  // .mat-paginator-container {
+  //   min-height: 35px !important;
+  //   max-height: 35px !important;
+  //   margin-top: 30px !important;
+  //   // padding:    2px !important;
+  // }
 
-  .dot {
-    height: 25px;
-    width: 25px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    text-align: center;
-    color:white;
-    padding-top:5px;
-  }
+  // .dot {
+  //   height: 25px;
+  //   width: 25px;
+  //   background-color: #bbb;
+  //   border-radius: 50%;
+  //   display: inline-block;
+  //   text-align: center;
+  //   color:white;
+  //   padding-top:5px;
+  // }

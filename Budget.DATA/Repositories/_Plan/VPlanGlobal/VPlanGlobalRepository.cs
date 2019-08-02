@@ -23,7 +23,7 @@ namespace Budget.DATA.Repositories
             planGlobals = planGlobals.Where(x => x.IdPlan == filter.IdPlan);
             
             //planGlobals = planGlobals.Where(x => x.Month.Value == 13);
-            if (filter.MonthYear != null)
+            if (filter.MonthYear != null && filter.MonthYear.Month.Id!= (int)EnumMonth.BalanceSheetYear)
             {
                 //ajout systématique du mois 13 (prevision annuelle)
                 planGlobals = planGlobals
@@ -31,7 +31,7 @@ namespace Budget.DATA.Repositories
                         x => x.Month!=null
                         &&
                         (
-                            x.Month == 13 
+                            x.Month == (int)EnumMonth.BalanceSheetYear
                                 && x.DateIntegration <= DateHelper
                                 .GetLastDayOfMonth(Convert.ToDateTime($"01/{filter.MonthYear.Month.Id}/{filter.MonthYear.Year}"))
                         )

@@ -61,6 +61,12 @@ namespace Budget.SERVICE
 
         }
 
+        //public List<AsForTableDto> GetAsNotInPlan(FilterAsNotInPlan filter)
+        //{
+        //    var results = _accountStatementRepository.GetAsNotInPlan(filter);
+        //    return _mapper.Map<List<AsForTableDto>>(results);
+        //}
+
         public AsDetailDto GetAsDetail(FilterAsDetail filter)
         {
             var accountStatement = _accountStatementRepository.GetAsDetail(filter.IdAs.Value);
@@ -132,8 +138,13 @@ namespace Budget.SERVICE
 
         public List<AsForTableDto> GetByPlanPosteReferences(List<PlanPosteReference> planPosteReferences,MonthYear monthYear)
         {
-            DateTime minDate = Convert.ToDateTime($"01/{monthYear.Month.Id}/{monthYear.Year}");
-            DateTime maxDate = DateHelper.GetLastDayOfMonth(minDate);
+            DateTime minDate = monthYear.Month.Id == (int)EnumMonth.BalanceSheetYear 
+                ? Convert.ToDateTime($"01/01/{monthYear.Year}")
+                : Convert.ToDateTime($"01/{monthYear.Month.Id}/{monthYear.Year}");
+            
+            DateTime maxDate = monthYear.Month.Id == (int)EnumMonth.BalanceSheetYear
+                ? Convert.ToDateTime($"31/12/{monthYear.Year}")
+                : DateHelper.GetLastDayOfMonth(minDate);
             
             var accountStatements = _accountStatementRepository.GetByDatePlanPosteReferenceList(planPosteReferences, minDate, maxDate);
 

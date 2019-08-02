@@ -1,0 +1,125 @@
+    .mat-dialog-container {
+        padding: 0px !important;
+        overflow: hidden !important;
+    }
+  
+  .mat-dialog-content {
+    max-height:82vh !important;
+    margin:0px;
+    padding:12px;
+    // overflow: unset;
+  }
+  
+  .mat-dialog-actions {
+    padding:12px;
+  }
+  
+  .mat-select-content{
+    height:20px;
+    background-color: red;
+    font-size: 10px;
+  }
+  
+  
+  
+  
+  .example-container {
+      display: flex;
+      flex-direction: column;
+      max-height: 95%;
+      // height: 90%;
+      // overflow: hidden;
+      // min-width: 300px;
+    }
+    
+    .mat-table {
+      overflow: auto;
+      width: 100% !important;
+      // height: 800px !important;
+    }
+    
+    .element-row {
+      position: relative;
+    }
+    
+    .element-row:not(.expanded) {
+      cursor: pointer;
+    }
+    
+    .element-row:not(.expanded):hover {
+      background: #f5f5f5;
+    }
+    
+    .element-row.expanded {
+      border-bottom-color: red;
+      background: #f5f5f5;
+    }
+  
+    .ng-trigger-detailExpand {
+      background: #f5f5f5;
+    }
+  
+    .mat-row {
+      min-height: 36px;
+      max-height: 36px;
+      padding-top:0px;
+      padding-right:6px;
+      padding-bottom: 0px;
+      padding-left: 6px;
+      width: 100%;
+    }
+  
+    .mat-header-row {
+    //   position: sticky;
+    // top: 0;
+      min-height: 40px;
+      max-height: 40px;
+      padding-top:0px;
+      padding-right:6px;
+      padding-bottom: 0px;
+      padding-left: 6px;
+      width: 100%;
+    }
+  
+    .red-icon {
+      color: #F44336;
+    }
+    // .highlight{
+    //   background: #FCC7C3;
+    //   // opacity: 0.3;
+    // }
+  
+    .text-green {
+      color: #09D261;
+    }
+    .text-red {
+      color: #F44336;
+    }
+  
+    .empty-result {
+      text-align:center;
+      color:#4285F3;
+    }
+  
+  
+    // .example-container {
+   
+    //   // overflow: auto;
+    // }
+  
+    .mat-paginator-container {
+      min-height: 36px !important;
+      max-height: 36px !important;
+      padding:    2px !important;
+    }
+  
+    .dot {
+      height: 25px;
+      width: 25px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      text-align: center;
+      color:white;
+      padding-top:5px;
+    }

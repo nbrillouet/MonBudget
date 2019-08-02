@@ -933,6 +933,10 @@ namespace Budget.DATA.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Code")
+                        .HasColumnName("CODE")
+                        .HasMaxLength(4);
+
                     b.Property<int>("IdOperationTypeFamily")
                         .HasColumnName("ID_OPERATION_TYPE_FAMILY");
 
@@ -959,6 +963,10 @@ namespace Budget.DATA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnName("CODE")
+                        .HasMaxLength(4);
 
                     b.Property<int>("IdMovement")
                         .HasColumnName("ID_MOVEMENT");
@@ -1247,7 +1255,7 @@ namespace Budget.DATA.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IdAccount")
+                    b.Property<int?>("IdAccount")
                         .HasColumnName("ID_ACCOUNT");
 
                     b.Property<int>("IdOperationTypeFamily")
@@ -1264,7 +1272,8 @@ namespace Budget.DATA.Migrations
 
                     b.HasIndex("IdOperationTypeFamily", "IdUser", "IdAccount")
                         .IsUnique()
-                        .HasName("IX_UCO_IdOperationTypeFamily_IdUser_IdAccount");
+                        .HasName("IX_UCO_IdOperationTypeFamily_IdUser_IdAccount")
+                        .HasFilter("[ID_ACCOUNT] IS NOT NULL");
 
                     b.ToTable("USER_CUSTOM_OTF","user");
                 });
@@ -1854,8 +1863,7 @@ namespace Budget.DATA.Migrations
                 {
                     b.HasOne("Budget.MODEL.Database.Account", "Account")
                         .WithMany()
-                        .HasForeignKey("IdAccount")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdAccount");
 
                     b.HasOne("Budget.MODEL.Database.OperationTypeFamily", "OperationTypeFamily")
                         .WithMany()

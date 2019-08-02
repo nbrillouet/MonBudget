@@ -21,8 +21,7 @@ export class MonthYearSelectionComponent implements OnInit,OnChanges {
   ) { 
 
     this.months = DateTimeFactory.getMonths;
-
-    
+     
   }
 
   ngOnInit() {
@@ -34,6 +33,8 @@ export class MonthYearSelectionComponent implements OnInit,OnChanges {
       this.selectYears = changes.selectYears.currentValue;
       this.monthYearSelected = {month: this.months[0],year:this.selectYears[0]};
       this.monthYearChange.emit(this.monthYearSelected);
+      //ajout de l'année entiere
+      this.months.push(this.getYearBalanceSheet(this.selectYears[0].year.toString()));
     }
 
    }
@@ -48,6 +49,8 @@ export class MonthYearSelectionComponent implements OnInit,OnChanges {
 
   updateSelectYearSelected(selectYear: SelectYear) {
     this.monthYearSelected.year = selectYear;
+    //maj annee entiere
+    this.months[this.months.length-1]=this.getYearBalanceSheet(selectYear.year.toString());
 
     // let monthYear :IMonthYear = {month:this.monthYearSelected.month,year:selectYear.year};
     this.monthYearChange.emit(this.monthYearSelected);
@@ -55,6 +58,15 @@ export class MonthYearSelectionComponent implements OnInit,OnChanges {
 
   isInMonthSelected(month: ISelect) {
     return month.id==this.monthYearSelected.month.id;
+  }
+
+  getYearBalanceSheet(year: string): ISelect  {
+    let yearBalanceSheet = <ISelect> {
+      id:13,
+      label: year
+    };
+
+    return yearBalanceSheet;
   }
 
 }

@@ -162,7 +162,19 @@
                                         </div>
                                     </div>
 
-
+                                    <div *ngIf="(asPlanTable$ | async).loadingInfo.loaded">
+                                        <div *ngIf="(asPlanTable$ | async).datas.length>0">
+                                            Nombre de lignes de relevés non pris en compte dans ce budget:
+                                            <!-- <button mat-raised-button color="primary"
+                                                [matBadge]="(asPlanTable$ | async).datas.length" matBadgePosition="before" matBadgeColor="warning">
+                                                
+                                            </button> -->
+                                            
+                                            <button mat-raised-button color="warn"
+                                                (click)="openAccountStatements()"
+                                            >{{(asPlanTable$ | async).datas.length}}</button>
+                                             </div> 
+                                    </div>
                                   <!-- <chip-autocomplete [placeHolder]="this.planDetailUserPlaceHolder" [datas]="this.planDetail.users" (getSelectedListChange)="updateSelectedUsers($event)"></chip-autocomplete> -->
                                   
                                   <!--  -->

@@ -15,49 +15,53 @@ isLoaded: boolean;
 @ViewChild(BaseChartDirective) private _chart;
 
 
-widget8: any = {};
+  // widget8: any = {};
 
 
   constructor() {
-    this.widget8 = {
-      title    : 'Budget Distribution',
-      mainChart: [
-        {
-            name : 'Wireframing',
-            value: 12
-        },
-        {
-            name : 'Design',
-            value: 17
-        },
-        {
-            name : 'Coding',
-            value: 28
-        },
-        {
-            name : 'Marketing',
-            value: 25
-        },
-        {
-            name : 'Extra',
-            value: 15
-        }
-    ],
+  //   this.widget8 = {
+  //     title    : 'Budget Distribution',
+  //     mainChart: [
+  //       {
+  //           name : 'Wireframing',
+  //           value: 12
+  //       },
+  //       {
+  //           name : 'Design',
+  //           value: 17
+  //       },
+  //       {
+  //           name : 'Coding',
+  //           value: 28
+  //       },
+  //       {
+  //           name : 'Marketing',
+  //           value: 25
+  //       },
+  //       {
+  //           name : 'Extra',
+  //           value: 13
+  //       },
+  //       {
+  //         name : 'Extra',
+  //         value: 2
+  //     }
+  //   ],
 
-      legend       : false,
-      explodeSlices: false,
-      labels       : true,
-      doughnut     : false,
-      gradient     : false,
-      scheme       : {
-          domain: ['#f44336', '#9c27b0', '#03a9f4', '#e91e63', '#ffc107']
-      },
-      onSelect     : (ev) => {
-          console.log(ev);
-      }
-  };
+  //     legend       : false,
+  //     explodeSlices: true,
+  //     labels       : true,
+  //     doughnut     : false,
+  //     gradient     : true,
+  //     scheme       : {
+  //         domain: ['#f44336', '#9c27b0', '#03a9f4', '#e91e63', '#ffc107','#f44336','#f44336']
+  //     },
+  //     onSelect     : (ev) => {
+  //         console.log(ev);
+  //     }
+  // };
 
-  console.log('widget8', this.widget8);
+  // console.log('widget8', this.widget8);
   }
 
   ngOnChanges(changes: SimpleChanges) {

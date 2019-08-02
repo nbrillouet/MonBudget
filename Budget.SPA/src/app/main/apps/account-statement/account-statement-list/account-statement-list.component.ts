@@ -15,6 +15,10 @@ import { ChangeAsTableFilter, LoadAsTableFilter } from 'app/main/_ngxs/account-s
 import { FilterAmount } from 'app/main/_models/filters/mini-filter/amount.filter';
 import { FilterComboMultiple, FilterComboMultipleGroup } from 'app/main/_models/filters/mini-filter/combo-multiple.filters';
 import { FilterDateRange } from 'app/main/_models/filters/mini-filter/date-range.filter';
+// import { MatTableFilter, Row, TableField, EnumFilterType, Column, FilterTable, EnumStyleType, TypeNumberUpDown } from './mat-table-filter/model/mat-table-filter.model';
+import { Pagination } from 'app/main/_models/pagination.model';
+import { FilterNumberRange } from 'app/main/_models/filters/mini-filter/number-range.filter';
+import { Row, Column, FilterTable, EnumStyleType, EnumFilterType } from '../../web-component/mat-table-filter/model/mat-table-filter.model';
 
 
 @Component({
@@ -32,97 +36,57 @@ export class AccountStatementListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // @Input() headerPanelIsVisible: boolean;
-
-  dataSource = new MatTableDataSource<AsTable>();// AsifDataSource;
+  rows:Row[];
+  columns:Column[];
+  pagination: Pagination;
+  onloading: boolean;
   filterAs: FilterAsTable;
-  idAccountStatement: number;
-  selectedIndex: number = 0;
-  displayedColumns = ['id','plan','operationMethod','operationTypeFamily','operationType','operation','dateIntegration','amountOperation','button'];
-  templateFor:string;
-
-  filterAmount: FilterAmount ={ placeholder:'',amountMin:null,amountMax:null };
-  filterOperationMethod: FilterComboMultiple= { placeholder:'Méthode opération',combos:null };
-  filterOperationTypeFamily: FilterComboMultipleGroup = { placeholder:'Catégorie opération',combos:null };
-  filterOperationType: FilterComboMultipleGroup = { placeholder:'Type opération',combos:null };
-  filterOperation: FilterComboMultiple = { placeholder:'Opération',combos:null };
-  filterDateIntegration: FilterDateRange = { placeholder:'Intégration',dateMin:null,dateMax:null };
 
   constructor(
     private _router: Router,
-    private _store: Store) {
+    private _store: Store
+    ) {
 
       this.asTable$.subscribe(asifTable=>{
-        this.dataSource.data = asifTable.datas; 
+        this.onloading= asifTable.loadingInfo.loading;
+        if(asifTable.loadingInfo.loaded){
+
+          this.rows=this.getMatTableFilterRows(asifTable);
+
+        }
+      });
+
+      this.asTableFilter$.subscribe(asTableFilter=>{
+        this.onloading= asTableFilter.loadingInfo.loading;
+        // console.log('asTableFilter$ FIRED',asTableFilter.loadingInfo.loading);
+        if(asTableFilter.loadingInfo.loaded) {
+          // console.log('---->asTableFilter.filters',asTableFilter.filters);
+          this.filterAs = asTableFilter.filters;
+  
+          this.pagination=this.filterAs.selected.pagination;
+  
+          this.columns=this.getMatTableFilterColumns(asTableFilter.filters);
+          
+        }
       });
 
    }
 
   ngOnInit() {
-    this.asTableFilter$.subscribe(asTableFilter=>{
-      if(asTableFilter.loadingInfo.loaded) {
-        this.filterAs = asTableFilter.filters;
-
-        this.filterOperationMethod.combos = {list : asTableFilter.filters.operationMethods, listSelected: asTableFilter.filters.selected.operationMethods};
-        this.filterOperationTypeFamily.combos = {list : asTableFilter.filters.operationTypeFamilies, listSelected: asTableFilter.filters.selected.operationTypeFamilies};
-        this.filterOperationType.combos = {list : asTableFilter.filters.operationTypes, listSelected: asTableFilter.filters.selected.operationTypes};
-        this.filterOperation.combos={list : asTableFilter.filters.operations, listSelected: asTableFilter.filters.selected.operations};
-        
-      }
-    });
+    
   
   }
-  
-  // ngOnChanges(changes: SimpleChanges) {
-  //   this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
-  // }
-
-  onPageChangeEvent(event) {
-    this.filterAs.selected.pagination.currentPage = this.paginator.pageIndex;
-    this.loadPage();
-  }
-  
-  onSortChangeEvent(event): void {
-    this.filterAs.selected.pagination.currentPage=0;
-    this.loadPage();
-  }
-
-  loadPage() {
-
-    this.filterAs.selected.pagination.nbItemsPerPage = this.paginator.pageSize;
-    this.filterAs.selected.pagination.sortColumn = this.sort.active;
-    this.filterAs.selected.pagination.sortDirection = this.sort.direction;
-
-    this._store.dispatch(new ChangeAsTableFilter(this.filterAs.selected));
-  }
-
-  hasFilterData(filter:string) {
-    if(!this.filterAs && !this.filterAs.selected)
-      return false;
-    if(filter=='operation')
-      return this.filterAs.selected.operations!=null && this.filterAs.selected.operations.length>0;
-    if(filter=='operationMethod')
-      return this.filterAs.selected.operationMethods!=null && this.filterAs.selected.operationMethods.length>0;
-    if(filter=='operationTypeFamily')
-      return this.filterAs.selected.operationTypeFamilies!=null && this.filterAs.selected.operationTypeFamilies.length>0;
-    if(filter=='operationType')
-      return this.filterAs.selected.operationTypes!=null && this.filterAs.selected.operationTypes.length>0;
-    if(filter=='dateIntegration')
-      return (this.filterAs.selected.dateIntegrationMin!=null || this.filterAs.selected.dateIntegrationMax);
-    if(filter=='amount')
-      return (this.filterAs.selected.amountMin !=null || this.filterAs.selected.amountMax !=null) ;
-      
-  }
-
-  detail(data) {
    
+
+  viewDetail($event:Row) {
     this._router.navigate(
-      [`apps/account-statements/accounts/${this.filterAs.selected.idAccount}/account-statements/${data.id}/detail`]);
+      [`apps/account-statements/accounts/${this.filterAs.selected.idAccount}/account-statements/${$event.id}/detail`]);
   }
 
   applyFilterAmount(data) {
-    this.filterAs.selected.amountMin = data.amountMin;
-    this.filterAs.selected.amountMax = data.amountMax;
+    
+    this.filterAs.selected.amountMin = data.numberMin;
+    this.filterAs.selected.amountMax = data.numberMax;
     this.applyFilter();
   }
 
@@ -155,7 +119,103 @@ export class AccountStatementListComponent implements OnInit {
 
   applyFilter() {
     this.filterAs.selected.pagination.currentPage=0;
-    this._store.dispatch(new LoadAsTableFilter(this.filterAs));
+    this._store.dispatch(new LoadAsTableFilter(this.filterAs.selected));
+  }
+
+
+  getMatTableFilterColumns(filterDatas) {
+    let operationComboMultiple: FilterComboMultiple = null;
+    let operationMethodComboMultiple: FilterComboMultiple = null;
+    let operationTypeFamilyComboMultipleGroup: FilterComboMultipleGroup = null;
+    let operationTypeComboMultipleGroup: FilterComboMultipleGroup = null;
+    let filterDateIntegration: FilterDateRange = { placeholder:'Intégration',dateMin:null,dateMax:null }; 
+    let filterNumberRange: FilterNumberRange ={ placeholder:'Montant',suffixIcon:'euro_symbol',numberMin:null,numberMax:null };
+
+    if(filterDatas!=null) {
+
+      operationComboMultiple = <FilterComboMultiple> { placeholder:'opération',combos:{list : filterDatas.operations, listSelected: filterDatas.selected.operations} };
+      operationMethodComboMultiple= <FilterComboMultiple> { placeholder:'Méthode d opération',combos:{list : filterDatas.operationMethods, listSelected: filterDatas.selected.operationMethods} };
+      operationTypeFamilyComboMultipleGroup = <FilterComboMultipleGroup> { placeholder:'Catégorie opération',combos:{list : filterDatas.operationTypeFamilies, listSelected: filterDatas.selected.operationTypeFamilies} };
+      operationTypeComboMultipleGroup = <FilterComboMultipleGroup> { placeholder:'Type opération',combos:{list : filterDatas.operationTypes, listSelected: filterDatas.selected.operationTypes} };
+      // filterDateIntegration = <FilterDateRange> { placeholder:'Intégration',dateMin:null,dateMax:null };
+    
+    }
+    
+    let columns : Column[]= [];
+    columns = [ 
+        {index:0, field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
+        {index:1, field: 'plan',label:'budget',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null}, pipe: false,style:{type: EnumStyleType.dotDatas,datas:null}},
+        {index:2, field: 'operationMethod',label:'Méthode opérations',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: operationMethodComboMultiple}, pipe: false,style:{type:EnumStyleType.label,datas:null}},
+        {index:3, field: 'operationTypeFamily',label:'Catégorie operations',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultipleGroup, datas: operationTypeFamilyComboMultipleGroup},pipe:false,style:{type:EnumStyleType.label,datas:null}},
+        {index:4, field: 'operationType',label:'Type operations',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultipleGroup, datas: operationTypeComboMultipleGroup},pipe:false,style:{type:EnumStyleType.label,datas:null}},
+        {index:5, field: 'operation',label:'Operations',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: operationComboMultiple},pipe:false,style:{type:EnumStyleType.label,datas:null}},
+        {index:6, field: 'dateIntegration',label:'Date int.',isSortable:true,width:{isFixed:false,value:-1}, filter: {type:EnumFilterType.dateRange, datas: filterDateIntegration},pipe:true,style:{type:EnumStyleType.label,datas:null} },
+        {index:7, field: 'amountOperation',label:'montant',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.numberRange, datas: filterNumberRange},pipe:false,style: {type:EnumStyleType.numberUpDown,datas:{isoNumber:0}} },
+        {index:8, field: 'button',label:'',isSortable:false,width:{isFixed:true,value:50},filter: {type:EnumFilterType.none, datas: null},pipe:false,style: {type:EnumStyleType.buttonIcon,datas:{icon:'more_horiz',tooltip:'détail'}} }
+        ];
+ 
+    return columns;
+  }
+
+
+  getMatTableFilterRows(datas: DataInfos<AsTable> ) {
+    let tableRows: Row[] = [];
+
+    if (datas.loadingInfo.loaded) {
+      for (let data of datas.datas) {
+
+        //creation de la ligne
+        let tableRow = new Row();
+        tableRow['id']= data.id;
+        tableRow['plan']= data.plans;
+        tableRow['operationMethod']=data.operationMethod.label;
+        tableRow['operationTypeFamily']=data.operationTypeFamily.label;
+        tableRow['operationType']=data.operationType.label;
+        tableRow['operation']=data.operation.label;
+        tableRow['dateIntegration']=data.dateIntegration;
+        tableRow['amountOperation']=data.amountOperation;
+        tableRow['button']=null;
+
+        //ajout d'une ligne
+        tableRows.push(tableRow);
+      }
+
+     
+
+      return tableRows;
+    }
+  }
+
+  changeFilterEvent($event: FilterTable) {
+    switch($event.columnName) {
+      case 'operation':
+        this.applyFilterOperation($event.value);
+        break;
+      case 'operationMethod':
+        this.applyFilterOperationMethod($event.value);
+        break;
+      case 'operationTypeFamily':
+          this.applyFilterOperationTypeFamily($event.value);
+          break;
+      case 'operationType':
+          this.applyFilterOperationType($event.value);
+          break;
+      case 'dateIntegration':
+          this.applyFilterDateIntegration($event.value);
+          break;
+      case 'amountOperation':
+          this.applyFilterAmount($event.value);
+          break;
+
+    }
+
+    this.applyFilter();
+  }
+
+  changePaginationEvent($event){
+    this.filterAs.selected.pagination = $event;
+
+    this._store.dispatch(new ChangeAsTableFilter(this.filterAs.selected));
   }
 
 }

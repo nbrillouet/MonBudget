@@ -1,4 +1,5 @@
-﻿using Budget.MODEL.Dto;
+﻿using Budget.MODEL;
+using Budget.MODEL.Dto;
 using Budget.MODEL.Filter;
 using Budget.SERVICE;
 using Microsoft.AspNetCore.Authorization;

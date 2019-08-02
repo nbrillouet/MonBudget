@@ -1,0 +1,103 @@
+<!-- <div class="dialog-content-wrapper"> -->
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Montant réel: détail</span>
+            <button mat-icon-button (click)="close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="example-container" fusePerfectScrollbar>
+        <table mat-table [dataSource]="dataSource" >
+            <ng-container matColumnDef="id">
+                <mat-header-cell style="flex:0 0 70px;" *matHeaderCellDef>Id</mat-header-cell>
+                <mat-cell style="flex:0 0 70px;" *matCellDef="let data">
+                    <p class="text-truncate">{{data.id}}</p>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="label">
+            <mat-header-cell *matHeaderCellDef> Libellé </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.label}} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="operationMethod" >
+                <mat-header-cell style="flex: 0 0 15%;"  *matHeaderCellDef >
+                Méthode opération
+                </mat-header-cell >
+                <mat-cell style="flex: 0 0 15%;" *matCellDef="let data">
+                    <p class="text-truncate">{{data.operationMethod.label}}</p>
+                </mat-cell>
+            </ng-container>
+            
+            <!-- Opération -->
+            <ng-container matColumnDef="operation" >
+                <mat-header-cell style="flex: 0 0 15%;" *matHeaderCellDef >
+                Opération
+                </mat-header-cell>
+                <mat-cell style="flex: 0 0 15%;" *matCellDef="let data">
+                    <p class="text-truncate">{{data.operation.label}}</p>
+                </mat-cell>
+            </ng-container>
+            
+            <!-- Operation type family-->
+            <ng-container matColumnDef="operationTypeFamily" >
+                <mat-header-cell style="flex: 0 0 15%;" *matHeaderCellDef>
+                Catégorie opération
+                </mat-header-cell>
+
+                <mat-cell style="flex: 0 0 15%;" *matCellDef="let data">
+                    <p class="text-truncate">{{data.operationTypeFamily.label}}</p>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Operation type -->
+            <ng-container matColumnDef="operationType" >
+                <mat-header-cell style="flex: 0 0 15%;" *matHeaderCellDef>
+                Type opération
+                </mat-header-cell>
+            
+                <mat-cell style="flex: 0 0 15%;" *matCellDef="let data">
+                    <p class="text-truncate">{{data.operationType.label}}</p>
+                </mat-cell>
+            </ng-container>
+
+            <!-- dateIntegration -->
+            <ng-container matColumnDef="dateIntegration" >
+                <mat-header-cell style="flex: 0 0 100px;" *matHeaderCellDef>
+                Date int.
+                </mat-header-cell>
+            
+                <mat-cell style="flex: 0 0 100px;" *matCellDef="let data">
+                    <p class="text-truncate">{{data.dateIntegration | date: 'dd/MM/yyyy'}}</p>
+                </mat-cell>
+            </ng-container> 
+
+            <!-- Amount -->
+            <ng-container matColumnDef="amountOperation" >
+                <mat-header-cell style="flex: 0 0 100px;" *matHeaderCellDef>
+                Montant
+                </mat-header-cell>
+                
+                <mat-cell style="flex: 0 0 100px;" *matCellDef="let data">
+                    <div *ngIf="data.amountOperation>0">
+                        <p  class="text-truncate green-fg">
+                            <mat-icon class="green-fg mr-2">trending_up</mat-icon>
+                            {{data.amountOperation}}
+                        </p>
+                    </div>
+                    <div *ngIf="data.amountOperation<0">
+                        <p  class="text-truncate red-fg">
+                            <mat-icon class="red-fg mr-2">trending_down</mat-icon>
+                            {{data.amountOperation}}
+                        </p>
+                    </div>
+                </mat-cell>
+            </ng-container> 
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row class="element-row"  *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </table>
+        <p class="empty-result" *ngIf="dataSource && dataSource.length==0">Aucun résultat</p>
+    </div>
+<!-- </div> -->

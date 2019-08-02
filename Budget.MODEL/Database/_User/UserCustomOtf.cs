@@ -17,7 +17,7 @@ namespace Budget.MODEL.Database
         public User User { get; set; }
 
         [Column("ID_ACCOUNT")]
-        public int IdAccount { get; set; }
+        public int? IdAccount { get; set; }
         [ForeignKey("IdAccount")]
         public Account Account { get; set; }
 

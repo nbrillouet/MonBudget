@@ -51,7 +51,7 @@ export class AsTableFilterState {
         state.filters = null;
     
         context.patchState(state);
-        this._asService.getAsTableFilter(action.payload.selected)
+        this._asService.getAsTableFilter(action.payload)
             .subscribe(result=> {
                 context.dispatch(new LoadAsTableFilterSuccess(result));
             });
@@ -63,7 +63,7 @@ export class AsTableFilterState {
         
         //conserver le payload
         let payload = JSON.parse(JSON.stringify(action.payload.selected));
-
+        console.log('-->action.payload.selected',action.payload.selected)
         let state = context.getState();
         state.loadingInfo.loaded = true;
         state.loadingInfo.loading = false;
@@ -72,7 +72,6 @@ export class AsTableFilterState {
         context.patchState(state);
         
         context.dispatch(new ChangeAsTableFilter(payload));
-        
     }
         // this.delay(3000).then(any=>{
     @Action(ChangeAsTableFilter)

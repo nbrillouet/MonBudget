@@ -20,3 +20,4 @@ export class PlanDetailFilter {
 export class PlanTableComboFilter {
     years: ComboSimple<ISelect>;
 }
+

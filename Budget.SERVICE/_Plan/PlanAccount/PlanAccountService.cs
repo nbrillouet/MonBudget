@@ -32,18 +32,17 @@ namespace Budget.SERVICE
 
         public ComboMultiple<SelectGroupDto> GetAccountComboMultiple(int idPlan, int idUserGroup)
         {
-            //var planUsers = _planUserService.GetByIdPlan(idPlan);
-            //var idUsers = planUsers.Select(x => x.IdUser).ToList();
-
             ComboMultiple<SelectGroupDto> result = new ComboMultiple<SelectGroupDto>
             {
                 List = _userAccountService.GetBankSubFamilySelectGroup(idUserGroup),
                 ListSelected = GetSelectAccountByIdPlan(idPlan)
             };
-            //    ;
-            //result.List = 
-            //result.ListSelected = GetSelectAccountByIdPlan(idPlan);
             return result;
+        }
+
+        public List<PlanAccount> GetByIdPlan(int idPlan)
+        {
+            return _planAccountRepository.GetByIdPlan(idPlan);
         }
 
         private List<SelectDto> GetSelectAccountByIdPlan(int idPlan)
@@ -52,7 +51,7 @@ namespace Budget.SERVICE
 
             return _mapper.Map<List<SelectDto>>(accounts);
         }
-
+        
         public void DeleteByIdPlan(int idPlan)
         {
             var planAccounts = _planAccountRepository.GetByIdPlan(idPlan);

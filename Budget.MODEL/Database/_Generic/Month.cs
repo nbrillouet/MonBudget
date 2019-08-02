@@ -20,4 +20,9 @@ namespace Budget.MODEL.Database
         public string LabelShort { get; set; }
 
     }
+
+    public enum EnumMonth
+    {
+        BalanceSheetYear = 13
+    }
 }

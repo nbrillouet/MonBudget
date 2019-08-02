@@ -117,7 +117,8 @@ namespace Budget.SERVICE
                 case 1:
                     return operationDetails[0];
                 default:
-                    throw new Exception("2 paires de keywords identiques présents pour les operations localisables");
+                    return DetachOperation(operationDetails);
+                    //throw new Exception("2 paires de keywords identiques présents pour les operations localisables");
             }
         }
 
@@ -131,6 +132,27 @@ namespace Budget.SERVICE
             var operationDetail = _operationDetailRepository.GetUnknown(idUserGroup);
             return operationDetail;
             //return _mapper.Map<SelectDto>(operationDetail);
+        }
+
+        /// <summary>
+        /// essai de detacher une operation detail d'une liste en verifiant s'il nexiste pas de doublons
+        /// et en ne construisant pas de doublon
+        /// </summary>
+        /// <param name="operationDetails"></param>
+        /// <returns></returns>
+        private OperationDetail DetachOperation(List<OperationDetail> operationDetails)
+        {
+            // selection des operation keyword et operation place grouper
+            // si le regroupement ne retourne qu'un seul enregistrement ==> doublon operation keyword et operation place : erreur
+            var operations = operationDetails.Select(x => new { operationKeyword = x.KeywordOperation, operationPlace = x.KeywordPlace }).ToList().GroupBy(x => new { x.operationKeyword, x.operationPlace }).ToList();
+            if (operations.Count ==1)
+            {
+                throw new Exception("2 paires de keywords identiques présents pour les operations localisables");
+            }
+            // sinon prendre le 1er enregistrement trouvé
+            else
+                return operationDetails[0];
+
         }
 
     }

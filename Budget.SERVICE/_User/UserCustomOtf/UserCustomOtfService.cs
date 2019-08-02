@@ -24,8 +24,9 @@ namespace Budget.SERVICE
             _userCustomOtfRepository = userAsCustomOtfRepository;
         }
 
-        private List<UserCustomOtf> Get(int idUser, int idAccount)
+        private List<UserCustomOtf> Get(int idUser, int? idAccount)
         {
+
             var otfs = _userCustomOtfRepository.Get(idUser, idAccount);
             return otfs;
 
@@ -42,7 +43,7 @@ namespace Budget.SERVICE
         public bool Update(AsChartEvolutionCustomOtfFilterSelected filter)
         {
             //Suppression des items pour l'utilisateur et le le compte
-            var userCustomOtfs = Get(filter.IdUser, filter.IdAccount.Value);
+            var userCustomOtfs = Get(filter.User.Id, filter.IdAccount);
             foreach(var userCustomOtf in userCustomOtfs)
             {
                 _userCustomOtfRepository.Delete(userCustomOtf);
@@ -55,8 +56,8 @@ namespace Budget.SERVICE
                 UserCustomOtf userCustomOtf = new UserCustomOtf
                 {
                     Id = 0,
-                    IdAccount = filter.IdAccount.Value,
-                    IdUser = filter.IdUser,
+                    IdAccount = filter.IdAccount,
+                    IdUser = filter.User.Id,
                     IdOperationTypeFamily = otf.Id
                 };
 

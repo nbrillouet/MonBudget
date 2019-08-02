@@ -7,6 +7,7 @@ import { FilterLabelComponent } from './filter-label/filter-label.component';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FilterMovementComponent } from './filter-movement/filter-movement.component';
 import { FilterDateRangeComponent } from './filter-date-range/filter-date-range.component';
+import { FilterNumberRangeComponent } from './filter-number-range/filter-number-range.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { FilterDateRangeComponent } from './filter-date-range/filter-date-range.
     FilterComboMultipleGroupComponent,
     FilterLabelComponent,
     FilterMovementComponent,
-    FilterDateRangeComponent
+    FilterDateRangeComponent,
+    FilterNumberRangeComponent
   ],
   exports:      [
     FilterAmountComponent,
@@ -28,7 +30,8 @@ import { FilterDateRangeComponent } from './filter-date-range/filter-date-range.
     FilterComboMultipleGroupComponent,
     FilterLabelComponent,
     FilterMovementComponent,
-    FilterDateRangeComponent
+    FilterDateRangeComponent,
+    FilterNumberRangeComponent
   ],
 })
 export class MiniFilterModule { }

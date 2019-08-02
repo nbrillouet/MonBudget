@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { ErrorService } from 'app/main/_services/error.service';
 import { FilterAsTableSelected, FilterAsTable, FilterAsDetail } from 'app/main/_models/filters/account-statement.filter';
 import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
 import { HttpClient } from '@angular/common/http';
 import { AsDetail } from 'app/main/_models/account-statement/account-statement-detail.model';
-import { ISelect } from 'app/main/_models/generics/select.model';
-import { AsChartEvolutionCustomOtfFilter, AsChartEvolutionCustomOtfFilterSelected } from 'app/main/_models/account-statement/account-statement-chart.model';
+import { AsChartEvolutionCustomOtfFilterSelected } from 'app/main/_models/account-statement/as-chart/as-chart-evolution.model';
 import { InternalTransferCouple } from 'app/main/_models/account-statement/account-statement-internal-transfer.model';
 import { IUserForGroup } from 'app/main/_models/user.model';
 
@@ -108,6 +106,15 @@ export class AsService {
         filter.user=this.userForGroup;
         return this.http
             .post(`${this.baseUrl}account-statement-charts/chart-evolution-custom-otf-filter/update`,filter)
+            .map((response) => {
+                return response;
+            });
+    }
+
+    GetAsChartCategorisationDebit(filter: FilterAsTableSelected) {
+        filter.user=this.userForGroup;
+        return this.http
+            .post(`${this.baseUrl}account-statement-charts/chart-categorisation-debit`,filter)
             .map((response) => {
                 return response;
             });

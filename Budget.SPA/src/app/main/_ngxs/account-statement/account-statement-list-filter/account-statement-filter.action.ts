@@ -9,7 +9,7 @@ export const AS_TABLE_FILTER_UPDATE_PAGINATION = 'as-table-filter-update-paginat
 export class LoadAsTableFilter {
     static readonly type = AS_TABLE_FILTER_LOAD;
  
-    constructor(public payload: FilterAsTable) { }
+    constructor(public payload: FilterAsTableSelected) { }
 }
 
 export class LoadAsTableFilterSuccess {

@@ -20,7 +20,14 @@ import { AsChartEvolutionComponent } from './account-statement-chart/as-chart-ev
 import { AsInternalTransferCoupleComponent } from './account-statement-internal-transfer/as-internal-transfer-couple/as-internal-transfer-couple.component';
 import { AsInternalTransferMainComponent } from './account-statement-internal-transfer/as-internal-transfer-main/as-internal-transfer-main.component';
 import { AsInternalTransferState } from 'app/main/_ngxs/account-statement/account-statement-internal-transfer/as-internal-transfer.state';
-import { MiniFilterModule } from '../web-component/mini-filter/mini-filter.module';
+// import { MiniFilterModule } from '../web-component/mini-filter/mini-filter.module';
+import { AsChartCategorisationComponent } from './account-statement-chart/as-chart-categorisation/as-chart-categorisation.component';
+import { MatTableFilterModule } from '../web-component/mat-table-filter/mat-table-filter.module';
+// import { MatTableFilterComponent } from './account-statement-list/mat-table-filter/component/mat-table-filter.component';
+// import { ResizeObserverDirective } from './account-statement-list/mat-table-filter/directive/resize-observer.directive';
+// import { DateFormatPipe } from './account-statement-list/mat-table-filter/pipe/pipe-date';
+// import { MatTableFilterColResizeService } from './account-statement-list/mat-table-filter/service/mat-table-filter-col-resize.service';
+// import { MatTableFilterModule } from './account-statement-list/mat-table-filter/mat-table-filter.module';
 
 const routes = [
   // {
@@ -58,7 +65,8 @@ const routes = [
     FuseWidgetModule,
     WidgetsModule,
     GMapModule,
-    MiniFilterModule,
+    MatTableFilterModule,
+    // MiniFilterModule,
     NgxsModule.forFeature([
       AsTableFilterState,
       AsTableState,
@@ -76,11 +84,21 @@ const routes = [
 
     AccountStatementDetailComponent,
     AsChartEvolutionComponent,
+    AsChartCategorisationComponent,
     AsInternalTransferMainComponent,
-    AsInternalTransferCoupleComponent
+    AsInternalTransferCoupleComponent,
+
+    // MatTableFilterComponent,
+
+    // ResizeObserverDirective,
+    // DateFormatPipe
+    
   ],
   providers : [
-    AsService
+    AsService,
+    // DateFormatPipe,
+    // MatTableFilterColResizeService
+
   ]
 })
 export class AccountStatementModule { }

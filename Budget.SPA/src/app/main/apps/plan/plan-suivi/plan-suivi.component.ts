@@ -19,6 +19,7 @@ import { ClearPlanPosteDetailDatas } from 'app/main/_ngxs/plan-poste/plan-poste-
 import { PlanAmountFilter } from 'app/main/_models/filters/plan-amount.filter';
 import { ChangePlanAmountTableFilter, ClearPlanAmountTableDatas } from 'app/main/_ngxs/plan/plan-amount-list/plan-amount-list.action';
 import { PlanAmountListComponent } from './plan-amount-list/plan-amount-list.component';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'plan-suivi',
@@ -45,17 +46,48 @@ export class PlanSuiviComponent implements OnInit {
   gaugeValue = Math.round(1600*100/1500);
   gaugeLabel = "";
   gaugeAppendText = "";
+  
+  grap : any;
+  
+  
+  testGraph =  {
+  chartType : 'horizontalBar',
+  datasets  : [{label: 'Low',data:[70],backgroundColor: '#4CAF50'},
+               {data:[100-70],backgroundColor: '#E5E5E5'}],
+  colors    : [
+                {
+                    borderColor    : ['#4CAF50','#E5E5E5'],
+                    backgroundColor: ['#4CAF50','#E5E5E5']
+                }
+            ],
+  // labels    : ['1','2'],
+
+  options : {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero : true
+        },
+        stacked: true,
+        display: false
+      }],
+      xAxes: [{ stacked: true,display: false }]
+    },
+    legend: { display: false },
+    tooltips: { enabled: false }
+  }
+  
+};
+
   thresholdConfig = {
     '0': {color: 'red'},
     '90': {color: 'orange'},
     '100': {color: '#4CAF50'}
   };
-
-
   thresholdConfig1 = {
     '0': {color: 'red'},
     '90': {color: 'orange'},
-    '100': {color: '#4CAF50'}
+    '105': {color: '#4CAF50'}
   };
   thresholdConfig2 = {
     '0': {color: '#4CAF50'},
@@ -64,7 +96,7 @@ export class PlanSuiviComponent implements OnInit {
   thresholdConfig3 = {
     '0': {color: '#4CAF50'},
     '90': {color: 'orange'},
-    '100': {color: 'red'}
+    '105': {color: 'red'}
   };
 
   planTracking: DetailInfo<PlanForTracking,FilterPlanTracking>;
@@ -78,11 +110,14 @@ export class PlanSuiviComponent implements OnInit {
     private _changeDetectorRef:ChangeDetectorRef,
     private _dialog: MatDialog,
   ) { 
+    this.grap = this.testGraph;
+
 
       let user = JSON.parse(localStorage.getItem('currentUser'));
       if(user) {
         this._planService.GetPlanList(user.id).subscribe(plan => {
           this.selectYears = plan;
+          // console.log('plan',plan);
           this.planSelected = plan[0];
           this.monthYear={month:{id:1,label:'jan'},year:this.planSelected.year};
           
@@ -108,7 +143,7 @@ export class PlanSuiviComponent implements OnInit {
   
     this.planTracking$.subscribe(planTracking => {
       this.planTracking= planTracking;
-    })
+    });
   }
 
   ngAfterViewChecked()
@@ -207,5 +242,13 @@ export class PlanSuiviComponent implements OnInit {
           '100': {color: 'red'}
         };
     }
+  }
+
+  getDataSet(value) {
+    // console.log('value',value);
+    let retValue = value>100 ? 100 : value;
+
+    return [{label: 'Low',data:[retValue],backgroundColor: '#4CAF50'},
+      {data:[100-retValue],backgroundColor: '#E5E5E5'}]
   }
 }

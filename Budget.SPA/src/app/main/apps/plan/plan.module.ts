@@ -26,6 +26,10 @@ import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { environment } from "environments/environment";
 import { PlanAmountTableState } from "app/main/_ngxs/plan/plan-amount-list/plan-amount-list.state";
 import { PlanAmountListComponent } from "./plan-suivi/plan-amount-list/plan-amount-list.component";
+import { AsPlanTableState } from "app/main/_ngxs/account-statement-plan/as-plan.state";
+import { AsPlanListComponent } from "./plan-detail/as-plan-list/as-plan-list.component";
+import { NgxChartsModule } from "@swimlane/ngx-charts";
+import { ChartsModule } from "ng2-charts";
 
 const routes = [
     {
@@ -76,8 +80,11 @@ const routes = [
         PlanDetailState,
         PlanPosteDetailState,
         PlanForTrackingState,
-        PlanAmountTableState
-    ])
+        PlanAmountTableState,
+        AsPlanTableState
+    ]),
+    NgxChartsModule,
+        ChartsModule      
     
         //NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production ? true : false })
 
@@ -94,7 +101,8 @@ const routes = [
         PlanSuiviComponent,
         ChipAutocompleteComponent,
         MonthYearSelectionComponent,
-        PlanAmountListComponent
+        PlanAmountListComponent,
+        AsPlanListComponent
     ],
     providers : [
         PlanService,
@@ -103,7 +111,8 @@ const routes = [
     ],
     entryComponents: [
         PlanPosteDetailComponent,
-        PlanAmountListComponent
+        PlanAmountListComponent,
+        AsPlanListComponent
     ]
   })
 

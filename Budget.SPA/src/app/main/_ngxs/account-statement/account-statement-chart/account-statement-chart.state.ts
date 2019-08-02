@@ -1,11 +1,14 @@
 import { DataInfo } from "app/main/_models/generics/detail-info.model";
-import { AsChart, AsChartEvolutionCdb, AsChartEvolutionCustomOtfFilter, AsChartEvolutionCustomOtfFilterSelected } from "app/main/_models/account-statement/account-statement-chart.model";
+import { AsChartEvolutionCdb, AsChartEvolutionCustomOtfFilter, AsChartEvolutionCustomOtfFilterSelected } from "app/main/_models/account-statement/as-chart/as-chart-evolution.model";
 import { AsService } from "app/main/apps/account-statement/account-statement.service";
-import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionBrutSuccess, LoadAsChartEvolutionNoIntTransfer, LoadAsChartEvolutionNoIntTransferSuccess, LoadAsChartEvolutionCustomOtfSuccess, LoadAsChartEvolutionCustomOtf, LoadAsChartEvolutionSuccess, LoadAsChartEvolution, LoadAsChartEvolutionCustomOtfFilterSuccess, LoadAsChartEvolutionCustomOtfFilter, UpdateAsChartEvolutionCustomOtfFilter, UpdateAsChartEvolutionCustomOtfFilterSuccess } from "./account-statement-chart.action";
+import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionBrutSuccess, LoadAsChartEvolutionNoIntTransfer, LoadAsChartEvolutionNoIntTransferSuccess, LoadAsChartEvolutionCustomOtfSuccess, LoadAsChartEvolutionCustomOtf, LoadAsChartEvolutionSuccess, LoadAsChartEvolution, LoadAsChartEvolutionCustomOtfFilterSuccess, LoadAsChartEvolutionCustomOtfFilter, UpdateAsChartEvolutionCustomOtfFilter, UpdateAsChartEvolutionCustomOtfFilterSuccess, LoadAsChartCategorisation, LoadAsChartCategorisationDebit, LoadAsChartCategorisationDebitSuccess, LoadAsChartCategorisationSuccess } from "./account-statement-chart.action";
 import { WidgetCardChartBar } from "app/main/_models/chart/widget-card-chart-bar.model";
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { zip } from "rxjs";
+import { AsChart } from "app/main/_models/account-statement/as-chart/as-chart.model";
+import { WidgetCardChartPieSelect } from "app/main/_models/chart/widget-card-chart-pie-select.model";
+import { AsChartCategorisationSelect, AsChartCategorisation } from "app/main/_models/account-statement/as-chart/as-chart-categorisation.model";
 
 
 export class AsChartStateModel extends DataInfo<AsChart> {
@@ -43,7 +46,7 @@ export class AsChartState {
         state.loadingInfo.loaded=false;
         state.loadingInfo.loading=true;
 
-        console.log('AsChartEvolution-->ACTION.PAYLOAD',action.payload);
+        // console.log('AsChartEvolution-->ACTION.PAYLOAD',action.payload);
         // state.datas.asChartEvolution=null;
         
         context.patchState(state);
@@ -95,7 +98,7 @@ export class AsChartState {
         state.loadingInfo.loaded=false;
         state.loadingInfo.loading=true;
 
-        console.log('AsChartEvolutionBrut-->state.datas',state.datas);
+        // console.log('AsChartEvolutionBrut-->state.datas',state.datas);
         state.datas.asChartEvolution.brut.balance= new WidgetCardChartBar();
         state.datas.asChartEvolution.brut.credit=new WidgetCardChartBar();
         state.datas.asChartEvolution.brut.debit=new WidgetCardChartBar();
@@ -118,7 +121,7 @@ export class AsChartState {
 
         context.patchState(state);
 
-        console.log(state.loadingInfo.loaded);
+        // console.log(state.loadingInfo.loaded);
 
     }
 
@@ -129,7 +132,7 @@ export class AsChartState {
         state.loadingInfo.loaded=false;
         state.loadingInfo.loading=true;
 
-        console.log('AsChartEvolutionNoIntTransfer-->state.datas',state.datas);
+        // console.log('AsChartEvolutionNoIntTransfer-->state.datas',state.datas);
         state.datas.asChartEvolution.noIntTransfer.balance= new WidgetCardChartBar();
         state.datas.asChartEvolution.noIntTransfer.credit=new WidgetCardChartBar();
         state.datas.asChartEvolution.noIntTransfer.debit=new WidgetCardChartBar();
@@ -146,12 +149,12 @@ export class AsChartState {
         let state = context.getState();
         state.loadingInfo.loaded = true;
         state.loadingInfo.loading = false;
-        console.log('noIntTransfer',action.payload);
+        // console.log('noIntTransfer',action.payload);
         state.datas.asChartEvolution.noIntTransfer = action.payload;
 
         context.patchState(state);
 
-        console.log(state.loadingInfo.loaded);
+        // console.log(state.loadingInfo.loaded);
     }
 
     @Action(LoadAsChartEvolutionCustomOtf)
@@ -188,7 +191,7 @@ export class AsChartState {
     loadAsChartEvolutionCustomOtfFilter(context: StateContext<AsChartStateModel>, action: LoadAsChartEvolutionCustomOtfFilter) {
         const state = context.getState();
 
-        console.log('AsChartEvolutionCustomOtf-->state.datas',state.datas);
+        // console.log('AsChartEvolutionCustomOtf-->state.datas',state.datas);
         state.datas.asChartEvolution.customOtfs.filter.selected = new AsChartEvolutionCustomOtfFilterSelected();
         state.datas.asChartEvolution.customOtfs.filter.operationTypeFamilies = [] ;
 
@@ -204,7 +207,7 @@ export class AsChartState {
         let state = context.getState();
         // state.loadingInfo.loaded = true;
         // state.loadingInfo.loading = false;
-        console.log('customOtfFilter',action.payload);
+        // console.log('customOtfFilter',action.payload);
         state.datas.asChartEvolution.customOtfs.filter = action.payload;
 
         context.patchState(state);
@@ -233,7 +236,79 @@ export class AsChartState {
         
         context.dispatch(new LoadAsChartEvolutionCustomOtfFilter(filterAsTableSelected));
         context.dispatch(new LoadAsChartEvolutionCustomOtf(filterAsTableSelected));
+    }
 
+
+
+
+
+
+
+
+
+    @Action(LoadAsChartCategorisation)
+    loadAsChartCategorisation(context: StateContext<AsChartStateModel>, action: LoadAsChartCategorisation) {
+        const state = context.getState();
+        
+        state.loadingInfo.loaded=false;
+        state.loadingInfo.loading=true;
+
+        // console.log('AsChartCategorisation-->ACTION.PAYLOAD',action.payload);
+        // state.datas.asChartEvolution=null;
+        
+        context.patchState(state);
+
+        zip(   
+            context.dispatch(new LoadAsChartCategorisationDebit(action.payload))
+        ).subscribe(x=>{
+            context.dispatch(new LoadAsChartCategorisationSuccess());
+        });
+
+    }
+
+    @Action(LoadAsChartCategorisationSuccess)
+    LoadAsChartCategorisationSuccess(context: StateContext<AsChartStateModel>, action: LoadAsChartCategorisationSuccess) {
+        let state = context.getState();
+        state.loadingInfo.loaded = true;
+        state.loadingInfo.loading = false;
+
+        context.patchState(state);
+
+    }
+
+    @Action(LoadAsChartCategorisationDebit)
+    loadAsChartCategorisationDebit(context: StateContext<AsChartStateModel>, action: LoadAsChartCategorisationDebit) {
+        const state = context.getState();
+        
+        state.loadingInfo.loaded=false;
+        state.loadingInfo.loading=true;
+
+        // state.datas.asChartCategorisation.debit.operationMethod= new WidgetCardChartPieSelect([]);
+        state.datas.asChartCategorisation.debit = new AsChartCategorisationSelect();
+        
+        
+        // state.datas.asChartEvolution.brut.credit=new WidgetCardChartBar();
+        // state.datas.asChartEvolution.brut.debit=new WidgetCardChartBar();
+        
+        context.patchState(state);
+        this._asService.GetAsChartCategorisationDebit(action.payload)
+            .subscribe(result=> {
+                context.dispatch(new LoadAsChartCategorisationDebitSuccess(<AsChartCategorisationSelect>result));
+            });
+
+    }
+
+    @Action(LoadAsChartCategorisationDebitSuccess)
+    LoadAsChartCategorisationDebitSuccess(context: StateContext<AsChartStateModel>, action: LoadAsChartCategorisationDebitSuccess) {
+        let state = context.getState();
+        state.loadingInfo.loaded = true;
+        state.loadingInfo.loading = false;
+        // console.log('action.payload-->DEBIT',action.payload);
+        state.datas.asChartCategorisation.debit = action.payload;
+
+        context.patchState(state);
+
+        // console.log(state.loadingInfo.loaded);
 
     }
 }

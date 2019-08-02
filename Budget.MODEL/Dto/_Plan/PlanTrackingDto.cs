@@ -22,7 +22,7 @@ namespace Budget.MODEL.Dto
         //public double AmountPreview { get; set; }
     }
 
-    public class PlanPosteForTrackingDto : PlanForTrackingValue
+    public class PlanPosteForTrackingDto : PlanForTrackingPlanPosteValue
     {
         public int IdPlanPoste { get; set; }
         public string Label { get; set; }
@@ -39,6 +39,11 @@ namespace Budget.MODEL.Dto
     {
         public SelectDto Poste { get; set; }
         public List<PlanPosteForTrackingDto> PlanPostes { get; set; }
+    }
+
+    public class PlanForTrackingPlanPosteValue : PlanForTrackingValue
+    {
+        public bool IsAnnualPreview { get; set; }
     }
 
     public class PlanForTrackingValue

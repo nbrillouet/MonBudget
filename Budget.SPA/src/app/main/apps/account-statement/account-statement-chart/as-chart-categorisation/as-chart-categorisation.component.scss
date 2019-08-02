@@ -1,0 +1,13 @@
+.example-container-no-footer {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto !important;
+    max-height: 100% !important; 
+    //calc(100% - 50px) !important;
+    }
+
+// .mat-grid-tile .mat-figure {
+//     padding-left:20px;
+//     justify-content: flex-start !important ;
+//     align-items: flex-start !important;
+//     }

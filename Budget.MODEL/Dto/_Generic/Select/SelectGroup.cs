@@ -15,4 +15,16 @@ namespace Budget.MODEL.Dto.Select
             Selects = new List<SelectDto>();
         }
     }
+
+    public class SelectNameValueGroupDto<T>
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<SelectNameValueDto<T>> Selects { get; set; }
+
+        public SelectNameValueGroupDto() 
+        {
+            Selects = new List<SelectNameValueDto<T>>();
+        }
+}
 }

@@ -1,4 +1,5 @@
 ﻿using Budget.MODEL.Database;
+using Budget.MODEL.Filter;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,26 @@ namespace Budget.DATA.Repositories
                 .ToList();
 
             return accountStatementPlans;
+        }
+
+        public List<AccountStatement> GetAsNotInPlan(FilterAsNotInPlan filter)
+        {
+            var accountStatements = Context.AccountStatement
+                .Include(x => x.Operation)
+                .Include(x => x.OperationMethod)
+                .Include(x => x.OperationType)
+                .Include(x => x.OperationType.OperationTypeFamily)
+                .AsQueryable();
+
+            accountStatements = accountStatements.Where(x => x.DateIntegration.Value.Year == filter.Year);
+            accountStatements = accountStatements.Where(x => x.OperationTypeFamily.Id != filter.IdInternalTransfert);
+            accountStatements = accountStatements.Where(x => filter.Accounts.Contains(x.IdAccount));
+            accountStatements = accountStatements.Where(x => !filter.AsInPlan.Contains(x.Id));
+            accountStatements = accountStatements
+                .OrderBy(x => x.OperationMethod.Label)
+                .ThenBy(x => x.OperationTypeFamily.Label)
+                .ThenBy(x => x.OperationType.Label);
+            return accountStatements.ToList();
         }
 
     }

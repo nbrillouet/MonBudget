@@ -9,7 +9,6 @@ namespace Budget.DATA.Repositories
     {
         List<Account> GetSelectAccountByIdPlan(int idPlan);
         List<PlanAccount> GetByIdPlan(int idPlan);
-
     }
 
 }

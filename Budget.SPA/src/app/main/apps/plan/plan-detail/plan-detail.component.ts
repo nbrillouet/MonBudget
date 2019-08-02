@@ -14,6 +14,13 @@ import { SelectYear } from 'app/main/_models/generics/select.model';
 import { PlanDetail, Plan } from 'app/main/_models/plan/plan.model';
 import { ClearPlanTableDatas } from 'app/main/_ngxs/plan/plan-list/plan-list.action';
 import { MatColors } from '@fuse/mat-colors';
+import { AsPlanTableState } from 'app/main/_ngxs/account-statement-plan/as-plan.state';
+import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
+import { FilterAsPlan } from 'app/main/_models/filters/account-statement-plan.filter';
+import { LoadAsPlanForTable, ClearAsPlanForTable } from 'app/main/_ngxs/account-statement-plan/as-plan.action';
+import { DataInfos } from 'app/main/_models/generics/table-info.model';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { AsPlanListComponent } from './as-plan-list/as-plan-list.component';
 
 @Component({
   selector: 'plan-detail',
@@ -25,11 +32,13 @@ import { MatColors } from '@fuse/mat-colors';
 export class PlanDetailComponent implements OnInit {
   
 @Select(PlanDetailState.get) detailInfo$: Observable<DetailInfo<PlanDetail,PlanDetailFilter>>;
+@Select(AsPlanTableState.get) asPlanTable$: Observable<DataInfos<AsTable>>;
+
 
 detailInfo: DetailInfo<PlanDetail,PlanDetailFilter>;
 planDetail: PlanDetail;
 firstLoad: boolean = true;
-// planDetailUserPlaceHolder: string = 'utilisateur(s) impliqué(s)';
+
 pageType: string;
 planForm: FormGroup;
 formLoaded:boolean=false;
@@ -38,13 +47,14 @@ recetteTab: PlanPoste;
 depenseFixeTab: PlanPoste;
 depenseVariable: PlanPoste;
 
-  // @ViewChild('fruitInput') fruitInput: ElementRef;
+asPlanTable: DataInfos<AsTable>;
 
     constructor(
         private _planService: PlanService,
         private _formBuilder: FormBuilder,
         private _notificationService: NotificationsService,
-        private _store: Store
+        private _store: Store,
+        private _dialog: MatDialog,
     )
     {
       
@@ -73,6 +83,11 @@ depenseVariable: PlanPoste;
             this.firstLoad=false;
           }
           
+          //chargement asPlan
+          let filterAsPlan =<FilterAsPlan> {
+            idPlan : this.planDetail.plan.id
+          }
+          this._store.dispatch(new LoadAsPlanForTable(filterAsPlan));
 
           this.formLoaded=true;
         }
@@ -89,7 +104,9 @@ depenseVariable: PlanPoste;
      */
     ngOnInit(): void
     {
-
+      this.asPlanTable$.subscribe(asPlan => {
+        this.asPlanTable=asPlan;
+      });
     }
 
     createPlanForm() {
@@ -178,6 +195,32 @@ depenseVariable: PlanPoste;
     //   this.planDetail.plan.color=value.color;
    
     // }
+
+    openAccountStatements() {
+
+      const dialogConfig = new MatDialogConfig();
+   
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.width='90%';
+      dialogConfig.height='90%';
+      
+      // let idData = data==0 ? 0 : data.id;
+  
+      dialogConfig.data = this.asPlanTable.datas;
+      //  {
+      //     this.asPlanTable
+      //     // id: idData,
+      //     // idPlan: this.plan.id,
+      //     // idPoste: this.dataSource.poste.id
+      // };
+  
+      const dialogRef = this._dialog.open(AsPlanListComponent, dialogConfig);
+  
+      // dialogRef.afterClosed().subscribe(data => {
+      //   this._store.dispatch(new ClearAsPlanForTable());
+      // });    
+    }
 
     compareObjects(o1: any, o2: any) {
       if(o1.label == o2.label && o1.id == o2.id )

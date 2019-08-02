@@ -1,6 +1,6 @@
 
 
-<div class="p-12" >
+<div class="p-8" >
     
     <div class="fuse-card">
         
@@ -52,20 +52,22 @@
             </canvas>
         </div>
 
-        <div>
-            <ngx-charts-pie-chart
-                *fuseIfOnDom
-                [scheme]="widget8.scheme"
-                [results]="widget8.mainChart"
-                [legend]="widget8.legend"
-                [explodeSlices]="widget8.explodeSlices"
-                [labels]="widget8.labels"
-                [doughnut]="widget8.doughnut"
-                [gradient]="widget8.gradient"
-                (select)="widget8.onSelect($event)">
-            </ngx-charts-pie-chart>
-        </div>
+        
 
     </div>
 
 </div>
+
+<!-- <div>
+        <ngx-charts-pie-chart class="h-20 w-20-p"
+            *fuseIfOnDom
+            [scheme]="widget8.scheme"
+            [results]="widget8.mainChart"
+            [legend]="widget8.legend"
+            [explodeSlices]="widget8.explodeSlices"
+            [labels]="widget8.labels"
+            [doughnut]="widget8.doughnut"
+            [gradient]="widget8.gradient"
+            (select)="widget8.onSelect($event)">
+        </ngx-charts-pie-chart>
+    </div> -->

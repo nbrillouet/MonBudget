@@ -23,6 +23,7 @@ namespace Budget.API.Controllers
         private readonly IPlanTrackingService _planTrackingService;
         private readonly IPlanUserService _planUserService;
         private readonly IPlanPosteFrequencyService _planPosteFrequencyService;
+        private readonly IAccountStatementPlanService _accountStatementPlanService;
 
         public PlanController(
             IPlanService planService,
@@ -31,7 +32,8 @@ namespace Budget.API.Controllers
             IPlanPosteDetailService planPosteDetailService,
             IPlanTrackingService planTrackingService,
             IPlanUserService planUserService,
-            IPlanPosteFrequencyService planPosteFrequencyService
+            IPlanPosteFrequencyService planPosteFrequencyService,
+            IAccountStatementPlanService accountStatementPlanService
             )
         {
             _planService = planService;
@@ -41,6 +43,7 @@ namespace Budget.API.Controllers
             _planTrackingService = planTrackingService;
             _planUserService = planUserService;
             _planPosteFrequencyService = planPosteFrequencyService;
+            _accountStatementPlanService = accountStatementPlanService;
         }
 
         [HttpPost]
@@ -118,6 +121,15 @@ namespace Budget.API.Controllers
                 return Ok(_planPosteDetailService.GetForDetailById(idUserGroup,id));
             }
             return Ok(_planPosteDetailService.GetForDetailById(idUserGroup, idPlan, idPoste));
+        }
+
+        [HttpGet("plans/{idPlan}/user-groups/{idUserGroup}/as-not-in-plan")]
+        public IActionResult GetAsNotInPlan(int idPlan, int idUserGroup)
+        {
+
+            var asifForTableDto = _accountStatementPlanService.GetAsNotInPlan(idPlan, idUserGroup);
+
+            return Ok(asifForTableDto);
         }
 
         [HttpGet("plan-poste-references/user-groups/{idUserGroup}/plan-postes/{idPlanPoste}/reference-table/{idReferenceTable}/postes/{idPoste}/combo-reference")]

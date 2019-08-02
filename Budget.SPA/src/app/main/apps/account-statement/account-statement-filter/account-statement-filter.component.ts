@@ -1,17 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { DateTimeFactory } from 'app/main/_models/generics/date-time.model';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-
-import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
-import { TableInfo } from 'app/main/_models/generics/table-info.model';
 import { ISelect } from 'app/main/_models/generics/select.model';
-import { ChangeAsSoldeFilter, LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.action';
-import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
-import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
-import { FilterAsTable } from 'app/main/_models/filters/account-statement.filter';
-import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
-import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionNoIntTransfer, LoadAsChartEvolutionCustomOtf, LoadAsChartEvolution } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
+import { FilterAsTableSelected } from 'app/main/_models/filters/account-statement.filter';
+import { AsSoldeState } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.state';
+import { DetailInfo } from 'app/main/_models/generics/detail-info.model';
+import { AsSolde } from 'app/main/_models/account-statement/account-statement-solde.model';
 
 @Component({
   selector: 'account-statement-filter',
@@ -19,21 +14,28 @@ import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionNoIntTransfer, LoadAsChar
   styleUrls: ['./account-statement-filter.component.scss']
 })
 export class AccountStatementFilterComponent implements OnInit {
-  @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
+  // @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
   
-  // @Select(AsListState.get) tableInfo$: Observable<TableInfo<AsTable,AsFilter>>;
+  @Select(AsSoldeState.get) asTableFilter$: Observable<DetailInfo<AsSolde,FilterAsTableSelected>>;
+  asTableFilterSelected: FilterAsTableSelected;
 
-  asTableFilter: FilterAsTable;
+  // asTableFilter: FilterAsTable;
   months: ISelect[];
   years: number[]=[2015,2016,2017,2018,2019];
 
+  @Output() changeFilter = new EventEmitter<FilterAsTableSelected>();
+  
   constructor(
       private _store: Store
   ) { 
     this.months = DateTimeFactory.getMonths;
 
+    // this.asTableFilter$.subscribe(filter => {
+    //   this.asTableFilter = filter.filters;
+    // });
+
     this.asTableFilter$.subscribe(filter => {
-      this.asTableFilter = filter.filters;
+      this.asTableFilterSelected = filter.filter;
     });
 
     // this.tableInfo$.subscribe(gridInfo=> {
@@ -46,33 +48,19 @@ export class AccountStatementFilterComponent implements OnInit {
   }
 
   updateMonthsSelected(month: ISelect){
-    
-    this.asTableFilter.selected.monthYear.month = month;
-    
-    this._store.dispatch(new LoadAsSolde(this.asTableFilter.selected));
-    this._store.dispatch(new LoadAsChartEvolution(this.asTableFilter.selected));
-    // this._store.dispatch(new LoadAsChartEvolutionBrut(this.asTableFilter.selected));
-    // this._store.dispatch(new LoadAsChartEvolutionNoIntTransfer(this.asTableFilter.selected));
-    // this._store.dispatch(new LoadAsChartEvolutionCustomOtf(this.asTableFilter.selected));
-    this._store.dispatch(new LoadAsTableFilter(this.asTableFilter));
-    
-
+    this.asTableFilterSelected.monthYear.month = month;
+    this.changeFilter.emit(this.asTableFilterSelected);
   }
 
   updateYearSelected(year: number) {
-    this.asTableFilter.selected.monthYear.year = year;
-    this._store.dispatch(new LoadAsSolde(this.asTableFilter.selected));
-    this._store.dispatch(new LoadAsChartEvolution(this.asTableFilter.selected));
-    // this._store.dispatch(new LoadAsChartEvolutionBrut(this.asTableFilter.selected));
-    // this._store.dispatch(new LoadAsChartEvolutionNoIntTransfer(this.asTableFilter.selected));
-    // this._store.dispatch(new LoadAsChartEvolutionCustomOtf(this.asTableFilter.selected));
-    this._store.dispatch(new LoadAsTableFilter(this.asTableFilter));
-    
+    this.asTableFilterSelected.monthYear.year = year;
+    this.changeFilter.emit(this.asTableFilterSelected);
+  
   }
 
   isInMonthSelected(month: ISelect) {
-    if(this.asTableFilter)
-      return month.id==this.asTableFilter.selected.monthYear.month.id;
+    if(this.asTableFilterSelected)
+      return month.id==this.asTableFilterSelected.monthYear.month.id;
 
       return 0;
   }

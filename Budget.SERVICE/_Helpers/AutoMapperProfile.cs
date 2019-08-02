@@ -175,10 +175,10 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(d => d.PlanPosteFrequencies, o => o.Ignore())
                 .ForMember(d => d.ReferenceTable, o => o.Ignore());
 
-            CreateMap<AccountStatementPlan, SelectColorDto>()
+            CreateMap<AccountStatementPlan, SelectValueDto<string>>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.IdPlan))
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.Plan.Label))
-                .ForMember(d => d.Color, o => o.MapFrom(s => s.Plan.Color));
+                .ForMember(d => d.Value, o => o.MapFrom(s => s.Plan.Color));
 
             CreateMap<Month, SelectDto>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))

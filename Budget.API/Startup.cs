@@ -101,9 +101,10 @@ namespace Budget.API
             services.AddScoped<IAccountStatementService, AccountStatementService>();
             services.AddScoped<IAccountStatementRepository, AccountStatementRepository>();
 
-            services.AddScoped<IAccountStatementChartService, AccountStatementChartService>();
-            services.AddScoped<IAccountStatementChartRepository, AccountStatementChartRepository>();
-            
+            services.AddScoped<IAsChartEvolutionService, AsChartEvolutionService>();
+            services.AddScoped<IAsChartEvolutionRepository, AsChartEvolutionRepository>();
+            services.AddScoped<IAsChartCategorisationService, AsChartCategorisationService>();
+            services.AddScoped<IAsChartCategorisationRepository, AsChartCategorisationRepository>();
 
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAccountRepository, AccountRepository>();

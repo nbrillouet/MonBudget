@@ -26,7 +26,7 @@ export class PlanPosteListComponent implements OnInit {
   checkboxes: number[]=[];
 
   constructor(
-    private dialog: MatDialog,
+    private _dialog: MatDialog,
     private _planService: PlanService,
     private _store: Store,
     private _notificationService: NotificationsService
@@ -77,7 +77,7 @@ export class PlanPosteListComponent implements OnInit {
         idPoste: this.dataSource.poste.id
     };
 
-    const dialogRef = this.dialog.open(PlanPosteDetailComponent, dialogConfig);
+    const dialogRef = this._dialog.open(PlanPosteDetailComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
       this._store.dispatch(new ClearPlanPosteDetailDatas());

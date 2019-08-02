@@ -70,7 +70,7 @@ namespace Budget.DATA.Repositories
         {
             var otfs = Context.OperationTypeFamily
                 .Where(x => x.IdUserGroup == idUserGroup 
-                    && x.IdMovement == (int)enumMovement)
+                    && (x.IdMovement == (int)enumMovement || x.IdMovement==(int)EnumMovement.TwoWays))
                 .ToList();
 
             var ids = new int[otfs.Count()];

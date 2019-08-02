@@ -12,6 +12,7 @@ namespace Budget.SERVICE
     public interface IAccountStatementService
     {
         PagedList<AsForTableDto> GetAsTable(FilterAsTableSelected filter);
+        //List<AsForTableDto> GetAsNotInPlan(FilterAsNotInPlan filter);
         AsDetailDto GetAsDetail(FilterAsDetail filter);
         SoldeDto GetSolde(FilterAsTableSelected filter);
         List<InternalTransferDto> GetAsInternalTransfer(FilterAsTableSelected filter);

@@ -1,0 +1,82 @@
+<!-- WIDGET 6 -->
+
+<div class="p-8" >
+<!-- <fuse-widget  class="widget" fxLayout="column"
+fxFlex="100" fxFlex.gt-sm="50"> -->
+<div class="fuse-card">
+<!-- Front -->
+<div *ngIf="isLoaded && widget.data!=null" class="fuse-widget-front">
+
+<div  
+    class="mh-16 py-8 border-bottom" 
+    fxLayout="row"
+    fxLayoutAlign="start center">
+
+    <div class="py-8 border-right" fxLayout="row" fxLayoutAlign="center center"
+    fxFlex="100" fxFlex.gt-sm="50">
+    <span class="mat-small mb-0">
+        {{ widget.data.title }} opération
+    </span>
+    </div>
+
+    <div class="py-8" fxLayout="row" fxLayoutAlign="center center" fxFlex="100"
+        fxFlex.gt-sm="50">
+    <span class="mat-caption mb-0">
+        affiché/total: <b>{{test | number: '1.0-2'}}</b> %
+    </span>
+    </div>
+</div>
+
+<div class="h-200">
+    <!-- [legend]="widget6.showLegend" -->
+    <!-- [results]="widget.data.mainChart" -->
+    <!-- [results]="widgetData.mainChart['TW']" -->
+    <ngx-charts-pie-chart
+        *fuseIfOnDom
+        [scheme]="widget.pieChart.scheme"
+        
+        [results]="widget.data.mainChart"
+        [explodeSlices]="widget.pieChart.explodeSlices"
+        [labels]="widget.pieChart.labels"
+        [doughnut]="widget.pieChart.doughnut"
+        [gradient]="widget.pieChart.gradient"
+        (select)="onSelect($event)">
+    </ngx-charts-pie-chart>
+</div>
+
+<div 
+    class="py-8 px-16 border-top" 
+    fxLayout="row" 
+    fxLayoutAlign="start center">
+    
+    <form name="selectMultipleForm" 
+        [formGroup]="selectMultipleForm" 
+        class="product w-100-p" fxLayout="column" fxFlex>
+        
+        <mat-form-field class="w-100-p">
+            <mat-select class="mini-select" formControlName="comboMultiple" [compareWith]="compareObjects" 
+                placeholder={{widget.data.title}} multiple>
+                
+                <mat-optgroup *ngFor="let group of widget.data.ranges.list" [label]="group.name">
+                <mat-option *ngFor="let item of group.selects" [value]="item">
+                    {{ item.name }}
+                </mat-option>
+                </mat-optgroup>
+            </mat-select>  
+        </mat-form-field>
+    </form>
+    
+    
+    
+    
+    
+    
+
+</div> 
+
+</div>
+<!-- / Front -->
+
+<!-- </fuse-widget> -->
+</div>
+</div>

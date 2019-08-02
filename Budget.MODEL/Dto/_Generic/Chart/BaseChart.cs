@@ -1,5 +1,4 @@
-﻿using Budget.HELPER;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,8 +12,8 @@ namespace Budget.MODEL.Dto
         private double _amount;
         public double Amount
         {
-            get => MathHelper.RoundIt(_amount, 2);
-            set => _amount = MathHelper.RoundIt(value, 2);
+            get => Math.Round(_amount,2);
+            set => _amount = Math.Round(value, 2);
         }
     }
 

@@ -31,3 +31,15 @@ export enum EnumSelectType {
     aucune=33
 }
 
+export class SelectNameValue<T> {
+    id: number;
+    name: string;
+    value: T;
+}
+
+export class SelectNameValueGroup<T> {
+    id: number;
+    name: string;
+    selects: SelectNameValue<T>[];
+}
+

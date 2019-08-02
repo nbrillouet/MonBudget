@@ -12,13 +12,27 @@ namespace Budget.MODEL.Dto
 
     }
 
-    public class SelectColorDto
+    public class SelectValueDto<T>
     {
         public int Id { get; set; }
         public string Label { get; set; }
-        public string Color { get; set; }
-
+        public T Value { get; set; }
     }
+
+    public class SelectNameValueDto<T>
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public T Value { get; set; }
+    }
+
+    //public class SelectColorDto
+    //{
+    //    public int Id { get; set; }
+    //    public string Label { get; set; }
+    //    public string Color { get; set; }
+
+    //}
 
     public class ComboSimple<T>
     {
@@ -30,6 +44,18 @@ namespace Budget.MODEL.Dto
     {
         public List<T> List { get; set; }
         public List<SelectDto> ListSelected { get; set; }
+    }
+
+    public class ComboNameValueMultiple<T,U>
+    {
+        public List<T> List { get; set; }
+        public List<SelectNameValueDto<U>> ListSelected { get; set; }
+
+        public ComboNameValueMultiple()
+        {
+            List = new List<T>();
+            ListSelected = new List<SelectNameValueDto<U>>();
+        }
     }
 
     public enum EnumSelectType

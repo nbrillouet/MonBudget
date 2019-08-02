@@ -49,14 +49,8 @@ export class FilterDateRangeComponent implements OnInit {
       });
 
     this.dateRangeForm.valueChanges.subscribe(val=>{
-      
-      if(val.dateRangeMin!=null) {
-        this.filterDateRange.dateMin= this.getDate(val.dateRangeMin);
-
-      }
-      if(val.dateRangeMax!=null) {
-        this.filterDateRange.dateMax= this.getDate(val.dateRangeMax);
-      }
+      this.filterDateRange.dateMin= val.dateRangeMin!=null ? this.getDate(val.dateRangeMin) : null;
+      this.filterDateRange.dateMax= val.dateRangeMax!=null ? this.getDate(val.dateRangeMax) : null;
     });
 
   }
@@ -64,11 +58,11 @@ export class FilterDateRangeComponent implements OnInit {
 
   applyFilter(){
 
-  this.applyFilterDateRange.emit(this.filterDateRange);
+    this.applyFilterDateRange.emit(this.filterDateRange);
 
-  //suppression du menu
-  var element=document.getElementsByClassName("content-filter").item(0);
-  element.parentElement.remove();
+    //suppression du menu
+    var element=document.getElementsByClassName("content-filter").item(0);
+    element.parentElement.remove();
 
   }
 

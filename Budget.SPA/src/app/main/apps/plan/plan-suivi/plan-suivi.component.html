@@ -8,11 +8,6 @@
       <div class="center">
         <div class="header header-2-background accent p-12 pb-0" fxLayout="column" fxLayoutAlign="space-between">
 
-
-
-
-
-
           <div class="pt-12" fxLayout="column" fxLayoutAlign="space-between"> 
               <div fxLayout="row" fxLayoutAlign="start center" class="content">
                   <!-- <div fxFlex = "20%"> -->
@@ -24,11 +19,7 @@
                       <span fxFlex = "80%" class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
                           Budget: suivi
                       </span>
-                      
-             
               </div>
-
-              
           </div> 
 
           <month-year-selection *ngIf="isLoaded" [selectYears]="this.selectYears" (monthYearChange)="onMonthYearChange($event)" [@animate]="{value:'*',params:{x:'50px'}}"></month-year-selection>
@@ -36,11 +27,11 @@
 
           <!-- / HEADER -->
           
-          <!--  -->
+
       <div class="content-card" *ngIf="(planTracking$ | async).dataInfos.loadingInfo.loaded" >
           <div class="widget-group p-12" fxLayout="row wrap" fxFlex="100" *fuseIfOnDom
           [@animateStagger]="{value:'50'}">
-        <!-- <div class="left"> -->
+
         <fuse-widget 
           [@animate]="{value:'*',params:{y:'100%'}}" 
           fxLayout="row" 
@@ -49,16 +40,20 @@
           *ngFor="let poste of planTracking.dataInfos.datas.postes"
         >
             <div class="fuse-widget-front">
-
-              <div class="px-8 border-bottom" 
-                fxLayout="row wrap"
-                fxLayoutAlign="space-between center">
-
-                  <div fxflex=28 fxFlex class="h3">{{poste.poste.label}}</div>
-                  <div fxFlex="0 1 26"  style="text-align: center;">
+              
+              <mat-grid-list cols="4" rowHeight="100px">
+                  <mat-grid-tile>
+                    <mat-grid-tile-header>{{poste.poste.label}}</mat-grid-tile-header>
+                    <div class="mat-grid-header-height">
+                      global
+                    </div>
+                  </mat-grid-tile>
+                  
+                  <mat-grid-tile>
+                    <mat-grid-tile-header></mat-grid-tile-header>
                     <ngx-gauge 
                       size = 80
-                      class="gauge-width"
+                      class="mat-grid-header-height"
                       [type]="gaugeType" 
                       [value]="poste.gaugeValue"
                       [label]="gaugeLabel"  
@@ -73,83 +68,160 @@
                         {{ poste.gaugeValue  }} %
                       </ngx-gauge-value>
                     </ngx-gauge>
-                  </div>
-                  <div fxFlex="0 1 18" style="font-weight: bold;" >{{poste.amountReal}} €</div>
-                  <div fxFlex="0 1 18" style="font-weight: bold;" >{{poste.amountPreview}} €</div>
-                  <div fxFlex="0 1 10"></div>
-              </div>
 
-              <div fxLayout="row wrap" fxLayoutAlign="start start">
-                  <div fxflex=28 fxFlex class="h3"></div>  
-                  <div fxFlex="0 1 26"  ></div>
-                  <div fxFlex="0 1 18" style="text-align:center" >réel</div>
-                  <div fxFlex="0 1 18" style="text-align:center">prévu</div>
-                  <div fxFlex="0 1 10" style="text-align:center">part</div>
-              </div>
+                  </mat-grid-tile>
+                  
+                  <mat-grid-tile>
+                      <mat-grid-tile-header>Réel</mat-grid-tile-header>
+                      <button class="mat-grid-header-height"
+                        mat-stroked-button
+                        color="accent"
+                        style="width: 85%;font-size: 11px;font-weight: bold;"
+                      >
+                        {{ poste.amountReal}} €
+                      </button>
+                  </mat-grid-tile>
+                  
+                  <mat-grid-tile>
+                    <mat-grid-tile-header>Prévu</mat-grid-tile-header>
+                    <button class="mat-grid-header-height"
+                      mat-stroked-button
+                      color="accent"
+                      style="width: 85%;font-size: 11px;font-weight: bold;"
+                    >
+                      {{ poste.amountPreview}} €
+                    </button>
+                    <!-- <mat-form-field appearance="outline" floatLabel="always" color="accent">
+                          <input matInput [value]="poste.amountPreview">
+                          <mat-icon matSuffix>euro_symbol</mat-icon>
+                      </mat-form-field> -->
+                  </mat-grid-tile>
+             
+              </mat-grid-list>
+              <!-- </div> -->
 
-              <div 
-                class="px-8" 
-                fxLayout="row wrap" 
-                fxLayoutAlign="start center"
-                *ngFor="let planPoste of poste.planPostes"
-              >
-                  <div fxflex=28 fxFlex style="font-size: 14px;">{{planPoste.label}}</div>  
-                  <div fxFlex="0 1 26" style="text-align: center;" >
-                    <ngx-gauge 
-                      size = 65
-                      class="gauge-width"
-                      [type]="gaugeType" 
-                      [value]="planPoste.gaugeValue" 
-                      [label]="gaugeLabel"  
-                      [append]="gaugeAppendText"
-                      thick=10
-                      foregroundColor="rgba(0, 150, 136, 1)"
-                      backgroundColor = "rgba(0, 0, 0, 0.1)"
-                      duration=2500
-                      [thresholds]="poste.poste.id==1 ? thresholdConfig1 : poste.poste.id==2 ? thresholdConfig2 : thresholdConfig3"
-                    >
-                      <ngx-gauge-value style="font-size: 11px;font-weight: bold;">
-                        {{ planPoste.gaugeValue  }} %
-                      </ngx-gauge-value>
-                    </ngx-gauge>
-                  </div >
-                  <!-- <div fxFlex="0 1 18" style="font-size: 11px;font-weight: bold;" > -->
-                  <button 
-                    mat-button 
-                    color="accent"
-                    fxFlex="0 1 18" style="font-size: 11px;font-weight: bold;"
-                    (click)="GetAmountReal(planTracking.filter.monthYear,planPoste.idPlanPoste,poste.poste.id,planTracking.dataInfos.datas.plan.id)"
-                  >
-                    {{ planPoste.amountReal }} €
-                  </button>
-                    
-                  <!-- </div> -->
-                  <!-- <div fxFlex="0 1 18" style="font-size: 11px;font-weight: bold;" > -->
-                  <button 
-                    mat-button 
-                    color="accent"
-                    fxFlex="0 1 18" style="font-size: 11px;font-weight: bold;"
-                    (click)="GetAmountPreviewForPlanPosteList(planPoste.idPlanPoste,poste.poste.id,planTracking.dataInfos.datas.plan.id)"
-                  >
-                    {{ planPoste.amountPreview }} €
-                  </button>
-                  <!-- </div> -->
-                  <div fxFlex="0 1 10">
-                    <div 
-                      style="font-size: 9px;"
-                      *ngFor="let planPosteUser of planPoste.planPosteUsers"
-                    >
-                      {{ planPosteUser.firstName }}
-                      <mat-progress-bar class="green-progress"
-                        height="20px"
-                        style="cursor:pointer;"
-                        mode="determinate" 
-                        [value]="planPosteUser.percentagePart"
-                        matTooltip='{{planPosteUser.percentagePart}} % reel: {{planPosteUser.amountReal}} € / prévu: {{planPosteUser.amountPreview}}'>
-                      </mat-progress-bar>
+              <!-- <mat-grid-list cols="4" rowHeight="40px">
+                  <mat-grid-tile [rowspan]="2">1</mat-grid-tile>
+                  <mat-grid-tile [rowspan]="2">2</mat-grid-tile>
+                  <mat-grid-tile>3</mat-grid-tile>
+                  <mat-grid-tile>4</mat-grid-tile>
+                  <mat-grid-tile>
+                      <mat-grid-list cols="2" rowHeight="40px">
+                          <mat-grid-tile>5</mat-grid-tile>
+                          <mat-grid-tile>55</mat-grid-tile>
+                      </mat-grid-list>
+                  </mat-grid-tile>
+                  <mat-grid-tile>6</mat-grid-tile>
+              </mat-grid-list> -->
+
+              <!-- [labels]="widget.labels"
+              [options]="widget.options"
+                (chartClick)="onSelect($event)" -->
+              <!-- <canvas #baseChart="base-chart" baseChart
+                    [datasets]="grap.datasets"
+                    [options] = "grap.options"
+                    [chartType]="grap.chartType">
+              </canvas> -->
+
+
+
+              <div *ngFor="let planPoste of poste.planPostes">
+                
+                <mat-grid-list cols="4" rowHeight="50px">
+                    <mat-grid-tile >
+                        {{planPoste.label}}
+                    </mat-grid-tile>
+
+                    <mat-grid-tile >
+                      <!-- <canvas matTooltip="TESSSS" class="progress-medium"
+                        #baseChart="base-chart" baseChart
+                        [datasets]  = getDataSet(planPoste.gaugeValue)
+                        [options]   ="grap.options"
+                        [colors]    ="grap.colors"
+                        [chartType] ="grap.chartType">
+                      </canvas>   -->
                       
-                    </div>
-                  </div>
+                      
+                      <ngx-gauge 
+                        size = 50
+                        class="gauge-width"
+                        [type]="gaugeType" 
+                        [value]="planPoste.gaugeValue" 
+                        [label]="gaugeLabel"  
+                        [append]="gaugeAppendText"
+                        thick=5
+                        foregroundColor="rgba(0, 150, 136, 1)"
+                        backgroundColor = "rgba(0, 0, 0, 0.1)"
+                        duration=2500
+                        [thresholds]="poste.poste.id==1 ? thresholdConfig1 : poste.poste.id==2 ? thresholdConfig2 : thresholdConfig3"
+                      >
+                        <ngx-gauge-value style="font-size: 11px;font-weight: bold;">
+                          {{ planPoste.gaugeValue  }} %
+                        </ngx-gauge-value>
+                      </ngx-gauge>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <button 
+                          mat-stroked-button
+                          color="accent"
+                          style="width: 85% !important; font-size: 11px; font-weight: bold;"
+                          (click)="GetAmountReal(planTracking.filter.monthYear,planPoste.idPlanPoste,poste.poste.id,planTracking.dataInfos.datas.plan.id)"
+                        >
+                          {{ planPoste.amountReal }} €
+                        </button>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                      <button 
+                        mat-stroked-button
+                        color="accent"
+                        matBadge="a" matBadgeSize="small" matBadgePosition="before" matBadgeColor="warn"
+                        [matBadgeHidden]="!planPoste.isAnnualPreview"
+                        style="width: 85% !important; font-size: 11px; font-weight: bold;"
+                        (click)="GetAmountPreviewForPlanPosteList(planPoste.idPlanPoste,poste.poste.id,planTracking.dataInfos.datas.plan.id)"
+                      >
+                        {{ planPoste.amountPreview }} €
+                      </button>
+                    </mat-grid-tile>
+
+                    <!-- <mat-grid-tile>
+                        <div 
+                          style="font-size: 9px;"
+                          *ngFor="let planPosteUser of planPoste.planPosteUsers"
+                        >
+                        {{ planPosteUser.firstName }}
+                        </div>
+                    </mat-grid-tile>
+                    
+                    <mat-grid-tile>
+                      6
+                    </mat-grid-tile> -->
+                </mat-grid-list>
+
+                <div 
+                  style="font-size: 9px;"
+                  *ngFor="let planPosteUser of planPoste.planPosteUsers"
+                >
+                  <mat-grid-list cols="4" rowHeight="20px">
+                      <mat-grid-tile></mat-grid-tile>
+                      <mat-grid-tile></mat-grid-tile>
+                      <mat-grid-tile style="width: 85% !important; font-size: 11px; font-weight: bold;">part de: {{ planPosteUser.firstName }}</mat-grid-tile>
+                      <mat-grid-tile>
+                          
+                          
+                          <mat-progress-bar 
+                            class="green-progress"
+                            height="20px"
+                            style="width: 85% !important; font-size: 11px; font-weight: bold; cursor:pointer;"
+                            mode="determinate" 
+                            [value]="planPosteUser.percentagePart"
+                            matTooltip='{{planPosteUser.percentagePart}} % reel: {{planPosteUser.amountReal}} € / prévu: {{planPosteUser.amountPreview}}'>
+                          </mat-progress-bar>
+                        
+                      </mat-grid-tile>
+                  </mat-grid-list>
+                </div>
               </div>
 
 

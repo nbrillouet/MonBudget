@@ -42,15 +42,17 @@ overflow: hidden !important;
 
 .mat-standard-chip {
     min-height:28px !important;
+
 }
 
 .mat-chip-red {
-    background-color: #DC2C18 !important;
+    background-color: rgba(220,44,24,0.4) !important; // #DC2C18 !important;
     color:white !important;
+    font-size:12px;
 }
 
 .mat-chip-green {
-    background-color: #4CAF50 !important;
+    background-color:rgba(76,175,80,0.4) !important;// #4CAF50 !important;
     color:white !important;
 }
 

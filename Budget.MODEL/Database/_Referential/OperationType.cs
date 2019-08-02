@@ -25,6 +25,10 @@ namespace Budget.MODEL.Database
         public int IdUserGroup { get; set; }
         [Column("IS_MANDATORY")]
         public bool IsMandatory { get; set; }
+        [Column("CODE")]
+        [StringLength(4)]
+        public string Code { get; set; }
+
 
     }
 

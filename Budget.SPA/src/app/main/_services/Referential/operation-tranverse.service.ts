@@ -13,7 +13,7 @@ baseUrl = environment.apiUrl;
     
 
     Create(operationTransverse: OperationTransverse) {
-        console.log('operationTransverse',operationTransverse);
+        // console.log('operationTransverse',operationTransverse);
         return this._http
             .post(`${this.baseUrl}referential/operation-transverses/create`,operationTransverse)
             .map(res=><OperationTransverse>res);

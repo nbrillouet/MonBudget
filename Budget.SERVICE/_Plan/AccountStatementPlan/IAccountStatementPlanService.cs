@@ -8,7 +8,8 @@ namespace Budget.SERVICE
     public interface IAccountStatementPlanService
     {
         void SaveByIdPlan(int idPlan);
-        List<SelectColorDto> GetPlansByIdAccountStatement(int idAccountStatement,int year);
+        List<SelectValueDto<string>> GetPlansByIdAccountStatement(int idAccountStatement,int year);
+        List<AsForTableDto> GetAsNotInPlan(int idPlan, int idUserGroup);
     }
 
 }

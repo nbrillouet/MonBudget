@@ -24,7 +24,6 @@ import { LoadAsTableDatas } from 'app/main/_ngxs/account-statement/account-state
 import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
 import { LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.action';
 import { AsDetail } from 'app/main/_models/account-statement/account-statement-detail.model';
-import { LoadAsChartEvolution } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
 import { FilterOperation } from 'app/main/_models/filters/operation.filter';
 import * as moment from 'moment';
 
@@ -93,12 +92,7 @@ export class AccountStatementDetailComponent implements OnInit {
         //chargement si page chargé directement sans passer par la liste
         if(this.filterAsTable && this.filterAsTable.selected.idAccount==null && this.idAccount!=null) {
           let filter = new FilterAsTable();
-          
           filter.selected.idAccount=this.idAccount;
-          this._store.dispatch(new LoadAsTableFilter(filter));
-          this._store.dispatch(new LoadAsSolde(filter.selected));
-          this._store.dispatch(new LoadAsChartEvolution(filter.selected));
-
         }
       });
     }

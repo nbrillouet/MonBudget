@@ -110,15 +110,25 @@ namespace Budget.DATA.Repositories
             return operationTypeFamily;
         }
 
-        public OperationTypeFamily GetUnknown(int idUserGroup)
+        public OperationTypeFamily GetByCodeUserGroup(EnumCodeOtf enumCodeOtf, int idUserGroup)
         {
             var operationTypeFamily = Context.OperationTypeFamily
                 .Where(x => x.IdUserGroup == idUserGroup
-                    && x.Label == "INCONNU")
+                    && x.Code == enumCodeOtf.ToString())
                 .FirstOrDefault();
 
             return operationTypeFamily;
         }
+
+        //public OperationTypeFamily GetUnknown(int idUserGroup)
+        //{
+        //    var operationTypeFamily = Context.OperationTypeFamily
+        //        .Where(x => x.IdUserGroup == idUserGroup
+        //            && x.Label == "INCONNU")
+        //        .FirstOrDefault();
+
+        //    return operationTypeFamily;
+        //}
 
         public void DeleteWithEscalation(OperationTypeFamily operationTypeFamily)
         {

@@ -27,13 +27,18 @@ namespace Budget.DATA.Repositories
             return output.ToList();
         }
 
-        public List<UserCustomOtf> Get(int idUser, int idAccount)
+        public List<UserCustomOtf> Get(int idUser, int? idAccount)
         {
             var results = Context.UserCustomOtf
-                .Where(x => x.IdUser == idUser && x.IdAccount == idAccount)
-                .ToList();
+                .Where(x => x.IdUser == idUser)
+                .AsQueryable();
 
-            return results;
+            if (idAccount.HasValue)
+            {
+                results = results.Where(x => x.IdAccount == idAccount.Value);
+            }
+
+            return results.ToList(); ;
         }
 
     }

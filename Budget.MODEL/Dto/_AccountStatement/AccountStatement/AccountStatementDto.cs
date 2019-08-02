@@ -14,7 +14,7 @@ namespace Budget.MODEL.Dto
         public DateTime? DateIntegration { get; set; }
         public double AmountOperation { get; set; }
         public string LabelOperation { get; set; }
-        public List<SelectColorDto> Plans { get; set; }
+        public List<SelectValueDto<string>> Plans { get; set; }
         public SelectDto Account { get; set; }
         public SelectDto BankAgency { get; set; }
     }

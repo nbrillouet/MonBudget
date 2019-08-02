@@ -113,7 +113,7 @@ namespace Budget.DATA.Repositories
             var results = PagedListRepository<AccountStatement>.Create(accountStatements, filter.Pagination);
             return results;
         }
-
+                
         public AccountStatement GetAsDetail(int id)
         {
             var accountStatement = Context.AccountStatement

@@ -30,9 +30,18 @@ namespace Budget.MODEL.Database
 
         [Column("IS_MANDATORY")]
         public bool IsMandatory { get; set; }
+        [Column("CODE")]
+        [StringLength(4)]
+        public string Code { get; set; }
 
     }
 
+    public enum EnumCodeOtf
+    {
+        INCO = 1,
+        VIRI = 2
+
+    }
     //public enum EnumOperationTypeFamily
     //{
     //    Inconnu = 1

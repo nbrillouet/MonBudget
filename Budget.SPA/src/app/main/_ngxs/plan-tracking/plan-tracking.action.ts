@@ -8,7 +8,7 @@ export const PLAN_TRACKING_CLEAR = 'plan-tracking-clear';
 export class LoadPlanForTracking {
     static readonly type = PLAN_TRACKING_LOAD;
  
-    constructor(public payload: any) { }
+    constructor(public payload: FilterPlanTracking) { }
 }
 
 export class LoadPlanForTrackingSuccess {

@@ -1,9 +1,6 @@
-﻿using Budget.HELPER;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Budget.MODEL.Dto
 {
@@ -15,28 +12,28 @@ namespace Budget.MODEL.Dto
         [Key]
         public double Credit
         {
-            get => MathHelper.RoundIt(_credit, 2);
-            set => _credit = MathHelper.RoundIt(value, 2);
+            get => Math.Round(_credit, 2);
+            set => _credit = Math.Round(value, 2);
         }
 
         private double _debit;
         public double Debit
         {
-            get => MathHelper.RoundIt(_debit, 2);
-            set => _debit = MathHelper.RoundIt(value, 2);
+            get => Math.Round(_debit, 2);
+            set => _debit = Math.Round(value, 2);
         }
 
         private double _total;
         public double Total
         {
-            get => MathHelper.RoundIt(_total, 2);
-            set => _total = MathHelper.RoundIt(value, 2);
+            get => Math.Round(_total, 2);
+            set => _total = Math.Round(value, 2);
         }
         private double _solde;
         public double Solde
         {
-            get => MathHelper.RoundIt(_solde, 2);
-            set => _solde = MathHelper.RoundIt(value, 2);
+            get => Math.Round(_solde, 2);
+            set => _solde = Math.Round(value, 2);
         }
 
     }

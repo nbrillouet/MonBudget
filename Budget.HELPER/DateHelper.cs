@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Budget.MODEL.Database;
+using Budget.MODEL.Filter;
+using System;
 
 namespace Budget.HELPER
 {
@@ -46,6 +48,41 @@ namespace Budget.HELPER
                 default:
                     throw new Exception("No Month for this");
             }
+        }
+
+        public static DateRange GetDateRange(MonthYear monthYear)
+        {
+            DateTime dateMin;
+            DateTime dateMax;
+            if (monthYear.Month.Id == (int)EnumMonth.BalanceSheetYear)
+            {
+                dateMin = Convert.ToDateTime($"01/01/{monthYear.Year}");
+                dateMax = Convert.ToDateTime($"31/12/{monthYear.Year}");
+            }
+            else
+            {
+                dateMin = Convert.ToDateTime($"01/{monthYear.Month.Id}/{monthYear.Year}");
+                dateMax = GetLastDayOfMonth(dateMin);
+            }
+
+            return new DateRange
+            {
+                DateMin = dateMin,
+                DateMax = dateMax
+            };
+        }
+    }
+
+
+    public sealed class Singleton
+    {
+        private static readonly Lazy<Singleton> lazy =
+            new Lazy<Singleton>(() => new Singleton());
+
+        public static Singleton Instance { get { return lazy.Value; } }
+
+        private Singleton()
+        {
         }
     }
 }
