@@ -1,12 +1,12 @@
 import { OtfDetail } from "app/main/_models/referential/operation-type-family.model";
-import { DataInfo } from "app/main/_models/generics/detail-info.model";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
-import { ReferentialService } from "app/main/_services/Referential/referential.service";
-import { LoadOtfDetail, LoadOtfDetailSuccess, ClearOtfDetail } from "./operation-type-family-detail.action";
+import { LoadOtfDetail, ClearOtfDetail } from "./operation-type-family-detail.action";
 import { OtfService } from "app/main/apps/referential/operations/operation-type-family/operation-type-family.service";
+import { LoaderState } from "app/main/_ngxs/_base/loader-state";
+import { Datas } from "app/main/_models/generics/detail-info.model";
 
 
-export class OtfDetailStateModel extends DataInfo<OtfDetail> {
+export class OtfDetailStateModel extends Datas<OtfDetail> {
     constructor () {
         super();
     }
@@ -19,13 +19,12 @@ let otfDetailStateModel = new OtfDetailStateModel();
     defaults : otfDetailStateModel
 })
 
-export class OtfDetailState {
+export class OtfDetailState extends LoaderState {
 
     constructor(
-        private _otfService: OtfService,
-        private _referentialService: ReferentialService
-        // private _store: Store
+        private _otfService: OtfService
         ) {
+            super();
     }
 
     @Selector()
@@ -36,29 +35,29 @@ export class OtfDetailState {
 
     @Action(LoadOtfDetail)
     loadOtfDetail(context: StateContext<OtfDetailStateModel>, action: LoadOtfDetail) {
+        this.loading(context,'datas');
+        
         const state = context.getState();
-        
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
         state.datas = null;
-        
         context.patchState(state);
+
         this._otfService.getOtfDetail(action.payload)
             .subscribe(result=> {
-                context.dispatch(new LoadOtfDetailSuccess(result));
+                let state = context.getState();
+                state.datas = result;
+                context.patchState(state);
+
+                this.loaded(context,'datas');
             });
-
     }
 
-    @Action(LoadOtfDetailSuccess)
-    loadSuccess(context: StateContext<OtfDetailStateModel>, action: LoadOtfDetailSuccess) {
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.datas = action.payload;
+    // @Action(LoadOtfDetailSuccess)
+    // loadSuccess(context: StateContext<OtfDetailStateModel>, action: LoadOtfDetailSuccess) {
+    //     let state = context.getState();
+    //     state.datas = action.payload;
 
-        context.patchState(state);
-    }
+    //     context.patchState(state);
+    // }
 
     @Action(ClearOtfDetail)
     clear(context: StateContext<OtfDetailStateModel>) {

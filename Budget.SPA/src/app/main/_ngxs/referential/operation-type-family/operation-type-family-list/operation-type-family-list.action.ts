@@ -1,5 +1,5 @@
 export const OTF_TABLE_LOAD = 'otf-table-load';
-export const OTF_TABLE_LOAD_SUCCESS = 'otf-table-load-success';
+// export const OTF_TABLE_LOAD_SUCCESS = 'otf-table-load-success';
 export const OTF_TABLE_FILTER_CHANGE = 'otf-table-filter-change';
 export const OTF_TABLE_CLEAR = 'otf-table-clear';
 
@@ -9,11 +9,11 @@ export class LoadOtfTableDatas {
     constructor(public payload: any) { }
 }
 
-export class LoadOtfTableDatasSuccess {
-    static readonly type = OTF_TABLE_LOAD_SUCCESS;
+// export class LoadOtfTableDatasSuccess {
+//     static readonly type = OTF_TABLE_LOAD_SUCCESS;
  
-    constructor(public payload: any) { }
-}
+//     constructor(public payload: any) { }
+// }
 
 // export class ChangeAsifTableFilter {
 //     static readonly type = ASIF_TABLE_FILTER_CHANGE;

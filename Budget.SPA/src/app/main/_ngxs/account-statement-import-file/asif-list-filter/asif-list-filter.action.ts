@@ -12,11 +12,11 @@ export class LoadAsifTableFilter {
     constructor(public payload: FilterAsifTable) { }
 }
 
-export class LoadAsifTableFilterSuccess {
-    static readonly type = ASIF_TABLE_FILTER_LOAD_SUCCESS;
+// export class LoadAsifTableFilterSuccess {
+//     static readonly type = ASIF_TABLE_FILTER_LOAD_SUCCESS;
  
-    constructor(public payload: FilterAsifTable) { }
-}
+//     constructor(public payload: FilterAsifTable) { }
+// }
 
 export class ChangeAsifTableFilter {
     static readonly type = ASIF_TABLE_FILTER_CHANGE;

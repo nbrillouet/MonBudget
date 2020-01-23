@@ -3,19 +3,17 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PlanPosteForDetail, PlanPosteFrequencyForDetail, PlanPosteUserForDetail, PlanPosteForDetailSave, Frequency, PlanPosteFrequencyFilter } from 'app/main/_models/plan.model';
 import { PlanService } from '../../plan.service';
-import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { PlanPosteDetailState } from 'app/main/_ngxs/plan-poste/plan-poste-detail/plan-poste-detail.state';
 import { PlanPosteDetailFilter, PlanPosteReferenceFilter } from 'app/main/_models/filters/plan-poste.filter';
-import { DetailInfo } from 'app/main/_models/generics/detail-info.model';
 import { Observable } from 'rxjs';
 import { ChangePlanPosteDetailFilter, ChangePlanPosteReference, PlanPosteDetailChangePlanPosteFrequencies } from 'app/main/_ngxs/plan-poste/plan-poste-detail/plan-poste-detail.action';
 import { BaseChart, ChartValue } from 'app/main/_models/chart/base-chart.model';
 import { PlanDetailFilter } from 'app/main/_models/Filters/plan.filter';
 import { NotificationsService } from 'angular2-notifications';
-// import { ChangePlanDetailFilter, PlanDetailChangePlanPosteFrequencies } from 'app/main/_ngxs/plan/plan-detail/plan-detail.action';
 import { ISelect } from 'app/main/_models/generics/select.model';
 import { ChangePlanDetailFilter } from 'app/main/_ngxs/plan/plan-detail/plan-detail.action';
+import { DatasFilter } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'plan-poste-detail',
@@ -24,7 +22,7 @@ import { ChangePlanDetailFilter } from 'app/main/_ngxs/plan/plan-detail/plan-det
   encapsulation: ViewEncapsulation.None
 })
 export class PlanPosteDetailComponent implements OnInit  {
-  @Select(PlanPosteDetailState.get) detailInfo$: Observable<DetailInfo<PlanPosteForDetail,PlanPosteDetailFilter>>;
+  @Select(PlanPosteDetailState.get) detailInfo$: Observable<DatasFilter<PlanPosteForDetail,PlanPosteDetailFilter>>;
 
   data: PlanPosteForDetail;
   form: FormGroup;
@@ -53,10 +51,10 @@ export class PlanPosteDetailComponent implements OnInit  {
     this._store.dispatch(new ChangePlanPosteDetailFilter(this.planPosteDetailFilter));
     
     this.detailInfo$.subscribe(x=>{
-      if(x.dataInfos.loadingInfo.loaded==true)
+      if(x.loader['datas'].loaded==true)
       {
 
-        this.data = x.dataInfos.datas; // JSON.parse(JSON.stringify(x.dataInfos.datas));
+        this.data = x.datas; // JSON.parse(JSON.stringify(x.dataInfos.datas));
         this.data.isAnnualEstimation = this.data.planPosteFrequencies.length==1;
         
         if(this.firstLoad) {

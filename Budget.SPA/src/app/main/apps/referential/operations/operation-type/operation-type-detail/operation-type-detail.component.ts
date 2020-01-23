@@ -3,7 +3,6 @@ import { fuseAnimations } from '@fuse/animations';
 import { Select, Store } from '@ngxs/store';
 import { OtDetailState } from 'app/main/_ngxs/referential/operation-type/operation-type-detail/operation-type-detail.state';
 import { Observable } from 'rxjs';
-import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 import { OtDetail } from 'app/main/_models/referential/operation-type.model';
 import { OtTableFilterState } from 'app/main/_ngxs/referential/operation-type/operation-type-list-filter/operation-type-list-filter.state';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
@@ -12,8 +11,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 import { OtService } from '../operation-type.service';
-import { LoadOtDetail, ClearOtDetail, LoadOtDetailSuccess } from 'app/main/_ngxs/referential/operation-type/operation-type-detail/operation-type-detail.action';
+import { LoadOtDetail, ClearOtDetail } from 'app/main/_ngxs/referential/operation-type/operation-type-detail/operation-type-detail.action';
 import { LoadOtTableDatas } from 'app/main/_ngxs/referential/operation-type/operation-type-list/operation-type-list.action';
+import { Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'operation-type-detail',
@@ -23,7 +23,7 @@ import { LoadOtTableDatas } from 'app/main/_ngxs/referential/operation-type/oper
 })
 export class OperationTypeDetailComponent implements OnInit, OnDestroy {
 
-@Select(OtDetailState.get) otDetail$: Observable<DataInfo<OtDetail>>;
+@Select(OtDetailState.get) otDetail$: Observable<Datas<OtDetail>>;
 @Select(OtTableFilterState.get) otTableFilter$: Observable<FilterInfo<FilterOtTable>>;
 
 idOperationType: number;
@@ -49,7 +49,7 @@ otDetailForm: FormGroup;
 
     this.otDetail$.subscribe(otDetail=>{
 
-      if(otDetail.loadingInfo.loaded) {
+      if(otDetail.loader['datas'].loaded) {
 
         this.otDetail = JSON.parse(JSON.stringify(otDetail.datas));
 
@@ -87,8 +87,8 @@ otDetailForm: FormGroup;
     this.otDetailForm.valueChanges.subscribe(val=>{
         this.otDetail.label = val.label;
         this.otDetail.operationTypeFamily.selected = val.operationTypeFamily;
-
-        this._store.dispatch(new LoadOtDetailSuccess(this.otDetail));
+        //TODO synchronize
+        // this._store.dispatch(new LoadOtDetailSuccess(this.otDetail));
       });
  
   }  

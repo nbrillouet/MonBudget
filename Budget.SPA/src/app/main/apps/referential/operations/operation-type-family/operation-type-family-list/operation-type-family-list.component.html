@@ -35,7 +35,7 @@
                     <mat-icon color="primary" *ngIf="!hasFilterData('label')">filter_list</mat-icon>
                 </div>
                 <mat-menu #menuLabel="matMenu" [overlapTrigger]="false">
-                    <filter-label *ngIf="templateFor==='col2' && (otfTableFilter$ | async).loadingInfo.loaded"
+                    <filter-label *ngIf="templateFor==='col2' && (otfTableFilter$ | async).loader['filters'].loaded"
                         [label]="(otfTableFilter$ | async).filters.selected.label"
                         (applyLabelFilter)="applyFilterLabel($event)"
                     ></filter-label>
@@ -97,7 +97,7 @@
 
     </mat-table>
 
-    <div *ngIf="(otfTable$ | async).loadingInfo.loading"
+    <div *ngIf="(otfTable$ | async).loader['datas'].loading"
         class="h-96 w-100-p"
         fxLayout="column"
         fxLayoutAlign="center center">
@@ -107,14 +107,14 @@
 
     
     <p class="empty-result" 
-        *ngIf="(otfTable$ | async).loadingInfo.loaded 
+        *ngIf="(otfTable$ | async).loader['datas'].loaded 
             && (otfTable$ | async).datas.length==0"
     >
         Aucun résultat
     </p>
 </div>
 
-<mat-paginator *ngIf="(otfTableFilter$ | async).loadingInfo.loaded"
+<mat-paginator *ngIf="(otfTableFilter$ | async).loader['filters'].loaded"
     (page)="onPageChangeEvent($event)"
     [length]="(otfTableFilter$ | async).filters.selected.pagination.totalItems" 
     [pageSize]="(otfTableFilter$ | async).filters.selected.pagination.nbItemsPerPage"

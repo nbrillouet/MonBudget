@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-import { Http, Headers, RequestOptions,Response } from '@angular/http';
+// import { Http, Headers, RequestOptions,Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -138,11 +138,11 @@ export class AuthService {
     }
 
     
-    private requestOptions()
-    {
-        const headers = new Headers({'Content-type': 'application/json'});
-        return new RequestOptions({headers: headers});
-    }
+    // private requestOptions()
+    // {
+    //     const headers = new Headers({'Content-type': 'application/json'});
+    //     return new RequestOptions({headers: headers});
+    // }
 
     // private handleError(error: any)
     // {

@@ -52,7 +52,7 @@
             </mat-row>
         </mat-table>
         
-        <div *ngIf="(asiTable$ | async).loadingInfo.loading"
+        <div *ngIf="(asiTable$ | async).loader['datas'].loading"
             class="h-96 w-100-p"
             fxLayout="column"
             fxLayoutAlign="center center">

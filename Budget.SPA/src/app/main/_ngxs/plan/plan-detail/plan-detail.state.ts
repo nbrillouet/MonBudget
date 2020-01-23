@@ -1,21 +1,19 @@
 
 import { PlanDetailFilter } from "app/main/_models/Filters/plan.filter";
-// import { State, Selector, Action, StateContext } from "app/main/_ngxs/plan/plan-detail/node_modules/@ngxs/store";
 import { PlanService } from "app/main/apps/plan/plan.service";
-// import { NotificationsService } from "app/main/_ngxs/plan/plan-detail/node_modules/angular2-notifications";
-import { LoadPlanDetailDatas, LoadPlanDetailDatasSuccess, ChangePlanDetailFilter, ClearPlanDetailDatas } from "./plan-detail.action";
-import { DetailInfo } from "app/main/_models/generics/detail-info.model";
+import { LoadPlanDetailDatas, ChangePlanDetailFilter, ClearPlanDetailDatas } from "./plan-detail.action";
 import { PlanDetail } from "app/main/_models/plan/plan.model";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { NotificationsService } from "angular2-notifications";
+import { LoaderState } from "../../_base/loader-state";
+import { DatasFilter } from "app/main/_models/generics/detail-info.model";
 
-export class PlanDetailStateModel extends DetailInfo<PlanDetail,PlanDetailFilter> {
+export class PlanDetailStateModel extends DatasFilter<PlanDetail,PlanDetailFilter> {
     
     constructor () {
         super();
         this.filter = new PlanDetailFilter();
     }
-
 }
 
 let detailInfo = new PlanDetailStateModel();
@@ -24,12 +22,12 @@ let detailInfo = new PlanDetailStateModel();
     defaults : detailInfo
 })
 
-export class PlanDetailState {
+export class PlanDetailState extends LoaderState {
 
     constructor(
         private _planService: PlanService,
         private _notification: NotificationsService) {
-        
+        super();
     }
 
     @Selector()
@@ -44,40 +42,37 @@ export class PlanDetailState {
 
     @Action(LoadPlanDetailDatas)
     load(context: StateContext<PlanDetailStateModel>, action: LoadPlanDetailDatas) {
-        const state = context.getState();
-        state.dataInfos.loadingInfo.loaded=false;
-        state.dataInfos.loadingInfo.loading=true;
-        state.filter = action.payload;
-        state.dataInfos.datas = null;
+        this.loading(context,'datas');
         
+        const state = context.getState();
+        state.filter = action.payload;
+        state.datas = null;
         context.patchState(state);
 
         this._planService.GetForDetailById(action.payload.id)
             .subscribe(result=> {
-                context.dispatch(new LoadPlanDetailDatasSuccess(result));
-            },error => {
-                this._notification.error('Erreur connexion',error);
+                let state = context.getState();
+                state.datas = result;
+                context.patchState(state);
+
+                this.loaded(context,'datas');
             });
 
     }
 
-    @Action(LoadPlanDetailDatasSuccess)
-    loadSuccess(context: StateContext<PlanDetailStateModel>, action: LoadPlanDetailDatasSuccess) {
-        let state = context.getState();
-        state.dataInfos.loadingInfo.loaded = true;
-        state.dataInfos.loadingInfo.loading = false;
-        state.dataInfos.datas = action.payload;
+    // @Action(LoadPlanDetailDatasSuccess)
+    // loadSuccess(context: StateContext<PlanDetailStateModel>, action: LoadPlanDetailDatasSuccess) {
+    //     let state = context.getState();
+    //     state.dataInfos.datas = action.payload;
 
-        context.patchState(state);
+    //     context.patchState(state);
         
-    }
+    // }
 
     @Action(ChangePlanDetailFilter)
     changeFilter(context: StateContext<PlanDetailStateModel>, action: ChangePlanDetailFilter) {
         const state = context.getState();
         state.filter=action.payload
-        // state.loadingInfo.loaded=false;
-        // state.loadingInfo.loading=true;
         // state.datas = null;
         // state.pagination = new Pagination();
         context.patchState(state);

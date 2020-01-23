@@ -44,7 +44,7 @@ constructor(
         
         return this._http
             .post(`${this.baseUrl}referential/operations/filter`,filter)
-            .map((response: OperationTable) => {
+            .map((response: OperationTable[]) => {
                 return response;
             });
     }

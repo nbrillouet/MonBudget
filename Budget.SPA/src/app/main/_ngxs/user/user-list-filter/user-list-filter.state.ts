@@ -1,10 +1,10 @@
 import { FilterInfo } from "app/main/_models/generics/filter.info.model";
 import { FilterUserTable, FilterUserTableSelected } from "app/main/_models/filters/user.filter";
-// import { State, Store, Selector, Action, StateContext } from "app/main/_ngxs/user/user-list-filter/node_modules/@ngxs/store";
 import { UserService } from "app/main/apps/referential/user/user.service";
-import { LoadUserTableFilter, LoadUserTableFilterSuccess, ChangeUserTableFilter, UpdatePaginationUserTableFilter } from "./user-list-filter.action";
+import { LoadUserTableFilter, ChangeUserTableFilter, UpdatePaginationUserTableFilter } from "./user-list-filter.action";
 import { LoadUserTableDatas } from "../user-list/user-list.action";
 import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
+import { LoaderState } from "../../_base/loader-state";
 
 
 export class UserTableFilterStateModel extends FilterInfo<FilterUserTable> {
@@ -20,7 +20,7 @@ let userTableFilterStateModel = new UserTableFilterStateModel();
     defaults : userTableFilterStateModel
 })
 
-export class UserTableFilterState {
+export class UserTableFilterState extends LoaderState {
     reloadFilters: boolean = true;
     hasChangedState: boolean = true;
 
@@ -28,7 +28,7 @@ export class UserTableFilterState {
         private _userService: UserService,
         private _store: Store
         ) {
-            
+            super();
     }
 
     @Selector()
@@ -39,33 +39,35 @@ export class UserTableFilterState {
 
     @Action(LoadUserTableFilter)
     loadUserTableFilter(context: StateContext<UserTableFilterStateModel>, action: LoadUserTableFilter) {
-        const state = context.getState();
+        this.loading(context,'filters');
         
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
+        const state = context.getState();
         state.filters = null;
         context.patchState(state);
+
         this._userService.getUserTableFilter(action.payload.selected)
             .subscribe(result=> {
+                let state = context.getState();
+                state.filters = result; // new FilterUserTable();
+                context.patchState(state);
+                //TODO: a controler
+                context.dispatch(new ChangeUserTableFilter(action.payload));
 
-                context.dispatch(new LoadUserTableFilterSuccess(result));
+                this.loaded(context,'filters');
             });
-
     }
 
-    @Action(LoadUserTableFilterSuccess)
-    loadSuccess(context: StateContext<UserTableFilterStateModel>, action: LoadUserTableFilterSuccess) {
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.filters = new FilterUserTable();
-        // state.filters.selected.idImport = action.payload.selected.idImport;
+    // @Action(LoadUserTableFilterSuccess)
+    // loadSuccess(context: StateContext<UserTableFilterStateModel>, action: LoadUserTableFilterSuccess) {
+    //     let state = context.getState();
+    //     state.filters = new FilterUserTable();
+    //     // state.filters.selected.idImport = action.payload.selected.idImport;
 
-        context.patchState(state);
+    //     context.patchState(state);
 
-        context.dispatch(new ChangeUserTableFilter(action.payload));
+    //     context.dispatch(new ChangeUserTableFilter(action.payload));
         
-    }
+    // }
 
     @Action(ChangeUserTableFilter)
     changeFilter(context: StateContext<UserTableFilterStateModel>, action: ChangeUserTableFilter) {

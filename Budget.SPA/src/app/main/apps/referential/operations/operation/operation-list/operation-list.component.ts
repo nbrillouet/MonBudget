@@ -6,7 +6,6 @@ import { Select, Store } from '@ngxs/store';
 import { OperationTableFilterState } from 'app/main/_ngxs/referential/operation/operation-list-filter/operation-list-filter.state';
 import { OperationTableState } from 'app/main/_ngxs/referential/operation/operation-list/operation-list.state';
 import { Observable } from 'rxjs';
-import { DataInfos } from 'app/main/_models/generics/table-info.model';
 import { OperationTable } from 'app/main/_models/referential/operation.model';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterOperationTable } from 'app/main/_models/filters/operation.filter';
@@ -16,6 +15,8 @@ import { OperationService } from 'app/main/_services/Referential/operation.servi
 import { NotificationsService } from 'angular2-notifications';
 import { FilterComboMultiple, FilterComboMultipleGroup } from 'app/main/_models/filters/mini-filter/combo-multiple.filters';
 import { fuseAnimations } from '@fuse/animations';
+import { Datas } from 'app/main/_models/generics/detail-info.model';
+
 
 @Component({
   selector: 'operation-list',
@@ -25,13 +26,12 @@ import { fuseAnimations } from '@fuse/animations';
   encapsulation: ViewEncapsulation.None
 })
 export class OperationListComponent implements OnInit {
-  // @Input() headerPanelIsVisible: boolean;
   
   @Select(OperationTableFilterState.get) operationTableFilter$: Observable<FilterInfo<FilterOperationTable>>;
-  @Select(OperationTableState.get) operationTable$: Observable<DataInfos<OperationTable>>;
+  @Select(OperationTableState.get) operationTable$: Observable<Datas<OperationTable[]>>;
   
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   dataSource = new MatTableDataSource<OperationTable>();
   filterOperation: FilterOperationTable;
@@ -65,7 +65,7 @@ export class OperationListComponent implements OnInit {
 
   ngOnInit() {
     this.operationTableFilter$.subscribe(operationTableFilter=>{
-      if(operationTableFilter.loadingInfo.loaded) {
+      if(operationTableFilter.loader['filters'].loaded) {
         this.filterOperation = operationTableFilter.filters;
         
         this.filterOperationType.combos = {list : operationTableFilter.filters.operationTypes, listSelected: operationTableFilter.filters.selected.operationTypes};

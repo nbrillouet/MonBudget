@@ -114,7 +114,7 @@
 
   </mat-table>
 
-  <div *ngIf="(operationTable$ | async).loadingInfo.loading"
+  <div *ngIf="(operationTable$ | async).loader['datas'].loading"
       class="h-96 w-100-p"
       fxLayout="column"
       fxLayoutAlign="center center">
@@ -124,14 +124,14 @@
 
   
   <p class="empty-result" 
-      *ngIf="(operationTable$ | async).loadingInfo.loaded 
+      *ngIf="(operationTable$ | async).loader['datas'].loaded 
           && (operationTable$ | async).datas.length==0"
   >
       Aucun résultat
   </p>
 </div>
 
-<mat-paginator *ngIf="(operationTableFilter$ | async).loadingInfo.loaded"
+<mat-paginator *ngIf="(operationTableFilter$ | async).loader['filters'].loaded"
   (page)="onPageChangeEvent($event)"
   [length]="(operationTableFilter$ | async).filters.selected.pagination.totalItems" 
   [pageSize]="(operationTableFilter$ | async).filters.selected.pagination.nbItemsPerPage"

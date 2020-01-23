@@ -1,11 +1,12 @@
-import { DetailInfo } from "app/main/_models/generics/detail-info.model";
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 import { AsService } from "app/main/apps/account-statement/account-statement.service";
-import { LoadAsInternalTransferCouple, LoadAsInternalTransferCoupleSuccess } from "./as-internal-transfer.action";
+import { LoadAsInternalTransferCouple } from "./as-internal-transfer.action";
 import { InternalTransferCouple } from "app/main/_models/account-statement/account-statement-internal-transfer.model";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
+import { LoaderState } from "../../_base/loader-state";
+import { DatasFilter } from "app/main/_models/generics/detail-info.model";
 
-export class AsInternalTransferStateModel extends DetailInfo<InternalTransferCouple[],FilterAsTableSelected> {
+export class AsInternalTransferStateModel extends DatasFilter<InternalTransferCouple[],FilterAsTableSelected> {
     constructor () {
         super();
         this.filter = new FilterAsTableSelected();
@@ -20,11 +21,11 @@ let detailInfo = new AsInternalTransferStateModel();
     defaults : detailInfo 
 })
 
-export class AsInternalTransferState {
+export class AsInternalTransferState extends LoaderState {
     constructor(
         private _asService: AsService
     ) {
-        
+        super();
     }
 
     @Selector()
@@ -39,30 +40,31 @@ export class AsInternalTransferState {
 
     @Action(LoadAsInternalTransferCouple)
     loadGrid(context: StateContext<AsInternalTransferStateModel>, action: LoadAsInternalTransferCouple) {
+        this.loading(context,'datas');
+        
         const state = context.getState();
-        state.dataInfos.loadingInfo.loaded=false;
-        state.dataInfos.loadingInfo.loading=true;
         state.filter = action.payload;
-        state.dataInfos.datas = null;
-
+        state.datas = null;
         context.patchState(state);
 
         this._asService.getAsInternalTransferCouple(action.payload)
             .subscribe(result=> {
-                context.dispatch(new LoadAsInternalTransferCoupleSuccess(result));
+                let state = context.getState();
+                state.datas = result;
+                context.patchState(state);
+
+                this.loaded(context,'datas');
             })
     }
 
-    @Action(LoadAsInternalTransferCoupleSuccess)
-    loadSuccess(context: StateContext<AsInternalTransferStateModel>, action: LoadAsInternalTransferCoupleSuccess) {
-        let state = context.getState();
-        state.dataInfos.loadingInfo.loaded = true;
-        state.dataInfos.loadingInfo.loading = false;
-        state.dataInfos.datas = action.payload;
+    // @Action(LoadAsInternalTransferCoupleSuccess)
+    // loadSuccess(context: StateContext<AsInternalTransferStateModel>, action: LoadAsInternalTransferCoupleSuccess) {
+    //     let state = context.getState();
+    //     state.dataInfos.datas = action.payload;
 
-        context.patchState(state);
+    //     context.patchState(state);
         
-    }
+    // }
 
 
 }

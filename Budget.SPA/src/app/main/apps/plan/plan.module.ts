@@ -30,6 +30,7 @@ import { AsPlanTableState } from "app/main/_ngxs/account-statement-plan/as-plan.
 import { AsPlanListComponent } from "./plan-detail/as-plan-list/as-plan-list.component";
 import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { ChartsModule } from "ng2-charts";
+import { AngularMaterialModule } from "app/angular-material.module";
 
 const routes = [
     {
@@ -68,6 +69,7 @@ const routes = [
   @NgModule({
     imports: [
       FuseSharedModule,
+      AngularMaterialModule,
       NgxGaugeModule,
       RouterModule.forChild(routes),
       WidgetsModule,

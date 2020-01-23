@@ -1,4 +1,4 @@
-import { LoadingInfo } from "./loading-info.model";
+import { Loader } from "./loading-info.model";
 
 // interface NoParamConstructor<T> {
 //     new (): T;
@@ -6,22 +6,18 @@ import { LoadingInfo } from "./loading-info.model";
 
 // export class FilterInfo<T> {
 //     filters: T;
-//     loadingInfo : LoadingInfo;
 
 //     constructor(filters: NoParamConstructor<T>){
 
 //         this.filters = new filters();
-//         this.loadingInfo = new LoadingInfo();
 //     }
 // }
 
-export class FilterInfo<T> {
+export class FilterInfo<T> extends Loader {
     filters: T;
-    loadingInfo : LoadingInfo;
 
     constructor(TCreator: { new (): T; }){
-
+        super();
         this.filters = new TCreator();
-        this.loadingInfo = new LoadingInfo();
     }
 }

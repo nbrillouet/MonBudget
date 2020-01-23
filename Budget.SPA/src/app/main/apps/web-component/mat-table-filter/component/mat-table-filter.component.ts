@@ -24,9 +24,9 @@ export class MatTableFilterComponent implements OnInit,AfterViewInit,OnChanges {
   @Output() changePagination = new EventEmitter<Pagination>();
   @Output() clickButtonIcon = new EventEmitter<Row>();
 
-  @ViewChild(MatTable, {read: ElementRef} ) private matTableRef: ElementRef;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatTable, {static: false} ) private matTableRef: ElementRef;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   
   matTableFilter: MatTableFilter = new MatTableFilter();
 

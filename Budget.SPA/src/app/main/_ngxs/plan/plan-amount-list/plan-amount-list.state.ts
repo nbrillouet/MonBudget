@@ -1,17 +1,16 @@
-import { TableInfo } from "app/main/_models/generics/table-info.model";
 import { AsTable } from "app/main/_models/account-statement/account-statement-table.model";
 import { PlanAmountFilter } from "app/main/_models/filters/plan-amount.filter";
-// import { State, Selector, Action, StateContext } from "app/main/_ngxs/plan/plan-amount-list/node_modules/@ngxs/store";
 import { PlanService } from "app/main/apps/plan/plan.service";
-// import { NotificationsService } from "app/main/_ngxs/plan/plan-amount-list/node_modules/angular2-notifications";
-import { LoadPlanAmountTableDatas, LoadPlanAmountTableDatasSuccess, ChangePlanAmountTableFilter, ClearPlanAmountTableDatas } from "./plan-amount-list.action";
+import { LoadPlanAmountTableDatas, ChangePlanAmountTableFilter, ClearPlanAmountTableDatas } from "./plan-amount-list.action";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { NotificationsService } from "angular2-notifications";
+import { LoaderState } from "../../_base/loader-state";
+import { DatasFilter } from "app/main/_models/generics/detail-info.model";
 
-export class PlanAmountTableStateModel extends TableInfo<AsTable,PlanAmountFilter> {
+export class PlanAmountTableStateModel extends DatasFilter<AsTable[],PlanAmountFilter> {
     constructor () {
         super();
-        this.filter = null; //new PlanFilter();
+        this.filter = null; 
     }
 }
 
@@ -21,15 +20,15 @@ let planAmountTableStateModel = new PlanAmountTableStateModel();
     defaults : planAmountTableStateModel
 })
 
-export class PlanAmountTableState {
+export class PlanAmountTableState extends LoaderState{
     constructor(
         private _planService: PlanService,
         private _notification: NotificationsService) {
+            super();
     }
 
     @Selector()
     static get(state: PlanAmountTableStateModel) {
-
         return state;
     }
 
@@ -40,31 +39,30 @@ export class PlanAmountTableState {
 
     @Action(LoadPlanAmountTableDatas)
     loadGrid(context: StateContext<PlanAmountTableStateModel>, action: LoadPlanAmountTableDatas) {
-        const state = context.getState();
-        state.dataInfos.loadingInfo.loaded=false;
-        state.dataInfos.loadingInfo.loading=true;
-        state.filter = action.payload;
-        state.dataInfos.datas = null;
+        this.loading(context,'datas');
         
+        const state = context.getState();
+        state.filter = action.payload;
+        state.datas = null;
         context.patchState(state);
 
         this._planService.getPlanAmountTable(action.payload)
             .subscribe(result=> {
-                context.dispatch(new LoadPlanAmountTableDatasSuccess(result));
-            },error => {
-                this._notification.error('Erreur connexion',error);
-            })
+                let state = context.getState();
+                state.datas = result;
+                context.patchState(state);
+
+                this.loaded(context,'datas');
+            });
     }
 
-    @Action(LoadPlanAmountTableDatasSuccess)
-    loadSuccess(context: StateContext<PlanAmountTableStateModel>, action: LoadPlanAmountTableDatasSuccess) {
-        let state = context.getState();
-        state.dataInfos.loadingInfo.loaded = true;
-        state.dataInfos.loadingInfo.loading = false;
-        state.dataInfos.datas = action.payload;
+    // @Action(LoadPlanAmountTableDatasSuccess)
+    // loadSuccess(context: StateContext<PlanAmountTableStateModel>, action: LoadPlanAmountTableDatasSuccess) {
+    //     let state = context.getState();
+    //     state.dataInfos.datas = action.payload;
         
-        context.patchState(state);
-    }
+    //     context.patchState(state);
+    // }
 
     @Action(ChangePlanAmountTableFilter)
     changeFilter(context: StateContext<PlanAmountTableStateModel>, action: ChangePlanAmountTableFilter) {

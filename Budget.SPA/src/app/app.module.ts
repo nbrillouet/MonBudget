@@ -20,7 +20,7 @@ import { SampleModule } from 'app/main/sample/sample.module';
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginModule } from './main/pages/authentication/login/login.module';
 import { RegisterModule } from './main/pages/authentication/register/register.module';
-import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/http';
 import { AuthService } from './main/_services/auth.service';
 import { ErrorService } from './main/_services/error.service';
 import { GoogleMapService } from './main/_services/google-map.service';
@@ -95,7 +95,7 @@ const appRoutes: Routes = [
 
         LoginModule,
         RegisterModule,
-        HttpModule,
+        // HttpModule,
 
         ReferentialServiceModule,
 

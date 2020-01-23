@@ -24,7 +24,7 @@
                     </button>
 
                     <div fxLayout="row" fxLayoutAlign="start center"
-                        *ngIf="(asifTableFilter$ | async).loadingInfo.loaded"
+                        *ngIf="(asifTableFilter$ | async).loader['filters'].loaded"
                     >
                         <div  fxLayout="column">
                             <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">{{(asifTableFilter$ | async).filters.asiBankAgencyLabel}}</span>
@@ -48,7 +48,7 @@
 
             </div>
 
-            <div fxLayout="row" *ngIf="(asifTableFilter$ | async).loadingInfo.loaded && (asifTableFilter$ | async).filters.accounts as accounts">
+            <div fxLayout="row" *ngIf="(asifTableFilter$ | async).loader['filters'].loaded && (asifTableFilter$ | async).filters.accounts as accounts">
 
                 <div class="selected-project">{{(asifTableFilter$ | async).filters.selected.account.label}}</div>
 
@@ -72,9 +72,7 @@
         <!-- / HEADER -->
             
         <div class="content-card">
-            <!-- <div *ngIf="(asifTableFilter$ | async).loadingInfo.loaded"> -->
             <asif-state style="height:100%;" ></asif-state>
-            <!-- </div> -->
 
             <div class="spinner-container" *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">
                 En cours...

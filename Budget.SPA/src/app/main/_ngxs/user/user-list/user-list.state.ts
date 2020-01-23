@@ -1,17 +1,14 @@
-import { DataInfos } from "app/main/_models/generics/table-info.model";
 import { UserTable } from "app/main/_models/user.model";
-// import { State, Store, Selector, Action, StateContext } from "app/main/_ngxs/user/user-list/node_modules/@ngxs/store";
 import { UserService } from "app/main/apps/referential/user/user.service";
-// import { NotificationsService } from "app/main/_ngxs/user/user-list/node_modules/angular2-notifications";
-import { LoadUserTableDatas, LoadUserTableDatasSuccess, ClearUserTableDatas } from "./user-list.action";
+import { LoadUserTableDatas, ClearUserTableDatas } from "./user-list.action";
 import { UpdatePaginationUserTableFilter } from "../user-list-filter/user-list-filter.action";
 import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
-import { NotificationsService } from "angular2-notifications";
+import { LoaderState } from "../../_base/loader-state";
+import { Datas } from "app/main/_models/generics/detail-info.model";
 
-export class UserTableStateModel extends DataInfos<UserTable> {
+export class UserTableStateModel extends Datas<UserTable[]> {
     constructor () {
         super();
-        // this.filter = null; //new PlanFilter();
     }
 }
 
@@ -21,11 +18,11 @@ let tableInfo = new UserTableStateModel();
     defaults : tableInfo
 })
 
-export class UserTableState {
+export class UserTableState extends LoaderState {
     constructor(
         private _userService: UserService,
-        private _store: Store,
-        private _notification: NotificationsService) {
+        private _store: Store) {
+            super();
     }
 
     @Selector()
@@ -35,29 +32,32 @@ export class UserTableState {
 
     @Action(LoadUserTableDatas)
     loadGrid(context: StateContext<UserTableStateModel>, action: LoadUserTableDatas) {
-        const state = context.getState();
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
-        // state.datas = action.payload;
-        state.datas = null;
+        this.loading(context,'datas');
         
+        const state = context.getState();
+        state.datas = null;
         context.patchState(state);
+
         this._userService.getUserTable(action.payload)
             .subscribe(result=> {
-                context.dispatch(new LoadUserTableDatasSuccess(result));
+                let state = context.getState();
+                state.datas = action.payload.datas;
+                context.patchState(state);
+                //TODO a controler
+                this._store.dispatch(new UpdatePaginationUserTableFilter(action.payload.pagination));
+
+                this.loaded(context,'datas');
             });
     }
 
-    @Action(LoadUserTableDatasSuccess)
-    loadSuccess(context: StateContext<UserTableStateModel>, action: LoadUserTableDatasSuccess) {
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.datas = action.payload.datas;
+    // @Action(LoadUserTableDatasSuccess)
+    // loadSuccess(context: StateContext<UserTableStateModel>, action: LoadUserTableDatasSuccess) {
+    //     let state = context.getState();
+    //     state.datas = action.payload.datas;
 
-        context.patchState(state);
-        this._store.dispatch(new UpdatePaginationUserTableFilter(action.payload.pagination));
-    }
+    //     context.patchState(state);
+    //     this._store.dispatch(new UpdatePaginationUserTableFilter(action.payload.pagination));
+    // }
 
     @Action(ClearUserTableDatas)
     clear(context: StateContext<UserTableStateModel>) {

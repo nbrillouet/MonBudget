@@ -1,9 +1,10 @@
 import { FilterInfo } from "app/main/_models/generics/filter.info.model";
 import { FilterAsiTable, FilterAsiTableSelected } from "app/main/_models/filters/account-statement-import.filter";
-import { LoadAsiTableFilter, LoadAsiTableFilterSuccess, ChangeAsiTableFilter, UpdatePaginationAsiTableFilter } from "./asi-list-filter.action";
+import { LoadAsiTableFilter, ChangeAsiTableFilter, UpdatePaginationAsiTableFilter } from "./asi-list-filter.action";
 import { LoadAsiTableDatas } from "../asi-list/asi-list.action";
 import { AsiService } from "app/main/apps/account-statement-import/asi.service";
 import { State, Selector, Action, StateContext, Store } from "@ngxs/store";
+import { LoaderState } from "../../_base/loader-state";
 
 export class AsiTableFilterStateModel extends FilterInfo<FilterAsiTable> {
     constructor () {
@@ -18,15 +19,13 @@ let planTableComboFilter = new AsiTableFilterStateModel();
     defaults : planTableComboFilter
 })
 
-export class AsiTableFilterState {
-
+export class AsiTableFilterState extends LoaderState {
     changedState: boolean;
-    
     constructor(
         private _asiService: AsiService,
         private _store: Store
         ) {
-            
+            super();
     }
 
     @Selector()
@@ -42,37 +41,42 @@ export class AsiTableFilterState {
 
     @Action(LoadAsiTableFilter)
     loadAsiTableFilter(context: StateContext<AsiTableFilterStateModel>, action: LoadAsiTableFilter) {
-        const state = context.getState();
-
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
-        state.filters = null;
+        this.loading(context,'filters');
         
+        const state = context.getState();
+        state.filters = null;
         context.patchState(state);
    
         this._asiService.getAsiTableFilter(action.payload.selected)
             .subscribe(result=> {
+                //TODO a controler
 
-                context.dispatch(new LoadAsiTableFilterSuccess(result));
+                //conserver le payload
+                let payload = JSON.parse(JSON.stringify(action.payload.selected));
+                let state = context.getState();
+                state.filters = result;
+                context.patchState(state);
+
+                context.dispatch(new ChangeAsiTableFilter(payload));
+
+                this.loaded(context,'filters');
             });
 
     }
 
-    @Action(LoadAsiTableFilterSuccess)
-    loadSuccess(context: StateContext<AsiTableFilterStateModel>, action: LoadAsiTableFilterSuccess) {
-        //conserver le payload
-        let payload = JSON.parse(JSON.stringify(action.payload.selected));
+    // @Action(LoadAsiTableFilterSuccess)
+    // loadSuccess(context: StateContext<AsiTableFilterStateModel>, action: LoadAsiTableFilterSuccess) {
+    //     //conserver le payload
+    //     let payload = JSON.parse(JSON.stringify(action.payload.selected));
         
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.filters = action.payload;
+    //     let state = context.getState();
+    //     state.filters = action.payload;
  
-        context.patchState(state);
+    //     context.patchState(state);
 
-        context.dispatch(new ChangeAsiTableFilter(payload));
+    //     context.dispatch(new ChangeAsiTableFilter(payload));
         
-    }
+    // }
 
     @Action(ChangeAsiTableFilter)
     changeFilter(context: StateContext<AsiTableFilterStateModel>, action: ChangeAsiTableFilter) {

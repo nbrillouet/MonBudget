@@ -23,6 +23,7 @@ import { AsInternalTransferState } from 'app/main/_ngxs/account-statement/accoun
 // import { MiniFilterModule } from '../web-component/mini-filter/mini-filter.module';
 import { AsChartCategorisationComponent } from './account-statement-chart/as-chart-categorisation/as-chart-categorisation.component';
 import { MatTableFilterModule } from '../web-component/mat-table-filter/mat-table-filter.module';
+import { AngularMaterialModule } from 'app/angular-material.module';
 // import { MatTableFilterComponent } from './account-statement-list/mat-table-filter/component/mat-table-filter.component';
 // import { ResizeObserverDirective } from './account-statement-list/mat-table-filter/directive/resize-observer.directive';
 // import { DateFormatPipe } from './account-statement-list/mat-table-filter/pipe/pipe-date';
@@ -61,6 +62,7 @@ const routes = [
 @NgModule({
   imports: [
     FuseSharedModule,
+    AngularMaterialModule,
     RouterModule.forChild(routes),
     FuseWidgetModule,
     WidgetsModule,

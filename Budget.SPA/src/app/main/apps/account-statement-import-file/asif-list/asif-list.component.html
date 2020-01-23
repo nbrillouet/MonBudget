@@ -134,7 +134,7 @@
     </mat-table>
 
 
-    <div *ngIf="(asifTable$ | async).loadingInfo.loading"
+    <div *ngIf="(asifTable$ | async).loader['datas'].loading"
         class="h-96 w-100-p"
         fxLayout="column"
         fxLayoutAlign="center center">

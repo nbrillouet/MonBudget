@@ -3,12 +3,12 @@ import { PlanPosteFrequencyForDetail, PlanPosteFrequencyFilter } from "app/main/
 
 
 export const PLAN_POSTE_DETAIL_LOAD = 'plan-poste-detail-load';
-export const PLAN_POSTE_DETAIL_LOAD_SUCCESS = 'plan-poste-detail-load-success';
+// export const PLAN_POSTE_DETAIL_LOAD_SUCCESS = 'plan-poste-detail-load-success';
 export const PLAN_POSTE_DETAIL_FILTER_CHANGE = 'plan-poste-detail-filter-change';
 export const PLAN_POSTE_DETAIL_CLEAR = 'plan-poste-detail-clear';
 export const PLAN_POSTE_REFERENCE_CHANGE= 'plan-poste-reference-change';
 export const PLAN_POSTE_DETAIL_CHANGE_PLAN_POSTE_FREQUENCIES = 'plan-poste-detail-change-plan-poste-frequencies';
-export const PLAN_POSTE_DETAIL_CHANGE_PLAN_POSTE_FREQUENCIES_SUCCESS = 'plan-poste-detail-change-plan-poste-frequencies-success';
+// export const PLAN_POSTE_DETAIL_CHANGE_PLAN_POSTE_FREQUENCIES_SUCCESS = 'plan-poste-detail-change-plan-poste-frequencies-success';
 
 export class LoadPlanPosteDetailDatas {
     static readonly type = PLAN_POSTE_DETAIL_LOAD;
@@ -16,11 +16,11 @@ export class LoadPlanPosteDetailDatas {
     constructor(public payload: any) { }
 }
 
-export class LoadPlanPosteDetailDatasSuccess {
-    static readonly type = PLAN_POSTE_DETAIL_LOAD_SUCCESS;
+// export class LoadPlanPosteDetailDatasSuccess {
+//     static readonly type = PLAN_POSTE_DETAIL_LOAD_SUCCESS;
  
-    constructor(public payload: any) { }
-}
+//     constructor(public payload: any) { }
+// }
 
 export class ChangePlanPosteDetailFilter {
     static readonly type = PLAN_POSTE_DETAIL_FILTER_CHANGE;
@@ -43,9 +43,9 @@ export class PlanPosteDetailChangePlanPosteFrequencies {
     constructor(public payload: PlanPosteFrequencyFilter) { }
 }
 
-export class PlanPosteDetailChangePlanPosteFrequenciesSuccess {
-    static readonly type = PLAN_POSTE_DETAIL_CHANGE_PLAN_POSTE_FREQUENCIES_SUCCESS;
+// export class PlanPosteDetailChangePlanPosteFrequenciesSuccess {
+//     static readonly type = PLAN_POSTE_DETAIL_CHANGE_PLAN_POSTE_FREQUENCIES_SUCCESS;
  
-    constructor(public payload: PlanPosteFrequencyForDetail[]) { }
-}
+//     constructor(public payload: PlanPosteFrequencyForDetail[]) { }
+// }
 

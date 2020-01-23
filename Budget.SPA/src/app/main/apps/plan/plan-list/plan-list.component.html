@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-            <div *ngIf="(tableComboFilter$ | async).loadingInfo.loaded" fxLayout="row" fxLayoutAlign="end space-between">
+            <div *ngIf="(tableComboFilter$ | async).loader['filters'] && (tableComboFilter$ | async).loader['filters'].loaded" fxLayout="row" fxLayoutAlign="end space-between">
                 <div fxflex fxLayoutAlign="end center">
                     <div class="selected-project">{{comboYear.selected.label}}</div>
                 
@@ -59,7 +59,7 @@
                             </div>
                         </div> 
                         
-                        <mat-card-content class="p-20" *ngIf="(tableInfo$ | async).dataInfos.loadingInfo.loaded">
+                        <mat-card-content class="p-20" *ngIf="(tableInfo$ | async).loader['datas']?.loaded">
                                 <table mat-table [dataSource]="dataSource" >
                                     <ng-container matColumnDef="checkbox">
                                         <mat-header-cell style="flex: 0 0 60px;" *matHeaderCellDef> </mat-header-cell>

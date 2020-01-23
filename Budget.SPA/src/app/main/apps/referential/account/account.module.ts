@@ -12,6 +12,7 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseConfirmDialogModule } from '@fuse/components';
 import { NgxsModule } from '@ngxs/store';
 import { AccountForDetailState } from 'app/main/_ngxs/referential/account/account-detail/account-detail.state';
+import { AngularMaterialModule } from 'app/angular-material.module';
 
 const routes = [
   {
@@ -34,6 +35,7 @@ const routes = [
   imports: [
     CommonModule,
     FuseSharedModule,
+    AngularMaterialModule,
     FuseConfirmDialogModule,
     RouterModule.forChild(routes),
     NgxsModule.forFeature([

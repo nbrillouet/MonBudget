@@ -1,20 +1,23 @@
-import { LoadingInfo } from "./loading-info.model";
+import { Loader } from "./loading-info.model";
 
-export class DetailInfo<T,U>  {
-    dataInfos : DataInfo<T>;
-    filter: U;
-
-    constructor () {
-        this.dataInfos = new DataInfo<T>();
-    }
-}
-
-export class DataInfo<T> {
+export class Datas<T> extends Loader {
     datas: T;
-    loadingInfo : LoadingInfo;
-
-    constructor(){
+    constructor() {
+        super();
         this.datas = null;
-        this.loadingInfo = new LoadingInfo();
     }
 }
+
+export class DatasFilter<T,U> extends Datas<T>  {
+    filter: U;
+    constructor () {
+        super();
+    }
+}
+
+// export class TableInfo<T,U>  extends DataSource<T[]> {
+//     filter: U;
+//     constructor () {
+//         super();
+//     }
+// }

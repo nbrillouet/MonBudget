@@ -6,3 +6,5 @@
 <avatar-editor [idUser]="user.id"></avatar-editor>
 
 ReadAllTypeSociete
+
+

@@ -1,9 +1,10 @@
 import { FilterOtfTable, FilterOtfTableSelected } from "app/main/_models/filters/operation-type-family.filter";
 import { FilterInfo } from "app/main/_models/generics/filter.info.model";
 import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
-import { LoadOtfTableFilter, LoadOtfTableFilterSuccess, ChangeOtfTableFilter, UpdatePaginationOtfTableFilter } from "./operation-type-family-list-filter.action";
+import { LoadOtfTableFilter, ChangeOtfTableFilter, UpdatePaginationOtfTableFilter } from "./operation-type-family-list-filter.action";
 import { LoadOtfTableDatas } from "../operation-type-family-list/operation-type-family-list.action";
 import { OtfService } from "app/main/apps/referential/operations/operation-type-family/operation-type-family.service";
+import { LoaderState } from "app/main/_ngxs/_base/loader-state";
 
 
 export class OtfTableFilterStateModel extends FilterInfo<FilterOtfTable> {
@@ -19,13 +20,13 @@ let otfTableFilterStateModel = new OtfTableFilterStateModel();
     defaults : otfTableFilterStateModel
 })
 
-export class OtfTableFilterState {
+export class OtfTableFilterState extends LoaderState {
 
     constructor(
         private _otfService: OtfService,
         private _store: Store
         ) {
-            
+            super();
     }
 
     // async delay(ms: number) {
@@ -45,37 +46,43 @@ export class OtfTableFilterState {
 
     @Action(LoadOtfTableFilter)
     loadOtfTableFilter(context: StateContext<OtfTableFilterStateModel>, action: LoadOtfTableFilter) {
+        this.loading(context,'filters');
+        
         const state = context.getState();
-        
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
         state.filters = null;
-        
         context.patchState(state);
+
         this._otfService.getOtfTableFilter(action.payload.selected)
             .subscribe(result=> {
           
-                context.dispatch(new LoadOtfTableFilterSuccess(result));
+                //conserver le payload
+                let payload = JSON.parse(JSON.stringify(action.payload.selected));
+                let state = context.getState();
+                state.filters = action.payload;
+                context.patchState(state);
+                
+                //TODO a controler
+                context.dispatch(new ChangeOtfTableFilter(payload));
+
+                this.loaded(context,'filters');
             });
 
     }
 
-    @Action(LoadOtfTableFilterSuccess)
-    loadSuccess(context: StateContext<OtfTableFilterStateModel>, action: LoadOtfTableFilterSuccess) {
+    // @Action(LoadOtfTableFilterSuccess)
+    // loadSuccess(context: StateContext<OtfTableFilterStateModel>, action: LoadOtfTableFilterSuccess) {
         
-        //conserver le payload
-        let payload = JSON.parse(JSON.stringify(action.payload.selected));
+    //     //conserver le payload
+    //     let payload = JSON.parse(JSON.stringify(action.payload.selected));
 
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.filters = action.payload;
+    //     let state = context.getState();
+    //     state.filters = action.payload;
 
-        context.patchState(state);
+    //     context.patchState(state);
         
-        context.dispatch(new ChangeOtfTableFilter(payload));
+    //     context.dispatch(new ChangeOtfTableFilter(payload));
         
-    }
+    // }
         // this.delay(3000).then(any=>{
     @Action(ChangeOtfTableFilter)
     changeFilter(context: StateContext<OtfTableFilterStateModel>, action: ChangeOtfTableFilter) {

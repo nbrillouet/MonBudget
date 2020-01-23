@@ -6,20 +6,17 @@ import { Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { Store, Select } from '@ngxs/store';
 import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
-import { DataInfos } from 'app/main/_models/generics/table-info.model';
 import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
 import { AsTableState } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.state';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterAsTable } from 'app/main/_models/filters/account-statement.filter';
 import { ChangeAsTableFilter, LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
-import { FilterAmount } from 'app/main/_models/filters/mini-filter/amount.filter';
 import { FilterComboMultiple, FilterComboMultipleGroup } from 'app/main/_models/filters/mini-filter/combo-multiple.filters';
 import { FilterDateRange } from 'app/main/_models/filters/mini-filter/date-range.filter';
-// import { MatTableFilter, Row, TableField, EnumFilterType, Column, FilterTable, EnumStyleType, TypeNumberUpDown } from './mat-table-filter/model/mat-table-filter.model';
 import { Pagination } from 'app/main/_models/pagination.model';
 import { FilterNumberRange } from 'app/main/_models/filters/mini-filter/number-range.filter';
 import { Row, Column, FilterTable, EnumStyleType, EnumFilterType } from '../../web-component/mat-table-filter/model/mat-table-filter.model';
-
+import { Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'account-statement-list',
@@ -31,13 +28,13 @@ import { Row, Column, FilterTable, EnumStyleType, EnumFilterType } from '../../w
 
 export class AccountStatementListComponent implements OnInit {
   @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
-  @Select(AsTableState.get) asTable$: Observable<DataInfos<AsTable>>;
+  @Select(AsTableState.get) asTable$: Observable<Datas<AsTable[]>>;
   
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  rows:Row[];
-  columns:Column[];
+  rows: Row[];
+  columns: Column[];
   pagination: Pagination;
   onloading: boolean;
   filterAs: FilterAsTable;
@@ -48,19 +45,15 @@ export class AccountStatementListComponent implements OnInit {
     ) {
 
       this.asTable$.subscribe(asifTable=>{
-        this.onloading= asifTable.loadingInfo.loading;
-        if(asifTable.loadingInfo.loaded){
-
+        this.onloading= asifTable.loader['datas'].loading;
+        if(asifTable.loader['datas'].loaded){
           this.rows=this.getMatTableFilterRows(asifTable);
-
         }
       });
 
       this.asTableFilter$.subscribe(asTableFilter=>{
-        this.onloading= asTableFilter.loadingInfo.loading;
-        // console.log('asTableFilter$ FIRED',asTableFilter.loadingInfo.loading);
-        if(asTableFilter.loadingInfo.loaded) {
-          // console.log('---->asTableFilter.filters',asTableFilter.filters);
+        this.onloading= asTableFilter.loader['datas'].loading;
+        if(asTableFilter.loader['datas'].loaded) {
           this.filterAs = asTableFilter.filters;
   
           this.pagination=this.filterAs.selected.pagination;
@@ -84,7 +77,6 @@ export class AccountStatementListComponent implements OnInit {
   }
 
   applyFilterAmount(data) {
-    
     this.filterAs.selected.amountMin = data.numberMin;
     this.filterAs.selected.amountMax = data.numberMax;
     this.applyFilter();
@@ -111,7 +103,6 @@ export class AccountStatementListComponent implements OnInit {
   }
 
   applyFilterDateIntegration(data) {
-
     this.filterAs.selected.dateIntegrationMin= data.dateMin;
     this.filterAs.selected.dateIntegrationMax= data.dateMax;
     this.applyFilter();
@@ -158,10 +149,10 @@ export class AccountStatementListComponent implements OnInit {
   }
 
 
-  getMatTableFilterRows(datas: DataInfos<AsTable> ) {
+  getMatTableFilterRows(datas: Datas<AsTable[]> ) {
     let tableRows: Row[] = [];
 
-    if (datas.loadingInfo.loaded) {
+    if (datas.loader['datas'].loaded) {
       for (let data of datas.datas) {
 
         //creation de la ligne

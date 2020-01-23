@@ -18,6 +18,7 @@ import { PreventUnsavedChanges } from 'app/_guards/prevent-unsaved-changes.guard
 import { NgxsModule } from '@ngxs/store';
 import { UserTableState } from 'app/main/_ngxs/user/user-list/user-list.state';
 import { UserTableFilterState } from 'app/main/_ngxs/user/user-list-filter/user-list-filter.state';
+import { AngularMaterialModule } from 'app/angular-material.module';
 
 const routes = [
   {
@@ -43,6 +44,7 @@ const routes = [
 @NgModule({
   imports: [
     FuseSharedModule,
+    AngularMaterialModule,
     FileUploadModule,
     GMapModule,
     NgxsModule.forFeature([

@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { ISelect } from 'app/main/_models/generics/select.model';
 import { FilterAsTableSelected } from 'app/main/_models/filters/account-statement.filter';
 import { AsSoldeState } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.state';
-import { DetailInfo } from 'app/main/_models/generics/detail-info.model';
 import { AsSolde } from 'app/main/_models/account-statement/account-statement-solde.model';
+import { DatasFilter } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'account-statement-filter',
@@ -14,12 +14,9 @@ import { AsSolde } from 'app/main/_models/account-statement/account-statement-so
   styleUrls: ['./account-statement-filter.component.scss']
 })
 export class AccountStatementFilterComponent implements OnInit {
-  // @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
-  
-  @Select(AsSoldeState.get) asTableFilter$: Observable<DetailInfo<AsSolde,FilterAsTableSelected>>;
+  @Select(AsSoldeState.get) asTableFilter$: Observable<DatasFilter<AsSolde,FilterAsTableSelected>>;
   asTableFilterSelected: FilterAsTableSelected;
 
-  // asTableFilter: FilterAsTable;
   months: ISelect[];
   years: number[]=[2015,2016,2017,2018,2019];
 

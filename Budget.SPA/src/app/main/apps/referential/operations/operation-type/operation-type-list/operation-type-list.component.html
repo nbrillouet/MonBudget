@@ -89,7 +89,7 @@
 
     </mat-table>
 
-    <div *ngIf="(otTable$ | async).loadingInfo.loading"
+    <div *ngIf="(otTable$ | async).loader['datas'].loading"
         class="h-96 w-100-p"
         fxLayout="column"
         fxLayoutAlign="center center">
@@ -99,14 +99,14 @@
 
     
     <p class="empty-result" 
-        *ngIf="(otTable$ | async).loadingInfo.loaded 
+        *ngIf="(otTable$ | async).loader['datas'].loaded 
             && (otTable$ | async).datas.length==0"
     >
         Aucun résultat
     </p>
 </div>
 
-<mat-paginator *ngIf="(otTableFilter$ | async).loadingInfo.loaded"
+<mat-paginator *ngIf="(otTableFilter$ | async).loader['filters'].loaded"
     (page)="onPageChangeEvent($event)"
     [length]="(otTableFilter$ | async).filters.selected.pagination.totalItems" 
     [pageSize]="(otTableFilter$ | async).filters.selected.pagination.nbItemsPerPage"

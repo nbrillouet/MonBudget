@@ -1,11 +1,11 @@
-import { DataInfo } from "app/main/_models/generics/detail-info.model";
 import { OperationForDetail } from "app/main/_models/referential/operation.model";
 import { State, Action, Selector, StateContext } from "@ngxs/store";
 import { OperationService } from "app/main/_services/Referential/operation.service";
-import { ReferentialService } from "app/main/_services/Referential/referential.service";
-import { LoadOperationForDetail, LoadOperationForDetailSuccess, ClearOperationForDetail } from "./operation-detail.action";
+import { LoadOperationForDetail, ClearOperationForDetail } from "./operation-detail.action";
+import { LoaderState } from "app/main/_ngxs/_base/loader-state";
+import { Datas } from "app/main/_models/generics/detail-info.model";
 
-export class OperationForDetailStateModel extends DataInfo<OperationForDetail> {
+export class OperationForDetailStateModel extends Datas<OperationForDetail> {
     constructor () {
         super();
     }
@@ -18,12 +18,12 @@ let operationForDetailStateModel = new OperationForDetailStateModel();
     defaults : operationForDetailStateModel
 })
 
-export class OperationForDetailState {
+export class OperationForDetailState extends LoaderState {
 
     constructor(
-        private _OperationService: OperationService,
-        private _referentialService: ReferentialService
+        private _OperationService: OperationService
         ) {
+            super();
     }
 
     @Selector()
@@ -33,28 +33,21 @@ export class OperationForDetailState {
 
     @Action(LoadOperationForDetail)
     loadOperationForDetail(context: StateContext<OperationForDetailStateModel>, action: LoadOperationForDetail) {
+        this.loading(context,'datas');
+        
         const state = context.getState();
-        
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
         state.datas = null;
-        
         context.patchState(state);
+
         this._OperationService.getDetail(action.payload)
             .subscribe(result=> {
-                context.dispatch(new LoadOperationForDetailSuccess(result));
+                let state = context.getState();
+                state.datas = result;
+                context.patchState(state);
+
+                this.loaded(context,'datas');
             });
 
-    }
-
-    @Action(LoadOperationForDetailSuccess)
-    loadSuccess(context: StateContext<OperationForDetailStateModel>, action: LoadOperationForDetailSuccess) {
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.datas = action.payload;
-
-        context.patchState(state);
     }
 
     @Action(ClearOperationForDetail)

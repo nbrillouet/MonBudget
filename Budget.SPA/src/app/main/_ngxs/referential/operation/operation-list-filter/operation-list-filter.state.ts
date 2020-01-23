@@ -2,8 +2,9 @@ import { FilterInfo } from "app/main/_models/generics/filter.info.model";
 import { FilterOperationTable } from "app/main/_models/filters/operation.filter";
 import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
 import { OperationService } from "app/main/_services/Referential/operation.service";
-import { LoadOperationTableFilter, LoadOperationTableFilterSuccess, ChangeOperationTableFilter, UpdatePaginationOperationTableFilter } from "./operation-list-filter.action";
+import { LoadOperationTableFilter, ChangeOperationTableFilter, UpdatePaginationOperationTableFilter } from "./operation-list-filter.action";
 import { LoadOperationTableDatas } from "../operation-list/operation-list.action";
+import { LoaderState } from "app/main/_ngxs/_base/loader-state";
 
 export class OperationTableFilterStateModel extends FilterInfo<FilterOperationTable> {
     constructor () {
@@ -18,13 +19,13 @@ let operationTableFilterStateModel = new OperationTableFilterStateModel();
     defaults : operationTableFilterStateModel
 })
 
-export class OperationTableFilterState {
+export class OperationTableFilterState extends LoaderState {
 
     constructor(
         private _operationService: OperationService,
         private _store: Store
         ) {
-            
+            super();
     }
 
     @Selector()
@@ -35,36 +36,40 @@ export class OperationTableFilterState {
 
     @Action(LoadOperationTableFilter)
     loadOperationfTableFilter(context: StateContext<OperationTableFilterStateModel>, action: LoadOperationTableFilter) {
+        this.loading(context,'filters');
+        
         const state = context.getState();
-        
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
         state.filters = null;
-        
         context.patchState(state);
+
         this._operationService.getTableFilter(action.payload.selected)
             .subscribe(result=> {
-                context.dispatch(new LoadOperationTableFilterSuccess(result));
+                //conserver le payload
+                let payload = JSON.parse(JSON.stringify(action.payload.selected));
+                let state = context.getState();
+                state.filters = result;
+                context.patchState(state);
+                //TODO: a controler
+                context.dispatch(new ChangeOperationTableFilter(payload));
+
+                this.loaded(context,'filters');
             });
-
     }
 
-    @Action(LoadOperationTableFilterSuccess)
-    loadSuccess(context: StateContext<OperationTableFilterStateModel>, action: LoadOperationTableFilterSuccess) {
+    // @Action(LoadOperationTableFilterSuccess)
+    // loadSuccess(context: StateContext<OperationTableFilterStateModel>, action: LoadOperationTableFilterSuccess) {
         
-        //conserver le payload
-        let payload = JSON.parse(JSON.stringify(action.payload.selected));
+    //     //conserver le payload
+    //     let payload = JSON.parse(JSON.stringify(action.payload.selected));
 
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.filters = action.payload;
+    //     let state = context.getState();
+    //     state.filters = action.payload;
 
-        context.patchState(state);
+    //     context.patchState(state);
         
-        context.dispatch(new ChangeOperationTableFilter(payload));
+    //     context.dispatch(new ChangeOperationTableFilter(payload));
         
-    }
+    // }
 
     @Action(ChangeOperationTableFilter)
     changeFilter(context: StateContext<OperationTableFilterStateModel>, action: ChangeOperationTableFilter) {

@@ -3,9 +3,9 @@ import { fuseAnimations } from '@fuse/animations';
 import { AsChartState } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.state';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 import { AsChart } from 'app/main/_models/account-statement/as-chart/as-chart.model';
 import { WidgetCardChartPieSelect } from 'app/main/_models/chart/widget-card-chart-pie-select.model';
+import { Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'as-chart-categorisation',
@@ -15,7 +15,7 @@ import { WidgetCardChartPieSelect } from 'app/main/_models/chart/widget-card-cha
   encapsulation: ViewEncapsulation.None,
 })
 export class AsChartCategorisationComponent implements OnInit {
-  @Select(AsChartState.get) asChart$: Observable<DataInfo<AsChart>>;
+  @Select(AsChartState.get) asChart$: Observable<Datas<AsChart>>;
 
   asChartCategorisationSelectOperationMethod: WidgetCardChartPieSelect;
   asChartCategorisationSelectOperationTypeFamily: WidgetCardChartPieSelect;

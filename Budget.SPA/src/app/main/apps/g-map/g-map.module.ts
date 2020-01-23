@@ -4,6 +4,7 @@ import { AgmCoreModule } from '@agm/core';
 import { GMapSearchComponent } from './g-map-search/g-map-search.component';
 import { GMapService } from './g-map.service';
 import { FuseSharedModule } from '@fuse/shared.module';
+import { AngularMaterialModule } from 'app/angular-material.module';
 // import { SharedModule } from '../../../../core/modules/shared.module';
 
 
@@ -11,6 +12,7 @@ import { FuseSharedModule } from '@fuse/shared.module';
   imports: [
     CommonModule,
     FuseSharedModule,
+    AngularMaterialModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD6F176dnusdXdDH35db9iOGGlCiZYNDvw'
   })

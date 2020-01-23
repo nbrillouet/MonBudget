@@ -1,11 +1,12 @@
-import { DetailInfo } from "app/main/_models/generics/detail-info.model";
 import { AsService } from "app/main/apps/account-statement/account-statement.service";
-import { LoadAsSolde, LoadAsSoldeSuccess } from "./account-statement-solde.action";
+import { LoadAsSolde } from "./account-statement-solde.action";
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 import { AsSolde } from "app/main/_models/account-statement/account-statement-solde.model";
 import { State, Selector, StateContext, Action } from "@ngxs/store";
+import { LoaderState } from "../../_base/loader-state";
+import { DatasFilter } from "app/main/_models/generics/detail-info.model";
 
-export class AsSoldeStateModel extends DetailInfo<AsSolde,FilterAsTableSelected> {
+export class AsSoldeStateModel extends DatasFilter<AsSolde,FilterAsTableSelected> {
     constructor () {
         super();
         this.filter = new FilterAsTableSelected();
@@ -20,11 +21,11 @@ let detailInfo = new AsSoldeStateModel();
     defaults : detailInfo 
 })
 
-export class AsSoldeState {
+export class AsSoldeState extends LoaderState {
     constructor(
         private _asService: AsService
     ) {
-        
+        super();
     }
 
     @Selector()
@@ -39,32 +40,32 @@ export class AsSoldeState {
 
     @Action(LoadAsSolde)
     loadGrid(context: StateContext<AsSoldeStateModel>, action: LoadAsSolde) {
+        this.loading(context,'datas');
+        
         const state = context.getState();
-        state.dataInfos.loadingInfo.loaded=false;
-        state.dataInfos.loadingInfo.loading=true;
         state.filter = action.payload;
-        state.dataInfos.datas = null;
-
+        state.datas = null;
         context.patchState(state);
 
         this._asService.getAsSolde(action.payload)
             .subscribe(result=> {
+                let state = context.getState();
+                state.datas = result;
+                context.patchState(state);
 
-                context.dispatch(new LoadAsSoldeSuccess(result));
+                this.loaded(context,'datas');
             })
 
     }
 
-    @Action(LoadAsSoldeSuccess)
-    loadSuccess(context: StateContext<AsSoldeStateModel>, action: LoadAsSoldeSuccess) {
-        let state = context.getState();
-        state.dataInfos.loadingInfo.loaded = true;
-        state.dataInfos.loadingInfo.loading = false;
-        state.dataInfos.datas = action.payload;
+    // @Action(LoadAsSoldeSuccess)
+    // loadSuccess(context: StateContext<AsSoldeStateModel>, action: LoadAsSoldeSuccess) {
+    //     let state = context.getState();
+    //     state.dataInfos.datas = action.payload;
 
-        context.patchState(state);
+    //     context.patchState(state);
         
-    }
+    // }
 
     // @Action(ChangeAsSoldeFilter)
     // changeFilter(context: StateContext<AsSoldeStateModel>, action: ChangeAsSoldeFilter) {

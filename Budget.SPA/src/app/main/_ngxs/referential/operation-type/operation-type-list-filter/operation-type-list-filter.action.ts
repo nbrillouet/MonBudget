@@ -2,7 +2,7 @@ import { FilterOtTable, FilterOtTableSelected } from "app/main/_models/filters/o
 import { Pagination } from "app/main/_models/pagination.model";
 
 export const OT_TABLE_FILTER_LOAD = 'ot-table-filter-load';
-export const OT_TABLE_FILTER_LOAD_SUCCESS = 'ot-table-filter-load-success';
+// export const OT_TABLE_FILTER_LOAD_SUCCESS = 'ot-table-filter-load-success';
 export const OT_TABLE_FILTER_CHANGE = 'ot-table-filter-change';
 export const OT_TABLE_FILTER_UPDATE_PAGINATION = 'ot-table-filter-update-pagination';
 
@@ -12,11 +12,11 @@ export class LoadOtTableFilter {
     constructor(public payload: FilterOtTable) { }
 }
 
-export class LoadOtTableFilterSuccess {
-    static readonly type = OT_TABLE_FILTER_LOAD_SUCCESS;
+// export class LoadOtTableFilterSuccess {
+//     static readonly type = OT_TABLE_FILTER_LOAD_SUCCESS;
  
-    constructor(public payload: FilterOtTable) { }
-}
+//     constructor(public payload: FilterOtTable) { }
+// }
 
 export class ChangeOtTableFilter {
     static readonly type = OT_TABLE_FILTER_CHANGE;

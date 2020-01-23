@@ -15,17 +15,15 @@ import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-sta
 import { AsDetailState } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.state';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
-import { LoadAsDetail, asDetailChangeOperationTypeFamily, asDetailChangeOperationType, ClearAsDetail, LoadAsDetailSuccess } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.action';
+import { LoadAsDetail, asDetailChangeOperationTypeFamily, asDetailChangeOperationType, ClearAsDetail } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.action';
 import { OperationTransverse } from 'app/main/_models/referential/operation-transverse.model';
 import { IUser } from 'app/main/_models/user.model';
 import { LoadAsTableDatas } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.action';
-import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
-import { LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.action';
 import { AsDetail } from 'app/main/_models/account-statement/account-statement-detail.model';
 import { FilterOperation } from 'app/main/_models/filters/operation.filter';
 import * as moment from 'moment';
+import { Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'account-statement-detail',
@@ -34,7 +32,7 @@ import * as moment from 'moment';
   animations : fuseAnimations
 })
 export class AccountStatementDetailComponent implements OnInit {
-  @Select(AsDetailState.get) asDetail$: Observable<DataInfo<AsDetail>>;
+  @Select(AsDetailState.get) asDetail$: Observable<Datas<AsDetail>>;
   @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
 
   user: IUser= JSON.parse(localStorage.getItem('currentUser'));
@@ -68,7 +66,7 @@ export class AccountStatementDetailComponent implements OnInit {
       });
   
       this.asDetail$.subscribe(asDetail=>{
-        if(asDetail.loadingInfo.loaded) {
+        if(asDetail.loader['datas'].loaded) {
           this.asDetail = JSON.parse(JSON.stringify(asDetail.datas));
 
           if(this.firstLoad) {
@@ -179,8 +177,8 @@ export class AccountStatementDetailComponent implements OnInit {
         this.asDetail.operationDetail.keywordOperation = val.operationKeywordTemp;
         this.asDetail.operationDetail.keywordPlace = val.placeKeywordTemp;
         this.asDetail.operationPlace.selected = val.operationPlace;
-
-        this._store.dispatch(new LoadAsDetailSuccess(this.asDetail));
+        //TODO synchronize
+        // this._store.dispatch(new LoadAsDetailSuccess(this.asDetail));
       });
        
       this.operationAddForm = this._formBuilder.group({
@@ -285,8 +283,9 @@ export class AccountStatementDetailComponent implements OnInit {
     onChangeGMapAddress($event) {
       this.asDetail.operationDetail.gMapAddress=$event;
       this.asDetail.gMapSearchInfo.idGMapAddress = $event.id;
-          
-      this._store.dispatch(new LoadAsDetailSuccess(this.asDetail));
+      
+      //TODO synchronize
+      // this._store.dispatch(new LoadAsDetailSuccess(this.asDetail));
 
     }
 

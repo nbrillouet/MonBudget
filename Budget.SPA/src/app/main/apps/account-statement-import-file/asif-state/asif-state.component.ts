@@ -18,16 +18,12 @@ export class AsifStateComponent implements OnInit {
   @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
   
   filter: FilterAsifTable
-  
-  // @Input() headerPanelIsVisible: boolean;
 
   constructor(
-    private _asiService: AsiService,
     private _store: Store
   ) { 
     this.asifTableFilter$.subscribe(asifTableFilter=>{
-      //deep copy
-      if(asifTableFilter.loadingInfo.loaded) {
+      if(asifTableFilter.loader['datas'].loaded) {
         this.filter = asifTableFilter.filters;
       }
     })
@@ -45,11 +41,6 @@ export class AsifStateComponent implements OnInit {
     this._store.dispatch(new LoadAsifTableFilter(this.filter));
 
   }
-
-  // ngOnChanges(changes: SimpleChanges) {
-  //   this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
-  // }
-
-  
+ 
 
 }

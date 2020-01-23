@@ -7,12 +7,13 @@ import { UserTable } from 'app/main/_models/user.model';
 import { UserTableFilterState } from 'app/main/_ngxs/user/user-list-filter/user-list-filter.state';
 import { Select, Store } from '@ngxs/store';
 import { UserTableState } from 'app/main/_ngxs/user/user-list/user-list.state';
-import { DataInfos } from 'app/main/_models/generics/table-info.model';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterUserTable } from 'app/main/_models/filters/user.filter';
 import { ChangeUserTableFilter } from 'app/main/_ngxs/user/user-list-filter/user-list-filter.action';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator, MatSort } from '@angular/material';
+import { Datas } from 'app/main/_models/generics/detail-info.model';
+// import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'app-userList',
@@ -22,10 +23,10 @@ import { MatPaginator, MatSort } from '@angular/material';
 })
 export class UserListComponent implements OnInit {
   @Select(UserTableFilterState.get) userTableFilter$: Observable<FilterInfo<FilterUserTable>>;
-  @Select(UserTableState.get) userTable$: Observable<DataInfos<UserTable>>;
+  @Select(UserTableState.get) userTable$: Observable<Datas<UserTable[]>>;
   
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   dataSource : UserDataSource;
   filterUser: FilterUserTable;
@@ -114,8 +115,8 @@ export class UserListComponent implements OnInit {
  
 }
 
-export class UserDataSource extends DataSource<DataInfos<UserTable>> {
-  @Select(UserTableState.get) asifTable$: Observable<DataInfos<UserTable>>;
+export class UserDataSource extends DataSource<Datas<UserTable>> {
+  @Select(UserTableState.get) asifTable$: Observable<Datas<UserTable[]>>;
 
   constructor (
     private _store: Store

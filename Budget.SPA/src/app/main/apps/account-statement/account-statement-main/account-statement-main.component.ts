@@ -5,16 +5,13 @@ import { Store, Select } from '@ngxs/store';
 import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AsSoldeState } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.state';
-import { DetailInfo } from 'app/main/_models/generics/detail-info.model';
 import { FilterAsTableSelected } from 'app/main/_models/filters/account-statement.filter';
 import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
 import { AsSolde } from 'app/main/_models/account-statement/account-statement-solde.model';
 import { LoadAsChartEvolution, LoadAsChartCategorisation } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.action';
-// import { Row, TableField, MatTableFilter, EnumFilterType } from '../account-statement-list/mat-table-filter/model/mat-table-filter.model';
-// import { Pagination } from 'app/main/_models/pagination.model';
-
+import { DatasFilter } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'account-statement-main',
@@ -25,7 +22,7 @@ import { LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-
 })
 export class AccountStatementMainComponent implements OnInit {
 
-@Select(AsSoldeState.get) asSolde$: Observable<DetailInfo<AsSolde,FilterAsTableSelected>>;
+@Select(AsSoldeState.get) asSolde$: Observable<DatasFilter<AsSolde,FilterAsTableSelected>>;
 
 filterAsSelected: FilterAsTableSelected;
 selectedIndex: number = 0;

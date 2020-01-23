@@ -1,11 +1,7 @@
 import { Component, OnInit,OnDestroy, Input,Output,EventEmitter, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataSource } from '@angular/cdk/table';
-import { CollectionViewer } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import { fuseAnimations } from '@fuse/animations';
-import { Pagination } from 'app/main/_models/pagination.model';
-import { DataInfos } from 'app/main/_models/generics/table-info.model';
 import { AsiTable } from 'app/main/_models/account-statement-import/account-statement-import.model';
 import { AsiTableState } from 'app/main/_ngxs/account-statement-import/asi-list/asi-list.state';
 import { Select, Store } from '@ngxs/store';
@@ -13,9 +9,8 @@ import { AsiTableFilterState } from 'app/main/_ngxs/account-statement-import/asi
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterAsiTable } from 'app/main/_models/filters/account-statement-import.filter';
 import { ChangeAsiTableFilter, LoadAsiTableFilter } from 'app/main/_ngxs/account-statement-import/asi-list-filter/asi-list-filter.action';
-import { AsiService } from '../asi.service';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-
+import { Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'asi-list',
@@ -26,7 +21,7 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 export class AsiListComponent implements OnInit {
 
-  @Select(AsiTableState.get) asiTable$: Observable<DataInfos<AsiTable>>;
+  @Select(AsiTableState.get) asiTable$: Observable<Datas<AsiTable[]>>;
   @Select(AsiTableFilterState.get) asiTableFilter$: Observable<FilterInfo<FilterAsiTable>>;
   
   filterAsi: FilterAsiTable;
@@ -34,8 +29,8 @@ export class AsiListComponent implements OnInit {
   dataSource = new MatTableDataSource<AsiTable>();
   displayedColumns =   ['checkbox','id', 'fileImport', 'dateImport' ];
   
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   checkboxes: {};
 

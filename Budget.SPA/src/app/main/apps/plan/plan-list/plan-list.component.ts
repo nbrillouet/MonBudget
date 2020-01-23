@@ -1,23 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { PlanFilter, PlanDetailFilter, PlanTableComboFilter } from 'app/main/_models/Filters/plan.filter';
-// import { PlanListState } from 'app/main/_ngxs/plan/plan-list/plan-list.state';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { TableInfo } from 'app/main/_models/generics/table-info.model';
-// import { PlanTable, PlanDetail } from 'app/main/_models/plan.model';
-// import { LoadPlanDatas, ChangePlanFilter } from 'app/main/_ngxs/plan/plan-list/plan-list.action';
-import { PlanService } from '../plan.service';
-import { DetailInfo, DataInfo } from 'app/main/_models/generics/detail-info.model';
-import { PlanDetailState } from 'app/main/_ngxs/plan/plan-detail/plan-detail.state';
 import { ClearPlanDetailDatas } from 'app/main/_ngxs/plan/plan-detail/plan-detail.action';
 import { SelectYear, ISelect } from 'app/main/_models/generics/select.model';
-import { PlanTable, Plan } from 'app/main/_models/plan/plan.model';
+import { PlanTable } from 'app/main/_models/plan/plan.model';
 import { ComboSimple } from 'app/main/_models/generics/combo.model';
 import { PlanTableState } from 'app/main/_ngxs/plan/plan-list/plan-list.state';
 import { PlanTableComboFilterState } from 'app/main/_ngxs/plan/plan-list-filter/plan-list-filter.state';
 import { LoadPlanTableComboFilter, ChangePlanTableComboFilter } from 'app/main/_ngxs/plan/plan-list-filter/plan-list-filter.action';
 import { ChangePlanTableFilter } from 'app/main/_ngxs/plan/plan-list/plan-list.action';
+import { DatasFilter, Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'plan-list',
@@ -26,8 +20,8 @@ import { ChangePlanTableFilter } from 'app/main/_ngxs/plan/plan-list/plan-list.a
   animations   : fuseAnimations
 })
 export class PlanListComponent implements OnInit {
-@Select(PlanTableState.get) tableInfo$: Observable<TableInfo<PlanTable,PlanFilter>>;
-@Select(PlanTableComboFilterState.get) tableComboFilter$: Observable<DataInfo<PlanTableComboFilter>>;
+@Select(PlanTableState.get) tableInfo$: Observable<DatasFilter<PlanTable[],PlanFilter>>;
+@Select(PlanTableComboFilterState.get) tableComboFilter$: Observable<Datas<PlanTableComboFilter>>;
 
 filter: PlanFilter;
 dataSource: PlanTable[];
@@ -40,15 +34,13 @@ hasCheckboxes: boolean;
   constructor(
     private store: Store
     ) { 
-
         this.store.dispatch(new LoadPlanTableComboFilter());
-
-
   }
 
   ngOnInit() {
     this.tableComboFilter$.subscribe(comboFilter=> {
-      if(comboFilter.loadingInfo.loaded) {
+      // if(comboFilter.loader['filters']?.loaded) {
+      if(comboFilter.loader['filters'] && comboFilter.loader['filters'].loaded) {
 
         this.comboYear = comboFilter.datas.years;
         this.filter = new PlanFilter(this.comboYear.selected.id);
@@ -58,8 +50,8 @@ hasCheckboxes: boolean;
     });
 
     this.tableInfo$.subscribe(gridInfo => {
-      if(gridInfo.dataInfos.loadingInfo.loaded) {
-        this.dataSource = gridInfo.dataInfos.datas;
+      if(gridInfo.loader['datas'].loaded) {
+        this.dataSource = gridInfo.datas;
    
         this.store.dispatch(new ClearPlanDetailDatas());
       }

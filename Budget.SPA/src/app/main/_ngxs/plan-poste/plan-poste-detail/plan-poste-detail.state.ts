@@ -1,12 +1,13 @@
-import { DetailInfo } from "app/main/_models/generics/detail-info.model";
 import { PlanPosteForDetail } from "app/main/_models/plan.model";
-import { PlanPosteDetailFilter, PlanPosteReferenceFilter } from "app/main/_models/filters/plan-poste.filter";
+import { PlanPosteDetailFilter } from "app/main/_models/filters/plan-poste.filter";
 import { PlanService } from "app/main/apps/plan/plan.service";
-import { LoadPlanPosteDetailDatas, LoadPlanPosteDetailDatasSuccess, ChangePlanPosteDetailFilter, ClearPlanPosteDetailDatas, ChangePlanPosteReference, PlanPosteDetailChangePlanPosteFrequencies, PlanPosteDetailChangePlanPosteFrequenciesSuccess } from "./plan-poste-detail.action";
+import { LoadPlanPosteDetailDatas, ChangePlanPosteDetailFilter, ClearPlanPosteDetailDatas, PlanPosteDetailChangePlanPosteFrequencies } from "./plan-poste-detail.action";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { NotificationsService } from "angular2-notifications";
+import { LoaderState } from "../../_base/loader-state";
+import { DatasFilter } from "app/main/_models/generics/detail-info.model";
 
-export class PlanPosteDetailStateModel extends DetailInfo<PlanPosteForDetail,PlanPosteDetailFilter> {
+export class PlanPosteDetailStateModel extends DatasFilter<PlanPosteForDetail,PlanPosteDetailFilter> {
     
     constructor () {
         super();
@@ -20,11 +21,11 @@ let detailInfo = new PlanPosteDetailStateModel();
     defaults : detailInfo
 })
 
-export class PlanPosteDetailState {
+export class PlanPosteDetailState extends LoaderState {
     constructor(
         private _planService: PlanService,
         private _notification: NotificationsService) {
-        
+            super();
     }
 
     @Selector()
@@ -40,32 +41,31 @@ export class PlanPosteDetailState {
 
     @Action(LoadPlanPosteDetailDatas)
     load(context: StateContext<PlanPosteDetailStateModel>, action: LoadPlanPosteDetailDatas) {
-        const state = context.getState();
-        state.dataInfos.loadingInfo.loaded=false;
-        state.dataInfos.loadingInfo.loading=true;
-        state.filter = action.payload;
-        state.dataInfos.datas = null;
+        this.loading(context,'datas');
         
+        const state = context.getState();
+        state.filter = action.payload;
+        state.datas = null;
         context.patchState(state);
 
         this._planService.GetPlanPosteForDetailById(action.payload.id,action.payload.idPlan,action.payload.idPoste)
             .subscribe(result=> {
-                context.dispatch(new LoadPlanPosteDetailDatasSuccess(result));
-            },error => {
-                this._notification.error('Erreur connexion',error);
+                let state = context.getState();
+                state.datas = action.payload;
+                context.patchState(state);
+
+                this.loaded(context,'datas');
             });
     }
 
-    @Action(LoadPlanPosteDetailDatasSuccess)
-    loadSuccess(context: StateContext<PlanPosteDetailStateModel>, action: LoadPlanPosteDetailDatasSuccess) {
-        let state = context.getState();
-        state.dataInfos.loadingInfo.loaded = true;
-        state.dataInfos.loadingInfo.loading = false;
-        state.dataInfos.datas = action.payload;
+    // @Action(LoadPlanPosteDetailDatasSuccess)
+    // loadSuccess(context: StateContext<PlanPosteDetailStateModel>, action: LoadPlanPosteDetailDatasSuccess) {
+    //     let state = context.getState();
+    //     state.dataInfos.datas = action.payload;
 
-        context.patchState(state);
+    //     context.patchState(state);
         
-    }
+    // }
 
     @Action(ChangePlanPosteDetailFilter)
     changeFilter(context: StateContext<PlanPosteDetailStateModel>, action: ChangePlanPosteDetailFilter) {
@@ -107,33 +107,31 @@ export class PlanPosteDetailState {
     //====================================
     @Action(PlanPosteDetailChangePlanPosteFrequencies)
     PlanPosteDetailChangePlanPosteFrequencies(context: StateContext<PlanPosteDetailStateModel>, action: PlanPosteDetailChangePlanPosteFrequencies) {
-       
+        this.loading(context,'planPosteFrequencies');
+
         const state = context.getState();
-        
-        state.dataInfos.loadingInfo.loaded=false;
-        state.dataInfos.loadingInfo.loading=true;
-        // state.dataInfos.datas.planPosteFrequencies = action.payload;
-        // state.datas.operationType = new ComboSimple<ISelect>();
-        
+        state.datas.planPosteFrequencies = null;
         context.patchState(state);
+
         this._planService.getPlanPosteFrequencies(action.payload)
             .subscribe(result=> {
-     
-                context.dispatch(new PlanPosteDetailChangePlanPosteFrequenciesSuccess(result));
+                let state = context.getState();
+                state.datas.planPosteFrequencies = result;
+                context.patchState(state);
+
+                this.loaded(context,'planPosteFrequencies');
             });
     }
 
-    @Action(PlanPosteDetailChangePlanPosteFrequenciesSuccess)
-    PlanPosteDetailChangePlanPosteFrequenciesSuccess(context: StateContext<PlanPosteDetailStateModel>, action: PlanPosteDetailChangePlanPosteFrequenciesSuccess) {
+    // @Action(PlanPosteDetailChangePlanPosteFrequenciesSuccess)
+    // PlanPosteDetailChangePlanPosteFrequenciesSuccess(context: StateContext<PlanPosteDetailStateModel>, action: PlanPosteDetailChangePlanPosteFrequenciesSuccess) {
    
-        let state = context.getState();
-        state.dataInfos.loadingInfo.loaded = true;
-        state.dataInfos.loadingInfo.loading = false;
-        state.dataInfos.datas.planPosteFrequencies = action.payload;
-        // state.datas.operationType.selected = action.payload[0];
+    //     let state = context.getState();
+    //     state.dataInfos.datas.planPosteFrequencies = action.payload;
+    //     // state.datas.operationType.selected = action.payload[0];
 
-        context.patchState(state);
-    }
+    //     context.patchState(state);
+    // }
 
     
 }

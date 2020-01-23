@@ -1,13 +1,13 @@
 import { ReferentialService } from "app/main/_services/Referential/referential.service";
-import { DataInfo } from "app/main/_models/generics/detail-info.model";
 import { IAccountForDetail } from "app/main/_models/referential/account.model";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
-import { LoadAccountForDetail, LoadAccountForDetailSuccess, ClearAccountForDetail, AccountForDetailChangeBankFamilySuccess, AccountForDetailChangeBankFamily, AccountForDetailChangeBankSubFamilySuccess, AccountForDetailChangeBankSubFamily } from "./account-detail.action";
+import { LoadAccountForDetail, ClearAccountForDetail, AccountForDetailChangeBankFamily, AccountForDetailChangeBankSubFamily } from "./account-detail.action";
 import { ComboSimple } from "app/main/_models/generics/combo.model";
 import { ISelect, EnumSelectType } from "app/main/_models/generics/select.model";
+import { LoaderState } from "app/main/_ngxs/_base/loader-state";
+import { Datas } from "app/main/_models/generics/detail-info.model";
 
-
-export class AccountForDetailStateModel extends DataInfo<IAccountForDetail> {
+export class AccountForDetailStateModel extends Datas<IAccountForDetail> {
     constructor () {
         super();
     }
@@ -20,12 +20,12 @@ let accountForDetailStateModel = new AccountForDetailStateModel();
     defaults : accountForDetailStateModel
 })
 
-export class AccountForDetailState {
+export class AccountForDetailState extends LoaderState {
 
     constructor(
-        // private _AccountService: AccountService,
         private _referentialService: ReferentialService
         ) {
+            super();
     }
 
     @Selector()
@@ -36,29 +36,30 @@ export class AccountForDetailState {
 
     @Action(LoadAccountForDetail)
     loadAccountForDetail(context: StateContext<AccountForDetailStateModel>, action: LoadAccountForDetail) {
+        this.loading(context,'datas');
+        
         const state = context.getState();
-        
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
         state.datas = null;
-        
         context.patchState(state);
+
         this._referentialService.accountService.GetForDetail(action.payload)
             .subscribe(result=> {
-                context.dispatch(new LoadAccountForDetailSuccess(result));
+                let state = context.getState();
+                state.datas = result;
+                context.patchState(state);
+
+                this.loaded(context,'datas');
             });
 
     }
 
-    @Action(LoadAccountForDetailSuccess)
-    loadSuccess(context: StateContext<AccountForDetailStateModel>, action: LoadAccountForDetailSuccess) {
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.datas = action.payload;
+    // @Action(LoadAccountForDetailSuccess)
+    // loadSuccess(context: StateContext<AccountForDetailStateModel>, action: LoadAccountForDetailSuccess) {
+    //     let state = context.getState();
+    //     state.datas = action.payload;
 
-        context.patchState(state);
-    }
+    //     context.patchState(state);
+    // }
 
     @Action(ClearAccountForDetail)
     clear(context: StateContext<AccountForDetailStateModel>) {
@@ -70,62 +71,66 @@ export class AccountForDetailState {
     //====================================
     @Action(AccountForDetailChangeBankFamily)
     accountForDetailChangeBankFamily(context: StateContext<AccountForDetailStateModel>, action: AccountForDetailChangeBankFamily) {
-        const state = context.getState();
+        this.loading(context,'bankFamily');
         
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
+        const state = context.getState();
         state.datas.bankFamily.selected = action.payload;
         state.datas.bankSubFamily = new ComboSimple<ISelect>();
-        
         context.patchState(state);
+
         this._referentialService.bankSubFamilyService.GetSelectList(action.payload.id,EnumSelectType.inconnu)
             .subscribe(result=> {
-                context.dispatch(new AccountForDetailChangeBankFamilySuccess(result));
+                let state = context.getState();
+                state.datas.bankSubFamily.list = result;
+                state.datas.bankSubFamily.selected = result[0];
+                context.patchState(state);
+
+                this.loaded(context,'bankFamily');
             });
     }
 
-    @Action(AccountForDetailChangeBankFamilySuccess)
-    accountForDetailChangeBankFamilySuccess(context: StateContext<AccountForDetailStateModel>, action: AccountForDetailChangeBankFamilySuccess) {
+    // @Action(AccountForDetailChangeBankFamilySuccess)
+    // accountForDetailChangeBankFamilySuccess(context: StateContext<AccountForDetailStateModel>, action: AccountForDetailChangeBankFamilySuccess) {
 
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.datas.bankSubFamily.list = action.payload;
-        state.datas.bankSubFamily.selected = action.payload[0];
+    //     let state = context.getState();
+    //     state.datas.bankSubFamily.list = action.payload;
+    //     state.datas.bankSubFamily.selected = action.payload[0];
 
-        context.patchState(state);
-    }
+    //     context.patchState(state);
+    // }
 
     //====================================
     //          BankSubFamily
     //====================================
     @Action(AccountForDetailChangeBankSubFamily)
     accountForDetailChangeBankSubFamily(context: StateContext<AccountForDetailStateModel>, action: AccountForDetailChangeBankSubFamily) {
-        const state = context.getState();
+        this.loading(context,'bankSubFamily');
         
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
+        const state = context.getState();
         state.datas.bankSubFamily.selected = action.payload;
         state.datas.bankAgency = new ComboSimple<ISelect>();
-        
         context.patchState(state);
+
         this._referentialService.bankAgencyService.GetSelectList(action.payload.id,EnumSelectType.inconnu)
             .subscribe(result=> {
-                context.dispatch(new AccountForDetailChangeBankSubFamilySuccess(result));
+                let state = context.getState();
+                state.datas.bankAgency.list = result;
+                state.datas.bankAgency.selected = result[0];
+                context.patchState(state);
+
+                this.loaded(context,'bankSubFamily');
             });
     }
 
-    @Action(AccountForDetailChangeBankSubFamilySuccess)
-    accountForDetailChangeBankSubFamilySuccess(context: StateContext<AccountForDetailStateModel>, action: AccountForDetailChangeBankSubFamilySuccess) {
+    // @Action(AccountForDetailChangeBankSubFamilySuccess)
+    // accountForDetailChangeBankSubFamilySuccess(context: StateContext<AccountForDetailStateModel>, action: AccountForDetailChangeBankSubFamilySuccess) {
 
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.datas.bankAgency.list = action.payload;
-        state.datas.bankAgency.selected = action.payload[0];
+    //     let state = context.getState();
+    //     state.datas.bankAgency.list = action.payload;
+    //     state.datas.bankAgency.selected = action.payload[0];
 
-        context.patchState(state);
-    }
+    //     context.patchState(state);
+    // }
 
     
     

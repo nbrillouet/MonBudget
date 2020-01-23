@@ -1,5 +1,5 @@
 // import { State, Selector, Action, StateContext } from "app/main/_ngxs/navigation/node_modules/@ngxs/store";
-import { LoadNavigation, LoadNavigationSuccess, AddNavigation } from "./navigation.action";
+import { LoadNavigation, AddNavigation } from "./navigation.action";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 
 export class NavigationStateModel {
@@ -12,7 +12,6 @@ let navigation : any[] = null;
     defaults : {
         navigation : null
     }
-    // defaults : navigation
 })
 
 export class NavigationState {
@@ -29,30 +28,31 @@ export class NavigationState {
     loadNavigation(context: StateContext<NavigationStateModel>, action: LoadNavigation) {
         const state = context.getState();
 
+        context.patchState({ navigation : action.payload });
         // this.userService.getUser(action.payload.id)
         //     .subscribe(result=> {
-        context.dispatch(new LoadNavigationSuccess(action));
+        // context.dispatch(new LoadNavigationSuccess(action));
             // })
     }
 
-    @Action(LoadNavigationSuccess)
-    loadNavigationSuccess(context: StateContext<NavigationStateModel>, action: LoadNavigationSuccess) {
-        let toto= context.getState();
+    // @Action(LoadNavigationSuccess)
+    // loadNavigationSuccess(context: StateContext<NavigationStateModel>, action: LoadNavigationSuccess) {
+    //     let toto= context.getState();
         
-        context.patchState({ navigation : action.payload }
+    //     context.patchState({ navigation : action.payload }
             
-        );
+    //     );
         
-    }
+    // }
 
 
     @Action(AddNavigation)
     addNavigation(context: StateContext<NavigationStateModel>, action: AddNavigation) {
 
         let result = action.payload;
-        context.patchState({ navigation : action.payload }
+        context.patchState({ navigation : action.payload });
             // result //action.payload[0]
-        );
+        // );
 
     }
 

@@ -3,16 +3,15 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '@fuse/animations';
-import { IUser } from 'app/main/_models/user.model';
-import { ISelect, EnumSelectType } from 'app/main/_models/generics/select.model';
+import { ISelect } from 'app/main/_models/generics/select.model';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
 import { IAccountForDetail } from 'app/main/_models/referential/account.model';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 import { AccountForDetailState } from 'app/main/_ngxs/referential/account/account-detail/account-detail.state';
-import { LoadAccountForDetail, ClearAccountForDetail, LoadAccountForDetailSuccess, AccountForDetailChangeBankFamily, AccountForDetailChangeBankSubFamily } from 'app/main/_ngxs/referential/account/account-detail/account-detail.action';
+import { LoadAccountForDetail, ClearAccountForDetail, AccountForDetailChangeBankFamily, AccountForDetailChangeBankSubFamily } from 'app/main/_ngxs/referential/account/account-detail/account-detail.action';
 import { ValidateIsUnknown } from './account-detail.validator';
+import { Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'account-detail',
@@ -21,7 +20,7 @@ import { ValidateIsUnknown } from './account-detail.validator';
   animations   : fuseAnimations
 })
 export class AccountDetailComponent implements OnInit {
-@Select(AccountForDetailState.get) accountDetail$: Observable<DataInfo<IAccountForDetail>>;
+@Select(AccountForDetailState.get) accountDetail$: Observable<Datas<IAccountForDetail>>;
 
 firstLoad: boolean=true;
 formLoaded: boolean;
@@ -43,7 +42,7 @@ pageType: string;
   ) {
     this.accountDetail$.subscribe(accountDetail=>{
 
-      if(accountDetail.loadingInfo.loaded) {
+      if(accountDetail.loader['datas'].loaded) {
 
         this.accountDetail = JSON.parse(JSON.stringify(accountDetail.datas));
         if(this.firstLoad) {
@@ -102,14 +101,9 @@ pageType: string;
     
     this.accountForm.valueChanges.subscribe(val=>{
       this.accountDetail.id = val;
-      // this.accountDetail.number = val.number;
-      // this.accountDetail.label = val.label;
-      // this.accountDetail.startAmount = val.startAmount;
-      // this.accountDetail.accountType = val.accountType;
-      // this.accountDetail.alertThreshold = val.alertThreshold;
 
-
-      this._store.dispatch(new LoadAccountForDetailSuccess(this.accountDetail));
+      //TODO synchronize
+      // this._store.dispatch(new LoadAccountForDetailSuccess(this.accountDetail));
     });
   }
 

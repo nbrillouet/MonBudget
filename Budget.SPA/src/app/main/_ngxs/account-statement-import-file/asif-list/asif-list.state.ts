@@ -1,14 +1,12 @@
-import { TableInfo, DataInfos } from "app/main/_models/generics/table-info.model";
-// import { State, Selector, Action, StateContext, Store } from "app/main/_ngxs/account-statement-import-file/asif-list/node_modules/@ngxs/store";
-// import { NotificationsService } from "app/main/_ngxs/account-statement-import-file/asif-list/node_modules/angular2-notifications";
-import { LoadAsifTableDatas, LoadAsifTableDatasSuccess, ClearAsifTableDatas } from "./asif-list.action";
+import { LoadAsifTableDatas, ClearAsifTableDatas } from "./asif-list.action";
 import { AsifTable } from "app/main/_models/account-statement-import/account-statement-import-file.model";
 import { AsifService } from "app/main/apps/account-statement-import-file/asif.service";
 import { UpdatePaginationAsifTableFilter } from "../asif-list-filter/asif-list-filter.action";
 import { State, Selector, Action, StateContext, Store } from "@ngxs/store";
+import { LoaderState } from "../../_base/loader-state";
+import { Datas } from "app/main/_models/generics/detail-info.model";
 
-
-export class AsifTableStateModel extends DataInfos<AsifTable> {
+export class AsifTableStateModel extends Datas<AsifTable> {
     constructor () {
         super();
         // this.filter = null; //new PlanFilter();
@@ -21,12 +19,12 @@ let tableInfo = new AsifTableStateModel();
     defaults : tableInfo
 })
 
-export class AsifTableState {
+export class AsifTableState extends LoaderState {
     constructor(
         private _asifService: AsifService,
         private _store: Store
-        // private _notification: NotificationsService
         ) {
+            super();
     }
 
     @Selector()
@@ -40,38 +38,41 @@ export class AsifTableState {
     // }
     async delay(ms: number) {
         await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
-      }
+    }
 
     @Action(LoadAsifTableDatas)
     loadGrid(context: StateContext<AsifTableStateModel>, action: LoadAsifTableDatas) {
+        this.loading(context,'datas');
+
         const state = context.getState();
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
-        // state.datas = action.payload;
         state.datas = null;
         context.patchState(state);
         
-        // this.delay(3000).then(any=>{
         this._asifService.getAsifTable(action.payload)
             .subscribe(result=> {
-                context.dispatch(new LoadAsifTableDatasSuccess(result));
+                let state = context.getState();
+                state.datas = result;
+                context.patchState(state);
+        
+                this._store.dispatch(new UpdatePaginationAsifTableFilter(action.payload.pagination));
+        
+                this.loaded(context,'datas');
             });
-        // });
     }
 
-    @Action(LoadAsifTableDatasSuccess)
-    loadSuccess(context: StateContext<AsifTableStateModel>, action: LoadAsifTableDatasSuccess) {
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.datas = action.payload.datas;
-        // state.pagination = action.payload.pagination;
+    // @Action(LoadAsifTableDatasSuccess)
+    // loadSuccess(context: StateContext<AsifTableStateModel>, action: LoadAsifTableDatasSuccess) {
+    //     let state = context.getState();
+    //     state.datas = action.payload.datas;
+    //     // state.pagination = action.payload.pagination;
 
-        context.patchState(state);
+    //     context.patchState(state);
 
 
-        this._store.dispatch(new UpdatePaginationAsifTableFilter(action.payload.pagination));
-    }
+    //     this._store.dispatch(new UpdatePaginationAsifTableFilter(action.payload.pagination));
+
+    //     this.loading(context,'datas');
+    // }
 
     @Action(ClearAsifTableDatas)
     clear(context: StateContext<AsifTableStateModel>) {

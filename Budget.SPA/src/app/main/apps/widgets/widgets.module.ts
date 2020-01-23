@@ -10,11 +10,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ChartsModule } from 'ng2-charts';
 import { WidgetCardSimpleChartBarComponent } from './widget-card-simple-chart-bar/widget-card-simple-chart-bar.component';
 import { WidgetCardChartPieSelectComponent } from './widget-card-chart-pie-select/widget-card-chart-pie-select.component';
+import { AngularMaterialModule } from 'app/angular-material.module';
 
 @NgModule({
     declarations: [
-        // WidgetCardFlipComponent,
-        // WidgetFullGraphLineComponent,
         WidgetCardSimpleChartBarComponent,
         WidgetCardChartBarComponent,
         WidgetCardChartPieSelectComponent,
@@ -23,13 +22,12 @@ import { WidgetCardChartPieSelectComponent } from './widget-card-chart-pie-selec
     imports     : [
         CommonModule,
         FuseSharedModule,
+        AngularMaterialModule,
         FuseWidgetModule,
         NgxChartsModule,
         ChartsModule      
     ],
     exports     : [
-        // WidgetCardFlipComponent,
-        // WidgetFullGraphLineComponent,
         WidgetCardSimpleChartBarComponent,
         WidgetCardChartBarComponent,
         WidgetCardChartPieSelectComponent

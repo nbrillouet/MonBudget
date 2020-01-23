@@ -4,11 +4,11 @@ import { FilterAsifDetail } from "app/main/_models/filters/account-statement-imp
 import { FilterOperation } from "app/main/_models/filters/operation.filter";
 
 export const ASIF_DETAIL_LOAD = 'asif-detail-load';
-export const ASIF_DETAIL_LOAD_SUCCESS = 'asif-detail-load-success';
+// export const ASIF_DETAIL_LOAD_SUCCESS = 'asif-detail-load-success';
 export const ASIF_DETAIL_OPERATION_TYPE_FAMILY_CHANGE = 'asif-detail-operation-type-family-change'
-export const ASIF_DETAIL_OPERATION_TYPE_FAMILY_CHANGE_SUCCESS = 'asif-detail-operation-type-family-change-success'
+// export const ASIF_DETAIL_OPERATION_TYPE_FAMILY_CHANGE_SUCCESS = 'asif-detail-operation-type-family-change-success'
 export const ASIF_DETAIL_OPERATION_TYPE_CHANGE = 'asif-detail-operation-type-change'
-export const ASIF_DETAIL_OPERATION_TYPE_CHANGE_SUCCESS = 'asif-detail-operation-type-change-success'
+// export const ASIF_DETAIL_OPERATION_TYPE_CHANGE_SUCCESS = 'asif-detail-operation-type-change-success'
 export const ASIF_DETAIL_CLEAR = 'asif-detail-clear';
 
 export class LoadAsifDetail {
@@ -17,11 +17,11 @@ export class LoadAsifDetail {
     constructor(public payload: FilterAsifDetail) { }
 }
 
-export class LoadAsifDetailSuccess {
-    static readonly type = ASIF_DETAIL_LOAD_SUCCESS;
+// export class LoadAsifDetailSuccess {
+//     static readonly type = ASIF_DETAIL_LOAD_SUCCESS;
  
-    constructor(public payload: AsifDetail) { }
-}
+//     constructor(public payload: AsifDetail) { }
+// }
 
 export class ClearAsifDetail {
     static readonly type = ASIF_DETAIL_CLEAR;
@@ -34,11 +34,11 @@ export class asifDetailChangeOperationTypeFamily {
     constructor(public payload: ISelect) { }
 }
 
-export class asifDetailChangeOperationTypeFamilySuccess {
-    static readonly type = ASIF_DETAIL_OPERATION_TYPE_FAMILY_CHANGE_SUCCESS;
+// export class asifDetailChangeOperationTypeFamilySuccess {
+//     static readonly type = ASIF_DETAIL_OPERATION_TYPE_FAMILY_CHANGE_SUCCESS;
  
-    constructor(public payload: ISelect[]) { }
-}
+//     constructor(public payload: ISelect[]) { }
+// }
 
 //OperationType CHANGE
 export class asifDetailChangeOperationType {
@@ -46,8 +46,8 @@ export class asifDetailChangeOperationType {
     constructor(public payload: FilterOperation) { }
 }
 
-export class asifDetailChangeOperationTypeSuccess {
-    static readonly type = ASIF_DETAIL_OPERATION_TYPE_CHANGE_SUCCESS;
+// export class asifDetailChangeOperationTypeSuccess {
+//     static readonly type = ASIF_DETAIL_OPERATION_TYPE_CHANGE_SUCCESS;
  
-    constructor(public payload: ISelect[]) { }
-}
+//     constructor(public payload: ISelect[]) { }
+// }

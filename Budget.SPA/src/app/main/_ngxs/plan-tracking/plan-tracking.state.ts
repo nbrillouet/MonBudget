@@ -1,16 +1,14 @@
-import { DetailInfo } from "app/main/_models/generics/detail-info.model";
 import { FilterPlanTracking } from "app/main/_models/filters/plan-tracking.filter";
-// import { State, Selector, Action, StateContext } from "app/main/_ngxs/plan-tracking/node_modules/@ngxs/store";
 import { PlanService } from "app/main/apps/plan/plan.service";
-// import { NotificationsService } from "app/main/_ngxs/plan-tracking/node_modules/angular2-notifications";
-// import { LoadPlanTracking, LoadPlanTrackingSuccess, ChangePlanTrackingFilter, ClearPlanTracking } from "./plan-tracking.action";
 import { PlanForTracking } from "app/main/_models/plan/plan-tracking.model";
-import { LoadPlanForTracking, LoadPlanForTrackingSuccess, ChangePlanForTrackingFilter, ClearPlanForTracking } from "./plan-tracking.action";
+import { LoadPlanForTracking, ChangePlanForTrackingFilter, ClearPlanForTracking } from "./plan-tracking.action";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { NotificationsService } from "angular2-notifications";
+import { LoaderState } from "../_base/loader-state";
+import { DatasFilter } from "app/main/_models/generics/detail-info.model";
 
 
-export class PlanForTrackingStateModel extends DetailInfo<PlanForTracking,FilterPlanTracking> {
+export class PlanForTrackingStateModel extends DatasFilter<PlanForTracking,FilterPlanTracking> {
     
     constructor () {
         super();
@@ -25,15 +23,15 @@ let detailInfo = new PlanForTrackingStateModel();
     defaults : detailInfo
 })
 
-export class PlanForTrackingState {
+export class PlanForTrackingState extends LoaderState {
     constructor(
         private _planService: PlanService,
         private _notification: NotificationsService) {
+            super();
     }
 
     @Selector()
     static get(state: PlanForTrackingStateModel) {
-
         return state;
     }
 
@@ -44,33 +42,31 @@ export class PlanForTrackingState {
 
     @Action(LoadPlanForTracking)
     load(context: StateContext<PlanForTrackingStateModel>, action: LoadPlanForTracking) {
+        this.loading(context,'datas');
+
         const state = context.getState();
-        state.dataInfos.loadingInfo.loaded=false;
-        state.dataInfos.loadingInfo.loading=true;
         state.filter = action.payload;
-        state.dataInfos.datas = null;
-        
+        state.datas = null;
         context.patchState(state);
 
         this._planService.GetPlanTracking(state.filter)
             .subscribe(result=> {
-                context.dispatch(new LoadPlanForTrackingSuccess(result));
-            },error => {
-                this._notification.error('Erreur connexion',error);
-            })
+                let state = context.getState();
+                state.datas = result;
+                context.patchState(state);
 
+                this.loaded(context,'datas');
+            });
     }
 
-    @Action(LoadPlanForTrackingSuccess)
-    loadSuccess(context: StateContext<PlanForTrackingStateModel>, action: LoadPlanForTrackingSuccess) {
-        let state = context.getState();
-        state.dataInfos.loadingInfo.loaded = true;
-        state.dataInfos.loadingInfo.loading = false;
-        state.dataInfos.datas = action.payload;
+    // @Action(LoadPlanForTrackingSuccess)
+    // loadSuccess(context: StateContext<PlanForTrackingStateModel>, action: LoadPlanForTrackingSuccess) {
+    //     let state = context.getState();
+    //     state.dataInfos.datas = action.payload;
 
-        context.patchState(state);
+    //     context.patchState(state);
         
-    }
+    // }
 
     @Action(ChangePlanForTrackingFilter)
     changeFilter(context: StateContext<PlanForTrackingStateModel>, action: ChangePlanForTrackingFilter) {

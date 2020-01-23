@@ -1,5 +1,4 @@
 
-<!-- <div *ngIf="(detailInfo$ | async).dataInfos.loadingInfo.loaded as loaded" id="product" class="page-layout carded fullwidth inner-scroll"> -->
 <div  id="product" class="page-layout carded fullwidth inner-scroll">
   <!-- TOP BACKGROUND -->
   <div class="top-bg accent"></div>
@@ -162,7 +161,7 @@
                                         </div>
                                     </div>
 
-                                    <div *ngIf="(asPlanTable$ | async).loadingInfo.loaded">
+                                    <div *ngIf="(asPlanTable$ | async).loader['datas'].loaded">
                                         <div *ngIf="(asPlanTable$ | async).datas.length>0">
                                             Nombre de lignes de relevés non pris en compte dans ce budget:
                                             <!-- <button mat-raised-button color="primary"

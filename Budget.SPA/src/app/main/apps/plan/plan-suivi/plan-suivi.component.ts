@@ -3,23 +3,21 @@ import { fuseAnimations } from '@fuse/animations';
 import { Select, Store } from '@ngxs/store';
 import { PlanForTrackingState } from 'app/main/_ngxs/plan-tracking/plan-tracking.state';
 import { Observable } from 'rxjs';
-import { TableInfo } from 'app/main/_models/generics/table-info.model';
 import { ChangePlanForTrackingFilter } from 'app/main/_ngxs/plan-tracking/plan-tracking.action';
-import { IUser } from 'app/main/_models/user.model';
 import { PlanService } from '../plan.service';
 import { IMonthYear, MonthYear } from 'app/main/_models/generics/date-time.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ISelect, SelectYear } from 'app/main/_models/generics/select.model';
-import { DetailInfo } from 'app/main/_models/generics/detail-info.model';
 import { PlanForTracking } from 'app/main/_models/plan/plan-tracking.model';
 import { FilterPlanTracking } from 'app/main/_models/filters/plan-tracking.filter';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { PlanPosteDetailComponent } from '../plan-detail/plan-poste-detail/plan-poste-detail.component';
 import { ClearPlanPosteDetailDatas } from 'app/main/_ngxs/plan-poste/plan-poste-detail/plan-poste-detail.action';
 import { PlanAmountFilter } from 'app/main/_models/filters/plan-amount.filter';
-import { ChangePlanAmountTableFilter, ClearPlanAmountTableDatas } from 'app/main/_ngxs/plan/plan-amount-list/plan-amount-list.action';
+import { ClearPlanAmountTableDatas } from 'app/main/_ngxs/plan/plan-amount-list/plan-amount-list.action';
 import { PlanAmountListComponent } from './plan-amount-list/plan-amount-list.component';
-import { BaseChartDirective } from 'ng2-charts';
+import { DatasFilter } from 'app/main/_models/generics/detail-info.model';
+
 
 @Component({
   selector: 'plan-suivi',
@@ -30,7 +28,7 @@ import { BaseChartDirective } from 'ng2-charts';
 })
 export class PlanSuiviComponent implements OnInit {
   // @Select(UserState.getUser) user$: Observable<IUser>;
-  @Select(PlanForTrackingState.get) planTracking$: Observable<DetailInfo<PlanForTracking,FilterPlanTracking>>;
+  @Select(PlanForTrackingState.get) planTracking$: Observable<DatasFilter<PlanForTracking,FilterPlanTracking>>;
 
   // planList: IPlanTable[];
   selectYears : SelectYear[];
@@ -99,9 +97,7 @@ export class PlanSuiviComponent implements OnInit {
     '105': {color: 'red'}
   };
 
-  planTracking: DetailInfo<PlanForTracking,FilterPlanTracking>;
-
-  // test: ISelect[] = [{id:1,label:'test 1'},{id:2,label:'test 2'}];
+  planTracking: DatasFilter<PlanForTracking,FilterPlanTracking>;
 
   constructor(
     private _store: Store,
@@ -169,7 +165,6 @@ export class PlanSuiviComponent implements OnInit {
     const dialogRef = this._dialog.open(PlanPosteDetailComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-
       this._store.dispatch(new ClearPlanPosteDetailDatas());
     });    
   }

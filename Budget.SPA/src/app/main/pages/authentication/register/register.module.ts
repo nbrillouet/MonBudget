@@ -5,6 +5,7 @@ import { RegisterService } from './register.service';
 import { FuseRegisterComponent } from './register.component';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
+import { AngularMaterialModule } from 'app/angular-material.module';
 
 const routes = [
     {
@@ -18,11 +19,12 @@ const routes = [
         FuseRegisterComponent
     ],
     imports     : [
-        // MatButtonModule,
-        // MatCheckboxModule,
-        // MatFormFieldModule,
-        // MatIconModule,
-        // MatInputModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        // AngularMaterialModule,
         FuseSharedModule,
         RouterModule.forChild(routes)
     ],

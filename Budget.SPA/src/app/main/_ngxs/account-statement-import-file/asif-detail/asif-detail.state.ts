@@ -1,13 +1,14 @@
-import { DataInfo } from "app/main/_models/generics/detail-info.model";
 import { AsifDetail } from "app/main/_models/account-statement-import/account-statement-import-file.model";
 import { AsifService } from "app/main/apps/account-statement-import-file/asif.service";
-import { LoadAsifDetail, LoadAsifDetailSuccess, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationTypeFamilySuccess, asifDetailChangeOperationType, asifDetailChangeOperationTypeSuccess, ClearAsifDetail } from "./asif-detail.action";
+import { LoadAsifDetail, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationType, ClearAsifDetail } from "./asif-detail.action";
 import { ReferentialService } from "app/main/_services/Referential/referential.service";
 import { EnumSelectType, ISelect } from "app/main/_models/generics/select.model";
 import { ComboSimple } from "app/main/_models/generics/combo.model";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
+import { LoaderState } from "../../_base/loader-state";
+import { Datas } from "app/main/_models/generics/detail-info.model";
 
-export class AsifDetailStateModel extends DataInfo<AsifDetail> {
+export class AsifDetailStateModel extends Datas<AsifDetail> {
     constructor () {
         super();
     }
@@ -20,13 +21,14 @@ let asifDetailStateModel = new AsifDetailStateModel();
     defaults : asifDetailStateModel
 })
 
-export class AsifDetailState {
+export class AsifDetailState extends LoaderState {
 
     constructor(
         private _asifService: AsifService,
         private _referentialService: ReferentialService
         // private _store: Store
         ) {
+            super();
     }
 
     @Selector()
@@ -42,33 +44,35 @@ export class AsifDetailState {
 
     @Action(LoadAsifDetail)
     loadAsifDetail(context: StateContext<AsifDetailStateModel>, action: LoadAsifDetail) {
+        this.loading(context,'datas');
+        
         const state = context.getState();
-        
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
         state.datas = null;
-        
         context.patchState(state);
+
         this._asifService.getAsifDetail(action.payload)
             .subscribe(result=> {
-                context.dispatch(new LoadAsifDetailSuccess(result));
+                let state = context.getState();
+                state.datas = result;
+                context.patchState(state);
+
+                this.loaded(context,'datas');
             });
 
     }
 
-    @Action(LoadAsifDetailSuccess)
-    loadSuccess(context: StateContext<AsifDetailStateModel>, action: LoadAsifDetailSuccess) {
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.datas = action.payload;
-        // state.filters = new FilterAsifTable();
-        // state.filters.selected.idImport = action.payload.selected.idImport;
+    // @Action(LoadAsifDetailSuccess)
+    // loadSuccess(context: StateContext<AsifDetailStateModel>, action: LoadAsifDetailSuccess) {
+    //     let state = context.getState();
+  
+    //     state.datas = action.payload;
+    //     // state.filters = new FilterAsifTable();
+    //     // state.filters.selected.idImport = action.payload.selected.idImport;
 
-        context.patchState(state);
+    //     context.patchState(state);
 
-        // context.dispatch(new ChangeAsifTableFilter(action.payload));
-    }
+    //     // context.dispatch(new ChangeAsifTableFilter(action.payload));
+    // }
 
     @Action(ClearAsifDetail)
     clear(context: StateContext<AsifDetailStateModel>) {
@@ -80,43 +84,38 @@ export class AsifDetailState {
     //====================================
     @Action(asifDetailChangeOperationTypeFamily)
     asifDetailChangeOperationTypeFamily(context: StateContext<AsifDetailStateModel>, action: asifDetailChangeOperationTypeFamily) {
-       
+        this.loading(context,'operationTypeFamily');
+
         const state = context.getState();
-        
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
         state.datas.operationTypeFamily.selected = action.payload;
         state.datas.operationType = new ComboSimple<ISelect>();
-        
         context.patchState(state);
+
         this._referentialService.operationTypeService.GetSelectList(action.payload.id,EnumSelectType.inconnu)
             .subscribe(result=> {
-     
-                context.dispatch(new asifDetailChangeOperationTypeFamilySuccess(result));
+                let state = context.getState();
+                state.datas.operationType.list = result;
+                state.datas.operationType.selected = result[0];
+                context.patchState(state);
+
+                this.loaded(context,'operationTypeFamily');
             });
     }
 
-    @Action(asifDetailChangeOperationTypeFamilySuccess)
-    asifDetailChangeOperationTypeFamilySuccess(context: StateContext<AsifDetailStateModel>, action: asifDetailChangeOperationTypeFamilySuccess) {
+    // @Action(asifDetailChangeOperationTypeFamilySuccess)
+    // asifDetailChangeOperationTypeFamilySuccess(context: StateContext<AsifDetailStateModel>, action: asifDetailChangeOperationTypeFamilySuccess) {
    
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.datas.operationType.list = action.payload;
-        state.datas.operationType.selected = action.payload[0];
 
-        context.patchState(state);
-    }
+    // }
 
     //====================================
     //          OperationType
     //====================================
     @Action(asifDetailChangeOperationType)
     asifDetailChangeOperationType(context: StateContext<AsifDetailStateModel>, action: asifDetailChangeOperationType) {
-        const state = context.getState();
+        this.loading(context,'operationType');
         
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
+        const state = context.getState();
         state.datas.operationType.selected = action.payload.operationType;
         state.datas.operationMethod.selected = action.payload.operationMethod;
         state.datas.operation = new ComboSimple<ISelect>();
@@ -124,25 +123,23 @@ export class AsifDetailState {
         context.patchState(state);
         this._referentialService.operationService.GetSelectList(action.payload.operationMethod.id,action.payload.operationType.id,EnumSelectType.inconnu)
             .subscribe(result => {
-                context.dispatch(new asifDetailChangeOperationTypeSuccess(result));
+                let state = context.getState();
+                state.datas.operation.list = result;
+                state.datas.operation.selected = result[0];
+        
+                context.patchState(state);
+
+                this.loaded(context,'operationType');
             });
-
-
-        // this._referentialService.operationTypeService.GetSelectList(action.payload.id,EnumSelectType.inconnu)
-        //     .subscribe(result=> {
-        //         context.dispatch(new asifDetailChangeOperationTypeSuccess(result));
-        //     });
     }
 
-    @Action(asifDetailChangeOperationTypeSuccess)
-    asifDetailChangeOperationTypeSuccess(context: StateContext<AsifDetailStateModel>, action: asifDetailChangeOperationTypeSuccess) {
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.datas.operation.list = action.payload;
-        state.datas.operation.selected = action.payload[0];
+    // @Action(asifDetailChangeOperationTypeSuccess)
+    // asifDetailChangeOperationTypeSuccess(context: StateContext<AsifDetailStateModel>, action: asifDetailChangeOperationTypeSuccess) {
+    //     let state = context.getState();
+    //     state.datas.operation.list = action.payload;
+    //     state.datas.operation.selected = action.payload[0];
 
-        context.patchState(state);
-    }
+    //     context.patchState(state);
+    // }
     
 }

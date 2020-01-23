@@ -1,17 +1,15 @@
-// import { State, Selector, StateContext, Action, Store } from "app/main/_ngxs/account-statement-import/asi-list/node_modules/@ngxs/store";
-import { DataInfos } from "app/main/_models/generics/table-info.model";
-// import { NotificationsService } from "app/main/_ngxs/account-statement-import/asi-list/node_modules/angular2-notifications";
-import { ClearAsiTableDatas, LoadAsiTableDatasSuccess, LoadAsiTableDatas } from "./asi-list.action";
+import { ClearAsiTableDatas, LoadAsiTableDatas } from "./asi-list.action";
 import { AsiTable } from "app/main/_models/account-statement-import/account-statement-import.model";
 import { UpdatePaginationAsiTableFilter } from "../asi-list-filter/asi-list-filter.action";
 import { AsiService } from "app/main/apps/account-statement-import/asi.service";
 import { State, Selector, StateContext, Action, Store } from "@ngxs/store";
+import { LoaderState } from "../../_base/loader-state";
+import { Datas } from "app/main/_models/generics/detail-info.model";
 
 
-export class AsiTableStateModel extends DataInfos<AsiTable> {
+export class AsiTableStateModel extends Datas<AsiTable> {
     constructor () {
         super();
-        // this.filter = null; 
     }
 }
 
@@ -21,13 +19,13 @@ let tableInfo = new AsiTableStateModel();
     defaults : tableInfo
 })
 
-export class AsiTableState {
+export class AsiTableState extends LoaderState {
     constructor(
         private _asiService: AsiService,
-        // private _notification: NotificationsService,
         private _store: Store
         
         ) {
+            super();
     }
 
     @Selector()
@@ -42,33 +40,34 @@ export class AsiTableState {
 
     @Action(LoadAsiTableDatas)
     loadGrid(context: StateContext<AsiTableStateModel>, action: LoadAsiTableDatas) {
+        this.loading(context,'datas');
+
         const state = context.getState();
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
-        //Affectation des filtres
-        // state.filter = action.payload;
-        
         state.datas = null;
-                
         context.patchState(state);
 
         this._asiService.getAsiTable(action.payload)
             .subscribe(result=> {
-                context.dispatch(new LoadAsiTableDatasSuccess(result));
+                let state = context.getState();
+                state.datas = result.datas;
+                context.patchState(state);
+
+                //TODO a controler
+                this._store.dispatch(new UpdatePaginationAsiTableFilter(action.payload.pagination));
+                
+                this.loaded(context,'datas');
             });
     }
 
-    @Action(LoadAsiTableDatasSuccess)
-    loadSuccess(context: StateContext<AsiTableStateModel>, action: LoadAsiTableDatasSuccess) {
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.datas = action.payload.datas;
+    // @Action(LoadAsiTableDatasSuccess)
+    // loadSuccess(context: StateContext<AsiTableStateModel>, action: LoadAsiTableDatasSuccess) {
+    //     let state = context.getState();
+    //     state.datas = action.payload.datas;
 
-        context.patchState(state);
+    //     context.patchState(state);
 
-        this._store.dispatch(new UpdatePaginationAsiTableFilter(action.payload.pagination));
-    }
+    //     this._store.dispatch(new UpdatePaginationAsiTableFilter(action.payload.pagination));
+    // }
 
     // @Action(ChangeAsiHistoTableFilter)
     // changeFilter(context: StateContext<AsiHistoTableStateModel>, action: ChangeAsiHistoTableFilter) {

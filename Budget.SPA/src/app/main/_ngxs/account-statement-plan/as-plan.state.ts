@@ -1,13 +1,12 @@
 import { AsTable } from "app/main/_models/account-statement/account-statement-table.model";
-import { DataInfos } from "app/main/_models/generics/table-info.model";
 import { PlanService } from "app/main/apps/plan/plan.service";
-import { NotificationsService } from "angular2-notifications";
 import { AsTableStateModel } from "../account-statement/account-statement-list/account-statement-list.state";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
-import { LoadAsPlanForTable, LoadAsPlanForTableSuccess, ChangeAsPlanForTableFilter, ClearAsPlanForTable } from "./as-plan.action";
+import { LoadAsPlanForTable, ChangeAsPlanForTableFilter, ClearAsPlanForTable } from "./as-plan.action";
+import { LoaderState } from "../_base/loader-state";
+import { Datas } from "app/main/_models/generics/detail-info.model";
 
-
-export class AsPlanTableStateModel extends DataInfos<AsTable> {
+export class AsPlanTableStateModel extends Datas<AsTable[]> {
     
     constructor () {
         super();
@@ -22,10 +21,10 @@ let asPlanTableStateModel = new AsTableStateModel();
     defaults : asPlanTableStateModel
 })
 
-export class AsPlanTableState {
+export class AsPlanTableState extends LoaderState{
     constructor(
-        private _planService: PlanService,
-        private _notification: NotificationsService) {
+        private _planService: PlanService) {
+            super();
     }
 
     @Selector()
@@ -41,33 +40,30 @@ export class AsPlanTableState {
 
     @Action(LoadAsPlanForTable)
     load(context: StateContext<AsPlanTableStateModel>, action: LoadAsPlanForTable) {
-        const state = context.getState();
+        this.loading(context,'datas');
 
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
+        const state = context.getState();
         state.datas = null;
-        
         context.patchState(state);
 
         this._planService.getAsNotInPlan(action.payload)
             .subscribe(result=> {
-                context.dispatch(new LoadAsPlanForTableSuccess(result));
-            },error => {
-                this._notification.error('Erreur connexion',error);
-            })
+                let state = context.getState();
+                state.datas = result;
+                context.patchState(state);
 
+                this.loaded(context,'datas');
+            });
     }
 
-    @Action(LoadAsPlanForTableSuccess)
-    loadSuccess(context: StateContext<AsPlanTableStateModel>, action: LoadAsPlanForTableSuccess) {
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.datas = action.payload;
+    // @Action(LoadAsPlanForTableSuccess)
+    // loadSuccess(context: StateContext<AsPlanTableStateModel>, action: LoadAsPlanForTableSuccess) {
+    //     let state = context.getState();
+    //     state.datas = action.payload;
 
-        context.patchState(state);
+    //     context.patchState(state);
         
-    }
+    // }
 
     @Action(ChangeAsPlanForTableFilter)
     changeFilter(context: StateContext<AsPlanTableStateModel>, action: ChangeAsPlanForTableFilter) {

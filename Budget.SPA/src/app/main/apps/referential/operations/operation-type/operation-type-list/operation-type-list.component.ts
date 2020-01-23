@@ -5,7 +5,6 @@ import { Select, Store } from '@ngxs/store';
 import { OtTableFilterState } from 'app/main/_ngxs/referential/operation-type/operation-type-list-filter/operation-type-list-filter.state';
 import { OtTableState } from 'app/main/_ngxs/referential/operation-type/operation-type-list/operation-type-list.state';
 import { Observable } from 'rxjs';
-import { DataInfos } from 'app/main/_models/generics/table-info.model';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { OtTable } from 'app/main/_models/referential/operation-type.model';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialogRef, MatDialog } from '@angular/material';
@@ -17,6 +16,7 @@ import { OtService } from '../operation-type.service';
 import { NotificationsService } from 'angular2-notifications';
 import { LoadOtTableFilter, ChangeOtTableFilter } from 'app/main/_ngxs/referential/operation-type/operation-type-list-filter/operation-type-list-filter.action';
 import { LoadOtTableDatas } from 'app/main/_ngxs/referential/operation-type/operation-type-list/operation-type-list.action';
+import { Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'operation-type-list',
@@ -26,13 +26,12 @@ import { LoadOtTableDatas } from 'app/main/_ngxs/referential/operation-type/oper
   encapsulation: ViewEncapsulation.None
 })
 export class OperationTypeListComponent implements OnInit {
-  // @Input() headerPanelIsVisible: boolean;
   
   @Select(OtTableFilterState.get) otTableFilter$: Observable<FilterInfo<FilterOtTable>>;
-  @Select(OtTableState.get) otTable$: Observable<DataInfos<OtTable>>;
+  @Select(OtTableState.get) otTable$: Observable<Datas<OtTable[]>>;
   
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   dataSource = new MatTableDataSource<OtTable>();
   filterOt: FilterOtTable;
@@ -64,7 +63,7 @@ export class OperationTypeListComponent implements OnInit {
 
   ngOnInit() {
     this.otTableFilter$.subscribe(otTableFilter=>{
-      if(otTableFilter.loadingInfo.loaded) {
+      if(otTableFilter.loader['filters'].loaded) {
         this.filterOt = otTableFilter.filters;
         this.filterOtf= {list : otTableFilter.filters.otfs,selected: otTableFilter.filters.selected.otf};
 

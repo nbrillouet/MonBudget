@@ -1,7 +1,7 @@
 import { OtDetail } from "app/main/_models/referential/operation-type.model";
 
 export const OT_DETAIL_LOAD = 'ot-detail-load';
-export const OT_DETAIL_LOAD_SUCCESS = 'ot-detail-load-success';
+// export const OT_DETAIL_LOAD_SUCCESS = 'ot-detail-load-success';
 export const OT_DETAIL_CLEAR = 'ot-detail-clear';
 
 export class LoadOtDetail {
@@ -10,11 +10,11 @@ export class LoadOtDetail {
     constructor(public payload: number) { }
 }
 
-export class LoadOtDetailSuccess {
-    static readonly type = OT_DETAIL_LOAD_SUCCESS;
+// export class LoadOtDetailSuccess {
+//     static readonly type = OT_DETAIL_LOAD_SUCCESS;
  
-    constructor(public payload: OtDetail) { }
-}
+//     constructor(public payload: OtDetail) { }
+// }
 
 export class ClearOtDetail {
     static readonly type = OT_DETAIL_CLEAR;

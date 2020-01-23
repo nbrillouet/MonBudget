@@ -3,14 +3,14 @@ import { Observable } from 'rxjs/Observable';
 import { MatPaginator, MatSort, MatTableDataSource, SortDirection } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
-import { TableInfo, DataInfos } from 'app/main/_models/generics/table-info.model';
-import { FilterAsifTableSelected, FilterAsifTable } from 'app/main/_models/filters/account-statement-import-file.filter';
+import { FilterAsifTable } from 'app/main/_models/filters/account-statement-import-file.filter';
 import { Select, Store } from '@ngxs/store';
 import { AsifTableState } from 'app/main/_ngxs/account-statement-import-file/asif-list/asif-list.state';
 import { AsifTable } from 'app/main/_models/account-statement-import/account-statement-import-file.model';
 import { AsifTableFilterState } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.state';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { ChangeAsifTableFilter } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.action';
+import { Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'asif-list',
@@ -20,12 +20,12 @@ import { ChangeAsifTableFilter } from 'app/main/_ngxs/account-statement-import-f
 })
 export class AsifListComponent implements OnInit {
   @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
-  @Select(AsifTableState.get) asifTable$: Observable<DataInfos<AsifTable>>;
+  @Select(AsifTableState.get) asifTable$: Observable<Datas<AsifTable[]>>;
 
   // @Input() headerPanelIsVisible: boolean;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   dataSource = new MatTableDataSource<AsifTable>();// AsifDataSource;
   filterAsif: FilterAsifTable;

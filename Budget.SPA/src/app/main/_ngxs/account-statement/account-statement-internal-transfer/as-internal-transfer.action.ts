@@ -11,11 +11,11 @@ export class LoadAsInternalTransferCouple {
     constructor(public payload: FilterAsTableSelected) { }
 }
 
-export class LoadAsInternalTransferCoupleSuccess {
-    static readonly type = AS_INTERNAL_TRANSFER_LOAD_SUCCESS;
+// export class LoadAsInternalTransferCoupleSuccess {
+//     static readonly type = AS_INTERNAL_TRANSFER_LOAD_SUCCESS;
  
-    constructor(public payload: InternalTransferCouple[]) { }
-}
+//     constructor(public payload: InternalTransferCouple[]) { }
+// }
 
 export class ChangeAsInternalTransferFilter {
     static readonly type = AS_INTERNAL_TRANSFER_CHANGE;

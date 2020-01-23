@@ -4,9 +4,12 @@ import { FilterAsTableSelected, FilterAsTable, FilterAsDetail } from 'app/main/_
 import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
 import { HttpClient } from '@angular/common/http';
 import { AsDetail } from 'app/main/_models/account-statement/account-statement-detail.model';
-import { AsChartEvolutionCustomOtfFilterSelected } from 'app/main/_models/account-statement/as-chart/as-chart-evolution.model';
+import { AsChartEvolutionCustomOtfFilterSelected, AsChartEvolutionCdb, AsChartEvolutionCustomOtfFilter } from 'app/main/_models/account-statement/as-chart/as-chart-evolution.model';
 import { InternalTransferCouple } from 'app/main/_models/account-statement/account-statement-internal-transfer.model';
 import { IUserForGroup } from 'app/main/_models/user.model';
+import { WidgetCardChartBar } from 'app/main/_models/chart/widget-card-chart-bar.model';
+import { AsChartCategorisationSelect } from 'app/main/_models/account-statement/as-chart/as-chart-categorisation.model';
+import { AsSolde } from 'app/main/_models/account-statement/account-statement-solde.model';
 
 @Injectable()
 export class AsService {
@@ -47,9 +50,7 @@ export class AsService {
         filter.user=this.userForGroup;
         return this.http
             .post(`${this.baseUrl}account-statements/solde-filter`,filter)
-            .map((response) => {
-                return response;
-            });
+            .map(response => <AsSolde>response);
     }
 
     getAsInternalTransferCouple(filter: FilterAsTableSelected) {
@@ -70,36 +71,28 @@ export class AsService {
         filter.user=this.userForGroup;
         return this.http
             .post(`${this.baseUrl}account-statement-charts/chart-evolution-brut`,filter)
-            .map((response) => {
-                return response;
-            });
+            .map(response => <AsChartEvolutionCdb>response);
     }
 
     getAsChartEvolutionNoIntTransfer(filter: FilterAsTableSelected) {
         filter.user=this.userForGroup;
         return this.http
             .post(`${this.baseUrl}account-statement-charts/chart-evolution-no-int-transfer`,filter)
-            .map((response) => {
-                return response;
-            });
+            .map(response => <AsChartEvolutionCdb>response);
     }
 
     getAsChartEvolutionCustomOtf(filter: FilterAsTableSelected) {
         filter.user=this.userForGroup;
         return this.http
             .post(`${this.baseUrl}account-statement-charts/chart-evolution-custom-otf`,filter)
-            .map((response) => {
-                return response;
-            });
+            .map(response => <WidgetCardChartBar[]>response);
     }
 
     getAsChartEvolutionCustomOtfFilter(filter: FilterAsTableSelected) {
         filter.user=this.userForGroup;
         return this.http
             .post(`${this.baseUrl}account-statement-charts/chart-evolution-custom-otf-filter`,filter)
-            .map((response) => {
-                return response;
-            });
+            .map(response => <AsChartEvolutionCustomOtfFilter>response)
     }
 
     updateAsChartEvolutionCustomOtfFilter(filter: AsChartEvolutionCustomOtfFilterSelected){
@@ -115,9 +108,7 @@ export class AsService {
         filter.user=this.userForGroup;
         return this.http
             .post(`${this.baseUrl}account-statement-charts/chart-categorisation-debit`,filter)
-            .map((response) => {
-                return response;
-            });
+            .map(response => <AsChartCategorisationSelect>response);
     }
 
 

@@ -9,9 +9,8 @@ import { AsifTableFilterState } from 'app/main/_ngxs/account-statement-import-fi
 import { Observable } from 'rxjs';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterAsifTable, FilterAsifDetail } from 'app/main/_models/filters/account-statement-import-file.filter';
-import { LoadAsifDetail, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationType, LoadAsifDetailSuccess, ClearAsifDetail } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.action';
+import { LoadAsifDetail, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationType, ClearAsifDetail } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.action';
 import { AsifDetailState } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.state';
-import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 import { AsifDetail } from 'app/main/_models/account-statement-import/account-statement-import-file.model';
 import { IOperation } from 'app/main/_models/referential/operation.model';
 import { GMapSearchInfo } from 'app/main/_models/g-map.model.';
@@ -25,6 +24,7 @@ import { OperationTransverse } from 'app/main/_models/referential/operation-tran
 import * as moment from 'moment';
 import { FilterOperation } from 'app/main/_models/filters/operation.filter';
 import { FuseConfigService } from '@fuse/services/config.service';
+import { Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'asif-detail',
@@ -33,7 +33,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
   animations : fuseAnimations
 })
 export class AsifDetailComponent implements OnInit, OnDestroy {
-@Select(AsifDetailState.get) asifDetail$: Observable<DataInfo<AsifDetail>>;
+@Select(AsifDetailState.get) asifDetail$: Observable<Datas<AsifDetail>>;
 @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
 
 user = JSON.parse(localStorage.getItem('currentUser'));
@@ -66,7 +66,7 @@ fullscreen: boolean;
     });
 
     this.asifDetail$.subscribe(asifDetail=>{
-      if(asifDetail.loadingInfo.loaded) {
+      if(asifDetail.loader['datas'].loaded) {
         this.asifDetail = JSON.parse(JSON.stringify(asifDetail.datas));
 
         if(this.firstLoad) {
@@ -164,8 +164,8 @@ fullscreen: boolean;
               operationPlaceSearch: this.asifDetail.placeLabelTemp
             };
           }
-
-          this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
+          //TODO synchronize
+          // this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
         });
      
       this.asifDetailForm.valueChanges.subscribe(val=>{
@@ -182,7 +182,8 @@ fullscreen: boolean;
         this.asifDetail.placeKeywordTemp = val.placeKeywordTemp;
         this.asifDetail.operationPlace.selected = val.operationPlace;
 
-        this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
+        //TODO synchronize
+        // this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
       });
  
       this.operationAddForm = this._formBuilder.group({
@@ -254,16 +255,6 @@ fullscreen: boolean;
 
   updateAsif() {
 
-    // this.asifDetail.amountOperation = this.asifDetailForm.value.amountOperation;
-    // this.asifDetail.labelOperation = this.asifDetailForm.value.labelOperation;
-    // this.asifDetail.operationMethod.selected = this.asifDetailForm.value.operationMethod;
-    // this.asifDetail.operationType.selected = this.asifDetailForm.value.operationType;
-    // this.asifDetail.operationTypeFamily.selected = this.asifDetailForm.value.operationTypeFamily;
-    // this.asifDetail.operation.selected = this.asifDetailForm.value.operation;
-    
-    // this.asifDetail.operationKeywordTemp = this.asifDetailForm.value.operationKeywordTemp;
-    // this.asifDetail.placeKeywordTemp = this.asifDetailForm.value.placeKeywordTemp;
-
     this._asifService.update(this.asifDetail)
     .subscribe(resp=> {
       if(resp==true)
@@ -275,10 +266,7 @@ fullscreen: boolean;
         this._notificationService.error('Echec de l\'enregistrement');
       }
     });
-    // ,
-    // error => {
-    //   this.notificationService.error('Echec de l\'enregistrement', error);
-    // });
+
 
   }
 
@@ -291,8 +279,9 @@ fullscreen: boolean;
   onChangeGMapAddress($event) {
     this.asifDetail.operationDetail.gMapAddress=$event;
     this.asifDetail.gMapSearchInfo.idGMapAddress = $event.id;
-        
-    this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
+    
+    //TODO synchronize
+    // this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
     
   }
 

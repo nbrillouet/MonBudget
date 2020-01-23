@@ -5,8 +5,8 @@ import { Store, Select } from '@ngxs/store';
 import { ChangePlanAmountTableFilter } from 'app/main/_ngxs/plan/plan-amount-list/plan-amount-list.action';
 import { PlanAmountTableState } from 'app/main/_ngxs/plan/plan-amount-list/plan-amount-list.state';
 import { Observable } from 'rxjs';
-import { TableInfo } from 'app/main/_models/generics/table-info.model';
 import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
+import { DatasFilter } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'plan-amount-list',
@@ -14,7 +14,7 @@ import { AsTable } from 'app/main/_models/account-statement/account-statement-ta
   styleUrls: ['./plan-amount-list.component.scss']
 })
 export class PlanAmountListComponent implements OnInit {
-  @Select(PlanAmountTableState.get) planAmountTable$: Observable<TableInfo<AsTable,PlanAmountFilter>>;
+  @Select(PlanAmountTableState.get) planAmountTable$: Observable<DatasFilter<AsTable[],PlanAmountFilter>>;
   
   planAmountFilter: PlanAmountFilter;
   dataSource: AsTable[];
@@ -31,9 +31,9 @@ export class PlanAmountListComponent implements OnInit {
 
   ngOnInit() {
     this.planAmountTable$.subscribe(x=>{
-      if(x.dataInfos.loadingInfo.loaded==true)
+      if(x.loader['datas'].loaded==true)
       {
-        this.dataSource = x.dataInfos.datas;
+        this.dataSource = x.datas;
       }
     });
   }

@@ -9,11 +9,11 @@ export class LoadNavigation {
     constructor(public payload: any) { }
 }
 
-export class LoadNavigationSuccess {
-    static readonly type = NAVIGATION_LOAD_SUCCESS;
+// export class LoadNavigationSuccess {
+//     static readonly type = NAVIGATION_LOAD_SUCCESS;
  
-    constructor(public payload: any) { }
-}
+//     constructor(public payload: any) { }
+// }
 
 export class AddNavigation {
     static readonly type = NAVIGATION_ADD;

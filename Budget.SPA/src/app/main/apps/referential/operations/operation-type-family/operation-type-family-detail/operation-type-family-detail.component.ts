@@ -4,9 +4,8 @@ import { Store, Select } from '@ngxs/store';
 import { fuseAnimations } from '@fuse/animations';
 import { OtfDetailState } from 'app/main/_ngxs/referential/operation-type-family/operation-type-family-detail/operation-type-family-detail.state';
 import { Observable } from 'rxjs';
-import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 import { OtfDetail } from 'app/main/_models/referential/operation-type-family.model';
-import { LoadOtfDetail, LoadOtfDetailSuccess, ClearOtfDetail } from 'app/main/_ngxs/referential/operation-type-family/operation-type-family-detail/operation-type-family-detail.action';
+import { LoadOtfDetail, ClearOtfDetail } from 'app/main/_ngxs/referential/operation-type-family/operation-type-family-detail/operation-type-family-detail.action';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { OtfService } from '../operation-type-family.service';
@@ -14,6 +13,7 @@ import { LoadOtfTableDatas } from 'app/main/_ngxs/referential/operation-type-fam
 import { FilterOtfTable } from 'app/main/_models/filters/operation-type-family.filter';
 import { OtfTableFilterState } from 'app/main/_ngxs/referential/operation-type-family/operation-type-family-list-filter/operation-type-family-list-filter.state';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
+import { Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'operation-type-family-detail',
@@ -22,7 +22,7 @@ import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
   animations   : fuseAnimations
 })
 export class OperationTypeFamilyDetailComponent implements OnInit, OnDestroy {
-@Select(OtfDetailState.get) otfDetail$: Observable<DataInfo<OtfDetail>>;
+@Select(OtfDetailState.get) otfDetail$: Observable<Datas<OtfDetail>>;
 @Select(OtfTableFilterState.get) otfTableFilter$: Observable<FilterInfo<FilterOtfTable>>;
 
 idOperationTypeFamily: number;
@@ -48,7 +48,7 @@ otfDetailForm: FormGroup;
 
     this.otfDetail$.subscribe(otfDetail=>{
    
-      if(otfDetail.loadingInfo.loaded) {
+      if(otfDetail.loader['datas'].loaded) {
 
         this.otfDetail = JSON.parse(JSON.stringify(otfDetail.datas));
  
@@ -88,8 +88,8 @@ otfDetailForm: FormGroup;
         this.otfDetail.label = val.label;
         this.otfDetail.logoClassName.selected = val.logoClassName;
         this.otfDetail.movement.selected = val.movement;
-
-        this._store.dispatch(new LoadOtfDetailSuccess(this.otfDetail));
+        //TODO synchronize
+        // this._store.dispatch(new LoadOtfDetailSuccess(this.otfDetail));
       });
  
   }  

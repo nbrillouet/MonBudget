@@ -10,11 +10,11 @@ export class LoadAsTableDatas {
     constructor(public payload: FilterAsTableSelected) { }
 }
 
-export class LoadAsTableDatasSuccess {
-    static readonly type = AS_TABLE_LOAD_SUCCESS;
+// export class LoadAsTableDatasSuccess {
+//     static readonly type = AS_TABLE_LOAD_SUCCESS;
  
-    constructor(public payload: any) { }
-}
+//     constructor(public payload: any) { }
+// }
 
 export class ClearAsTableDatas {
     static readonly type = AS_TABLE_CLEAR;

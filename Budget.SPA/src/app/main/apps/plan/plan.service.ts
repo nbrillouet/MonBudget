@@ -1,4 +1,4 @@
-import { PlanFilter } from "app/main/_models/Filters/plan.filter";
+import { PlanFilter, PlanTableComboFilter } from "app/main/_models/Filters/plan.filter";
 import { environment } from "environments/environment";
 import { Injectable } from "@angular/core";
 
@@ -32,7 +32,7 @@ userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:th
     get(filter: PlanFilter) {
         return this.http
             .post(`${this.baseUrl}plans/filter`,filter)
-            .map((response: PlanTable) => {
+            .map((response: PlanTable[]) => {
                 return response;
             })
             .catch(this.errorService.handleError);
@@ -41,7 +41,7 @@ userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:th
     getPlanTableComboFilter() {
         return this.http
             .get(`${this.baseUrl}plans/combo-filter`)
-            .map(response => <PlanDetail>response)
+            .map(response => <PlanTableComboFilter>response)
             .catch(this.errorService.handleError);
     }
 

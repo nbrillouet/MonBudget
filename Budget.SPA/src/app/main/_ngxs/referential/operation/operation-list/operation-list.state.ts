@@ -1,12 +1,12 @@
-import { DataInfos } from "app/main/_models/generics/table-info.model";
 import { OperationTable } from "app/main/_models/referential/operation.model";
 import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
 import { OperationService } from "app/main/_services/Referential/operation.service";
-import { LoadOperationTableDatas, LoadOperationTableDatasSuccess, ClearOperationTableDatas } from "./operation-list.action";
+import { LoadOperationTableDatas, ClearOperationTableDatas } from "./operation-list.action";
 import { UpdatePaginationOperationTableFilter } from "../operation-list-filter/operation-list-filter.action";
+import { LoaderState } from "app/main/_ngxs/_base/loader-state";
+import { Datas } from "app/main/_models/generics/detail-info.model";
 
-
-export class OperationTableStateModel extends DataInfos<OperationTable> {
+export class OperationTableStateModel extends Datas<OperationTable[]> {
     constructor () {
         super();
     }
@@ -18,11 +18,12 @@ let tableInfo = new OperationTableStateModel();
     defaults : tableInfo
 })
 
-export class OperationTableState {
+export class OperationTableState extends LoaderState {
     constructor(
         private _operationService: OperationService,
         private _store: Store
         ) {
+            super();
     }
 
     @Selector()
@@ -32,31 +33,28 @@ export class OperationTableState {
 
     @Action(LoadOperationTableDatas)
     loadGrid(context: StateContext<OperationTableStateModel>, action: LoadOperationTableDatas) {
+        this.loading(context,'datas');
+        
         const state = context.getState();
-        state.loadingInfo.loaded=false;
-        state.loadingInfo.loading=true;
-
         state.datas = null;
         context.patchState(state);
         
         this._operationService.getTable(action.payload)
             .subscribe(result=> {
-                context.dispatch(new LoadOperationTableDatasSuccess(result));
+                let state = context.getState();
+                state.datas = result;
+                context.patchState(state);
+                //TODO: a controler
+                this._store.dispatch(new UpdatePaginationOperationTableFilter(action.payload.pagination));
+
+                this.loaded(context,'datas');
             });
     }
 
-    @Action(LoadOperationTableDatasSuccess)
-    loadSuccess(context: StateContext<OperationTableStateModel>, action: LoadOperationTableDatasSuccess) {
-        let state = context.getState();
-        state.loadingInfo.loaded = true;
-        state.loadingInfo.loading = false;
-        state.datas = action.payload.datas;
+    // @Action(LoadOperationTableDatasSuccess)
+    // loadSuccess(context: StateContext<OperationTableStateModel>, action: LoadOperationTableDatasSuccess) {
 
-        context.patchState(state);
-
-
-        this._store.dispatch(new UpdatePaginationOperationTableFilter(action.payload.pagination));
-    }
+    // }
 
     @Action(ClearOperationTableDatas)
     clear(context: StateContext<OperationTableStateModel>) {

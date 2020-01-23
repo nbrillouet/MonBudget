@@ -1,17 +1,16 @@
 import { PlanFilter } from "app/main/_models/Filters/plan.filter";
-import { TableInfo } from "app/main/_models/generics/table-info.model";
-// import { Selector, Action, StateContext, State } from "app/main/_ngxs/plan/plan-list/node_modules/@ngxs/store";
-import { LoadPlanTableDatas, LoadPlanTableDatasSuccess, ChangePlanTableFilter, ClearPlanTableDatas } from "./plan-list.action";
+import { LoadPlanTableDatas, ChangePlanTableFilter, ClearPlanTableDatas } from "./plan-list.action";
 import { PlanService } from "app/main/apps/plan/plan.service";
-// import { NotificationsService } from "app/main/_ngxs/plan/plan-list/node_modules/angular2-notifications";
 import { PlanTable } from "app/main/_models/plan/plan.model";
 import { Selector, Action, StateContext, State } from "@ngxs/store";
 import { NotificationsService } from "angular2-notifications";
+import { LoaderState } from "../../_base/loader-state";
+import { DatasFilter } from "app/main/_models/generics/detail-info.model";
 
-export class PlanTableStateModel extends TableInfo<PlanTable,PlanFilter> {
+export class PlanTableStateModel extends DatasFilter<PlanTable[],PlanFilter> {
     constructor () {
         super();
-        this.filter = null; //new PlanFilter();
+        this.filter = null;
     }
 }
 
@@ -21,15 +20,15 @@ let tableInfo = new PlanTableStateModel();
     defaults : tableInfo
 })
 
-export class PlanTableState {
+export class PlanTableState extends LoaderState {
     constructor(
         private planService: PlanService,
         private notification: NotificationsService) {
+            super();
     }
 
     @Selector()
     static get(state: PlanTableStateModel) {
-
         return state;
     }
 
@@ -40,31 +39,30 @@ export class PlanTableState {
 
     @Action(LoadPlanTableDatas)
     loadGrid(context: StateContext<PlanTableStateModel>, action: LoadPlanTableDatas) {
+        this.loading(context,'datas');
+
         const state = context.getState();
-        state.dataInfos.loadingInfo.loaded=false;
-        state.dataInfos.loadingInfo.loading=true;
         state.filter = action.payload;
-        state.dataInfos.datas = null;
-        
+        state.datas = null;
         context.patchState(state);
 
         this.planService.get(action.payload)
             .subscribe(result=> {
-                context.dispatch(new LoadPlanTableDatasSuccess(result));
-            },error => {
-                this.notification.error('Erreur connexion',error);
-            })
+                let state = context.getState();
+                state.datas = result;
+                context.patchState(state);
+
+                this.loaded(context,'datas');
+        });
     }
 
-    @Action(LoadPlanTableDatasSuccess)
-    loadSuccess(context: StateContext<PlanTableStateModel>, action: LoadPlanTableDatasSuccess) {
-        let state = context.getState();
-        state.dataInfos.loadingInfo.loaded = true;
-        state.dataInfos.loadingInfo.loading = false;
-        state.dataInfos.datas = action.payload;
+    // @Action(LoadPlanTableDatasSuccess)
+    // loadSuccess(context: StateContext<PlanTableStateModel>, action: LoadPlanTableDatasSuccess) {
+    //     let state = context.getState();
+    //     state.dataInfos.datas = action.payload;
         
-        context.patchState(state);
-    }
+    //     context.patchState(state);
+    // }
 
     @Action(ChangePlanTableFilter)
     changeFilter(context: StateContext<PlanTableStateModel>, action: ChangePlanTableFilter) {

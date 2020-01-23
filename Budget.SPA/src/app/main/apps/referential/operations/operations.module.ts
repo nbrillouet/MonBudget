@@ -31,6 +31,7 @@ import { OperationForDetailState } from "app/main/_ngxs/referential/operation/op
 import { FilterComboMultipleGroupComponent } from "../../web-component/mini-filter/filter-combo-multiple-group/filter-combo-multiple-group.component";
 import { OperationDetailComponent } from "./operation/operation-detail/operation-detail.component";
 import { MiniFilterModule } from "../../web-component/mini-filter/mini-filter.module";
+import { AngularMaterialModule } from "app/angular-material.module";
 
 const routes = [
   // {
@@ -79,6 +80,7 @@ const routes = [
     imports: [
       CommonModule,
       FuseSharedModule,
+      AngularMaterialModule,
       FuseConfirmDialogModule,
       MiniFilterModule,
       RouterModule.forChild(routes),

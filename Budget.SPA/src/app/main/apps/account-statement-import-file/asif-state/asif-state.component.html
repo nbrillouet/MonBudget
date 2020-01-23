@@ -1,4 +1,4 @@
-<!-- <mat-tab-group *ngIf="this.filter as filters"    -->
+
 <mat-tab-group *ngIf="(asifTableFilter$ | async).filters as filters"
   [selectedIndex]="filters.selected.indexTabAsifState"
   (selectedTabChange)="onTabChanged($event)">

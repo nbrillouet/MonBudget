@@ -115,17 +115,15 @@
                     </mat-cell>
                 </ng-container> 
 
-
-
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     
                 <mat-row *cdkRowDef="let user; columns: displayedColumns;"
                     class="user"
                     matRipple
-                    >
+                >
                 </mat-row>
             </mat-table>
-            <div *ngIf="(userTable$ | async).loadingInfo.loading"
+            <div *ngIf="(userTable$ | async).loader['datas'].loading"
                 class="h-96 w-100-p"
                 fxLayout="column"
                 fxLayoutAlign="center center">
@@ -136,7 +134,7 @@
             <mat-paginator *ngIf="(userTableFilter$ | async).filters && (userTableFilter$ | async).filters.selected.pagination; let pagination"
                 (page)="onPageChangeEvent($event)"
                 [length]="pagination.totalItems" 
-                [pageSize]="pagination.itemsPerPage"
+                [pageSize]="pagination.nbItemsPerPage"
                 [pageSizeOptions]="[15, 100, 200]">
             </mat-paginator>
 

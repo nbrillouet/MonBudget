@@ -11,11 +11,11 @@ export class LoadAsifTableDatas {
     constructor(public payload: any) { }
 }
 
-export class LoadAsifTableDatasSuccess {
-    static readonly type = ASIF_TABLE_LOAD_SUCCESS;
+// export class LoadAsifTableDatasSuccess {
+//     static readonly type = ASIF_TABLE_LOAD_SUCCESS;
  
-    constructor(public payload: any) { }
-}
+//     constructor(public payload: any) { }
+// }
 
 // export class ChangeAsifTableFilter {
 //     static readonly type = ASIF_TABLE_FILTER_CHANGE;

@@ -1,5 +1,4 @@
-import { ISelect, ISelectGroup, SelectNameValue } from "./select.model";
-
+import { ISelect, SelectNameValue } from "./select.model";
 
 export class ComboSimple<T> {
     list: T[];

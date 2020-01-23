@@ -7,10 +7,7 @@ import { PlanService } from '../plan.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Select, Store } from '@ngxs/store';
 import { PlanDetailFilter } from 'app/main/_models/Filters/plan.filter';
-import { DetailInfo } from 'app/main/_models/generics/detail-info.model';
 import { PlanDetailState } from 'app/main/_ngxs/plan/plan-detail/plan-detail.state';
-import { ChangePlanDetailFilter, LoadPlanDetailDatasSuccess } from 'app/main/_ngxs/plan/plan-detail/plan-detail.action';
-import { SelectYear } from 'app/main/_models/generics/select.model';
 import { PlanDetail, Plan } from 'app/main/_models/plan/plan.model';
 import { ClearPlanTableDatas } from 'app/main/_ngxs/plan/plan-list/plan-list.action';
 import { MatColors } from '@fuse/mat-colors';
@@ -18,9 +15,9 @@ import { AsPlanTableState } from 'app/main/_ngxs/account-statement-plan/as-plan.
 import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
 import { FilterAsPlan } from 'app/main/_models/filters/account-statement-plan.filter';
 import { LoadAsPlanForTable, ClearAsPlanForTable } from 'app/main/_ngxs/account-statement-plan/as-plan.action';
-import { DataInfos } from 'app/main/_models/generics/table-info.model';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { AsPlanListComponent } from './as-plan-list/as-plan-list.component';
+import { DatasFilter, Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'plan-detail',
@@ -31,11 +28,11 @@ import { AsPlanListComponent } from './as-plan-list/as-plan-list.component';
 })
 export class PlanDetailComponent implements OnInit {
   
-@Select(PlanDetailState.get) detailInfo$: Observable<DetailInfo<PlanDetail,PlanDetailFilter>>;
-@Select(AsPlanTableState.get) asPlanTable$: Observable<DataInfos<AsTable>>;
+@Select(PlanDetailState.get) detailInfo$: Observable<DatasFilter<PlanDetail,PlanDetailFilter>>;
+@Select(AsPlanTableState.get) asPlanTable$: Observable<Datas<AsTable[]>>;
 
 
-detailInfo: DetailInfo<PlanDetail,PlanDetailFilter>;
+detailInfo: DatasFilter<PlanDetail,PlanDetailFilter>;
 planDetail: PlanDetail;
 firstLoad: boolean = true;
 
@@ -47,7 +44,7 @@ recetteTab: PlanPoste;
 depenseFixeTab: PlanPoste;
 depenseVariable: PlanPoste;
 
-asPlanTable: DataInfos<AsTable>;
+asPlanTable: Datas<AsTable[]>;
 
     constructor(
         private _planService: PlanService,
@@ -59,11 +56,11 @@ asPlanTable: DataInfos<AsTable>;
     {
       
       this.detailInfo$.subscribe(x=> {
-        if(x.dataInfos.loadingInfo.loaded==true)
+        if(x.loader['datas'].loaded==true)
         {
           console.log('detailInfo',x);
           this._store.dispatch(new ClearPlanTableDatas());
-          this.planDetail = x.dataInfos.datas; //this.detailInfo.dataInfos.datas;
+          this.planDetail = x.datas; 
           
           
           this.recetteTab = this.planDetail.planPostes.filter(x=>x.poste.id==1)[0];
@@ -131,18 +128,14 @@ asPlanTable: DataInfos<AsTable>;
       
 
       this.planForm.valueChanges.subscribe(value=>{
-        // console.log('entry data',value);
-        // let toto = MatColors.getColorByMatColor(value.color);
-        // let titi = MatColors.getMatColorByColor('#78909c');
-
-        // console.log('toto',toto);
-        // console.log('titi',titi);
         this.planDetail.plan.label=value.label;
         this.planDetail.plan.year=value.year;
         this.planDetail.plan.color=value.color;
         this.planDetail.accounts.listSelected=value.accounts;
         this.planDetail.users.listSelected=value.users;
-        this._store.dispatch(new LoadPlanDetailDatasSuccess(this.planDetail));
+
+        //TODO synchronize
+        // this._store.dispatch(new LoadPlanDetailDatasSuccess(this.planDetail));
       });
     
     }
@@ -174,13 +167,8 @@ asPlanTable: DataInfos<AsTable>;
           // this.planForm.reset(this.planDetail);
           this.createPlanForm();
 
+          //TODO synchronize
           // this._store.dispatch(new LoadPlanDetailDatasSuccess(this.planDetail));
-          // let planDetailFilter = <PlanDetailFilter>{
-          //   id:idPlan
-          // };
-          // this._store.dispatch(new ChangePlanDetailFilter(planDetailFilter));
-
-          this._store.dispatch(new LoadPlanDetailDatasSuccess(this.planDetail));
           this._notificationService.success('Sauvegarde réussi', 'Budget enregistré');
         });
         

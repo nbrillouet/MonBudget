@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
-import { DataInfos } from 'app/main/_models/generics/table-info.model';
 import { OtfTableFilterState } from 'app/main/_ngxs/referential/operation-type-family/operation-type-family-list-filter/operation-type-family-list-filter.state';
 import { OtfTableState } from 'app/main/_ngxs/referential/operation-type-family/operation-type-family-list/operation-type-family-list.state';
 import { ChangeOtfTableFilter, LoadOtfTableFilter } from 'app/main/_ngxs/referential/operation-type-family/operation-type-family-list-filter/operation-type-family-list-filter.action';
@@ -17,7 +16,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { LoadOtfTableDatas } from 'app/main/_ngxs/referential/operation-type-family/operation-type-family-list/operation-type-family-list.action';
 import { ComboSimple } from 'app/main/_models/generics/combo.model';
 import { ISelect } from 'app/main/_models/generics/select.model';
-import { FuseConfigService } from '@fuse/services/config.service';
+import { Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'operation-type-family-list',
@@ -27,13 +26,12 @@ import { FuseConfigService } from '@fuse/services/config.service';
   encapsulation: ViewEncapsulation.None
 })
 export class OperationTypeFamilyComponent implements OnInit {
-  // @Input() headerPanelIsVisible: boolean;
   
   @Select(OtfTableFilterState.get) otfTableFilter$: Observable<FilterInfo<FilterOtfTable>>;
-  @Select(OtfTableState.get) otfTable$: Observable<DataInfos<OtfTable>>;
+  @Select(OtfTableState.get) otfTable$: Observable<Datas<OtfTable[]>>;
   
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   dataSource = new MatTableDataSource<OtfTable>();
   filterOtf: FilterOtfTable;
@@ -65,7 +63,7 @@ export class OperationTypeFamilyComponent implements OnInit {
 
   ngOnInit() {
     this.otfTableFilter$.subscribe(otfTableFilter=>{
-      if(otfTableFilter.loadingInfo.loaded) {
+      if(otfTableFilter.loader['filters'].loaded) {
         this.filterOtf = otfTableFilter.filters;
         this.filterMovement= {list : otfTableFilter.filters.movements,selected: otfTableFilter.filters.selected.movement};
       }

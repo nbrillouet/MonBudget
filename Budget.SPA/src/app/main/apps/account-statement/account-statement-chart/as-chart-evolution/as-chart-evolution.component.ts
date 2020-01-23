@@ -2,7 +2,6 @@ import { Component, OnInit, Input, SimpleChanges, SimpleChange, OnChanges } from
 import { Select, Store } from '@ngxs/store';
 import { AsChartState } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.state';
 import { Observable } from 'rxjs';
-import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 import { AsChartEvolutionCustomOtfFilter, AsChartEvolutionCustomOtfFilterSelected } from 'app/main/_models/account-statement/as-chart/as-chart-evolution.model';
 import { WidgetCardChartBar } from 'app/main/_models/chart/widget-card-chart-bar.model';
 import { fuseAnimations } from '@fuse/animations';
@@ -10,6 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ISelect } from 'app/main/_models/generics/select.model';
 import { UpdateAsChartEvolutionCustomOtfFilter } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.action';
 import { AsChart } from 'app/main/_models/account-statement/as-chart/as-chart.model';
+import { Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'as-chart-evolution',
@@ -19,7 +19,7 @@ import { AsChart } from 'app/main/_models/account-statement/as-chart/as-chart.mo
 })
 
 export class AsChartEvolutionComponent implements OnInit {
-  @Select(AsChartState.get) asChart$: Observable<DataInfo<AsChart>>;
+  @Select(AsChartState.get) asChart$: Observable<Datas<AsChart>>;
 
   customOtfForm: FormGroup;
 

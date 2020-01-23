@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from 'app/_guards/auth.guard';
+import { AngularMaterialModule } from 'app/angular-material.module';
 
 const routes = [
     {
@@ -44,6 +45,7 @@ const routes = [
     ],
     imports     : [
         FuseSharedModule,
+        AngularMaterialModule,
         RouterModule.forChild(routes)
     ],
     // providers : [ UserDetailResolver ],

@@ -6,14 +6,14 @@ import { Observable } from 'rxjs';
 import { OperationTableFilterState } from 'app/main/_ngxs/referential/operation/operation-list-filter/operation-list-filter.state';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
 import { FilterOperationTable } from 'app/main/_models/filters/operation.filter';
-import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
 import { NotificationsService } from 'angular2-notifications';
 import { OperationService } from 'app/main/_services/Referential/operation.service';
-import { LoadOperationForDetail, ClearOperationForDetail, LoadOperationForDetailSuccess } from 'app/main/_ngxs/referential/operation/operation-detail/operation-detail.action';
+import { LoadOperationForDetail, ClearOperationForDetail } from 'app/main/_ngxs/referential/operation/operation-detail/operation-detail.action';
 import { LoadOperationTableDatas } from 'app/main/_ngxs/referential/operation/operation-list/operation-list.action';
+import { Datas } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'operation-detail',
@@ -24,7 +24,7 @@ import { LoadOperationTableDatas } from 'app/main/_ngxs/referential/operation/op
 
 export class OperationDetailComponent implements OnInit, OnDestroy {
 
-@Select(OperationForDetailState.get) operationDetail$: Observable<DataInfo<OperationForDetail>>;
+@Select(OperationForDetailState.get) operationDetail$: Observable<Datas<OperationForDetail>>;
 @Select(OperationTableFilterState.get) operationTableFilter$: Observable<FilterInfo<FilterOperationTable>>;
 
 idOperation: number;
@@ -50,7 +50,7 @@ operationDetailForm: FormGroup;
 
     this.operationDetail$.subscribe(operationDetail=>{
   
-      if(operationDetail.loadingInfo.loaded) {
+      if(operationDetail.loader['datas'].loaded) {
 
         this.operationDetail = JSON.parse(JSON.stringify(operationDetail.datas));
 
@@ -91,7 +91,8 @@ operationDetailForm: FormGroup;
         this.operationDetail.operationMethod.selected = val.operationMethod;
         this.operationDetail.operationType.selected = val.operationType;
 
-        this._store.dispatch(new LoadOperationForDetailSuccess(this.operationDetail));
+        //TODO synchronize
+        // this._store.dispatch(new LoadOperationForDetailSuccess(this.operationDetail));
       });
  
   }  
