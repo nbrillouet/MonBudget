@@ -1,16 +1,21 @@
-<!-- <div class="example-container" > -->
-
+<!-- (changePagination)="changePaginationEvent($event)"
+(onRowClick)="onRowClickEvent($event)"  -->
+    <!-- [rows]="rows"  -->
+    <!-- [columns]="columns"  -->
+    <!-- [filter] = "filterAs" -->
+    <!-- [onloading]="onloading"
+    [pagination]="pagination" -->
     <mat-table-filter 
-        [onloading]="onloading"
-        [columns]="columns" 
-        [rows]="rows" 
-        [pagination]="pagination" 
-        (changeFilter)="changeFilterEvent($event)"
-        (changePagination)="changePaginationEvent($event)"
+        [observableFilter] = "asTableFilter$"
+        [observableTable] = "asTable$"
+        [columns] = "columns"
+        (onRowClick) = "onRowClick($event)"
+        (changeFilter)="applyFilter($event)"
+ 
         (clickButtonIcon)="viewDetail($event)">
     </mat-table-filter>
 
-<!-- </div> -->
+
 
 
 

@@ -24,8 +24,8 @@ export class AsifListComponent implements OnInit {
 
   // @Input() headerPanelIsVisible: boolean;
 
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   dataSource = new MatTableDataSource<AsifTable>();// AsifDataSource;
   filterAsif: FilterAsifTable;

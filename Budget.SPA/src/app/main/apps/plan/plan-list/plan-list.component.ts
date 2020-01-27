@@ -39,8 +39,9 @@ hasCheckboxes: boolean;
 
   ngOnInit() {
     this.tableComboFilter$.subscribe(comboFilter=> {
+      console.log('comboFilter',comboFilter);
       // if(comboFilter.loader['filters']?.loaded) {
-      if(comboFilter.loader['filters'] && comboFilter.loader['filters'].loaded) {
+      if(comboFilter.loader['datas'] && comboFilter.loader['datas'].loaded) {
 
         this.comboYear = comboFilter.datas.years;
         this.filter = new PlanFilter(this.comboYear.selected.id);
@@ -50,7 +51,8 @@ hasCheckboxes: boolean;
     });
 
     this.tableInfo$.subscribe(gridInfo => {
-      if(gridInfo.loader['datas'].loaded) {
+      console.log('gridInfo',gridInfo);
+      if(gridInfo.loader['datas'] && gridInfo.loader['datas'].loaded) {
         this.dataSource = gridInfo.datas;
    
         this.store.dispatch(new ClearPlanDetailDatas());

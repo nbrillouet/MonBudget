@@ -1,5 +1,5 @@
 export class FilterDateRange {
-    placeholder: string;
+    // placeholder: string;
     dateMin: Date;
     dateMax: Date;
 }

@@ -51,10 +51,10 @@ export class AsTableState extends LoaderState {
         this._asService.getAsTable(action.payload)
             .subscribe(result=> {
                 let state = context.getState();
-                state.datas = result;
+                state.datas = result.datas;
                 context.patchState(state);
                 //TODO a controler
-                this._store.dispatch(new UpdatePaginationAsTableFilter(action.payload.pagination));
+                this._store.dispatch(new UpdatePaginationAsTableFilter(result.pagination));
 
                 this.loaded(context,'datas');
             });

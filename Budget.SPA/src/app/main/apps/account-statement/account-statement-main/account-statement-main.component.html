@@ -18,10 +18,9 @@
                     </div>
                 </div>
 
-                <div *ngIf="(asSolde$ | async).dataInfos.datas as solde; else emptySolde" fxLayout="column" >
+                <div *ngIf="(asSolde$ | async).datas as solde; else emptySolde" fxLayout="column" >
                     <div class='pb-8' fxLayout="row" fxLayoutAlign="end space-between">
-                        <mat-chip-list *ngIf="(asSolde$ | async).dataInfos.datas as solde; else emptySolde">
-                            
+                        <mat-chip-list *ngIf="(asSolde$ | async).datas as solde; else emptySolde">
                             <mat-chip class="mat-chip-green" >Crédit: {{solde.credit}} €</mat-chip>
                             <mat-chip class="mat-chip-red" >Débit: {{solde.debit}} €</mat-chip>
                             <mat-chip [ngClass]="solde.total>0 ? 'mat-chip-green' : 'mat-chip-red'" >Balance: {{solde.total}} €</mat-chip>

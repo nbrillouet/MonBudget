@@ -8,12 +8,14 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { FilterMovementComponent } from './filter-movement/filter-movement.component';
 import { FilterDateRangeComponent } from './filter-date-range/filter-date-range.component';
 import { FilterNumberRangeComponent } from './filter-number-range/filter-number-range.component';
+import { AngularMaterialModule } from 'app/angular-material.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    FuseSharedModule
+    FuseSharedModule,
+    AngularMaterialModule
   ],
   declarations: [
     FilterAmountComponent,

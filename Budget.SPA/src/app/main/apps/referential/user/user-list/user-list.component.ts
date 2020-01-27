@@ -25,8 +25,8 @@ export class UserListComponent implements OnInit {
   @Select(UserTableFilterState.get) userTableFilter$: Observable<FilterInfo<FilterUserTable>>;
   @Select(UserTableState.get) userTable$: Observable<Datas<UserTable[]>>;
   
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   dataSource : UserDataSource;
   filterUser: FilterUserTable;

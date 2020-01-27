@@ -21,13 +21,15 @@ export class FilterComboMultipleComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.log('this.filterComboMultiple',this.filterComboMultiple);
     this.comboMultipleForm = this._formBuilder.group({
       comboMultiple: [this.filterComboMultiple.combos.listSelected]
     });
 
     this.comboMultipleForm.valueChanges.subscribe(val=>{
+      console.log('change value', val.comboMultiple);
       this.filterComboMultiple.combos.listSelected = val.comboMultiple;
+      this.applyFilterComboMultiple.emit(this.filterComboMultiple.combos.listSelected);
     });
 
   }

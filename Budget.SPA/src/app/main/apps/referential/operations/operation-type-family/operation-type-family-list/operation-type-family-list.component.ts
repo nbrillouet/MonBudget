@@ -30,8 +30,8 @@ export class OperationTypeFamilyComponent implements OnInit {
   @Select(OtfTableFilterState.get) otfTableFilter$: Observable<FilterInfo<FilterOtfTable>>;
   @Select(OtfTableState.get) otfTable$: Observable<Datas<OtfTable[]>>;
   
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   dataSource = new MatTableDataSource<OtfTable>();
   filterOtf: FilterOtfTable;

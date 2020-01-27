@@ -47,7 +47,7 @@ export class NavbarVerticalStyle2Component implements OnInit, OnDestroy
     // -----------------------------------------------------------------------------------------------------
 
     // Directive
-    @ViewChild(FusePerfectScrollbarDirective, {static: false})
+    @ViewChild(FusePerfectScrollbarDirective, { static: false })
     set directive(theDirective: FusePerfectScrollbarDirective)
     {
         if ( !theDirective )

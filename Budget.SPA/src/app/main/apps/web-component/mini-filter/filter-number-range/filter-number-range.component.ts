@@ -10,7 +10,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class FilterNumberRangeComponent implements OnInit {
 
   @Input() filterNumberRange: FilterNumberRange;
-  @Output() applyFilterNumberRange=new EventEmitter<FilterNumberRange>();
+  @Output() applyFilter=new EventEmitter<FilterNumberRange>();
 
   numberRangeForm: FormGroup;
 
@@ -31,18 +31,34 @@ export class FilterNumberRangeComponent implements OnInit {
     this.numberRangeForm.valueChanges.subscribe(val=>{
       this.filterNumberRange.numberMin = val.numberMin;
       this.filterNumberRange.numberMax = val.numberMax;
+
+      this.applyFilter.emit(this.filterNumberRange);
     });
 
   }
   
-   applyFilter(){
-    this.applyFilterNumberRange.emit(this.filterNumberRange);
+  //  applyFilter(){
+  //   this.applyFilter.emit(this.filterNumberRange);
 
-    //suppression du menu
-    var element=document.getElementsByClassName("content-filter").item(0);
-    element.parentElement.remove();
+  //   //suppression du menu
+  //   var element=document.getElementsByClassName("content-filter").item(0);
+  //   element.parentElement.remove();
 
 
-   }
+  //  }
+
+  clearMin() {
+    this.numberRangeForm.controls['numberRangeMin'].reset()
+
+    this.filterNumberRange.numberMin = null
+    this.applyFilter.emit(this.filterNumberRange)
+  }
+
+  clearMax() {
+      this.numberRangeForm.controls['numberRangeMax'].reset()
+
+      this.filterNumberRange.numberMax = null
+      this.applyFilter.emit(this.filterNumberRange)
+  }
 
 }

@@ -29,8 +29,8 @@ export class AsiListComponent implements OnInit {
   dataSource = new MatTableDataSource<AsiTable>();
   displayedColumns =   ['checkbox','id', 'fileImport', 'dateImport' ];
   
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   checkboxes: {};
 

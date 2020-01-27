@@ -66,7 +66,8 @@ export class AccountStatementDetailComponent implements OnInit {
       });
   
       this.asDetail$.subscribe(asDetail=>{
-        if(asDetail.loader['datas'].loaded) {
+        console.log('asDetail',asDetail);
+        if(asDetail.loader['datas'] && asDetail.loader['datas'].loaded) {
           this.asDetail = JSON.parse(JSON.stringify(asDetail.datas));
 
           if(this.firstLoad) {

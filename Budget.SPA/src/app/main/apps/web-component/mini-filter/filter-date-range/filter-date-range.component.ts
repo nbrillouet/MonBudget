@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS, MatDatepickerInputEvent } from '@angular/material';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import { Moment } from 'moment';
 import { ISelect } from 'app/main/_models/generics/select.model';
@@ -33,7 +33,8 @@ export class FilterDateRangeComponent implements OnInit {
   @Output() applyFilterDateRange=new EventEmitter<FilterDateRange>();
   
   dateRangeForm: FormGroup;
-
+  // events: [string, MatDatepickerInputEvent<Date>][] = []
+  
   constructor(
     private _formBuilder: FormBuilder
 
@@ -51,19 +52,38 @@ export class FilterDateRangeComponent implements OnInit {
     this.dateRangeForm.valueChanges.subscribe(val=>{
       this.filterDateRange.dateMin= val.dateRangeMin!=null ? this.getDate(val.dateRangeMin) : null;
       this.filterDateRange.dateMax= val.dateRangeMax!=null ? this.getDate(val.dateRangeMax) : null;
+      this.applyFilterDateRange.emit(this.filterDateRange);
     });
 
   }
-    
+  
+  // datepickerFilterMin = (d: Date): boolean => {
+  //   let dateMax = this.events['changeMax']
+  //   return dateMax ? d <= dateMax : true
+  // }
 
-  applyFilter(){
+  // applyFilter(){
 
-    this.applyFilterDateRange.emit(this.filterDateRange);
+  //   this.applyFilterDateRange.emit(this.filterDateRange);
 
-    //suppression du menu
-    var element=document.getElementsByClassName("content-filter").item(0);
-    element.parentElement.remove();
+  //   //suppression du menu
+  //   var element=document.getElementsByClassName("content-filter").item(0);
+  //   element.parentElement.remove();
 
+  // }
+
+  clearMin() {
+    this.dateRangeForm.controls['dateRangeMin'].reset()
+
+    this.filterDateRange.dateMin = null
+    this.applyFilterDateRange.emit(this.filterDateRange)
+  }
+
+  clearMax() {
+      this.dateRangeForm.controls['dateRangeMax'].reset()
+
+      this.filterDateRange.dateMax = null
+      this.applyFilterDateRange.emit(this.filterDateRange)
   }
 
   getDate(myDate){

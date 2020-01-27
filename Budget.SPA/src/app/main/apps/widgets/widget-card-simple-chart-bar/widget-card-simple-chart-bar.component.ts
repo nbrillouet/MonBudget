@@ -33,7 +33,7 @@ export class WidgetCardSimpleChartBarComponent implements OnInit {
   showChart: boolean;
   
   // @ViewChild("baseChart") widget: BaseChartDirective;
-  @ViewChild(BaseChartDirective, {static: false}) private _chart;
+  @ViewChild(BaseChartDirective, { static: false }) private _chart;
 
 toto:boolean=false;
   constructor() {

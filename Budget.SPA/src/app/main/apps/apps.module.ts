@@ -7,32 +7,32 @@ import { AngularMaterialModule } from 'app/angular-material.module';
 const routes = [
     {
         path        : 'referential/users',
-        loadChildren: './referential/user/user.module#UserModule',
+        loadChildren: () => import('./referential/user/user.module').then(m => m.UserModule),
         canActivate: [AuthGuard]
     },
     {
         path        : 'referential/accounts',
-        loadChildren: './referential/account/account.module#AccountModule',
+        loadChildren: () => import('./referential/account/account.module').then(m => m.AccountModule),
         canActivate: [AuthGuard]
     },
     {
         path        : 'referential/operations',
-        loadChildren: './referential/operations/operations.module#OperationsModule',
+        loadChildren: () => import('./referential/operations/operations.module').then(m => m.OperationsModule),
         canActivate: [AuthGuard]
     },
     {
         path        : 'account-statement-imports',
-        loadChildren: './account-statement-import/asi.module#AsiModule',
+        loadChildren: () => import('./account-statement-import/asi.module').then(m => m.AsiModule),
         canActivate: [AuthGuard]
     },
     {
         path        : 'account-statements',
-        loadChildren: './account-statement/account-statement.module#AccountStatementModule',
+        loadChildren: () => import('./account-statement/account-statement.module').then(m => m.AccountStatementModule),
         canActivate: [AuthGuard]
     },
     {
         path        : 'plans',
-        loadChildren: './plan/plan.module#PlanModule',
+        loadChildren: () => import('./plan/plan.module').then(m => m.PlanModule),
         canActivate: [AuthGuard]
     }
     

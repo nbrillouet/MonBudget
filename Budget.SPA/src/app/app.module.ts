@@ -52,8 +52,8 @@ const NGXS_MODULES = [
 ]
 
 const appRoutes: Routes = [
-    { path : 'pages', loadChildren: './main/pages/pages.module#FusePagesModule' },
-    { path : 'apps', loadChildren: './main/apps/apps.module#FuseAppsModule' },
+    { path : 'pages', loadChildren: () => import('./main/pages/pages.module').then(m => m.FusePagesModule) },
+    { path : 'apps', loadChildren: () => import('./main/apps/apps.module').then(m => m.FuseAppsModule) },
 
     // otherwise redirect to home
     { path: '**', redirectTo: 'pages/home' }

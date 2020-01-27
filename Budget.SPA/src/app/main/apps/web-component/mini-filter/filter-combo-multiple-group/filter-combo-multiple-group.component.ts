@@ -28,26 +28,27 @@ export class FilterComboMultipleGroupComponent implements OnInit {
 
     this.comboMultipleGroupForm.valueChanges.subscribe(val=>{
       this.filterComboMultipleGroup.combos.listSelected = val.comboMultipleGroup;
+      this.applyFilterComboMultipleGroup.emit(this.filterComboMultipleGroup.combos.listSelected);
     });
 
   }
   
 
-  applyFilter(){
-    this.applyFilterComboMultipleGroup.emit(this.filterComboMultipleGroup.combos.listSelected);
+  // applyFilter(){
+  //   this.applyFilterComboMultipleGroup.emit(this.filterComboMultipleGroup.combos.listSelected);
 
-    //suppression du menu
-    var element=document.getElementsByClassName("content-filter").item(0);
-    element.parentElement.remove();
-  }
+  //   //suppression du menu
+  //   var element=document.getElementsByClassName("content-filter").item(0);
+  //   element.parentElement.remove();
+  // }
 
    compareObjects(o1: ISelect, o2: ISelect) {
      return o1 && o2 ? o1.id === o2.id : o1 === o2;
 
   }
 
-  getFontSize() {
-    return Math.max(10, 10);
-  }
+  // getFontSize() {
+  //   return Math.max(10, 10);
+  // }
 
 }

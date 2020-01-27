@@ -9,6 +9,8 @@ import { CommonModule } from "@angular/common";
 import { FuseSharedModule } from "@fuse/shared.module";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FuseThemeOptionsModule } from "@fuse/components";
+import { AngularMaterialModule } from "app/angular-material.module";
+import { ObserversModule } from "@angular/cdk/observers";
 
 @NgModule({
     imports: [
@@ -22,7 +24,9 @@ import { FuseThemeOptionsModule } from "@fuse/components";
         MiniFilterModule,
         FuseThemeOptionsModule,
         CommonModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        AngularMaterialModule,
+        ObserversModule
     //   NgxsModule.forFeature([
     //     AsTableFilterState,
     //     AsTableState,

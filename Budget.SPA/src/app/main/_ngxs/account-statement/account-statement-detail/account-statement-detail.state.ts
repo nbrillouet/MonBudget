@@ -54,7 +54,8 @@ export class AsDetailState extends LoaderState {
                 let state = context.getState();
                 state.datas = result;
                 context.patchState(state);
-
+                console.log('result',result);
+                console.log('context',context);
                 this.loaded(context,'datas');
             });
 

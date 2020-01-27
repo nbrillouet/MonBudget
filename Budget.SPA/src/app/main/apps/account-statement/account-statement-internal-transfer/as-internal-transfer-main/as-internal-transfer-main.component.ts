@@ -22,7 +22,7 @@ export class AsInternalTransferMainComponent implements OnInit {
     private _store: Store
   ) {
       this.asTableFilter$.subscribe(asifTableFilter=>{
-        if(asifTableFilter.loader['filters'].loaded) {
+        if(asifTableFilter.loader['datas'] && asifTableFilter.loader['datas'].loaded) {
 
           this._store.dispatch(new LoadAsInternalTransferCouple(asifTableFilter.filters.selected));
         };

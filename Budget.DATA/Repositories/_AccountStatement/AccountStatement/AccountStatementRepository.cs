@@ -34,43 +34,43 @@ namespace Budget.DATA.Repositories
                 accountStatements = accountStatements.Where(x => x.IdAccount == filter.IdAccount);
             }
 
-            if (filter.OperationMethods != null && filter.OperationMethods.Count > 0)
+            if (filter.OperationMethod != null && filter.OperationMethod.Count > 0)
             {
-                var idOperationMethods = filter.OperationMethods.Select(x => x.Id).ToList();
+                var idOperationMethods = filter.OperationMethod.Select(x => x.Id).ToList();
 
                 accountStatements = accountStatements.Where(x => idOperationMethods.Contains(x.IdOperationMethod));
             }
 
-            if (filter.Operations != null && filter.Operations.Count > 0)
+            if (filter.Operation != null && filter.Operation.Count > 0)
             {
-                var idOperations = filter.Operations.Select(x => x.Id).ToList();
+                var idOperations = filter.Operation.Select(x => x.Id).ToList();
 
                 accountStatements = accountStatements.Where(x => idOperations.Contains(x.IdOperation));
             }
 
-            if (filter.OperationTypeFamilies != null && filter.OperationTypeFamilies.Count > 0)
+            if (filter.OperationTypeFamily != null && filter.OperationTypeFamily.Count > 0)
             {
-                var idOperationTypeFamilies = filter.OperationTypeFamilies.Select(x => x.Id).ToList();
+                var idOperationTypeFamilies = filter.OperationTypeFamily.Select(x => x.Id).ToList();
 
                 accountStatements = accountStatements.Where(x => idOperationTypeFamilies.Contains(x.IdOperationTypeFamily));
             }
 
-            if (filter.OperationTypes != null && filter.OperationTypes.Count > 0)
+            if (filter.OperationType != null && filter.OperationType.Count > 0)
             {
-                var idOperationTypes = filter.OperationTypes.Select(x => x.Id).ToList();
+                var idOperationTypes = filter.OperationType.Select(x => x.Id).ToList();
 
                 accountStatements = accountStatements.Where(x => idOperationTypes.Contains(x.IdOperationType));
             }
 
-            if (filter.DateIntegrationMin != null)
+            if (filter.DateIntegration != null && filter.DateIntegration.DateMin!=null)
             {
                 accountStatements = accountStatements
-                    .Where(x => x.DateIntegration >= filter.DateIntegrationMin);
+                    .Where(x => x.DateIntegration >= filter.DateIntegration.DateMin);
 
-                if (filter.DateIntegrationMax != null)
+                if (filter.DateIntegration != null && filter.DateIntegration.DateMax != null)
                 {
                     accountStatements = accountStatements
-                        .Where(x => x.DateIntegration <= filter.DateIntegrationMax);
+                        .Where(x => x.DateIntegration <= filter.DateIntegration.DateMax);
                 }
             }
             else if (filter.MonthYear != null)
@@ -83,15 +83,15 @@ namespace Budget.DATA.Repositories
                         .Where(x => x.DateIntegration >= dateMin && x.DateIntegration <= dateMax);
 
             }
-            if (filter.AmountMin != null)
+            if (filter.Amount != null && filter.Amount.NumberMin!=null)
             {
                 accountStatements = accountStatements
-                    .Where(x => x.AmountOperation >= filter.AmountMin);
+                    .Where(x => x.AmountOperation >= filter.Amount.NumberMin);
             }
-            if (filter.AmountMax != null)
+            if (filter.Amount != null && filter.Amount.NumberMax != null)
             {
                 accountStatements = accountStatements
-                    .Where(x => x.AmountOperation <= filter.AmountMax);
+                    .Where(x => x.AmountOperation <= filter.Amount.NumberMax);
             }
 
             string columnSorted;

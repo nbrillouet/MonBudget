@@ -31,8 +31,8 @@ export enum EnumStyleType {
     dotDatas=0,
     numberUpDown=1,
     buttonIcon=2
-    
 }
+
 export class MatTableFilter {
     columns: Column[];
     rows: Row[];
@@ -51,13 +51,14 @@ export class Column {
 }
 
 export class ColumnFilter {
-    type:EnumFilterType;
-    datas:FilterComboMultiple | FilterComboMultipleGroup | FilterDateRange | FilterNumberRange;
+    type: EnumFilterType;
+    datas: FilterComboMultiple | FilterComboMultipleGroup | FilterDateRange | FilterNumberRange;
+    isEmpty: boolean = true;
 }
 
 export class ColumnStyle {
     type: EnumStyleType;
-    datas: TypeNumberUpDown | TypeButtonIcon;
+    datas: any; //TypeNumberUpDown | TypeButtonIcon;
 }
 
 export class TypeNumberUpDown {

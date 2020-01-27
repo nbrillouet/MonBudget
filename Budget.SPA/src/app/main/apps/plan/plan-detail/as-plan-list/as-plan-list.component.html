@@ -98,6 +98,6 @@
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row class="element-row"  *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </table>
-        <p class="empty-result" *ngIf="dataSource && dataSource.length==0">Aucun résultat</p>
+        <p class="empty-result" *ngIf="dataSource && dataSource.data.length==0">Aucun résultat</p>
     </div>
 <!-- </div> -->

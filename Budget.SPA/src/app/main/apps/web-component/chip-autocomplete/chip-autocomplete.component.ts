@@ -40,8 +40,8 @@ export class ChipAutocompleteComponent implements OnInit {
     //   'Orange',
     //   'Strawberry'
     // ];
-    @ViewChild('fruitInput', {static: false}) fruitInput: ElementRef;
-    @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
+    @ViewChild('fruitInput', { static: false }) fruitInput: ElementRef;
+    @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
     
   constructor() { }
 

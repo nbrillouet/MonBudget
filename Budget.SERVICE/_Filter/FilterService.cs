@@ -38,20 +38,20 @@ namespace Budget.SERVICE
             filterAsTable.Selected.Pagination = new Pagination();
 
             var operationMethods = _referentialService.OperationMethodService.GetSelectList(EnumSelectType.Empty);
-            filterAsTable.OperationMethods = operationMethods;
-            filterAsTable.Selected.OperationMethods = filter.OperationMethods==null ? null : filter.OperationMethods;
+            filterAsTable.OperationMethod = operationMethods;
+            filterAsTable.Selected.OperationMethod = filter.OperationMethod==null ? null : filter.OperationMethod;
 
             var operationTypeFamilies = _referentialService.OperationTypeFamilyService.GetSelectGroup(filter.User.IdUserGroup);
-            filterAsTable.OperationTypeFamilies = operationTypeFamilies;
-            filterAsTable.Selected.OperationTypeFamilies = filter.OperationTypeFamilies == null ? null : filter.OperationTypeFamilies;
+            filterAsTable.OperationTypeFamily = operationTypeFamilies;
+            filterAsTable.Selected.OperationTypeFamily = filter.OperationTypeFamily == null ? null : filter.OperationTypeFamily;
 
-            var operationTypes = _referentialService.OperationTypeService.GetSelectGroup(filter.User.IdUserGroup, filterAsTable.Selected.OperationTypeFamilies);
-            filterAsTable.OperationTypes = operationTypes;
-            filterAsTable.Selected.OperationTypes = filter.OperationTypes == null ? null : filter.OperationTypes;
+            var operationTypes = _referentialService.OperationTypeService.GetSelectGroup(filter.User.IdUserGroup, filterAsTable.Selected.OperationTypeFamily);
+            filterAsTable.OperationType = operationTypes;
+            filterAsTable.Selected.OperationType = filter.OperationType == null ? null : filter.OperationType;
 
-            var operations = _referentialService.OperationService.GetSelectList(filter.User.IdUserGroup, filterAsTable.Selected.OperationTypes);
-            filterAsTable.Operations = operations;
-            filterAsTable.Selected.Operations = filter.Operations == null ? null : filter.Operations;
+            var operations = _referentialService.OperationService.GetSelectList(filter.User.IdUserGroup, filterAsTable.Selected.OperationType);
+            filterAsTable.Operation = operations;
+            filterAsTable.Selected.Operation = filter.Operation == null ? null : filter.Operation;
 
             return filterAsTable;
 

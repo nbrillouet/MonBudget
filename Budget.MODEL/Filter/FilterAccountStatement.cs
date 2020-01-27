@@ -10,14 +10,14 @@ namespace Budget.MODEL.Filter
     {
         public UserForGroupDto User { get; set; }
         public int? IdAccount { get; set; }
-        public List<SelectDto> OperationMethods { get; set; }
-        public List<SelectDto> OperationTypeFamilies { get; set; }
-        public List<SelectDto> OperationTypes { get; set; }
-        public List<SelectDto> Operations { get; set; }
-        public DateTime? DateIntegrationMin { get; set; }
-        public DateTime? DateIntegrationMax { get; set; }
-        public double? AmountMin { get; set; }
-        public double? AmountMax { get; set; }
+        public List<SelectDto> OperationMethod { get; set; }
+        public List<SelectDto> OperationTypeFamily { get; set; }
+        public List<SelectDto> OperationType { get; set; }
+        public List<SelectDto> Operation { get; set; }
+        public FilterDateRange DateIntegration { get; set; }
+        //public DateTime? DateIntegrationMax { get; set; }
+        public FilterNumberRange Amount { get; set; }
+        //public double? AmountMax { get; set; }
         public MonthYear MonthYear { get; set; }
         public bool IsWithITransfer { get; set; }
         public Pagination Pagination { get; set; }
@@ -31,10 +31,10 @@ namespace Budget.MODEL.Filter
 
     public class FilterAsTable
     {
-        public List<SelectDto> OperationMethods { get; set; }
-        public List<SelectGroupDto> OperationTypeFamilies { get; set; }
-        public List<SelectGroupDto> OperationTypes { get; set; }
-        public List<SelectDto> Operations { get; set; }
+        public List<SelectDto> OperationMethod { get; set; }
+        public List<SelectGroupDto> OperationTypeFamily { get; set; }
+        public List<SelectGroupDto> OperationType { get; set; }
+        public List<SelectDto> Operation { get; set; }
 
         public FilterAsTableSelected Selected { get; set; }
 

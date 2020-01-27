@@ -34,7 +34,7 @@ export class AsService {
         filter.user=this.userForGroup;
         return this.http
             .post(`${this.baseUrl}account-statements/filter`,filter)
-            .map((response: AsTable) => {
+            .map((response: any) => {
                 return response;
             });
     }

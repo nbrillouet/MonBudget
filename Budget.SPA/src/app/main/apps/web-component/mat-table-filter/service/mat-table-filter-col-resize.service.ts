@@ -63,7 +63,7 @@ resizableMouseup: () => void;
         });
     }
 
-    setColumnWidthChanges(index: number, width: number,matTableFilter:MatTableFilter) {
+    setColumnWidthChanges(index: number, width: number, matTableFilter:MatTableFilter) {
         const orgWidth = matTableFilter.columns[index].width.value;
         const dx = width - orgWidth;
         if ( dx !== 0 ) {
@@ -79,10 +79,13 @@ resizableMouseup: () => void;
     }
 
     setColumnWidth(column: any) {
+    console.log('column.field',column.field);
+    // console.log('matTableFilter',matTableFilter);
     const columnEls = Array.from( document.getElementsByClassName('mat-column-' + column.field) );
-    
+    console.log('columnEls',columnEls[0]);
     columnEls.forEach(( el: HTMLDivElement ) => {
         el.style.width = column.width.value + 'px';
+        // console.log('el.style.width',el.style.width);
     });
     }
 }
