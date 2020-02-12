@@ -34,7 +34,13 @@ namespace Budget.SERVICE
             _operationTypeService = operationTypeService;
         }
 
-       
+        public List<SelectDto> GetSelectList(int idUserGroup)
+        {
+            var operations = _operationRepository.GetSelectList(idUserGroup);
+            return _mapper.Map<List<SelectDto>>(operations);
+        }
+
+
         public List<SelectDto> GetSelectList(int idUserGroup, int idOperationMethod, int idOperationType, EnumSelectType enumSelectType)
         {
             List<SelectDto> selectList = new List<SelectDto>();
@@ -55,11 +61,16 @@ namespace Budget.SERVICE
             return selectList;
         }
 
-        public List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationTypes)
+        public List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationMethodList, List<SelectDto> operationTypeFamilyList, List<SelectDto> operationTypeList)
         {
-            var operations = _operationRepository.GetSelectList(idUserGroup, operationTypes);
+            var operations = _operationRepository.GetSelectList(idUserGroup, operationMethodList, operationTypeFamilyList, operationTypeList);
             return _mapper.Map<List<SelectDto>>(operations);
         }
+        //public List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationTypes)
+        //{
+        //    var operations = _operationRepository.GetSelectList(idUserGroup, operationTypes);
+        //    return _mapper.Map<List<SelectDto>>(operations);
+        //}
 
         public List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste)
         {

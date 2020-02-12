@@ -41,7 +41,7 @@ export class UserTableState extends LoaderState {
         this._userService.getUserTable(action.payload)
             .subscribe(result=> {
                 let state = context.getState();
-                state.datas = action.payload.datas;
+                state.datas = result.datas;
                 context.patchState(state);
                 //TODO a controler
                 this._store.dispatch(new UpdatePaginationUserTableFilter(action.payload.pagination));

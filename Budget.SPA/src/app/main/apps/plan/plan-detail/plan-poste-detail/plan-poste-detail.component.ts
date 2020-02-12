@@ -72,7 +72,7 @@ export class PlanPosteDetailComponent implements OnInit  {
           xValue: this.data.planPosteFrequencies[0].frequency.labelShort,
           yValue: this.data.planPosteFrequencies[0].previewAmount}
         
-        console.log('$chartValue',$chartValue);
+
         if(this.data.isAnnualEstimation)
           this.amountLabel = 'annuel';
         
@@ -81,8 +81,7 @@ export class PlanPosteDetailComponent implements OnInit  {
 
 
         // this.data = x.dataInfos.datas;
-        // console.log('this.data',this.data);
-        // // console.log('this.data.planPosteReference.listSelected.length',this.data.planPosteReference.listSelected.length);
+        
         // this.description = this.data.label;
     
         // this.chartDataset = this.getChartDatas('Montant Prévisionnel',this.data.planPosteFrequencies.map(x=>x.previewAmount),this.data.planPosteFrequencies.map(x=>x.frequency))
@@ -97,7 +96,7 @@ export class PlanPosteDetailComponent implements OnInit  {
         //   isAnnualEstimation: [this.data.planPosteFrequencies.length==1]
         // });
         
-        // console.log('-----------------------111');
+    
         // this.estimationToggleTxt = this.toogleIsAnnualEstimation(this.data.planPosteFrequencies.length==1);
 
         // this.form.valueChanges.subscribe(val=>{
@@ -107,7 +106,7 @@ export class PlanPosteDetailComponent implements OnInit  {
         // this.form.get('isAnnualEstimation')
         // .valueChanges
         // .subscribe(isAnnualEstimation => {
-        //   console.log('-----------------------222',isAnnualEstimation);
+
         //   this.data.isAnnualEstimation = isAnnualEstimation;
         //   this.estimationToggleTxt = this.toogleIsAnnualEstimation(isAnnualEstimation);
 
@@ -136,7 +135,7 @@ export class PlanPosteDetailComponent implements OnInit  {
       isAnnualEstimation: [this.data.planPosteFrequencies.length==1]
     });
     
-    console.log('-----------------------111');
+  
     this.estimationToggleTxt = this.toogleIsAnnualEstimation(this.data.planPosteFrequencies.length==1);
 
     this.form.valueChanges.subscribe(val=>{
@@ -146,7 +145,7 @@ export class PlanPosteDetailComponent implements OnInit  {
     this.form.get('isAnnualEstimation')
     .valueChanges
     .subscribe(isAnnualEstimation => {
-      console.log('-----------------------222',isAnnualEstimation);
+
       this.data.isAnnualEstimation = isAnnualEstimation;
       this.estimationToggleTxt = this.toogleIsAnnualEstimation(isAnnualEstimation);
 
@@ -198,12 +197,11 @@ export class PlanPosteDetailComponent implements OnInit  {
       planPosteFrequency.previewAmount= this.form.get('amount').value;
 
       this.data.planPosteFrequencies=[planPosteFrequency];
-        // console.log('planPosteFrequency',planPosteFrequency);
+   
 
     }
 
-    // console.log('this.data',this.data);
-    // console.log('this.data.isAnnualEstimation',this.data.isAnnualEstimation);
+ 
   }
 
   close() {
@@ -212,9 +210,9 @@ export class PlanPosteDetailComponent implements OnInit  {
 
   //recupere les valeurs cliquer dans le chart
   getChartInfo( $chartValue: ChartValue ) {
-    console.log(' $chartValue', $chartValue);
+  
     this.chartValue = $chartValue;
-    console.log('this.data.planPosteFrequencies',this.data.planPosteFrequencies);
+
     this.form.controls['amount'].setValue(this.chartValue.yValue);
     this.amountLabel = this.data.planPosteFrequencies.filter(x=>x.frequency.labelShort==$chartValue.xValue)[0].frequency.labelLong;
   }
@@ -230,7 +228,7 @@ export class PlanPosteDetailComponent implements OnInit  {
       labels.push(select);
 
     }
-    console.log('labels',labels);
+    
     return  <BaseChart>({
           
       dataSets: [
@@ -290,7 +288,7 @@ export class PlanPosteDetailComponent implements OnInit  {
   }
 
   onReferenceChange(value) {
-    console.log('referenceChange',value);
+  
     let planPosteReferenceFilter=<PlanPosteReferenceFilter> {
       idPlanPoste : this.data.id,
       idPoste: this.data.poste.id,

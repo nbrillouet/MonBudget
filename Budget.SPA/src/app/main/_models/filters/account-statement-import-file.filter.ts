@@ -22,8 +22,8 @@ export class FilterAsifTableSelected {
 export class FilterAsifTable {
     asiBankAgencyLabel: string;
     asiDateImport: Date;
-    accounts: ISelect[];
-    asifStates: ISelect[];
+    account: ISelect[];
+    asifState: ISelect[];
     selected : FilterAsifTableSelected;
 
     constructor () {

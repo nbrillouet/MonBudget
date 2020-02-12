@@ -29,51 +29,9 @@ namespace Budget.DATA.Repositories
                 .Include(x => x.OperationType.OperationTypeFamily)
                 .AsQueryable();
 
-            if (filter.IdAccount != null)
-            {
-                accountStatements = accountStatements.Where(x => x.IdAccount == filter.IdAccount);
-            }
+            accountStatements = GenericTableFilter.GetGenericFilters(accountStatements, filter);
 
-            if (filter.OperationMethod != null && filter.OperationMethod.Count > 0)
-            {
-                var idOperationMethods = filter.OperationMethod.Select(x => x.Id).ToList();
-
-                accountStatements = accountStatements.Where(x => idOperationMethods.Contains(x.IdOperationMethod));
-            }
-
-            if (filter.Operation != null && filter.Operation.Count > 0)
-            {
-                var idOperations = filter.Operation.Select(x => x.Id).ToList();
-
-                accountStatements = accountStatements.Where(x => idOperations.Contains(x.IdOperation));
-            }
-
-            if (filter.OperationTypeFamily != null && filter.OperationTypeFamily.Count > 0)
-            {
-                var idOperationTypeFamilies = filter.OperationTypeFamily.Select(x => x.Id).ToList();
-
-                accountStatements = accountStatements.Where(x => idOperationTypeFamilies.Contains(x.IdOperationTypeFamily));
-            }
-
-            if (filter.OperationType != null && filter.OperationType.Count > 0)
-            {
-                var idOperationTypes = filter.OperationType.Select(x => x.Id).ToList();
-
-                accountStatements = accountStatements.Where(x => idOperationTypes.Contains(x.IdOperationType));
-            }
-
-            if (filter.DateIntegration != null && filter.DateIntegration.DateMin!=null)
-            {
-                accountStatements = accountStatements
-                    .Where(x => x.DateIntegration >= filter.DateIntegration.DateMin);
-
-                if (filter.DateIntegration != null && filter.DateIntegration.DateMax != null)
-                {
-                    accountStatements = accountStatements
-                        .Where(x => x.DateIntegration <= filter.DateIntegration.DateMax);
-                }
-            }
-            else if (filter.MonthYear != null)
+            if (filter.MonthYear != null)
             {
                 var date = Convert.ToDateTime($"01/{filter.MonthYear.Month.Id}/{filter.MonthYear.Year}");
                 var dateMin = DateHelper.GetFirstDayOfMonth(date);
@@ -83,35 +41,8 @@ namespace Budget.DATA.Repositories
                         .Where(x => x.DateIntegration >= dateMin && x.DateIntegration <= dateMax);
 
             }
-            if (filter.Amount != null && filter.Amount.NumberMin!=null)
-            {
-                accountStatements = accountStatements
-                    .Where(x => x.AmountOperation >= filter.Amount.NumberMin);
-            }
-            if (filter.Amount != null && filter.Amount.NumberMax != null)
-            {
-                accountStatements = accountStatements
-                    .Where(x => x.AmountOperation <= filter.Amount.NumberMax);
-            }
 
-            string columnSorted;
-            if (filter.Pagination.SortColumn.Contains("operationTypeFamily"))
-            {
-                columnSorted = $"OperationType.{filter.Pagination.SortColumn}.Label";
-            }
-            else
-                columnSorted = filter.Pagination.SortColumn.Contains("operation") ? $"{filter.Pagination.SortColumn}.Label" : filter.Pagination.SortColumn;
-
-            if (filter.Pagination.SortDirection == "asc")
-            {
-                accountStatements = accountStatements.OrderBy(columnSorted);
-            }
-            else
-            {
-                accountStatements = accountStatements.OrderByDescending(columnSorted);
-            }
-            var results = PagedListRepository<AccountStatement>.Create(accountStatements, filter.Pagination);
-            return results;
+            return PagedListRepository<AccountStatement>.Create(accountStatements, filter.Pagination);
         }
                 
         public AccountStatement GetAsDetail(int id)
@@ -297,5 +228,10 @@ namespace Budget.DATA.Repositories
                    new SqlParameter("@idUserGroup", idUserGroup))
                .FirstOrDefault();
         }
+
+
+
+
+        
     }
 }

@@ -32,3 +32,12 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
+
+
+	"@swimlane/dragula": "3.8.0",
+    "@swimlane/ngx-datatable": "15.0.2",
+    "@swimlane/ngx-dnd": "8.0.0",
+	"angular-calendar": "0.27.13",
+    "typescript": "3.5.2"
+	
+

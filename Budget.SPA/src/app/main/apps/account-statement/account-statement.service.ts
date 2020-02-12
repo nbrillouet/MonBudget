@@ -16,12 +16,15 @@ export class AsService {
     baseUrl = environment.apiUrl;
     user = JSON.parse(localStorage.getItem('currentUser'));
     userForGroup = <IUserForGroup> {id:this.user.id,idUserGroup:this.user.idUserGroup};
-
+    
     constructor(
         private http: HttpClient
-    ) { }
+    ) { 
+        
+    }
     
     getAsTableFilter(filter: FilterAsTableSelected) {
+
         filter.user=this.userForGroup;
         return this.http
             .post(`${this.baseUrl}account-statements/table-filter`,filter)
@@ -31,9 +34,10 @@ export class AsService {
     }
 
     getAsTable (filter: FilterAsTableSelected) {
+        
         filter.user=this.userForGroup;
         return this.http
-            .post(`${this.baseUrl}account-statements/filter`,filter)
+            .post(`${this.baseUrl}tables/datas`,filter)
             .map((response: any) => {
                 return response;
             });

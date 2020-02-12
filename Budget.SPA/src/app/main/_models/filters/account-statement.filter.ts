@@ -13,13 +13,11 @@ export class FilterAsTableSelected {
     operationType: ISelect[] = null;
     operation: ISelect[] = null;
     dateIntegration: FilterDateRange = null; 
-    // dateIntegrationMax: Date = null; 
-    amount: FilterNumberRange = null;
-    // amountMax: number = null;
+    amountOperation: FilterNumberRange = null;
     monthYear: IMonthYear = this.getMonthYear();
     isWithItTransfer: boolean;
-    pagination: Pagination = null;
-
+    pagination: Pagination = new Pagination();
+    enumFilterTableSelectedType : EnumFilterTableSelectedType;
     getMonthYear() {
         var currentDate = new Date();
         currentDate.setMonth(currentDate.getMonth()-1);
@@ -32,6 +30,10 @@ export class FilterAsTableSelected {
         return monthYear;
     }
    
+}
+
+export enum EnumFilterTableSelectedType {
+    AS=0
 }
 
 export class FilterAsTable {

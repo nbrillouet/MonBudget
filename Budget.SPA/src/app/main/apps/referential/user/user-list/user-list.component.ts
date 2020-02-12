@@ -8,11 +8,13 @@ import { UserTableFilterState } from 'app/main/_ngxs/user/user-list-filter/user-
 import { Select, Store } from '@ngxs/store';
 import { UserTableState } from 'app/main/_ngxs/user/user-list/user-list.state';
 import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
-import { FilterUserTable } from 'app/main/_models/filters/user.filter';
-import { ChangeUserTableFilter } from 'app/main/_ngxs/user/user-list-filter/user-list-filter.action';
+import { FilterUserTable, FilterUserTableSelected } from 'app/main/_models/filters/user.filter';
+import { ChangeUserTableFilter, LoadUserTableFilter } from 'app/main/_ngxs/user/user-list-filter/user-list-filter.action';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator, MatSort } from '@angular/material';
 import { Datas } from 'app/main/_models/generics/detail-info.model';
+import { Column, EnumFilterType, EnumStyleType } from 'app/main/apps/web-component/mat-table-filter/model/mat-table-filter.model';
+import { Router } from '@angular/router';
 // import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
@@ -24,162 +26,127 @@ import { Datas } from 'app/main/_models/generics/detail-info.model';
 export class UserListComponent implements OnInit {
   @Select(UserTableFilterState.get) userTableFilter$: Observable<FilterInfo<FilterUserTable>>;
   @Select(UserTableState.get) userTable$: Observable<Datas<UserTable[]>>;
-  
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  dataSource : UserDataSource;
-  filterUser: FilterUserTable;
-  displayedColumns = ['id','avatar','lastName','firstName','userName','button'];
-  
-  formSearch: FormGroup;
-
-
-  // dataSource : UserDataSource;
-  // displayedColumns = ['id','avatar','lastName','firstName','userName','button'];
-  // pagination: Pagination;
-
-  // matPagination: MatPagination;
-
-
-  // @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ViewChild(MatSort) sort: MatSort;
-  
+  filterUser: FilterUserTable = new FilterUserTable();
+  columns : Column[]=
+     [ 
+        {index:0, field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
+        {index:1, field: 'avatarUrl',label:'avatar',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type: EnumStyleType.image,datas:null}},
+        {index:2, field: 'lastName',label:'nom',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null}},
+        {index:3, field: 'firstName',label:'prénom',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
+        {index:4, field: 'userName',label:'pseudonyme',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}}
+    ];
+    
   constructor(
-    // private userService: UserService,
-    // private notificationService: NotificationsService,
-    // private route: ActivatedRoute,
-    private _formBuilder: FormBuilder,
-    private _store: Store
-  ) {
-      this.formSearch = this._formBuilder.group({
-        keyword: [null, []]
-      });
-
-      this.formSearch.get('keyword').valueChanges
-        .subscribe(val => {
-          // if(val && val.length>=2) {
-            this.filterUser.selected.keyword=val;
-            this.dataSource.load(this.filterUser);
-          // }
-        });
-
-      this.filterUser = new FilterUserTable();
-      this.dataSource = new UserDataSource(this._store);
-      this.dataSource.load(this.filterUser);
-      // this.filterAsif.selected.idImport=routeParams['idImport'];
-      // this._store.dispatch(new ChangeUserTableFilter(this.filterUser));
-  }
-
-  ngOnInit() {
-    // this.dataSource = new UserDataSource(this.userService, this.route);
-    // this.dataSource.loadUsers(new Pagination());
-    this.userTableFilter$.subscribe(userTableFilter=>{
-      this.filterUser = JSON.parse(JSON.stringify(userTableFilter.filters));
-    });
-
-  }
-
-  onPageChangeEvent($event) {
-    this.filterUser.selected.pagination.currentPage = this.paginator.pageIndex;
-    this.loadPage();
-  }
-  
-  onSortChangeEvent($event): void {
-
-    this.filterUser.selected.pagination.currentPage=0;
-    this.loadPage();
-  }
-
-  loadPage() {
-    this.filterUser.selected.pagination.nbItemsPerPage = this.paginator.pageSize;
-    this.filterUser.selected.pagination.sortColumn = this.sort.active;
-    this.filterUser.selected.pagination.sortDirection = this.sort.direction;
-
-    this.dataSource.load(this.filterUser);
-  }
-
-  // detail(data) {
-  //   this.router.navigate(
-  //     [`apps/account-statement-imports/${this.filterAsif.selected.idImport}/account-statement-import-files/${data.id}/detail`]);
-  // }
-
-  // loadUsersPage() {
-  //   this.pagination.currentPage = this.paginator.pageIndex + 1;
-  //   this.pagination.itemsPerPage = this.paginator.pageSize;
-  //   this.pagination.sortColumn = this.sort.active;
-  //   this.pagination.sortDirection = this.sort.direction;
-
-  //   this.dataSource.loadUsers(this.pagination);
-  // }
- 
-}
-
-export class UserDataSource extends DataSource<Datas<UserTable>> {
-  @Select(UserTableState.get) asifTable$: Observable<Datas<UserTable[]>>;
-
-  constructor (
+    private _router: Router,
     private _store: Store
     ) {
-    super();
-  }
 
-  connect(collectionViewer: CollectionViewer): Observable<any[]> {
-    return this.asifTable$.map(x=>x.datas);
-  }
+      this.userTableFilter$.subscribe(userTableFilter=>{
+        if(userTableFilter.loader['filters'] && userTableFilter.loader['filters'].loaded) {
+          this.filterUser = userTableFilter.filters;
+        }
+      });
 
-  disconnect(collectionViewer: CollectionViewer): void {
-  }
-  
-  clear()
-  {
-  }
-
-  load(filter: FilterUserTable) {
-    this._store.dispatch(new ChangeUserTableFilter(filter));
     }
+  ngOnInit(){
+    this._store.dispatch(new LoadUserTableFilter(this.filterUser));
   }
 
+  onRowClick($event) {
+    this._router.navigate([`apps/referential/users/${$event.id}/detail`]);
+  }
 
+  applyFilter(selected: FilterUserTableSelected) {
+    this._store.dispatch(new ChangeUserTableFilter(selected));
+  }
+}
 
-// export class UserDataSource extends DataSource<IUser> {
-//   private usersSubject = new BehaviorSubject<IUser[]>([]);
-//   private paginationSubject = new BehaviorSubject<Pagination>(null);
-//   private loadingSubject = new BehaviorSubject<boolean>(false);
+//   @Select(UserTableFilterState.get) userTableFilter$: Observable<FilterInfo<FilterUserTable>>;
+//   @Select(UserTableState.get) userTable$: Observable<Datas<UserTable[]>>;
+  
+//   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+//   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-//   public loading$ = this.loadingSubject.asObservable();
-//   public pagination$ = this.paginationSubject.asObservable();
+//   dataSource : UserDataSource;
+//   filterUser: FilterUserTable;
+//   displayedColumns = ['id','avatar','lastName','firstName','userName','button'];
+  
+//   formSearch: FormGroup;
+
+  
+//   constructor(
+//     private _formBuilder: FormBuilder,
+//     private _store: Store
+//   ) {
+//       this.formSearch = this._formBuilder.group({
+//         keyword: [null, []]
+//       });
+
+//       this.formSearch.get('keyword').valueChanges
+//         .subscribe(val => {
+  
+//             this.filterUser.selected.keyword=val;
+//             this.dataSource.load(this.filterUser);
+  
+//         });
+
+//       this.filterUser = new FilterUserTable();
+//       this.dataSource = new UserDataSource(this._store);
+//       this.dataSource.load(this.filterUser);
+
+//   }
+
+//   ngOnInit() {
+//     this.userTableFilter$.subscribe(userTableFilter=>{
+//       this.filterUser = JSON.parse(JSON.stringify(userTableFilter.filters));
+//     });
+
+//   }
+
+//   onPageChangeEvent($event) {
+//     this.filterUser.selected.pagination.currentPage = this.paginator.pageIndex;
+//     this.loadPage();
+//   }
+  
+//   onSortChangeEvent($event): void {
+
+//     this.filterUser.selected.pagination.currentPage=0;
+//     this.loadPage();
+//   }
+
+//   loadPage() {
+//     this.filterUser.selected.pagination.nbItemsPerPage = this.paginator.pageSize;
+//     this.filterUser.selected.pagination.sortColumn = this.sort.active;
+//     this.filterUser.selected.pagination.sortDirection = this.sort.direction;
+
+//     this.dataSource.load(this.filterUser);
+//   }
+ 
+// }
+
+// export class UserDataSource extends DataSource<Datas<UserTable>> {
+//   @Select(UserTableState.get) asifTable$: Observable<Datas<UserTable[]>>;
 
 //   constructor (
-//     private userService: UserService,
-//     private route: ActivatedRoute
-//   ) {
+//     private _store: Store
+//     ) {
 //     super();
 //   }
 
-//   connect(collectionViewer: CollectionViewer): Observable<IUser[]> {
-//       return this.usersSubject.asObservable();
+//   connect(collectionViewer: CollectionViewer): Observable<any[]> {
+//     return this.asifTable$.map(x=>x.datas);
 //   }
 
 //   disconnect(collectionViewer: CollectionViewer): void {
-//       this.usersSubject.complete();
-//       this.loadingSubject.complete();
-//       this.paginationSubject.complete();
 //   }
   
-//   loadUsers(pagination: Pagination) {
+//   clear()
+//   {
+//   }
 
-//     this.loadingSubject.next(true);
-
-//     this.userService.getUsers(pagination)
-//       .subscribe((res: PaginatedResult<IUser[]>) => {
-//         this.usersSubject.next(res.result);
-//         this.paginationSubject.next(res.pagination);
-//         this.loadingSubject.next(false);
-//       });
-
+//   load(filter: FilterUserTable) {
+//     this._store.dispatch(new ChangeUserTableFilter(filter));
 //     }
+//   }
 
-
-    
-// }

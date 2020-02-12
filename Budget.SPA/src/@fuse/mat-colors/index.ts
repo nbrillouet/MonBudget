@@ -726,7 +726,6 @@ export class MatColors
     }
 
     public static getColorByMatColor(matColor: string) {
-        // console.log('matColor',matColor);
         let strColor = matColor.substring(0,matColor.lastIndexOf('-'));
         let hue = matColor.substring(matColor.lastIndexOf('-')+1);
         
@@ -736,9 +735,7 @@ export class MatColors
         }
         
         return false;
-        // console.log('strColor',strColor);
-        // console.log('hue',hue);
-        // console.log('toto',color);
+
     }
 
     public static getMatColorByColor(color: string):string {

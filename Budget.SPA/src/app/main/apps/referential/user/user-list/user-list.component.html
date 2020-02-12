@@ -21,7 +21,7 @@
             <!-- / APP TITLE -->
 
             <!-- SEARCH -->
-            <div class="search-input-wrapper mx-12 m-md-0" [formGroup]="formSearch"
+            <!-- <div class="search-input-wrapper mx-12 m-md-0" [formGroup]="formSearch"
                 fxFlex="0 0 80px" fxLayout="row" fxLayoutAlign="end center">
                 <label for="search" class="mr-8">
                     <mat-icon class="secondary-text">search</mat-icon>
@@ -31,7 +31,7 @@
                         formControlName="keyword"
                     >
                 </mat-form-field>
-            </div>
+            </div> -->
             <!-- / SEARCH -->
 
             <!-- <button mat-raised-button
@@ -46,15 +46,23 @@
 
         <!-- CONTENT CARD -->
         <div class="content-card mat-white-bg">
- 
             <div class="example-container">
-            <mat-table class="users-table"
+                <mat-table-filter 
+                    [observableFilter] = "userTableFilter$"
+                    [observableTable] = "userTable$"
+                    [columns] = "columns"
+                    (onRowClick) = "onRowClick($event)"
+                    (changeFilter)="applyFilter($event)">
+                </mat-table-filter>
+            
+            <!-- 
+              <mat-table class="users-table"
                 #table [dataSource]="dataSource"
                 [@animateStagger]="{value:'50'}"
                 matSort matSortActive="id" matSortDirection="asc" matSortDisableClear
                 fusePerfectScrollbar>
 
-                <!-- ID Column -->
+
                 <ng-container matColumnDef="id" >
                     <mat-header-cell *matHeaderCellDef mat-sort-header style="flex:0 0 80px;">ID</mat-header-cell>
                     <mat-cell *matCellDef="let user" style="flex:0 0 80px;">
@@ -63,22 +71,16 @@
                 </ng-container>
                     
 
-                <!-- Avatar Column -->
+             
                 <ng-container cdkColumnDef="avatar" >
                     <mat-header-cell *cdkHeaderCellDef mat-sort-header style="flex:0 0 80px;">avatar</mat-header-cell>
                     <mat-cell *cdkCellDef="let user" style="flex:0 0 80px;">
                         <img class="avatar" *ngIf="user.avatarUrl" [src]="user.avatarUrl">
                         <img class="avatar" *ngIf="!user.avatarUrl" [src]="'assets/images/avatars/profile.jpg'">
-                        
-                        
-                        <!-- <img class="avatar"
-                                *ngIf="user.avatar" [alt]="user.userName"
-                                [src]="user.avatar"/>
-                        <img *ngIf="!user.avatar" [src]="'assets/images/ecommerce/product-image-placeholder.png'"> -->
                     </mat-cell>
                 </ng-container>
 
-                <!-- Last Name Column -->
+     
                 <ng-container matColumnDef="lastName" >
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Prénom</mat-header-cell>
                     <mat-cell *matCellDef="let user">
@@ -86,7 +88,7 @@
                     </mat-cell>
                 </ng-container>
 
-                <!-- Last Name Column -->
+
                 <ng-container matColumnDef="firstName" >
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Nom</mat-header-cell>
                     <mat-cell *matCellDef="let user">
@@ -94,7 +96,7 @@
                     </mat-cell>
                 </ng-container>
 
-                <!-- Last Name Column -->
+   
                 <ng-container matColumnDef="userName" >
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Pseudonyme</mat-header-cell>
                     <mat-cell *matCellDef="let user">
@@ -137,28 +139,12 @@
                 [pageSize]="pagination.nbItemsPerPage"
                 [pageSizeOptions]="[15, 100, 200]">
             </mat-paginator>
+-->
 
-            <!-- *ngIf="dataSource.pagination$ | async; let pagination" -->
-            <!-- <mat-paginator *ngIf="dataSource.pagination$ | async; let pagination"
-                [length]="pagination.totalItems" 
-                [pageSize]="pagination.itemsPerPage"
-                [pageSizeOptions]="[3, 5, 10]">
-            </mat-paginator> -->
-        </div>
-            <!-- paginator.totalItems
-            pagination.itemsPerPage -->
-            <!-- <mat-paginator 
-                [length]="matPagination?.length" 
-                [pageSize]="matPagination?.pageSize"
-                [pageSizeOptions]="matPagination?.pageSizeOption">
-            </mat-paginator> -->
+        </div> 
 
-            <!-- <div *ngIf="dataSource.pagination$ | async; let pagination" >
-                {{pagination.totalPages}}
-            </div> -->
-            <!-- ttttt {{dataSource.pagination$.totalPages | async}} -->
 
-            <!-- totot {{dataSource.loading$ | async}} -->
+
         </div> 
         <!-- / CONTENT CARD -->
     </div>

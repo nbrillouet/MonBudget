@@ -48,8 +48,8 @@
 
             </div>
 
-            <div fxLayout="row" *ngIf="(asifTableFilter$ | async).loader['filters'].loaded && (asifTableFilter$ | async).filters.accounts as accounts">
-
+            <div fxLayout="row" *ngIf="(asifTableFilter$ | async).loader['filters'].loaded">
+ 
                 <div class="selected-project">{{(asifTableFilter$ | async).filters.selected.account.label}}</div>
 
                 <button mat-icon-button 
@@ -60,7 +60,7 @@
                 </button>
 
                 <mat-menu #projectsMenu="matMenu">
-                    <button mat-menu-item *ngFor="let account of accounts" (click)="AccountChange(account)"  >
+                    <button mat-menu-item *ngFor="let account of (asifTableFilter$ | async).filters.account" (click)="AccountChange(account)"  >
                         <span>{{account.label}}</span>
                     </button>
                 </mat-menu>

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Budget.MODEL.Filter
 {
-    public class FilterAsTableSelected
+    public class FilterAsTableSelected : FilterTableSelected
     {
         public UserForGroupDto User { get; set; }
         public int? IdAccount { get; set; }
@@ -15,16 +15,14 @@ namespace Budget.MODEL.Filter
         public List<SelectDto> OperationType { get; set; }
         public List<SelectDto> Operation { get; set; }
         public FilterDateRange DateIntegration { get; set; }
-        //public DateTime? DateIntegrationMax { get; set; }
-        public FilterNumberRange Amount { get; set; }
-        //public double? AmountMax { get; set; }
+        public FilterNumberRange AmountOperation { get; set; }
         public MonthYear MonthYear { get; set; }
         public bool IsWithITransfer { get; set; }
-        public Pagination Pagination { get; set; }
+
 
         public FilterAsTableSelected()
         {
-            Pagination = new Pagination();
+            this.EnumFilterTableSelectedType = EnumFilterTableSelectedType.accountStatement;
         }
 
     }
@@ -40,7 +38,7 @@ namespace Budget.MODEL.Filter
 
         public FilterAsTable()
         {
-            Selected = new FilterAsTableSelected();
+            //Selected = new FilterAsTableSelected();
         }
     }
 

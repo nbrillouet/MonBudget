@@ -32,9 +32,9 @@ export class ErrorInterceptor implements HttpInterceptor {
 
 
                     // let error = '';
-                    // console.log('err.error',err.error);
+   
                     if(err.error) {
-                        // console.log('err.error.length',Object.entries(err.error).length);
+                        
                         if(Object.entries(err.error).length>0) {
                             for (let [key, value] of Object.entries(err.error)) {  
                                 this._notification.error(key,value);

@@ -23,7 +23,7 @@ export class AsifStateComponent implements OnInit {
     private _store: Store
   ) { 
     this.asifTableFilter$.subscribe(asifTableFilter=>{
-      if(asifTableFilter.loader['datas'].loaded) {
+      if(asifTableFilter?.loader['filters']?.loaded) {
         this.filter = asifTableFilter.filters;
       }
     })
@@ -34,9 +34,8 @@ export class AsifStateComponent implements OnInit {
   }
 
   onTabChanged($event) {
-
     this.filter.selected.indexTabAsifState=$event.index;
-    this.filter.selected.asifState = this.filter.asifStates[$event.index]; //.find(x=>x.id==$event.index);
+    this.filter.selected.asifState = this.filter.asifState[$event.index]; //.find(x=>x.id==$event.index);
 
     this._store.dispatch(new LoadAsifTableFilter(this.filter));
 

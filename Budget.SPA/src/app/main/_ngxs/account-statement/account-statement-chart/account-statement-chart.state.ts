@@ -116,16 +116,6 @@ export class AsChartState extends LoaderState {
             });
     }
 
-    // @Action(LoadAsChartEvolutionNoIntTransferSuccess)
-    // LoadAsChartEvolutionNoIntTransferSuccess(context: StateContext<AsChartStateModel>, action: LoadAsChartEvolutionNoIntTransferSuccess) {
-    //     let state = context.getState();
-    //     // console.log('noIntTransfer',action.payload);
-    //     state.datas.asChartEvolution.noIntTransfer = action.payload;
-
-    //     context.patchState(state);
-
-
-    // }
 
     @Action(LoadAsChartEvolutionCustomOtf)
     loadAsChartEvolutionCustomOtf(context: StateContext<AsChartStateModel>, action: LoadAsChartEvolutionCustomOtf) {
@@ -145,17 +135,6 @@ export class AsChartState extends LoaderState {
             });
     }
 
-    // @Action(LoadAsChartEvolutionCustomOtfSuccess)
-    // LoadAsChartEvolutionCustomOtfSuccess(context: StateContext<AsChartStateModel>, action: LoadAsChartEvolutionCustomOtfSuccess) {
-    //     let state = context.getState();
-
-    //     // console.log('customOtf',action.payload);
-    //     state.datas.asChartEvolution.customOtfs.widgetCardChartBars = action.payload;
-
-    //     context.patchState(state);
-
- 
-    // }
     
     @Action(LoadAsChartEvolutionCustomOtfFilter)
     loadAsChartEvolutionCustomOtfFilter(context: StateContext<AsChartStateModel>, action: LoadAsChartEvolutionCustomOtfFilter) {
@@ -176,17 +155,6 @@ export class AsChartState extends LoaderState {
             });
     }
 
-    // @Action(LoadAsChartEvolutionCustomOtfFilterSuccess)
-    // LoadAsChartEvolutionCustomOtfFilterSuccess(context: StateContext<AsChartStateModel>, action: LoadAsChartEvolutionCustomOtfFilterSuccess) {
-    //     let state = context.getState();
-
-    //     // console.log('customOtfFilter',action.payload);
-    //     state.datas.asChartEvolution.customOtfs.filter = action.payload;
-
-    //     context.patchState(state);
-
-    // }
-    
 
     @Action(UpdateAsChartEvolutionCustomOtfFilter)
     UpdateAsChartEvolutionCustomOtfFilter(context: StateContext<AsChartStateModel>, action: UpdateAsChartEvolutionCustomOtfFilter) {
@@ -203,25 +171,6 @@ export class AsChartState extends LoaderState {
                 context.dispatch(new LoadAsChartEvolutionCustomOtf(filterAsTableSelected));
             });
     }
-
-    // @Action(UpdateAsChartEvolutionCustomOtfFilterSuccess)
-    // UpdateAsChartEvolutionCustomOtfFilterSuccess(context: StateContext<AsChartStateModel>, action: UpdateAsChartEvolutionCustomOtfFilterSuccess) {
-    //     // let state = context.getState();
-        
-    //     let filterAsTableSelected = <FilterAsTableSelected> {
-    //         idAccount : action.payload.idAccount,
-    //         user: action.payload.user,
-    //         monthYear: action.payload.monthYear
-    //     };
-        
-    //     context.dispatch(new LoadAsChartEvolutionCustomOtfFilter(filterAsTableSelected));
-    //     context.dispatch(new LoadAsChartEvolutionCustomOtf(filterAsTableSelected));
-    // }
-
-
-
-
-
 
 
 
@@ -244,11 +193,6 @@ export class AsChartState extends LoaderState {
 
     }
 
-    // @Action(LoadAsChartCategorisationSuccess)
-    // LoadAsChartCategorisationSuccess(context: StateContext<AsChartStateModel>, action: LoadAsChartCategorisationSuccess) {
-        
-
-    // }
 
     @Action(LoadAsChartCategorisationDebit)
     loadAsChartCategorisationDebit(context: StateContext<AsChartStateModel>, action: LoadAsChartCategorisationDebit) {
@@ -270,16 +214,5 @@ export class AsChartState extends LoaderState {
 
     }
 
-    // @Action(LoadAsChartCategorisationDebitSuccess)
-    // LoadAsChartCategorisationDebitSuccess(context: StateContext<AsChartStateModel>, action: LoadAsChartCategorisationDebitSuccess) {
-    //     let state = context.getState();
 
-    //     // console.log('action.payload-->DEBIT',action.payload);
-    //     state.datas.asChartCategorisation.debit = action.payload;
-
-    //     context.patchState(state);
-
- 
-
-    // }
 }

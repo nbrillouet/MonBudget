@@ -35,7 +35,7 @@ export class FuseLoginComponent implements OnInit
             .subscribe(
                 (config) => {
                     var titi = config;
-                    // console.log('titi',titi);
+              
                 }
             );
 

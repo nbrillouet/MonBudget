@@ -113,7 +113,7 @@ export class PlanSuiviComponent implements OnInit {
       if(user) {
         this._planService.GetPlanList(user.id).subscribe(plan => {
           this.selectYears = plan;
-          // console.log('plan',plan);
+
           this.planSelected = plan[0];
           this.monthYear={month:{id:1,label:'jan'},year:this.planSelected.year};
           
@@ -240,7 +240,7 @@ export class PlanSuiviComponent implements OnInit {
   }
 
   getDataSet(value) {
-    // console.log('value',value);
+  
     let retValue = value>100 ? 100 : value;
 
     return [{label: 'Low',data:[retValue],backgroundColor: '#4CAF50'},

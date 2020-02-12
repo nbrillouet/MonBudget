@@ -1,5 +1,5 @@
 import { ISelect } from "../generics/select.model";
-import { XAxisTicksComponent } from "@swimlane/ngx-charts";
+// import { XAxisTicksComponent } from "@swimlane/ngx-charts";
 
 export class BaseChart {
     dataSets: DataSet[];

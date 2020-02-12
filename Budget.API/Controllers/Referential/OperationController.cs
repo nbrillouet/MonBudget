@@ -38,13 +38,13 @@ namespace Budget.API.Controllers.Referential
             return Ok(selectsDto);
         }
 
-        [HttpPost]
-        [Route("user-groups/{idUserGroup}/select-list")]
-        public IActionResult GetSelectListByOperationMethods(int idUserGroup, [FromBody] List<SelectDto> operationMethods)
-        {
-            var results = _referentialService.OperationService.GetSelectList(idUserGroup, operationMethods);
-            return Ok(results);
-        }
+        //[HttpPost]
+        //[Route("user-groups/{idUserGroup}/select-list")]
+        //public IActionResult GetSelectListByOperationMethods(int idUserGroup, [FromBody] List<SelectDto> operationMethods)
+        //{
+        //    var results = _referentialService.OperationService.GetSelectList(idUserGroup, operationMethods);
+        //    return Ok(results);
+        //}
 
         [HttpPost]
         [Route("create")]

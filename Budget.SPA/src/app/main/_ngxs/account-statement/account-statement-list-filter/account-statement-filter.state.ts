@@ -48,22 +48,23 @@ export class AsTableFilterState extends LoaderState {
         this.loading(context,'filters');
         
         const state = context.getState();
-        state.filters = null;
+        state.filters = new FilterAsTable(); // null;
     
         context.patchState(state);
-        this._asService.getAsTableFilter(action.payload)
-            .subscribe(result=> {
-                //conserver le payload
-                let payload = JSON.parse(JSON.stringify(result.selected));
-                let state = context.getState();
-                state.filters = result; // action.payload;
-                context.patchState(state);
 
-                context.dispatch(new ChangeAsTableFilter(payload));
+        context.dispatch(new ChangeAsTableFilter(state.filters.selected));
+        // this._asService.getAsTableFilter(action.payload)
+        //     .subscribe(result=> {
+ 
+        //         //conserver le payload
+        //         let payload = JSON.parse(JSON.stringify(result.selected));
+        //         let state = context.getState();
+        //         state.filters = result; // action.payload;
+        //         context.patchState(state);
 
-                this.loaded(context,'filters');
-                // context.dispatch(new LoadAsTableFilterSuccess(result));
-            });
+        //         context.dispatch(new ChangeAsTableFilter(payload));
+
+        //     });
     }
 
     // @Action(LoadAsTableFilterSuccess)
@@ -71,7 +72,7 @@ export class AsTableFilterState extends LoaderState {
         
     //     // //conserver le payload
     //     // let payload = JSON.parse(JSON.stringify(action.payload.selected));
-    //     // console.log('-->action.payload.selected',action.payload.selected)
+
     //     // let state = context.getState();
     //     // state.filters = action.payload;
 
@@ -82,8 +83,36 @@ export class AsTableFilterState extends LoaderState {
         // this.delay(3000).then(any=>{
     @Action(ChangeAsTableFilter)
     changeFilter(context: StateContext<AsTableFilterStateModel>, action: ChangeAsTableFilter) {
-        this._store.dispatch(new LoadAsTableDatas(action.payload));
-     }
+        //rechargement des select de filtre
+        // this.loading(context,'filters');
+        this.loading(context,'filters');
+
+        const state = context.getState();
+        state.filters.selected = action.payload; //!state.filters ? new FilterAsTable() : state.filters;
+        context.patchState(state);
+
+        // state.filters = null;
+    
+        context.patchState(state);
+        this._asService.getAsTableFilter(action.payload)
+            .subscribe(result=> {
+                let state = context.getState();
+                state.filters.operation = result.operation;
+                state.filters.operationMethod = result.operationMethod;
+                state.filters.operationType = result.operationType;
+                state.filters.operationTypeFamily = result.operationTypeFamily;
+                context.patchState(state);
+
+                //rechargement de la table
+                this._store.dispatch(new LoadAsTableDatas(action.payload));
+
+                this.loaded(context,'filters');
+                // this.loaded(context,'filters');
+                // context.dispatch(new LoadAsTableFilterSuccess(result));
+            });
+
+        
+    }
 
     @Action(UpdatePaginationAsTableFilter)
     UpdatePaginationAsTableFilter(context: StateContext<AsTableFilterStateModel>, action: UpdatePaginationAsTableFilter) {

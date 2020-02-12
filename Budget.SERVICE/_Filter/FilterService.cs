@@ -35,23 +35,22 @@ namespace Budget.SERVICE
         {
             FilterAsTable filterAsTable = new FilterAsTable();
             filterAsTable.Selected = filter;
-            filterAsTable.Selected.Pagination = new Pagination();
 
             var operationMethods = _referentialService.OperationMethodService.GetSelectList(EnumSelectType.Empty);
             filterAsTable.OperationMethod = operationMethods;
-            filterAsTable.Selected.OperationMethod = filter.OperationMethod==null ? null : filter.OperationMethod;
+            //filterAsTable.Selected.OperationMethod = filter.OperationMethod == null ? null : filter.OperationMethod;
 
             var operationTypeFamilies = _referentialService.OperationTypeFamilyService.GetSelectGroup(filter.User.IdUserGroup);
             filterAsTable.OperationTypeFamily = operationTypeFamilies;
-            filterAsTable.Selected.OperationTypeFamily = filter.OperationTypeFamily == null ? null : filter.OperationTypeFamily;
+            //filterAsTable.Selected.OperationTypeFamily = filter.OperationTypeFamily == null ? null : filter.OperationTypeFamily;
 
             var operationTypes = _referentialService.OperationTypeService.GetSelectGroup(filter.User.IdUserGroup, filterAsTable.Selected.OperationTypeFamily);
             filterAsTable.OperationType = operationTypes;
-            filterAsTable.Selected.OperationType = filter.OperationType == null ? null : filter.OperationType;
+            //filterAsTable.Selected.OperationType = filter.OperationType == null ? null : filter.OperationType;
 
-            var operations = _referentialService.OperationService.GetSelectList(filter.User.IdUserGroup, filterAsTable.Selected.OperationType);
+            var operations = _referentialService.OperationService.GetSelectList(filter.User.IdUserGroup, filterAsTable.Selected.OperationMethod, filterAsTable.Selected.OperationTypeFamily, filterAsTable.Selected.OperationType);
             filterAsTable.Operation = operations;
-            filterAsTable.Selected.Operation = filter.Operation == null ? null : filter.Operation;
+            //filterAsTable.Selected.Operation = filter.Operation == null ? null : filter.Operation;
 
             return filterAsTable;
 
@@ -86,8 +85,8 @@ namespace Budget.SERVICE
             var asifStates = _accountStatementImportFileService.GetAsifStates(filter.IdImport.Value, filterAsifTable.Selected.Account.Id);
 
             filterAsifTable.Selected.AsifState = filter.AsifState == null ? asifStates[0] : filter.AsifState;
-            filterAsifTable.Accounts = accounts;
-            filterAsifTable.AsifStates = asifStates;
+            filterAsifTable.Account = accounts;
+            filterAsifTable.AsifState = asifStates;
 
             return filterAsifTable;
 

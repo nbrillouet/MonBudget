@@ -108,6 +108,10 @@
               </mat-chip>
             </div>
             
+            <div *ngSwitchCase="enumStyleType.image">
+              <img class="avatar small" [src]="row[column.field]">
+            </div>
+
             <!-- STYLE: NUMBER-UP-DOWN -->
             <div *ngSwitchCase="enumStyleType.numberUpDown">
                 <div *ngIf="row[column.field]>column.style.datas.isoNumber">
@@ -155,8 +159,7 @@
   <div *ngIf="onloading"
     class="w-100-p"
     fxLayout="column"
-    fxLayoutAlign="center center"
-  >
+    fxLayoutAlign="center center">
     <mat-progress-bar
       color="warn"
       mode="indeterminate">
@@ -173,7 +176,8 @@
       Aucun résultat
   </p>
 
-  <mat-paginator *ngIf="columns && rows && rows.length>0"
+  <mat-paginator *ngIf="filterSelected && columns && rows && rows.length>0"
+      [style.visibility]="!onloading ? 'visible' : 'hidden'"
       (page)="onPageChangeEvent($event)"
       [length]="filterSelected['pagination'].totalItems" 
       [pageSize]="filterSelected['pagination'].nbItemsPerPage"

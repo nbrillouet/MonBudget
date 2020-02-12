@@ -73,26 +73,27 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
             });
 
         // Scroll to the active item position
-        this._router.events
-            .pipe(
-                filter((event) => event instanceof NavigationEnd),
-                take(1)
-            )
-            .subscribe(() => {
-                    setTimeout(() => {
-                        const activeNavItem: any = document.querySelector('navbar .nav-link.active');
+        // this._router.events
+        //     .pipe(
+        //         filter((event) => event instanceof NavigationEnd),
+        //         take(1)
+        //     )
+        //     .subscribe(() => {
+        //             setTimeout(() => {
+        //                 const activeNavItem: any = document.querySelector('navbar .nav-link.active');
 
-                        if ( activeNavItem )
-                        {
-                            const activeItemOffsetTop       = activeNavItem.offsetTop,
-                                  activeItemOffsetParentTop = activeNavItem.offsetParent.offsetTop,
-                                  scrollDistance            = activeItemOffsetTop - activeItemOffsetParentTop - (48 * 3) - 168;
+        //                 if ( activeNavItem )
+        //                 {
+     
+        //                     const activeItemOffsetTop       = activeNavItem.offsetTop,
+        //                           activeItemOffsetParentTop = activeNavItem.offsetParent.offsetTop,
+        //                           scrollDistance            = activeItemOffsetTop - activeItemOffsetParentTop - (48 * 3) - 168;
 
-                            this._fusePerfectScrollbar.scrollToTop(scrollDistance);
-                        }
-                    });
-                }
-            );
+        //                     this._fusePerfectScrollbar.scrollToTop(scrollDistance);
+        //                 }
+        //             },500);
+        //         }
+        //     );
     }
 
     // -----------------------------------------------------------------------------------------------------

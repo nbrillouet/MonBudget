@@ -1,14 +1,10 @@
 import { NgModule } from '@angular/core';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserListComponent } from './user-list/user-list.component';
-// import { SharedModule } from '../../../../../core/modules/shared.module';
 import { RouterModule } from '@angular/router';
 import { UserService } from './user.service';
-// import { AuthGuard } from '../../../../../_guards/auth.guard';
 import { UserDetailResolver } from './user-detail/user-detail.resolver';
 import { UserListResolver } from './user-list/user-list.resolver';
-// import { PreventUnsavedChanges } from '../../../../../_guards/prevent-unsaved-changes.guard';
-// import { DialogGuardComponent } from '../../../../../_guards/dialog-guard.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AvatarEditorComponent } from './avatar-editor/avatar-editor.component';
 import { GMapModule } from '../../g-map/g-map.module';
@@ -19,6 +15,7 @@ import { NgxsModule } from '@ngxs/store';
 import { UserTableState } from 'app/main/_ngxs/user/user-list/user-list.state';
 import { UserTableFilterState } from 'app/main/_ngxs/user/user-list-filter/user-list-filter.state';
 import { AngularMaterialModule } from 'app/angular-material.module';
+import { MatTableFilterModule } from '../../web-component/mat-table-filter/mat-table-filter.module';
 
 const routes = [
   {
@@ -28,7 +25,7 @@ const routes = [
       canActivate: [AuthGuard]
   },
   {
-      path     : ':idUser',
+      path     : ':idUser/detail',
       component: UserDetailComponent,
       resolve  : { user: UserDetailResolver },
       canActivate: [AuthGuard]
@@ -47,6 +44,7 @@ const routes = [
     AngularMaterialModule,
     FileUploadModule,
     GMapModule,
+    MatTableFilterModule,
     NgxsModule.forFeature([
       UserTableState,
       UserTableFilterState

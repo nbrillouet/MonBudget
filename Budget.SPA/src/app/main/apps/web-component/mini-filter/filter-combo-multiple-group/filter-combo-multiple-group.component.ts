@@ -17,7 +17,7 @@ export class FilterComboMultipleGroupComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder
   ) { 
-    // console.log('filterComboMultipleGroup',this.filterComboMultipleGroup);
+
   }
 
   ngOnInit() {
@@ -27,12 +27,20 @@ export class FilterComboMultipleGroupComponent implements OnInit {
     });
 
     this.comboMultipleGroupForm.valueChanges.subscribe(val=>{
-      this.filterComboMultipleGroup.combos.listSelected = val.comboMultipleGroup;
-      this.applyFilterComboMultipleGroup.emit(this.filterComboMultipleGroup.combos.listSelected);
+      if(!this.sameMembers(this.filterComboMultipleGroup.combos.listSelected,val.comboMultipleGroup)) {
+        this.filterComboMultipleGroup.combos.listSelected = val.comboMultipleGroup;
+        this.applyFilterComboMultipleGroup.emit(this.filterComboMultipleGroup.combos.listSelected);
+      }
     });
 
   }
   
+  sameMembers(item1, item2) {
+    if(item1 && item1.sort().join(',')=== item2.sort().join(','))
+      return true;
+
+    return false
+  }
 
   // applyFilter(){
   //   this.applyFilterComboMultipleGroup.emit(this.filterComboMultipleGroup.combos.listSelected);

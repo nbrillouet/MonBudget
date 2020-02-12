@@ -66,7 +66,7 @@ fullscreen: boolean;
     });
 
     this.asifDetail$.subscribe(asifDetail=>{
-      if(asifDetail.loader['datas'].loaded) {
+      if(asifDetail?.loader['datas']?.loaded) {
         this.asifDetail = JSON.parse(JSON.stringify(asifDetail.datas));
 
         if(this.firstLoad) {
@@ -83,7 +83,6 @@ fullscreen: boolean;
     // .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((settings) => {
         this.fullscreen = settings.layout.toolbar.fullscreen;
-        // console.log('fullscreen-detail',settings);
     });
     
    }

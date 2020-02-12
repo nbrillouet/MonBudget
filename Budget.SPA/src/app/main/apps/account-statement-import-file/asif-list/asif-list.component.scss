@@ -1,124 +1,124 @@
 
+// // .example-container {
+// //   display: flex;
+// //   flex-direction: column;
+// //   // overflow:hidden;
+// //   // position:relative;
+// // }
 // .example-container {
 //   display: flex;
 //   flex-direction: column;
-//   // overflow:hidden;
-//   // position:relative;
-// }
-.example-container {
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto !important;
-  max-height:calc(100% - 50px) !important;
-  }
+//   overflow-y: auto !important;
+//   max-height:calc(100% - 50px) !important;
+//   }
   
-// .scrollable-small {
+// // .scrollable-small {
  
+// //   // max-height:65vh;
+// //   // max-height:55vh;
+// //   // max-height:100px !important;
+// //   max-height:calc(100% - 50px) !important;
+
+// // }
+
+// // .scrollable-large {
+// //   max-height:calc(100% - 50px) !important;
+// //   // max-height:86vh;
+// // }
+
+// .mat-table {
+//   width: 100% !important;
+//   height:100%;
+
+//   // overflow-y: auto !important;
+//   // width: 100% !important;
+//   // height:100%;
 //   // max-height:65vh;
-//   // max-height:55vh;
-//   // max-height:100px !important;
-//   max-height:calc(100% - 50px) !important;
-
 // }
 
-// .scrollable-large {
-//   max-height:calc(100% - 50px) !important;
-//   // max-height:86vh;
+// .element-row {
+//   position: relative;
 // }
 
-.mat-table {
-  width: 100% !important;
-  height:100%;
-
-  // overflow-y: auto !important;
-  // width: 100% !important;
-  // height:100%;
-  // max-height:65vh;
-}
-
-.element-row {
-  position: relative;
-}
-
-.element-row:not(.expanded) {
-  cursor: pointer;
-}
-
-.element-row:not(.expanded):hover {
-  background: #f5f5f5;
-}
-
-.element-row.expanded {
-  border-bottom-color: red;
-  background: #f5f5f5;
-}
-
-.ng-trigger-detailExpand {
-  background: #f5f5f5;
-}
-
-.mat-row {
-  min-height: 36px;
-  max-height: 36px;
-  padding-top:0px;
-  padding-right:6px;
-  padding-bottom: 0px;
-  padding-left: 6px;
-  width: 100%;
-}
-
-.mat-header-row {
-//   position: sticky;
-// top: 0;
-  min-height: 40px;
-  max-height: 40px;
-  padding-top:0px;
-  padding-right:6px;
-  padding-bottom: 0px;
-  padding-left: 6px;
-  width: 100%;
-}
-
-.red-icon {
-  color: #F44336;
-}
-// .highlight{
-//   background: #FCC7C3;
-//   // opacity: 0.3;
+// .element-row:not(.expanded) {
+//   cursor: pointer;
 // }
 
-.text-green {
-  color: #09D261;
-}
-.text-red {
-  color: #F44336;
-}
+// .element-row:not(.expanded):hover {
+//   background: #f5f5f5;
+// }
 
-.empty-result {
-  text-align:center;
-  color:#4285F3;
-}
+// .element-row.expanded {
+//   border-bottom-color: red;
+//   background: #f5f5f5;
+// }
 
-.mat-paginator-container {
-  min-height: 35px !important;
-  max-height: 35px !important;
-  // padding:    2px !important;
-}
+// .ng-trigger-detailExpand {
+//   background: #f5f5f5;
+// }
 
-// .mat-paginator-outer-container {
+// .mat-row {
+//   min-height: 36px;
+//   max-height: 36px;
+//   padding-top:0px;
+//   padding-right:6px;
+//   padding-bottom: 0px;
+//   padding-left: 6px;
+//   width: 100%;
+// }
+
+// .mat-header-row {
+// //   position: sticky;
+// // top: 0;
+//   min-height: 40px;
+//   max-height: 40px;
+//   padding-top:0px;
+//   padding-right:6px;
+//   padding-bottom: 0px;
+//   padding-left: 6px;
+//   width: 100%;
+// }
+
+// .red-icon {
+//   color: #F44336;
+// }
+// // .highlight{
+// //   background: #FCC7C3;
+// //   // opacity: 0.3;
+// // }
+
+// .text-green {
+//   color: #09D261;
+// }
+// .text-red {
+//   color: #F44336;
+// }
+
+// .empty-result {
+//   text-align:center;
+//   color:#4285F3;
+// }
+
+// .mat-paginator-container {
 //   min-height: 35px !important;
 //   max-height: 35px !important;
-//   // vertical-align: middle;
+//   // padding:    2px !important;
 // }
 
-.mat-paginator {
-  position: fixed;
-  height: 50px !important;
-  background-color: red;
-  bottom: 0px;
-  width: 100%;
-  // left: 0px;
-  right: 20px;
-  margin-bottom: 10px !important;
-  background-color: transparent !important;
-}
+// // .mat-paginator-outer-container {
+// //   min-height: 35px !important;
+// //   max-height: 35px !important;
+// //   // vertical-align: middle;
+// // }
+
+// .mat-paginator {
+//   position: fixed;
+//   height: 50px !important;
+//   background-color: red;
+//   bottom: 0px;
+//   width: 100%;
+//   // left: 0px;
+//   right: 20px;
+//   margin-bottom: 10px !important;
+//   background-color: transparent !important;
+// }

@@ -20,9 +20,7 @@ userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:th
     getAsifTable (filter: FilterAsifTableSelected) {
         return this.http
         .post(`${this.baseUrl}account-statement-import-files/filter`,filter)
-        .map((response: AsifTable) => {
-            return response;
-        });
+        .map((response: any) => response);
     }
 
     getAsifTableFilter(filter: FilterAsifTableSelected) {

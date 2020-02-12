@@ -37,16 +37,21 @@ export class AsifMainComponent implements OnInit {
     private _notificationService: NotificationsService,
     private _fuseConfigService: FuseConfigService
   ) {
-    this._activatedRoute.params.subscribe(routeParams => {
-      this.filterAsif = new FilterAsifTable();
-      this.filterAsif.selected.idImport=routeParams['idImport'];
-      this._store.dispatch(new LoadAsifTableFilter(this.filterAsif));
+    this.asifTableFilter$.subscribe(asifTableFilter=>{
+      if(asifTableFilter?.loader['filters']?.loaded) { 
+        this.filterAsif = asifTableFilter.filters;
+      }
     });
+
+
   }
   
   ngOnInit() {       
-    this.asifTableFilter$.subscribe(asifTableFilter=>{
-      this.filterAsif = asifTableFilter.filters;
+    this._activatedRoute.params.subscribe(routeParams => {
+      let filterAsif = new FilterAsifTable();
+      filterAsif.selected.idImport=routeParams['idImport'];
+
+      this._store.dispatch(new LoadAsifTableFilter(filterAsif));
     });
 
     // Subscribe to the config changes
@@ -54,7 +59,6 @@ export class AsifMainComponent implements OnInit {
     // .pipe(takeUntil(this._unsubscribeAll))
     .subscribe((settings) => {
         this.fullscreen = settings.layout.toolbar.fullscreen;
-        // console.log('fullscreen-main',this.fullscreen);
     });
     // //prendre en compte le fuseConfig
     // this._fuseConfigService.config
@@ -68,7 +72,7 @@ export class AsifMainComponent implements OnInit {
 
   AccountChange($event) {
 
-    this.filterAsif.selected.account=this.filterAsif.accounts.find(x=>x.id==$event.id);
+    this.filterAsif.selected.account=this.filterAsif.account.find(x=>x.id==$event.id);
 
     this._store.dispatch(new LoadAsifTableFilter(this.filterAsif));
 

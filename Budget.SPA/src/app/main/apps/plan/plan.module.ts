@@ -28,7 +28,7 @@ import { PlanAmountTableState } from "app/main/_ngxs/plan/plan-amount-list/plan-
 import { PlanAmountListComponent } from "./plan-suivi/plan-amount-list/plan-amount-list.component";
 import { AsPlanTableState } from "app/main/_ngxs/account-statement-plan/as-plan.state";
 import { AsPlanListComponent } from "./plan-detail/as-plan-list/as-plan-list.component";
-import { NgxChartsModule } from "@swimlane/ngx-charts";
+// import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { ChartsModule } from "ng2-charts";
 import { AngularMaterialModule } from "app/angular-material.module";
 
@@ -85,7 +85,7 @@ const routes = [
         PlanAmountTableState,
         AsPlanTableState
     ]),
-    NgxChartsModule,
+    // NgxChartsModule,
         ChartsModule      
     
         //NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production ? true : false })

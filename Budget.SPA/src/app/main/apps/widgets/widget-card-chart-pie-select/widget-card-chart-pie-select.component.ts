@@ -23,7 +23,7 @@ export class WidgetCardChartPieSelectComponent implements OnInit, OnChanges {
     private _formBuilder: FormBuilder
   ) {
     this.colorRef = MatColors.getMatColorByIndex('red');
-    // console.log('widget',this.widget);
+
     // this.widget.chart.scheme.domain = colorRef;
     // this.calculateMainChart(this.widget.data.ranges.listSelected);
     
@@ -48,12 +48,12 @@ export class WidgetCardChartPieSelectComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log('changes.widget.currentValue',changes.widget.currentValue);
+ 
     this.widget = changes.widget.currentValue;
     this.isLoaded = false;
     
     if(this.widget.data!=null) {
-      // console.log('this.widget.chart',this.widget.pieChart);  
+    
       this.widget.pieChart.scheme.domain = this.colorRef;
         this.calculateMainChart(this.widget.data.ranges.listSelected);
 
@@ -103,7 +103,7 @@ export class WidgetCardChartPieSelectComponent implements OnInit, OnChanges {
             .map(x=>x.selects.map(x=>x.value).reduce((sum,current) => sum + current))
             .reduce(function(acc, val) { return acc + val; }, 0);
 
-        // console.log('sumSelected',sumSelected);
+   
         this.test = sumSelected;
         // if(sumTotal-sumSelected<100) {
         //     let otherAmount = <SelectNameValue<number>> {
@@ -118,7 +118,7 @@ export class WidgetCardChartPieSelectComponent implements OnInit, OnChanges {
   }
 
   onSelect($event) {
-    console.log($event);
+   
   }
 
   compareObjects(o1: ISelect, o2: ISelect) {

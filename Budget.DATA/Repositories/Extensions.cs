@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 
 namespace Budget.DATA.Repositories
@@ -59,5 +60,15 @@ namespace Budget.DATA.Repositories
                     )
                 );
         }
+
+
+        public static object GetValueByName<T>(this T thisObject, string propertyName)
+        {
+            PropertyInfo prop = typeof(T).GetProperty(propertyName);
+            return prop.GetValue(thisObject);
+
+        }
+
+
     }
 }

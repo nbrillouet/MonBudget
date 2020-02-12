@@ -126,8 +126,10 @@
                     </mat-chip-list>
                 </mat-form-field>
             </div>
-    
-            <agm-map class="w-100-p h-300" [zoom]="15"
+            <!-- "roadmap" | "hybrid" | "satellite" | "terrain" | string -->
+            <agm-map class="w-100-p h-300" 
+                mapTypeId = "hybrid"
+                [zoom]="15"
                 [latitude]="gMapAddress.lat"
                 [longitude]="gMapAddress.lng">
                 <agm-marker [latitude]="gMapAddress.lat"

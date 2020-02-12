@@ -57,11 +57,10 @@ isLoaded: boolean;
   //         domain: ['#f44336', '#9c27b0', '#03a9f4', '#e91e63', '#ffc107','#f44336','#f44336']
   //     },
   //     onSelect     : (ev) => {
-  //         console.log(ev);
+  
   //     }
   // };
 
-  // console.log('widget8', this.widget8);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -100,10 +99,10 @@ isLoaded: boolean;
   }
 
   chartClicked($event) {
-    console.log('chart-event',$event);
-    console.log("Index", $event.active[0]._index);
-    console.log("Data" , $event.active[0]._chart.config.data.datasets[0].data[$event.active[0]._index]);
-    console.log("Label" , $event.active[0]._chart.config.data.labels[$event.active[0]._index]);
+    // console.log('chart-event',$event);
+    // console.log("Index", $event.active[0]._index);
+    // console.log("Data" , $event.active[0]._chart.config.data.datasets[0].data[$event.active[0]._index]);
+    // console.log("Label" , $event.active[0]._chart.config.data.labels[$event.active[0]._index]);
   }
 
 

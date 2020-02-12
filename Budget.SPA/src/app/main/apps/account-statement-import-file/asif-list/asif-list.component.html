@@ -1,5 +1,15 @@
  
- <div class="example-container"> 
+<mat-table-filter 
+    [observableFilter] = "asifTableFilter$"
+    [observableTable] = "asifTable$"
+    [columns] = "columns"
+    (onRowClick) = "onRowClick($event)"
+    (changeFilter)="applyFilter($event)">
+</mat-table-filter>
+
+
+ 
+ <!-- <div class="example-container"> 
 
     <mat-table 
             #table [dataSource]="dataSource"
@@ -14,7 +24,7 @@
                 <mat-icon matTooltip="Enregistrement dupliqué: non intégré" class="red-icon" *ngIf="data.isDuplicated">done_all</mat-icon>
             </mat-cell>
         </ng-container> 
-        <!-- Operation -->
+
         <ng-container matColumnDef="id">
             <mat-header-cell style="flex:0 0 40px;" *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell style="flex:0 0 40px;" *matCellDef="let data">
@@ -22,7 +32,7 @@
             </mat-cell>
         </ng-container>
 
-        <!-- Operation method -->
+
         <ng-container matColumnDef="operationMethod" >
             <mat-header-cell *matHeaderCellDef mat-sort-header>Méthode opération</mat-header-cell>
             <mat-cell *matCellDef="let data">
@@ -30,7 +40,7 @@
             </mat-cell>
         </ng-container>
 
-        <!-- Operation type family-->
+
         <ng-container matColumnDef="operationTypeFamily" >
             <mat-header-cell *matHeaderCellDef mat-sort-header>Catégorie opération</mat-header-cell>
             <mat-cell *matCellDef="let data">
@@ -38,7 +48,7 @@
             </mat-cell>
         </ng-container>
 
-        <!-- Operation type -->
+
         <ng-container matColumnDef="operationType" >
             <mat-header-cell *matHeaderCellDef mat-sort-header>Type opération</mat-header-cell>
             <mat-cell *matCellDef="let data">
@@ -46,7 +56,7 @@
             </mat-cell>
         </ng-container>
 
-        <!-- Operation -->
+
         <ng-container matColumnDef="operation" >
             <mat-header-cell *matHeaderCellDef mat-sort-header>opération</mat-header-cell>
             <mat-cell *matCellDef="let data">
@@ -54,15 +64,7 @@
             </mat-cell>
         </ng-container>
 
-        <!-- Operation place-->
-        <!-- <ng-container matColumnDef="operationPlace" >
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Lieu opération</mat-header-cell>
-            <mat-cell *matCellDef="let data">
-                <p class="text-truncate">{{data.operationPlace.label}}</p>
-            </mat-cell>
-        </ng-container> -->
 
-        <!-- Amount -->
         <ng-container matColumnDef="dateIntegration" >
             <mat-header-cell style="flex:0 0 80px;" *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
             <mat-cell style="flex:0 0 80px;" *matCellDef="let data">
@@ -70,7 +72,7 @@
             </mat-cell>
         </ng-container> 
 
-        <!-- Amount -->
+    
         <ng-container matColumnDef="amountOperation" >
             <mat-header-cell style="flex:0 0 80px;" *matHeaderCellDef mat-sort-header>Montant</mat-header-cell>
             <mat-cell style="flex:0 0 80px;" *matCellDef="let data">
@@ -97,17 +99,10 @@
                     </button>
             </mat-cell>
         </ng-container> 
-        
 
-        <!-- Expanded Content Column - The detail row is made up of this one column -->
-        <!-- <ng-container matColumnDef="expandedDetail">
-            <mat-cell *matCellDef="let detail"> 
-            {{detail.element.labelOperation}}
-            </mat-cell>
-        </ng-container> -->
 
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></mat-header-row>
-        <!-- (click)="onRowClick(data)" -->
+
         <mat-row 
             *cdkRowDef="let data; columns: displayedColumns;"
             matRipple
@@ -117,19 +112,7 @@
         >
         </mat-row>
         
-        <!-- <mat-row *cdkRowDef="let data; columns: displayedColumns;"
-            matRipple
-            [@animate]="{value:'*',params:{y:'100%'}}"
-            class="element-row" 
-            [class.expanded]="expandedElement == data"
-            (click)="expandedElement = data"
-            >
-        </mat-row>
 
-        <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
-            [@detailExpand]="row.element == expandedElement ? 'expanded' : 'collapsed'"
-            style="overflow: hidden"> 
-        </mat-row> -->
 
     </mat-table>
 
@@ -144,13 +127,13 @@
 </div> 
 
 
-<!-- <mat-paginator *ngIf="(asifTable$ | async).pagination as pagination" -->
+
 <mat-paginator class="footer"
     (page)="onPageChangeEvent($event)"
     [length]="(asifTableFilter$ | async).filters.selected.pagination.totalItems" 
     [pageSize]="(asifTableFilter$ | async).filters.selected.pagination.nbItemsPerPage"
     [pageSizeOptions]="[15, 100, 200]">
-</mat-paginator>
+</mat-paginator> -->
 
 
 

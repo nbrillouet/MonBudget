@@ -24,6 +24,7 @@ import { AsiFilterComponent } from "./asi-filter/asi-filter.component";
 import { AsiService } from "./asi.service";
 import { AsifDetailState } from "app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.state";
 import { AngularMaterialModule } from "app/angular-material.module";
+import { MatTableFilterModule } from "../web-component/mat-table-filter/mat-table-filter.module";
 
 const routes = [
     {
@@ -55,7 +56,7 @@ const routes = [
       FuseSharedModule,
       AngularMaterialModule,
       FileUploadModule,
-      
+      MatTableFilterModule,
       GMapModule,
       NgxsModule.forFeature([
         AsiTableState,

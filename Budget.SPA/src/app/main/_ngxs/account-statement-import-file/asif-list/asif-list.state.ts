@@ -51,11 +51,12 @@ export class AsifTableState extends LoaderState {
         this._asifService.getAsifTable(action.payload)
             .subscribe(result=> {
                 let state = context.getState();
-                state.datas = result;
+                state.datas = result.datas;
                 context.patchState(state);
         
-                this._store.dispatch(new UpdatePaginationAsifTableFilter(action.payload.pagination));
-        
+                // this._store.dispatch(new UpdatePaginationAsifTableFilter(action.payload.pagination));
+                this._store.dispatch(new UpdatePaginationAsifTableFilter(result.pagination));
+
                 this.loaded(context,'datas');
             });
     }

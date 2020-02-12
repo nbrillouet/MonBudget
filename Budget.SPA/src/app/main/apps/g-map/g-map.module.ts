@@ -14,7 +14,7 @@ import { AngularMaterialModule } from 'app/angular-material.module';
     FuseSharedModule,
     AngularMaterialModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyD6F176dnusdXdDH35db9iOGGlCiZYNDvw'
+      apiKey: 'AIzaSyCDu6ltyq_mapV2qhPHzZnjcJQo_MbLX8M'
   })
   ],
   declarations: [GMapSearchComponent],

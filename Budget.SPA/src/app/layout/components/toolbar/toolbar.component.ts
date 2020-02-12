@@ -55,7 +55,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
         private router: Router
     )
     {
-        // console.log('load toolbar');
+      
         // Set the defaults
         this.userStatusOptions = [
             {
@@ -122,7 +122,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
                 this.rightNavbar = settings.layout.navbar.position === 'right';
                 this.hiddenNavbar = settings.layout.navbar.hidden === true;
                 this.fullscreen = this.fuseConfig.layout.toolbar.fullscreen; // this.fullScreen==true ? true : settings.layout.toolbar.fullScreen;
-                // console.log('toolbar-fullscreen',this.fuseConfig);
+
             
             });
 
@@ -135,7 +135,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
      */
     ngOnDestroy(): void
     {
-        // console.log('destroy-toolbar');
+
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
@@ -192,9 +192,8 @@ export class ToolbarComponent implements OnInit, OnDestroy
     {
         // this._authService.userToken = null;
         // localStorage.removeItem('budgetToken');
-        // console.log('currentUser',localStorage.removeItem('currentUser'));
         localStorage.removeItem('currentUser');
-        // console.log('currentUser',localStorage.removeItem('currentUser'));
+
 
         this._authService.currentUser = null;
         // localStorage.removeItem('user');

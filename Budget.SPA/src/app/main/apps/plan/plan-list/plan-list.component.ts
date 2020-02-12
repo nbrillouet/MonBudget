@@ -39,7 +39,7 @@ hasCheckboxes: boolean;
 
   ngOnInit() {
     this.tableComboFilter$.subscribe(comboFilter=> {
-      console.log('comboFilter',comboFilter);
+
       // if(comboFilter.loader['filters']?.loaded) {
       if(comboFilter.loader['datas'] && comboFilter.loader['datas'].loaded) {
 
@@ -51,7 +51,7 @@ hasCheckboxes: boolean;
     });
 
     this.tableInfo$.subscribe(gridInfo => {
-      console.log('gridInfo',gridInfo);
+
       if(gridInfo.loader['datas'] && gridInfo.loader['datas'].loaded) {
         this.dataSource = gridInfo.datas;
    

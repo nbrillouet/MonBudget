@@ -32,7 +32,8 @@
       <input type="number" 
         placeholder="valeur min"
         formControlName="numberMin" 
-        matInput >
+        matInput
+        (focusout)="onFocusOut()" >
       <button mat-icon-button matSuffix (click)="clearMin()">
         <mat-icon>clear</mat-icon>
       </button>
@@ -41,7 +42,8 @@
     <mat-form-field (click)="$event.stopPropagation()">
       <input type="number" 
         placeholder="valeur max"
-        formControlName="numberMin" 
+        formControlName="numberMax" 
+        (focusout)="onFocusOut()"
         matInput>
       <button mat-icon-button matSuffix (click)="clearMax()">
         <mat-icon>clear</mat-icon>

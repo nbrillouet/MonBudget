@@ -54,8 +54,7 @@ export class AsDetailState extends LoaderState {
                 let state = context.getState();
                 state.datas = result;
                 context.patchState(state);
-                console.log('result',result);
-                console.log('context',context);
+
                 this.loaded(context,'datas');
             });
 
@@ -119,7 +118,7 @@ export class AsDetailState extends LoaderState {
         state.datas.operationMethod.selected = action.payload.operationMethod;
         state.datas.operation = new ComboSimple<ISelect>();
         context.patchState(state);
-
+        
         this._referentialService.operationService.GetSelectList(action.payload.operationMethod.id,action.payload.operationType.id,EnumSelectType.inconnu)
             .subscribe(result => {
                 let state = context.getState();

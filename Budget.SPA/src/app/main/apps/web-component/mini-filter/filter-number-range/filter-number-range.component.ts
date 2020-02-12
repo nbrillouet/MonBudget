@@ -28,15 +28,24 @@ export class FilterNumberRangeComponent implements OnInit {
       numberMax: [this.filterNumberRange.numberMax]
       });
 
-    this.numberRangeForm.valueChanges.subscribe(val=>{
-      this.filterNumberRange.numberMin = val.numberMin;
-      this.filterNumberRange.numberMax = val.numberMax;
-
-      this.applyFilter.emit(this.filterNumberRange);
-    });
+    // this.numberRangeForm.valueChanges.subscribe(val=>{
+    //   this.filterNumberRange.numberMin = val.numberMin;
+    //   this.filterNumberRange.numberMax = val.numberMax;
+  
+    //   setTimeout(x=> {
+    //     this.applyFilter.emit(this.filterNumberRange);
+    //   },500);
+      
+    // });
 
   }
   
+  onFocusOut() {
+    this.filterNumberRange.numberMin = this.numberRangeForm.controls['numberMin'].value;
+    this.filterNumberRange.numberMax = this.numberRangeForm.controls['numberMax'].value;
+
+    this.applyFilter.emit(this.filterNumberRange);
+  }
   //  applyFilter(){
   //   this.applyFilter.emit(this.filterNumberRange);
 

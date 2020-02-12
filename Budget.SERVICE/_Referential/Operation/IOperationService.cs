@@ -12,8 +12,9 @@ namespace Budget.SERVICE
     public interface IOperationService 
     {
         SelectDto GetUnknown(int idUserGroup);
+        List<SelectDto> GetSelectList(int idUserGroup);
         List<SelectDto> GetSelectList(int idUserGroup, int idOperationMethod, int idOperationType, EnumSelectType enumSelectType);
-        List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationMethods);
+        List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationMethodList, List<SelectDto> operationTypeFamilyList, List<SelectDto> operationTypeList);
         List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste);
         List<SelectDto> GetSelectListByIdList(List<int> idList);
         PagedList<OperationForTableDto> GetTable(FilterOperationTableSelected filter);

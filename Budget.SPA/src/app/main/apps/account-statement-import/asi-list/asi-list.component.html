@@ -1,6 +1,12 @@
-
+<mat-table-filter 
+    [observableFilter] = "asiTableFilter$"
+    [observableTable] = "asiTable$"
+    [columns] = "columns"
+    (onRowClick) = "onRowClick($event)"
+    (changeFilter)="applyFilter($event)">
+</mat-table-filter>
         
-        <mat-table class="account-statement-import-table"
+        <!-- <mat-table class="account-statement-import-table"
           #table [dataSource]="dataSource"
           [@animateStagger]="{value:'50'}"
           matSort matSortActive="id" matSortDirection="asc" matSortDisableClear 
@@ -18,21 +24,21 @@
                 </mat-cell>
             </ng-container>
 
-            <!-- ID Column -->
+ 
             <ng-container matColumnDef="id" >
                 <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
                 <mat-cell *matCellDef="let data">
                     <p class="text-truncate">{{data.id}}</p>
                 </mat-cell>
             </ng-container>
-                <!-- fileImport Column -->
+ 
                 <ng-container matColumnDef="fileImport" >
                     <mat-header-cell *matHeaderCellDef mat-sort-header>nom fichier</mat-header-cell>
                     <mat-cell *matCellDef="let data">
                         <p class="text-truncate">{{data.fileImport}}</p>
                     </mat-cell>
                 </ng-container>
-                <!-- dateImport Column -->
+
             <ng-container matColumnDef="dateImport" >
                 <mat-header-cell *matHeaderCellDef mat-sort-header>date import</mat-header-cell>
                 <mat-cell *matCellDef="let data">
@@ -66,4 +72,4 @@
             [pageSize]="pagination.itemsPerPage"
             [pageSizeOptions]="[3, 5, 10]">
         </mat-paginator>
-    
+     -->

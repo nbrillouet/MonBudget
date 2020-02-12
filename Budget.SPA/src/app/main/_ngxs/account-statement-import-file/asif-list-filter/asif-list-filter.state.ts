@@ -61,6 +61,8 @@ export class AsifTableFilterState extends LoaderState{
                 context.patchState(state);
                 
                 context.dispatch(new ChangeAsifTableFilter(payload));
+
+                this.loaded(context,'filters');
             });
 
     }

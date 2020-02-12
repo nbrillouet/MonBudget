@@ -1,4 +1,4 @@
-import { FilterUserTable } from "app/main/_models/filters/user.filter";
+import { FilterUserTable, FilterUserTableSelected } from "app/main/_models/filters/user.filter";
 import { Pagination } from "app/main/_models/pagination.model";
 
 export const USER_TABLE_FILTER_LOAD = 'user-table-filter-load';
@@ -21,7 +21,7 @@ export class LoadUserTableFilter {
 export class ChangeUserTableFilter {
     static readonly type = USER_TABLE_FILTER_CHANGE;
  
-    constructor(public payload: FilterUserTable) { }
+    constructor(public payload: FilterUserTableSelected) { }
 }
 
 export class UpdatePaginationUserTableFilter {

@@ -26,7 +26,6 @@ namespace Budget.SERVICE
         private readonly ReferentialService _referentialService;
         
 
-
         public AccountStatementService(
             IMapper mapper,
             IGMapAddressService gMapAddressService,
@@ -46,7 +45,7 @@ namespace Budget.SERVICE
             _referentialService = referentialService;
         }
 
-        public PagedList<AsForTableDto> GetAsTable(FilterAsTableSelected filter)
+        public PagedList<AsForTableDto> GetTable(FilterAsTableSelected filter)
         {
             var pagedList = _accountStatementRepository.GetAsTable(filter);
 

@@ -21,19 +21,31 @@ export class FilterComboMultipleComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('this.filterComboMultiple',this.filterComboMultiple);
+
     this.comboMultipleForm = this._formBuilder.group({
       comboMultiple: [this.filterComboMultiple.combos.listSelected]
     });
 
     this.comboMultipleForm.valueChanges.subscribe(val=>{
-      console.log('change value', val.comboMultiple);
-      this.filterComboMultiple.combos.listSelected = val.comboMultiple;
-      this.applyFilterComboMultiple.emit(this.filterComboMultiple.combos.listSelected);
+      if(!this.sameMembers(this.filterComboMultiple.combos.listSelected,val.comboMultiple)){
+        this.filterComboMultiple.combos.listSelected = val.comboMultiple;
+        this.applyFilterComboMultiple.emit(this.filterComboMultiple.combos.listSelected);
+      }
+
+      // if(this.filterComboMultiple.combos.listSelected==val.comboMultiple)
+      //   console.log('equality');
+
+
     });
 
   }
   
+  sameMembers(item1, item2) {
+    if(item1 && item1.sort().join(',')=== item2.sort().join(','))
+      return true;
+
+    return false
+  }
 
   applyFilter(){
     this.applyFilterComboMultiple.emit(this.filterComboMultiple.combos.listSelected);

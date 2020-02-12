@@ -108,26 +108,27 @@ namespace Budget.DATA.Repositories
                 .Include(x => x.OperationTypeFamily)
                 .AsQueryable();
 
-            if (filter.IdImport != null)
-            {
-                accountStatementImportFiles = accountStatementImportFiles.Where(x => x.IdImport == filter.IdImport);
-            }
-            if (filter.Account != null)
-            {
-                accountStatementImportFiles = accountStatementImportFiles.Where(x => x.IdAccount == filter.Account.Id);
-            }
-            if (filter.AsifState != null)
-            {
-                accountStatementImportFiles = accountStatementImportFiles.Where(x => (int)x.EnumAsifState == filter.AsifState.Id);
-            }
-            if (filter.Pagination.SortDirection == "asc")
-                accountStatementImportFiles = accountStatementImportFiles.OrderBy(filter.Pagination.SortColumn);
-            else
-                accountStatementImportFiles = accountStatementImportFiles.OrderByDescending(filter.Pagination.SortColumn);
+            accountStatementImportFiles = GenericTableFilter.GetGenericFilters(accountStatementImportFiles, filter);
 
-            var results = PagedListRepository<AccountStatementImportFile>.Create(accountStatementImportFiles, filter.Pagination);
+            //if (filter.IdImport != null)
+            //{
+            //    accountStatementImportFiles = accountStatementImportFiles.Where(x => x.IdImport == filter.IdImport);
+            //}
+            //if (filter.Account != null)
+            //{
+            //    accountStatementImportFiles = accountStatementImportFiles.Where(x => x.IdAccount == filter.Account.Id);
+            //}
+            //if (filter.AsifState != null)
+            //{
+            //    accountStatementImportFiles = accountStatementImportFiles.Where(x => (int)x.EnumAsifState == filter.AsifState.Id);
+            //}
+            //if (filter.Pagination.SortDirection == "asc")
+            //    accountStatementImportFiles = accountStatementImportFiles.OrderBy(filter.Pagination.SortColumn);
+            //else
+            //    accountStatementImportFiles = accountStatementImportFiles.OrderByDescending(filter.Pagination.SortColumn);
 
-            return results;
+
+            return PagedListRepository<AccountStatementImportFile>.Create(accountStatementImportFiles, filter.Pagination); ;
         }
 
         //public async Task<PagedList<AccountStatementImportFile>> GetAsync(FilterAccountStatementImportFile filter)

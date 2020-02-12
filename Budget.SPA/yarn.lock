@@ -983,14 +983,6 @@
     semver "6.3.0"
     semver-intersect "1.4.0"
 
-"@swimlane/dragula@3.8.0", "@swimlane/dragula@^3.8.0":
-  version "3.8.0"
-  resolved "http://tfs:8081/repository/npm-group/@swimlane/dragula/-/dragula-3.8.0.tgz#1fb96e898339c062acf0d0405173eca218d0b15d"
-  integrity sha512-1F3sWPs9GRbQysuOa92llH21YYgc0YezTAtt72AmMxgv8erX8h/S6hYWzqEj5SIB/+u/YRx298dKU0tGoYGgNg==
-  dependencies:
-    contra "1.9.4"
-    crossvent "1.5.4"
-
 "@swimlane/ngx-charts@12.0.1":
   version "12.0.1"
   resolved "http://tfs:8081/repository/npm-group/@swimlane/ngx-charts/-/ngx-charts-12.0.1.tgz#ad7200d2bd7255e9dc64d13bfca412e7d4569ad0"
@@ -1009,31 +1001,12 @@
     d3-shape "^1.2.0"
     d3-time-format "^2.1.0"
 
-"@swimlane/ngx-datatable@15.0.2":
-  version "15.0.2"
-  resolved "http://tfs:8081/repository/npm-group/@swimlane/ngx-datatable/-/ngx-datatable-15.0.2.tgz#3ab0a25668ebc20fe192a3014d41875e0f307181"
-  integrity sha512-IlUyCs/hLv12hzz2pGugbrdRpBbwE6JUM4Bm4CCqLptmZj+t8pw8Ywthde8yUDdpgGgTJeJ9G5o92QadyGbP3g==
-
-"@swimlane/ngx-dnd@8.0.0":
-  version "8.0.0"
-  resolved "http://tfs:8081/repository/npm-group/@swimlane/ngx-dnd/-/ngx-dnd-8.0.0.tgz#1dc64c18bb9e95ce2b757e3fd37089388f463195"
-  integrity sha512-+QK2+ukLjQtm9pzeXltaUoLywlkaxCrT69Va4RZzFoNYupP7KjNdwlTDmz8V51yqAO7h7Ayz6KzxOBeqYHzPfA==
-  dependencies:
-    "@swimlane/dragula" "^3.8.0"
-    "@types/dragula" "^2.1.34"
-    tslib "^1.9.0"
-
 "@types/chart.js@^2.7.48":
   version "2.9.11"
   resolved "http://tfs:8081/repository/npm-group/@types/chart.js/-/chart.js-2.9.11.tgz#2b73fe59e78dfe31c2f8d6c6d0c169e98e65c16b"
   integrity sha512-xuDh5pZWci1Z5DUkiGTTLIBymxUe8KMfo1JYM5HTY7LXURSCej458uMrD4eYn4v+BTYTZfKlTRNIk8jW4nTaOg==
   dependencies:
     moment "^2.10.2"
-
-"@types/dragula@^2.1.34":
-  version "2.1.34"
-  resolved "http://tfs:8081/repository/npm-group/@types/dragula/-/dragula-2.1.34.tgz#48ecf8627860e6179efc222dd5390b37dbd42d9d"
-  integrity sha512-tZbauiqJgEpKKtBQI8pQ24FrkDNGhiXCFsygqQPeAJTPJJC1RI0BOmHv7VHI9qDehhXXffq9aJEUhqEQyY/PVA==
 
 "@types/events@*":
   version "3.0.0"
@@ -1050,9 +1023,9 @@
     "@types/node" "*"
 
 "@types/jasmine@*":
-  version "3.5.1"
-  resolved "http://tfs:8081/repository/npm-group/@types/jasmine/-/jasmine-3.5.1.tgz#e417aa74738aa9e9285016abbfcae68d5be0f827"
-  integrity sha512-5ZxOWKc0AgTeMcYCnV4RxTZZAClWaHKPR6n14LvUj8ywKDhOfI+YgdtNLXiW4kQmtxS3i1HXVbfAot+pqpJE2A==
+  version "3.5.2"
+  resolved "http://tfs:8081/repository/npm-group/@types/jasmine/-/jasmine-3.5.2.tgz#9ff982e0ddca82f65e5d85a3f0584e9e6b92c47b"
+  integrity sha512-7hrdBDFWlTb4EhrXYRyC7i3L2kKCV0TqYbzuV+gwyPNF2V4SSHw2Vs223ai26W4tEg+t4e9Wfi1vW6JLubYPiw==
 
 "@types/jasmine@3.3.14":
   version "3.3.14"
@@ -1077,9 +1050,9 @@
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
 "@types/node@*":
-  version "13.1.8"
-  resolved "http://tfs:8081/repository/npm-group/@types/node/-/node-13.1.8.tgz#1d590429fe8187a02707720ecf38a6fe46ce294b"
-  integrity sha512-6XzyyNM9EKQW4HKuzbo/CkOIjn/evtCmsU+MUM1xDfJ+3/rNjBttM1NgN7AOQvN6tP1Sl1D1PIKMreTArnxM9A==
+  version "13.5.2"
+  resolved "http://tfs:8081/repository/npm-group/@types/node/-/node-13.5.2.tgz#3de53b55fd39efc428a901a0f6db31f761cfa131"
+  integrity sha512-Fr6a47c84PRLfd7M7u3/hEknyUdQrrBA6VoPmkze0tcflhU5UnpWEX2kn12ktA/lb+MNHSqFlSiPHIHsaErTPA==
 
 "@types/prismjs@1.16.0":
   version "1.16.0"
@@ -1358,43 +1331,12 @@ amdefine@>=0.0.4:
   resolved "http://tfs:8081/repository/npm-group/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
-angular-calendar@0.27.13:
-  version "0.27.13"
-  resolved "http://tfs:8081/repository/npm-group/angular-calendar/-/angular-calendar-0.27.13.tgz#f6bc6297783b6ac79efc64ed0de452495a45b8e4"
-  integrity sha512-OxPCTF8G6ypdf2NY2ZSqKsVZwUoOcr++WtcWpyQv/xGfRdziZwAIu2zJqFjtO3j7gBrnJfevJO+d2kuvaOU4Rw==
-  dependencies:
-    angular-draggable-droppable "^4.3.2"
-    angular-resizable-element "^3.2.4"
-    calendar-utils "^0.3.1"
-    positioning "^1.4.0"
-    tslib "^1.9.0"
-
-angular-draggable-droppable@^4.3.2:
-  version "4.3.8"
-  resolved "http://tfs:8081/repository/npm-group/angular-draggable-droppable/-/angular-draggable-droppable-4.3.8.tgz#fb13a358015478152bd066c7099dd00d3201981f"
-  integrity sha512-IIl3M+oXvaWPfLrbJdvdWcZLJb6/FqhImELNqBhbTlYMudyiJaLn1lUFYWz8xDti+b1eUoJpEPU3hliBYZmAvw==
-  dependencies:
-    dom-autoscroller "^2.3.4"
-    tslib "^1.9.0"
-
-angular-resizable-element@^3.2.4:
-  version "3.3.0"
-  resolved "http://tfs:8081/repository/npm-group/angular-resizable-element/-/angular-resizable-element-3.3.0.tgz#7927f72ed2b782961e1837b9a5a9566924ad2013"
-  integrity sha512-rnyeT2/kdJcDzkSAYCecjiBtP75WMI8TF2a63pRSIFWbE3x3kTZmnhIDxW+RFqIlg+MyHfRFXYiGBhjzgkvb+Q==
-  dependencies:
-    tslib "^1.9.0"
-
 angular2-notifications@3.0.0:
   version "3.0.0"
   resolved "http://tfs:8081/repository/npm-group/angular2-notifications/-/angular2-notifications-3.0.0.tgz#fc52b087e937b0338853763c41b1c7dab4df0859"
   integrity sha512-jOLGli3B0SxLvU5PHg5i2yBS34ABd45z0tpYoAApj2V7ZFWgm4/Z5WGR1KY1+JjWE1YOQ5L930xMNEZhPorc9g==
   dependencies:
     tslib "^1.9.0"
-
-animation-frame-polyfill@^1.0.0:
-  version "1.0.1"
-  resolved "http://tfs:8081/repository/npm-group/animation-frame-polyfill/-/animation-frame-polyfill-1.0.1.tgz#5f5ad993a78794bd176acde5b6dce62867410c9d"
-  integrity sha1-X1rZk6eHlL0Xas3lttzmKGdBDJ0=
 
 ansi-colors@4.1.1:
   version "4.1.1"
@@ -1516,11 +1458,6 @@ array-flatten@^2.1.0:
   resolved "http://tfs:8081/repository/npm-group/array-flatten/-/array-flatten-2.1.2.tgz#24ef80a28c1a893617e2149b0c6d0d788293b099"
   integrity sha512-hNfzcOV8W4NdualtqBFPyVO+54DSJuZGY9qT4pRroB6S9e3iiido2ISIC5h9R2sPJ8H3FHCIiEnsv1lPXO3KtQ==
 
-array-from@^2.1.1:
-  version "2.1.1"
-  resolved "http://tfs:8081/repository/npm-group/array-from/-/array-from-2.1.1.tgz#cfe9d8c26628b9dc5aecc62a9f5d8f1f352c1195"
-  integrity sha1-z+nYwmYoudxa7MYqn12PHzUsEZU=
-
 array-union@^1.0.1:
   version "1.0.2"
   resolved "http://tfs:8081/repository/npm-group/array-union/-/array-union-1.0.2.tgz#9a34410e4f4e3da23dea375be5be70f24778ec39"
@@ -1608,11 +1545,6 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "http://tfs:8081/repository/npm-group/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha1-x57Zf380y48robyXkLzDZkdLS3k=
-
-atoa@1.0.0:
-  version "1.0.0"
-  resolved "http://tfs:8081/repository/npm-group/atoa/-/atoa-1.0.0.tgz#0cc0e91a480e738f923ebc103676471779b34a49"
-  integrity sha1-DMDpGkgOc4+SPrwQNnZHF3mzSkk=
 
 atob@^2.1.2:
   version "2.1.2"
@@ -1882,13 +1814,13 @@ browserslist@4.8.3:
     node-releases "^1.1.44"
 
 browserslist@^4.6.0, browserslist@^4.6.3, browserslist@^4.8.3:
-  version "4.8.5"
-  resolved "http://tfs:8081/repository/npm-group/browserslist/-/browserslist-4.8.5.tgz#691af4e327ac877b25e7a3f7ee869c4ef36cdea3"
-  integrity sha512-4LMHuicxkabIB+n9874jZX/az1IaZ5a+EUuvD7KFOu9x/Bd5YHyO0DIz2ls/Kl8g0ItS4X/ilEgf4T1Br0lgSg==
+  version "4.8.6"
+  resolved "http://tfs:8081/repository/npm-group/browserslist/-/browserslist-4.8.6.tgz#96406f3f5f0755d272e27a66f4163ca821590a7e"
+  integrity sha512-ZHao85gf0eZ0ESxLfCp73GG9O/VTytYDIkIiZDlURppLTI9wErSM/5yAKEq6rcUdxBLjMELmrYUJGg5sxGKMHg==
   dependencies:
-    caniuse-lite "^1.0.30001022"
-    electron-to-chromium "^1.3.338"
-    node-releases "^1.1.46"
+    caniuse-lite "^1.0.30001023"
+    electron-to-chromium "^1.3.341"
+    node-releases "^1.1.47"
 
 browserstack@^1.5.1:
   version "1.5.3"
@@ -2003,11 +1935,6 @@ cache-base@^1.0.1:
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
-calendar-utils@^0.3.1:
-  version "0.3.3"
-  resolved "http://tfs:8081/repository/npm-group/calendar-utils/-/calendar-utils-0.3.3.tgz#6e2c13858389ad67dbac760360b05f58a72748a3"
-  integrity sha512-MP5/oR18eNpxWcDIo7bfhLCPNeUazfvIIBgzeAgPA/Ik3mmIFmqL4j7BUla2ulZtgrPbH+joghZEiipkrZ8IfQ==
-
 caller-callsite@^2.0.0:
   version "2.0.0"
   resolved "http://tfs:8081/repository/npm-group/caller-callsite/-/caller-callsite-2.0.0.tgz#847e0fce0a223750a9a027c54b33731ad3154134"
@@ -2037,10 +1964,10 @@ caniuse-lite@1.0.30001019:
   resolved "http://tfs:8081/repository/npm-group/caniuse-lite/-/caniuse-lite-1.0.30001019.tgz#857e3fccaad2b2feb3f1f6d8a8f62d747ea648e1"
   integrity sha512-6ljkLtF1KM5fQ+5ZN0wuyVvvebJxgJPTmScOMaFuQN2QuOzvRJnWSKfzQskQU5IOU4Gap3zasYPIinzwUjoj/g==
 
-caniuse-lite@^1.0.30000980, caniuse-lite@^1.0.30001017, caniuse-lite@^1.0.30001022:
-  version "1.0.30001022"
-  resolved "http://tfs:8081/repository/npm-group/caniuse-lite/-/caniuse-lite-1.0.30001022.tgz#9eeffe580c3a8f110b7b1742dcf06a395885e4c6"
-  integrity sha512-FjwPPtt/I07KyLPkBQ0g7/XuZg6oUkYBVnPHNj3VHJbOjmmJ/GdSo/GUY6MwINEQvjhP6WZVbX8Tvms8xh0D5A==
+caniuse-lite@^1.0.30000980, caniuse-lite@^1.0.30001017, caniuse-lite@^1.0.30001023:
+  version "1.0.30001023"
+  resolved "http://tfs:8081/repository/npm-group/caniuse-lite/-/caniuse-lite-1.0.30001023.tgz#b82155827f3f5009077bdd2df3d8968bcbcc6fc4"
+  integrity sha512-C5TDMiYG11EOhVOA62W1p3UsJ2z4DsHtMBQtjzp3ZsUglcQn62WOUgW0y795c7A5uZ+GCEIvzkMatLIlAsbNTA==
 
 canonical-path@1.0.0:
   version "1.0.0"
@@ -2359,14 +2286,6 @@ content-type@~1.0.4:
   resolved "http://tfs:8081/repository/npm-group/content-type/-/content-type-1.0.4.tgz#e138cc75e040c727b1966fe5e5f8c9aee256fe3b"
   integrity sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA==
 
-contra@1.9.4:
-  version "1.9.4"
-  resolved "http://tfs:8081/repository/npm-group/contra/-/contra-1.9.4.tgz#f53bde42d7e5b5985cae4d99a8d610526de8f28d"
-  integrity sha1-9TveQtfltZhcrk2ZqNYQUm3o8o0=
-  dependencies:
-    atoa "1.0.0"
-    ticky "1.0.1"
-
 convert-source-map@^1.5.1, convert-source-map@^1.7.0:
   version "1.7.0"
   resolved "http://tfs:8081/repository/npm-group/convert-source-map/-/convert-source-map-1.7.0.tgz#17a2cb882d7f77d3490585e2ce6c524424a3a442"
@@ -2489,13 +2408,6 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-point-cb@^1.0.0:
-  version "1.2.0"
-  resolved "http://tfs:8081/repository/npm-group/create-point-cb/-/create-point-cb-1.2.0.tgz#1bce47fc4fc01855ee12138d676b0cb2a7cbce71"
-  integrity sha1-G85H/E/AGFXuEhONZ2sMsqfLznE=
-  dependencies:
-    type-func "^1.0.1"
-
 cross-spawn@^6.0.0:
   version "6.0.5"
   resolved "http://tfs:8081/repository/npm-group/cross-spawn/-/cross-spawn-6.0.5.tgz#4a5ec7c64dfae22c3a14124dbacdee846d80cbc4"
@@ -2506,13 +2418,6 @@ cross-spawn@^6.0.0:
     semver "^5.5.0"
     shebang-command "^1.2.0"
     which "^1.2.9"
-
-crossvent@1.5.4:
-  version "1.5.4"
-  resolved "http://tfs:8081/repository/npm-group/crossvent/-/crossvent-1.5.4.tgz#da2c4f8f40c94782517bf2beec1044148194ab92"
-  integrity sha1-2ixPj0DJR4JRe/K+7BBEFIGUq5I=
-  dependencies:
-    custom-event "1.0.0"
 
 crypto-browserify@^3.11.0:
   version "3.12.0"
@@ -2556,11 +2461,6 @@ cssesc@^0.1.0:
   version "0.1.0"
   resolved "http://tfs:8081/repository/npm-group/cssesc/-/cssesc-0.1.0.tgz#c814903e45623371a0477b40109aaafbeeaddbb4"
   integrity sha1-yBSQPkViM3GgR3tAEJqq++6t27Q=
-
-custom-event@1.0.0:
-  version "1.0.0"
-  resolved "http://tfs:8081/repository/npm-group/custom-event/-/custom-event-1.0.0.tgz#2e4628be19dc4b214b5c02630c5971e811618062"
-  integrity sha1-LkYovhncSyFLXAJjDFlx6BFhgGI=
 
 cyclist@^1.0.1:
   version "1.0.1"
@@ -3057,9 +2957,9 @@ d3@^4.10.2:
     d3-zoom "1.7.1"
 
 damerau-levenshtein@^1.0.4:
-  version "1.0.5"
-  resolved "http://tfs:8081/repository/npm-group/damerau-levenshtein/-/damerau-levenshtein-1.0.5.tgz#780cf7144eb2e8dbd1c3bb83ae31100ccc31a414"
-  integrity sha512-CBCRqFnpu715iPmw1KrdOrzRqbdFwQTwAWyyyYS42+iAgHCuXZ+/TdMgQkUENPomxEz9z1BEzuQU2Xw0kUuAgA==
+  version "1.0.6"
+  resolved "http://tfs:8081/repository/npm-group/damerau-levenshtein/-/damerau-levenshtein-1.0.6.tgz#143c1641cb3d85c60c32329e26899adea8701791"
+  integrity sha512-JVrozIeElnj3QzfUIt8tB8YMluBJom4Vw9qTPpjGYQ9fYlB3D/rb6OordUxf3xeFB35LKWs0xqcO5U6ySvBtug==
 
 dashdash@^1.12.0:
   version "1.14.1"
@@ -3278,39 +3178,6 @@ dns-txt@^2.0.2:
   dependencies:
     buffer-indexof "^1.0.0"
 
-dom-autoscroller@^2.3.4:
-  version "2.3.4"
-  resolved "http://tfs:8081/repository/npm-group/dom-autoscroller/-/dom-autoscroller-2.3.4.tgz#1ed25cbde2bdf3bf3eb762937089b20ecef190bd"
-  integrity sha512-HcAdt/2Dq9x4CG6LWXc2x9Iq0MJPAu8fuzHncclq7byufqYEYVtx9sZ/dyzR+gdj4qwEC9p27Lw1G2HRRYX6jQ==
-  dependencies:
-    animation-frame-polyfill "^1.0.0"
-    create-point-cb "^1.0.0"
-    dom-mousemove-dispatcher "^1.0.1"
-    dom-plane "^1.0.1"
-    dom-set "^1.0.1"
-    type-func "^1.0.1"
-
-dom-mousemove-dispatcher@^1.0.1:
-  version "1.0.1"
-  resolved "http://tfs:8081/repository/npm-group/dom-mousemove-dispatcher/-/dom-mousemove-dispatcher-1.0.1.tgz#a24a6ddf93b27bb3694f72087546a57fc7e9140f"
-  integrity sha1-okpt35Oye7NpT3IIdUalf8fpFA8=
-
-dom-plane@^1.0.1:
-  version "1.0.2"
-  resolved "http://tfs:8081/repository/npm-group/dom-plane/-/dom-plane-1.0.2.tgz#f8c85e697c587f147e8fc2fac1de078c1fe4172c"
-  integrity sha1-+MheaXxYfxR+j8L6wd4HjB/kFyw=
-  dependencies:
-    create-point-cb "^1.0.0"
-
-dom-set@^1.0.1:
-  version "1.1.1"
-  resolved "http://tfs:8081/repository/npm-group/dom-set/-/dom-set-1.1.1.tgz#5c2c610ee4839b520ed5f98ddbcbe314c0fa954a"
-  integrity sha1-XCxhDuSDm1IO1fmN28vjFMD6lUo=
-  dependencies:
-    array-from "^2.1.1"
-    is-array "^1.0.1"
-    iselement "^1.1.4"
-
 domain-browser@^1.1.1:
   version "1.2.0"
   resolved "http://tfs:8081/repository/npm-group/domain-browser/-/domain-browser-1.2.0.tgz#3d31f50191a6749dd1375a7f522e823d42e54eda"
@@ -3349,10 +3216,10 @@ ejs@^2.6.1:
   resolved "http://tfs:8081/repository/npm-group/ejs/-/ejs-2.7.4.tgz#48661287573dcc53e366c7a1ae52c3a120eec9ba"
   integrity sha512-7vmuyh5+kuUyJKePhQfRQBhXV5Ce+RnaeeQArKu1EAMpL3WbgMt5WG6uQZpEVvYSSsxMXRKOewtDk9RaTKXRlA==
 
-electron-to-chromium@^1.3.322, electron-to-chromium@^1.3.338:
-  version "1.3.340"
-  resolved "http://tfs:8081/repository/npm-group/electron-to-chromium/-/electron-to-chromium-1.3.340.tgz#5d4fe78e984d4211194cf5a52e08069543da146f"
-  integrity sha512-hRFBAglhcj5iVYH+o8QU0+XId1WGoc0VGowJB1cuJAt3exHGrivZvWeAO5BRgBZqwZtwxjm8a5MQeGoT/Su3ww==
+electron-to-chromium@^1.3.322, electron-to-chromium@^1.3.341:
+  version "1.3.342"
+  resolved "http://tfs:8081/repository/npm-group/electron-to-chromium/-/electron-to-chromium-1.3.342.tgz#138317aa7399e268735b9269fe374a8566425090"
+  integrity sha512-An/MLhGLIG/g7lZ5vqs4lar96zv74agd3ZcADDHLpjAa16T7Y/pO/33Q31JOwpmHeyjithtHtUcn7XLuaz78lw==
 
 elliptic@^6.0.0:
   version "6.5.2"
@@ -3807,9 +3674,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 follow-redirects@^1.0.0:
-  version "1.9.0"
-  resolved "http://tfs:8081/repository/npm-group/follow-redirects/-/follow-redirects-1.9.0.tgz#8d5bcdc65b7108fe1508649c79c12d732dcedb4f"
-  integrity sha512-CRcPzsSIbXyVDl0QI01muNDu69S8trU4jArW9LpOt2WtC6LyUJetcIrmfHsRBx7/Jb6GHJUiuqyYxPooFfNt6A==
+  version "1.10.0"
+  resolved "http://tfs:8081/repository/npm-group/follow-redirects/-/follow-redirects-1.10.0.tgz#01f5263aee921c6a54fb91667f08f4155ce169eb"
+  integrity sha512-4eyLK6s6lH32nOvLLwlIOnr9zrL8Sm+OvW4pVTJNoXeGzYIkHVf+pADQi+OJ0E67hiuSLezPVPyBcIZO50TmmQ==
   dependencies:
     debug "^3.0.0"
 
@@ -4468,11 +4335,6 @@ is-arguments@^1.0.4:
   resolved "http://tfs:8081/repository/npm-group/is-arguments/-/is-arguments-1.0.4.tgz#3faf966c7cba0ff437fb31f6250082fcf0448cf3"
   integrity sha512-xPh0Rmt8NE65sNzvyUmWgI1tz3mKq74lGA0mL8LYZcoIzKOzDh6HmrYm3d18k60nHerC8A9Km8kYu87zfSFnLA==
 
-is-array@^1.0.1:
-  version "1.0.1"
-  resolved "http://tfs:8081/repository/npm-group/is-array/-/is-array-1.0.1.tgz#e9850cc2cc860c3bc0977e84ccf0dd464584279a"
-  integrity sha1-6YUMwsyGDDvAl36EzPDdRkWEJ5o=
-
 is-arrayish@^0.2.1:
   version "0.2.1"
   resolved "http://tfs:8081/repository/npm-group/is-arrayish/-/is-arrayish-0.2.1.tgz#77c99840527aa8ecb1a8ba697b80645a7a926a9d"
@@ -4697,11 +4559,6 @@ isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   version "1.0.0"
   resolved "http://tfs:8081/repository/npm-group/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
-
-iselement@^1.1.4:
-  version "1.1.4"
-  resolved "http://tfs:8081/repository/npm-group/iselement/-/iselement-1.1.4.tgz#7e55b52a8ebca50a7e2e80e5b8d2840f32353146"
-  integrity sha1-flW1Ko68pQp+LoDluNKEDzI1MUY=
 
 isexe@^2.0.0:
   version "2.0.0"
@@ -4989,7 +4846,7 @@ lodash.clonedeep@^4.5.0:
   resolved "http://tfs:8081/repository/npm-group/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
   integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
 
-lodash@4.17.15, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.5:
+lodash@4.17.15, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.5:
   version "4.17.15"
   resolved "http://tfs:8081/repository/npm-group/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -5454,7 +5311,7 @@ node-libs-browser@^2.2.1:
     util "^0.11.0"
     vm-browserify "^1.0.1"
 
-node-releases@^1.1.44, node-releases@^1.1.46:
+node-releases@^1.1.44, node-releases@^1.1.47:
   version "1.1.47"
   resolved "http://tfs:8081/repository/npm-group/node-releases/-/node-releases-1.1.47.tgz#c59ef739a1fd7ecbd9f0b7cf5b7871e8a8b591e4"
   integrity sha512-k4xjVPx5FpwBUj0Gw7uvFOTF4Ep8Hok1I6qjwL3pLfwe7Y0REQSAqOwwv9TWBCUtMHxcXfY4PgRLRozcChvTcA==
@@ -5838,9 +5695,9 @@ pacote@9.5.5:
     which "^1.3.1"
 
 pako@~1.0.2, pako@~1.0.5:
-  version "1.0.10"
-  resolved "http://tfs:8081/repository/npm-group/pako/-/pako-1.0.10.tgz#4328badb5086a426aa90f541977d4955da5c9732"
-  integrity sha512-0DTvPVU3ed8+HNXOu5Bs+o//Mbdj9VNQMUOe9oKCwh8l0GNwpTDMKCWbRjgtD291AWnkAgkqA/LOnQS8AmS1tw==
+  version "1.0.11"
+  resolved "http://tfs:8081/repository/npm-group/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
+  integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
 parallel-transform@^1.1.0:
   version "1.2.0"
@@ -6018,11 +5875,6 @@ portfinder@^1.0.25:
     async "^2.6.2"
     debug "^3.1.1"
     mkdirp "^0.5.1"
-
-positioning@^1.4.0:
-  version "1.5.1"
-  resolved "http://tfs:8081/repository/npm-group/positioning/-/positioning-1.5.1.tgz#73b90b621cd0a7e17b39fdcbc7f4567a95fcc8ce"
-  integrity sha512-Al3inO/WAlq7Q986pghpdWC9fsSCCKxOAwRt8ZGpcQn58SP8RJX7bjC53I7xeq9ngN+odcyF4B+wMdpyyiF5wQ==
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
@@ -7433,11 +7285,6 @@ thunky@^1.0.2:
   resolved "http://tfs:8081/repository/npm-group/thunky/-/thunky-1.1.0.tgz#5abaf714a9405db0504732bbccd2cedd9ef9537d"
   integrity sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==
 
-ticky@1.0.1:
-  version "1.0.1"
-  resolved "http://tfs:8081/repository/npm-group/ticky/-/ticky-1.0.1.tgz#b7cfa71e768f1c9000c497b9151b30947c50e46d"
-  integrity sha1-t8+nHnaPHJAAxJe5FRswlHxQ5G0=
-
 timers-browserify@^2.0.4:
   version "2.0.11"
   resolved "http://tfs:8081/repository/npm-group/timers-browserify/-/timers-browserify-2.0.11.tgz#800b1f3eee272e5bc53ee465a04d0e804c31211f"
@@ -7596,11 +7443,6 @@ type-fest@^0.8.1:
   resolved "http://tfs:8081/repository/npm-group/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
   integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
 
-type-func@^1.0.1:
-  version "1.0.3"
-  resolved "http://tfs:8081/repository/npm-group/type-func/-/type-func-1.0.3.tgz#ab184234ae80d8d50057cefeff3b2d97d08ae9b0"
-  integrity sha1-qxhCNK6A2NUAV87+/zstl9CK6bA=
-
 type-is@~1.6.17, type-is@~1.6.18:
   version "1.6.18"
   resolved "http://tfs:8081/repository/npm-group/type-is/-/type-is-1.6.18.tgz#4e552cd05df09467dcbc4ef739de89f2cf37c131"
@@ -7614,15 +7456,15 @@ typedarray@^0.0.6:
   resolved "http://tfs:8081/repository/npm-group/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.5.2:
-  version "3.5.2"
-  resolved "http://tfs:8081/repository/npm-group/typescript/-/typescript-3.5.2.tgz#a09e1dc69bc9551cadf17dba10ee42cf55e5d56c"
-  integrity sha512-7KxJovlYhTX5RaRbUdkAXN1KUZ8PwWlTzQdHV6xNqvuFOs7+WBo10TQUqT19Q/Jz2hk5v9TQDIhyLhhJY4p5AA==
-
 typescript@3.5.3:
   version "3.5.3"
   resolved "http://tfs:8081/repository/npm-group/typescript/-/typescript-3.5.3.tgz#c830f657f93f1ea846819e929092f5fe5983e977"
   integrity sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
+
+typescript@3.7.5:
+  version "3.7.5"
+  resolved "http://tfs:8081/repository/npm-group/typescript/-/typescript-3.7.5.tgz#0692e21f65fd4108b9330238aac11dd2e177a1ae"
+  integrity sha512-/P5lkRXkWHNAbcJIiHPfRoKqyd7bsyCma1hZNUGfn20qm64T6ZBlrzprymeu918H+mB/0rIg2gGK/BXkhhYgBw==
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"
@@ -7847,10 +7689,10 @@ webdriver-manager@^12.0.6:
     semver "^5.3.0"
     xml2js "^0.4.17"
 
-webpack-bundle-analyzer@3.3.2:
-  version "3.3.2"
-  resolved "http://tfs:8081/repository/npm-group/webpack-bundle-analyzer/-/webpack-bundle-analyzer-3.3.2.tgz#3da733a900f515914e729fcebcd4c40dde71fc6f"
-  integrity sha512-7qvJLPKB4rRWZGjVp5U1KEjwutbDHSKboAl0IfafnrdXMrgC0tOtZbQD6Rw0u4cmpgRN4O02Fc0t8eAT+FgGzA==
+webpack-bundle-analyzer@^3.6.0:
+  version "3.6.0"
+  resolved "http://tfs:8081/repository/npm-group/webpack-bundle-analyzer/-/webpack-bundle-analyzer-3.6.0.tgz#39b3a8f829ca044682bc6f9e011c95deb554aefd"
+  integrity sha512-orUfvVYEfBMDXgEKAKVvab5iQ2wXneIEorGNsyuOyVYpjYrI7CUOhhXNDd3huMwQ3vNNWWlGP+hzflMFYNzi2g==
   dependencies:
     acorn "^6.0.7"
     acorn-walk "^6.1.1"
@@ -7861,7 +7703,7 @@ webpack-bundle-analyzer@3.3.2:
     express "^4.16.3"
     filesize "^3.6.1"
     gzip-size "^5.0.0"
-    lodash "^4.17.10"
+    lodash "^4.17.15"
     mkdirp "^0.5.1"
     opener "^1.5.1"
     ws "^6.0.0"
@@ -8142,7 +7984,7 @@ yn@^2.0.0:
   resolved "http://tfs:8081/repository/npm-group/yn/-/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
   integrity sha1-5a2ryKz0CPY4X8dklWhMiOavaJo=
 
-zone.js@~0.10.2:
-  version "0.10.2"
-  resolved "http://tfs:8081/repository/npm-group/zone.js/-/zone.js-0.10.2.tgz#67ca084b3116fc33fc40435e0d5ea40a207e392e"
-  integrity sha512-UAYfiuvxLN4oyuqhJwd21Uxb4CNawrq6fPS/05Su5L4G+1TN+HVDJMUHNMobVQDFJRir2cLAODXwluaOKB7HFg==
+zone.js@~0.9.1:
+  version "0.9.1"
+  resolved "http://tfs:8081/repository/npm-group/zone.js/-/zone.js-0.9.1.tgz#e37c6e5c54c13fae4de26b5ffe8d8e9212da6d9b"
+  integrity sha512-GkPiJL8jifSrKReKaTZ5jkhrMEgXbXYC+IPo1iquBjayRa0q86w3Dipjn8b415jpitMExe9lV8iTsv8tk3DGag==

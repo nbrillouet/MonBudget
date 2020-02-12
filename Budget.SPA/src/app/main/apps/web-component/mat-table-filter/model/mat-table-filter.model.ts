@@ -11,7 +11,7 @@ export class TableField<T> {
 
     // private _typeof:string;
     // get typeof():string {
-    //     console.log('---typeof(this.value)',typeof(this.value));
+ 
     //     this._typeof = typeof(this.value);
     //     return this._typeof;
     // }
@@ -30,7 +30,8 @@ export enum EnumStyleType {
     label=-1,
     dotDatas=0,
     numberUpDown=1,
-    buttonIcon=2
+    buttonIcon=2,
+    image
 }
 
 export class MatTableFilter {
@@ -85,7 +86,7 @@ export class Cell<T> {
 
     // private _typeof:string;
     // get typeof():string {
-    //     console.log('---typeof(this.value)',typeof(this.value));
+
     //     this._typeof = typeof(this.value);
     //     return this._typeof;
     // }

@@ -46,7 +46,7 @@ userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:th
     }
 
     GetForDetailById(idPlan: number) {
-        // console.log('this.user',this.user);
+     
         return this.http
         .get(`${this.baseUrl}user-groups/${this.userForGroup.idUserGroup}/plans/${idPlan}/plan-detail`)
         .map(response => <PlanDetail>response)
@@ -61,7 +61,7 @@ userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:th
     // }
 
     savePlanDetail(planDetail: PlanDetail) {
-        // console.log('go api',planDetail);
+      
         return this.http
             .post(`${this.baseUrl}plans/plan-details/save`,planDetail)
             .map(res=><number>res);
@@ -83,7 +83,7 @@ userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:th
     }
 
     GetPlanPosteForDetailById(idPlanPoste: number,idPlan:number,idPoste:number) {
-        // console.log('this.user',this.user);
+
         return this.http
         .get(`${this.baseUrl}plan-postes/${idPlanPoste}/user-groups/${this.userForGroup.idUserGroup}/plans/${idPlan}/postes/${idPoste}/plan-poste-detail`)
         .map(response => <PlanPosteForDetail>response)

@@ -58,7 +58,7 @@ asPlanTable: Datas<AsTable[]>;
       this.detailInfo$.subscribe(x=> {
         if(x.loader['datas'].loaded==true)
         {
-          console.log('detailInfo',x);
+
           this._store.dispatch(new ClearPlanTableDatas());
           this.planDetail = x.datas; 
           
@@ -120,7 +120,7 @@ asPlanTable: Datas<AsTable[]>;
       
       //trigger changement valeur combo color
       // this.planForm.get('color').valueChanges.subscribe(val => {
-      //     console.log('change color');
+
       //     this.planForm.controls['color'].setValue(val);
       //     this.planForm.controls['color'].markAsDirty();
       //     this.planForm.controls['color'].markAsTouched();
@@ -157,12 +157,12 @@ asPlanTable: Datas<AsTable[]>;
       //conversion color pour enregistrement
       this.planDetail.plan.color = MatColors.getColorByMatColor(value.color);
       
-      console.log('this.planDetail.plan.color',this.planDetail.plan.color);
+
       // this.bindPlan(value);   
 
       this._planService.savePlanDetail(this.planDetail)
         .subscribe(idPlan => {
-          console.log('return ok',this.planDetail);
+
           this.planDetail.plan.color = MatColors.getMatColorByColor(this.planDetail.plan.color);
           // this.planForm.reset(this.planDetail);
           this.createPlanForm();

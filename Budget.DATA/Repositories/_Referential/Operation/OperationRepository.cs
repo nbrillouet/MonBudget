@@ -16,6 +16,14 @@ namespace Budget.DATA.Repositories
         {
         }
 
+        public List<Operation> GetSelectList(int idUserGroup)
+        {
+            var results = Context.Operation
+                .Where(x => x.IdUserGroup == idUserGroup)
+                .OrderBy(x => x.Label);
+
+            return results.ToList(); ;
+        }
 
         public List<Operation> GetSelectList(int idUserGroup, int idOperationMethod, int idOperationType)
         {
@@ -28,26 +36,52 @@ namespace Budget.DATA.Repositories
             return results.ToList(); ;
         }
 
-        public List<Operation> GetSelectList(int idUserGroup, List<SelectDto> operationTypes)
+        public List<Operation> GetSelectList(int idUserGroup, List<SelectDto> operationMethodList, List<SelectDto> operationTypeFamilyList, List<SelectDto> operationTypeList)
         {
-            List<Operation> results;
-            if (operationTypes == null || !operationTypes.Any())
-            {
-                results = Context.Operation
-                    .Where(x => x.IdUserGroup == idUserGroup)
-                    .OrderBy(x=>x.Label)
-                    .ToList();
-            }
-            else
-            {
-                var idOperationTypes = operationTypes.Select(x => x.Id).ToList();
-                results = Context.Operation
-                    .Where(x=> idOperationTypes.Contains(x.IdOperationType))
-                    .OrderBy(x => x.Label)
-                    .ToList();
-            }
+            var idOperationMethodList = (operationMethodList != null && operationMethodList.Any())
+                ? operationMethodList.Select(x => x.Id).ToList()
+                : null;
+            var idOperationTypeFamilyIdList = (operationTypeFamilyList != null && operationTypeFamilyList.Any())
+                ? operationTypeFamilyList.Select(x => x.Id).ToList()
+                : null;
+            var idOperationTypeList = (operationTypeList != null && operationTypeList.Any())
+                ? operationTypeList.Select(x => x.Id).ToList()
+                : null;
 
-            return results;
+            var results = Context.Operation
+                    .Where(x => x.IdUserGroup == idUserGroup);
+
+            if (idOperationMethodList!=null)
+            {
+                results = results.Where(x => idOperationMethodList.Contains(x.IdOperationMethod));
+            }
+            if(idOperationTypeFamilyIdList!=null)
+            {
+                results = results.Where(x => idOperationTypeFamilyIdList.Contains(x.OperationType.OperationTypeFamily.Id));
+            }
+            if(idOperationTypeList!=null)
+            {
+                results = results.Where(x => idOperationTypeList.Contains(x.IdOperationType));
+            }
+            //List<Operation> results;
+            //if (operationTypes == null || !operationTypes.Any())
+            //{
+            //    results = Context.Operation
+            //        .Where(x => x.IdUserGroup == idUserGroup)
+            //        .OrderBy(x=>x.Label)
+            //        .ToList();
+            //}
+            //else
+            //{
+            //    var idOperationTypes = operationTypes.Select(x => x.Id).ToList();
+            //    results = Context.Operation
+            //        .Where(x=> idOperationTypes.Contains(x.IdOperationType))
+            //        .OrderBy(x => x.Label)
+            //        .ToList();
+            //}
+            results = results.OrderBy(x => x.Label);
+                
+            return results.ToList();
         }
 
         public List<Operation> GetByIdMovement(int idUserGroup, EnumMovement enumMovement)
