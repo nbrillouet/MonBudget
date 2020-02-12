@@ -41,9 +41,9 @@ export class MatTableFilterComponent implements OnInit {
   @Output() onRowClick = new EventEmitter<Row>()
 
   // @ViewChild(MatTable, { static: false }) matTableRef: MatTable<any>;
-  @ViewChild(MatTable,{read: ElementRef, static: false} ) private matTableRef: ElementRef;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatTable,{ read: ElementRef } ) private matTableRef: ElementRef;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   
 
   rows: Row[];

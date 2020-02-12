@@ -30,8 +30,8 @@ export class OperationListComponent implements OnInit {
   @Select(OperationTableFilterState.get) operationTableFilter$: Observable<FilterInfo<FilterOperationTable>>;
   @Select(OperationTableState.get) operationTable$: Observable<Datas<OperationTable[]>>;
   
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   dataSource = new MatTableDataSource<OperationTable>();
   filterOperation: FilterOperationTable;

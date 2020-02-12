@@ -12,7 +12,7 @@ export class WidgetCardChartBarComponent implements OnInit, OnChanges {
 widget: any;
 isLoaded: boolean;
 @Input() widgetCardChartBar: WidgetCardChartBar;
-@ViewChild(BaseChartDirective, { static: false }) private _chart;
+@ViewChild(BaseChartDirective) private _chart;
 
 
   // widget8: any = {};
