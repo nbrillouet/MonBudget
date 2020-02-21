@@ -31,10 +31,10 @@ namespace Budget.SERVICE
 
         }
 
-        public FilterAsTable GetFilterAsTable(FilterAsTableSelected filter)
+        public FilterAsTableSelection GetFilterAsTable(FilterAsTableSelected filter)
         {
-            FilterAsTable filterAsTable = new FilterAsTable();
-            filterAsTable.Selected = filter;
+            FilterAsTableSelection filterAsTable = new FilterAsTableSelection();
+            //filterAsTable.Selected = filter;
 
             var operationMethods = _referentialService.OperationMethodService.GetSelectList(EnumSelectType.Empty);
             filterAsTable.OperationMethod = operationMethods;
@@ -44,11 +44,11 @@ namespace Budget.SERVICE
             filterAsTable.OperationTypeFamily = operationTypeFamilies;
             //filterAsTable.Selected.OperationTypeFamily = filter.OperationTypeFamily == null ? null : filter.OperationTypeFamily;
 
-            var operationTypes = _referentialService.OperationTypeService.GetSelectGroup(filter.User.IdUserGroup, filterAsTable.Selected.OperationTypeFamily);
+            var operationTypes = _referentialService.OperationTypeService.GetSelectGroup(filter.User.IdUserGroup, filter.OperationTypeFamily);
             filterAsTable.OperationType = operationTypes;
             //filterAsTable.Selected.OperationType = filter.OperationType == null ? null : filter.OperationType;
 
-            var operations = _referentialService.OperationService.GetSelectList(filter.User.IdUserGroup, filterAsTable.Selected.OperationMethod, filterAsTable.Selected.OperationTypeFamily, filterAsTable.Selected.OperationType);
+            var operations = _referentialService.OperationService.GetSelectList(filter.User.IdUserGroup, filter.OperationMethod, filter.OperationTypeFamily, filter.OperationType);
             filterAsTable.Operation = operations;
             //filterAsTable.Selected.Operation = filter.Operation == null ? null : filter.Operation;
 
@@ -56,72 +56,81 @@ namespace Budget.SERVICE
 
         }
 
-        public FilterAsiTable GetFilterAsiTable(FilterAsiTableSelected filter)
+        public FilterAsiTableSelection GetFilterAsiTable(FilterAsiTableSelected filter)
         {
-            FilterAsiTable filterAsiTable = new FilterAsiTable();
-            filterAsiTable.Selected = filter;
+            FilterAsiTableSelection filterAsiTable = new FilterAsiTableSelection();
+            //filterAsiTable.Selected = filter;
 
             var BankAgencies = _accountStatementImportService.GetDistinctBankAgencies(filter.IdUser.Value);
             var BankAgenciesDto = _mapper.Map<List<BankAgencyDto>>(BankAgencies);
             filterAsiTable.BankAgencies = BankAgenciesDto;
 
-            filterAsiTable.Selected.IdBankAgency = BankAgenciesDto.Count==0 ? null : filter.IdBankAgency == null ? BankAgenciesDto[0].Id : filter.IdBankAgency;
+            //filterAsiTable.Selected.IdBankAgency = BankAgenciesDto.Count==0 ? null : filter.IdBankAgency == null ? BankAgenciesDto[0].Id : filter.IdBankAgency;
 
             return filterAsiTable;
         }
         
-        public FilterAsifTable GetFilterAsifTable(FilterAsifTableSelected filter)
+        public FilterAsifTableSelection GetFilterAsifTable(FilterAsifTableSelected filter)
         {
-            FilterAsifTable filterAsifTable = new FilterAsifTable();
-            filterAsifTable.Selected = filter;
+            FilterAsifTableSelection filterAsifTable = new FilterAsifTableSelection();
 
-            var asi = _accountStatementImportService.GetForDetailById(filter.IdImport.Value);
-            filterAsifTable.AsiBankAgencyLabel = asi.BankAgency.Label;
-            filterAsifTable.AsiDateImport = asi.DateImport;
+            //var asi = _accountStatementImportService.GetForDetailById(filter.IdImport.Value);
+            //filterAsifTable.AsiBankAgencyLabel = asi.BankAgency.Label;
+            //filterAsifTable.AsiDateImport = asi.DateImport;
 
             var accounts = _accountStatementImportFileService.GetAccountSelectListByIdImport(filter.IdImport.Value);
-            filterAsifTable.Selected.Account = filter.Account == null ? accounts[0] : filter.Account;
-
-            var asifStates = _accountStatementImportFileService.GetAsifStates(filter.IdImport.Value, filterAsifTable.Selected.Account.Id);
-
-            filterAsifTable.Selected.AsifState = filter.AsifState == null ? asifStates[0] : filter.AsifState;
             filterAsifTable.Account = accounts;
+
+            var account = filter.Account == null ? accounts[0] : filter.Account;
+            var asifStates = _accountStatementImportFileService.GetAsifStates(filter.IdImport.Value, account.Id);
             filterAsifTable.AsifState = asifStates;
+
+            var operationMethods = _referentialService.OperationMethodService.GetSelectList(EnumSelectType.Empty);
+            filterAsifTable.OperationMethod = operationMethods;
+            
+            var operationTypeFamilies = _referentialService.OperationTypeFamilyService.GetSelectGroup(filter.User.IdUserGroup);
+            filterAsifTable.OperationTypeFamily = operationTypeFamilies;
+            
+            var operationTypes = _referentialService.OperationTypeService.GetSelectGroup(filter.User.IdUserGroup, filter.OperationTypeFamily);
+            filterAsifTable.OperationType = operationTypes;
+            
+            var operations = _referentialService.OperationService.GetSelectList(filter.User.IdUserGroup, filter.OperationMethod, filter.OperationTypeFamily, filter.OperationType);
+            filterAsifTable.Operation = operations;
 
             return filterAsifTable;
 
         }
 
-        public FilterUserTable GetFilterUserTable(FilterUserTableSelected filter)
+        public FilterUserTableSelection GetFilterUserTable(FilterUserTableSelected filter)
         {
-            FilterUserTable filterUserTable = new FilterUserTable();
-            filterUserTable.Selected = filter;
+            FilterUserTableSelection filterUserTable = new FilterUserTableSelection();
+            //filterUserTable.Selected = filter;
 
             return filterUserTable;
         }
 
-        public FilterOtfTable GetFilterOtfTable(FilterOtfTableSelected filter)
+        public FilterOtfTableSelection GetFilterOtfTable(FilterOtfTableSelected filter)
         {
-            FilterOtfTable filterOtfTable = new FilterOtfTable
-            {
-                Selected = filter
-            };
+            FilterOtfTableSelection filterOtfTable = new FilterOtfTableSelection();
+            //{
+            //    Selected = filter
+            //};
             var Movements = _referentialService.MovementService.GetSelectList(EnumSelectType.Empty);
 
-            filterOtfTable.Movements = Movements;
+            filterOtfTable.Movement = Movements;
 
             return filterOtfTable;
         }
 
-        public FilterOtTable GetFilterOtTable(FilterOtTableSelected filter)
+        public FilterOtTableSelection GetFilterOtTable(FilterOtTableSelected filter)
         {
-            FilterOtTable filterOtTable = new FilterOtTable
-            {
-                Selected = filter
-            };
+            FilterOtTableSelection filterOtTable = new FilterOtTableSelection();
+            //{
+            //    Selected = filter
+            //};
             var Otfs = _referentialService.OperationTypeFamilyService.GetSelectList(filter.User.IdUserGroup, EnumSelectType.Empty);
 
-            filterOtTable.Otfs = Otfs;
+            filterOtTable.OperationTypeFamily = Otfs;
 
             return filterOtTable;
         }

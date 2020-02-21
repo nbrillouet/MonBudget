@@ -1,6 +1,7 @@
 // import { State, Selector, Action, StateContext } from "app/main/_ngxs/navigation/node_modules/@ngxs/store";
 import { LoadNavigation, AddNavigation } from "./navigation.action";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
+import { Injectable } from "@angular/core";
 
 export class NavigationStateModel {
     navigation: any;
@@ -14,6 +15,7 @@ let navigation : any[] = null;
     }
 })
 
+@Injectable()
 export class NavigationState {
     constructor() {
         

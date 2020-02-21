@@ -6,6 +6,7 @@ import { ComboSimple } from "app/main/_models/generics/combo.model";
 import { ISelect, EnumSelectType } from "app/main/_models/generics/select.model";
 import { LoaderState } from "app/main/_ngxs/_base/loader-state";
 import { Datas } from "app/main/_models/generics/detail-info.model";
+import { Injectable } from "@angular/core";
 
 export class AccountForDetailStateModel extends Datas<IAccountForDetail> {
     constructor () {
@@ -20,6 +21,7 @@ let accountForDetailStateModel = new AccountForDetailStateModel();
     defaults : accountForDetailStateModel
 })
 
+@Injectable()
 export class AccountForDetailState extends LoaderState {
 
     constructor(

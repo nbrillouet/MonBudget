@@ -14,7 +14,8 @@ namespace Budget.SERVICE
         List<BankAgency> GetDistinctBankAgencies(int idUser);
         PagedList<AsiForTableDto> GetAsiTable(FilterAsiTableSelected filter);
         Task<AccountStatementImport> GetByIdAsync(int idImport);
-        AccountStatementImport GetById(int idImport);
+        AsiForTableDto GetByIdForData(int idImport);
+        //AccountStatementImport GetById(int idImport);
         AsiForListDto GetForDetailById(int idImport);
         AccountStatementImport ImportFile(StreamReader reader, User user);
         AccountStatementImport SaveWithTran(AccountStatementImport accountStatementImport);

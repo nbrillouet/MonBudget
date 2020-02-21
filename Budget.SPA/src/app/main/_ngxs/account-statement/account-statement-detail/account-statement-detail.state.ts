@@ -7,6 +7,7 @@ import { AsService } from "app/main/apps/account-statement/account-statement.ser
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { LoaderState } from "../../_base/loader-state";
 import { Datas } from "app/main/_models/generics/detail-info.model";
+import { Injectable } from "@angular/core";
 
 export class AsDetailStateModel extends Datas<AsDetail> {
     constructor () {
@@ -21,6 +22,7 @@ let asDetailStateModel = new AsDetailStateModel();
     defaults : asDetailStateModel
 })
 
+@Injectable()
 export class AsDetailState extends LoaderState {
 
     constructor(

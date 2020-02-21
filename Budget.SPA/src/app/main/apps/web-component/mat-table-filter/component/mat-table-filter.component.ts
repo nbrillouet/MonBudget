@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2, HostListener, AfterViewInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { TableField, Row, EnumFilterType, MatTableFilter, Column, FilterTable, EnumStyleType } from '../model/mat-table-filter.model';
-import { MatTableDataSource, MatTable, MatSort, MatPaginator } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { FilterDateRange } from 'app/main/_models/filters/mini-filter/date-range.filter';
 import { Pagination } from 'app/main/_models/pagination.model';
 import { FilterAmount } from 'app/main/_models/filters/mini-filter/amount.filter';
@@ -8,8 +10,8 @@ import { FilterComboMultipleGroup, FilterComboMultiple } from 'app/main/_models/
 import { DateFormatPipe } from '../pipe/pipe-date';
 import { MatTableFilterColResizeService } from '../service/mat-table-filter-col-resize.service';
 import { FilterNumberRange } from 'app/main/_models/filters/mini-filter/number-range.filter';
-import { Observable } from 'rxjs';
-import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
+import { Observable, zip } from 'rxjs';
+import { FilterInfo, FilterSelection, FilterSelected } from 'app/main/_models/generics/filter.info.model';
 import { Datas } from 'app/main/_models/generics/detail-info.model';
 
 // export class B<T> {
@@ -28,48 +30,35 @@ import { Datas } from 'app/main/_models/generics/detail-info.model';
   styleUrls: ['./mat-table-filter.component.scss']
 })
 export class MatTableFilterComponent implements OnInit {
-  @Input()  onloading: boolean;
+
   @Input()  columns: Column[];
-  @Input()  pagination: Pagination;
-  @Input()  observableFilter: Observable<FilterInfo<any>>;
-  @Input()  observableTable: Observable<Datas<any>>;
-  // @Input()  filter: any; // B<any>;
-  // @Input()  filterSelected: any;
-  @Output() changeFilter = new EventEmitter<any>();
-  @Output() changePagination = new EventEmitter<Pagination>();
+  @Input()  filterSelection$: Observable<FilterSelection<any>>;
+  @Input()  filterSelected$: Observable<FilterSelected<any>>;
+  @Input()  table$: Observable<Datas<any>>;
+
+  @Output() changeFilterSelected = new EventEmitter<any>();
+  @Output() changeFilterSelection = new EventEmitter<any>();
   @Output() clickButtonIcon = new EventEmitter<Row>();
   @Output() onRowClick = new EventEmitter<Row>()
 
-  // @ViewChild(MatTable, { static: false }) matTableRef: MatTable<any>;
   @ViewChild(MatTable,{ read: ElementRef } ) private matTableRef: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
-
   rows: Row[];
-  // columns: Column[];
   filterSelected: any;
-  // matTableFilter: MatTableFilter = new MatTableFilter();
-
+  filterSelection: any;
   templateFor:string;
-
   enumFilterType= EnumFilterType;
   enumStyleType = EnumStyleType;
-
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<Row>();
-  // matTableWidth:number;
-
-  // isLoaded:boolean;
-  // rowsLoading:boolean=true;
-  // rowsLoaded: boolean=false;
   idCurrentRow: number;
+  onloading: boolean;
+  columnToLoad: boolean;
 
   constructor(
-    private renderer: Renderer2,
-    private el: ElementRef,
-    private _dateFormatPipe: DateFormatPipe,
-    private _matTableFilterColResizeService: MatTableFilterColResizeService
+    private el: ElementRef
   ) {
     
    }
@@ -84,9 +73,10 @@ export class MatTableFilterComponent implements OnInit {
 
   ngOnInit() {
 
-    this.observableTable.subscribe(table=>{
+    this.table$.subscribe(table=>{
       this.loading(true);
-      if(table?.loader['datas']?.loaded){
+      if(table?.loader['datas']?.loaded) {
+
         this.rows = this.getMatTableFilterRows(table);
         
         this.idCurrentRow = this.rows.length>0 ? this.rows[0].id : null;
@@ -95,19 +85,34 @@ export class MatTableFilterComponent implements OnInit {
       }
     });
 
-    this.observableFilter.subscribe(filter=>{
-      this.loading(true);
-      if(filter.loader['filters'] && filter.loader['filters'].loaded) {
-        this.columns=this.getMatTableFilterColumns(filter.filters);
-        this.filterSelected=filter.filters.selected;
-   
+    this.filterSelection$.subscribe(selection=>{
+      if(selection?.loader['filter-selection']?.loaded) {
+        this.filterSelection = selection.selection;
+        if(!this.filterSelected) {
+          this.columnToLoad=true;
+        }
+        else {
+          
+          this.columns=this.getMatTableFilterColumns(selection.selection);
+        }
       }
-     });
+    });
+
+     this.filterSelected$.subscribe(selected=>{
+      if(selected?.loader['filter-selected']?.loaded) {
+        this.filterSelected=selected.selected;
+
+        if(this.columnToLoad) {
+          this.getMatTableFilterColumns(this.filterSelection);
+          this.columnToLoad = false;
+        }
+      }
+    });
   }
 
   getMatTableFilterRows(datas: Datas<any> ) {
     let tableRows: Row[] = [];
-    
+ 
     for (let data of datas.datas) {
       let tableRow = new Row();
       for (let column of this.columns) {
@@ -119,7 +124,6 @@ export class MatTableFilterComponent implements OnInit {
           else
             value = data[fields[0]]
 
-        
         tableRow[`${column.field}`] = value;           
       }
 
@@ -130,20 +134,12 @@ export class MatTableFilterComponent implements OnInit {
 
   getMatTableFilterColumns(filterDatas) {
     this.setDisplayedColumns();
+
     for (let column of this.columns) {
       let fields = column.field.split('-');
       switch(column.filter.type) {
         case EnumFilterType.comboMultiple:
-          // if(column.filter.datas) {
-
-          //   let filterComboMultiple  =  <FilterComboMultiple>column.filter.datas;
-          //   filterComboMultiple.combos.list = filterDatas[`${fields[0]}`];
-          //   column.filter.datas = filterComboMultiple;
-
-          // }
-          // else {
-            column.filter.datas = <FilterComboMultiple> { placeholder:fields[0],combos:{list : filterDatas[`${fields[0]}`], listSelected: filterDatas.selected[`${fields[0]}`]} };
-          // }
+            column.filter.datas = <FilterComboMultiple> { placeholder:fields[0],combos:{list : filterDatas[`${fields[0]}`], listSelected: this.filterSelected[`${fields[0]}`] }}; //filterDatas.selected[`${fields[0]}`]} };
           break;
         case EnumFilterType.comboMultipleGroup:
           if(column.filter.datas) {
@@ -152,11 +148,8 @@ export class MatTableFilterComponent implements OnInit {
             column.filter.datas = filterComboMultipleGroup;
           }
           else {
-            column.filter.datas =<FilterComboMultipleGroup> { placeholder:fields[0],combos:{list : filterDatas[`${fields[0]}`], listSelected: filterDatas.selected[`${fields[0]}`]} };
+            column.filter.datas =<FilterComboMultipleGroup> { placeholder:fields[0],combos:{list : filterDatas[`${fields[0]}`], listSelected:this.filterSelected[`${fields[0]}`] }}; // filterDatas.selected[`${fields[0]}`]} };
           }
-            // column.filter.datas = column.filter.datas!=null
-            //   ? filterDatas[`${fields[0]}`]
-            //   : <FilterComboMultipleGroup> { placeholder:fields[0],combos:{list : filterDatas[`${fields[0]}`], listSelected: filterDatas.selected[`${fields[0]}`]} };
           break;
         case EnumFilterType.dateRange:
             column.filter.datas = <FilterDateRange> { placeholder:fields[0],dateMin:null,dateMax:null }; 
@@ -214,25 +207,13 @@ export class MatTableFilterComponent implements OnInit {
   //=============================  SORTING =================================
   //========================================================================
   onSortChangeEvent(event): void {
-    // if(this.pagination) {
     this.loading(true);
-    //   if(this.pagination.sortColumn!=this.sort.active || this.pagination.sortDirection!=this.sort.direction) {
-    //     this.rowsLoading = true;
-    //     this.rowsLoaded=false;
-    //     this.rows=[];
+
     this.filterSelected[`pagination`].currentPage=0;
     this.filterSelected[`pagination`].sortColumn = this.sort.active;
     this.filterSelected[`pagination`].sortDirection = this.sort.direction;
 
-    this.changeFilter.emit(this.filterSelected);
-    // this.pagination.currentPage=0;
-    //     this.pagination.sortColumn = this.sort.active;
-    //     this.pagination.sortDirection = this.sort.direction;
-
-    //     this.changePagination.emit(this.pagination);
-    //   }
-      
-    // }
+    this.changeFilterSelected.emit(this.filterSelected);
   }
 
 
@@ -291,35 +272,25 @@ export class MatTableFilterComponent implements OnInit {
         $event = (filterNumber.numberMax==null && filterNumber.numberMin==null) ? null : $event;
         this.filterSelected[`${fields[0]}`]=$event;
         break;
-
     }
  
     column.filter.isEmpty = $event==null || $event.length==0;
 
- 
-    this.changeFilter.emit(this.filterSelected);
+    this.changeFilterSelected.emit(this.filterSelected);
+    this.changeFilterSelection.emit(this.filterSelected);
   }
 
   //========================================================================
   //============================  PAGINATION ===============================
   //========================================================================
   onPageChangeEvent(event) {
-    // if(this.pagination) {
       this.loading(true);
-      
-      // this.pagination.currentPage = this.paginator.pageIndex;
-      // this.pagination.nbItemsPerPage = this.paginator.pageSize;
 
       this.filterSelected[`pagination`].currentPage = this.paginator.pageIndex;
       this.filterSelected[`pagination`].nbItemsPerPage = this.paginator.pageSize;
-      this.changeFilter.emit(this.filterSelected);
-      // this.changePagination.emit(this.pagination);
-    // }
-  }
+      this.changeFilterSelected.emit(this.filterSelected);
 
-  // length:number;  //totalItems
-  // pageSize:number; //nbItemsPerPage
-  // pageSizeOptions:number[]; //nbItem [15, 100, 200]
+  }
 
   onClickButtonIcon($event:Row) {
 

@@ -7,6 +7,7 @@ import { ComboSimple } from "app/main/_models/generics/combo.model";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { LoaderState } from "../../_base/loader-state";
 import { Datas } from "app/main/_models/generics/detail-info.model";
+import { Injectable } from "@angular/core";
 
 export class AsifDetailStateModel extends Datas<AsifDetail> {
     constructor () {
@@ -21,12 +22,11 @@ let asifDetailStateModel = new AsifDetailStateModel();
     defaults : asifDetailStateModel
 })
 
+@Injectable()
 export class AsifDetailState extends LoaderState {
-
     constructor(
         private _asifService: AsifService,
         private _referentialService: ReferentialService
-        // private _store: Store
         ) {
             super();
     }

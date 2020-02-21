@@ -11,8 +11,6 @@ import { FuseWidgetModule } from '@fuse/components';
 import { WidgetsModule } from '../widgets/widgets.module';
 import { NgxsModule } from '@ngxs/store';
 import { AsSoldeState } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.state';
-import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
-import { AsTableState } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.state';
 import { AsService } from './account-statement.service';
 import { AsDetailState } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.state';
 import { AsChartState } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.state';
@@ -20,15 +18,15 @@ import { AsChartEvolutionComponent } from './account-statement-chart/as-chart-ev
 import { AsInternalTransferCoupleComponent } from './account-statement-internal-transfer/as-internal-transfer-couple/as-internal-transfer-couple.component';
 import { AsInternalTransferMainComponent } from './account-statement-internal-transfer/as-internal-transfer-main/as-internal-transfer-main.component';
 import { AsInternalTransferState } from 'app/main/_ngxs/account-statement/account-statement-internal-transfer/as-internal-transfer.state';
-// import { MiniFilterModule } from '../web-component/mini-filter/mini-filter.module';
 import { AsChartCategorisationComponent } from './account-statement-chart/as-chart-categorisation/as-chart-categorisation.component';
 import { MatTableFilterModule } from '../web-component/mat-table-filter/mat-table-filter.module';
 import { AngularMaterialModule } from 'app/angular-material.module';
-// import { MatTableFilterComponent } from './account-statement-list/mat-table-filter/component/mat-table-filter.component';
-// import { ResizeObserverDirective } from './account-statement-list/mat-table-filter/directive/resize-observer.directive';
-// import { DateFormatPipe } from './account-statement-list/mat-table-filter/pipe/pipe-date';
-// import { MatTableFilterColResizeService } from './account-statement-list/mat-table-filter/service/mat-table-filter-col-resize.service';
-// import { MatTableFilterModule } from './account-statement-list/mat-table-filter/mat-table-filter.module';
+import { ReferentialServiceModule } from 'app/main/_services/Referential/referential.service.module';
+import { SpinnerModule } from '../web-component/spinner/spinner.module';
+import { AsTableState } from 'app/main/_ngxs/account-statement/as-table/as-table.state';
+import { AsTableFilterSelectionState } from 'app/main/_ngxs/account-statement/as-table/as-table-filter-selection/as-table-filter-selection.state';
+import { AsTableFilterSelectedState } from 'app/main/_ngxs/account-statement/as-table/as-table-filter-selected/as-table-filter-selected.state';
+import { DatePipe } from '@angular/common';
 
 const routes = [
   // {
@@ -68,9 +66,11 @@ const routes = [
     WidgetsModule,
     GMapModule,
     MatTableFilterModule,
-    // MiniFilterModule,
+    ReferentialServiceModule,
+    SpinnerModule,
     NgxsModule.forFeature([
-      AsTableFilterState,
+      AsTableFilterSelectionState,
+      AsTableFilterSelectedState,
       AsTableState,
       AsDetailState,
       AsSoldeState,
@@ -88,8 +88,7 @@ const routes = [
     AsChartEvolutionComponent,
     AsChartCategorisationComponent,
     AsInternalTransferMainComponent,
-    AsInternalTransferCoupleComponent,
-
+    AsInternalTransferCoupleComponent
     // MatTableFilterComponent,
 
     // ResizeObserverDirective,
@@ -98,6 +97,7 @@ const routes = [
   ],
   providers : [
     AsService,
+    DatePipe
     // DateFormatPipe,
     // MatTableFilterColResizeService
 

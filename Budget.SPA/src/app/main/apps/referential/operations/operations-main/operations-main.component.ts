@@ -39,18 +39,10 @@ constructor(
   });
 
   // Subscribe to the config changes
-  this._fuseConfigService.config
-  // .pipe(takeUntil(this._unsubscribeAll))
-  .subscribe((settings) => {
-      this.fullscreen = settings.layout.toolbar.fullscreen;
+  this._fuseConfigService.config.subscribe((settings) => {
+    this.fullscreen = settings.layout.toolbar.fullscreen;
   });
 
-  // //prendre en compte le fuseConfig
-  // this._fuseConfigService.config
-  // .subscribe((config) => {
-  //     // Update the stored config
-  //     this.fuseConfig = config;
-  // });
 }
 
   ngOnInit() {

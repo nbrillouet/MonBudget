@@ -28,14 +28,9 @@ export class FilterComboMultipleComponent implements OnInit {
 
     this.comboMultipleForm.valueChanges.subscribe(val=>{
       if(!this.sameMembers(this.filterComboMultiple.combos.listSelected,val.comboMultiple)){
-        this.filterComboMultiple.combos.listSelected = val.comboMultiple;
-        this.applyFilterComboMultiple.emit(this.filterComboMultiple.combos.listSelected);
+        // this.filterComboMultiple.combos.listSelected = val.comboMultiple;
+        this.applyFilterComboMultiple.emit(val.comboMultiple);
       }
-
-      // if(this.filterComboMultiple.combos.listSelected==val.comboMultiple)
-      //   console.log('equality');
-
-
     });
 
   }
@@ -47,21 +42,21 @@ export class FilterComboMultipleComponent implements OnInit {
     return false
   }
 
-  applyFilter(){
-    this.applyFilterComboMultiple.emit(this.filterComboMultiple.combos.listSelected);
+  // applyFilter(){
+  //   this.applyFilterComboMultiple.emit(this.filterComboMultiple.combos.listSelected);
 
-    //suppression du menu
-    var element=document.getElementsByClassName("content-filter").item(0);
-    element.parentElement.remove();
-  }
+  //   //suppression du menu
+  //   var element=document.getElementsByClassName("content-filter").item(0);
+  //   element.parentElement.remove();
+  // }
 
    compareObjects(o1: ISelect, o2: ISelect) {
      return o1 && o2 ? o1.id === o2.id : o1 === o2;
 
   }
 
-  getFontSize() {
-    return Math.max(10, 10);
-  }
+  // getFontSize() {
+  //   return Math.max(10, 10);
+  // }
 
 }

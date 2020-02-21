@@ -2,18 +2,18 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
 import { fuseAnimations } from '@fuse/animations';
-import { OtfDetailState } from 'app/main/_ngxs/referential/operation-type-family/operation-type-family-detail/operation-type-family-detail.state';
 import { Observable } from 'rxjs';
 import { OtfDetail } from 'app/main/_models/referential/operation-type-family.model';
-import { LoadOtfDetail, ClearOtfDetail } from 'app/main/_ngxs/referential/operation-type-family/operation-type-family-detail/operation-type-family-detail.action';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { OtfService } from '../operation-type-family.service';
-import { LoadOtfTableDatas } from 'app/main/_ngxs/referential/operation-type-family/operation-type-family-list/operation-type-family-list.action';
-import { FilterOtfTable } from 'app/main/_models/filters/operation-type-family.filter';
-import { OtfTableFilterState } from 'app/main/_ngxs/referential/operation-type-family/operation-type-family-list-filter/operation-type-family-list-filter.state';
-import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
+import { FilterSelected } from 'app/main/_models/generics/filter.info.model';
 import { Datas } from 'app/main/_models/generics/detail-info.model';
+import { OtfDetailState } from 'app/main/_ngxs/referential/operation-type-family/otf-detail/otf-detail.state';
+import { FilterOtfTableSelected } from 'app/main/_models/filters/operation-type-family.filter';
+import { OtfTableFilterSelectedState } from 'app/main/_ngxs/referential/operation-type-family/otf-table/otf-table-filter-selected/otf-table-filter-selected.state';
+import { LoadOtfDetail, ClearOtfDetail } from 'app/main/_ngxs/referential/operation-type-family/otf-detail/otf-detail.action';
+import { SynchronizeOtfTableFilterSelected } from 'app/main/_ngxs/referential/operation-type-family/otf-table/otf-table-filter-selected/otf-table-filter-selected.action';
 
 @Component({
   selector: 'operation-type-family-detail',
@@ -23,10 +23,10 @@ import { Datas } from 'app/main/_models/generics/detail-info.model';
 })
 export class OperationTypeFamilyDetailComponent implements OnInit, OnDestroy {
 @Select(OtfDetailState.get) otfDetail$: Observable<Datas<OtfDetail>>;
-@Select(OtfTableFilterState.get) otfTableFilter$: Observable<FilterInfo<FilterOtfTable>>;
+@Select(OtfTableFilterSelectedState.get) otfTableFilterSelected$: Observable<FilterSelected<FilterOtfTableSelected>>;
 
 idOperationTypeFamily: number;
-filterOtf: FilterOtfTable;
+filterOtfSelected: FilterOtfTableSelected;
 otfDetail: OtfDetail;
 firstLoad: boolean=true;
 formLoaded: boolean;
@@ -41,14 +41,14 @@ otfDetailForm: FormGroup;
     private _otfService: OtfService
   ) { 
 
-    this.otfTableFilter$.subscribe(otfTableFilter=>{
-      this.filterOtf = JSON.parse(JSON.stringify(otfTableFilter.filters));
+    this.otfTableFilterSelected$.subscribe(selected=>{
+      this.filterOtfSelected = selected.selected; // JSON.parse(JSON.stringify(otfTableFilter.filters));
     });
 
 
     this.otfDetail$.subscribe(otfDetail=>{
    
-      if(otfDetail.loader['datas'].loaded) {
+      if(otfDetail?.loader['datas']?.loaded) {
 
         this.otfDetail = JSON.parse(JSON.stringify(otfDetail.datas));
  
@@ -66,7 +66,6 @@ otfDetailForm: FormGroup;
 
   ngOnInit() {
     this._activatedRoute.params.subscribe(routeParams => {
-
       this.idOperationTypeFamily = routeParams['idOperationTypeFamily']=='new' ? -1 : routeParams['idOperationTypeFamily'];
       this._store.dispatch(new LoadOtfDetail(this.idOperationTypeFamily));
     });
@@ -101,7 +100,7 @@ otfDetailForm: FormGroup;
         if(resp)
         {
           this._notificationService.success('Enregistrement effectué', `La catégorie d'opération est enregistrée`);
-          this._store.dispatch(new LoadOtfTableDatas(this.filterOtf.selected));
+          this._store.dispatch(new SynchronizeOtfTableFilterSelected(this.filterOtfSelected));
         }
         else {
           this._notificationService.error('Echec de l\'enregistrement');

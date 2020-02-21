@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { DatePipe } from '@angular/common';
 import { Moment } from 'moment';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material';
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { fuseAnimations } from '@fuse/animations';
 import { IUser } from 'app/main/_models/user.model';
 import { IGMapSearchInfo } from 'app/main/_models/g-map.model.';

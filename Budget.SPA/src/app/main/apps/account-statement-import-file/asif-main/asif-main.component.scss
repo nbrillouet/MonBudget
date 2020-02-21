@@ -92,11 +92,11 @@
     }
 
 
-    .top-bg {
-        // @include media-breakpoint-down(xs) {
-        //     height: 240px;
-        // }
-    }
+    // .top-bg {
+    //     // @include media-breakpoint-down(xs) {
+    //     //     height: 240px;
+    //     // }
+    // }
 
     .products-table {
         flex: 1 1 auto;
@@ -161,4 +161,11 @@
 
         vertical-align:middle;
     }
+
+
 }
+
+
+// .mat-progress-bar.mat-progress-bar-fill::after {
+//     background-color: transparent !important;
+// }

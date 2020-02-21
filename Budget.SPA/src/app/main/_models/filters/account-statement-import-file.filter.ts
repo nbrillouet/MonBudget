@@ -1,13 +1,16 @@
 import { ComboSimple } from "../generics/combo.model";
-import { ISelect } from "../generics/select.model";
+import { ISelect, ISelectGroup } from "../generics/select.model";
 import { Pagination } from "../pagination.model";
 import { IUserForGroup } from "../user.model";
 
 export class FilterAsifTableSelected {
+    user: IUserForGroup= null;
     idImport: number;
     account: ISelect;
     asifState: ISelect;
     indexTabAsifState: number;
+    asiBankAgencyLabel: string;
+    asiDateImport: Date;
     pagination: Pagination;
     
     constructor () {
@@ -19,15 +22,18 @@ export class FilterAsifTableSelected {
     }
 }
 
-export class FilterAsifTable {
-    asiBankAgencyLabel: string;
-    asiDateImport: Date;
+export class FilterAsifTableSelection {
+    // asiBankAgencyLabel: string;
+    // asiDateImport: Date;
     account: ISelect[];
     asifState: ISelect[];
-    selected : FilterAsifTableSelected;
+    
+    operationMethod: ISelect[]=null;
+    operationTypeFamily: ISelectGroup[]=null;
+    operationType: ISelectGroup[]=null;
+    operation: ISelect[]=null;
 
     constructor () {
-        this.selected = new FilterAsifTableSelected();
     }
 }
 

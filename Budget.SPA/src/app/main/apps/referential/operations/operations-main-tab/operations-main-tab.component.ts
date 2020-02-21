@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 })
 export class OperationsMainTabComponent implements OnInit {
   @Input() subject: string;
-  // @Input() headerPanelIsVisible: boolean;
 
   operationFields: ISelect[];
   selectedIndex:number;
@@ -19,9 +18,7 @@ export class OperationsMainTabComponent implements OnInit {
   ) {
     
     this.operationFields = [ {id: 1, label:'Catégorie opération'},{id: 2, label:'Type opération'},{id: 3, label:'Opération'} ];
-    
-    
-    
+
   }
 
   ngOnInit() {
@@ -45,10 +42,6 @@ export class OperationsMainTabComponent implements OnInit {
       }
     }
 
-    // if(changes.headerPanelIsVisible) {
-    //   this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
-    // }
-
    }
 
    
@@ -58,7 +51,7 @@ export class OperationsMainTabComponent implements OnInit {
 
     switch(this.selectedIndex) {
       case 0:
-      this.subject = 'operation-type-families';
+        this.subject = 'operation-type-families';
         break;
       case 1:
         this.subject = 'operation-types';

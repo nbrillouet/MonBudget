@@ -8,11 +8,11 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { environment } from 'environments/environment';
 import { ErrorService } from 'app/main/_services/error.service';
 import { Pagination, PaginatedResult } from 'app/main/_models/pagination.model';
-import { IUser, UserTable } from 'app/main/_models/user.model';
+import { IUser, } from 'app/main/_models/user.model';
 import { IUserShortcut } from 'app/main/_models/user-shortcut.model';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/shareReplay';
-import { FilterUserTableSelected, FilterUserTable } from 'app/main/_models/filters/user.filter';
+import { FilterUserTableSelected } from 'app/main/_models/filters/user.filter';
 
 @Injectable()
 export class UserService {
@@ -34,52 +34,52 @@ export class UserService {
     getUserTableFilter(filter: FilterUserTableSelected) {
         return this.http
             .post(`${this.baseUrl}users/table-filter`,filter)
-            .map(response => <FilterUserTable>response);
+            .map(response => <FilterUserTableSelected>response);
     }
 
-    getUsers(pagination?: Pagination) {
-        const paginatedResult: PaginatedResult<IUser[]> = new PaginatedResult<IUser[]>();
-        let queryString = '?';
+    // getUsers(pagination?: Pagination) {
+    //     const paginatedResult: PaginatedResult<IUser[]> = new PaginatedResult<IUser[]>();
+    //     let queryString = '?';
 
-        // if(page !=null && itemsPerPage !=null) {
-        if(pagination.currentPage !=null && pagination.nbItemsPerPage !=null)
-        {
-            queryString += 'pageNumber=' + pagination.currentPage 
-                + '&pageSize=' + pagination.nbItemsPerPage 
-                + '&sortColumn=' + pagination.sortColumn 
-                + '&sortDirection=' + pagination.sortDirection;
-        }
+    //     // if(page !=null && itemsPerPage !=null) {
+    //     if(pagination.currentPage !=null && pagination.nbItemsPerPage !=null)
+    //     {
+    //         queryString += 'pageNumber=' + pagination.currentPage 
+    //             + '&pageSize=' + pagination.nbItemsPerPage 
+    //             + '&sortColumn=' + pagination.sortColumn 
+    //             + '&sortDirection=' + pagination.sortDirection;
+    //     }
 
-        return this.http
-        .get<IUser[]>(this.baseUrl + 'users' + queryString, {observe: 'response'})
-        .map((response) => {
+    //     return this.http
+    //     .get<IUser[]>(this.baseUrl + 'users' + queryString, {observe: 'response'})
+    //     .map((response) => {
 
             
-            paginatedResult.result = response.body;
-            if(response.headers.get('Pagination') != null) {
-                paginatedResult.pagination = JSON.parse(response.headers.get('pagination'));
-            }
+    //         paginatedResult.result = response.body;
+    //         if(response.headers.get('Pagination') != null) {
+    //             paginatedResult.pagination = JSON.parse(response.headers.get('pagination'));
+    //         }
 
-            return paginatedResult;
-        })
-        .shareReplay()
-        .catch(this.errorService.handleError);
+    //         return paginatedResult;
+    //     })
+    //     .shareReplay()
+    //     .catch(this.errorService.handleError);
         
 
-        // return this.http
-        //     .get(this.baseUrl + 'users' + queryString)
-        //     .map((response: Response) => {
+    //     // return this.http
+    //     //     .get(this.baseUrl + 'users' + queryString)
+    //     //     .map((response: Response) => {
     
-        //         let toto =response;
-        //         paginatedResult.result = <IUser[]>toto.json();
-        //         if(response.headers.get('Pagination') != null) {
-        //             paginatedResult.pagination = JSON.parse(response.headers.get('pagination'));
-        //         }
+    //     //         let toto =response;
+    //     //         paginatedResult.result = <IUser[]>toto.json();
+    //     //         if(response.headers.get('Pagination') != null) {
+    //     //             paginatedResult.pagination = JSON.parse(response.headers.get('pagination'));
+    //     //         }
                 
-        //         return paginatedResult;
-        //     })
-        //     .catch(this.errorService.handleError);
-    }
+    //     //         return paginatedResult;
+    //     //     })
+    //     //     .catch(this.errorService.handleError);
+    // }
 
     getUser(id: number): Observable<IUser> {
         return this.http

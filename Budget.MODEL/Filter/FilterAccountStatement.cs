@@ -6,39 +6,35 @@ using System.Text;
 
 namespace Budget.MODEL.Filter
 {
-    public class FilterAsTableSelected : FilterTableSelected
+    public class FilterAsTableSelected : FilterAccountMonthYear
     {
         public UserForGroupDto User { get; set; }
-        public int? IdAccount { get; set; }
         public List<SelectDto> OperationMethod { get; set; }
         public List<SelectDto> OperationTypeFamily { get; set; }
         public List<SelectDto> OperationType { get; set; }
         public List<SelectDto> Operation { get; set; }
         public FilterDateRange DateIntegration { get; set; }
         public FilterNumberRange AmountOperation { get; set; }
-        public MonthYear MonthYear { get; set; }
+        
         public bool IsWithITransfer { get; set; }
+        public Pagination Pagination { get; set; }
 
-
-        public FilterAsTableSelected()
-        {
-            this.EnumFilterTableSelectedType = EnumFilterTableSelectedType.accountStatement;
-        }
+        //public FilterAsTableSelected()
+        //{
+        //    this.EnumFilterTableSelectedType = EnumFilterTableSelectedType.accountStatement;
+        //}
 
     }
 
-    public class FilterAsTable
+    public class FilterAsTableSelection
     {
         public List<SelectDto> OperationMethod { get; set; }
         public List<SelectGroupDto> OperationTypeFamily { get; set; }
         public List<SelectGroupDto> OperationType { get; set; }
         public List<SelectDto> Operation { get; set; }
 
-        public FilterAsTableSelected Selected { get; set; }
-
-        public FilterAsTable()
+        public FilterAsTableSelection()
         {
-            //Selected = new FilterAsTableSelected();
         }
     }
 

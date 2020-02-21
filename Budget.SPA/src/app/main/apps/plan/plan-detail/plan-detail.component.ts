@@ -15,7 +15,7 @@ import { AsPlanTableState } from 'app/main/_ngxs/account-statement-plan/as-plan.
 import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
 import { FilterAsPlan } from 'app/main/_models/filters/account-statement-plan.filter';
 import { LoadAsPlanForTable, ClearAsPlanForTable } from 'app/main/_ngxs/account-statement-plan/as-plan.action';
-import { MatDialogConfig, MatDialog } from '@angular/material';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { AsPlanListComponent } from './as-plan-list/as-plan-list.component';
 import { DatasFilter, Datas } from 'app/main/_models/generics/detail-info.model';
 

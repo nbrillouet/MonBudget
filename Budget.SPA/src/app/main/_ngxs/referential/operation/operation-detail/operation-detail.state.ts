@@ -4,6 +4,7 @@ import { OperationService } from "app/main/_services/Referential/operation.servi
 import { LoadOperationForDetail, ClearOperationForDetail } from "./operation-detail.action";
 import { LoaderState } from "app/main/_ngxs/_base/loader-state";
 import { Datas } from "app/main/_models/generics/detail-info.model";
+import { Injectable } from "@angular/core";
 
 export class OperationForDetailStateModel extends Datas<OperationForDetail> {
     constructor () {
@@ -18,6 +19,7 @@ let operationForDetailStateModel = new OperationForDetailStateModel();
     defaults : operationForDetailStateModel
 })
 
+@Injectable()
 export class OperationForDetailState extends LoaderState {
 
     constructor(

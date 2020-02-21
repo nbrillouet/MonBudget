@@ -11,9 +11,9 @@
         </div> -->
 
         <!-- HEADER -->
-        <div *ngIf="!fullscreen" class="header-2-background accent p-12 pb-0 pt-6"
-            fxLayout="column" fxLayoutAlign="center center"
-            fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+        <div *ngIf="!fullscreen" 
+          class="header calc-background accent p-12 pb-0 pt-6"
+          fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
             
             <div class="toolbar w-100-p" fxFlex fxLayout="row" fxLayoutAlign="space-between start">
             
@@ -36,8 +36,10 @@
         </div>
           
           <!-- / HEADER -->
-          <div class="content-card">
-            <operations-main-tab style="height:100%;" [subject]="subject" ></operations-main-tab>
+          <div class="content-card" mat-white-bg>
+            <div class="container-tab">
+              <operations-main-tab style="min-height:100%;" [subject]="subject" ></operations-main-tab>
+            </div>
           </div>
       </div>
       <!-- / CENTER -->

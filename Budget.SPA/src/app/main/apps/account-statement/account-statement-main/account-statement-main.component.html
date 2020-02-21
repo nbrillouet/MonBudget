@@ -18,7 +18,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="(asSolde$ | async).datas as solde; else emptySolde" fxLayout="column" >
+                <div *ngIf="(asSolde$ | async)?.loader['datas']?.loaded as solde; else emptySolde" fxLayout="column" >
                     <div class='pb-8' fxLayout="row" fxLayoutAlign="end space-between">
                         <mat-chip-list *ngIf="(asSolde$ | async).datas as solde; else emptySolde">
                             <mat-chip class="mat-chip-green" >Crédit: {{solde.credit}} €</mat-chip>
@@ -27,30 +27,10 @@
                             <mat-chip [ngClass]="solde.solde>0 ? 'mat-chip-green' : 'mat-chip-red'" >Solde au {{solde.dateEnd }}: {{solde.solde}} €</mat-chip>
                         </mat-chip-list>
                     </div>
-                    <!-- <div fxLayout="row" fxLayoutAlign="end center">
-                        <mat-chip-list>
-                            
-                        </mat-chip-list>
-                    </div> -->
                 </div>
-                <ng-template #emptySolde>
-                    <div fxLayout="column" >
-                        <div class='pb-8' fxLayout="row" fxLayoutAlign="end space-between">
-                            <mat-chip-list>
-                                <mat-chip>Crédit: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
-                                <mat-chip>Débit: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
-                                <mat-chip>Balance: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
-                            </mat-chip-list>
-                        </div>
-                        <div fxLayout="row" fxLayoutAlign="end center">
-                            <mat-chip-list>
-                                <mat-chip>Solde: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
-                            </mat-chip-list>
-                        </div>
-                    </div>
-                </ng-template>
+                
             </div>
-            <account-statement-filter (changeFilter)="changeAsFilter($event)" *fuseIfOnDom [@animate]="{value:'*',params:{x:'50px'}}"></account-statement-filter>
+            <account-statement-filter *fuseIfOnDom [@animate]="{value:'*',params:{x:'50px'}}"></account-statement-filter>
         </div>
 
         
@@ -69,7 +49,7 @@
                         [@animateStagger]="{value:'50'}">
                     </as-chart-evolution>
                 </mat-tab>
-
+                
                 <mat-tab label="Catégorisation">
                     <as-chart-categorisation 
                         *ngIf="selectedIndex == 1"
@@ -95,4 +75,17 @@
     </div>
 </div>
 
+
+<ng-template #emptySolde>
+    <div fxLayout="column" >
+        <div class='pb-8' fxLayout="row" fxLayoutAlign="end space-between">
+            <mat-chip-list>
+                <mat-chip>Crédit: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
+                <mat-chip>Débit: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
+                <mat-chip>Balance: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
+                <mat-chip>Solde: <mat-spinner [diameter]="15"></mat-spinner></mat-chip>
+            </mat-chip-list>
+        </div>
+    </div>
+</ng-template>
 

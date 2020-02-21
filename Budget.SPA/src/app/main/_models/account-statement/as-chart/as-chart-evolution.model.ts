@@ -22,7 +22,7 @@ export class AsChartEvolutionCdb {
 }
 
 export class AsChartEvolutionCustomOtf {
-    filter: AsChartEvolutionCustomOtfFilter=new AsChartEvolutionCustomOtfFilter();
+    filter: AsChartEvolutionCustomOtfFilter=null;
     widgetCardChartBars: WidgetCardChartBar[]=null;
 }
 

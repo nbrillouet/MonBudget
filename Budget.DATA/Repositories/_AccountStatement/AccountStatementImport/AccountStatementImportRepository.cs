@@ -28,29 +28,39 @@ namespace Budget.DATA.Repositories
             var accountStatementImports = Context.AccountStatementImport
                 .Include(x => x.User)
                 .AsQueryable();
+            accountStatementImports = GenericTableFilter.GetGenericFilters(accountStatementImports, filter);
 
-            if (filter.IdUser.HasValue)
-            {
-                accountStatementImports = accountStatementImports.Where(x => x.IdUser == filter.IdUser);
-            }
-            if (filter.IdBankAgency.HasValue)
-            {
-                accountStatementImports = accountStatementImports.Where(x => x.IdBankAgency == filter.IdBankAgency);
-            }
+            //if (filter.IdUser.HasValue)
+            //{
+            //    accountStatementImports = accountStatementImports.Where(x => x.IdUser == filter.IdUser);
+            //}
+            //if (filter.IdBankAgency.HasValue)
+            //{
+            //    accountStatementImports = accountStatementImports.Where(x => x.IdBankAgency == filter.IdBankAgency);
+            //}
 
-            if (filter.Pagination.SortDirection == "asc")
-            {
-                accountStatementImports = accountStatementImports.OrderBy(filter.Pagination.SortColumn);
-            }
-            else
-            {
-                accountStatementImports = accountStatementImports.OrderByDescending(filter.Pagination.SortColumn);
-            }
+            //if (filter.Pagination.SortDirection == "asc")
+            //{
+            //    accountStatementImports = accountStatementImports.OrderBy(filter.Pagination.SortColumn);
+            //}
+            //else
+            //{
+            //    accountStatementImports = accountStatementImports.OrderByDescending(filter.Pagination.SortColumn);
+            //}
             var results = PagedListRepository<AccountStatementImport>.Create(accountStatementImports, filter.Pagination);
 
             return results;
         }
-                
+        
+        public AccountStatementImport GetEagerById(int idImport)
+        {
+            var result = Context.AccountStatementImport
+                .Include(x => x.BankAgency)
+                .Include(x => x.User)
+                .FirstOrDefault();
+
+            return result;
+        }
 
         public List<BankAgency> GetDistinctBankAgencies(int idUser)
         {

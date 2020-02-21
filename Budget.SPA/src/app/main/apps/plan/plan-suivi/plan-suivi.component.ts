@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ISelect, SelectYear } from 'app/main/_models/generics/select.model';
 import { PlanForTracking } from 'app/main/_models/plan/plan-tracking.model';
 import { FilterPlanTracking } from 'app/main/_models/filters/plan-tracking.filter';
-import { MatDialogConfig, MatDialog } from '@angular/material';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { PlanPosteDetailComponent } from '../plan-detail/plan-poste-detail/plan-poste-detail.component';
 import { ClearPlanPosteDetailDatas } from 'app/main/_ngxs/plan-poste/plan-poste-detail/plan-poste-detail.action';
 import { PlanAmountFilter } from 'app/main/_models/filters/plan-amount.filter';

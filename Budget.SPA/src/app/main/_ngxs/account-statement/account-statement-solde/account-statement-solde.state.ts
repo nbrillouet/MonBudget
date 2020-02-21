@@ -5,6 +5,7 @@ import { AsSolde } from "app/main/_models/account-statement/account-statement-so
 import { State, Selector, StateContext, Action } from "@ngxs/store";
 import { LoaderState } from "../../_base/loader-state";
 import { DatasFilter } from "app/main/_models/generics/detail-info.model";
+import { Injectable } from "@angular/core";
 
 export class AsSoldeStateModel extends DatasFilter<AsSolde,FilterAsTableSelected> {
     constructor () {
@@ -21,6 +22,7 @@ let detailInfo = new AsSoldeStateModel();
     defaults : detailInfo 
 })
 
+@Injectable()
 export class AsSoldeState extends LoaderState {
     constructor(
         private _asService: AsService

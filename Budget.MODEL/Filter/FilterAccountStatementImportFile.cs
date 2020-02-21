@@ -1,4 +1,5 @@
 ﻿using Budget.MODEL.Dto;
+using Budget.MODEL.Dto.Select;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,10 +10,13 @@ namespace Budget.MODEL.Filter
 
     public class FilterAsifTableSelected: FilterTableSelected
     {
+        public UserForGroupDto User { get; set; }
         public int? IdImport { get; set; }
         public int? IndexTabAsifState { get; set; }
         public SelectDto Account { get; set; }
         public SelectDto AsifState { get; set; }
+        public string AsiBankAgencyLabel { get; set; }
+        public DateTime? AsiDateImport { get; set; }
 
         public List<SelectDto> OperationMethod { get; set; }
         public List<SelectDto> OperationTypeFamily { get; set; }
@@ -28,17 +32,22 @@ namespace Budget.MODEL.Filter
 
     }
 
-    public class FilterAsifTable
+    public class FilterAsifTableSelection
     {
-        public string AsiBankAgencyLabel { get; set; }
-        public DateTime AsiDateImport { get; set; }
+        //public string AsiBankAgencyLabel { get; set; }
+        //public DateTime AsiDateImport { get; set; }
         public List<SelectDto> Account { get; set; }
         public List<SelectDto> AsifState { get; set; }
-        public FilterAsifTableSelected Selected { get; set; }
 
-        public FilterAsifTable()
+        public List<SelectDto> OperationMethod { get; set; }
+        public List<SelectGroupDto> OperationTypeFamily { get; set; }
+        public List<SelectGroupDto> OperationType { get; set; }
+        public List<SelectDto> Operation { get; set; }
+
+
+        public FilterAsifTableSelection()
         {
-            Selected = new FilterAsifTableSelected();
+            //Selected = new FilterAsifTableSelected();
         }
     }
 

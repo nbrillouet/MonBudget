@@ -4,12 +4,15 @@ import { LoadAsChartEvolutionBrut, LoadAsChartEvolutionNoIntTransfer, LoadAsChar
 import { WidgetCardChartBar } from "app/main/_models/chart/widget-card-chart-bar.model";
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
-import { zip } from "rxjs";
+import { zip,pipe, forkJoin } from "rxjs";
 import { AsChart } from "app/main/_models/account-statement/as-chart/as-chart.model";
 import { AsChartCategorisationSelect } from "app/main/_models/account-statement/as-chart/as-chart-categorisation.model";
 import { LoaderState } from "../../_base/loader-state";
 import { Datas } from "app/main/_models/generics/detail-info.model";
-
+import { inject } from "@angular/core/testing";
+import { Injectable } from "@angular/core";
+import { Observable, combineLatest } from 'rxjs';
+import { map } from "rxjs/operators";
 
 export class AsChartStateModel extends Datas<AsChart> {
     constructor () {
@@ -25,6 +28,7 @@ let asChartStateModel = new AsChartStateModel();
     defaults : asChartStateModel
 })
 
+@Injectable()
 export class AsChartState extends LoaderState {
     constructor(
         private _asService: AsService
@@ -34,28 +38,54 @@ export class AsChartState extends LoaderState {
 
     @Selector()
     static get(state: AsChartStateModel) {
- 
         return state;
     }
 
     @Action(LoadAsChartEvolution)
     loadAsChartEvolution(context: StateContext<AsChartStateModel>, action: LoadAsChartEvolution) {
         this.loading(context,'asChartEvolution');
-
+        
         const state = context.getState();
         context.patchState(state);
 
-        zip(   
-            context.dispatch(new LoadAsChartEvolutionBrut(action.payload)),
-            context.dispatch(new LoadAsChartEvolutionNoIntTransfer(action.payload)),
-            context.dispatch(new LoadAsChartEvolutionCustomOtfFilter(action.payload)),
-            context.dispatch(new LoadAsChartEvolutionCustomOtf(action.payload))
-        ).subscribe(x=>{
+        let a$ = context.dispatch(new LoadAsChartEvolutionBrut(action.payload));
+        let b$ = context.dispatch(new LoadAsChartEvolutionNoIntTransfer(action.payload));
+        let c$ = context.dispatch(new LoadAsChartEvolutionCustomOtfFilter(action.payload));
+        let d$ = context.dispatch(new LoadAsChartEvolutionCustomOtf(action.payload));
+        
+        combineLatest([a$,b$,c$,d$])
+    //   .pipe(map(results => ({idAccount: results[0].idAccount, idTab: results[1].idTab})))
+        .subscribe(results => {
             let state = context.getState();
             context.patchState(state);
 
-            this.loaded(context,'asChartEvolution');
+            // this.loaded(context,'asChartEvolution');
         });
+
+        // let joinStream = combineLatest([a$, b$, c$, d$]).pipe, (a,b,c,d)=>{
+        //     return 'tt';
+        // });
+        
+        //, (a,b,c,d) => ({ a,b,c,d }))
+        // joinStream.pipe
+        //     .first() // or not, implementation detail
+        //     .subscribe(({ a,b,c,d }) => {
+        //         // here we have both name and document
+        //         this.showForm()
+        //     })
+
+        
+        // zip(   
+        //     context.dispatch(new LoadAsChartEvolutionBrut(action.payload)),
+        //     context.dispatch(new LoadAsChartEvolutionNoIntTransfer(action.payload)),
+        //     context.dispatch(new LoadAsChartEvolutionCustomOtfFilter(action.payload)),
+        //     context.dispatch(new LoadAsChartEvolutionCustomOtf(action.payload)))
+        // .subscribe(x=>{
+        //         let state = context.getState();
+        //         context.patchState(state);
+    
+        //         this.loaded(context,'asChartEvolution');
+        // });
     }
 
     // @Action(LoadAsChartEvolutionSuccess)
@@ -69,9 +99,9 @@ export class AsChartState extends LoaderState {
         this.loading(context,'asChartEvolutionBrut');
 
         const state = context.getState();
-        state.datas.asChartEvolution.brut.balance= new WidgetCardChartBar();
-        state.datas.asChartEvolution.brut.credit=new WidgetCardChartBar();
-        state.datas.asChartEvolution.brut.debit=new WidgetCardChartBar();
+        state.datas.asChartEvolution.brut.balance= null;
+        state.datas.asChartEvolution.brut.credit= null;
+        state.datas.asChartEvolution.brut.debit= null;
         context.patchState(state);
         
         this._asService.getAsChartEvolutionBrut(action.payload)
@@ -101,9 +131,9 @@ export class AsChartState extends LoaderState {
         this.loading(context,'asChartEvolutionNoIntTransfer');
         
         const state = context.getState();
-        state.datas.asChartEvolution.noIntTransfer.balance= new WidgetCardChartBar();
-        state.datas.asChartEvolution.noIntTransfer.credit=new WidgetCardChartBar();
-        state.datas.asChartEvolution.noIntTransfer.debit=new WidgetCardChartBar();
+        state.datas.asChartEvolution.noIntTransfer.balance= null;
+        state.datas.asChartEvolution.noIntTransfer.credit= null;
+        state.datas.asChartEvolution.noIntTransfer.debit= null;
         
         context.patchState(state);
         this._asService.getAsChartEvolutionNoIntTransfer(action.payload)
@@ -131,6 +161,8 @@ export class AsChartState extends LoaderState {
                 state.datas.asChartEvolution.customOtfs.widgetCardChartBars = result;
                 context.patchState(state);
 
+                // this.loaded(context,'asChartEvolutionCustomOtf');
+
                 this.loaded(context,'asChartEvolutionCustomOtf');
             });
     }
@@ -141,12 +173,13 @@ export class AsChartState extends LoaderState {
         this.loading(context,'asChartEvolutionCustomOtfFilter');
         
         const state = context.getState();
-        state.datas.asChartEvolution.customOtfs.filter.selected = new AsChartEvolutionCustomOtfFilterSelected();
-        state.datas.asChartEvolution.customOtfs.filter.operationTypeFamilies = [] ;
+        state.datas.asChartEvolution.customOtfs.filter=null;
+        // state.datas.asChartEvolution.customOtfs.filter.operationTypeFamilies = null;
         context.patchState(state);
 
         this._asService.getAsChartEvolutionCustomOtfFilter(action.payload)
             .subscribe(result=> {
+                
                 let state = context.getState();
                 state.datas.asChartEvolution.customOtfs.filter = result;
                 context.patchState(state);
@@ -161,6 +194,7 @@ export class AsChartState extends LoaderState {
 
         this._asService.updateAsChartEvolutionCustomOtfFilter(action.payload)
             .subscribe(result=> {
+                
                 let filterAsTableSelected = <FilterAsTableSelected> {
                     idAccount : action.payload.idAccount,
                     user: action.payload.user,
@@ -199,7 +233,7 @@ export class AsChartState extends LoaderState {
         this.loading(context,'asChartCategorisationDebit');
         
         const state = context.getState();
-        state.datas.asChartCategorisation.debit = new AsChartCategorisationSelect();
+        state.datas.asChartCategorisation.debit = null;
 
         context.patchState(state);
         this._asService.GetAsChartCategorisationDebit(action.payload)

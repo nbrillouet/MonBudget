@@ -59,7 +59,15 @@ namespace Budget.API.Controllers
             var pagedList = _accountStatementImportService.GetAsiTable(filter);
 
             return Ok(pagedList);
+        }
 
+        [HttpGet]
+        [Route("asi/{id}/asi-detail")]
+        public IActionResult getById(int id)
+        {
+            var pagedList = _accountStatementImportService.GetByIdForData(id);
+
+            return Ok(pagedList);
         }
 
         [HttpGet]

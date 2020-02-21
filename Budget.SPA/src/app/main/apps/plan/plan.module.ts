@@ -11,7 +11,7 @@ import { WidgetsModule } from "../widgets/widgets.module";
 import { PlanPosteListComponent } from "./plan-detail/plan-poste-list/plan-poste-list.component";
 import { PlanListComponent } from "./plan-list/plan-list.component";
 import { PlanSuiviComponent } from "./plan-suivi/plan-suivi.component";
-import { NgxGaugeModule } from 'ngx-gauge';
+// import { NgxGaugeModule } from 'ngx-gauge';
 import { MonthYearSelectionComponent } from "../web-component/month-year-selection/month-year-selection.component";
 import { FuseWidgetModule, FuseMaterialColorPickerModule } from "@fuse/components";
 import { ColorPickerModule } from 'ngx-color-picker';
@@ -31,6 +31,7 @@ import { AsPlanListComponent } from "./plan-detail/as-plan-list/as-plan-list.com
 // import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { ChartsModule } from "ng2-charts";
 import { AngularMaterialModule } from "app/angular-material.module";
+import { ReferentialServiceModule } from "app/main/_services/Referential/referential.service.module";
 
 const routes = [
     {
@@ -70,7 +71,7 @@ const routes = [
     imports: [
       FuseSharedModule,
       AngularMaterialModule,
-      NgxGaugeModule,
+      ReferentialServiceModule,
       RouterModule.forChild(routes),
       WidgetsModule,
       FuseWidgetModule,

@@ -1,73 +1,104 @@
-
-
-<div class="p-8" >
-    
-    <div class="fuse-card">
+<div 
+    class="p-8"
+    [@animate]="{value:'*',params:{y:'100%'}}">
+    <div 
+        class="fuse-card">
+        <div *ngIf="isLoaded else tp_progress"
+        >
         
-        <div *ngIf="!isLoaded" 
-            class="h-96 w-100-p"
-            fxLayout="column"
-            fxLayoutAlign="center center">
-            <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
-            <div fxLayout="row">chargement...</div>
-        </div>
-        
-        <div *ngIf="isLoaded" class="p-12 pb-0" fxLayout="row" fxLayoutAlign="space-between end" fxLayoutWrap>
-            <div >
-                <div class="h3 secondary-text">{{widget.title.label}}</div>
-                <div class="font-size-24 font-weight-300 line-height-1 mt-8">
-                    {{widget.title.averageAmount}} €
+            <div class="p-12 pb-0" fxLayout="row" fxLayoutAlign="space-between end" fxLayoutWrap>
+                <div>
+                    <div class="h3 secondary-text">{{widget.title.label}}</div>
+                    <div class="font-size-24 font-weight-300 line-height-1 mt-8">
+                        {{widget.title.averageAmount}} €
+                    </div>
                 </div>
+
+                <div class="py-6 font-size-12" fxLayout="row" fxLayoutAlign="end center">
+                    <div fxFlex="row" fxLayoutAlign="end center" class="green-fg"
+                        *ngIf="widget.title.ratioAmount > 0">
+                        <mat-icon class="green-fg mr-4">trending_up</mat-icon>
+                        <span>{{widget.title.ratioAmount}}%</span>
+                    </div>
+                    <div fxFlex="row" fxLayoutAlign="end center" class="red-fg"
+                        *ngIf="widget.title.ratioAmount < 0">
+                        <mat-icon class="red-fg mr-4">trending_down</mat-icon>
+                        <span>{{widget.title.ratioAmount}}%</span>
+                    </div>
+                    <div fxFlex="row" fxLayoutAlign="end center" class="grey-fg"
+                        *ngIf="widget.title.ratioAmount == 0">
+                        <mat-icon class="grey-fg mr-4">trending_flat</mat-icon>
+                        <span>{{widget.title.ratioAmount}}%</span>
+                    </div>
+                    <div class="ml-4 text-nowrap">{{widget.title.ratioLabel}}</div>
+                </div>
+                
             </div>
+            
 
-            <div class="py-6 font-size-12" fxLayout="row" fxLayoutAlign="end center">
-                <div fxFlex="row" fxLayoutAlign="end center" class="green-fg"
-                     *ngIf="widget.title.ratioAmount > 0">
-                    <mat-icon class="green-fg mr-4">trending_up</mat-icon>
-                    <span>{{widget.title.ratioAmount}}%</span>
-                </div>
-                <div fxFlex="row" fxLayoutAlign="end center" class="red-fg"
-                     *ngIf="widget.title.ratioAmount < 0">
-                    <mat-icon class="red-fg mr-4">trending_down</mat-icon>
-                    <span>{{widget.title.ratioAmount}}%</span>
-                </div>
-                <div fxFlex="row" fxLayoutAlign="end center" class="grey-fg"
-                     *ngIf="widget.title.ratioAmount == 0">
-                    <mat-icon class="grey-fg mr-4">trending_flat</mat-icon>
-                    <span>{{widget.title.ratioAmount}}%</span>
-                </div>
-                <div class="ml-4 text-nowrap">{{widget.title.ratioLabel}}</div>
+            <div class="h-96 w-100-p">
+                <canvas baseChart
+                        [datasets]="widget.datasets"
+                        [labels]="widget.labels"
+                        [colors]="widget.colors"
+                        [options]="widget.options"
+                        [chartType]="widget.chartType"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
             </div>
-
         </div>
-
-        <div *ngIf="isLoaded" class="h-96 w-100-p">
-            <canvas baseChart
-                    [datasets]="widget.datasets"
-                    [labels]="widget.labels"
-                    [colors]="widget.colors"
-                    [options]="widget.options"
-                    [chartType]="widget.chartType"
-                    (chartClick)="chartClicked($event)">
-            </canvas>
-        </div>
-
+        <!-- </ng-container> -->
         
 
     </div>
 
 </div>
 
-<!-- <div>
-        <ngx-charts-pie-chart class="h-20 w-20-p"
-            *fuseIfOnDom
-            [scheme]="widget8.scheme"
-            [results]="widget8.mainChart"
-            [legend]="widget8.legend"
-            [explodeSlices]="widget8.explodeSlices"
-            [labels]="widget8.labels"
-            [doughnut]="widget8.doughnut"
-            [gradient]="widget8.gradient"
-            (select)="widget8.onSelect($event)">
-        </ngx-charts-pie-chart>
-    </div> -->
+<ng-template #tp_progress>
+    <div 
+        class="h-96 w-100-p"
+        fxLayout="column"
+        fxLayoutAlign="center center">
+        <spinner-four-cube size="10"></spinner-four-cube>
+        <!-- <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner> -->
+        <!-- <div fxLayout="row">chargement...</div> -->
+    </div>
+</ng-template>
+
+<!-- <ng-template #tp_loading>
+    <div 
+        class="h-96 w-100-p"
+        fxLayout="column"
+        fxLayoutAlign="center center">
+        <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
+        <div fxLayout="row">chargement...</div>
+    </div>
+</ng-template> -->
+
+
+
+
+
+
+
+
+
+<!-- <div class="fuse-card" *ngIf="isLoaded; then tp_test; else tp_progress">
+    
+</div>
+
+<ng-template #tp_test>
+    TOTO
+</ng-template>
+
+<ng-template #tp_progress>
+    <div 
+        class="h-96 w-100-p"
+        fxLayout="column"
+        fxLayoutAlign="center center">
+        <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
+        <div fxLayout="row">chargement...</div>
+    </div>
+</ng-template> -->
+
+

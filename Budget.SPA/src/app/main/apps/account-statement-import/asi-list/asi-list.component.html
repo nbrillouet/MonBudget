@@ -1,75 +1,18 @@
 <mat-table-filter 
-    [observableFilter] = "asiTableFilter$"
-    [observableTable] = "asiTable$"
+    [filterSelection$] = "asiTableFilterSelection$"
+    [filterSelected$] = "asiTableFilterSelected$"
+    [table$] = "asiTable$"
+    [columns] = "columns"
+    (onRowClick) = "onRowClick($event)"
+    (changeFilterSelected)="applyFilterSelected($event)"
+    (changeFilterSelection)="applyFilterSelection($event)">
+</mat-table-filter>
+
+<!-- <mat-table-filter 
+    [filterSelection$] = "asiTableFilter$"
+    [table$] = "asiTable$"
     [columns] = "columns"
     (onRowClick) = "onRowClick($event)"
     (changeFilter)="applyFilter($event)">
-</mat-table-filter>
-        
-        <!-- <mat-table class="account-statement-import-table"
-          #table [dataSource]="dataSource"
-          [@animateStagger]="{value:'50'}"
-          matSort matSortActive="id" matSortDirection="asc" matSortDisableClear 
-          (matSortChange)="onSortChangeEvent($event)"
-        >
+</mat-table-filter> -->
 
-            <ng-container matColumnDef="checkbox" >
-                <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let data">
-                    <mat-checkbox 
-                       
-                        (click)="$event.stopPropagation()"
-                    >
-                    </mat-checkbox>
-                </mat-cell>
-            </ng-container>
-
- 
-            <ng-container matColumnDef="id" >
-                <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-                <mat-cell *matCellDef="let data">
-                    <p class="text-truncate">{{data.id}}</p>
-                </mat-cell>
-            </ng-container>
- 
-                <ng-container matColumnDef="fileImport" >
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>nom fichier</mat-header-cell>
-                    <mat-cell *matCellDef="let data">
-                        <p class="text-truncate">{{data.fileImport}}</p>
-                    </mat-cell>
-                </ng-container>
-
-            <ng-container matColumnDef="dateImport" >
-                <mat-header-cell *matHeaderCellDef mat-sort-header>date import</mat-header-cell>
-                <mat-cell *matCellDef="let data">
-                    <p class="text-truncate">{{ data.dateImport | date: 'dd/MM/yyyy HH:mm:ss' || "-"}}</p>
-                </mat-cell>
-            </ng-container>
-    
-            <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"></mat-header-row>
-                
-            <mat-row 
-                *cdkRowDef="let data; columns: displayedColumns;"
-                matRipple
-                [@animate]="{value:'*',params:{y:'100%'}}"
-                class="element-row" 
-                (click)="onRowClick(data)"
-            >
-            </mat-row>
-        </mat-table>
-        
-        <div *ngIf="(asiTable$ | async).loader['datas'].loading"
-            class="h-96 w-100-p"
-            fxLayout="column"
-            fxLayoutAlign="center center">
-            <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
-            <div style="color:#4285F3" fxLayout="row">chargement...</div>
-        </div> 
-        
-        <mat-paginator *ngIf="(asiTableFilter$ | async).filters.selected.pagination; let pagination"
-            (page)="onPageChangeEvent($event)"
-            [length]="pagination.totalItems" 
-            [pageSize]="pagination.itemsPerPage"
-            [pageSizeOptions]="[3, 5, 10]">
-        </mat-paginator>
-     -->

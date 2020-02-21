@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { IUserForGroup } from 'app/main/_models/user.model';
 import { HttpClient } from '@angular/common/http';
-import { FilterOtTableSelected, FilterOtTable } from 'app/main/_models/filters/operation-type.filter';
+import { FilterOtTableSelected, FilterOtTableSelection } from 'app/main/_models/filters/operation-type.filter';
 import { OtTable, OtDetail } from 'app/main/_models/referential/operation-type.model';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class OtService {
         
         return this._http
           .post(`${this.baseUrl}referential/operation-types/filter`,filter)
-          .map((response: OtTable) => {
+          .map((response: any) => {
               return response;
           });
       }
@@ -31,7 +31,7 @@ export class OtService {
           
         return this._http
               .post(`${this.baseUrl}referential/operation-types/table-filter`,filter)
-              .map((response: FilterOtTable) => {
+              .map((response: FilterOtTableSelection) => {
                   return response;
               });
       }

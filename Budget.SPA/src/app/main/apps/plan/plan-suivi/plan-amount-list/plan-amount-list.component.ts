@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatPaginator, MatSort, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { PlanAmountFilter } from 'app/main/_models/filters/plan-amount.filter';
 import { Store, Select } from '@ngxs/store';
 import { ChangePlanAmountTableFilter } from 'app/main/_ngxs/plan/plan-amount-list/plan-amount-list.action';

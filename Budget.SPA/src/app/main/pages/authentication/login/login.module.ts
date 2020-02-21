@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
-// import { SharedModule } from '../../../../../core/modules/shared.module';
 import { RouterModule } from '@angular/router';
 import { FuseLoginComponent } from './login.component';
 import { LoginService } from './login.service';
 import { FuseSharedModule } from '@fuse/shared.module';
-import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
-import { AngularMaterialModule } from 'app/angular-material.module';
-// import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 const routes = [
     {
@@ -25,7 +26,6 @@ const routes = [
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
-        // AngularMaterialModule,
         FuseSharedModule,
         RouterModule.forChild(routes)
     ],

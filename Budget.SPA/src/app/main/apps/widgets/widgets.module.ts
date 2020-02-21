@@ -9,21 +9,27 @@ import { ChartsModule } from 'ng2-charts';
 import { WidgetCardSimpleChartBarComponent } from './widget-card-simple-chart-bar/widget-card-simple-chart-bar.component';
 import { WidgetCardChartPieSelectComponent } from './widget-card-chart-pie-select/widget-card-chart-pie-select.component';
 import { AngularMaterialModule } from 'app/angular-material.module';
+import { SpinnerModule } from '../web-component/spinner/spinner.module';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
     declarations: [
         WidgetCardSimpleChartBarComponent,
         WidgetCardChartBarComponent,
         WidgetCardChartPieSelectComponent,
-
-        MyPipePipe],
+        MyPipePipe
+    ],
     imports     : [
         CommonModule,
         FuseSharedModule,
         AngularMaterialModule,
         FuseWidgetModule,
         NgxChartsModule,
-        ChartsModule      
+        ChartsModule,
+        SpinnerModule
+        // BrowserAnimationsModule,
+        // NoopAnimationsModule
     ],
     exports     : [
         WidgetCardSimpleChartBarComponent,

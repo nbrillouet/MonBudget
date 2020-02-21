@@ -1,5 +1,5 @@
 import { Injectable, ViewChild, ElementRef, Renderer2 } from "@angular/core";
-import { MatTable } from "@angular/material";
+import { MatTable } from "@angular/material/table";
 import { MatTableFilter } from "../model/mat-table-filter.model";
 
 @Injectable()

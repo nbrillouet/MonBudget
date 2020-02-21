@@ -9,7 +9,7 @@ namespace Budget.MODEL.Filter
     {
         public UserForGroupDto User { get; set; }
         public string Label { get; set; }
-        public SelectDto Movement { get; set; }
+        public List<SelectDto> Movement { get; set; }
         public Pagination Pagination { get; set; }
 
         public FilterOtfTableSelected()
@@ -19,15 +19,15 @@ namespace Budget.MODEL.Filter
 
     }
 
-    public class FilterOtfTable
+    public class FilterOtfTableSelection
     {
-        public List<SelectDto> Movements { get; set; }
+        public List<SelectDto> Movement { get; set; }
 
-        public FilterOtfTableSelected Selected { get; set; }
+        //public FilterOtfTableSelected Selected { get; set; }
 
-        public FilterOtfTable()
+        public FilterOtfTableSelection()
         {
-            Selected = new FilterOtfTableSelected();
+            //Selected = new FilterOtfTableSelected();
         }
     }
  

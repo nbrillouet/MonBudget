@@ -1,7 +1,11 @@
 
+<!-- <div *ngIf="(asChart$ | async)?.loader['asChartEvolution']?.loaded else tp_loading"> -->
+
 <div class="example-container-no-footer grey-100-bg">
     <div fxLayout="column">
-        <div class="position-relative pt-24 pl-24 pr-24 pb-10 mat-blue-600-bg"
+        
+        <div             
+            class="position-relative pt-24 pl-24 pr-24 pb-10 mat-blue-600-bg"
             fxLayoutAlign="space-between center">
             <div fxLayout="column" fxLayoutAlign="start start">
                 <span class="h2">Evolution globale</span>
@@ -9,60 +13,70 @@
             </div>
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="space-between center" >
-        <div>
-            <widget-card-chart-bar [widgetCardChartBar]="asChartEvolutionBrutDebit"
-                [@animate]="{value:'*',params:{y:'100%'}}" 
-                fxFlex=30
-                >
-            </widget-card-chart-bar>
-        </div>
-        <div>
-            <widget-card-chart-bar [widgetCardChartBar]="asChartEvolutionBrutCredit"
-                [@animate]="{value:'*',params:{y:'100%'}}" 
-                fxFlex=30
-            >
-            </widget-card-chart-bar>
-        </div>
+        <div 
+            *ngIf="(asChart$ | async)?.loader['asChartEvolutionBrut']?.loaded else tp_loading"
+            fxLayout="row" 
+            fxLayoutAlign="space-between center" >
+            <div >
+                    <!-- [@animate]="{value:'*',params:{y:'100%'}}"  -->
+                <widget-card-chart-bar 
+                    [widgetCardChartBar]="asChartEvolutionBrutDebit"
+
+                    fxFlex=30>
+                </widget-card-chart-bar>
+            </div>
             <div>
-            <widget-card-chart-bar [widgetCardChartBar]="asChartEvolutionBrutBalance"
-                
-                [@animate]="{value:'*',params:{y:'100%'}}" 
-                fxFlex=30
-            >
-            </widget-card-chart-bar>
+                    <!-- [@animate]="{value:'*',params:{y:'100%'}}"  -->
+                <widget-card-chart-bar [widgetCardChartBar]="asChartEvolutionBrutCredit"
+                    
+                    fxFlex=30
+                >
+                </widget-card-chart-bar>
+            </div>
+                <div>
+                        <!-- [@animate]="{value:'*',params:{y:'100%'}}"  -->
+                <widget-card-chart-bar [widgetCardChartBar]="asChartEvolutionBrutBalance"
+                    
+                    
+                    fxFlex=30
+                >
+                </widget-card-chart-bar>
+            </div>
         </div>
-        </div>
 
 
 
-        <div class="position-relative pt-24 pl-24 pr-24 pb-10 mat-blue-600-bg"
+        <div 
+            class="position-relative pt-24 pl-24 pr-24 pb-10 mat-blue-600-bg"
             fxLayoutAlign="space-between center">
         <div fxLayout="column" fxLayoutAlign="start start">
             <span class="h2">Evolution avec exclusion des virements internes</span>
             <span class="h5 secondary-text">Evolution sur les 12 derniers mois. Comparaison de la moyenne des 12 derniers mois avec le mois en cours</span>
         </div>
-        </div>
+        </div> 
 
-        <div fxLayout="row" fxLayoutAlign="space-between center" >
+        <div fxLayout="row" fxLayoutAlign="space-between center" 
+            *ngIf="(asChart$ | async)?.loader['asChartEvolutionNoIntTransfer']?.loaded else tp_loading">
         <div>
-        <widget-card-chart-bar [widgetCardChartBar]="asChartEvolutionNoIntTransferDebit"
-            [@animate]="{value:'*',params:{y:'100%'}}" 
-            fxFlex=30
-            >
-        </widget-card-chart-bar>
-        </div>
+                <!-- [@animate]="{value:'*',params:{y:'100%'}}"  -->
+            <widget-card-chart-bar [widgetCardChartBar]="asChartEvolutionNoIntTransferDebit"
+                
+                fxFlex=30>
+            </widget-card-chart-bar>
+        </div> 
         <div>
+                <!-- [@animate]="{value:'*',params:{y:'100%'}}"  -->
         <widget-card-chart-bar [widgetCardChartBar]="asChartEvolutionNoIntTransferCredit"
-            [@animate]="{value:'*',params:{y:'100%'}}" 
+            
             fxFlex=30
         >
         </widget-card-chart-bar>
         </div>
         <div>
+                <!-- [@animate]="{value:'*',params:{y:'100%'}}"  -->
         <widget-card-chart-bar [widgetCardChartBar]="asChartEvolutionNoIntTransferBalance"
             
-            [@animate]="{value:'*',params:{y:'100%'}}" 
+            
             fxFlex=30
         >
         </widget-card-chart-bar>
@@ -75,7 +89,7 @@
             <span class="h2">Evolution de catégories personnalisées</span>
             <span class="h5 secondary-text">Evolution sur les 12 derniers mois. Comparaison de la moyenne des 12 derniers mois avec le mois en cours</span>
         </div>
-        <form *ngIf="(asChart$ | async).datas.asChartEvolution.customOtfs.filter as filter"
+        <form *ngIf="(asChart$ | async)?.loader['asChartEvolutionCustomOtfFilter']?.loaded"
             name="operationForm" 
             [formGroup]="customOtfForm" fxFlex="20"
             class="mt-12" fxLayout="column" >
@@ -85,10 +99,9 @@
                         formControlName="operationTypeFamilies" 
                         [compareWith]="compareObjects" 
                         placeholder="Catégorie d'opérations" 
-                        (selectionChange)="change($event)"
                         multiple>
                     
-                    <mat-optgroup *ngFor="let group of filter.operationTypeFamilies" [label]="group.label">
+                    <mat-optgroup *ngFor="let group of asChartEvolutionCustomOtfFilter.operationTypeFamilies" [label]="group.label">
                         <mat-option *ngFor="let item of group.selects" [value]="item">
                         {{ item.label }}
                         </mat-option>
@@ -97,9 +110,13 @@
         
                 </mat-form-field>
             </form>
-        </div>
+        </div> 
 
-        <div fxLayout="row wrap" fxLayoutAlign="space-between center"  >
+        <div 
+            fxLayout="row wrap" 
+            fxLayoutAlign="space-between center"  
+            *ngIf="(asChart$ | async)?.loader['asChartEvolutionCustomOtf']?.loaded else tp_loading"
+        >
             <div *ngFor="let asChartEvolutionCustomOtf of asChartEvolutionCustomOtfs">
                 <widget-card-chart-bar [widgetCardChartBar]="asChartEvolutionCustomOtf"
                     
@@ -111,4 +128,22 @@
         </div>
 
     </div>
-</div>
+</div>  
+<!-- </div> -->
+
+<ng-template #tp_loading>
+    <div class="w-100-p"
+        fxLayout="column"
+        fxLayoutAlign="center center">
+        <mat-progress-bar
+          mode="indeterminate">
+        </mat-progress-bar>
+    </div>
+
+    <!-- <div style="min-height:50vh;"
+        fxLayout="row"
+        fxLayoutAlign="center center">
+        <spinner-four-cube size="40"></spinner-four-cube>
+        
+    </div> -->
+</ng-template>

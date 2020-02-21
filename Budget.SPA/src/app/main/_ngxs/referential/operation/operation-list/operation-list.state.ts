@@ -5,6 +5,7 @@ import { LoadOperationTableDatas, ClearOperationTableDatas } from "./operation-l
 import { UpdatePaginationOperationTableFilter } from "../operation-list-filter/operation-list-filter.action";
 import { LoaderState } from "app/main/_ngxs/_base/loader-state";
 import { Datas } from "app/main/_models/generics/detail-info.model";
+import { Injectable } from "@angular/core";
 
 export class OperationTableStateModel extends Datas<OperationTable[]> {
     constructor () {
@@ -18,6 +19,7 @@ let tableInfo = new OperationTableStateModel();
     defaults : tableInfo
 })
 
+@Injectable()
 export class OperationTableState extends LoaderState {
     constructor(
         private _operationService: OperationService,

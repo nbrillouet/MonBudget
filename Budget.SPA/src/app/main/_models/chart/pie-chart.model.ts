@@ -19,7 +19,7 @@ export class PieChart {
 
     }
     // onSelect(ev) => {
-    //       console.log(ev);
+
     //   }
 }
 

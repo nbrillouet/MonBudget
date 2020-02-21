@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PlanPosteForDetail, PlanPosteFrequencyForDetail, PlanPosteUserForDetail, PlanPosteForDetailSave, Frequency, PlanPosteFrequencyFilter } from 'app/main/_models/plan.model';
 import { PlanService } from '../../plan.service';
 import { Select, Store } from '@ngxs/store';

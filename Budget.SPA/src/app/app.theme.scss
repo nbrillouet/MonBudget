@@ -21,11 +21,11 @@ $fuse-navy: (
     200: #9EA1A9,
     300: #7D818C,
     400: #5C616F,
-    500: #3C4252,
+    500: #4285F3, //#3C4252,
     600: #353A48,
     700: #2D323E,
     800: #262933,
-    900: #1E2129,
+    900:  #1E2129,
     A100: #C5C6CB,
     A200: #9EA1A9,
     A400: #5C616F,
@@ -97,6 +97,7 @@ $typography: mat-typography-config(
 
 // Define the primary, accent and warn palettes
 $default-primary-palette: mat-palette($fuse-navy);
+// $default-primary-palette: mat-palette($mat-blue);
 $default-accent-palette: mat-palette($mat-light-blue, 600, 400, 700);
 $default-warn-palette: mat-palette($mat-red);
 

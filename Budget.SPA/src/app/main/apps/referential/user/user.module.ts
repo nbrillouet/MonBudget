@@ -12,10 +12,12 @@ import { AuthGuard } from 'app/_guards/auth.guard';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { PreventUnsavedChanges } from 'app/_guards/prevent-unsaved-changes.guard';
 import { NgxsModule } from '@ngxs/store';
-import { UserTableState } from 'app/main/_ngxs/user/user-list/user-list.state';
-import { UserTableFilterState } from 'app/main/_ngxs/user/user-list-filter/user-list-filter.state';
 import { AngularMaterialModule } from 'app/angular-material.module';
 import { MatTableFilterModule } from '../../web-component/mat-table-filter/mat-table-filter.module';
+import { UserTableFilterSelectedState } from 'app/main/_ngxs/user/user-table/user-table-filter-selected/user-table-filter-selected.state';
+import { UserTableFilterSelectionState } from 'app/main/_ngxs/user/user-table/user-table-filter-selection/user-table-filter-selection.state';
+import { UserTableState } from 'app/main/_ngxs/user/user-table/user-table.state';
+import { DatePipe } from '@angular/common';
 
 const routes = [
   {
@@ -46,8 +48,9 @@ const routes = [
     GMapModule,
     MatTableFilterModule,
     NgxsModule.forFeature([
-      UserTableState,
-      UserTableFilterState
+      UserTableFilterSelectedState,
+      UserTableFilterSelectionState,
+      UserTableState
     ]),
     RouterModule.forChild(routes)
   ],
@@ -60,7 +63,8 @@ const routes = [
     UserService,
     UserDetailResolver,
     UserListResolver,
-    PreventUnsavedChanges
+    PreventUnsavedChanges,
+    DatePipe
   ]
 })
 export class UserModule { }

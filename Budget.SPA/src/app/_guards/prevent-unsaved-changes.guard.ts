@@ -2,7 +2,7 @@
 import { Injectable } from "@angular/core";
 import { CanDeactivate } from '@angular/router';
 // import { UserDetailComponent } from "../main/content/apps/referential/user/user-detail/user-detail.component";
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 // import { DialogGuardComponent } from "./dialog-guard.component";
 import { UserDetailComponent } from "app/main/apps/referential/user/user-detail/user-detail.component";
 

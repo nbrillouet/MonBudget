@@ -16,13 +16,13 @@ namespace Budget.MODEL.Filter
 
     }
 
-    public class FilterUserTable
+    public class FilterUserTableSelection
     {
-        public FilterUserTableSelected Selected { get; set; }
+        //public FilterUserTableSelected Selected { get; set; }
 
-        public FilterUserTable()
+        public FilterUserTableSelection()
         {
-            Selected = new FilterUserTableSelected();
+            //Selected = new FilterUserTableSelected();
         }
     }
 

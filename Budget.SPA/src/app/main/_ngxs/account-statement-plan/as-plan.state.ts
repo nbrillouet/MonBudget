@@ -1,10 +1,10 @@
 import { AsTable } from "app/main/_models/account-statement/account-statement-table.model";
 import { PlanService } from "app/main/apps/plan/plan.service";
-import { AsTableStateModel } from "../account-statement/account-statement-list/account-statement-list.state";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { LoadAsPlanForTable, ChangeAsPlanForTableFilter, ClearAsPlanForTable } from "./as-plan.action";
 import { LoaderState } from "../_base/loader-state";
 import { Datas } from "app/main/_models/generics/detail-info.model";
+import { Injectable } from "@angular/core";
 
 export class AsPlanTableStateModel extends Datas<AsTable[]> {
     
@@ -15,12 +15,13 @@ export class AsPlanTableStateModel extends Datas<AsTable[]> {
 
 }
 
-let asPlanTableStateModel = new AsTableStateModel();
-@State<AsTableStateModel>({
+let asPlanTableStateModel = new AsPlanTableStateModel();
+@State<AsPlanTableStateModel>({
     name: 'AsPlanTable',
     defaults : asPlanTableStateModel
 })
 
+@Injectable()
 export class AsPlanTableState extends LoaderState{
     constructor(
         private _planService: PlanService) {

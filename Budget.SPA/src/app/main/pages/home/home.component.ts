@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private _fuseConfig: FuseConfigService
   ) {
+
     this._fuseConfig.config = {
       layout: {
           navbar   : {
@@ -32,6 +33,7 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit() {
+
   }
 
 }

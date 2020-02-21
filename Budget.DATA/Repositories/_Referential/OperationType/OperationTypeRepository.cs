@@ -126,23 +126,24 @@ namespace Budget.DATA.Repositories
                 .Include(x => x.OperationTypeFamily)
                 .AsQueryable();
 
-            if (filter.Label != null)
-            {
-                operationTypes = operationTypes.Where(x => x.Label.Contains(filter.Label));
-            }
-            if (filter.Otf != null)
-            {
-                operationTypes = operationTypes.Where(x => x.IdOperationTypeFamily == filter.Otf.Id);
-            }
+            operationTypes = GenericTableFilter.GetGenericFilters(operationTypes, filter);
+            //if (filter.Label != null)
+            //{
+            //    operationTypes = operationTypes.Where(x => x.Label.Contains(filter.Label));
+            //}
+            //if (filter.Otf != null)
+            //{
+            //    operationTypes = operationTypes.Where(x => x.IdOperationTypeFamily == filter.Otf.Id);
+            //}
 
-            if (filter.Pagination.SortDirection == "asc")
-            {
-                operationTypes = operationTypes.OrderBy(filter.Pagination.SortColumn);
-            }
-            else
-            {
-                operationTypes = operationTypes.OrderByDescending(filter.Pagination.SortColumn);
-            }
+            //if (filter.Pagination.SortDirection == "asc")
+            //{
+            //    operationTypes = operationTypes.OrderBy(filter.Pagination.SortColumn);
+            //}
+            //else
+            //{
+            //    operationTypes = operationTypes.OrderByDescending(filter.Pagination.SortColumn);
+            //}
 
             var results = PagedListRepository<OperationType>.Create(operationTypes, filter.Pagination);
             return results;

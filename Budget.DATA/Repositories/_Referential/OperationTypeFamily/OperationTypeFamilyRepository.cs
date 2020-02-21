@@ -71,30 +71,32 @@ namespace Budget.DATA.Repositories
                 .Include(x => x.Movement)
                 .AsQueryable();
 
-            if (filter.Label != null)
-            {
-                operationTypeFamilies = operationTypeFamilies.Where(x => x.Label.Contains(filter.Label));
-            }
-            if (filter.Movement != null)
-            {
-                operationTypeFamilies = operationTypeFamilies.Where(x => x.IdMovement == filter.Movement.Id);
-            }
+            operationTypeFamilies = GenericTableFilter.GetGenericFilters(operationTypeFamilies, filter);
 
-            //string columnSorted;
-            //columnSorted = $"OperationTypeFamily.{filter.Pagination.SortColumn}";
-            //if (filter.Pagination.SortColumn.Contains("movement"))
+            //if (filter.Label != null)
             //{
-            //    columnSorted = $"{columnSorted}.Label";
+            //    operationTypeFamilies = operationTypeFamilies.Where(x => x.Label.Contains(filter.Label));
+            //}
+            //if (filter.Movement != null)
+            //{
+            //    operationTypeFamilies = operationTypeFamilies.Where(x => x.IdMovement == filter.Movement.Id);
             //}
 
-            if (filter.Pagination.SortDirection == "asc")
-            {
-                operationTypeFamilies = operationTypeFamilies.OrderBy(filter.Pagination.SortColumn);
-            }
-            else
-            {
-                operationTypeFamilies = operationTypeFamilies.OrderByDescending(filter.Pagination.SortColumn);
-            }
+            ////string columnSorted;
+            ////columnSorted = $"OperationTypeFamily.{filter.Pagination.SortColumn}";
+            ////if (filter.Pagination.SortColumn.Contains("movement"))
+            ////{
+            ////    columnSorted = $"{columnSorted}.Label";
+            ////}
+
+            //if (filter.Pagination.SortDirection == "asc")
+            //{
+            //    operationTypeFamilies = operationTypeFamilies.OrderBy(filter.Pagination.SortColumn);
+            //}
+            //else
+            //{
+            //    operationTypeFamilies = operationTypeFamilies.OrderByDescending(filter.Pagination.SortColumn);
+            //}
 
             var results = PagedListRepository<OperationTypeFamily>.Create(operationTypeFamilies, filter.Pagination);
             return results;

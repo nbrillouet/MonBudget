@@ -10,6 +10,7 @@ namespace Budget.DATA.Repositories
 {
     public interface IAccountStatementImportRepository : IBaseRepository<AccountStatementImport>
     {
+        AccountStatementImport GetEagerById(int idImport);
         List<BankAgency> GetDistinctBankAgencies(int idUser);
         PagedList<AccountStatementImport> GetAsiTable(FilterAsiTableSelected filter);
 

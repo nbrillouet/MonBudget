@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { OtfTable, OtfDetail } from 'app/main/_models/referential/operation-type-family.model';
 import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { FilterOtfTableSelected, FilterOtfTable } from 'app/main/_models/filters/operation-type-family.filter';
+import { FilterOtfTableSelected, FilterOtfTableSelection } from 'app/main/_models/filters/operation-type-family.filter';
 import { IUserForGroup } from 'app/main/_models/user.model';
 
 @Injectable()
@@ -18,10 +18,9 @@ export class OtfService {
   
       getOtfTable (filter: FilterOtfTableSelected) {
         filter.user =  this.userForGroup;
-
         return this.http
           .post(`${this.baseUrl}referential/operation-type-families/filter`,filter)
-          .map((response: OtfTable) => {
+          .map((response: any) => {
               return response;
           });
       }
@@ -31,7 +30,7 @@ export class OtfService {
         
         return this.http
               .post(`${this.baseUrl}referential/operation-type-families/table-filter`,filter)
-              .map((response: FilterOtfTable) => {
+              .map((response: FilterOtfTableSelection) => {
                   return response;
               });
       }

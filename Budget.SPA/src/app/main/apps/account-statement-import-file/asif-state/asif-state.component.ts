@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, ViewEncapsulation } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { AsifTableFilterState } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.state';
 import { Observable } from 'rxjs';
-import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
-import { FilterAsifTable } from 'app/main/_models/filters/account-statement-import-file.filter';
-import { ChangeAsifTableFilter, LoadAsifTableFilter } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.action';
-import { AsiService } from '../../account-statement-import/asi.service';
+import { FilterSelected, FilterSelection } from 'app/main/_models/generics/filter.info.model';
+import { FilterAsifTableSelected, FilterAsifTableSelection } from 'app/main/_models/filters/account-statement-import-file.filter';
+import { SynchronizeAsifTableFilterSelected } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selected/asif-table-filter-selected.action';
+import { AsifTableFilterSelectedState } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selected/asif-table-filter-selected.state';
+import { AsifTableFilterSelectionState } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selection/asif-table-filter-selection.state';
 
 
 @Component({
@@ -15,18 +15,28 @@ import { AsiService } from '../../account-statement-import/asi.service';
   encapsulation: ViewEncapsulation.None
 })
 export class AsifStateComponent implements OnInit {
-  @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
+  @Select(AsifTableFilterSelectedState.get) asifTableFilterSelected$: Observable<FilterSelected<FilterAsifTableSelected>>;
+  @Select(AsifTableFilterSelectionState.get) asifTableFilterSelection$: Observable<FilterSelection<FilterAsifTableSelection>>;
   
-  filter: FilterAsifTable
+  filterAsifSelected: FilterAsifTableSelected;
+  filterAsifSelection: FilterAsifTableSelection;
 
   constructor(
     private _store: Store
   ) { 
-    this.asifTableFilter$.subscribe(asifTableFilter=>{
-      if(asifTableFilter?.loader['filters']?.loaded) {
-        this.filter = asifTableFilter.filters;
+
+    this.asifTableFilterSelected$.subscribe(selected=>{
+      if(selected?.loader['filter-selected']?.loaded
+        && (!this.filterAsifSelected || selected?.selected?.account!=this.filterAsifSelected?.account)) {
+          this.filterAsifSelected = selected.selected;
       }
-    })
+    });
+
+    this.asifTableFilterSelection$.subscribe(selection=>{
+      if(selection?.loader['filter-selection']?.loaded  && !this.filterAsifSelection) {
+        this.filterAsifSelection = selection.selection;
+      }
+    });
   }
 
   ngOnInit() {
@@ -34,11 +44,11 @@ export class AsifStateComponent implements OnInit {
   }
 
   onTabChanged($event) {
-    this.filter.selected.indexTabAsifState=$event.index;
-    this.filter.selected.asifState = this.filter.asifState[$event.index]; //.find(x=>x.id==$event.index);
+    debugger;
+    this.filterAsifSelected.indexTabAsifState=$event.index;
+    this.filterAsifSelected.asifState = this.filterAsifSelection.asifState[$event.index]; //.find(x=>x.id==$event.index);
 
-    this._store.dispatch(new LoadAsifTableFilter(this.filter));
-
+    this._store.dispatch(new SynchronizeAsifTableFilterSelected(this.filterAsifSelected));
   }
  
 

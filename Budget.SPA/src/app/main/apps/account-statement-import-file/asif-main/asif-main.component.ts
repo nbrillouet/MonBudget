@@ -4,12 +4,14 @@ import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '@fuse/animations';
 import { AsifService } from '../asif.service';
 import { Store, Select } from '@ngxs/store';
-import { LoadAsifTableFilter, ChangeAsifTableFilter } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.action';
-import { AsifTableFilterState } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.state';
-import { Observable } from 'rxjs';
-import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
-import { FilterAsifTable } from 'app/main/_models/filters/account-statement-import-file.filter';
+import { Observable, zip } from 'rxjs';
+import { FilterSelected, FilterSelection } from 'app/main/_models/generics/filter.info.model';
 import { FuseConfigService } from '@fuse/services/config.service';
+import { AsifTableFilterSelectedState } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selected/asif-table-filter-selected.state';
+import { FilterAsifTableSelected, FilterAsifTableSelection } from 'app/main/_models/filters/account-statement-import-file.filter';
+import { SynchronizeAsifTableFilterSelected, LoadAsifTableFilterSelected } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selected/asif-table-filter-selected.action';
+import { AsifTableFilterSelectionState } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selection/asif-table-filter-selection.state';
+import { LoadAsifTableFilterSelection } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selection/asif-table-filter-selection.action';
 
 @Component({
   selector: 'asif-main',
@@ -20,15 +22,13 @@ import { FuseConfigService } from '@fuse/services/config.service';
 })
 
 export class AsifMainComponent implements OnInit {
-  @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
+  @Select(AsifTableFilterSelectedState.get) asifTableFilterSelected$: Observable<FilterSelected<FilterAsifTableSelected>>;
+  @Select(AsifTableFilterSelectionState.get) asifTableFilterSelection$: Observable<FilterSelection<FilterAsifTableSelection>>;
   
-  filterAsif: FilterAsifTable;
+  filterAsifSelected: FilterAsifTableSelected;
+  filterAsifSelection: FilterAsifTableSelection;
   loading: boolean;
-
-  // headerPanelIsVisible: boolean = false;
-  // headerPanelIcon: string;
   fullscreen: boolean;
-  // fuseConfig: any;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -37,50 +37,62 @@ export class AsifMainComponent implements OnInit {
     private _notificationService: NotificationsService,
     private _fuseConfigService: FuseConfigService
   ) {
-    this.asifTableFilter$.subscribe(asifTableFilter=>{
-      if(asifTableFilter?.loader['filters']?.loaded) { 
-        this.filterAsif = asifTableFilter.filters;
-      }
-    });
 
+    zip(this.asifTableFilterSelected$, this.asifTableFilterSelection$, (selected: FilterSelected<FilterAsifTableSelected>, selection: FilterSelection<FilterAsifTableSelection>) => ({selected, selection}))
+      .subscribe(result => {
+        if(result.selected?.loader['filter-selected']?.loaded 
+          && result.selection?.loader['filter-selection']?.loaded
+          && !this.filterAsifSelected) {
+          this.filterAsifSelection = result.selection.selection;
+          this.filterAsifSelected = result.selected.selected;
+          this.filterAsifSelected.account = result.selection.selection.account[0];
+          this._store.dispatch(new SynchronizeAsifTableFilterSelected(this.filterAsifSelected));
+        }
+      });
 
+    // this.asifTableFilterSelected$.subscribe(selected=>{
+    //   if(selected?.loader['filter-selected']?.loaded) { 
+    //     // if(JSON.stringify(selected.selected?.idImport)!=JSON.stringify(this.filterAsifSelected?.idImport)) {
+    //       // this.filterAsifSelected = selected.selected;
+    //     // }
+    //   }
+    // });
+
+    // this.asifTableFilterSelection$.subscribe(selection=>{
+    //   if(selection?.loader['filter-selection']?.loaded) { 
+
+    //     if(!this.filterAsifSelected.account)
+    //       this.filterAsifSelected.account = selection.selection.account[0];
+    //   }
+    // });
   }
   
   ngOnInit() {       
     this._activatedRoute.params.subscribe(routeParams => {
-      let filterAsif = new FilterAsifTable();
-      filterAsif.selected.idImport=routeParams['idImport'];
+      let filterAsif = new FilterAsifTableSelected();
+      filterAsif.idImport=routeParams['idImport'];
 
-      this._store.dispatch(new LoadAsifTableFilter(filterAsif));
+      this._store.dispatch(new LoadAsifTableFilterSelected(filterAsif)); // LoadAsifTableFilter(filterAsif));
+      this._store.dispatch(new LoadAsifTableFilterSelection(filterAsif));
     });
 
     // Subscribe to the config changes
-    this._fuseConfigService.config
-    // .pipe(takeUntil(this._unsubscribeAll))
-    .subscribe((settings) => {
+    this._fuseConfigService.config.subscribe((settings) => {
         this.fullscreen = settings.layout.toolbar.fullscreen;
     });
-    // //prendre en compte le fuseConfig
-    // this._fuseConfigService.config
-    // .subscribe((config) => {
-    //     // Update the stored config
-    //     this.fuseConfig = config;
-    // });
 
-    // this.onHeaderPanelClick();
   }
 
   AccountChange($event) {
+    this.filterAsifSelected.account=this.filterAsifSelection.account.find(x=>x.id==$event.id);
 
-    this.filterAsif.selected.account=this.filterAsif.account.find(x=>x.id==$event.id);
-
-    this._store.dispatch(new LoadAsifTableFilter(this.filterAsif));
+    this._store.dispatch(new SynchronizeAsifTableFilterSelected(this.filterAsifSelected));
 
   }
 
   SaveInAccountStatement() {
     this.loading=true;
-    this._asifService.saveInAccountStatement(this.filterAsif.selected.idImport)
+    this._asifService.saveInAccountStatement(this.filterAsifSelected.idImport)
     .subscribe(resp=>{
         this._notificationService.success('Enregistrement effectué', `Les relevés sont enregistrés`);
         this.loading=false;
@@ -93,13 +105,5 @@ export class AsifMainComponent implements OnInit {
 
   }
 
-  // onHeaderPanelClick() {
-  //   this.headerPanelIsVisible = this.headerPanelIsVisible ? false : true;
-  //   this.headerPanelIcon = this.headerPanelIsVisible ? 'keyboard_arrow_up' : 'keyboard_arrow_down';
-  //   this.fuseConfig.layout.toolbar.hidden=!this.headerPanelIsVisible;
-  //   this._fuseConfigService.setConfig(this.fuseConfig);
-
-  // }
- 
 
 }

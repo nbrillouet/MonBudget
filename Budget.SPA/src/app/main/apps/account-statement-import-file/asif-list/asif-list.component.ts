@@ -2,15 +2,17 @@ import { Component, OnInit, Input, ViewChild, SimpleChanges, SimpleChange, After
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
-import { FilterAsifTable, FilterAsifTableSelected } from 'app/main/_models/filters/account-statement-import-file.filter';
 import { Select, Store } from '@ngxs/store';
-import { AsifTableState } from 'app/main/_ngxs/account-statement-import-file/asif-list/asif-list.state';
 import { AsifTable } from 'app/main/_models/account-statement-import/account-statement-import-file.model';
-import { AsifTableFilterState } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.state';
-import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
-import { ChangeAsifTableFilter } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.action';
+import { FilterSelected, FilterSelection } from 'app/main/_models/generics/filter.info.model';
 import { Datas } from 'app/main/_models/generics/detail-info.model';
 import { Column, EnumFilterType, EnumStyleType } from '../../web-component/mat-table-filter/model/mat-table-filter.model';
+import { AsifTableFilterSelectedState } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selected/asif-table-filter-selected.state';
+import { FilterAsifTableSelected, FilterAsifTableSelection } from 'app/main/_models/filters/account-statement-import-file.filter';
+import { AsifTableState } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table.state';
+import { SynchronizeAsifTableFilterSelected } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selected/asif-table-filter-selected.action';
+import { AsifTableFilterSelectionState } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selection/asif-table-filter-selection.state';
+import { LoadAsifTableFilterSelection } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selection/asif-table-filter-selection.action';
 
 @Component({
   selector: 'asif-list',
@@ -19,10 +21,11 @@ import { Column, EnumFilterType, EnumStyleType } from '../../web-component/mat-t
   animations : fuseAnimations
 })
 export class AsifListComponent {
-  @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
+  @Select(AsifTableFilterSelectedState.get) asifTableFilterSelected$: Observable<FilterSelected<FilterAsifTableSelected>>;
+  @Select(AsifTableFilterSelectionState.get) asifTableFilterSelection$: Observable<FilterSelection<FilterAsifTableSelection>>;
   @Select(AsifTableState.get) asifTable$: Observable<Datas<AsifTable[]>>;
 
-  filterAsif: FilterAsifTable;
+  filterAsifSelected: FilterAsifTableSelected;
   columns : Column[]=
     [ 
       {index:0, field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
@@ -38,9 +41,10 @@ export class AsifListComponent {
     private _router: Router,
     private _store: Store
     ) {
-      this.asifTableFilter$.subscribe(asifTableFilter=>{
-        if(asifTableFilter?.loader['filters'].loaded) {
-          this.filterAsif = asifTableFilter.filters;
+      
+      this.asifTableFilterSelected$.subscribe(selected=>{
+        if(selected?.loader['filter-selected']?.loaded) {
+          this.filterAsifSelected = selected.selected;
         }
       });
 
@@ -48,11 +52,16 @@ export class AsifListComponent {
 
   onRowClick($event) {
     this._router.navigate(
-      [`apps/account-statement-imports/${this.filterAsif.selected.idImport}/account-statement-import-files/${$event.id}/detail`]);
+      [`apps/account-statement-imports/${this.filterAsifSelected.idImport}/account-statement-import-files/${$event.id}/detail`]);
   }
 
-  applyFilter(selected: FilterAsifTableSelected) {
-    this._store.dispatch(new ChangeAsifTableFilter(selected));
+  applyFilterSelected(selected: FilterAsifTableSelected) {
+    this._store.dispatch(new SynchronizeAsifTableFilterSelected(selected)); //ChangeAsifTableFilter(selected));
+  }
+
+  applyFilterSelection(selected: FilterAsifTableSelected) {
+
+    this._store.dispatch(new LoadAsifTableFilterSelection(selected));
   }
 
   // @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;

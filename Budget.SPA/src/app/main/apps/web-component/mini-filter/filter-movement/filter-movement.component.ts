@@ -1,14 +1,7 @@
 import { Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ISelect, EnumSelectType } from 'app/main/_models/generics/select.model';
-import { Store, Select } from '@ngxs/store';
-import { FilterAsTable } from 'app/main/_models/filters/account-statement.filter';
-import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
-import { Observable } from 'rxjs';
-import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
-import { LoadAsTableFilter } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action';
+import { ISelect } from 'app/main/_models/generics/select.model';
 import { ComboSimple } from 'app/main/_models/generics/combo.model';
-
 
 @Component({
   selector: 'filter-movement',

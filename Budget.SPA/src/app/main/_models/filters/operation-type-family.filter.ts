@@ -10,12 +10,12 @@ export class FilterOtfTableSelected {
     pagination: Pagination = new Pagination();
 }
 
-export class FilterOtfTable {
-    movements: ISelect[];
+export class FilterOtfTableSelection {
+    movement: ISelect[];
 
-    selected : FilterOtfTableSelected;
+    // selected : FilterOtfTableSelected;
 
     constructor () {
-        this.selected = new FilterOtfTableSelected();
+        // this.selected = new FilterOtfTableSelected();
     }
 }

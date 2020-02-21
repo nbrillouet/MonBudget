@@ -5,10 +5,9 @@ import { DatePipe } from '@angular/common';
 import { fuseAnimations } from '@fuse/animations';
 import { ValidateIsUnknown, ValidatorIfLocalisable } from './asif-detail.validator';
 import { Store, Select } from '@ngxs/store';
-import { AsifTableFilterState } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.state';
 import { Observable } from 'rxjs';
-import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
-import { FilterAsifTable, FilterAsifDetail } from 'app/main/_models/filters/account-statement-import-file.filter';
+import { FilterInfo, FilterSelected } from 'app/main/_models/generics/filter.info.model';
+import { FilterAsifDetail, FilterAsifTableSelected } from 'app/main/_models/filters/account-statement-import-file.filter';
 import { LoadAsifDetail, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationType, ClearAsifDetail } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.action';
 import { AsifDetailState } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.state';
 import { AsifDetail } from 'app/main/_models/account-statement-import/account-statement-import-file.model';
@@ -18,13 +17,14 @@ import { ISelect } from 'app/main/_models/generics/select.model';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
 import { NotificationsService } from 'angular2-notifications';
 import { AsifService } from '../asif.service';
-import { LoadAsifTableDatas } from 'app/main/_ngxs/account-statement-import-file/asif-list/asif-list.action';
 import { IUser } from 'app/main/_models/user.model';
 import { OperationTransverse } from 'app/main/_models/referential/operation-transverse.model';
 import * as moment from 'moment';
 import { FilterOperation } from 'app/main/_models/filters/operation.filter';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { Datas } from 'app/main/_models/generics/detail-info.model';
+import { AsifTableFilterSelectedState } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selected/asif-table-filter-selected.state';
+import { LoadAsifTable } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table.action';
 
 @Component({
   selector: 'asif-detail',
@@ -33,11 +33,12 @@ import { Datas } from 'app/main/_models/generics/detail-info.model';
   animations : fuseAnimations
 })
 export class AsifDetailComponent implements OnInit, OnDestroy {
-@Select(AsifDetailState.get) asifDetail$: Observable<Datas<AsifDetail>>;
-@Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
+  @Select(AsifTableFilterSelectedState.get) asifTableFilterSelected$: Observable<FilterSelected<FilterAsifTableSelected>>;
+  @Select(AsifDetailState.get) asifDetail$: Observable<Datas<AsifDetail>>;
+// @Select(AsifTableFilterState.get) asifTableFilter$: Observable<FilterInfo<FilterAsifTable>>;
 
 user = JSON.parse(localStorage.getItem('currentUser'));
-filterAsif: FilterAsifTable;
+filterAsifSelected: FilterAsifTableSelected;
 formLoaded: boolean;
 asifDetail: AsifDetail;
 idImport: number;
@@ -61,8 +62,8 @@ fullscreen: boolean;
     private _fuseConfigService: FuseConfigService
   ) {
 
-    this.asifTableFilter$.subscribe(asifTableFilter=>{
-      this.filterAsif = JSON.parse(JSON.stringify(asifTableFilter.filters));
+    this.asifTableFilterSelected$.subscribe(selected=>{
+      this.filterAsifSelected = selected.selected;
     });
 
     this.asifDetail$.subscribe(asifDetail=>{
@@ -259,7 +260,7 @@ fullscreen: boolean;
       if(resp==true)
       {
         this._notificationService.success('Enregistrement effectué', `Le relevé est enregistré`);
-        this._store.dispatch(new LoadAsifTableDatas(this.filterAsif.selected));
+        this._store.dispatch(new LoadAsifTable(this.filterAsifSelected));
       }
       else {
         this._notificationService.error('Echec de l\'enregistrement');

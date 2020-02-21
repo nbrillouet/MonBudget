@@ -10,10 +10,10 @@ export class FilterUserTableSelected {
     }
 }
 
-export class FilterUserTable {
-    selected : FilterUserTableSelected;
+export class FilterUserTableSelection {
+    // selected : FilterUserTableSelected;
 
     constructor () {
-        this.selected = new FilterUserTableSelected();
+        // this.selected = new FilterUserTableSelected();
     }
 }

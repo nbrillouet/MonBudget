@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PlanPosteDetailComponent } from '../plan-poste-detail/plan-poste-detail.component';
 import { Router } from '@angular/router';
 import { PlanPosteForList, PlanPoste } from 'app/main/_models/plan.model';

@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
 import { ErrorService } from "app/main/_services/error.service";
 import { HttpClient } from '@angular/common/http';
-import { FilterAsifTableSelected, FilterAsifTable, FilterAsifDetail } from "app/main/_models/filters/account-statement-import-file.filter";
-import { AsifTable, AsifDetail } from "app/main/_models/account-statement-import/account-statement-import-file.model";
+import { FilterAsifTableSelected, FilterAsifDetail, FilterAsifTableSelection } from "app/main/_models/filters/account-statement-import-file.filter";
+import { AsifDetail } from "app/main/_models/account-statement-import/account-statement-import-file.model";
 import { IUserForGroup } from "app/main/_models/user.model";
 
 @Injectable()
@@ -13,28 +13,29 @@ user = JSON.parse(localStorage.getItem('currentUser'));
 userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:this.user.idUserGroup} : null;
     
     constructor(
-        private http: HttpClient,
-        private errorService: ErrorService
+        private http: HttpClient
     ) { }
 
     getAsifTable (filter: FilterAsifTableSelected) {
+        filter.user=this.userForGroup;
         return this.http
         .post(`${this.baseUrl}account-statement-import-files/filter`,filter)
         .map((response: any) => response);
     }
 
     getAsifTableFilter(filter: FilterAsifTableSelected) {
+        filter.user=this.userForGroup;
         return this.http
             .post(`${this.baseUrl}account-statement-import-files/table-filter`,filter)
-            .map((response: FilterAsifTable) => {
+            .map((response: FilterAsifTableSelection) => {
                 return response;
             });
     }
 
-    getAsifDetail(filterAsifDetail: FilterAsifDetail) {
-        filterAsifDetail.user=this.userForGroup;
+    getAsifDetail(filter: FilterAsifDetail) {
+        filter.user=this.userForGroup;
         return this.http
-            .post(this.baseUrl + `account-statement-import-files/detail`,filterAsifDetail)
+            .post(this.baseUrl + `account-statement-import-files/detail`,filter)
             .map(response => <AsifDetail>response)
     }
 

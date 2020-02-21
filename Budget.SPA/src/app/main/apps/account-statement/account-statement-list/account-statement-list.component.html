@@ -1,16 +1,11 @@
-<!-- (changePagination)="changePaginationEvent($event)"
-(onRowClick)="onRowClickEvent($event)"  -->
-    <!-- [rows]="rows"  -->
-    <!-- [columns]="columns"  -->
-    <!-- [filter] = "filterAs" -->
-    <!-- [onloading]="onloading"
-    [pagination]="pagination" -->
     <mat-table-filter 
-        [observableFilter] = "asTableFilter$"
-        [observableTable] = "asTable$"
+        [filterSelection$] = "asTableFilterSelection$"
+        [filterSelected$] = "asTableFilterSelected$"
+        [table$] = "asTable$"
         [columns] = "columns"
         (onRowClick) = "onRowClick($event)"
-        (changeFilter)="applyFilter($event)">
+        (changeFilterSelected)="applyFilterSelected($event)"
+        (changeFilterSelection)="applyFilterSelection($event)">
     </mat-table-filter>
 
 

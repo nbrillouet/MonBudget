@@ -1,4 +1,26 @@
-<mat-tab-group 
+<mat-tab-group style="min-height=100%;max-height=100%;"
+    *ngIf="(asiTableFilterSelection$ | async).selection as selection"
+    [selectedIndex]="(asiTableFilterSelected$ | async)?.selected?.indexTabBankAgency"
+    (selectedTabChange)="onTabChanged($event)"
+>
+    <mat-tab *ngFor="let bankAgency of selection.bankAgencies;index as i" [label]="bankAgency.label">
+      <ng-template mat-tab-label>
+          <img class="img-32" [src]="'assets/images/'+bankAgency.bankFamily.logoClassName" [alt]="bankAgency.label">
+          {{bankAgency.bankSubFamily.labelLong}}
+      </ng-template>
+
+      <asi-list *ngIf="(asiTableFilterSelected$ | async)?.selected?.indexTabBankAgency == i"></asi-list>
+    </mat-tab>
+</mat-tab-group>
+    
+<p class="empty-result" *ngIf="
+    (asiTableFilterSelection$ | async)?.loader['filters']?.loaded 
+    && (asiTableFilterSelection$ | async)?.selection?.bankAgencies.length==0">
+    Aucun résultat
+</p>
+
+
+<!-- <mat-tab-group 
     *ngIf="(asiTableFilter$ | async).filters as filters" 
     [selectedIndex]="filters.selected.indexTabBankAgency"
     (selectedTabChange)="onTabChanged($event)"
@@ -15,4 +37,4 @@
     
 <p class="empty-result" *ngIf="(asiTableFilter$ | async).loader['filters'].loaded 
     && (asiTableFilter$ | async).filters
-    && (asiTableFilter$ | async).filters.bankAgencies.length==0">Aucun résultat</p>
+    && (asiTableFilter$ | async).filters.bankAgencies.length==0">Aucun résultat</p> -->

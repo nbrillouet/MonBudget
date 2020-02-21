@@ -13,11 +13,32 @@ import { Loader } from "./loading-info.model";
 //     }
 // }
 
+//TO DELETE
 export class FilterInfo<T> extends Loader {
     filters: T;
 
     constructor(TCreator: { new (): T; }){
         super();
         this.filters = new TCreator();
+    }
+}
+//END TO DELETE
+
+
+export class FilterSelected<T> extends Loader {
+    selected: T;
+
+    constructor(TCreator: { new (): T; }){
+        super();
+        this.selected = new TCreator();
+    }
+}
+
+export class FilterSelection<T> extends Loader {
+    selection: T;
+
+    constructor(TCreator: { new (): T; }){
+        super();
+        this.selection = new TCreator();
     }
 }

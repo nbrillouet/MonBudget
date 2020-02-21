@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { FilterAsTableSelected, FilterAsTable, FilterAsDetail } from 'app/main/_models/filters/account-statement.filter';
+import { FilterAsTableSelected, FilterAsDetail, FilterAsTableSelection } from 'app/main/_models/filters/account-statement.filter';
 import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
 import { HttpClient } from '@angular/common/http';
 import { AsDetail } from 'app/main/_models/account-statement/account-statement-detail.model';
@@ -24,17 +24,15 @@ export class AsService {
     }
     
     getAsTableFilter(filter: FilterAsTableSelected) {
-
         filter.user=this.userForGroup;
         return this.http
             .post(`${this.baseUrl}account-statements/table-filter`,filter)
-            .map((response: FilterAsTable) => {
+            .map((response: FilterAsTableSelection) => {
                 return response;
             });
     }
 
     getAsTable (filter: FilterAsTableSelected) {
-        
         filter.user=this.userForGroup;
         return this.http
             .post(`${this.baseUrl}tables/datas`,filter)

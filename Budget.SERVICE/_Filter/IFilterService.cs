@@ -9,12 +9,12 @@ namespace Budget.SERVICE
 {
     public interface IFilterService
     {
-        FilterAsTable GetFilterAsTable(FilterAsTableSelected filter);
-        FilterAsiTable GetFilterAsiTable(FilterAsiTableSelected filter);
-        FilterAsifTable GetFilterAsifTable(FilterAsifTableSelected filter);
-        FilterUserTable GetFilterUserTable(FilterUserTableSelected filter);
-        FilterOtfTable GetFilterOtfTable(FilterOtfTableSelected filter);
-        FilterOtTable GetFilterOtTable(FilterOtTableSelected filter);
+        FilterAsTableSelection GetFilterAsTable(FilterAsTableSelected filter);
+        FilterAsiTableSelection GetFilterAsiTable(FilterAsiTableSelected filter);
+        FilterAsifTableSelection GetFilterAsifTable(FilterAsifTableSelected filter);
+        FilterUserTableSelection GetFilterUserTable(FilterUserTableSelected filter);
+        FilterOtfTableSelection GetFilterOtfTable(FilterOtfTableSelected filter);
+        FilterOtTableSelection GetFilterOtTable(FilterOtTableSelected filter);
         FilterOperationTable GetFilterOperationTable(FilterOperationTableSelected filter);
 
     }

@@ -5,15 +5,15 @@ import { ISelect } from "../generics/select.model";
 export class FilterOtTableSelected {
     user: IUserForGroup = null;
     label: string = null;
-    otf: ISelect = null;
+    operationTypeFamily: ISelect = null;
     pagination: Pagination = new Pagination();
 }
 
-export class FilterOtTable {
-    otfs: ISelect[];
-    selected : FilterOtTableSelected;
+export class FilterOtTableSelection {
+    operationTypeFamily: ISelect[];
+    // selected : FilterOtTableSelected;
 
     constructor () {
-        this.selected = new FilterOtTableSelected();
+        // this.selected = new FilterOtTableSelected();
     }
 }

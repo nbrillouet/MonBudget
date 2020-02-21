@@ -66,9 +66,16 @@ namespace Budget.SERVICE
         {
             return _accountStatementImportRepository.GetByIdAsync(idImport);
         }
-        public AccountStatementImport GetById (int idImport)
+
+        public AccountStatementImport GetEagerById (int idImport)
         {
-            return _accountStatementImportRepository.GetById(idImport);
+            return _accountStatementImportRepository.GetEagerById(idImport);
+        }
+
+        public AsiForTableDto GetByIdForData(int idImport)
+        {
+            var result = GetEagerById(idImport);
+            return _mapper.Map<AsiForTableDto>(result);
         }
 
         public AsiForListDto GetForDetailById(int idImport)

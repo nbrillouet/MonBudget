@@ -1,11 +1,22 @@
- 
 <mat-table-filter 
-    [observableFilter] = "asifTableFilter$"
-    [observableTable] = "asifTable$"
+    [filterSelection$] = "asifTableFilterSelection$"
+    [filterSelected$] = "asifTableFilterSelected$"
+    [table$] = "asifTable$"
+    [columns] = "columns"
+    (onRowClick) = "onRowClick($event)"
+    (changeFilterSelected)="applyFilterSelected($event)"
+    (changeFilterSelection)="applyFilterSelection($event)">
+</mat-table-filter> 
+
+
+
+<!-- <mat-table-filter 
+    [filterSelection$] = "asifTableFilter$"
+    [table$] = "asifTable$"
     [columns] = "columns"
     (onRowClick) = "onRowClick($event)"
     (changeFilter)="applyFilter($event)">
-</mat-table-filter>
+</mat-table-filter> -->
 
 
  

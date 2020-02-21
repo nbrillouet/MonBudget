@@ -5,6 +5,7 @@ import { InternalTransferCouple } from "app/main/_models/account-statement/accou
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { LoaderState } from "../../_base/loader-state";
 import { DatasFilter } from "app/main/_models/generics/detail-info.model";
+import { Injectable } from "@angular/core";
 
 export class AsInternalTransferStateModel extends DatasFilter<InternalTransferCouple[],FilterAsTableSelected> {
     constructor () {
@@ -21,6 +22,7 @@ let detailInfo = new AsInternalTransferStateModel();
     defaults : detailInfo 
 })
 
+@Injectable()
 export class AsInternalTransferState extends LoaderState {
     constructor(
         private _asService: AsService

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
-import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
 import { Observable } from 'rxjs';
-import { FilterAsTable, FilterAsTableSelected } from 'app/main/_models/filters/account-statement.filter';
-import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
+import { FilterAsTableSelected } from 'app/main/_models/filters/account-statement.filter';
+import { FilterSelected } from 'app/main/_models/generics/filter.info.model';
 import { LoadAsInternalTransferCouple } from 'app/main/_ngxs/account-statement/account-statement-internal-transfer/as-internal-transfer.action';
+import { AsTableFilterSelectedState } from 'app/main/_ngxs/account-statement/as-table/as-table-filter-selected/as-table-filter-selected.state';
 import { AsInternalTransferState } from 'app/main/_ngxs/account-statement/account-statement-internal-transfer/as-internal-transfer.state';
-import { InternalTransferCouple } from 'app/main/_models/account-statement/account-statement-internal-transfer.model';
 import { DatasFilter } from 'app/main/_models/generics/detail-info.model';
+import { InternalTransferCouple } from 'app/main/_models/account-statement/account-statement-internal-transfer.model';
 
 @Component({
   selector: 'as-internal-transfer-main',
@@ -15,24 +15,20 @@ import { DatasFilter } from 'app/main/_models/generics/detail-info.model';
   styleUrls: ['./as-internal-transfer-main.component.scss']
 })
 export class AsInternalTransferMainComponent implements OnInit {
-  @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
+  @Select(AsTableFilterSelectedState.get) asTableFilterSelected$: Observable<FilterSelected<FilterAsTableSelected>>;
   @Select(AsInternalTransferState.get) asInternalTransferCouple$: Observable<DatasFilter<InternalTransferCouple[],FilterAsTableSelected>>;
   
   constructor(
     private _store: Store
   ) {
-      this.asTableFilter$.subscribe(asifTableFilter=>{
-        if(asifTableFilter.loader['datas'] && asifTableFilter.loader['datas'].loaded) {
-
-          this._store.dispatch(new LoadAsInternalTransferCouple(asifTableFilter.filters.selected));
+      this.asTableFilterSelected$.subscribe(asifTableFilter=>{
+        if(asifTableFilter?.loader['datas'].loaded) {
+          this._store.dispatch(new LoadAsInternalTransferCouple(asifTableFilter.selected));
         };
-        });
+      });
   }
 
   ngOnInit() {
   }
 
-  // ngOnChanges(changes: SimpleChanges) {
-  //   this.headerPanelIsVisible = changes.headerPanelIsVisible.currentValue;
-  // }
 }

@@ -11,10 +11,10 @@
         </div>
     </div>
     <div fxflex fxLayoutAlign="end center" >
-        <div *ngIf="(asTableFilter$ | async).loader['datas']?.loaded; else emptyYear" 
+        <div *ngIf="(asTableFilterSelected$ | async).loader['filter-selected']?.loaded; else emptyYear" 
             class="selected-project"
         >
-            {{ (asTableFilter$ | async).filter.monthYear.year }}
+            {{ (asTableFilterSelected$ | async)?.selected?.monthYear.year }}
         </div>
         <ng-template #emptyYear>
             <div class="selected-project"><mat-spinner [diameter]="15"></mat-spinner></div>

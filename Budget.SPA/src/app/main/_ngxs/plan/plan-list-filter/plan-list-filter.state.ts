@@ -4,6 +4,7 @@ import { LoadPlanTableComboFilter, ChangePlanTableComboFilter } from "./plan-lis
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { LoaderState } from "../../_base/loader-state";
 import { Datas } from "app/main/_models/generics/detail-info.model";
+import { Injectable } from "@angular/core";
 
 export class PlanTableComboFilterStateModel extends Datas<PlanTableComboFilter> {
     constructor () {
@@ -17,6 +18,7 @@ let planTableComboFilter = new PlanTableComboFilterStateModel();
     defaults : planTableComboFilter
 })
 
+@Injectable()
 export class PlanTableComboFilterState extends LoaderState {
     constructor(
         private _planService: PlanService) {

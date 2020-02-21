@@ -6,14 +6,14 @@ using System.Text;
 namespace Budget.MODEL
 {
 
-    public class FilterAsiTable
+    public class FilterAsiTableSelection
     {
         public List<BankAgencyDto> BankAgencies { get; set; }
-        public FilterAsiTableSelected Selected { get; set; }
+        //public FilterAsiTableSelected Selected { get; set; }
 
-        public FilterAsiTable()
+        public FilterAsiTableSelection()
         {
-            Selected = new FilterAsiTableSelected();
+            //Selected = new FilterAsiTableSelected();
         }
     }
 

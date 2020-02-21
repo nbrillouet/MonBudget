@@ -6,6 +6,7 @@ import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { NotificationsService } from "angular2-notifications";
 import { LoaderState } from "../../_base/loader-state";
 import { DatasFilter } from "app/main/_models/generics/detail-info.model";
+import { Injectable } from "@angular/core";
 
 export class PlanPosteDetailStateModel extends DatasFilter<PlanPosteForDetail,PlanPosteDetailFilter> {
     
@@ -21,6 +22,7 @@ let detailInfo = new PlanPosteDetailStateModel();
     defaults : detailInfo
 })
 
+@Injectable()
 export class PlanPosteDetailState extends LoaderState {
     constructor(
         private _planService: PlanService,

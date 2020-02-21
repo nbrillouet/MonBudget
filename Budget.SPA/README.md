@@ -39,5 +39,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     "@swimlane/ngx-dnd": "8.0.0",
 	"angular-calendar": "0.27.13",
     "typescript": "3.5.2"
+    "ngx-gauge": "^1.0.0-beta.12",
 	
 

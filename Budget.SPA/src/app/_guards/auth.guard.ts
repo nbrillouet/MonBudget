@@ -7,12 +7,14 @@ import { LoadUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.acti
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
 
-    constructor(private router: Router,
+    constructor(
+        private router: Router,
         private store: Store,
         private userLoaded: UserLoaded) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
         if (currentUser && currentUser.token) {
 
             if(!this.userLoaded.isLoaded)

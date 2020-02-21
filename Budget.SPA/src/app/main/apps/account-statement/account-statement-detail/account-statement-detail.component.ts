@@ -10,20 +10,20 @@ import { GMapSearchInfo } from 'app/main/_models/g-map.model.';
 import { ISelect } from 'app/main/_models/generics/select.model';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
 import { AsService } from '../account-statement.service';
-import { FilterAsTable, FilterAsDetail } from 'app/main/_models/filters/account-statement.filter';
-import { AsTableFilterState } from 'app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.state';
+import { FilterAsDetail, FilterAsTableSelected } from 'app/main/_models/filters/account-statement.filter';
 import { AsDetailState } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.state';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { FilterInfo } from 'app/main/_models/generics/filter.info.model';
+import { FilterSelected } from 'app/main/_models/generics/filter.info.model';
 import { LoadAsDetail, asDetailChangeOperationTypeFamily, asDetailChangeOperationType, ClearAsDetail } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.action';
 import { OperationTransverse } from 'app/main/_models/referential/operation-transverse.model';
 import { IUser } from 'app/main/_models/user.model';
-import { LoadAsTableDatas } from 'app/main/_ngxs/account-statement/account-statement-list/account-statement-list.action';
 import { AsDetail } from 'app/main/_models/account-statement/account-statement-detail.model';
 import { FilterOperation } from 'app/main/_models/filters/operation.filter';
 import * as moment from 'moment';
 import { Datas } from 'app/main/_models/generics/detail-info.model';
+import { AsTableFilterSelectedState } from 'app/main/_ngxs/account-statement/as-table/as-table-filter-selected/as-table-filter-selected.state';
+import { LoadAsTable } from 'app/main/_ngxs/account-statement/as-table/as-table.action';
 
 @Component({
   selector: 'account-statement-detail',
@@ -33,10 +33,10 @@ import { Datas } from 'app/main/_models/generics/detail-info.model';
 })
 export class AccountStatementDetailComponent implements OnInit {
   @Select(AsDetailState.get) asDetail$: Observable<Datas<AsDetail>>;
-  @Select(AsTableFilterState.get) asTableFilter$: Observable<FilterInfo<FilterAsTable>>;
+  @Select(AsTableFilterSelectedState.get) asTableFilterSelected$: Observable<FilterSelected<FilterAsTableSelected>>;
 
   user: IUser= JSON.parse(localStorage.getItem('currentUser'));
-  filterAsTable: FilterAsTable;
+  filterAsTableSelected: FilterAsTableSelected;
   asDetail: AsDetail;
   formLoaded: boolean;
 
@@ -61,8 +61,8 @@ export class AccountStatementDetailComponent implements OnInit {
       private _notificationService: NotificationsService
   
     ) {
-      this.asTableFilter$.subscribe(asifTableFilter=>{
-        this.filterAsTable = JSON.parse(JSON.stringify(asifTableFilter.filters));
+      this.asTableFilterSelected$.subscribe(asifTableFilterSelected=>{
+        this.filterAsTableSelected = JSON.parse(JSON.stringify(asifTableFilterSelected.selected));
       });
   
       this.asDetail$.subscribe(asDetail=>{
@@ -88,9 +88,11 @@ export class AccountStatementDetailComponent implements OnInit {
         this._store.dispatch(new LoadAsDetail(<FilterAsDetail> {idAs:idAccountStatement}));
 
         //chargement si page chargé directement sans passer par la liste
-        if(this.filterAsTable && this.filterAsTable.selected.idAccount==null && this.idAccount!=null) {
-          let filter = new FilterAsTable();
-          filter.selected.idAccount=this.idAccount;
+        if(this.filterAsTableSelected && this.filterAsTableSelected.idAccount==null && this.idAccount!=null) {
+          // let filter = new FilterAsTable();
+          // filter.selected.idAccount=this.idAccount;
+          this.filterAsTableSelected = new FilterAsTableSelected();
+          this.filterAsTableSelected.idAccount = this.idAccount;
         }
       });
     }
@@ -265,7 +267,7 @@ export class AccountStatementDetailComponent implements OnInit {
         {
           this._notificationService.success('Enregistrement effectué', `Le relevé est enregistré`);
           
-          this._store.dispatch(new LoadAsTableDatas(this.filterAsTable.selected));
+          this._store.dispatch(new LoadAsTable(this.filterAsTableSelected));
         }
         else {
           this._notificationService.error('Echec de l\'enregistrement');

@@ -48,11 +48,13 @@
         <div class="content-card mat-white-bg">
             <div class="example-container">
                 <mat-table-filter 
-                    [observableFilter] = "userTableFilter$"
-                    [observableTable] = "userTable$"
+                    [filterSelection$] = "userTableFilterSelection$"
+                    [filterSelected$] = "userTableFilterSelected$"
+                    [table$] = "userTable$"
                     [columns] = "columns"
                     (onRowClick) = "onRowClick($event)"
-                    (changeFilter)="applyFilter($event)">
+                    (changeFilterSelected)="applyFilterSelected($event)"
+                    (changeFilterSelection)="applyFilterSelection($event)">
                 </mat-table-filter>
             
             <!-- 

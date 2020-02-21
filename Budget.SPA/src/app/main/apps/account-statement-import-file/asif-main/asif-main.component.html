@@ -6,73 +6,70 @@
 
     <!-- CENTER -->
     <div class="center">
-        <!-- <div style="height:15px;text-align:center;cursor:pointer;" class="test accent" (click)="onHeaderPanelClick()">
-            <mat-icon style="font-size:20px;margin-top:-2px;">{{headerPanelIcon}}</mat-icon>
-        </div> -->
         <!-- HEADER -->
-        <div *ngIf="!fullscreen" class="header-2-background accent p-12 pb-0 pt-6"   >
-            <div fxLayout="row" fxLayoutAlign="space-between start" >
-                <div class="left-side" fxLayout="row" *ngIf="loading">
-                    <div fxLayout="row" fxLayoutAlign="start center">
-                        <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Enregistrement des relevés</span>
-                    </div>
-                </div>
-
-                <div style="height:70px;" fxLayout="row" fxLayoutAlign="space-between start" *ngIf="!loading">
-                    <button  mat-icon-button [routerLink]="'/apps/account-statement-imports'">
-                        <mat-icon>arrow_back</mat-icon>
-                    </button>
-
-                    <div fxLayout="row" fxLayoutAlign="start center"
-                        *ngIf="(asifTableFilter$ | async).loader['filters'].loaded"
-                    >
-                        <div  fxLayout="column">
-                            <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">{{(asifTableFilter$ | async).filters.asiBankAgencyLabel}}</span>
-                            <span class="logo-text h3" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Import du {{(asifTableFilter$ | async).filters.asiDateImport | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
+        <div *ngIf="!fullscreen" class="header-2-background accent p-12 pb-0 pt-6" >
+            <ng-container *ngIf="filterAsifSelected else tp_progress">
+                <div fxLayout="row" fxLayoutAlign="space-between start" >
+                    <div class="left-side" fxLayout="row" *ngIf="loading">
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Enregistrement des relevés</span>
                         </div>
                     </div>
-                    <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
-                        
+
+                    <div style="height:70px;" fxLayout="row" fxLayoutAlign="space-between start" *ngIf="!loading">
+                        <button  mat-icon-button [routerLink]="'/apps/account-statement-imports'">
+                            <mat-icon>arrow_back</mat-icon>
+                        </button>
+
+                        <div fxLayout="row" fxLayoutAlign="start center" >
+                            <div  fxLayout="column">
+                                <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">{{filterAsifSelected.asiBankAgencyLabel}}</span>
+                                <span class="logo-text h3" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Import du {{filterAsifSelected.asiDateImport | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
+                            </div>
+                        </div>
+                        <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                            
+                        </div>
                     </div>
-                </div>
 
-                <button mat-raised-button 
-                    class="save-product-button white mt-16 mt-sm-0"
-                    (click)="SaveInAccountStatement()"
-                    [disabled]="loading"
-                    >
-                <span>SAUVEGARDER</span>
-            
-                </button>
+                    <button mat-raised-button 
+                        class="save-product-button white mt-16 mt-sm-0"
+                        (click)="SaveInAccountStatement()"
+                        [disabled]="loading"
+                        >
+                    <span>SAUVEGARDER</span>
                 
-
-            </div>
-
-            <div fxLayout="row" *ngIf="(asifTableFilter$ | async).loader['filters'].loaded">
- 
-                <div class="selected-project">{{(asifTableFilter$ | async).filters.selected.account.label}}</div>
-
-                <button mat-icon-button 
-                    class="project-selector" 
-                    [matMenuTriggerFor]="projectsMenu"
-                    aria-label="Select project">
-                    <mat-icon>more_horiz</mat-icon>
-                </button>
-
-                <mat-menu #projectsMenu="matMenu">
-                    <button mat-menu-item *ngFor="let account of (asifTableFilter$ | async).filters.account" (click)="AccountChange(account)"  >
-                        <span>{{account.label}}</span>
                     </button>
-                </mat-menu>
+                </div>
+            
+                <div fxLayout="row" >
+    
+                    <div class="selected-project">{{ filterAsifSelected.account.label }}</div>
 
-            </div>
-   
+                    <button mat-icon-button 
+                        class="project-selector" 
+                        [matMenuTriggerFor]="projectsMenu"
+                        aria-label="Select project">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+
+                    <mat-menu #projectsMenu="matMenu">
+                        <button 
+                            mat-menu-item 
+                            *ngFor="let account of filterAsifSelection.account" 
+                            (click)="AccountChange(account)">
+                            <span>{{account.label}}</span>
+                        </button>
+                    </mat-menu>
+
+                </div>
+            </ng-container>
 
         </div>
         <!-- / HEADER -->
             
         <div class="content-card">
-            <asif-state style="height:100%;" ></asif-state>
+            <asif-state style="height:100%;"></asif-state>
 
             <div class="spinner-container" *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">
                 En cours...
@@ -82,3 +79,11 @@
     </div>
       <!-- / CENTER -->
   </div>
+
+
+<ng-template #tp_progress>
+    <mat-progress-bar
+        color="primary"
+        mode="indeterminate">
+    </mat-progress-bar>
+</ng-template>

@@ -1,17 +1,15 @@
-import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { IUser } from 'app/main/_models/user.model';
 import { Store } from '@ngxs/store';
-import { FilterAsiTable } from 'app/main/_models/filters/account-statement-import.filter';
-import { ChangeAsiTableFilter, LoadAsiTableFilter } from 'app/main/_ngxs/account-statement-import/asi-list-filter/asi-list-filter.action';
-import { FilterAsifTable } from 'app/main/_models/filters/account-statement-import-file.filter';
-import { ChangeAsifTableFilter, LoadAsifTableFilter } from 'app/main/_ngxs/account-statement-import-file/asif-list-filter/asif-list-filter.action';
-import { AsiService } from '../asi.service';
 import { AreaImport, IAccount } from 'app/main/_models/referential/account.model';
-
+import { FilterAsiTableSelected } from 'app/main/_models/filters/account-statement-import.filter';
+import { LoadAsiTableFilterSelection } from 'app/main/_ngxs/account-statement-import/asi-table/asi-table-filter-selection/asi-table-filter-selection.action';
+import { SynchronizeAsiTableFilterSelected } from 'app/main/_ngxs/account-statement-import/asi-table/asi-table-filter-selected/asi-table-filter-selected.action';
+import { FilterAsifTableSelected } from 'app/main/_models/filters/account-statement-import-file.filter';
+import { SynchronizeAsifTableFilterSelected } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selected/asif-table-filter-selected.action';
 
 @Component({
   selector: 'asi-main',
@@ -22,8 +20,8 @@ import { AreaImport, IAccount } from 'app/main/_models/referential/account.model
 export class AsiMainComponent implements OnInit {
 
   user: IUser;
-  filterAsi: FilterAsiTable;
-  filterAsif: FilterAsifTable
+  filterAsiSelected: FilterAsiTableSelected;
+  // filterAsif: FilterAsifTable
   fileInProgress: boolean;
   fileError: boolean;
   fileSuccess: boolean;
@@ -35,17 +33,16 @@ export class AsiMainComponent implements OnInit {
   accountSelected: IAccount;
 
   constructor(
-    private _asiService: AsiService,
     private _store: Store,
     public router: Router,
-    private notificationService: NotificationsService,
     private activatedRoute: ActivatedRoute) {
 
       this.user = JSON.parse(localStorage.getItem('currentUser'));
-      this.filterAsi = new FilterAsiTable();
-      this.filterAsi.selected.idUser=this.user.id;
-      this._store.dispatch(new LoadAsiTableFilter(this.filterAsi));
-
+      this.filterAsiSelected = new FilterAsiTableSelected();
+      this.filterAsiSelected.idUser=this.user.id;
+      
+      this._store.dispatch(new SynchronizeAsiTableFilterSelected(this.filterAsiSelected));
+      this._store.dispatch(new LoadAsiTableFilterSelection(this.filterAsiSelected));
     }
     
   ngOnInit() {
@@ -72,12 +69,12 @@ export class AsiMainComponent implements OnInit {
 
   getUploadResponse($event) {
 
-    this.filterAsif = new FilterAsifTable();
-    this.filterAsif.selected.idImport=$event.idImport;
+    let filterAsifSelected = new FilterAsifTableSelected();
+    filterAsifSelected.idImport=$event.idImport;
 
-    this._store.dispatch(new LoadAsifTableFilter(this.filterAsif));
+    this._store.dispatch(new SynchronizeAsifTableFilterSelected(filterAsifSelected));
 
-    this.router.navigate([`${this.filterAsif.selected.idImport}/account-statement-import-files`], {relativeTo:this.activatedRoute});
+    this.router.navigate([`${filterAsifSelected.idImport}/account-statement-import-files`], {relativeTo:this.activatedRoute});
 
 
   }

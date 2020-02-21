@@ -159,7 +159,10 @@ namespace Budget.SERVICE
         public PagedList<OtfForTableDto> GetOtfTable(FilterOtfTableSelected filter)
         {
             var pagedList = _operationTypeFamilyRepository.GetOtfTable(filter);
-
+            foreach(var data in pagedList.Datas)
+            {
+                data.LogoClassName = $"assets\\images\\Otf\\{data.LogoClassName}_32.png";
+            }
             var result = new PagedList<OtfForTableDto>(_mapper.Map<List<OtfForTableDto>>(pagedList.Datas), pagedList.Pagination);
 
 

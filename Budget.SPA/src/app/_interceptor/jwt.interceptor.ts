@@ -7,8 +7,6 @@ import { LoadUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.acti
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-
-
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         //exclusion d adresse exterieur pour l'authorisation
         const excludeHttp = 'maps.googleapis.com';
@@ -21,7 +19,6 @@ export class JwtInterceptor implements HttpInterceptor {
                     Authorization: `Bearer ${currentUser.token}`
                 }
             });
-            
         }
 
         return next.handle(request);
@@ -29,7 +26,8 @@ export class JwtInterceptor implements HttpInterceptor {
 
     constructor(
         private store: Store,
-        private userLoaded: UserLoaded ) {
+        private userLoaded: UserLoaded 
+        ) {
         
     }
 

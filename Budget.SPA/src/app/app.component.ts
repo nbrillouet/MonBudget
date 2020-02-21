@@ -177,7 +177,7 @@ export class AppComponent implements OnInit, OnDestroy
             });
 
             // var toto = this._fuseNavigationService.getCurrentNavigation();
-
+  
             this.user$.subscribe((user:IUser) => {
                 if(user) {
                     this.navigation$.subscribe(result => {

@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MatButtonModule, MatIconModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 // import 'hammerjs';
 
@@ -30,7 +31,7 @@ import { FuseNavigationService } from '@fuse/components/navigation/navigation.se
 import { AccountService } from './main/_services/Referential/account.service';
 import { NavigationService } from './main/_services/navigation.service';
 import { AccountTypeService } from './main/_services/Referential/account-type.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
 import { UserDetailResolver } from './main/apps/referential/user/user-detail/user-detail.resolver';
 import { ErrorInterceptor } from './_interceptor/error.interceptor';
 import { JwtInterceptor } from './_interceptor/jwt.interceptor';
@@ -41,17 +42,13 @@ import { environment } from 'environments/environment';
 import { UserLoaded } from './main/_models/user.model';
 import { UserService } from './main/apps/referential/user/user.service';
 import { NavigationState } from './main/_ngxs/navigation/navigation.state';
-import { PlanService } from './main/apps/plan/plan.service';
-import { ReferentialServiceModule } from './main/_services/Referential/referential.service.module';
 import { UserDetailState } from './main/_ngxs/user/user-detail/user-detail.state';
-import { BankAgencyService } from './main/_services/Referential/bank-agency.service';
 
-const NGXS_MODULES = [
-    NgxsModule.forRoot([]),
-    NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production ? true : false }),
-]
+
+
 
 const appRoutes: Routes = [
+    { path: '', redirectTo: 'pages/home', pathMatch:'full' },
     { path : 'pages', loadChildren: () => import('./main/pages/pages.module').then(m => m.FusePagesModule) },
     { path : 'apps', loadChildren: () => import('./main/apps/apps.module').then(m => m.FuseAppsModule) },
 
@@ -64,23 +61,21 @@ const appRoutes: Routes = [
         AppComponent
     ],
     imports     : [
-        // AuthModule,
-        // AuthConfig,
 
         BrowserModule,
         BrowserAnimationsModule,
+        // CommonModule,
         HttpClientModule,
         RouterModule.forRoot(appRoutes),
-
         TranslateModule.forRoot(),
         SimpleNotificationsModule.forRoot(),
         
         // Material moment date module
-        MatMomentDateModule,
+        // MatMomentDateModule,
 
         // Material
-        MatButtonModule,
-        MatIconModule,
+        // MatButtonModule,
+        // MatIconModule,
 
         // Fuse modules
         FuseModule.forRoot(fuseConfig),
@@ -91,51 +86,40 @@ const appRoutes: Routes = [
 
         // App modules
         LayoutModule,
-        SampleModule,
+        // SampleModule,
+        // LoginModule,
+        // RegisterModule,
+ 
 
-        LoginModule,
-        RegisterModule,
-        // HttpModule,
-
-        ReferentialServiceModule,
+        // ReferentialServiceModule,
 
         NgxsModule.forRoot([
             UserDetailState,
             NavigationState
-         ]),
+        ]),
         NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production ? true : false })
+
         
     ],
     providers   : [
         AuthGuard,
         AuthService,
         ErrorService,
-        GoogleMapService,
+        // GoogleMapService,
         FuseSplashScreenService,
         FuseConfigService,
         FuseNavigationService,
-        // ReferentialService,
-        // ReferentialTestService,
-
-        // OperationTypeFamilyService,
-        // OperationTypeService,
-        // OperationMethodService,
-        AccountService,
+        // AccountService,
         NavigationService,
-        BankAgencyService,
-        AccountTypeService,
+        // BankAgencyService,
+        // AccountTypeService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        // {
-        //     provide: HTTP_INTERCEPTORS,
-        //     useClass: JwtInterceptor,
-        //     multi: true
-        // },
-        DatePipe,
-        UserDetailResolver,
+        // DatePipe,
+        // UserDetailResolver,
         UserLoaded,
         UserService,
-        PlanService
+        // PlanService
     ],
     bootstrap   : [
         AppComponent

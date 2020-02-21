@@ -4,6 +4,7 @@ import { UserService } from "app/main/apps/referential/user/user.service";
 import { IUserShortcut } from "app/main/_models/user-shortcut.model";
 import { State, Action, StateContext, Selector } from "@ngxs/store";
 import { NotificationsService } from "angular2-notifications";
+import { Injectable } from "@angular/core";
 
 export class UserDetailStateModel extends User  {
 
@@ -15,6 +16,7 @@ let user = null;
     defaults : user
 })
 
+@Injectable()
 export class UserDetailState {
     constructor(
         private _userService: UserService,

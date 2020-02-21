@@ -4,9 +4,10 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ISelect } from 'app/main/_models/generics/select.model';
 import { FilterAsTableSelected } from 'app/main/_models/filters/account-statement.filter';
-import { AsSoldeState } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.state';
-import { AsSolde } from 'app/main/_models/account-statement/account-statement-solde.model';
-import { DatasFilter } from 'app/main/_models/generics/detail-info.model';
+import { FilterSelected } from 'app/main/_models/generics/filter.info.model';
+import { AsTableFilterSelectedState } from 'app/main/_ngxs/account-statement/as-table/as-table-filter-selected/as-table-filter-selected.state';
+import { SynchronizeAsTableFilterSelected } from 'app/main/_ngxs/account-statement/as-table/as-table-filter-selected/as-table-filter-selected.action';
+import { LoadAsSolde } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.action';
 
 @Component({
   selector: 'account-statement-filter',
@@ -14,13 +15,14 @@ import { DatasFilter } from 'app/main/_models/generics/detail-info.model';
   styleUrls: ['./account-statement-filter.component.scss']
 })
 export class AccountStatementFilterComponent implements OnInit {
-  @Select(AsSoldeState.get) asTableFilter$: Observable<DatasFilter<AsSolde,FilterAsTableSelected>>;
+  @Select(AsTableFilterSelectedState.get) asTableFilterSelected$: Observable<FilterSelected<FilterAsTableSelected>>;
+ 
   asTableFilterSelected: FilterAsTableSelected;
 
   months: ISelect[];
   years: number[]=[2015,2016,2017,2018,2019];
 
-  @Output() changeFilter = new EventEmitter<FilterAsTableSelected>();
+  // @Output() changeFilter = new EventEmitter<FilterAsTableSelected>();
   
   constructor(
       private _store: Store
@@ -31,9 +33,10 @@ export class AccountStatementFilterComponent implements OnInit {
     //   this.asTableFilter = filter.filters;
     // });
 
-    this.asTableFilter$.subscribe(filter => {
-      this.asTableFilterSelected = filter.filter;
-    });
+    this.asTableFilterSelected$
+      .subscribe(filter => {
+        this.asTableFilterSelected = filter.selected;
+      });
 
     // this.tableInfo$.subscribe(gridInfo=> {
     //   this.filter = gridInfo.filter;
@@ -44,15 +47,16 @@ export class AccountStatementFilterComponent implements OnInit {
 
   }
 
-  updateMonthsSelected(month: ISelect){
+  updateMonthsSelected(month: ISelect) {
     this.asTableFilterSelected.monthYear.month = month;
-    this.changeFilter.emit(this.asTableFilterSelected);
+    this._store.dispatch(new SynchronizeAsTableFilterSelected(this.asTableFilterSelected));
+    this._store.dispatch(new LoadAsSolde(this.asTableFilterSelected));
   }
 
   updateYearSelected(year: number) {
     this.asTableFilterSelected.monthYear.year = year;
-    this.changeFilter.emit(this.asTableFilterSelected);
-  
+    this._store.dispatch(new SynchronizeAsTableFilterSelected(this.asTableFilterSelected));
+    this._store.dispatch(new LoadAsSolde(this.asTableFilterSelected));
   }
 
   isInMonthSelected(month: ISelect) {

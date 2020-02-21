@@ -5,6 +5,7 @@ import { LoginModule } from './authentication/login/login.module';
 import { RegisterModule } from './authentication/register/register.module';
 import { Error500Module } from './errors/500/error-500.module';
 import { HomeModule } from './home/home.module';
+import { AuthService } from '../_services/auth.service';
 
 // import { Register2Module } from './authentication/register-2/register-2.module';
 // import { ForgotPasswordModule } from './authentication/forgot-password/forgot-password.module';
