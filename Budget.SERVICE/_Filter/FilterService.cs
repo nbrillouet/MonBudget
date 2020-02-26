@@ -135,15 +135,15 @@ namespace Budget.SERVICE
             return filterOtTable;
         }
 
-        public FilterOperationTable GetFilterOperationTable(FilterOperationTableSelected filter)
+        public FilterOperationTableSelection GetFilterOperationTable(FilterOperationTableSelected filter)
         {
-            FilterOperationTable filterOperationTable = new FilterOperationTable
-            {
-                Selected = filter
-            };
+            FilterOperationTableSelection filterOperationTable = new FilterOperationTableSelection();
+            //{
+            //    Selected = filter
+            //};
 
-            filterOperationTable.OperationMethods = _referentialService.OperationMethodService.GetSelectList(EnumSelectType.Empty);
-            filterOperationTable.OperationTypes = _referentialService.OperationTypeService.GetSelectGroup(filter.User.IdUserGroup);
+            filterOperationTable.OperationMethod = _referentialService.OperationMethodService.GetSelectList(EnumSelectType.Empty);
+            filterOperationTable.OperationType = _referentialService.OperationTypeService.GetSelectGroup(filter.User.IdUserGroup);
 
             return filterOperationTable;
         }

@@ -16,12 +16,12 @@ import { SynchronizeUserTableFilterSelected } from 'app/main/_ngxs/user/user-tab
 import { LoadUserTableFilterSelection } from 'app/main/_ngxs/user/user-table/user-table-filter-selection/user-table-filter-selection.action';
 
 @Component({
-  selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss'],
+  selector: 'user-table',
+  templateUrl: './user-table.component.html',
+  styleUrls: ['./user-table.component.scss'],
   animations : fuseAnimations
 })
-export class UserListComponent implements OnInit {
+export class UserTableComponent implements OnInit {
   @Select(UserTableFilterSelectionState.get) userTableFilterSelection$: Observable<FilterSelection<FilterUserTableSelection>>;
   @Select(UserTableFilterSelectedState.get) userTableFilterSelected$: Observable<FilterSelected<FilterUserTableSelected>>;
   @Select(UserTableState.get) userTable$: Observable<Datas<UserTable[]>>;

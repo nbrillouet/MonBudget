@@ -1,4 +1,20 @@
-<div class="example-container">
+<mat-table-filter 
+    [filterSelection$] = "operationTableFilterSelection$"
+    [filterSelected$] = "operationTableFilterSelected$"
+    [table$] = "operationTable$"
+    [columns] = "columns"
+    (onRowClick) = "onRowClick($event)"
+    (changeFilterSelected)="applyFilterSelected($event)"
+    (changeFilterSelection)="applyFilterSelection($event)">
+</mat-table-filter>
+
+<!-- <div fxlayout="column">
+    <div fxflex="90">table</div>
+    <div fxflex="10">footer</div>
+</div> -->
+
+
+<!-- <div class="example-container">
     
   <mat-table class="mat-table"
       #table [dataSource]="dataSource"
@@ -7,7 +23,7 @@
       (matSortChange)="onSortChangeEvent($event)"
   >
 
-      <!-- id -->
+
       <ng-container matColumnDef="id">
           <mat-header-cell style="flex:0 0 70px;" *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
           <mat-cell style="flex:0 0 70px;" *matCellDef="let data">
@@ -15,7 +31,7 @@
           </mat-cell>
       </ng-container>
 
-      <!-- OperationMethod -->
+
       <ng-container matColumnDef="operationMethod" >
         <mat-header-cell style="flex: 0 0 20%;" *matHeaderCellDef >
             <div mat-sort-header >Méthode d'opération</div>
@@ -39,7 +55,7 @@
         </mat-cell>
     </ng-container>
 
-    <!-- Operation Type -->
+   
     <ng-container matColumnDef="operationType" >
         <mat-header-cell style="flex: 0 0 20%;" *matHeaderCellDef >
             <div mat-sort-header >Type d'opération</div>
@@ -64,7 +80,7 @@
     </ng-container>
 
 
-    <!-- Label -->
+ 
     <ng-container matColumnDef="label" >
         <mat-header-cell style="flex: 0 0 20%;"  *matHeaderCellDef >
             <div mat-sort-header >Libellé</div>
@@ -86,10 +102,6 @@
         </mat-cell>
     </ng-container>
 
-      
-      
-    <!-- Delete--Detail -->
-    <!-- style="flex:0 0 25%;" -->
     <ng-container matColumnDef="buttonDelete" >
         <mat-header-cell style="flex:0 0 25%;"  *matHeaderCellDef ></mat-header-cell>
         <mat-cell style="flex:0 0 30%;justify-content: flex-end"  *matCellDef="let data">
@@ -136,4 +148,4 @@
   [length]="(operationTableFilter$ | async).filters.selected.pagination.totalItems" 
   [pageSize]="(operationTableFilter$ | async).filters.selected.pagination.nbItemsPerPage"
   [pageSizeOptions]="[15, 100, 200]">
-</mat-paginator>
+</mat-paginator> -->

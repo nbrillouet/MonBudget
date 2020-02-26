@@ -1,5 +1,5 @@
 {
-  "name": "fuse",
+  "name": "monbudget",
   "version": "9.0.0",
   "license": "https://themeforest.net/licenses/terms/regular",
   "scripts": {
@@ -49,6 +49,7 @@
     "ng2-file-upload": "^1.4.0",
     "ngx-color-picker": "8.1.0",
     "ngx-cookie-service": "2.2.0",
+    "ngx-gauge": "1.1.0",
     "perfect-scrollbar": "1.5.0",
     "prismjs": "1.19.0",
     "resize-observer-polyfill": "^1.5.1",

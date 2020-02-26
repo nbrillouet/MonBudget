@@ -1,5 +1,6 @@
 import { OnInit, Component, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { debounceTime, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'filter-label',
@@ -8,12 +9,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class FilterLabelComponent implements OnInit {
  
-  @Input() label: string;
+  @Input() filterLabel: string;
   @Output() applyLabelFilter=new EventEmitter<string>();
   
   stopPropagation: boolean=true;
   labelForm: FormGroup;
-
 
   constructor(
     private _formBuilder: FormBuilder
@@ -23,22 +23,27 @@ export class FilterLabelComponent implements OnInit {
   ngOnInit() {
 
     this.labelForm = this._formBuilder.group({
-      label: [this.label]
+      label: [this.filterLabel]
       });
 
-    this.labelForm.valueChanges.subscribe(val=>{
-        this.label = val.label;
+    this.labelForm.valueChanges.pipe(
+      debounceTime(300)).subscribe(val=> {
+        this.filterLabel = val.label;
+        this.applyLabelFilter.emit(this.filterLabel);
       });
-
   }
 
-   applyFilter() {
-    this.applyLabelFilter.emit(this.label);
+  clear() {
+    this.labelForm.controls['label'].reset()
 
-    //suppression du menu
-    var element=document.getElementsByClassName("content-filter").item(0);
-    element.parentElement.remove();
-   }
+    this.filterLabel = null
+    this.applyLabelFilter.emit(this.filterLabel)
+  }
 
+  // onFocusOut() {
+  //   this.filterLabel = this.labelForm.controls['label'].value;
+    
+  //   this.applyLabelFilter.emit(this.filterLabel);
+  // }
 
 }

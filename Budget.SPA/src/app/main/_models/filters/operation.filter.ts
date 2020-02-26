@@ -10,17 +10,17 @@ export class FilterOperation {
 export class FilterOperationTableSelected {
     user: IUserForGroup = null;
     label: string = null;
-    operationMethods: ISelect[] = null;
-    operationTypes: ISelect[] = null;
+    operationMethod: ISelect[] = null;
+    operationType: ISelect[] = null;
     pagination: Pagination = new Pagination();
 }
 
-export class FilterOperationTable {
-    operationTypes: ISelectGroup[];
-    operationMethods: ISelect[];
-    selected : FilterOperationTableSelected;
+export class FilterOperationTableSelection {
+    operationType: ISelectGroup[];
+    operationMethod: ISelect[];
+    // selected : FilterOperationTableSelected;
 
     constructor () {
-        this.selected = new FilterOperationTableSelected();
+        // this.selected = new FilterOperationTableSelected();
     }
 }

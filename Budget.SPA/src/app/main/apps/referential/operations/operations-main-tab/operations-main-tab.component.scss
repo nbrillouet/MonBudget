@@ -28,7 +28,36 @@
 //     min-height: 100% !important;
 // }
 
-div.mat-tab-body-wrapper{
-    flex-grow: 1 !important;
-    background-color: red;
+// div.mat-tab-body-wrapper{
+//     flex-grow: 1 !important;
+//     background-color: red;
+//   }
+
+// ::ng-deep .mat-tab-body-wrapper {
+//   min-height: 100%; // Tabs body height. I also don't like ng-deep, but there is no other way :(
+//   background-color: red;
+//   flex-grow: 1;
+// }
+
+
+#group {
+  height: 100%; // Whole group height.
+  
+  ::ng-deep .mat-tab-body-content {
+    overflow: hidden;
   }
+
+  ::ng-deep .mat-tab-body-wrapper {
+    height: 100%; // Tabs body height. I also don't like ng-deep, but there is no other way :(
+    flex: 1 1 auto;
+  }
+
+  .tab-content-container {
+    max-height: 200px;  // Content height.
+    min-height: 200px;
+  }
+}
+
+operation-table{
+  min-height:100%;
+}

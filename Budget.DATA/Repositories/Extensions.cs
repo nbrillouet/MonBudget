@@ -66,7 +66,6 @@ namespace Budget.DATA.Repositories
         {
             PropertyInfo prop = typeof(T).GetProperty(propertyName);
             return prop.GetValue(thisObject);
-
         }
 
 

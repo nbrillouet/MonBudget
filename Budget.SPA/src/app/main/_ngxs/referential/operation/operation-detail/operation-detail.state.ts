@@ -1,26 +1,26 @@
 import { OperationForDetail } from "app/main/_models/referential/operation.model";
 import { State, Action, Selector, StateContext } from "@ngxs/store";
 import { OperationService } from "app/main/_services/Referential/operation.service";
-import { LoadOperationForDetail, ClearOperationForDetail } from "./operation-detail.action";
 import { LoaderState } from "app/main/_ngxs/_base/loader-state";
 import { Datas } from "app/main/_models/generics/detail-info.model";
 import { Injectable } from "@angular/core";
+import { ClearOperationDetail, LoadOperationDetail } from "./operation-detail.action";
 
-export class OperationForDetailStateModel extends Datas<OperationForDetail> {
+export class OperationDetailStateModel extends Datas<OperationForDetail> {
     constructor () {
         super();
     }
 }
 
-let operationForDetailStateModel = new OperationForDetailStateModel();
+let operationDetailStateModel = new OperationDetailStateModel();
 
-@State<OperationForDetailStateModel>({
-    name: 'OperationForDetail',
-    defaults : operationForDetailStateModel
+@State<OperationDetailStateModel>({
+    name: 'OperationDetail',
+    defaults : operationDetailStateModel
 })
 
 @Injectable()
-export class OperationForDetailState extends LoaderState {
+export class OperationDetailState extends LoaderState {
 
     constructor(
         private _OperationService: OperationService
@@ -29,12 +29,12 @@ export class OperationForDetailState extends LoaderState {
     }
 
     @Selector()
-    static get(state: OperationForDetailStateModel) {
+    static get(state: OperationDetailStateModel) {
         return state;
     }
 
-    @Action(LoadOperationForDetail)
-    loadOperationForDetail(context: StateContext<OperationForDetailStateModel>, action: LoadOperationForDetail) {
+    @Action(LoadOperationDetail)
+    LoadOperationDetail(context: StateContext<OperationDetailStateModel>, action: LoadOperationDetail) {
         this.loading(context,'datas');
         
         const state = context.getState();
@@ -52,9 +52,9 @@ export class OperationForDetailState extends LoaderState {
 
     }
 
-    @Action(ClearOperationForDetail)
-    clear(context: StateContext<OperationForDetailStateModel>) {
-        return context.setState(new OperationForDetailStateModel());
+    @Action(ClearOperationDetail)
+    ClearOperationDetail(context: StateContext<OperationDetailStateModel>) {
+        return context.setState(new OperationDetailStateModel());
     }
 
     

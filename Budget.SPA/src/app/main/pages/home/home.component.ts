@@ -8,11 +8,12 @@ import { FuseConfigService } from '@fuse/services/config.service';
 })
 export class HomeComponent implements OnInit {
   user = JSON.parse(localStorage.getItem('currentUser'));
-  
+  image: string;
+
   constructor(
     private _fuseConfig: FuseConfigService
   ) {
-
+    this.image = '/assets/images/logos/MB_logo1.svg';
     this._fuseConfig.config = {
       layout: {
           navbar   : {

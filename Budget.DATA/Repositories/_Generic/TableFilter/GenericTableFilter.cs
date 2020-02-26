@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
 namespace Budget.DATA.Repositories
 {
     public static class GenericTableFilter
@@ -69,8 +70,11 @@ namespace Budget.DATA.Repositories
                                 var dateMax = DateHelper.GetLastDayOfMonth(date);
 
                             context = context.Where(x => (DateTime)x.GetValueByName("DateIntegration") >= dateMin && (DateTime)x.GetValueByName("DateIntegration") <= dateMax);
-
-
+                        }
+                        if (value is string)
+                        {
+                            string label = value.ToString().ToUpper();
+                            context = context.Where(x => x.GetValueByName(item.Name).ToString().ToUpper().Contains(label)); //.ToString().Contains(label));
                         }
 
                     }

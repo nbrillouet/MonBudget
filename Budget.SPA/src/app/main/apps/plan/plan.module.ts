@@ -11,7 +11,6 @@ import { WidgetsModule } from "../widgets/widgets.module";
 import { PlanPosteListComponent } from "./plan-detail/plan-poste-list/plan-poste-list.component";
 import { PlanListComponent } from "./plan-list/plan-list.component";
 import { PlanSuiviComponent } from "./plan-suivi/plan-suivi.component";
-// import { NgxGaugeModule } from 'ngx-gauge';
 import { MonthYearSelectionComponent } from "../web-component/month-year-selection/month-year-selection.component";
 import { FuseWidgetModule, FuseMaterialColorPickerModule } from "@fuse/components";
 import { ColorPickerModule } from 'ngx-color-picker';
@@ -21,17 +20,14 @@ import { PlanTableComboFilterState } from "app/main/_ngxs/plan/plan-list-filter/
 import { PlanDetailState } from "app/main/_ngxs/plan/plan-detail/plan-detail.state";
 import { PlanPosteDetailState } from "app/main/_ngxs/plan-poste/plan-poste-detail/plan-poste-detail.state";
 import { PlanForTrackingState } from "app/main/_ngxs/plan-tracking/plan-tracking.state";
-
-import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
-import { environment } from "environments/environment";
 import { PlanAmountTableState } from "app/main/_ngxs/plan/plan-amount-list/plan-amount-list.state";
 import { PlanAmountListComponent } from "./plan-suivi/plan-amount-list/plan-amount-list.component";
 import { AsPlanTableState } from "app/main/_ngxs/account-statement-plan/as-plan.state";
 import { AsPlanListComponent } from "./plan-detail/as-plan-list/as-plan-list.component";
-// import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { ChartsModule } from "ng2-charts";
 import { AngularMaterialModule } from "app/angular-material.module";
 import { ReferentialServiceModule } from "app/main/_services/Referential/referential.service.module";
+import { NgxGaugeModule } from 'ngx-gauge';
 
 const routes = [
     {
@@ -77,6 +73,7 @@ const routes = [
       FuseWidgetModule,
       ColorPickerModule,
       FuseMaterialColorPickerModule,
+      NgxGaugeModule,
       NgxsModule.forFeature([
         PlanTableState,
         PlanTableComboFilterState,
@@ -86,6 +83,7 @@ const routes = [
         PlanAmountTableState,
         AsPlanTableState
     ]),
+
     // NgxChartsModule,
         ChartsModule      
     

@@ -3,7 +3,6 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FuseSharedModule } from "@fuse/shared.module";
 import { RouterModule } from "@angular/router";
-import { OperationListComponent } from "./operation/operation-list/operation-list.component";
 import { OtfService } from "./operation-type-family/operation-type-family.service";
 import { NgxsModule } from "@ngxs/store";
 import { OperationTypeFamilyDetailComponent } from "./operation-type-family/operation-type-family-detail/operation-type-family-detail.component";
@@ -13,9 +12,6 @@ import { OperationTypeDetailComponent } from "./operation-type/operation-type-de
 import { OperationsMainComponent } from "./operations-main/operations-main.component";
 import { OperationsMainTabComponent } from "./operations-main-tab/operations-main-tab.component";
 import { OperationService } from "app/main/_services/Referential/operation.service";
-import { OperationTableFilterState } from "app/main/_ngxs/referential/operation/operation-list-filter/operation-list-filter.state";
-import { OperationTableState } from "app/main/_ngxs/referential/operation/operation-list/operation-list.state";
-import { OperationForDetailState } from "app/main/_ngxs/referential/operation/operation-detail/operation-detail.state";
 import { OperationDetailComponent } from "./operation/operation-detail/operation-detail.component";
 import { MiniFilterModule } from "../../web-component/mini-filter/mini-filter.module";
 import { AngularMaterialModule } from "app/angular-material.module";
@@ -30,6 +26,11 @@ import { OtTableFilterSelectedState } from "app/main/_ngxs/referential/operation
 import { OtTableFilterSelectionState } from "app/main/_ngxs/referential/operation-type/ot-table/ot-table-filter-selection/ot-table-filter-selection.state";
 import { OtTableState } from "app/main/_ngxs/referential/operation-type/ot-table/ot-table.state";
 import { OtDetailState } from "app/main/_ngxs/referential/operation-type/ot-detail/ot-detail.state";
+import { OperationTableComponent } from "./operation/operation-table/operation-table.component";
+import { OperationTableFilterSelectedState } from "app/main/_ngxs/referential/operation/operation-table/operation-table-filter-selected/operation-table-filter-selected.state";
+import { OperationTableFilterSelectionState } from "app/main/_ngxs/referential/operation/operation-table/operation-table-filter-selection/operation-table-filter-slection.action";
+import { OperationTableState } from "app/main/_ngxs/referential/operation/operation-table/operation-table.state";
+import { OperationDetailState } from "app/main/_ngxs/referential/operation/operation-detail/operation-detail.state";
 
 const routes = [
   // {
@@ -94,10 +95,10 @@ const routes = [
         OtTableState,
         OtDetailState,
 
-        OperationTableFilterState,
+        OperationTableFilterSelectedState,
+        OperationTableFilterSelectionState,
         OperationTableState,
-        OperationForDetailState
-
+        OperationDetailState
     ])
     ],
     declarations: [
@@ -107,7 +108,7 @@ const routes = [
         OperationTypeFamilyDetailComponent,
         OperationTypeTableComponent,
         OperationTypeDetailComponent,
-        OperationListComponent,
+        OperationTableComponent,
         OperationDetailComponent
         // FilterLabelComponent,
         // FilterMovementComponent,

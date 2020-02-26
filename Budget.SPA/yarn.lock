@@ -5472,6 +5472,11 @@ ngx-cookie-service@2.2.0:
   resolved "http://tfs:8081/repository/npm-group/ngx-cookie-service/-/ngx-cookie-service-2.2.0.tgz#79fe67863b3b93ee226c9ea8d60e1542c7115a58"
   integrity sha512-2kaC1itlEMxiMAPJ320hOpcwU9vhvjbKQCZ1Go6bGhYjJtqG7eYvhNP7mM9IhFz1/afG2tBryJPySWmFUGhRpA==
 
+ngx-gauge@1.1.0:
+  version "1.1.0"
+  resolved "http://tfs:8081/repository/npm-group/ngx-gauge/-/ngx-gauge-1.1.0.tgz#fdc7b8fe8ecc58e694328f73c098bbf6a4126bfc"
+  integrity sha512-tclLMKz55X7nGvz10mogyl1TvH2lrI0uSEo1aCvP3h4Rrq6gwKvc2ItSRwVCuA1WgSVJYOjxzTZzUB6BiewFmw==
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "http://tfs:8081/repository/npm-group/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"

@@ -17,14 +17,14 @@ import { LoadAsTableFilterSelection } from 'app/main/_ngxs/account-statement/as-
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'account-statement-list',
-  templateUrl: './account-statement-list.component.html',
-  styleUrls: ['./account-statement-list.component.scss'],
+  selector: 'account-statement-table',
+  templateUrl: './account-statement-table.component.html',
+  styleUrls: ['./account-statement-table.component.scss'],
   animations : fuseAnimations,
   encapsulation: ViewEncapsulation.None
 })
 
-export class AccountStatementListComponent implements OnInit, OnDestroy {
+export class AccountStatementTableComponent implements OnInit, OnDestroy {
 
   @Select(AsTableFilterSelectionState.get) asTableFilterSelection$: Observable<FilterSelection<FilterAsTableSelection>>;
   @Select(AsTableFilterSelectedState.get) asTableFilterSelected$: Observable<FilterSelected<FilterAsTableSelected>>;

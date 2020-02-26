@@ -49,7 +49,7 @@ otDetailForm: FormGroup;
 
 
     this.otDetail$.subscribe(otDetail=>{
-      if(otDetail.loader['datas'].loaded) {
+      if(otDetail?.loader['datas']?.loaded) {
         this.otDetail = JSON.parse(JSON.stringify(otDetail.datas));
         if(this.firstLoad) {
           //creation du formulaire

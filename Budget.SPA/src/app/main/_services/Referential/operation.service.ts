@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
 import { HttpClient } from "@angular/common/http";
-import { IOperation, OperationTable, OperationForDetail } from "app/main/_models/referential/operation.model";
+import { IOperation, OperationForDetail } from "app/main/_models/referential/operation.model";
 import { ISelect, EnumSelectType } from "app/main/_models/generics/select.model";
 import { IUserForGroup } from "app/main/_models/user.model";
-import { FilterOperationTableSelected, FilterOperationTable } from "app/main/_models/filters/operation.filter";
+import { FilterOperationTableSelected, FilterOperationTableSelection } from "app/main/_models/filters/operation.filter";
 
 
 @Injectable()
@@ -39,22 +39,22 @@ constructor(
 
     /*---------------------------------------------------------------*/
   
-    getTable (filter: FilterOperationTableSelected) {
+    getOperationTable (filter: FilterOperationTableSelected) {
         filter.user =  this.userForGroup;
         
         return this._http
             .post(`${this.baseUrl}referential/operations/filter`,filter)
-            .map((response: OperationTable[]) => {
+            .map((response: any) => {
                 return response;
             });
     }
 
-    getTableFilter(filter: FilterOperationTableSelected) {
+    getOperationTableFilter(filter: FilterOperationTableSelected) {
         filter.user =  this.userForGroup;
             
         return this._http
             .post(`${this.baseUrl}referential/operations/table-filter`,filter)
-            .map((response: FilterOperationTable) => {
+            .map((response: FilterOperationTableSelection) => {
                 return response;
             });
     }
@@ -75,7 +75,7 @@ constructor(
             });
     }
 
-    deleteDetail(idOperation: number) {
+    deleteOperationDetail(idOperation: number) {
         
     return this._http
             .delete(`${this.baseUrl}referential/operations/${idOperation}/delete`)

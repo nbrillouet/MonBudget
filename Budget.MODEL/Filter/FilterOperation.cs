@@ -10,8 +10,8 @@ namespace Budget.MODEL.Filter
     {
         public UserForGroupDto User { get; set; }
         public string Label { get; set; }
-        public List<SelectDto> OperationMethods { get; set; }
-        public List<SelectDto> OperationTypes { get; set; }
+        public List<SelectDto> OperationMethod { get; set; }
+        public List<SelectDto> OperationType { get; set; }
         public Pagination Pagination { get; set; }
 
         public FilterOperationTableSelected()
@@ -21,16 +21,16 @@ namespace Budget.MODEL.Filter
 
     }
 
-    public class FilterOperationTable
+    public class FilterOperationTableSelection
     {
-        public List<SelectDto> OperationMethods { get; set; }
-        public List<SelectGroupDto> OperationTypes { get; set; }
+        public List<SelectDto> OperationMethod { get; set; }
+        public List<SelectGroupDto> OperationType { get; set; }
 
-        public FilterOperationTableSelected Selected { get; set; }
+        //public FilterOperationTableSelected Selected { get; set; }
 
-        public FilterOperationTable()
+        public FilterOperationTableSelection()
         {
-            Selected = new FilterOperationTableSelected();
+            //Selected = new FilterOperationTableSelected();
         }
     }
    

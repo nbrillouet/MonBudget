@@ -121,31 +121,33 @@ namespace Budget.DATA.Repositories
                 .Include(x => x.OperationMethod)
                 .AsQueryable();
 
-            if (filter.Label != null)
-            {
-                operations = operations.Where(x => x.Label.Contains(filter.Label));
-            }
+            operations = GenericTableFilter.GetGenericFilters(operations, filter);
 
-            if (filter.OperationMethods != null && filter.OperationMethods.Count>0)
-            {
-                var idOperationMethods = filter.OperationMethods.Select(x => x.Id).ToList();
-                operations = operations.Where(x => idOperationMethods.Contains(x.IdOperationMethod));
-            }
+            //if (filter.Label != null)
+            //{
+            //    operations = operations.Where(x => x.Label.Contains(filter.Label));
+            //}
 
-            if (filter.OperationTypes != null && filter.OperationTypes.Count>0)
-            {
-                var idOperationTypes = filter.OperationTypes.Select(x => x.Id).ToList();
-                operations = operations.Where(x => idOperationTypes.Contains(x.IdOperationType));
-            }
+            //if (filter.OperationMethods != null && filter.OperationMethods.Count>0)
+            //{
+            //    var idOperationMethods = filter.OperationMethods.Select(x => x.Id).ToList();
+            //    operations = operations.Where(x => idOperationMethods.Contains(x.IdOperationMethod));
+            //}
 
-            if (filter.Pagination.SortDirection == "asc")
-            {
-                operations = operations.OrderBy(filter.Pagination.SortColumn);
-            }
-            else
-            {
-                operations = operations.OrderByDescending(filter.Pagination.SortColumn);
-            }
+            //if (filter.OperationTypes != null && filter.OperationTypes.Count>0)
+            //{
+            //    var idOperationTypes = filter.OperationTypes.Select(x => x.Id).ToList();
+            //    operations = operations.Where(x => idOperationTypes.Contains(x.IdOperationType));
+            //}
+
+            //if (filter.Pagination.SortDirection == "asc")
+            //{
+            //    operations = operations.OrderBy(filter.Pagination.SortColumn);
+            //}
+            //else
+            //{
+            //    operations = operations.OrderByDescending(filter.Pagination.SortColumn);
+            //}
 
             var results = PagedListRepository<Operation>.Create(operations, filter.Pagination);
             return results;

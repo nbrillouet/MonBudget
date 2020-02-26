@@ -11,7 +11,7 @@ export class FilterNumberRangeComponent implements OnInit {
 
   @Input() filterNumberRange: FilterNumberRange;
   @Output() applyFilter=new EventEmitter<FilterNumberRange>();
-
+  
   numberRangeForm: FormGroup;
 
   constructor(

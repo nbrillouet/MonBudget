@@ -28,7 +28,7 @@
           <!-- / HEADER -->
           
 
-      <div class="content-card" *ngIf="(planTracking$ | async).loader['datas'].loaded" >
+      <div class="content-card" *ngIf="(planTracking$ | async)?.loader['datas']?.loaded" >
           <div class="widget-group p-12" fxLayout="row wrap" fxFlex="100" *fuseIfOnDom
           [@animateStagger]="{value:'50'}">
 

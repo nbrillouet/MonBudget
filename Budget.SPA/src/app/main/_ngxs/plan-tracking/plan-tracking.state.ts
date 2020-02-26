@@ -61,15 +61,6 @@ export class PlanForTrackingState extends LoaderState {
             });
     }
 
-    // @Action(LoadPlanForTrackingSuccess)
-    // loadSuccess(context: StateContext<PlanForTrackingStateModel>, action: LoadPlanForTrackingSuccess) {
-    //     let state = context.getState();
-    //     state.dataInfos.datas = action.payload;
-
-    //     context.patchState(state);
-        
-    // }
-
     @Action(ChangePlanForTrackingFilter)
     changeFilter(context: StateContext<PlanForTrackingStateModel>, action: ChangePlanForTrackingFilter) {
         const state = context.getState();

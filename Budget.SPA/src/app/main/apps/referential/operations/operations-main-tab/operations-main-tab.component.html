@@ -1,5 +1,4 @@
-<mat-tab-group 
-    style="min-height:100%"
+<mat-tab-group id="group"
     [selectedIndex]="selectedIndex"
     (selectedTabChange)="onTabChanged($event)">
     <mat-tab 
@@ -9,8 +8,10 @@
           {{operationField.label}}
       </ng-template>
 
-      <operation-type-family-table *ngIf="selectedIndex == 0 && selectedIndex == i"></operation-type-family-table>
-      <operation-type-table style="min-height:100%" *ngIf="selectedIndex == 1 && selectedIndex == i"></operation-type-table>
-      <operation-list  *ngIf="selectedIndex == 2 && selectedIndex == i"></operation-list>
+      <operation-type-family-table class="tab-content-container" *ngIf="selectedIndex == 0 && selectedIndex == i"></operation-type-family-table>
+      <operation-type-table class="tab-content-container" *ngIf="selectedIndex == 1 && selectedIndex == i"></operation-type-table>
+      <operation-table *ngIf="selectedIndex == 2 && selectedIndex == i"></operation-table>
     </mat-tab>
 </mat-tab-group>
+
+

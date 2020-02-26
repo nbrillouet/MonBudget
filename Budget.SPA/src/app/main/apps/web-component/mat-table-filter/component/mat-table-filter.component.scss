@@ -1,11 +1,16 @@
+  .content-card {
+    min-height:100%;
+    max-height:100%;
+  }
+
+  .inherit-height {
+    min-height:inherit;
+    max-height:inherit;
+  }
+
   mat-table {
-    // display: flex;
-    // flex-direction: column;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    max-height:calc(100% - 50px) !important;
-    min-height:calc(100% - 50px) !important;
-    width: 100% !important;
+    min-height:inherit;
+    max-height:inherit;
 
     mat-row {
       min-height: 36px;
@@ -14,34 +19,15 @@
       &:hover {
         background-color: rgba(3, 155, 229, 0.3);
       }
-      // .active-click  {
-      //   background-color: red; //rgba(219, 255, 220, 0.9);
-      // }    
       .mat-cell, .mat-footer-cell {
         font-size: 13px;
       }
     }
   }
 
-  // .mat-row {
-  //   min-height: 36px;
-  //   max-height: 36px;
-  //   padding-top:0px;
-  //   padding-right:6px;
-  //   padding-bottom: 0px;
-  //   padding-left: 6px;
-  //   width: 100%;
-  // }
+  
 
-  // .mat-header-row {
-  //   min-height: 40px;
-  //   max-height: 40px;
-  //   padding-top:0px;
-  //   padding-right:6px;
-  //   padding-bottom: 0px;
-  //   padding-left: 6px;
-  //   width: 100%;
-  // }
+
   
   mat-cell,
   mat-footer-cell,
@@ -54,27 +40,18 @@
       right: 5px;
     }
   }
-  
-
-  
+    
   .mat-table mat-header-cell {
+    // background-color: #E0E0E0;
     padding:5px;
   }
   
-  // .mat-table mat-header-cell:hover {
-  //   border-radius:5px;
-  //   border-top: 1px solid;
-  //   border-right: 1px solid;
-  //   border-bottom: 1px solid;
-  //   border-left: 1px solid;
-  //   border-color:#A5A5A5;
-  //   cursor: col-resize;
-  // }
 
-.mat-paginator-container {
-  min-height: 35px !important;
-  max-height: 35px !important;
-}
+
+// .mat-paginator-container {
+//   min-height: 35px !important;
+//   max-height: 35px !important;
+// }
 
 .empty-result {
   text-align:center;

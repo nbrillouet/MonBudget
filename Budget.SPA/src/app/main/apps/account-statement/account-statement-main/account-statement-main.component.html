@@ -60,13 +60,13 @@
                 </mat-tab>
 
                 <mat-tab label="Relevés" >
-                    <account-statement-list style="height:100%;" 
+                    <account-statement-table 
                         *ngIf="selectedIndex == 2">
-                    </account-statement-list>
+                    </account-statement-table>
                 </mat-tab>
 
                 <mat-tab label="Virements internes">
-                    <as-internal-transfer-main style="height:100%;" 
+                    <as-internal-transfer-main 
                         *ngIf="selectedIndex == 3">
                     </as-internal-transfer-main>
                 </mat-tab>

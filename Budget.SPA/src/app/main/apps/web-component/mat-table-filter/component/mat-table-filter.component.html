@@ -1,178 +1,178 @@
 
-<!--  -->
-<!-- class="mat-elevation-z8" -->
-  <mat-table *ngIf="columns"
-    [dataSource]="dataSource" 
-    cdkDropListGroup
-    matSort 
-    [matSortActive]="columns[0].field"
-    matSortDirection="asc" 
-    matSortDisableClear 
-    (matSortChange)="onSortChangeEvent($event)"
-    resizeObserver (resize)="onResize($event)"
-  >
-
-    
-    <ng-container *ngFor="let column of columns; let i = index" [matColumnDef]="column.field">
-      <!-- (mousedown)="onResizeColumn($event, i)" -->  
-      <mat-header-cell *matHeaderCellDef>
-          
-          <!-- SORTABLE / NOT SORTABLE-->
-          <ng-container *ngIf="column.isSortable ; else noSortable">
-            <div mat-sort-header>{{ column.label }}</div>
-          </ng-container>
-
-          <ng-template #noSortable>
-              <div>{{ column.label }}</div>
-          </ng-template>
-
-          <span *ngIf="column.filter.type==enumFilterType.label 
-            || column.filter.type==enumFilterType.dateRange 
-            || column.filter.type==enumFilterType.numberRange 
-            || column.filter.type==enumFilterType.comboMultiple
-            || column.filter.type==enumFilterType.comboMultipleGroup">
-              <!-- [color]="column|hasFilter:newFilterEvent" -->
-            <span (click)="templateFor='colLabel'; $event.stopPropagation()" [matMenuTriggerFor]="menuLabel" style="cursor: pointer;" fxFlex fxLayoutAlign="end start">
-              <mat-icon [ngStyle]="{'color':column.filter && column.filter.isEmpty ? '#E0E0E0' : 'red'}">filter_list</mat-icon>
-            </span>
-              
-              <mat-menu 
-                #menuLabel="matMenu" 
-                class="menu-filter" 
-                [overlapTrigger]="false"
-                [ngSwitch]="column.filter.type">
-                <!-- filter COMBO MULTIPLE -->
-                <filter-combo-multiple 
-                  *ngSwitchCase="enumFilterType.comboMultiple"
-                  [filterComboMultiple]="column.filter.datas"
-                  (applyFilterComboMultiple)="applyFilter(column,$event)">
-                </filter-combo-multiple>
-
-                <!-- filter COMBO MULTIPLE GROUP-->
-                <filter-combo-multiple-group 
-                  *ngSwitchCase="enumFilterType.comboMultipleGroup"
-                  [filterComboMultipleGroup]="column.filter.datas"
-                  (applyFilterComboMultipleGroup)="applyFilter(column,$event)">
-                </filter-combo-multiple-group>
-
-                <!-- filter DATE RANGE-->
-                <filter-date-range 
-                  *ngSwitchCase="enumFilterType.dateRange"
-                  [filterDateRange]="column.filter.datas"
-                  (applyFilterDateRange)="applyFilter(column,$event)">
-                </filter-date-range>
-
-                <!-- filter NUMBER RANGE-->
-                <filter-number-range 
-                  *ngSwitchCase="enumFilterType.numberRange"
-                  [filterNumberRange]="column.filter.datas"
-                  (applyFilter)="applyFilter(column,$event)">
-                </filter-number-range>
-
-              </mat-menu>
-
-              <!-- filter COMBO MULTIPLE GROUPE -->
-              <!-- <mat-menu #menuLabel="matMenu" class="menu-filter" [overlapTrigger]="false">
-                <ng-template matMenuContent *ngIf="column.filter.type==enumFilterType.comboMultipleGroup">
-                    <filter-combo-multiple-group 
-                        [filterComboMultipleGroup]="column.filter.datas"
-                        (applyFilterComboMultiple)="applyFilter(column,$event)">
-                    </filter-combo-multiple-group>
-                </ng-template>
-              </mat-menu> -->
-
-          </span>
-
-
-
-
-          
-        </mat-header-cell>
-
-        <mat-cell *matCellDef="let row" > 
-          <ng-container [ngSwitch]="column.style.type">
-            <!-- STYLE: DOT-DATAS -->
-            <div *ngSwitchCase="enumStyleType.dotDatas">
-              <mat-chip class="mini-select"  *ngFor="let dot of row[column.field]"
-                [matTooltip]="dot.id + ': ' + dot.label"
-                [ngStyle]="{'background-color':dot.value }"
-              >
-                <!-- {{dot.id}} -->
-              </mat-chip>
-            </div>
-            
-            <div *ngSwitchCase="enumStyleType.image">
-              <img class="avatar small" [src]="row[column.field]">
-            </div>
-
-            <!-- STYLE: NUMBER-UP-DOWN -->
-            <div *ngSwitchCase="enumStyleType.numberUpDown">
-                <div *ngIf="row[column.field]>column.style.datas.isoNumber">
-                    <p  class="text-truncate green-fg">
-                        <mat-icon class="green-fg mr-2">trending_up</mat-icon>
-                        {{row[column.field]}}
-                    </p>
-                </div>
-                <div *ngIf="row[column.field]<column.style.datas.isoNumber">
-                    <p  class="text-truncate red-fg">
-                        <mat-icon class="red-fg mr-2">trending_down</mat-icon>
-                        {{row[column.field]}}
-                    </p>
-                </div>
-            </div>
-
-            <!-- STYLE: LABEL -->
-            <div class="text-truncate" *ngSwitchCase="enumStyleType.label">
-                <!-- {{ row[column.field] }} -->
-              <div class="text-truncate" *ngIf="column.pipe">{{ row[column.field] | dateFormat:'mm/mm/mm' }}</div>
-              <div class="text-truncate" *ngIf="!column.pipe">{{ row[column.field]  }} </div> 
-            </div>
-
-            <!-- STYLE: BUTTON-ICON -->
-            <div *ngSwitchCase="enumStyleType.buttonIcon">
-                <button [matTooltip]="column.style.datas.tooltip" mat-icon-button (click)="onClickButtonIcon(row);$event.stopPropagation()">
-                    <mat-icon color="warn">{{column.style.datas.icon}}</mat-icon>
-                </button>
-            </div>
-          </ng-container>
-          
-        </mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
-    <mat-row 
-      (cdkObserveContent)="onRowsChange(row)"
-      (mousedown)="onMouseDown($event)"
-      (click)="onClickLigne($event, index, row)"
-      *matRowDef="let row; columns: displayedColumns; index as index"
-      [ngClass]="index==activeClick?'active-click':'inactive-click'"
-      >
-    </mat-row>
-  </mat-table>
-
-  <div *ngIf="onloading"
-    class="w-100-p"
-    fxLayout="column"
-    fxLayoutAlign="center center">
-    <mat-progress-bar
-      color="warn"
-      mode="indeterminate">
-    </mat-progress-bar>
+<div class="content-card" fxLayout="column" fxLayoutAlign="space-between">
+  <!-- <div>
+    TEST
   </div>
+  <div>
+    TOTO
+  </div>
+</div>
+
+
+<div> -->
+
+    <!-- <div class="content-wrapper"> -->
+
+      <div class="inherit-height" fxLayout="column" fxLayoutAlign="start">
+      <mat-table *ngIf="columns" 
+        fusePerfectScrollbar
+        [dataSource]="dataSource" 
+        cdkDropListGroup
+        matSort 
+        [matSortActive]="columns[0].field"
+        matSortDirection="asc" 
+        matSortDisableClear 
+        (matSortChange)="onSortChangeEvent($event)"
+        resizeObserver (resize)="onResize($event)">
   
-  <!-- <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
-  <div style="color:#4285F3" fxLayout="row">chargement...</div>-->
+      <ng-container *ngFor="let column of columns; let i = index" [matColumnDef]="column.field">
+        <mat-header-cell *matHeaderCellDef>
+            <!-- SORTABLE / NOT SORTABLE-->
+            <ng-container *ngIf="column.isSortable ; else noSortable">
+              <div mat-sort-header>{{ column.label }}</div>
+            </ng-container>
+  
+            <ng-template #noSortable>
+                <div>{{ column.label }}</div>
+            </ng-template>
+  
+            <span *ngIf="column.filter.type==enumFilterType.label 
+              || column.filter.type==enumFilterType.dateRange 
+              || column.filter.type==enumFilterType.numberRange 
+              || column.filter.type==enumFilterType.comboMultiple
+              || column.filter.type==enumFilterType.comboMultipleGroup
+              || column.filter.type==enumFilterType.label">
+  
+              <span (click)="templateFor='colLabel'; $event.stopPropagation()" [matMenuTriggerFor]="menuLabel" style="cursor: pointer;" fxFlex fxLayoutAlign="end start">
+                <mat-icon [ngStyle]="{'color':column.filter && column.filter.isEmpty ? '#E0E0E0' : 'red'}">filter_list</mat-icon>
+              </span>
+                
+                <mat-menu 
+                  #menuLabel="matMenu" 
+                  class="menu-filter" 
+                  [overlapTrigger]="false"
+                  [ngSwitch]="column.filter.type">
+  
+                  <!-- filter COMBO MULTIPLE -->
+                  <filter-combo-multiple 
+                    *ngSwitchCase="enumFilterType.comboMultiple"
+                    [filterComboMultiple]="column.filter.datas"
+                    (applyFilterComboMultiple)="applyFilter(column,$event)">
+                  </filter-combo-multiple>
+  
+                  <!-- filter COMBO MULTIPLE GROUP-->
+                  <filter-combo-multiple-group 
+                    *ngSwitchCase="enumFilterType.comboMultipleGroup"
+                    [filterComboMultipleGroup]="column.filter.datas"
+                    (applyFilterComboMultipleGroup)="applyFilter(column,$event)">
+                  </filter-combo-multiple-group>
+  
+                  <!-- filter DATE RANGE-->
+                  <filter-date-range 
+                    *ngSwitchCase="enumFilterType.dateRange"
+                    [filterDateRange]="column.filter.datas"
+                    (applyFilterDateRange)="applyFilter(column,$event)">
+                  </filter-date-range>
+  
+                  <!-- filter NUMBER RANGE-->
+                  <filter-number-range 
+                    *ngSwitchCase="enumFilterType.numberRange"
+                    [filterNumberRange]="column.filter.datas"
+                    (applyFilter)="applyFilter(column,$event)">
+                  </filter-number-range>
+  
+                  <!-- filter LABEL-->
+                  <filter-label 
+                    *ngSwitchCase="enumFilterType.label"
+                    [filterLabel]="column.filter.datas"
+                    (applyLabelFilter)="applyFilter(column,$event)">
+                  </filter-label>
+  
+                </mat-menu>
+  
+            </span>
+          </mat-header-cell>
+  
+          <mat-cell *matCellDef="let row" > 
+            <ng-container [ngSwitch]="column.style.type">
+              <!-- STYLE: DOT-DATAS -->
+              <div *ngSwitchCase="enumStyleType.dotDatas">
+                <mat-chip class="mini-select"  *ngFor="let dot of row[column.field]"
+                  [matTooltip]="dot.id + ': ' + dot.label"
+                  [ngStyle]="{'background-color':dot.value }"
+                >
+                  <!-- {{dot.id}} -->
+                </mat-chip>
+              </div>
+              
+              <div *ngSwitchCase="enumStyleType.image">
+                <img class="avatar small" [src]="row[column.field]">
+              </div>
+  
+              <!-- STYLE: NUMBER-UP-DOWN -->
+              <div *ngSwitchCase="enumStyleType.numberUpDown">
+                  <div *ngIf="row[column.field]>column.style.datas.isoNumber">
+                      <p  class="text-truncate green-fg">
+                          <mat-icon class="green-fg mr-2">trending_up</mat-icon>
+                          {{row[column.field]}}
+                      </p>
+                  </div>
+                  <div *ngIf="row[column.field]<column.style.datas.isoNumber">
+                      <p  class="text-truncate red-fg">
+                          <mat-icon class="red-fg mr-2">trending_down</mat-icon>
+                          {{row[column.field]}}
+                      </p>
+                  </div>
+              </div>
+  
+              <!-- STYLE: LABEL -->
+              <div class="text-truncate" *ngSwitchCase="enumStyleType.label">
+                <div class="text-truncate" *ngIf="column.pipe">{{ row[column.field] | dateFormat:'mm/mm/mm' }}</div>
+                <div class="text-truncate" *ngIf="!column.pipe">{{ row[column.field]  }} </div> 
+              </div>
+  
+              <!-- STYLE: BUTTON-ICON -->
+              <div *ngSwitchCase="enumStyleType.buttonIcon">
+                  <button [matTooltip]="column.style.datas.tooltip" mat-icon-button (click)="onClickButtonIcon(row);$event.stopPropagation()">
+                      <mat-icon color="warn">{{column.style.datas.icon}}</mat-icon>
+                  </button>
+              </div>
+            </ng-container>
+            
+          </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+      <mat-row 
+        (cdkObserveContent)="onRowsChange(row)"
+        (mousedown)="onMouseDown($event)"
+        (click)="onClickLigne($event, index, row)"
+        *matRowDef="let row; columns: displayedColumns; index as index"
+        [ngClass]="index==activeClick?'active-click':'inactive-click'"
+        >
+      </mat-row>
+    </mat-table>
 
+    <div *ngIf="onloading"
+      class="w-100-p"
+      fxLayout="column"
+      fxLayoutAlign="center center">
+      <mat-progress-bar
+        color="warn"
+        mode="indeterminate">
+      </mat-progress-bar>
+    </div>
+    
+    <p class="empty-result" 
+        *ngIf="!onloading && rows && rows.length==0">
+        Aucun résultat
+    </p>
+  </div>
 
-  <p class="empty-result" 
-      *ngIf="!onloading && rows && rows.length==0"
-  >
-      Aucun résultat
-  </p>
-
-  <mat-paginator *ngIf="filterSelected && columns && rows && rows.length>0"
+    <mat-paginator *ngIf="filterSelected && columns && rows && rows.length>0"
       [style.visibility]="!onloading ? 'visible' : 'hidden'"
       (page)="onPageChangeEvent($event)"
       [length]="filterSelected['pagination'].totalItems" 
       [pageSize]="filterSelected['pagination'].nbItemsPerPage"
       [pageSizeOptions]="[15, 100, 200]">
-  </mat-paginator>
+    </mat-paginator>
+  </div>

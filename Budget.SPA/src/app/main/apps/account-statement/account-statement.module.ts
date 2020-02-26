@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { AccountStatementMainComponent } from './account-statement-main/account-statement-main.component';
 import { RouterModule } from '@angular/router';
 import { AccountStatementFilterComponent } from './account-statement-filter/account-statement-filter.component';
-import { AccountStatementListComponent } from './account-statement-list/account-statement-list.component';
 import { AccountStatementDetailComponent } from './account-statement-detail/account-statement-detail.component';
 import { GMapModule } from '../g-map/g-map.module';
 import { AuthGuard } from 'app/_guards/auth.guard';
@@ -27,6 +26,7 @@ import { AsTableState } from 'app/main/_ngxs/account-statement/as-table/as-table
 import { AsTableFilterSelectionState } from 'app/main/_ngxs/account-statement/as-table/as-table-filter-selection/as-table-filter-selection.state';
 import { AsTableFilterSelectedState } from 'app/main/_ngxs/account-statement/as-table/as-table-filter-selected/as-table-filter-selected.state';
 import { DatePipe } from '@angular/common';
+import { AccountStatementTableComponent } from './account-statement-table/account-statement-table.component';
 
 const routes = [
   // {
@@ -82,17 +82,13 @@ const routes = [
   declarations: [
     AccountStatementMainComponent,
     AccountStatementFilterComponent,
-    AccountStatementListComponent,
+    AccountStatementTableComponent,
 
     AccountStatementDetailComponent,
     AsChartEvolutionComponent,
     AsChartCategorisationComponent,
     AsInternalTransferMainComponent,
     AsInternalTransferCoupleComponent
-    // MatTableFilterComponent,
-
-    // ResizeObserverDirective,
-    // DateFormatPipe
     
   ],
   providers : [

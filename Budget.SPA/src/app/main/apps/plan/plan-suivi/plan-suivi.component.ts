@@ -27,10 +27,8 @@ import { DatasFilter } from 'app/main/_models/generics/detail-info.model';
   encapsulation: ViewEncapsulation.None
 })
 export class PlanSuiviComponent implements OnInit {
-  // @Select(UserState.getUser) user$: Observable<IUser>;
   @Select(PlanForTrackingState.get) planTracking$: Observable<DatasFilter<PlanForTracking,FilterPlanTracking>>;
 
-  // planList: IPlanTable[];
   selectYears : SelectYear[];
 
   planSelected: SelectYear;

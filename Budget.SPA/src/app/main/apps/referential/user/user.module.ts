@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { UserDetailComponent } from './user-detail/user-detail.component';
-import { UserListComponent } from './user-list/user-list.component';
 import { RouterModule } from '@angular/router';
 import { UserService } from './user.service';
 import { UserDetailResolver } from './user-detail/user-detail.resolver';
-import { UserListResolver } from './user-list/user-list.resolver';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AvatarEditorComponent } from './avatar-editor/avatar-editor.component';
 import { GMapModule } from '../../g-map/g-map.module';
@@ -18,11 +16,12 @@ import { UserTableFilterSelectedState } from 'app/main/_ngxs/user/user-table/use
 import { UserTableFilterSelectionState } from 'app/main/_ngxs/user/user-table/user-table-filter-selection/user-table-filter-selection.state';
 import { UserTableState } from 'app/main/_ngxs/user/user-table/user-table.state';
 import { DatePipe } from '@angular/common';
+import { UserTableComponent } from './user-table/user-table.component';
 
 const routes = [
   {
       path     : '',
-      component: UserListComponent,
+      component: UserTableComponent,
       // resolve  : { users: UserListResolver },
       canActivate: [AuthGuard]
   },
@@ -55,14 +54,13 @@ const routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
-    UserListComponent,
+    UserTableComponent,
     UserDetailComponent,
     AvatarEditorComponent
   ],
   providers : [
     UserService,
     UserDetailResolver,
-    UserListResolver,
     PreventUnsavedChanges,
     DatePipe
   ]

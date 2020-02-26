@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-// import { fuseAnimations } from '../../../../../../core/animations';
-// import { IUser } from '../../../../../_models/user.model';
 import { UserService } from '../user.service';
 import { Subscription } from 'rxjs/Subscription';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-// import { FuseUtils } from '../../../../../../core/fuseUtils';
-// import { AuthService } from '../../../../../_services/auth.service';
-// import { IGMapSearchInfo } from '../../../../../_models/g-map.model.';
 import { DatePipe } from '@angular/common';
 import { Moment } from 'moment';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
@@ -23,7 +18,7 @@ import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.sta
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-user-detail',
+  selector: 'user-detail',
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss'],
   animations   : fuseAnimations,

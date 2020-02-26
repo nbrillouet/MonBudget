@@ -272,6 +272,13 @@ export class MatTableFilterComponent implements OnInit {
         $event = (filterNumber.numberMax==null && filterNumber.numberMin==null) ? null : $event;
         this.filterSelected[`${fields[0]}`]=$event;
         break;
+      case EnumFilterType.label:
+          // let filterlabel = <string>$event;
+          // $event = (filterNumber.numberMax==null && filterNumber.numberMin==null) ? null : $event;
+          console.log('$event',$event);
+          console.log('${fields[0]}',fields[0]);
+          this.filterSelected[`${fields[0]}`]=$event;
+          break;
     }
  
     column.filter.isEmpty = $event==null || $event.length==0;
