@@ -1,0 +1,161 @@
+<div id="products" class="page-layout carded fullwidth inner-scroll">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent header calc-background-left"></div>
+  <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+      <div class="center">
+        <div *ngIf="!fullscreen" 
+          class="header calc-background-right accent p-12 pb-0 pt-6"
+          fxLayout="column" fxLayoutAlign="space-between">
+
+            <div fxFlex fxLayout="row" fxLayoutAlign="start start">
+              <!-- <div class="left-side" fxLayout="row"> -->
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon class="logo-icon mr-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">donut_small</mat-icon>
+                    <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Budget</span>
+                </div>
+              <!-- </div> -->
+            </div>
+
+            <ng-container *ngIf="(planTableFilterSelection$ | async)?.loader['filter-selection']?.loaded && (planTableFilterSelected$ | async)?.loader['filter-selected']?.loaded" >
+                <div fxLayout="row" fxLayoutAlign="end center">
+                    <div class="selected-project">{{( planTableFilterSelected$ | async).selected.year }}</div>
+                    
+                    <button mat-icon-button 
+                        class="project-selector" 
+                        [matMenuTriggerFor]="projectsMenu"
+                        aria-label="Select project">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                
+                    <mat-menu #projectsMenu="matMenu">
+                        <button mat-menu-item *ngFor="let year of (planTableFilterSelection$ | async)?.selection?.year" (click)="changeComboYearSelected(year)">
+                            <span>{{year}}</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </ng-container>
+        </div>
+        <!-- <div fxLayout="column">
+            <div fxLayout="row">toto</div>
+            <div fxLayout="row">tata</div>
+        </div> -->
+
+
+        <!-- HEADER -->
+        <!-- <div class="header-2-background accent p-12 pb-0" fxLayout="column" fxLayoutAlign="space-between">
+            <div class="pt-12" fxLayout="column" fxLayoutAlign="space-between"> 
+                <div fxLayout="row" fxLayoutAlign="space-between center" >
+                    <div fxLayout="row" fxLayoutAlign="start center" >
+                        <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                            donut_small
+                        </mat-icon>
+                        
+                        <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                            Budget
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="(planTableFilterSelection$ | async).loader['filter-selection'] && (planTableFilterSelected$ | async).loader['filter-selected'].loaded" fxLayout="row" fxLayoutAlign="end space-between">
+                <div fxflex fxLayoutAlign="end center">
+                    <div class="selected-project">{{( planTableFilterSelected$ | async).selected.year }}</div>
+                
+                    <button mat-icon-button 
+                        class="project-selector" 
+                        [matMenuTriggerFor]="projectsMenu"
+                        aria-label="Select project">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                
+                    <mat-menu #projectsMenu="matMenu">
+                        <button mat-menu-item *ngFor="let year of (planTableFilterSelection$ | async)?.selection?.year" (click)="changeComboYearSelected(year)">
+                            <span>{{year}}</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div> -->
+         
+          <!-- / HEADER -->
+
+        <div class="content-card" mat-white-bg>
+            <!-- <div fxLayout='column' class="cards" > -->
+                <mat-table-filter 
+                    [filterSelection$] = "planTableFilterSelection$"
+                    [filterSelected$] = "planTableFilterSelected$"
+                    [table$] = "planTable$"
+                    [columns] = "columns"
+                    (onRowClick) = "onRowClick($event)"
+                    (changeFilterSelected)="applyFilterSelected($event)"
+                    (changeFilterSelection)="applyFilterSelection($event)">
+                </mat-table-filter>
+            <!-- </div> -->
+        </div>
+    </div>
+</div>
+
+                    <!-- <mat-card class="p-0">
+                        <div class="w-100-p pl-20" style="background-color:#F5F5F5; ">
+                            <div class="mail-selection" fxFlex="row" fxLayoutAlign="start center">
+                                <button [routerLink]="['/apps/plans/new']" color="accent" mat-icon-button matTooltip="Ajouter un plan" >
+                                    <mat-icon >add</mat-icon>
+                                </button>
+                                <button color="accent" mat-icon-button (click)="delete()" matTooltip="Supprimer le(s) plan(s) sélectionné(s)" *ngIf="hasCheckboxes">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </div> 
+                        
+                        <mat-card-content class="p-20" *ngIf="(tableInfo$ | async).loader['datas']?.loaded">
+                                <table mat-table [dataSource]="dataSource" >
+                                    <ng-container matColumnDef="checkbox">
+                                        <mat-header-cell style="flex: 0 0 60px;" *matHeaderCellDef> </mat-header-cell>
+                                        <mat-cell style="flex: 0 0 60px;" *matCellDef="let element">  
+                                            <mat-checkbox 
+                                                (change)="onSelectedChange($event,element.id)"
+                                                (click)="$event.stopPropagation()">
+                                            </mat-checkbox>
+                                        </mat-cell>
+                                    </ng-container>
+                                
+                                      <ng-container matColumnDef="label">
+                                        <mat-header-cell *matHeaderCellDef> Libellé </mat-header-cell>
+                                        <mat-cell *matCellDef="let element"> {{element.label}} </mat-cell>
+                                      </ng-container>
+                                      
+                                      <ng-container matColumnDef="year">
+                                            <mat-header-cell *matHeaderCellDef> Année </mat-header-cell>
+                                            <mat-cell *matCellDef="let element"> {{element.year}} </mat-cell>
+                                        </ng-container>
+                                      
+                                      <ng-container matColumnDef="detail">
+                                          <mat-header-cell style="flex:0 0 30px;"  *matHeaderCellDef ></mat-header-cell>
+                                          <mat-cell style="flex:0 0 30px;" *matCellDef="let data">
+                                              <button matTooltip="Détail" 
+                                                mat-icon-button 
+                                                [routerLink]="['/apps/plans/', data.id]"
+                                                >
+                                                <mat-icon>more_horiz</mat-icon>
+                                              </button>
+                                          </mat-cell>
+                                      </ng-container>  
+                                     
+                                    
+                                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                      <mat-row class="element-row"  *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                                    </table>
+                                    <p class="empty-result" *ngIf="dataSource && dataSource.length==0">Aucun résultat</p>
+
+                        </mat-card-content>
+                    </mat-card>
+                    <br> -->
+<!-- 
+            </div>
+
+          </div>
+      </div>
+  </div> -->

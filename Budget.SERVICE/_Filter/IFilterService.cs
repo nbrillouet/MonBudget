@@ -16,7 +16,9 @@ namespace Budget.SERVICE
         FilterOtfTableSelection GetFilterOtfTable(FilterOtfTableSelected filter);
         FilterOtTableSelection GetFilterOtTable(FilterOtTableSelected filter);
         FilterOperationTableSelection GetFilterOperationTable(FilterOperationTableSelected filter);
-
+        FilterPlanTableSelection GetFilterPlanTable(FilterPlanTableSelected filter);
+        FilterPlanPosteTableSelection GetFilterPlanPosteTable(FilterPlanPosteTableSelected filter);
+        FilterPlanNotAsTableSelection GetFilterPlanNotAsTable(FilterPlanNotAsTableSelected filter);
     }
 
 }

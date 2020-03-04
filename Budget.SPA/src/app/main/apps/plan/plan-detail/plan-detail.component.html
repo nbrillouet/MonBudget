@@ -47,10 +47,10 @@
           </button>  -->
 
           <button mat-raised-button *ngIf="formLoaded"
-                  class="save-product-button"
-                  [disabled]="planForm.invalid || planForm.pristine"
-                  (click)="save(planForm)">
-              <span>SAUVEGARDER</span>
+                class="save-product-button"
+                [disabled]="planForm.invalid || planForm.pristine"
+                (click)="save(planForm)">
+                <span>SAUVEGARDER</span>
           </button>
       </div>
       <!-- / HEADER -->
@@ -63,7 +63,9 @@
 
                 <form [formGroup]="planForm" class="product w-100-p" fxLayout="column" fxFlex>
 
-                        <mat-tab-group>
+                        <mat-tab-group 
+                            [selectedIndex]="selectedIndex" 
+                            (selectedTabChange)="onTabClick($event)">
       
                             <mat-tab label="Informations générales">
       
@@ -72,9 +74,9 @@
                                     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
                                         <mat-label>Libellé du budget</mat-label>
                                         <input matInput placeholder="Libellé du budget"
-                                                name="label"
-                                                formControlName="label"
-                                                required>
+                                            name="label"
+                                            formControlName="label"
+                                            required>
                                     </mat-form-field>
 
                                     <div fxLayout="row" fxLayoutAlign="space-between center" >
@@ -90,7 +92,7 @@
                                         <mat-label>Couleur associée</mat-label>
                                         <div fxLayout="row">
                                             <fuse-material-color-picker formControlName="color"></fuse-material-color-picker>
-                                            <input matInput disabled >
+                                            <input matInput style="max-width:0px; max-height:0px;" >
                                         </div>
                                         <!-- <input matInput placeholder="Couleur associée"
                                                 name="color"
@@ -154,56 +156,66 @@
                                             <mat-chip-list #chipList>
                                                 <mat-chip *ngFor="let group of planDetail.users.listSelected" 
                                                     [selectable]="false"
-                                                    [removable]="false" >
-                                                        {{group.label}}
+                                                    [removable]="false">
+                                                    {{group.label}}
                                                 </mat-chip>
                                             </mat-chip-list>
                                         </div>
                                     </div>
 
-                                    <div *ngIf="(asPlanTable$ | async).loader['datas'].loaded">
-                                        <div *ngIf="(asPlanTable$ | async).datas.length>0">
-                                            Nombre de lignes de relevés non pris en compte dans ce budget:
-                                            <!-- <button mat-raised-button color="primary"
-                                                [matBadge]="(asPlanTable$ | async).datas.length" matBadgePosition="before" matBadgeColor="warning">
-                                                
-                                            </button> -->
-                                            
-                                            <button mat-raised-button color="warn"
-                                                (click)="openAccountStatements()"
-                                            >{{(asPlanTable$ | async).datas.length}}</button>
-                                             </div> 
-                                    </div>
-                                  <!-- <chip-autocomplete [placeHolder]="this.planDetailUserPlaceHolder" [datas]="this.planDetail.users" (getSelectedListChange)="updateSelectedUsers($event)"></chip-autocomplete> -->
-                                  
-                                  <!--  -->
-                                  <!-- <h3 class="mt-16 mb-8">Primary background:</h3>
-                                  <fuse-material-color-picker class="mb-16"
-                                  formControlName="color"></fuse-material-color-picker> -->
-
-                                
-
+                                    <!-- <div *ngIf="(asPlanTable$ | async).loader['datas'].loaded"> -->
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-35-p">
+                                        <mat-label>Relevés bancaires non pris en compte dans ce budget</mat-label>    
+                                        <input matInput style="max-width:0px; max-height:0px;">
+                                        <button width="100%"
+                                            mat-raised-button 
+                                            color="warn"
+                                            (click)="openAccountStatements()">
+                                            {{ planDetail.planNotAsCount }} lignes
+                                        </button>
+                                    </mat-form-field>
                                 </div>
       
                             </mat-tab>
-      
+                            
                             <mat-tab label="Recettes" [disabled]="pageType ==='new'">
+                                <div *ngIf="selectedIndex == 1" class="tab-content" fusePerfectScrollbar>
+                                    <plan-poste-table [idPlan]="this.planDetail.plan.id" [idPoste]="enumPoste.RECETTE"></plan-poste-table>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Dépenses fixes" [disabled]="pageType ==='new'">
+                                <div *ngIf="selectedIndex == 2" class="tab-content " fusePerfectScrollbar>
+                                    <plan-poste-table [idPlan]="this.planDetail.plan.id" [idPoste]="enumPoste.DEPENSE_FIXE"></plan-poste-table>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Dépenses variables" [disabled]="pageType ==='new'">
+                                <div *ngIf="selectedIndex == 3" class="tab-content " fusePerfectScrollbar>
+                                    <plan-poste-table [idPlan]="this.planDetail.plan.id" [idPoste]="enumPoste.DEPENSE_VARIABLE"></plan-poste-table>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Epargne" [disabled]="pageType ==='new'">
+                                <div *ngIf="selectedIndex == 4" class="tab-content " fusePerfectScrollbar>
+                                    <plan-poste-table [idPlan]="this.planDetail.plan.id" [idPoste]="enumPoste.EPARGNE"></plan-poste-table>
+                                </div>
+                            </mat-tab>
+
+                            <!-- <mat-tab label="Recettes" [disabled]="pageType ==='new'">
                               <div class="tab-content " fusePerfectScrollbar>
-                                  <plan-poste-list [plan]="this.planDetail.plan" [dataSource]="recetteTab"></plan-poste-list>
+                                  <plan-poste-table [plan]="this.planDetail.plan" [dataSource]="recetteTab"></plan-poste-table>
                               </div>
                             </mat-tab>
       
                             <mat-tab label="Dépenses fixes" [disabled]="pageType ==='new'">
                                 <div class="tab-content " fusePerfectScrollbar>
-                                    <plan-poste-list [plan]="this.planDetail.plan" [dataSource]="depenseFixeTab"></plan-poste-list>
+                                    <plan-poste-table [plan]="this.planDetail.plan" [dataSource]="depenseFixeTab"></plan-poste-table>
                                 </div>
                             </mat-tab>
       
                             <mat-tab label="Dépenses variables" [disabled]="pageType ==='new'">
                                 <div class="tab-content " fusePerfectScrollbar>
-                                    <plan-poste-list [plan]="this.planDetail.plan" [dataSource]="depenseVariable"></plan-poste-list>
+                                    <plan-poste-table [plan]="this.planDetail.plan" [dataSource]="depenseVariable"></plan-poste-table>
                                 </div>
-                            </mat-tab>
+                            </mat-tab> -->
 
                         </mat-tab-group>
                         

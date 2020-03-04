@@ -69,7 +69,6 @@ namespace Budget.API.Controllers
             var pagedList = _userService.GetUserTable(filter);
 
             return Ok(pagedList);
-
         }
 
         //[HttpGet]

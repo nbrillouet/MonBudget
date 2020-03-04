@@ -44,7 +44,39 @@ namespace Budget.DATA.Repositories
 
             return PagedListRepository<AccountStatement>.Create(accountStatements, filter.Pagination);
         }
-                
+
+        public PagedList<AccountStatement> GetPlanNotAsTable(FilterPlanNotAsTableGroupSelected filter)
+        {
+            var accountStatements = Context.AccountStatement
+                .Include(x => x.Operation)
+                .Include(x => x.OperationMethod)
+                .Include(x => x.OperationType)
+                .Include(x => x.OperationType.OperationTypeFamily)
+                .AsQueryable();
+
+            accountStatements = accountStatements.Where(x => x.DateIntegration.Value.Year == filter.FilterFixedPlanNotAsTableSelected.Year);
+            accountStatements = accountStatements.Where(x => x.OperationTypeFamily.Id != filter.FilterFixedPlanNotAsTableSelected.IdInternalTransfert);
+            accountStatements = accountStatements.Where(x => filter.FilterFixedPlanNotAsTableSelected.Accounts.Contains(x.IdAccount));
+            accountStatements = accountStatements.Where(x => !filter.FilterFixedPlanNotAsTableSelected.AsInPlan.Contains(x.Id));
+
+            accountStatements = GenericTableFilter.GetGenericFilters(accountStatements, filter);
+
+            return PagedListRepository<AccountStatement>.Create(accountStatements, filter.FilterPlanNotAsTableSelected.Pagination);
+        }
+
+        public int GetPlanNotAsCount(FilterFixedPlanNotAsTableSelected filterFixed)
+        {
+            var accountStatements = Context.AccountStatement
+                .AsQueryable();
+
+            accountStatements = accountStatements.Where(x => x.DateIntegration.Value.Year == filterFixed.Year);
+            accountStatements = accountStatements.Where(x => x.OperationTypeFamily.Id != filterFixed.IdInternalTransfert);
+            accountStatements = accountStatements.Where(x => filterFixed.Accounts.Contains(x.IdAccount));
+            accountStatements = accountStatements.Where(x => !filterFixed.AsInPlan.Contains(x.Id));
+
+            return accountStatements.ToList().Count();
+        }
+
         public AccountStatement GetAsDetail(int id)
         {
             var accountStatement = Context.AccountStatement
@@ -229,9 +261,11 @@ namespace Budget.DATA.Repositories
                .FirstOrDefault();
         }
 
-
-
-
         
+
+
+
+
+
     }
 }

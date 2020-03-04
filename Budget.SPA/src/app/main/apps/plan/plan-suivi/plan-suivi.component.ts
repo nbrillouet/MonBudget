@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { Select, Store } from '@ngxs/store';
-import { PlanForTrackingState } from 'app/main/_ngxs/plan-tracking/plan-tracking.state';
 import { Observable } from 'rxjs';
-import { ChangePlanForTrackingFilter } from 'app/main/_ngxs/plan-tracking/plan-tracking.action';
 import { PlanService } from '../plan.service';
 import { IMonthYear, MonthYear } from 'app/main/_models/generics/date-time.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -11,12 +9,14 @@ import { ISelect, SelectYear } from 'app/main/_models/generics/select.model';
 import { PlanForTracking } from 'app/main/_models/plan/plan-tracking.model';
 import { FilterPlanTracking } from 'app/main/_models/filters/plan-tracking.filter';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
-import { PlanPosteDetailComponent } from '../plan-detail/plan-poste-detail/plan-poste-detail.component';
-import { ClearPlanPosteDetailDatas } from 'app/main/_ngxs/plan-poste/plan-poste-detail/plan-poste-detail.action';
 import { PlanAmountFilter } from 'app/main/_models/filters/plan-amount.filter';
 import { ClearPlanAmountTableDatas } from 'app/main/_ngxs/plan/plan-amount-list/plan-amount-list.action';
 import { PlanAmountListComponent } from './plan-amount-list/plan-amount-list.component';
 import { DatasFilter } from 'app/main/_models/generics/detail-info.model';
+import { PlanPosteDetailComponent } from '../plan-detail/plan-poste/plan-poste-detail/plan-poste-detail.component';
+import { PlanForTrackingState } from 'app/main/_ngxs/plan/plan-tracking/plan-tracking.state';
+import { ClearPlanPosteDetailDatas } from 'app/main/_ngxs/plan/plan-detail/plan-poste/plan-poste-detail/plan-poste-detail.action';
+import { ChangePlanForTrackingFilter } from 'app/main/_ngxs/plan/plan-tracking/plan-tracking.action';
 
 
 @Component({

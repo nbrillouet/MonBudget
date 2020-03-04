@@ -13,6 +13,7 @@ namespace Budget.SERVICE
         private readonly IMapper _mapper;
         private readonly IAccountStatementImportService _accountStatementImportService;
         private readonly IAccountStatementImportFileService _accountStatementImportFileService;
+        private readonly IPlanService _planService;
         private readonly ReferentialService _referentialService;
 
 
@@ -20,7 +21,8 @@ namespace Budget.SERVICE
             IMapper mapper,
             IAccountStatementImportService accountStatementImportService,
             IAccountStatementImportFileService accountStatementImportFileService,
-            ReferentialService referentialService
+            ReferentialService referentialService,
+            IPlanService planService
 
             )
         {
@@ -28,6 +30,7 @@ namespace Budget.SERVICE
             _accountStatementImportService = accountStatementImportService;
             _accountStatementImportFileService = accountStatementImportFileService;
             _referentialService = referentialService;
+            _planService = planService;
 
         }
 
@@ -125,9 +128,7 @@ namespace Budget.SERVICE
         public FilterOtTableSelection GetFilterOtTable(FilterOtTableSelected filter)
         {
             FilterOtTableSelection filterOtTable = new FilterOtTableSelection();
-            //{
-            //    Selected = filter
-            //};
+
             var Otfs = _referentialService.OperationTypeFamilyService.GetSelectList(filter.User.IdUserGroup, EnumSelectType.Empty);
 
             filterOtTable.OperationTypeFamily = Otfs;
@@ -138,15 +139,34 @@ namespace Budget.SERVICE
         public FilterOperationTableSelection GetFilterOperationTable(FilterOperationTableSelected filter)
         {
             FilterOperationTableSelection filterOperationTable = new FilterOperationTableSelection();
-            //{
-            //    Selected = filter
-            //};
 
             filterOperationTable.OperationMethod = _referentialService.OperationMethodService.GetSelectList(EnumSelectType.Empty);
             filterOperationTable.OperationType = _referentialService.OperationTypeService.GetSelectGroup(filter.User.IdUserGroup);
 
             return filterOperationTable;
         }
+
+        public FilterPlanTableSelection GetFilterPlanTable(FilterPlanTableSelected filter)
+        {
+            FilterPlanTableSelection filterPlanTable = new FilterPlanTableSelection();
+            filterPlanTable.Year = _planService.GetDistinctYears();
+            return filterPlanTable;
+        }
+
+        public FilterPlanPosteTableSelection GetFilterPlanPosteTable(FilterPlanPosteTableSelected filter)
+        {
+            FilterPlanPosteTableSelection filterPlanPosteTable = new FilterPlanPosteTableSelection();
+
+            return filterPlanPosteTable;
+        }
+
+        public FilterPlanNotAsTableSelection GetFilterPlanNotAsTable(FilterPlanNotAsTableSelected filter)
+        {
+            FilterPlanNotAsTableSelection filterPlanNotAsTable = new FilterPlanNotAsTableSelection();
+
+            return filterPlanNotAsTable;
+        }
+        
 
     }
 

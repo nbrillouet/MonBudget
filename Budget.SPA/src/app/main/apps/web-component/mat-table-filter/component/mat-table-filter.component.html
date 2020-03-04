@@ -1,19 +1,20 @@
 
 <div class="content-card" fxLayout="column" fxLayoutAlign="space-between">
-  <!-- <div>
-    TEST
-  </div>
-  <div>
-    TOTO
-  </div>
-</div>
-
-
-<div> -->
-
-    <!-- <div class="content-wrapper"> -->
-
       <div class="inherit-height" fxLayout="column" fxLayoutAlign="start">
+          <div class="w-100-p pl-20" style="background-color:#F5F5F5; ">
+              <div class="mail-selection" fxFlex="row" fxLayoutAlign="start center">
+                  <!-- [routerLink]="['/apps/plans/new']" -->
+                  <button color="accent" (click)="addItem($event)" mat-icon-button matTooltip="Ajouter un plan" >
+                      <mat-icon>add</mat-icon>
+                  </button>
+                  <!-- (click)="delete()" -->
+                  <!-- *ngIf="hasCheckboxes" -->
+                  <button color="accent" (click)="deleteItem()" mat-icon-button  matTooltip="Supprimer le(s) plan(s) sélectionné(s)" >
+                      <mat-icon>delete</mat-icon>
+                  </button>
+              </div>
+          </div> 
+      
       <mat-table *ngIf="columns" 
         fusePerfectScrollbar
         [dataSource]="dataSource" 
@@ -24,7 +25,17 @@
         matSortDisableClear 
         (matSortChange)="onSortChangeEvent($event)"
         resizeObserver (resize)="onResize($event)">
-  
+      
+        <!-- <ng-container matColumnDef="checkbox_toolbar">
+            <mat-header-cell style="flex: 0 0 60px;" *matHeaderCellDef> </mat-header-cell>
+            <mat-cell style="flex: 0 0 60px;" *matCellDef="let element">  
+                <mat-checkbox 
+                    (change)="onSelectedChange($event,element.id)"
+                    (click)="$event.stopPropagation()">
+                </mat-checkbox>
+            </mat-cell>
+        </ng-container> -->
+
       <ng-container *ngFor="let column of columns; let i = index" [matColumnDef]="column.field">
         <mat-header-cell *matHeaderCellDef>
             <!-- SORTABLE / NOT SORTABLE-->

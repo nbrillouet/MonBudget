@@ -15,37 +15,14 @@ namespace Budget.DATA.Repositories
 
         }
 
-        public List<Plan> Get(FilterPlan filter)
+        public PagedList<Plan> GetPlanTable(FilterPlanTableSelected filter)
         {
             var plans = Context.Plan
                 .AsQueryable();
 
-            if (filter.YearSelected != null)
-            {
-                plans = plans.Where(x => x.Year == filter.YearSelected);
-            }
-
-            //string columnSorted;
-            //if (filter.Pagination.SortColumn.Contains("operationTypeFamily"))
-            //{
-            //    columnSorted = $"OperationType.{filter.Pagination.SortColumn}.Label";
-            //}
-            //else
-            //columnSorted = filter.Pagination.SortColumn;
-
-            //if (filter.Pagination.SortDirection == "asc")
-            //{
-            //    //filter.Pagination.SortColumn
-            //    plans = plans.OrderBy(columnSorted);
-            //}
-            //else
-            //{
-            //    //filter.Pagination.SortColumn
-            //    plans = plans.OrderByDescending(columnSorted);
-            //}
-            //var results = PagedListRepository<Plan>.Create(plans, filter.Pagination);
-            var results = plans.ToList();
-            return results;
+            plans = GenericTableFilter.GetGenericFilters(plans, filter);
+            
+            return PagedListRepository<Plan>.Create(plans, filter.Pagination);
         }
 
         public List<Int32> GetDistinctYears()

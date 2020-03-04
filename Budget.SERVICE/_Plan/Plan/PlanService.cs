@@ -45,33 +45,44 @@ namespace Budget.SERVICE
 
         //}
 
-        public List<Plan> GetPlanTable(FilterPlan filter)
+        public PagedList<Plan> GetPlanTable(FilterPlanTableSelected filter)
         {
-            var datas = _planRepository.Get(filter);
-            return datas;
+            var pagedList = _planRepository.GetPlanTable(filter);
+            //var result = new PagedList<UserForTableDto>(_mapper.Map<List<UserForTableDto>>(pagedList.Datas), pagedList.Pagination);
+            return pagedList;
+
+            //var datas = _planRepository.Get(filter);
+            //return datas;
         }
 
-        public PlanForTableComboFilter GetPlanTableComboFilter()
+        public List<int> GetDistinctYears()
         {
-            //PlanForTableComboFilter PlanForTableComboFilter = new PlanForTableComboFilter();
-            var years = _planRepository.GetDistinctYears();
-            List<SelectDto> comboYears = new List<SelectDto>();
-            SelectDto selected = new SelectDto();
-            foreach (var year in years)
-            {
-                selected = new SelectDto { Id = year, Label = year.ToString() };
-                comboYears.Add(selected);
-            }
+            var results = _planRepository.GetDistinctYears();
 
-            return new PlanForTableComboFilter
-            {
-                Years = new ComboSimple<SelectDto>
-                {
-                    List = comboYears,
-                    Selected = selected
-                }
-            };
+            return results; // _mapper.Map<List<SelectDto>>(results);
         }
+
+        //public PlanForTableComboFilter GetPlanTableComboFilter()
+        //{
+        //    //PlanForTableComboFilter PlanForTableComboFilter = new PlanForTableComboFilter();
+        //    var years = _planRepository.GetDistinctYears();
+        //    List<SelectDto> comboYears = new List<SelectDto>();
+        //    SelectDto selected = new SelectDto();
+        //    foreach (var year in years)
+        //    {
+        //        selected = new SelectDto { Id = year, Label = year.ToString() };
+        //        comboYears.Add(selected);
+        //    }
+
+        //    return new PlanForTableComboFilter
+        //    {
+        //        Years = new ComboSimple<SelectDto>
+        //        {
+        //            List = comboYears,
+        //            Selected = selected
+        //        }
+        //    };
+        //}
 
 
         public Plan GetById(int idPlan)

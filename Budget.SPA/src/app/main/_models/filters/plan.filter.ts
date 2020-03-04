@@ -1,13 +1,15 @@
 import { ComboSimple } from "../generics/combo.model";
 import { ISelect } from "../generics/select.model";
+import { IUserForGroup } from "../user.model";
+import { Pagination } from "../pagination.model";
 
-export class PlanFilter {
-    yearSelected: number;
+// export class PlanFilter {
+//     yearSelected: number;
 
-    constructor (year: number) {
-        this.yearSelected = year; //new Date().getFullYear(); //  2019;
-    }
-}
+//     constructor (year: number) {
+//         this.yearSelected = year; 
+//     }
+// }
 
 export class PlanDetailFilter {
     id: number;
@@ -17,7 +19,13 @@ export class PlanDetailFilter {
     }
 }
 
-export class PlanTableComboFilter {
-    years: ComboSimple<ISelect>;
+export class FilterPlanTableSelected {
+    user: IUserForGroup= null;
+    year: number;
+    pagination: Pagination = new Pagination();
+}
+
+export class FilterPlanTableSelection {
+    year: number[];
 }
 

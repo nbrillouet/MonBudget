@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewEncapsulation, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
-import { FormBuilder, FormGroup, FormControl, ɵangular_packages_forms_forms_k } from '@angular/forms';
-import { PlanPoste } from 'app/main/_models/plan.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { PlanService } from '../plan.service';
 import { NotificationsService } from 'angular2-notifications';
@@ -9,15 +8,13 @@ import { Select, Store } from '@ngxs/store';
 import { PlanDetailFilter } from 'app/main/_models/Filters/plan.filter';
 import { PlanDetailState } from 'app/main/_ngxs/plan/plan-detail/plan-detail.state';
 import { PlanDetail, Plan } from 'app/main/_models/plan/plan.model';
-import { ClearPlanTableDatas } from 'app/main/_ngxs/plan/plan-list/plan-list.action';
 import { MatColors } from '@fuse/mat-colors';
-import { AsPlanTableState } from 'app/main/_ngxs/account-statement-plan/as-plan.state';
-import { AsTable } from 'app/main/_models/account-statement/account-statement-table.model';
-import { FilterAsPlan } from 'app/main/_models/filters/account-statement-plan.filter';
-import { LoadAsPlanForTable, ClearAsPlanForTable } from 'app/main/_ngxs/account-statement-plan/as-plan.action';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
-import { AsPlanListComponent } from './as-plan-list/as-plan-list.component';
 import { DatasFilter, Datas } from 'app/main/_models/generics/detail-info.model';
+import { ClearPlanTable } from 'app/main/_ngxs/plan/plan-table/plan-table.action';
+import { EnumPoste } from 'app/main/_models/plan/poste/poste.enum';
+import { PlanNotAsTableComponent } from './plan-not-as-table/plan-not-as-table.component';
+import { FilterPlanNotAsTableSelected, FilterFixedPlanNotAsTableSelected } from 'app/main/_models/filters/plan-not-as.filter';
 
 @Component({
   selector: 'plan-detail',
@@ -29,8 +26,7 @@ import { DatasFilter, Datas } from 'app/main/_models/generics/detail-info.model'
 export class PlanDetailComponent implements OnInit {
   
 @Select(PlanDetailState.get) detailInfo$: Observable<DatasFilter<PlanDetail,PlanDetailFilter>>;
-@Select(AsPlanTableState.get) asPlanTable$: Observable<Datas<AsTable[]>>;
-
+// @Select(AsPlanTableState.get) asPlanTable$: Observable<Datas<AsTable[]>>;
 
 detailInfo: DatasFilter<PlanDetail,PlanDetailFilter>;
 planDetail: PlanDetail;
@@ -40,11 +36,13 @@ pageType: string;
 planForm: FormGroup;
 formLoaded:boolean=false;
 
-recetteTab: PlanPoste;
-depenseFixeTab: PlanPoste;
-depenseVariable: PlanPoste;
+// recetteTab: PlanPoste;
+// depenseFixeTab: PlanPoste;
+// depenseVariable: PlanPoste;
 
-asPlanTable: Datas<AsTable[]>;
+// asPlanTable: Datas<AsTable[]>;
+enumPoste: typeof EnumPoste = EnumPoste;
+selectedIndex: number = 0;
 
     constructor(
         private _planService: PlanService,
@@ -56,16 +54,13 @@ asPlanTable: Datas<AsTable[]>;
     {
       
       this.detailInfo$.subscribe(x=> {
-        if(x.loader['datas'].loaded==true)
-        {
-
-          this._store.dispatch(new ClearPlanTableDatas());
+        if(x?.loader['datas']?.loaded==true) {
+          this._store.dispatch(new ClearPlanTable());
           this.planDetail = x.datas; 
-          
-          
-          this.recetteTab = this.planDetail.planPostes.filter(x=>x.poste.id==1)[0];
-          this.depenseFixeTab = this.planDetail.planPostes.filter(x=>x.poste.id==2)[0];
-          this.depenseVariable = this.planDetail.planPostes.filter(x=>x.poste.id==3)[0];
+          console.log('x',this.planDetail);
+          // this.recetteTab = this.planDetail.planPostes.filter(x=>x.poste.id==1)[0];
+          // this.depenseFixeTab = this.planDetail.planPostes.filter(x=>x.poste.id==2)[0];
+          // this.depenseVariable = this.planDetail.planPostes.filter(x=>x.poste.id==3)[0];
 
           this.pageType=this.planDetail.plan.id==0 ? 'new' : 'edit';
           if(this.firstLoad) {
@@ -80,11 +75,11 @@ asPlanTable: Datas<AsTable[]>;
             this.firstLoad=false;
           }
           
-          //chargement asPlan
-          let filterAsPlan =<FilterAsPlan> {
-            idPlan : this.planDetail.plan.id
-          }
-          this._store.dispatch(new LoadAsPlanForTable(filterAsPlan));
+          // //chargement asPlan
+          // let filterAsPlan =<FilterAsPlan> {
+          //   idPlan : this.planDetail.plan.id
+          // }
+          // this._store.dispatch(new LoadAsPlanForTable(filterAsPlan));
 
           this.formLoaded=true;
         }
@@ -101,9 +96,9 @@ asPlanTable: Datas<AsTable[]>;
      */
     ngOnInit(): void
     {
-      this.asPlanTable$.subscribe(asPlan => {
-        this.asPlanTable=asPlan;
-      });
+      // this.asPlanTable$.subscribe(asPlan => {
+      //   this.asPlanTable=asPlan;
+      // });
     }
 
     createPlanForm() {
@@ -185,17 +180,16 @@ asPlanTable: Datas<AsTable[]>;
     // }
 
     openAccountStatements() {
+      let filter = new FilterFixedPlanNotAsTableSelected();
+      filter.idPlan = this.planDetail.plan.id;
 
       const dialogConfig = new MatDialogConfig();
-   
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
       dialogConfig.width='90%';
       dialogConfig.height='90%';
-      
-      // let idData = data==0 ? 0 : data.id;
-  
-      dialogConfig.data = this.asPlanTable.datas;
+      dialogConfig.data = filter;
+      //  this.asPlanTable.datas;
       //  {
       //     this.asPlanTable
       //     // id: idData,
@@ -203,11 +197,16 @@ asPlanTable: Datas<AsTable[]>;
       //     // idPoste: this.dataSource.poste.id
       // };
   
-      const dialogRef = this._dialog.open(AsPlanListComponent, dialogConfig);
+      const dialogRef = this._dialog.open(PlanNotAsTableComponent, dialogConfig);
   
       // dialogRef.afterClosed().subscribe(data => {
       //   this._store.dispatch(new ClearAsPlanForTable());
       // });    
+    }
+
+    onTabClick($event){
+      this.selectedIndex=$event.index;
+      // localStorage.setItem('account-statement-main-tab', this.selectedIndex.toString());
     }
 
     compareObjects(o1: any, o2: any) {

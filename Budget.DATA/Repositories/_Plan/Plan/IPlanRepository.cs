@@ -9,8 +9,9 @@ namespace Budget.DATA.Repositories
 {
     public interface IPlanRepository : IBaseRepository<Plan>
     {
-        List<Plan> Get(FilterPlan filter);
-        List<Int32> GetDistinctYears();
+        PagedList<Plan> GetPlanTable(FilterPlanTableSelected filter);
+        //List<Plan> Get(FilterPlan filter);
+        List<int> GetDistinctYears();
         new int Create(Plan plan);
     }
 }

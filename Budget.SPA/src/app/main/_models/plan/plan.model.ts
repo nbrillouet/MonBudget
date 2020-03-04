@@ -18,5 +18,6 @@ export class PlanDetail {
     plan: Plan;
     users: ComboMultiple<ISelect>;
     accounts: ComboMultiple<ISelectGroup>;
-    planPostes: PlanPoste[];
+    planNotAsCount: number;
+    // planPostes: PlanPoste[];
 }

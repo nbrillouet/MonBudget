@@ -1,18 +1,13 @@
 <div id="products" class="page-layout carded fullwidth inner-scroll">
 
   <!-- TOP BACKGROUND -->
-  <div class="top-bg accent header-1-background"></div>
+  <div class="top-bg accent header calc-background-left"></div>
   <!-- / TOP BACKGROUND -->
-
     <!-- CENTER -->
       <div class="center">
-        <!-- <div style="height:15px;text-align:center;cursor:pointer;" class="test accent" (click)="onHeaderPanelClick()">
-            <mat-icon style="font-size:20px;margin-top:-2px;">{{headerPanelIcon}}</mat-icon>
-        </div> -->
-
         <!-- HEADER -->
         <div *ngIf="!fullscreen" 
-          class="header calc-background accent p-12 pb-0 pt-6"
+          class="header calc-background-right accent p-12 pb-0 pt-6"
           fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
             
             <div class="toolbar w-100-p" fxFlex fxLayout="row" fxLayoutAlign="space-between start">
@@ -26,21 +21,18 @@
 
               <button mat-raised-button
                   class="save-product-button white mt-16 mt-sm-0"
-                  (click)="Add()"
-              >
+                  (click)="Add()">
                   <span>NOUVEAU</span>
               </button>
 
             </div>
-
         </div>
-          
-          <!-- / HEADER -->
-          <div class="content-card" mat-white-bg>
-            <div class="container-tab">
-              <operations-main-tab [subject]="subject" ></operations-main-tab>
-            </div>
+        <!-- / HEADER -->
+        
+        <div class="content-card" mat-white-bg>
+          <div class="container-tab">
+            <operations-main-tab [subject]="subject"></operations-main-tab>
           </div>
+        </div>
       </div>
-      <!-- / CENTER -->
   </div>

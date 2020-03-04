@@ -1,4 +1,6 @@
-﻿using Budget.MODEL.Database;
+﻿using Budget.MODEL;
+using Budget.MODEL.Database;
+using Budget.MODEL.Filter;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,16 @@ namespace Budget.DATA.Repositories
         public PlanPosteRepository(BudgetContext context) : base(context)
         {
 
+        }
+
+        public PagedList<PlanPoste> GetPlanPosteTable(FilterPlanPosteTableSelected filter)
+        {
+            var results = Context.PlanPoste
+                .AsQueryable();
+
+            results = GenericTableFilter.GetGenericFilters(results, filter);
+                        
+            return PagedListRepository<PlanPoste>.Create(results, filter.Pagination);
         }
 
         public new PlanPoste GetById(int id)

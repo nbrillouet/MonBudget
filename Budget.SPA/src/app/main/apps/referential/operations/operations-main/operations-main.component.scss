@@ -1,10 +1,16 @@
 @import 'src/@fuse/scss/fuse';
 
-.header-1-background {
-    background-color: #9B9B9B;
-    background: url('/assets/images/backgrounds/bck_1.png') no-repeat;
+// .header-1-background {
+//     background-color: #9B9B9B;
+//     background: url('/assets/images/backgrounds/bck_1.png') no-repeat;
+// }
+
+.header.calc-background-left {
+  background-color: #9B9B9B;
+  background: url('/assets/images/backgrounds/bck_1.png') no-repeat;
 }
-.header.calc-background {
+
+.header.calc-background-right {
     background-color: #9B9B9B;
     background: url('/assets/images/backgrounds/tt1.png') no-repeat;
 }
@@ -18,7 +24,6 @@
 
   operations-main-tab{
       min-height:100%;
-    //   background-color: blue;
   }
 // #products {
 

@@ -1,19 +1,19 @@
 import { IUserForLabel } from "./user.model";
 import { ComboSimple, ComboMultiple } from "./generics/combo.model";
-import { ISelect, ISelectGroup, SelectYear } from "./generics/select.model";
+import { ISelect, ISelectGroup } from "./generics/select.model";
 
 export class PlanPostes {
     recettes: PlanPoste;
-    depenseFixes: PlanPoste;//PlanPosteForList[];
-    depenseVariables: PlanPoste; //PlanPosteForList[];
+    depenseFixes: PlanPoste;
+    depenseVariables: PlanPoste;
 }
 
 export class PlanPoste {
     poste: ISelect;
-    list: PlanPosteForList[];
+    list: PlanPosteTable[];
 }
 
-export class PlanPosteForList {
+export class PlanPosteTable {
     id: number;
     idPlan:number;
     idPoste: number;
@@ -44,9 +44,6 @@ export class PlanPosteForDetailSave {
     planPosteReference: ISelect[];
     planPosteFrequencies: PlanPosteFrequencyForDetail[];
 }
-
-
-
 
 export class PlanPosteUserForDetail {
     id: number;

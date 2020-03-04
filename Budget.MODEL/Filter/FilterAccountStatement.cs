@@ -44,13 +44,6 @@ namespace Budget.MODEL.Filter
         public UserForGroupDto User { get; set; }
     }
 
-    public class FilterAsNotInPlan
-    {
-        public int Year { get; set; }
-        public int IdInternalTransfert { get; set; }
-        public List<int> AsInPlan { get; set; }
-        public List<int> Accounts { get; set; }
 
-    }
     
 }

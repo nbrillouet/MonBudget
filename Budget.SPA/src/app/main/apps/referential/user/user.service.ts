@@ -27,8 +27,8 @@ export class UserService {
     
     getUserTable (filter: FilterUserTableSelected) {
         return this.http
-        .post(`${this.baseUrl}users/filter`,filter)
-        .map((response: any) => response);
+            .post(`${this.baseUrl}users/filter`,filter)
+            .map((response: any) => response);
     }
 
     getUserTableFilter(filter: FilterUserTableSelected) {

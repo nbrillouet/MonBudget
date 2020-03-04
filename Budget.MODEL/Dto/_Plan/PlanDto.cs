@@ -17,12 +17,13 @@ namespace Budget.MODEL.Dto
         public Plan Plan { get; set; }
         public ComboMultiple<SelectGroupDto> Accounts { get; set; }
         public ComboMultiple<SelectDto> Users { get; set; }
-        public List<PlanPosteDto> PlanPostes { get; set; }
+        public int PlanNotAsCount { get; set; }
+        //public List<PlanPosteDto> PlanPostes { get; set; }
 
         public PlanForDetailDto()
         {
             Users = new ComboMultiple<SelectDto>();
-            PlanPostes = new List<PlanPosteDto>();
+            //PlanPostes = new List<PlanPosteDto>();
             //Postes = new PostesDto();
         }
     }

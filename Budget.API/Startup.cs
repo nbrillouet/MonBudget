@@ -180,7 +180,6 @@ namespace Budget.API
 
             services.AddScoped<IVPlanGlobalService, VPlanGlobalService>();
             services.AddScoped<IVPlanGlobalRepository, VPlanGlobalRepository>();
-            
 
             services.AddScoped<IPlanDetailService,PlanDetailService>();
             services.AddScoped<IPlanPosteDetailService, PlanPosteDetailService>();
@@ -236,6 +235,7 @@ namespace Budget.API
             services.AddScoped<IMailService, MailService>();
 
             services.AddScoped<IFilterService, FilterService>();
+            services.AddScoped<IPlanNotAsService, PlanNotAsService>();
             
             services.AddTransient<ReferentialService>();
 

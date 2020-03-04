@@ -351,5 +351,15 @@ export class MatTableFilterComponent implements OnInit {
   onMouseDown(event: MouseEvent) {
     this.mouseEvent = event
   }
+
+  //========================================================================
+  //============================  TOOLBAR    ===============================
+  //========================================================================
+  addItem($event) {
+
+  }
   
+  deleteItem() {
+    
+  }
 }

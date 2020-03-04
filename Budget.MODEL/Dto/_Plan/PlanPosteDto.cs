@@ -9,16 +9,16 @@ namespace Budget.MODEL.Dto
     public class PlanPosteDto
     {
         public SelectDto Poste { get; set; }
-        public List<PlanPosteForListDto> List { get; set; }
+        public List<PlanPosteForTableDto> List { get; set; }
 
         public PlanPosteDto()
         {
-            List = new List<PlanPosteForListDto>();
+            List = new List<PlanPosteForTableDto>();
         }
     }
        
 
-    public class PlanPosteForListDto
+    public class PlanPosteForTableDto
     {
         public int Id { get; set; }
         public int IdPlan { get; set; }
@@ -36,9 +36,7 @@ namespace Budget.MODEL.Dto
         public ComboSimple<SelectDto> ReferenceTable { get; set; }
         public List<PlanPosteUserForDetailDto> PlanPosteUser {get;set;}
         public ComboMultiple<SelectGroupDto> PlanPosteReference { get; set; }
-        //public ComboMultiple<SelectGroupDto> Accounts { get; set; }
         public List<PlanPosteFrequencyForDetailDto> PlanPosteFrequencies { get; set; }
-        //public List<SelectDto> Frequencies { get; set; }
 
         public PlanPosteForDetailDto()
         {
@@ -62,22 +60,5 @@ namespace Budget.MODEL.Dto
         public double PreviewAmount { get; set; }
     }
 
-    //public class FrequencyDto
-    //{
-    //    public int Id { get; set; }
-    //    public int MonthNumber { get; set; }
-    //    public string monthLabel { get; set; }
-    //    public string monthLabelShort {
-    //        get {
-    //            if (monthLabel == null)
-    //                return null;
-    //            if (monthLabel.Length >= 4)
-    //                return monthLabel.Substring(0, 4);
-    //            else
-    //                return monthLabel;
-                 
-    //            }
-            
-    //    }
-    //}
+    
 }

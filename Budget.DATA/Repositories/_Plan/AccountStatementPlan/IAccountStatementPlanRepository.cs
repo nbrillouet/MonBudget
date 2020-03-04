@@ -10,7 +10,7 @@ namespace Budget.DATA.Repositories
     {
         List<AccountStatementPlan> GetByIdPlan(int IdPlan);
         List<AccountStatementPlan> GetPlansByIdAccountStatement(int IdAccountStatement, int year);
-        List<AccountStatement> GetAsNotInPlan(FilterAsNotInPlan filter);
+        //List<AccountStatement> GetAsNotInPlan(FilterAsNotInPlan filter);
 
     }
 

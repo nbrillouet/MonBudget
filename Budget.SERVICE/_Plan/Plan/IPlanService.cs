@@ -10,14 +10,10 @@ namespace Budget.SERVICE
 {
     public interface IPlanService
     {
-        List<Plan> GetPlanTable(FilterPlan filter);
-        PlanForTableComboFilter GetPlanTableComboFilter();
-        //List<Plan> Get(FilterPlan filter);
-
-
+        PagedList<Plan> GetPlanTable(FilterPlanTableSelected filter);
+        //PlanForTableComboFilter GetPlanTableComboFilter();
         Plan GetById(int idPlan);
-
-        
+        List<int> GetDistinctYears();
 
         void Create(Plan plan);
         void Update(Plan plan);

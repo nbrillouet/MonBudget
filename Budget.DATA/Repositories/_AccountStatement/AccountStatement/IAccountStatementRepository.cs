@@ -12,11 +12,10 @@ namespace Budget.DATA.Repositories
     public interface IAccountStatementRepository : IBaseRepository<AccountStatement>
     {
         PagedList<AccountStatement> GetAsTable(FilterAsTableSelected filter);
-        
+        PagedList<AccountStatement> GetPlanNotAsTable(FilterPlanNotAsTableGroupSelected filter);
+        int GetPlanNotAsCount(FilterFixedPlanNotAsTableSelected filterFixed);
         AccountStatement GetAsDetail(int id);
-
         List<AccountStatement> GetByDatePlanPosteReferenceList(List<PlanPosteReference> planPosteReferences, DateTime dateMin, DateTime dateMax);
-
         Boolean Save(List<AccountStatement> accountStatements);
         AccountStatement Save(AccountStatement accountStatement);
         SoldeDto GetSolde(int? idUser, int? idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer);

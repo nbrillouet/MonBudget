@@ -14,5 +14,4 @@ export class AsTable {
     dateIntegration: Date;
     idDuplicated: boolean;
     plans: ISelectColor[];
-
 }

@@ -14,7 +14,7 @@ namespace Budget.SERVICE
         PagedList<UserForTableDto> GetUserTable(FilterUserTableSelected filter);
         Task<User> GetByIdAsync(int id);
         UserForDetailDto GetForDetailById(int id);
-        //Task<List<User>> GetAllAsync();
+
         List<User> GetAll();
         List<User> GetByIdUserGroup(int idUserGroup);
         void Update(UserForDetailDto entity);

@@ -17,6 +17,7 @@ namespace Budget.SERVICE
         private readonly IPlanPosteUserService _planPosteUserService;
         private readonly IPosteService _posteService;
         private readonly IPlanAccountService _planAccountService;
+        private readonly IPlanNotAsService _planNotAsService;
 
 
         public PlanDetailService(
@@ -27,7 +28,8 @@ namespace Budget.SERVICE
             IPlanPosteService planPosteService,
             IPosteService posteService,
             IPlanPosteUserService planPosteUserService,
-            IPlanAccountService planAccountService
+            IPlanAccountService planAccountService,
+            IPlanNotAsService planNotAsService
 
             )
         {
@@ -39,6 +41,7 @@ namespace Budget.SERVICE
             _posteService = posteService;
             _planPosteUserService = planPosteUserService;
             _planAccountService = planAccountService;
+            _planNotAsService = planNotAsService;
         }
 
         public PlanForDetailDto GetForDetail(int idPlan, int idUserGroup)
@@ -51,6 +54,8 @@ namespace Budget.SERVICE
             planForDetailDto.Accounts = _planAccountService.GetAccountComboMultiple(idPlan, idUserGroup);
             //recherche des users (list + selected)
             planForDetailDto.Users = _planUserService.GetUserComboMultiple(idPlan, idUserGroup);
+            //recherche du nombre d'account statement non relié au plan
+            planForDetailDto.PlanNotAsCount = _planNotAsService.GetPlanNotAsCount(idPlan, idUserGroup);
 
             //nouveau Plan
             if (idPlan == 0)
@@ -69,28 +74,19 @@ namespace Budget.SERVICE
                 //return planForDetailDto;
             }
             else
-            { 
-                //var plan = _planService.GetById(idPlan);
-
-                //var planUsers = _planUserService.GetByIdPlan(idPlan);
-                //var usersSelected = _mapper.Map<List<SelectDto>>(planUsers);
-
+            {
                 planForDetailDto.Plan = _planService.GetById(idPlan);// _mapper.Map<PlanForDetailDto>(plan);
-                //planForDetailDto.Users = 
 
-                //planForDetail.Users.List = userList;
-                //planForDetail.Users.ListSelected = usersSelected;
-
-                var postes = _posteService.GetAllSelect();
-                foreach (var poste in postes)
-                {
-                    PlanPosteDto planPosteDto = new PlanPosteDto
-                    {
-                        Poste = poste,
-                        List = _mapper.Map<List<PlanPosteForListDto>>(_planPosteService.Get(idPlan, poste.Id))
-                    };
-                    planForDetailDto.PlanPostes.Add(planPosteDto);
-                };
+                //var postes = _posteService.GetAllSelect();
+                //foreach (var poste in postes)
+                //{
+                //    PlanPosteDto planPosteDto = new PlanPosteDto
+                //    {
+                //        Poste = poste,
+                //        List = _mapper.Map<List<PlanPosteForTableDto>>(_planPosteService.Get(idPlan, poste.Id))
+                //    };
+                //    planForDetailDto.PlanPostes.Add(planPosteDto);
+                //};
             }
             return planForDetailDto;
         }

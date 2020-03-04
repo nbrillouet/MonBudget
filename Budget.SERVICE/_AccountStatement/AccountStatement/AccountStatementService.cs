@@ -19,6 +19,7 @@ namespace Budget.SERVICE
     {
         private readonly IMapper _mapper;
         private readonly IGMapAddressService _gMapAddressService;
+        //private readonly IPlanNotAsService _planNotAsService;
         private readonly IAccountStatementPlanService _accountStatementPlanService;
         private readonly IAccountStatementRepository _accountStatementRepository;
         private readonly IOperationTransverseAsService _operationTransverseAsService;
@@ -30,6 +31,7 @@ namespace Budget.SERVICE
             IMapper mapper,
             IGMapAddressService gMapAddressService,
             IAccountStatementRepository accountStatementRepository,
+            //IPlanNotAsService planNotAsService,
             IAccountStatementPlanService accountStatementPlanService,
             IOperationTransverseAsService operationTransverseAsService,
             IOperationDetailService operationDetailService,
@@ -40,6 +42,7 @@ namespace Budget.SERVICE
             _gMapAddressService = gMapAddressService;
             _accountStatementRepository = accountStatementRepository;
             _accountStatementPlanService = accountStatementPlanService;
+            //_planNotAsService = planNotAsService;
             _operationTransverseAsService = operationTransverseAsService;
             _operationDetailService = operationDetailService;
             _referentialService = referentialService;
@@ -60,11 +63,18 @@ namespace Budget.SERVICE
 
         }
 
-        //public List<AsForTableDto> GetAsNotInPlan(FilterAsNotInPlan filter)
-        //{
-        //    var results = _accountStatementRepository.GetAsNotInPlan(filter);
-        //    return _mapper.Map<List<AsForTableDto>>(results);
-        //}
+        public PagedList<AsForTableDto> GetPlanNotAsTable(FilterPlanNotAsTableGroupSelected filter)
+        {
+            var pagedList = _accountStatementRepository.GetPlanNotAsTable(filter);
+            var result = new PagedList<AsForTableDto>(_mapper.Map<List<AsForTableDto>>(pagedList.Datas), pagedList.Pagination);
+            return result;
+        }
+
+        public int GetPlanNotAsCount(FilterFixedPlanNotAsTableSelected filterFixed)
+        {
+            return _accountStatementRepository.GetPlanNotAsCount(filterFixed);
+        }
+
 
         public AsDetailDto GetAsDetail(FilterAsDetail filter)
         {

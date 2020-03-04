@@ -44,9 +44,6 @@ import { UserService } from './main/apps/referential/user/user.service';
 import { NavigationState } from './main/_ngxs/navigation/navigation.state';
 import { UserDetailState } from './main/_ngxs/user/user-detail/user-detail.state';
 
-
-
-
 const appRoutes: Routes = [
     { path: '', redirectTo: 'pages/home', pathMatch:'full' },
     { path : 'pages', loadChildren: () => import('./main/pages/pages.module').then(m => m.FusePagesModule) },
@@ -89,8 +86,6 @@ const appRoutes: Routes = [
         // SampleModule,
         // LoginModule,
         // RegisterModule,
- 
-
         // ReferentialServiceModule,
 
         NgxsModule.forRoot([
@@ -98,8 +93,6 @@ const appRoutes: Routes = [
             NavigationState
         ]),
         NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production ? true : false })
-
-        
     ],
     providers   : [
         AuthGuard,
