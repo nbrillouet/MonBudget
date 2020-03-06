@@ -16,6 +16,7 @@ namespace Budget.SERVICE
         List<int> GetDistinctYears();
 
         void Create(Plan plan);
+        void DeletePlans(List<int> idPlanList);
         void Update(Plan plan);
     }
 }

@@ -13,7 +13,7 @@ import { OperationsMainComponent } from "./operations-main/operations-main.compo
 import { OperationsMainTabComponent } from "./operations-main-tab/operations-main-tab.component";
 import { OperationService } from "app/main/_services/Referential/operation.service";
 import { OperationDetailComponent } from "./operation/operation-detail/operation-detail.component";
-import { MiniFilterModule } from "../../web-component/mini-filter/mini-filter.module";
+// import { MiniFilterModule } from "../../web-component/mini-filter/mini-filter.module";
 import { AngularMaterialModule } from "app/angular-material.module";
 import { OtfTableFilterSelectedState } from "app/main/_ngxs/referential/operation-type-family/otf-table/otf-table-filter-selected/otf-table-filter-selected.state";
 import { OtfTableFilterSelectionState } from "app/main/_ngxs/referential/operation-type-family/otf-table/otf-table-filter-selection/otf-table-filter-selection.state";
@@ -33,12 +33,6 @@ import { OperationTableState } from "app/main/_ngxs/referential/operation/operat
 import { OperationDetailState } from "app/main/_ngxs/referential/operation/operation-detail/operation-detail.state";
 
 const routes = [
-  // {
-  //   path     : '',
-  //   redirectTo: 'operation-type-families',
-  //   // component: OperationMainComponent,
-  //   canActivate: [AuthGuard]
-  // },
   {
     path     : 'operation-type-families',
     component: OperationsMainComponent,
@@ -81,7 +75,6 @@ const routes = [
       FuseSharedModule,
       AngularMaterialModule,
       FuseConfirmDialogModule,
-      MiniFilterModule,
       RouterModule.forChild(routes),
       MatTableFilterModule,
       NgxsModule.forFeature([

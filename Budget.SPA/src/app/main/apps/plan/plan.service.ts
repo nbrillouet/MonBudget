@@ -56,6 +56,12 @@ userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:th
             // .catch(this.errorService.handleError);
     }
 
+    deletePlans(idList: number[]) {
+        return this.http
+            .post(`${this.baseUrl}plans/delete-plans`,idList)
+            .map(res=><string>res);
+    }
+
     // savePlanPosteDetail(planPosteForDetail: PlanPosteForDetail) {
     //     return this.http
     //         .post(`${this.baseUrl}plan-poste-details/save`,planPosteForDetail)

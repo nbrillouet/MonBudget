@@ -190,5 +190,13 @@ namespace Budget.SERVICE
 
             return true;
         }
+
+        public void DeleteOperations(List<int> idOperationList)
+        {
+            foreach(var idOperation in idOperationList)
+            {
+                DeleteDetail(idOperation);
+            }
+        }
     }
 }

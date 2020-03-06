@@ -37,7 +37,7 @@
           fxLayout="row" 
           fxFlex="50"
           class="widget widget5"
-          *ngFor="let poste of planTracking.dataInfos.datas.postes"
+          *ngFor="let poste of planTracking.datas.postes"
         >
             <div class="fuse-widget-front">
               
@@ -123,7 +123,16 @@
                     [chartType]="grap.chartType">
               </canvas> -->
 
+              <!-- <mat-accordion> -->
+                  <!-- <mat-expansion-panel *ngFor="let planPoste of poste.planPostes">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Détail
+                      </mat-panel-title>
 
+                    </mat-expansion-panel-header>
+                   
+                  </mat-expansion-panel> -->
 
               <div *ngFor="let planPoste of poste.planPostes">
                 
@@ -166,7 +175,7 @@
                           mat-stroked-button
                           color="accent"
                           style="width: 85% !important; font-size: 11px; font-weight: bold;"
-                          (click)="GetAmountReal(planTracking.filter.monthYear,planPoste.idPlanPoste,poste.poste.id,planTracking.dataInfos.datas.plan.id)"
+                          (click)="GetAmountReal(planTracking.filter.monthYear,planPoste.idPlanPoste,poste.poste.id,planTracking.datas.plan.id)"
                         >
                           {{ planPoste.amountReal }} €
                         </button>
@@ -179,7 +188,7 @@
                         matBadge="a" matBadgeSize="small" matBadgePosition="before" matBadgeColor="warn"
                         [matBadgeHidden]="!planPoste.isAnnualPreview"
                         style="width: 85% !important; font-size: 11px; font-weight: bold;"
-                        (click)="GetAmountPreviewForPlanPosteList(planPoste.idPlanPoste,poste.poste.id,planTracking.dataInfos.datas.plan.id)"
+                        (click)="GetAmountPreviewForPlanPosteList(planPoste.idPlanPoste,poste.poste.id,planTracking.datas.plan.id)"
                       >
                         {{ planPoste.amountPreview }} €
                       </button>
@@ -201,7 +210,7 @@
 
                 <div 
                   style="font-size: 9px;"
-                  *ngFor="let planPosteUser of planPoste.planPosteUsers"
+                  *ngFor="let planPosteUser of planPoste.planPostesUsers"
                 >
                   <mat-grid-list cols="4" rowHeight="20px">
                       <mat-grid-tile></mat-grid-tile>
@@ -215,8 +224,8 @@
                             height="20px"
                             style="width: 85% !important; font-size: 11px; font-weight: bold; cursor:pointer;"
                             mode="determinate" 
-                            [value]="planPosteUser.percentagePart"
-                            matTooltip='{{planPosteUser.percentagePart}} % reel: {{planPosteUser.amountReal}} € / prévu: {{planPosteUser.amountPreview}}'>
+                            [value]="planPosteUser.percentage"
+                            matTooltip='{{planPosteUser.percentage}} % reel: {{planPosteUser.amountReal}} € / prévu: {{planPosteUser.amountPreview}}'>
                           </mat-progress-bar>
                         
                       </mat-grid-tile>
@@ -224,7 +233,9 @@
                 </div>
               </div>
 
-
+              
+            <!-- </mat-expansion-panel> -->
+          <!-- </mat-accordion> -->
 
             </div>
 

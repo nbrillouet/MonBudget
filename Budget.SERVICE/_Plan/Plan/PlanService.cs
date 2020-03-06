@@ -13,15 +13,21 @@ namespace Budget.SERVICE
     public class PlanService : IPlanService
     {
         private readonly IMapper _mapper;
+        private readonly IPlanAccountService _planAccountService;
+        private readonly IPlanUserService _planUserService;
+        private readonly IPlanPosteService _planPosteService;
+        
         private readonly IPlanRepository _planRepository;
         private readonly IPlanUserRepository _planUserRepository;
         private readonly IUserRepository _userRepository;
         private readonly IPlanPosteRepository _planPosteRepository;
-        
-        //private readonly IPlanService _planService;
 
         public PlanService(
             IMapper mapper,
+            IPlanAccountService planAccountService,
+            IPlanUserService planUserService,
+            IPlanPosteService planPosteService,
+
             IPlanRepository planRepository,
             IPlanUserRepository planUserRepository,
             IUserRepository userRepository,
@@ -29,6 +35,10 @@ namespace Budget.SERVICE
             //IPlanService planService)
         {
             _mapper = mapper;
+            _planAccountService = planAccountService;
+            _planUserService = planUserService;
+            _planPosteService = planPosteService;
+
             _planRepository = planRepository;
             _planUserRepository = planUserRepository;
             _userRepository = userRepository;
@@ -99,6 +109,27 @@ namespace Budget.SERVICE
         public void Update(Plan plan)
         {
             _planRepository.Update(plan);
+        }
+
+        public void Delete(Plan plan)
+        {
+            _planRepository.Delete(plan);
+        }
+
+        public void DeletePlans(List<int> idPlanList)
+        {
+            foreach(var idPlan in idPlanList)
+            {
+                var plan = GetById(idPlan);
+                //delete plan account
+                _planAccountService.DeleteByIdPlan(idPlan);
+                //delete plan user
+                _planUserService.DeleteByIdPlan(idPlan);
+                //delete plan poste
+                _planPosteService.DeleteByIdPlan(idPlan);
+
+                Delete(plan);
+            }
         }
 
 

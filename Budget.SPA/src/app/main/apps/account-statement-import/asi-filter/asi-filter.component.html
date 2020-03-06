@@ -9,7 +9,7 @@
           {{bankAgency.bankSubFamily.labelLong}}
       </ng-template>
 
-      <asi-list *ngIf="(asiTableFilterSelected$ | async)?.selected?.indexTabBankAgency == i"></asi-list>
+      <asi-table *ngIf="(asiTableFilterSelected$ | async)?.selected?.indexTabBankAgency == i"></asi-table>
     </mat-tab>
 </mat-tab-group>
     

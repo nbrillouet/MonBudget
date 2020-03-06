@@ -136,7 +136,10 @@ export class PlanSuiviComponent implements OnInit {
   ngOnInit() {
   
     this.planTracking$.subscribe(planTracking => {
-      this.planTracking= planTracking;
+      if(planTracking.loader['datas']?.loaded) {
+        this.planTracking= planTracking;
+      }
+      
     });
   }
 

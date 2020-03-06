@@ -12,8 +12,7 @@
     </div>
     <div fxflex fxLayoutAlign="end center" >
         <div *ngIf="(asTableFilterSelected$ | async).loader['filter-selected']?.loaded; else emptyYear" 
-            class="selected-project"
-        >
+            class="selected-project">
             {{ (asTableFilterSelected$ | async)?.selected?.monthYear.year }}
         </div>
         <ng-template #emptyYear>

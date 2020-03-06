@@ -54,8 +54,7 @@ namespace Budget.SERVICE
             planForDetailDto.Accounts = _planAccountService.GetAccountComboMultiple(idPlan, idUserGroup);
             //recherche des users (list + selected)
             planForDetailDto.Users = _planUserService.GetUserComboMultiple(idPlan, idUserGroup);
-            //recherche du nombre d'account statement non relié au plan
-            planForDetailDto.PlanNotAsCount = _planNotAsService.GetPlanNotAsCount(idPlan, idUserGroup);
+            
 
             //nouveau Plan
             if (idPlan == 0)
@@ -75,8 +74,10 @@ namespace Budget.SERVICE
             }
             else
             {
-                planForDetailDto.Plan = _planService.GetById(idPlan);// _mapper.Map<PlanForDetailDto>(plan);
-
+                planForDetailDto.Plan = _planService.GetById(idPlan);
+                //recherche du nombre d'account statement non relié au plan
+                planForDetailDto.PlanNotAsCount = _planNotAsService.GetPlanNotAsCount(idPlan, idUserGroup);
+                
                 //var postes = _posteService.GetAllSelect();
                 //foreach (var poste in postes)
                 //{

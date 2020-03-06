@@ -14,9 +14,10 @@ import { OtTableState } from 'app/main/_ngxs/referential/operation-type/ot-table
 import { OtTableFilterSelectionState } from 'app/main/_ngxs/referential/operation-type/ot-table/ot-table-filter-selection/ot-table-filter-selection.state';
 import { FilterSelected, FilterSelection } from 'app/main/_models/generics/filter.info.model';
 import { FilterOtTableSelected, FilterOtTableSelection } from 'app/main/_models/filters/operation-type.filter';
-import { Column, EnumFilterType, EnumStyleType } from 'app/main/apps/web-component/mat-table-filter/model/mat-table-filter.model';
 import { LoadOtTableFilterSelection } from 'app/main/_ngxs/referential/operation-type/ot-table/ot-table-filter-selection/ot-table-filter-selection.action';
 import { SynchronizeOtTableFilterSelected } from 'app/main/_ngxs/referential/operation-type/ot-table/ot-table-filter-selected/ot-table-filter-selected.action';
+import { OT_COLUMNS } from 'app/main/_constants/mat-table-filter-column.const';
+import { MatTableFilter } from 'app/main/apps/web-component/mat-table-filter/model/mat-table-filter.model';
 
 @Component({
   selector: 'operation-type-table',
@@ -31,15 +32,22 @@ export class OperationTypeTableComponent implements OnInit {
   @Select(OtTableState.get) otTable$: Observable<Datas<OtTable[]>>;
 
   filterOtSelected: FilterOtTableSelected;
-  columns : Column[]=
-    [ 
-      {index:0, field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
-      {index:1, field: 'operationTypeFamily-label',label:'Catégorie opération',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null}},
-      {index:3, field: 'label',label:'libellé',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.label, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
-      // {index:3, field: 'movement-label',label:'sens',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
-      {index:4, field: 'none',label:'',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.buttonIcon,datas:{icon: 'delete_forever',tooltip: 'supprimer enregistrement'}}}
-      
-    ];
+  matTableFilter: MatTableFilter = {
+    columns: OT_COLUMNS,
+    filterSelection$: this.otTableFilterSelection$,
+    filterSelected$: this.otTableFilterSelected$,
+    table$: this.otTable$,
+    toolbar: null
+  };
+
+  // columns = OT_COLUMNS;
+  // : Column[]=
+  //   [ 
+  //     {index:0, field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
+  //     {index:1, field: 'operationTypeFamily-label',label:'Catégorie opération',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null}},
+  //     {index:3, field: 'label',label:'libellé',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.label, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
+  //     {index:4, field: 'none',label:'',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.buttonIcon,datas:{icon: 'delete_forever',tooltip: 'supprimer enregistrement'}}}
+  //   ];
   
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   
@@ -86,7 +94,7 @@ export class OperationTypeTableComponent implements OnInit {
         });
     
         this.confirmDialogRef.componentInstance.confirmMessage = 'Etes vous sûr de supprimer cette catégorie d\'opération? Tous les types d\'opérations associés et les opérations seront supprimés';
-    
+        
         this.confirmDialogRef.afterClosed().subscribe(result => {
           if (result)
             {

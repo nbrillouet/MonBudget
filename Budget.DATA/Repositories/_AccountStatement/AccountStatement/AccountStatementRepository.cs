@@ -59,7 +59,7 @@ namespace Budget.DATA.Repositories
             accountStatements = accountStatements.Where(x => filter.FilterFixedPlanNotAsTableSelected.Accounts.Contains(x.IdAccount));
             accountStatements = accountStatements.Where(x => !filter.FilterFixedPlanNotAsTableSelected.AsInPlan.Contains(x.Id));
 
-            accountStatements = GenericTableFilter.GetGenericFilters(accountStatements, filter);
+            accountStatements = GenericTableFilter.GetGenericFilters(accountStatements, filter.FilterPlanNotAsTableSelected);
 
             return PagedListRepository<AccountStatement>.Create(accountStatements, filter.FilterPlanNotAsTableSelected.Pagination);
         }

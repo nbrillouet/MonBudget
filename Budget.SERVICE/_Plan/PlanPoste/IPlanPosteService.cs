@@ -17,5 +17,7 @@ namespace Budget.SERVICE
         void Create(PlanPoste planPoste);
         void Update(PlanPoste planPoste);
         void Delete(PlanPoste planPoste);
+        void DeleteByIdPlan(int idPlan);
+
     }
 }

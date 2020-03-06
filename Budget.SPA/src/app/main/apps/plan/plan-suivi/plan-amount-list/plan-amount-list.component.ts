@@ -32,7 +32,6 @@ export class PlanAmountListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('plan');
     this.planAmountTable$.subscribe(x=>{
       if(x.loader['datas'].loaded==true)
       {

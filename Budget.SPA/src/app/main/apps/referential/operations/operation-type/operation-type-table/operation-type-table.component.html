@@ -1,8 +1,5 @@
 <mat-table-filter 
-    [filterSelection$] = "otTableFilterSelection$"
-    [filterSelected$] = "otTableFilterSelected$"
-    [table$] = "otTable$"
-    [columns] = "columns"
+    [matTableFilter]="matTableFilter"
     (onRowClick) = "onRowClick($event)"
     (changeFilterSelected)="applyFilterSelected($event)"
     (changeFilterSelection)="applyFilterSelection($event)"

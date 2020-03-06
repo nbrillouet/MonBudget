@@ -12,10 +12,8 @@ import { DatasFilter } from "app/main/_models/generics/detail-info.model";
 @Injectable()
 
     export class PlanDetailResolver implements Resolve<DatasFilter<PlanDetail,PlanDetailFilter>> {
-        
     constructor(
         private store: Store
-
     ) {}
 
 
@@ -24,7 +22,6 @@ import { DatasFilter } from "app/main/_models/generics/detail-info.model";
         planDetailFilter.id = route.params['idPlan']=='new' ? 0 : route.params['idPlan'];
         this.store.dispatch(new LoadPlanDetailDatas(planDetailFilter));
         return this.store.selectOnce(PlanDetailState.get);
-
     }
 
 }

@@ -10,13 +10,14 @@ import { Datas } from 'app/main/_models/generics/detail-info.model';
 import { OtfTableFilterSelectedState } from 'app/main/_ngxs/referential/operation-type-family/otf-table/otf-table-filter-selected/otf-table-filter-selected.state';
 import { OtfTableFilterSelectionState } from 'app/main/_ngxs/referential/operation-type-family/otf-table/otf-table-filter-selection/otf-table-filter-selection.state';
 import { OtfTableState } from 'app/main/_ngxs/referential/operation-type-family/otf-table/otf-table.state';
-import { Column, EnumFilterType, EnumStyleType } from 'app/main/apps/web-component/mat-table-filter/model/mat-table-filter.model';
 import { SynchronizeOtfTableFilterSelected } from 'app/main/_ngxs/referential/operation-type-family/otf-table/otf-table-filter-selected/otf-table-filter-selected.action';
 import { LoadOtfTableFilterSelection } from 'app/main/_ngxs/referential/operation-type-family/otf-table/otf-table-filter-selection/otf-table-filter-selection.action';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { OtfService } from '../operation-type-family.service';
 import { NotificationsService } from 'angular2-notifications';
+import { OTF_COLUMNS } from 'app/main/_constants/mat-table-filter-column.const';
+import { MatTableFilter } from 'app/main/apps/web-component/mat-table-filter/model/mat-table-filter.model';
 
 @Component({
   selector: 'operation-type-family-table',
@@ -32,15 +33,24 @@ export class OperationTypeFamilyTableComponent implements OnInit {
   @Select(OtfTableState.get) otfTable$: Observable<Datas<OtfTable[]>>;
 
   filterOtfSelected: FilterOtfTableSelected;
-  columns : Column[]=
-    [ 
-      {index:0, field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
-      {index:1, field: 'logoClassName',label:'',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.image,datas:null}},
-      {index:2, field: 'label',label:'libellé',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.label, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
-      {index:3, field: 'movement-label',label:'sens',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
-      {index:4, field: 'none',label:'',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.buttonIcon,datas:{icon: 'delete_forever',tooltip: 'supprimer enregistrement'}}}
+  matTableFilter: MatTableFilter = {
+    columns: OTF_COLUMNS,
+    filterSelection$: this.otfTableFilterSelection$,
+    filterSelected$: this.otfTableFilterSelected$,
+    table$: this.otfTable$,
+    toolbar: null
+  };
+
+  // columns = OTF_COLUMNS;
+  // : Column[]=
+  //   [ 
+  //     {index:0, field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
+  //     {index:1, field: 'logoClassName',label:'',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.image,datas:null}},
+  //     {index:2, field: 'label',label:'libellé',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.label, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
+  //     {index:3, field: 'movement-label',label:'sens',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
+  //     {index:4, field: 'none',label:'',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.buttonIcon,datas:{icon: 'delete_forever',tooltip: 'supprimer enregistrement'}}}
       
-    ];
+  //   ];
   
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   

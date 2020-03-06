@@ -46,7 +46,7 @@ export class PlanPosteDetailComponent implements OnInit  {
     @Inject(MAT_DIALOG_DATA) data
   ) 
   { 
-    console.log('data',data);
+
     this.planPosteDetailFilter = data;
 
     this._store.dispatch(new ChangePlanPosteDetailFilter(this.planPosteDetailFilter));
@@ -54,7 +54,6 @@ export class PlanPosteDetailComponent implements OnInit  {
     this.detailInfo$.subscribe(x=>{
       if(x?.loader['datas']?.loaded==true)
       {
-        console.log('x',x);
         this.data = x.datas; 
         this.data.isAnnualEstimation = this.data.planPosteFrequencies.length==1;
         

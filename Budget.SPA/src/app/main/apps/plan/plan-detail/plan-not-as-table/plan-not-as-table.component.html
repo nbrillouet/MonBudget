@@ -1,22 +1,21 @@
 
     <mat-toolbar matDialogTitle class="mat-accent m-0">
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
-            <span class="title dialog-title">Montant réel: détail</span>
+            <span class="title dialog-title">Relevés de comptes non pris en compte</span>
             <button mat-icon-button (click)="close()" aria-label="Close dialog">
                 <mat-icon>close</mat-icon>
             </button>
         </mat-toolbar-row>
     </mat-toolbar>
 
-    <mat-table-filter 
-        [filterSelection$] = "planNotAsTableFilterSelection$"
-        [filterSelected$] = "planNotAsTableFilterSelected$"
-        [table$] = "planNotAsTable$"
-        [columns] = "columns"
-        (onRowClick) = "onRowClick($event)"
-        (changeFilterSelected)="applyFilterSelected($event)"
-        (changeFilterSelection)="applyFilterSelection($event)">
-    </mat-table-filter>
+    <div>
+        <mat-table-filter 
+            [matTableFilter]="matTableFilter"
+            (onRowClick)="onRowClick($event)"
+            (changeFilterSelected)="applyFilterSelected($event)"
+            (changeFilterSelection)="applyFilterSelection($event)">
+        </mat-table-filter>
+    </div>
 
     <!-- <div class="example-container" fusePerfectScrollbar>
         <table mat-table [dataSource]="dataSource" >

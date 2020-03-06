@@ -43,6 +43,15 @@ namespace Budget.DATA.Repositories
                 .ToList();
             return planPostes;
         }
+
+        public List<PlanPoste> GetByIdPlan(int idPlan)
+        {
+            var results = Context.PlanPoste
+                .Where(x => x.IdPlan == idPlan)
+                .ToList();
+
+            return results;
+        }
     }
 
 

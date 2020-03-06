@@ -9,10 +9,12 @@ import { PlanNotAsTableState } from 'app/main/_ngxs/plan/plan-detail/plan-not-as
 import { Observable, Subscription } from 'rxjs';
 import { Datas } from 'app/main/_models/generics/detail-info.model';
 import { FilterSelection, FilterSelected } from 'app/main/_models/generics/filter.info.model';
-import { FilterPlanNotAsTableSelection, FilterPlanNotAsTableSelected, FilterFixedPlanNotAsTableSelected, FilterPlanNotAsTableGroupSelected } from 'app/main/_models/filters/plan-not-as.filter';
-import { Column, EnumFilterType, EnumStyleType } from 'app/main/apps/web-component/mat-table-filter/model/mat-table-filter.model';
+import { FilterPlanNotAsTableSelection, FilterPlanNotAsTableSelected, FilterPlanNotAsTableGroupSelected } from 'app/main/_models/filters/plan-not-as.filter';
+import { Column, MatTableFilter } from 'app/main/apps/web-component/mat-table-filter/model/mat-table-filter.model';
 import { LoadPlanNotAsTableFilterSelection } from 'app/main/_ngxs/plan/plan-detail/plan-not-as-table/plan-not-as-table-filter-selection/plan-not-as-table-filter-selection.action';
-import { LoadPlanNotAsTable } from 'app/main/_ngxs/plan/plan-detail/plan-not-as-table/plan-not-as-table.action';
+import { SynchronizePlanNotAsTableFilterSelected } from 'app/main/_ngxs/plan/plan-detail/plan-not-as-table/plan-not-as-table-filter-selected/plan-not-as-table-filter-selected.action';
+import { EnumFilterType, EnumStyleType } from 'app/main/apps/web-component/mat-table-filter/model/mat-table-filter.enum';
+import { AS_MODEL_2_COLUMNS } from 'app/main/_constants/mat-table-filter-column.const';
 
 @Component({
   selector: 'plan-not-as-table',
@@ -30,20 +32,28 @@ export class PlanNotAsTableComponent implements OnInit {
   asTable$$: Subscription;
 
   filterPlanNotAsGroupSelected: FilterPlanNotAsTableGroupSelected; // = new FilterPlanNotAsTableSelected();
+  matTableFilter: MatTableFilter = {
+    columns: AS_MODEL_2_COLUMNS,
+    filterSelection$: this.planNotAsTableFilterSelection$,
+    filterSelected$: this.planNotAsTableFilterSelected$,
+    table$: this.planNotAsTable$,
+    toolbar: null
+  };
+  
   // filterFixedPlanNotAsTableSelected: FilterFixedPlanNotAsTableSelected;
   // FilterPlanNotAsTableSelected: FilterPlanNotAsTableSelected = new FilterPlanNotAsTableSelected();
 
-  columns : Column[]=
-    [ 
-      {index:0, field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
-      {index:1, field: 'plans',label:'budget',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type: EnumStyleType.dotDatas,datas:null}},
-      {index:2, field: 'operationMethod-label',label:'Méthode opérations',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null}},
-      {index:3, field: 'operationTypeFamily-label',label:'Catégorie operations',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultipleGroup, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
-      {index:4, field: 'operationType-label',label:'Type operations',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultipleGroup, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
-      {index:5, field: 'operation-label',label:'Operations',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
-      {index:6, field: 'dateIntegration',label:'Date int.',isSortable:true,width:{isFixed:false,value:-1}, filter: {type:EnumFilterType.dateRange, datas: null, isEmpty: true},pipe:true,style:{type:EnumStyleType.label,datas:null} },
-      {index:7, field: 'amountOperation',label:'montant',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.numberRange, datas: null, isEmpty: true},pipe:false,style: {type:EnumStyleType.numberUpDown,datas:{isoNumber:0}} }
-    ];
+  // columns = AS_MODEL_2_COLUMNS;
+  // : Column[]=
+  //   [ 
+  //     {index:0, field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
+  //     {index:1, field: 'operationMethod-label',label:'Méthode opérations',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null}},
+  //     {index:2, field: 'operationTypeFamily-label',label:'Catégorie operations',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultipleGroup, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
+  //     {index:3, field: 'operationType-label',label:'Type operations',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultipleGroup, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
+  //     {index:4, field: 'operation-label',label:'Operations',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
+  //     {index:5, field: 'dateIntegration',label:'Date int.',isSortable:true,width:{isFixed:false,value:-1}, filter: {type:EnumFilterType.dateRange, datas: null, isEmpty: true},pipe:true,style:{type:EnumStyleType.label,datas:null} },
+  //     {index:6, field: 'amountOperation',label:'montant',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.numberRange, datas: null, isEmpty: true},pipe:false,style: {type:EnumStyleType.numberUpDown,datas:{isoNumber:0}} }
+  //   ];
 
 
 constructor(
@@ -54,11 +64,15 @@ constructor(
     this.filterPlanNotAsGroupSelected = new FilterPlanNotAsTableGroupSelected();
     this.filterPlanNotAsGroupSelected.filterFixedPlanNotAsTableSelected = data;
     this.filterPlanNotAsGroupSelected.filterPlanNotAsTableSelected = new FilterPlanNotAsTableSelected();
-    
+
     this._store.dispatch(new LoadPlanNotAsTableFilterSelection(this.filterPlanNotAsGroupSelected.filterPlanNotAsTableSelected));
-    this._store.dispatch(new LoadPlanNotAsTable(this.filterPlanNotAsGroupSelected));
+    this._store.dispatch(new SynchronizePlanNotAsTableFilterSelected(this.filterPlanNotAsGroupSelected));
 
-
+    this.planNotAsTableFilterSelected$.subscribe(selected=>{
+      if(selected?.loader['filter-selected']?.loaded) {
+        this.filterPlanNotAsGroupSelected.filterPlanNotAsTableSelected = selected.selected;
+      }
+    });
     // this.dataSource.data = data;
   }
 
@@ -82,13 +96,14 @@ constructor(
   }
 
   applyFilterSelected(selected: FilterPlanNotAsTableSelected) {
-    // this._store.dispatch(new LoadUserTable(selected));
+    this.filterPlanNotAsGroupSelected.filterPlanNotAsTableSelected = selected;
+    this._store.dispatch(new SynchronizePlanNotAsTableFilterSelected(this.filterPlanNotAsGroupSelected));
   }
 
-  applyFilterSelection(selection: FilterPlanNotAsTableSelected) { 
-
+  applyFilterSelection(selected: FilterPlanNotAsTableSelected) { 
+    this._store.dispatch(new LoadPlanNotAsTableFilterSelection(selected));
   }
-  
+
   close() {
     this._dialogRef.close();
   }

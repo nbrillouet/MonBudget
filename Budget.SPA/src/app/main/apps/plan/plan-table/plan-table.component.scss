@@ -10,15 +10,6 @@
     background: url('/assets/images/backgrounds/tt1.png') no-repeat;
 }
 
-// .project-selector {
-//   margin-left: 1px;
-//   background: rgba(0, 0, 0, 0.12);
-//   border-radius: 8px 0 0 0;
-//   mat-icon {
-//       color: #FFFFFF;
-//   }
-// }
-
 .selected-project {
     background: rgba(0, 0, 0, 0.12);
     color: #FFFFFF;
@@ -29,6 +20,15 @@
     font-size: 16px;
     border-radius: 8px 8px 0 0;
 }
+
+// .project-selector {
+//   margin-left: 1px;
+//   background: rgba(0, 0, 0, 0.12);
+//   border-radius: 8px 0 0 0;
+//   mat-icon {
+//       color: #FFFFFF;
+//   }
+// }
 
 // .header-1-background {
 //     background-color: #9B9B9B;

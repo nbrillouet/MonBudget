@@ -55,13 +55,8 @@ selectedIndex: number = 0;
       
       this.detailInfo$.subscribe(x=> {
         if(x?.loader['datas']?.loaded==true) {
-          this._store.dispatch(new ClearPlanTable());
+          // this._store.dispatch(new ClearPlanTable());
           this.planDetail = x.datas; 
-          console.log('x',this.planDetail);
-          // this.recetteTab = this.planDetail.planPostes.filter(x=>x.poste.id==1)[0];
-          // this.depenseFixeTab = this.planDetail.planPostes.filter(x=>x.poste.id==2)[0];
-          // this.depenseVariable = this.planDetail.planPostes.filter(x=>x.poste.id==3)[0];
-
           this.pageType=this.planDetail.plan.id==0 ? 'new' : 'edit';
           if(this.firstLoad) {
             

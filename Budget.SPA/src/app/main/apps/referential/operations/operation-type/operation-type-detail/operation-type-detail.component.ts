@@ -65,7 +65,7 @@ otDetailForm: FormGroup;
 
   ngOnInit() {
     this._activatedRoute.params.subscribe(routeParams => {
-      this.idOperationType = routeParams['idOperationType']=='new' ? -1 : routeParams['idOperationType'];
+      this.idOperationType = routeParams['idOperationType']=='new' ? 0 : routeParams['idOperationType'];
       this._store.dispatch(new LoadOtDetail(this.idOperationType));
     });
   }

@@ -55,7 +55,6 @@ export class PlanNotAsTableFilterSelectedState extends LoaderState {
         state.selected = action.payload.filterPlanNotAsTableSelected;
         context.patchState(state);
         this.loaded(context,'filter-selected');
-
         this._store.dispatch(new LoadPlanNotAsTable(action.payload));
     }
 

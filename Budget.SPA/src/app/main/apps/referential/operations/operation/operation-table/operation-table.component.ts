@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { fuseAnimations } from "@fuse/animations";
 import { Select, Store } from "@ngxs/store";
 import { OperationTableFilterSelectionState } from "app/main/_ngxs/referential/operation/operation-table/operation-table-filter-selection/operation-table-filter-slection.action";
@@ -9,7 +9,6 @@ import { FilterSelection, FilterSelected } from "app/main/_models/generics/filte
 import { Datas } from "app/main/_models/generics/detail-info.model";
 import { OperationTable } from "app/main/_models/referential/operation.model";
 import { FilterOperationTableSelection, FilterOperationTableSelected } from "app/main/_models/filters/operation.filter";
-import { Column, EnumFilterType, EnumStyleType } from "app/main/apps/web-component/mat-table-filter/model/mat-table-filter.model";
 import { MatDialogRef, MatDialog } from "@angular/material/dialog";
 import { FuseConfirmDialogComponent } from "@fuse/components/confirm-dialog/confirm-dialog.component";
 import { Router } from "@angular/router";
@@ -17,13 +16,14 @@ import { OperationService } from "app/main/_services/Referential/operation.servi
 import { NotificationsService } from "angular2-notifications";
 import { LoadOperationTableFilterSelection } from "app/main/_ngxs/referential/operation/operation-table/operation-table-filter-selection/operation-table-filter-selection.state";
 import { SynchronizeOperationTableFilterSelected } from "app/main/_ngxs/referential/operation/operation-table/operation-table-filter-selected/operation-table-filter-selected.action";
+import { OPERATION_COLUMNS } from "app/main/_constants/mat-table-filter-column.const";
+import { MatTableFilter } from "app/main/apps/web-component/mat-table-filter/model/mat-table-filter.model";
 
 @Component({
   selector: 'operation-table',
   templateUrl: './operation-table.component.html',
   styleUrls: ['./operation-table.component.scss'],
   animations : fuseAnimations
-  // encapsulation: ViewEncapsulation.None
 })
 export class OperationTableComponent implements OnInit {
 @Select(OperationTableFilterSelectionState.get) operationTableFilterSelection$: Observable<FilterSelection<FilterOperationTableSelection>>;
@@ -31,14 +31,23 @@ export class OperationTableComponent implements OnInit {
 @Select(OperationTableState.get) operationTable$: Observable<Datas<OperationTable[]>>;
 
   filterOperationSelected: FilterOperationTableSelected = new FilterOperationTableSelected();
-  columns : Column[]=
-    [ 
-      {index:0, field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
-      {index:1, field: 'operationMethod-label',label:'Méthode opération',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null}},
-      {index:2, field: 'operationType-label',label:'Type opération',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultipleGroup, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null}},
-      {index:3, field: 'label',label:'libellé',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.label, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
-      {index:4, field: 'none',label:'',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.buttonIcon,datas:{icon: 'delete_forever',tooltip: 'supprimer enregistrement'}}}
-    ];
+  matTableFilter: MatTableFilter = {
+    columns: OPERATION_COLUMNS,
+    filterSelection$: this.operationTableFilterSelection$,
+    filterSelected$: this.operationTableFilterSelected$,
+    table$: this.operationTable$,
+    toolbar: {buttonAdd: {enabled: true,tooltip:'Ajouter une opération' }, buttonDelete:{enabled:true,tooltip:'supprimer opération(s)'}, buttonFullscreen:{enabled:true} }
+  };
+  
+  // columns = OPERATION_COLUMNS;
+  // : Column[]=
+  //   [ 
+  //     {index:0, field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
+  //     {index:1, field: 'operationMethod-label',label:'Méthode opération',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null}},
+  //     {index:2, field: 'operationType-label',label:'Type opération',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultipleGroup, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null}},
+  //     {index:3, field: 'label',label:'libellé',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.label, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
+  //     {index:4, field: 'none',label:'',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.buttonIcon,datas:{icon: 'delete_forever',tooltip: 'supprimer enregistrement'}}}
+  //   ];
   
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   
@@ -49,7 +58,6 @@ export class OperationTableComponent implements OnInit {
     private _operationService: OperationService,
     private _notificationService: NotificationsService
     ) {
-      console.log('operation-loaded');
       this.filterOperationSelected = new FilterOperationTableSelected();
       this._store.dispatch(new LoadOperationTableFilterSelection(this.filterOperationSelected));
       this._store.dispatch(new SynchronizeOperationTableFilterSelected(this.filterOperationSelected));
@@ -59,11 +67,9 @@ export class OperationTableComponent implements OnInit {
           this.filterOperationSelected = selected.selected;
         }
       });
-
   }
 
   ngOnInit(): void {
-
     
   }
 
@@ -80,27 +86,40 @@ export class OperationTableComponent implements OnInit {
     this._store.dispatch(new LoadOperationTableFilterSelection(selected));
   }
 
-  delete($event) {
-    this.confirmDialogRef = this._dialog.open(FuseConfirmDialogComponent, {
-          disableClose: false
-        });
-    
-        this.confirmDialogRef.componentInstance.confirmMessage = 'Etes vous sûr de supprimer cette catégorie d\'opération? Tous les types d\'opérations associés et les opérations seront supprimés';
-    
-        this.confirmDialogRef.afterClosed().subscribe(result => {
-          if (result)
-            {
-                this._operationService.deleteOperationDetail($event.id)
-                .subscribe(resp => {
-                  this._store.dispatch(new SynchronizeOperationTableFilterSelected(this.filterOperationSelected));
-                  this._notificationService.success('Suppression réussie', 'Opération supprimée');
-                }, error => {
-                  this._notificationService.error('Echec suppression', error);
-                })
-            }
-            this.confirmDialogRef = null;
-        });
+  addItem($event) {
+    this._router.navigate(['apps/referential/operations/operations/new']);
   }
+
+  deleteItems($event) {
+    this._operationService.deleteOperations($event)
+    .subscribe(resp => {
+      this._store.dispatch(new SynchronizeOperationTableFilterSelected(this.filterOperationSelected));
+      this._notificationService.success('Suppression réussie', `${$event.lentgh} opération(s) supprimée(s)`);
+    }, error => {
+      this._notificationService.error('Echec suppression', error);
+    })
+  }
+  // delete($event) {
+  //   this.confirmDialogRef = this._dialog.open(FuseConfirmDialogComponent, {
+  //         disableClose: false
+  //       });
+    
+  //       this.confirmDialogRef.componentInstance.confirmMessage = 'Etes vous sûr de supprimer cette catégorie d\'opération? Tous les types d\'opérations associés et les opérations seront supprimés';
+    
+  //       this.confirmDialogRef.afterClosed().subscribe(result => {
+  //         if (result)
+  //           {
+  //               this._operationService.deleteOperationDetail($event.id)
+  //               .subscribe(resp => {
+  //                 this._store.dispatch(new SynchronizeOperationTableFilterSelected(this.filterOperationSelected));
+  //                 this._notificationService.success('Suppression réussie', 'Opération supprimée');
+  //               }, error => {
+  //                 this._notificationService.error('Echec suppression', error);
+  //               })
+  //           }
+  //           this.confirmDialogRef = null;
+  //       });
+  // }
 }
 
 

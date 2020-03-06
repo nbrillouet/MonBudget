@@ -3,6 +3,7 @@ using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using Budget.MODEL.Dto.Select;
+using Budget.MODEL.Filter;
 
 namespace Budget.SERVICE._Helpers
 {
@@ -228,6 +229,9 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(d => d.idGMapStreetNumber, o => o.MapFrom(s => s.gMapStreetNumber.Id))
                 .ForMember(d => d.idGMapSublocalityLevel1, o => o.MapFrom(s => s.gMapSublocalityLevel1.Id))
                 .ForMember(d => d.idGMapSublocalityLevel2, o => o.MapFrom(s => s.gMapSublocalityLevel2.Id));
+
+            CreateMap<FilterAsTableSelection, FilterPlanNotAsTableSelection>()
+                .ReverseMap();
         }
     }
 }

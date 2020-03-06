@@ -1,18 +1,12 @@
 
-<!-- *ngIf="(asifTableFilterSelection$ | async)?.selection as selection"
-[selectedIndex]="(asifTableFilterSelected$ | async)?.selected?.indexTabAsifState" -->
 <mat-tab-group *ngIf="filterAsifSelected && filterAsifSelection"
   [selectedIndex]="filterAsifSelected.indexTabAsifState"
   (selectedTabChange)="onTabChanged($event)">
   <ng-container > 
-      <mat-tab *ngFor="let asifState of filterAsifSelection.asifState; index as i" [label]="asifState.label">
-
-    <!-- <mat-tab *ngFor="let asifState of (asifTableFilterSelection$ | async)?.selection?.asifState; index as i" [label]="asifState.label"> -->
-      <!-- <asif-list *ngIf="(asifTableFilterSelected$ | async)?.selected?.indexTabAsifState == i"></asif-list>  -->
-      <asif-list *ngIf="filterAsifSelected.indexTabAsifState == i"></asif-list> 
+    <mat-tab *ngFor="let asifState of filterAsifSelection.asifState; index as i" [label]="asifState.label">
+      <asif-table *ngIf="filterAsifSelected.indexTabAsifState == i"></asif-table> 
     </mat-tab>
  
   </ng-container> 
 </mat-tab-group>
 
-<!-- <asif-list></asif-list>  -->

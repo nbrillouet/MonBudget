@@ -34,6 +34,8 @@ import { PlanPosteDetailState } from "app/main/_ngxs/plan/plan-detail/plan-poste
 import { PlanPosteTableState } from "app/main/_ngxs/plan/plan-detail/plan-poste/plan-poste-table/plan-poste-table.state";
 import { PlanForTrackingState } from "app/main/_ngxs/plan/plan-tracking/plan-tracking.state";
 import { PlanNotAsTableState } from "app/main/_ngxs/plan/plan-detail/plan-not-as-table/plan-not-as-table.state";
+import { PlanNotAsTableFilterSelectedState } from "app/main/_ngxs/plan/plan-detail/plan-not-as-table/plan-not-as-table-filter-selected/plan-not-as-table-filter-selected.state";
+import { PlanNotAsTableFilterSelectionState } from "app/main/_ngxs/plan/plan-detail/plan-not-as-table/plan-not-as-table-filter-selection/plan-not-as-table-filter-selection.state";
 
 
 const routes = [
@@ -83,6 +85,10 @@ const routes = [
         PlanPosteTableFilterSelectedState,
         PlanPosteTableState,
         PlanPosteDetailState,
+
+        PlanNotAsTableFilterSelectionState,
+        PlanNotAsTableFilterSelectedState,
+        PlanNotAsTableState,
 
         PlanForTrackingState,
         PlanAmountTableState,

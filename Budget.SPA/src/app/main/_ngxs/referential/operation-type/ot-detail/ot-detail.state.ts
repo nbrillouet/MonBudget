@@ -49,7 +49,6 @@ export class OtDetailState extends LoaderState {
 
                 this.loaded(context,'datas');
             });
-
     }
 
     @Action(ClearOtDetail)

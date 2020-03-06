@@ -118,6 +118,22 @@ namespace Budget.API.Controllers
             return Ok(planForDetailDto.Plan.Id);
         }
 
+        [HttpPost("plans/delete-plans")]
+        public IActionResult DeletePlans([FromBody] List<int> idPlanList)
+        {
+            try
+            {
+                _planService.DeletePlans(idPlanList);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("Erreur lors de la suppression", e.Message.ToString());
+                return BadRequest(ModelState);
+            }
+
+            return Ok("delete-plans-ok");
+        }
+
         //[HttpPost("plan-poste-details/save")]
         //public IActionResult SavePlanPosteDetail([FromBody] PlanPosteForDetailDto planPosteForDetailDto)
         //{

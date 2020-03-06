@@ -121,9 +121,11 @@ export class ToolbarComponent implements OnInit, OnDestroy
                 this.horizontalNavbar = settings.layout.navbar.position === 'top';
                 this.rightNavbar = settings.layout.navbar.position === 'right';
                 this.hiddenNavbar = settings.layout.navbar.hidden === true;
-                this.fullscreen = this.fuseConfig.layout.toolbar.fullscreen; // this.fullScreen==true ? true : settings.layout.toolbar.fullScreen;
-
-            
+                this.fullscreen = this.fuseConfig.layout.toolbar.fullscreen;
+                
+                this.fullscreen 
+                    ? document.documentElement.requestFullscreen() 
+                    : document.fullscreenElement ? document.exitFullscreen() : null;
             });
 
         // Set the selected language from default languages
@@ -155,13 +157,13 @@ export class ToolbarComponent implements OnInit, OnDestroy
         this._fuseSidebarService.getSidebar(key).toggleOpen();
     }
 
-    toggleFullscreen(): void
-    {
+    // toggleFullscreen(): void
+    // {
 
-        this.fuseConfig.layout.toolbar.fullscreen=!this.fullscreen;
-        this._fuseConfigService.setConfig(this.fuseConfig);
+    //     this.fuseConfig.layout.toolbar.fullscreen=!this.fullscreen;
+    //     this._fuseConfigService.setConfig(this.fuseConfig);
 
-    }
+    // }
 
     /**
      * Search

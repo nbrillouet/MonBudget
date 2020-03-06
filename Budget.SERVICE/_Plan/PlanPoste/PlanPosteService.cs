@@ -12,14 +12,26 @@ namespace Budget.SERVICE
     public class PlanPosteService : IPlanPosteService
     {
         private readonly IMapper _mapper;
+        private readonly IPlanPosteFrequencyService _planPosteFrequencyService;
+        private readonly IPlanPosteReferenceService _planPosteReferenceService;
+        private readonly IPlanPosteUserService _planPosteUserService; 
+
         private readonly IPlanPosteRepository _planPosteRepository;
 
         public PlanPosteService(
             IMapper mapper,
+            IPlanPosteFrequencyService planPosteFrequencyService,
+            IPlanPosteReferenceService planPosteReferenceService,
+            IPlanPosteUserService planPosteUserService,
+
             IPlanPosteRepository planPosteRepository
             )
         {
             _mapper = mapper;
+            _planPosteFrequencyService = planPosteFrequencyService;
+            _planPosteReferenceService = planPosteReferenceService;
+            _planPosteUserService = planPosteUserService;
+
             _planPosteRepository = planPosteRepository;
         }
 
@@ -55,6 +67,23 @@ namespace Budget.SERVICE
         public void Delete(PlanPoste planPoste)
         {
             _planPosteRepository.Delete(planPoste);
+        }
+
+        public void DeleteByIdPlan(int idPlan)
+        {
+            //Selection de tous les plans poste du plan
+            var planPostes = _planPosteRepository.GetByIdPlan(idPlan);
+            foreach(var planPoste in planPostes)
+            {
+                //suppression plan poste frequency
+                _planPosteFrequencyService.DeleteByIdPlanPoste(planPoste.Id);
+                //suppression plan poste reference
+                _planPosteReferenceService.DeleteByIdPlanPoste(planPoste.Id);
+                //suppression plan poste user
+                _planPosteUserService.DeleteByIdPlanPoste(planPoste.Id);
+
+                Delete(planPoste);
+            }
         }
     }
 

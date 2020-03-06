@@ -1,50 +1,39 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2, HostListener, AfterViewInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
-import { TableField, Row, EnumFilterType, MatTableFilter, Column, FilterTable, EnumStyleType } from '../model/mat-table-filter.model';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Row, Column, MatTableFilter } from '../model/mat-table-filter.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { FilterDateRange } from 'app/main/_models/filters/mini-filter/date-range.filter';
-import { Pagination } from 'app/main/_models/pagination.model';
-import { FilterAmount } from 'app/main/_models/filters/mini-filter/amount.filter';
 import { FilterComboMultipleGroup, FilterComboMultiple } from 'app/main/_models/filters/mini-filter/combo-multiple.filters';
-import { DateFormatPipe } from '../pipe/pipe-date';
-import { MatTableFilterColResizeService } from '../service/mat-table-filter-col-resize.service';
 import { FilterNumberRange } from 'app/main/_models/filters/mini-filter/number-range.filter';
-import { Observable, zip } from 'rxjs';
-import { FilterInfo, FilterSelection, FilterSelected } from 'app/main/_models/generics/filter.info.model';
 import { Datas } from 'app/main/_models/generics/detail-info.model';
-
-// export class B<T> {
-//   Prop: T;
-//   constructor(TCreator: new() => T) {
-//       this.Prop = new TCreator();
-//   }
-// }
-
-
-
+import { EnumFilterType, EnumStyleType } from '../model/mat-table-filter.enum';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'mat-table-filter',
   templateUrl: './mat-table-filter.component.html',
   styleUrls: ['./mat-table-filter.component.scss']
 })
-export class MatTableFilterComponent implements OnInit {
-
-  @Input()  columns: Column[];
-  @Input()  filterSelection$: Observable<FilterSelection<any>>;
-  @Input()  filterSelected$: Observable<FilterSelected<any>>;
-  @Input()  table$: Observable<Datas<any>>;
+export class MatTableFilterComponent implements OnInit, OnDestroy {
+  @Input() matTableFilter: MatTableFilter;
 
   @Output() changeFilterSelected = new EventEmitter<any>();
   @Output() changeFilterSelection = new EventEmitter<any>();
   @Output() clickButtonIcon = new EventEmitter<Row>();
-  @Output() onRowClick = new EventEmitter<Row>()
+  @Output() onRowClick = new EventEmitter<Row>();
+  @Output() toolbarAddItemEvent = new EventEmitter<null>();
+  @Output() toolbarDeleteItemsEvent = new EventEmitter<number[]>();
 
   @ViewChild(MatTable,{ read: ElementRef } ) private matTableRef: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
+  $filterSelection$ : Subscription;
+  $filterSelected$: Subscription;
+  $table$: Subscription;
+
   rows: Row[];
   filterSelected: any;
   filterSelection: any;
@@ -56,9 +45,11 @@ export class MatTableFilterComponent implements OnInit {
   idCurrentRow: number;
   onloading: boolean;
   columnToLoad: boolean;
+  checkboxesDelete: number[]=[];
 
   constructor(
-    private el: ElementRef
+    private el: ElementRef,
+    private _router: Router
   ) {
     
    }
@@ -67,38 +58,39 @@ export class MatTableFilterComponent implements OnInit {
    onRowsChange($event) {
      if($event.id==this.idCurrentRow){
       this.setTableResize();
-   
      }
    }
 
   ngOnInit() {
+    this.matTableFilter.columns = JSON.parse(JSON.stringify(this.matTableFilter.columns));
 
-    this.table$.subscribe(table=>{
-      this.loading(true);
-      if(table?.loader['datas']?.loaded) {
+    if(this.matTableFilter?.toolbar && this.matTableFilter.toolbar.buttonDelete.enabled)
+      this.addCheckboxDeleteColumn();
 
-        this.rows = this.getMatTableFilterRows(table);
-        
-        this.idCurrentRow = this.rows.length>0 ? this.rows[0].id : null;
-        this.dataSource.data = this.rows;
-        this.loading(false);
-      }
-    });
+    this.$table$ = this.matTableFilter.table$.subscribe(table=>{
+        this.loading(true);
+        if(table?.loader['datas']?.loaded) {
+          this.rows = this.getMatTableFilterRows(table);
+          
+          this.idCurrentRow = this.rows.length>0 ? this.rows[0].id : null;
+          this.dataSource.data = this.rows;
+          this.loading(false);
+        }
+      });
 
-    this.filterSelection$.subscribe(selection=>{
+    this.$filterSelection$ = this.matTableFilter.filterSelection$.subscribe(selection=>{
       if(selection?.loader['filter-selection']?.loaded) {
         this.filterSelection = selection.selection;
         if(!this.filterSelected) {
           this.columnToLoad=true;
         }
         else {
-          
-          this.columns=this.getMatTableFilterColumns(selection.selection);
+          this.matTableFilter.columns=this.getMatTableFilterColumns(selection.selection);
         }
       }
     });
 
-     this.filterSelected$.subscribe(selected=>{
+    this.$filterSelected$ = this.matTableFilter.filterSelected$.subscribe(selected=>{
       if(selected?.loader['filter-selected']?.loaded) {
         this.filterSelected=selected.selected;
 
@@ -110,12 +102,18 @@ export class MatTableFilterComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    // this.$filterSelection$.unsubscribe();
+    // this.$filterSelected$.unsubscribe();
+    // this.$table$.unsubscribe();
+  }
+
   getMatTableFilterRows(datas: Datas<any> ) {
     let tableRows: Row[] = [];
  
     for (let data of datas.datas) {
       let tableRow = new Row();
-      for (let column of this.columns) {
+      for (let column of this.matTableFilter.columns) {
         let fields = column.field.split('-')
         let value= null;
           if(fields.length>1){
@@ -135,7 +133,7 @@ export class MatTableFilterComponent implements OnInit {
   getMatTableFilterColumns(filterDatas) {
     this.setDisplayedColumns();
 
-    for (let column of this.columns) {
+    for (let column of this.matTableFilter.columns) {
       let fields = column.field.split('-');
       switch(column.filter.type) {
         case EnumFilterType.comboMultiple:
@@ -159,12 +157,12 @@ export class MatTableFilterComponent implements OnInit {
           break;
       }
     }
-    return this.columns;
+    return this.matTableFilter.columns;
   }
 
   setDisplayedColumns() {
-    this.columns.forEach(( column, index) => {
-      column.index = index;
+    this.matTableFilter.columns.forEach((column, index) => {
+      // column.index = index;
       this.displayedColumns[index] = column.field;
     });
   }
@@ -175,13 +173,13 @@ export class MatTableFilterComponent implements OnInit {
 
   setTableResize() {
     let maxWidth= this.matTableRef.nativeElement.clientWidth; //this.matTableWidth;
-    let percentCols = this.columns.filter(x=>!x.width.isFixed).length;
-    let sumWidthFixedCols = this.columns.filter(x=>x.width.isFixed).map(x=>x.width.value).reduce((a, b) => a + b, 0);
+    let percentCols = this.matTableFilter.columns.filter(x=>!x.width.isFixed).length;
+    let sumWidthFixedCols = this.matTableFilter.columns.filter(x=>x.width.isFixed).map(x=>x.width.value).reduce((a, b) => a + b, 0);
 
     let leaveWidth=maxWidth-sumWidthFixedCols;
     let unitWidth=leaveWidth/percentCols;
 
-    this.columns.forEach(( column, index) => {
+    this.matTableFilter.columns.forEach(( column, index) => {
       column.width.value = column.width.isFixed ? column.width.value : unitWidth;
 
         let elements = this.el.nativeElement.getElementsByClassName(`mat-column-${column.field}`); //querySelectorAll('.option_input');
@@ -273,10 +271,6 @@ export class MatTableFilterComponent implements OnInit {
         this.filterSelected[`${fields[0]}`]=$event;
         break;
       case EnumFilterType.label:
-          // let filterlabel = <string>$event;
-          // $event = (filterNumber.numberMax==null && filterNumber.numberMin==null) ? null : $event;
-          console.log('$event',$event);
-          console.log('${fields[0]}',fields[0]);
           this.filterSelected[`${fields[0]}`]=$event;
           break;
     }
@@ -355,11 +349,30 @@ export class MatTableFilterComponent implements OnInit {
   //========================================================================
   //============================  TOOLBAR    ===============================
   //========================================================================
-  addItem($event) {
+  addCheckboxDeleteColumn() {
+    let checkboxDelete: Column = {field: 'checkboxDelete',label:'',isSortable:false,width:{isFixed:true,value:60},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.checkboxDelete,datas:null } }
+    this.matTableFilter.columns.unshift(checkboxDelete);
+  }
 
+  onCheckboxDeleteChange($event, id:number) {
+    if($event.checked) {
+      this.checkboxesDelete.push(id);
+    }
+    else
+    {
+      let index = this.checkboxesDelete.indexOf(id);
+      if (index > -1) {
+        this.checkboxesDelete.splice(index, 1);
+      }
+    }
+  }
+
+  addItem() {
+    this.toolbarAddItemEvent.emit();
   }
   
-  deleteItem() {
-    
+  deleteItems(idList:number[]) {
+    this.toolbarDeleteItemsEvent.emit(idList);
+    this.checkboxesDelete=[];
   }
 }

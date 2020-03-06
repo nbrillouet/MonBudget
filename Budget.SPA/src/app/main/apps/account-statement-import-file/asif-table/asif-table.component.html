@@ -1,9 +1,6 @@
 <mat-table-filter 
-    [filterSelection$] = "asifTableFilterSelection$"
-    [filterSelected$] = "asifTableFilterSelected$"
-    [table$] = "asifTable$"
-    [columns] = "columns"
-    (onRowClick) = "onRowClick($event)"
+    [matTableFilter]="matTableFilter"
+    (onRowClick)="onRowClick($event)"
     (changeFilterSelected)="applyFilterSelected($event)"
     (changeFilterSelection)="applyFilterSelection($event)">
 </mat-table-filter> 

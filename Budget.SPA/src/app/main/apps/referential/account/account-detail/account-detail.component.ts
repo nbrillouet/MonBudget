@@ -42,8 +42,7 @@ pageType: string;
   ) {
     this.accountDetail$.subscribe(accountDetail=>{
 
-      if(accountDetail.loader['datas'].loaded) {
-
+      if(accountDetail?.loader['datas']?.loaded) {
         this.accountDetail = JSON.parse(JSON.stringify(accountDetail.datas));
         if(this.firstLoad) {
           //creation du formulaire

@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { PlanTable } from 'app/main/_models/plan/plan.model';
-import { DatasFilter, Datas } from 'app/main/_models/generics/detail-info.model';
+import { Datas } from 'app/main/_models/generics/detail-info.model';
 import { PlanTableFilterSelectionState } from 'app/main/_ngxs/plan/plan-table/plan-table-filter-selection/plan-table-filter-selection.state';
 import { PlanTableFilterSelectedState } from 'app/main/_ngxs/plan/plan-table/plan-table-filter-selected/plan-table-filter-selected.state';
 import { PlanTableState } from 'app/main/_ngxs/plan/plan-table/plan-table.state';
 import { FilterSelection, FilterSelected } from 'app/main/_models/generics/filter.info.model';
 import { FilterPlanTableSelection, FilterPlanTableSelected } from 'app/main/_models/Filters/plan.filter';
-import { Column, EnumFilterType, EnumStyleType } from '../../web-component/mat-table-filter/model/mat-table-filter.model';
 import { Router } from '@angular/router';
 import { SynchronizePlanTableFilterSelected } from 'app/main/_ngxs/plan/plan-table/plan-table-filter-selected/plan-table-filter-selected.action';
 import { LoadPlanTableFilterSelection } from 'app/main/_ngxs/plan/plan-table/plan-table-filter-selection/plan-table-filter-selection.action';
 import { LoadPlanTable } from 'app/main/_ngxs/plan/plan-table/plan-table.action';
 import { FuseConfigService } from '@fuse/services/config.service';
+import { PLAN_COLUMNS } from 'app/main/_constants/mat-table-filter-column.const';
+import { MatTableFilter } from '../../web-component/mat-table-filter/model/mat-table-filter.model';
+import { PlanService } from '../plan.service';
+import { NotificationsService } from 'angular2-notifications';
 
 
 @Component({
@@ -23,38 +26,51 @@ import { FuseConfigService } from '@fuse/services/config.service';
   styleUrls: ['./plan-table.component.scss'],
   animations   : fuseAnimations
 })
-export class PlanTableComponent implements OnInit {
+export class PlanTableComponent implements OnInit, OnDestroy {
   @Select(PlanTableFilterSelectionState.get) planTableFilterSelection$: Observable<FilterSelection<FilterPlanTableSelection>>;
   @Select(PlanTableFilterSelectedState.get) planTableFilterSelected$: Observable<FilterSelected<FilterPlanTableSelected>>;
   @Select(PlanTableState.get) planTable$: Observable<Datas<PlanTable[]>>;
 
+  $planTableFilterSelection$ : Subscription;
+  $planTableFilterSelected$: Subscription;
+  // $planTable$: Subscription;
+
   filterPlanSelected: FilterPlanTableSelected = new FilterPlanTableSelected();
-  columns : Column[]=
-     [ 
-        {index:0, field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
-        {index:1, field: 'label',label:'libellé',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.label, datas: null, isEmpty: true}, pipe: false,style:{type: EnumStyleType.label,datas:null}},
-        {index:2, field: 'year',label:'année',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.label, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null}}
-        // {index:3, field: 'firstName',label:'prénom',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
-        // {index:4, field: 'userName',label:'pseudonyme',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}}
-    ];
+  matTableFilter : MatTableFilter = {
+    columns: PLAN_COLUMNS, //JSON.parse(JSON.stringify(PLAN_COLUMNS)),
+    filterSelection$: this.planTableFilterSelection$,
+    filterSelected$: this.planTableFilterSelected$,
+    table$: this.planTable$,
+    toolbar: {buttonAdd: {enabled: true }, buttonDelete:{enabled:true}, buttonFullscreen:{enabled:true} }
+  }
+  
+  // columns = PLAN_COLUMNS;
+  // : Column[]=
+  //    [ 
+  //       {index:0, field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
+  //       {index:1, field: 'label',label:'libellé',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.label, datas: null, isEmpty: true}, pipe: false,style:{type: EnumStyleType.label,datas:null}},
+  //       {index:2, field: 'year',label:'année',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.label, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null}}
+  //   ];
     fullscreen: boolean;
 
     constructor(
       private _router: Router,
       private _store: Store,
-      private _fuseConfigService: FuseConfigService
+      private _fuseConfigService: FuseConfigService,
+      private _planService: PlanService,
+      private _notificationsService: NotificationsService
       ) {
+
         //this._store.dispatch(new SynchronizePlanTableFilterSelected(new FilterPlanTableSelected()));
         this._store.dispatch(new LoadPlanTableFilterSelection(new FilterPlanTableSelected()));
         
-        this.planTableFilterSelected$.subscribe(selected=>{
+        this.$planTableFilterSelected$ = this.planTableFilterSelected$.subscribe(selected=>{
           if(selected?.loader['filter-selected']?.loaded) {
             this.filterPlanSelected = selected.selected;
-            // console.log('selected',selected);
           }
         });
 
-        this.planTableFilterSelection$.subscribe(selection=>{
+        this.$planTableFilterSelection$ = this.planTableFilterSelection$.subscribe(selection=>{
           if(selection?.loader['filter-selection']?.loaded) {
             if(!this.filterPlanSelected.year) {
               this.filterPlanSelected = new FilterPlanTableSelected();
@@ -71,8 +87,11 @@ export class PlanTableComponent implements OnInit {
   
     }
 
-    ngOnInit(){
-  
+    ngOnInit(){}
+
+    ngOnDestroy(){
+      // this.$planTableFilterSelection$.unsubscribe();
+      // this.$planTableFilterSelected$.unsubscribe();
     }
   
     onRowClick($event) {
@@ -86,11 +105,24 @@ export class PlanTableComponent implements OnInit {
     applyFilterSelection(selection: FilterPlanTableSelection) { 
   
     }
-    
+
+    addItem($event){
+      this._router.navigate(['apps/plans/new/detail']);
+    } 
+
+    deleteItems($event:number[]) {
+      this._planService.deletePlans($event)
+        .subscribe(result => {
+          this._store.dispatch(new SynchronizePlanTableFilterSelected(this.filterPlanSelected));
+          this._notificationsService.success('Suppression réussi', `${$event.length} plan(s) supprimé(s)`);
+        }, error => {
+          this._notificationsService.error('Echec suppression', error);
+        })
+    }
+
     changeComboYearSelected(year) {
       this.filterPlanSelected.year=year;
       this._store.dispatch(new SynchronizePlanTableFilterSelected(this.filterPlanSelected));
-      // console.log('changeComboYearSelected');
       // this.store.dispatch(new ChangePlanTableComboFilter({filterName:'year',value:year}));
     }
 

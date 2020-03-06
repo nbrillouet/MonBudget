@@ -77,10 +77,6 @@ namespace Budget.SERVICE
         {
             FilterAsifTableSelection filterAsifTable = new FilterAsifTableSelection();
 
-            //var asi = _accountStatementImportService.GetForDetailById(filter.IdImport.Value);
-            //filterAsifTable.AsiBankAgencyLabel = asi.BankAgency.Label;
-            //filterAsifTable.AsiDateImport = asi.DateImport;
-
             var accounts = _accountStatementImportFileService.GetAccountSelectListByIdImport(filter.IdImport.Value);
             filterAsifTable.Account = accounts;
 
@@ -162,9 +158,9 @@ namespace Budget.SERVICE
 
         public FilterPlanNotAsTableSelection GetFilterPlanNotAsTable(FilterPlanNotAsTableSelected filter)
         {
-            FilterPlanNotAsTableSelection filterPlanNotAsTable = new FilterPlanNotAsTableSelection();
+            FilterAsTableSelection filterAsTableSelection = GetFilterAsTable(filter);
 
-            return filterPlanNotAsTable;
+            return _mapper.Map<FilterPlanNotAsTableSelection>(filterAsTableSelection);
         }
         
 

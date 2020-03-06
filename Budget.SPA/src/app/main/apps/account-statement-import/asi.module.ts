@@ -9,12 +9,10 @@ import { PreventUnsavedChanges } from "app/_guards/prevent-unsaved-changes.guard
 import { NgxsModule } from "@ngxs/store";
 import { AsifDetailComponent } from "../account-statement-import-file/asif-detail/asif-detail.component";
 import { AsifMainComponent } from "../account-statement-import-file/asif-main/asif-main.component";
-import { AsifListComponent } from "../account-statement-import-file/asif-list/asif-list.component";
 import { AsifStateComponent } from "../account-statement-import-file/asif-state/asif-state.component";
 import { AsiUploadComponent } from "./asi-upload/asi-upload.component";
 import { AsifService } from "../account-statement-import-file/asif.service";
 import { AsiMainComponent } from "./asi-main/asi-main.component";
-import { AsiListComponent } from "./asi-list/asi-list.component";
 import { AsiFilterComponent } from "./asi-filter/asi-filter.component";
 import { AsiService } from "./asi.service";
 import { AsifDetailState } from "app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.state";
@@ -28,6 +26,8 @@ import { AsiTableState } from "app/main/_ngxs/account-statement-import/asi-table
 import { AsifTableFilterSelectionState } from "app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selection/asif-table-filter-selection.state";
 import { AsifTableFilterSelectedState } from "app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selected/asif-table-filter-selected.state";
 import { AsifTableState } from "app/main/_ngxs/account-statement-import-file/asif-table/asif-table.state";
+import { AsifTableComponent } from "../account-statement-import-file/asif-table/asif-table.component";
+import { AsiTableComponent } from "./asi-table/asi-table.component";
 
 const routes = [
     {
@@ -76,13 +76,14 @@ const routes = [
     ],
     declarations: [
         AsifMainComponent,
-        AsifListComponent,
+        AsifTableComponent,
         AsifStateComponent,
         AsifDetailComponent,
+        
         AsiUploadComponent,
         AsiMainComponent,
         AsiFilterComponent,
-        AsiListComponent
+        AsiTableComponent
     ],
     providers : [
         AsiService,

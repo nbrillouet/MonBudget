@@ -174,7 +174,7 @@ namespace Budget.SERVICE
         public OtForDetailDto GetOtDetail(int idOperationType, int idUserGroup)
         {
             OperationType ot = new OperationType();
-            if (idOperationType == -1)
+            if (idOperationType == 0)
             {
                 ot.OperationTypeFamily = new OperationTypeFamily { Id = 1, Label = "INCONNU" };
             }

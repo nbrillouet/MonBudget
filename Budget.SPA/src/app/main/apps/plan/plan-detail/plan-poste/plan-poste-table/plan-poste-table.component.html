@@ -1,11 +1,10 @@
 <mat-table-filter 
-    [filterSelection$] = "planPosteTableFilterSelection$"
-    [filterSelected$] = "planPosteTableFilterSelected$"
-    [table$] = "planPosteTable$"
-    [columns] = "columns"
+    [matTableFilter]="matTableFilter"
     (onRowClick) = "onRowClick($event)"
     (changeFilterSelected)="applyFilterSelected($event)"
-    (changeFilterSelection)="applyFilterSelection($event)">
+    (changeFilterSelection)="applyFilterSelection($event)"
+    (toolbarAddItemEvent)="addItem($event)"
+    (toolbarDeleteItemsEvent)="deleteItems($event)">
 </mat-table-filter>
 
 <!-- <div class="example-container">

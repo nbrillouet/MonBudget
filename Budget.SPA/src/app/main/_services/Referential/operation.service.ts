@@ -76,9 +76,17 @@ constructor(
     }
 
     deleteOperationDetail(idOperation: number) {
-        
+  
     return this._http
             .delete(`${this.baseUrl}referential/operations/${idOperation}/delete`)
+            .map((response: boolean) => {
+                return response;
+            });
+    }
+
+    deleteOperations(idOperationList: number[]) {
+        return this._http
+            .post(`${this.baseUrl}referential/delete-operations`,idOperationList)
             .map((response: boolean) => {
                 return response;
             });

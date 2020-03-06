@@ -33,10 +33,8 @@ confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
     private notificationService: NotificationsService
   ) {
  
-
     this.user$.subscribe((user:IUser) => {
       if(user) {
-
           this.bankAgencies = user.bankAgencies;
       }
     });

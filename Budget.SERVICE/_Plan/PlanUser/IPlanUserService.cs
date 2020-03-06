@@ -14,7 +14,7 @@ namespace Budget.SERVICE
         ComboMultiple<SelectDto> GetUserComboMultiple(int idPlan, int idUserGroup);
         void Create(PlanUser planUser);
         //void SaveByIdPlan(int idPlan,List<SelectDto> selectUsers);
-        //void DeleteByIdPlan(int idPlan);
+        void DeleteByIdPlan(int idPlan);
     }
 
 

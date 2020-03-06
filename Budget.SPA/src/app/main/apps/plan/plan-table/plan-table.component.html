@@ -81,19 +81,16 @@
         </div> -->
          
           <!-- / HEADER -->
-
+          <!-- (toolbarAddItemEvent)="addItem($event)" -->
         <div class="content-card" mat-white-bg>
-            <!-- <div fxLayout='column' class="cards" > -->
-                <mat-table-filter 
-                    [filterSelection$] = "planTableFilterSelection$"
-                    [filterSelected$] = "planTableFilterSelected$"
-                    [table$] = "planTable$"
-                    [columns] = "columns"
-                    (onRowClick) = "onRowClick($event)"
-                    (changeFilterSelected)="applyFilterSelected($event)"
-                    (changeFilterSelection)="applyFilterSelection($event)">
-                </mat-table-filter>
-            <!-- </div> -->
+            <mat-table-filter 
+                [matTableFilter]="matTableFilter"
+                (onRowClick)="onRowClick($event)"
+                (changeFilterSelected)="applyFilterSelected($event)"
+                (changeFilterSelection)="applyFilterSelection($event)"
+                (toolbarAddItemEvent)="addItem($event)"
+                (toolbarDeleteItemsEvent)="deleteItems($event)" >
+            </mat-table-filter>
         </div>
     </div>
 </div>

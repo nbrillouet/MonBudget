@@ -94,6 +94,21 @@ namespace Budget.API.Controllers.Referential
 
         }
 
+        [HttpPost]
+        [Route("delete-operations")]
+        public IActionResult DeleteOperations([FromBody] List<int> idOperationList)
+        {
+            try
+            {
+                _referentialService.OperationService.DeleteOperations(idOperationList);
+                return Ok("delete-operations-OK");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpDelete]
         [Route("{idOperation}/delete")]
         public IActionResult DeleteDetail(int idOperation)
@@ -107,7 +122,6 @@ namespace Budget.API.Controllers.Referential
             {
                 return BadRequest(e.Message);
             }
-
         }
     }
 

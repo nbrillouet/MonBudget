@@ -1,11 +1,10 @@
 <mat-table-filter 
-    [filterSelection$] = "operationTableFilterSelection$"
-    [filterSelected$] = "operationTableFilterSelected$"
-    [table$] = "operationTable$"
-    [columns] = "columns"
-    (onRowClick) = "onRowClick($event)"
+    [matTableFilter]="matTableFilter"
+    (onRowClick)="onRowClick($event)"
     (changeFilterSelected)="applyFilterSelected($event)"
-    (changeFilterSelection)="applyFilterSelection($event)">
+    (changeFilterSelection)="applyFilterSelection($event)"
+    (toolbarAddItemEvent)="addItem($event)"
+    (toolbarDeleteItemsEvent)="deleteItems($event)">
 </mat-table-filter>
 
 <!-- <div fxlayout="column">

@@ -12,5 +12,6 @@ namespace Budget.DATA.Repositories
         PagedList<PlanPoste> GetPlanPosteTable(FilterPlanPosteTableSelected filter);
         List<PlanPoste> Get(int idPlan, int idPoste);
         new PlanPoste GetById(int id);
+        List<PlanPoste> GetByIdPlan(int idPlan);
     }    
 }

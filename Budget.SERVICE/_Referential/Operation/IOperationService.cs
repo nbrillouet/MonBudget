@@ -25,6 +25,7 @@ namespace Budget.SERVICE
         void Update(Operation operation);
         void Delete(Operation operation);
         bool DeleteDetail(int idOperation);
+        void DeleteOperations(List<int> idOperationList);
 
     }
 }
