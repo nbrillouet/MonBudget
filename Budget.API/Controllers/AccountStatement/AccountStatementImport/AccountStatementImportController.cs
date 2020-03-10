@@ -26,14 +26,14 @@ namespace Budget.API.Controllers
         private readonly IUserService _userService;
         private readonly IAccountStatementImportService _accountStatementImportService;
         private readonly IAccountStatementImportFileService _accountStatementImportFileService;
-        private readonly IFilterService _filterService;
+        private readonly FilterService _filterService;
 
         public AccountStatementImportController(
             IAccountStatementImportService accountStatementImportService,
             IUserService userService,
             IAccountStatementImportFileService accountStatementImportFileService,
             IMapper mapper,
-            IFilterService filterService
+            FilterService filterService
             )
         {
             _mapper = mapper;
@@ -47,7 +47,7 @@ namespace Budget.API.Controllers
         [Route("table-filter")]
         public IActionResult getAsiTableFilter([FromBody] FilterAsiTableSelected filter)
         {
-            var result= _filterService.GetFilterAsiTable(filter);
+            var result= _filterService.FilterTableService.GetFilterAsiTable(filter);
 
             return Ok(result);
         }

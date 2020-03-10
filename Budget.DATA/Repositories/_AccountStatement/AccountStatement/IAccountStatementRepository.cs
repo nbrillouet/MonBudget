@@ -16,6 +16,8 @@ namespace Budget.DATA.Repositories
         int GetPlanNotAsCount(FilterFixedPlanNotAsTableSelected filterFixed);
         AccountStatement GetAsDetail(int id);
         List<AccountStatement> GetByDatePlanPosteReferenceList(List<PlanPosteReference> planPosteReferences, DateTime dateMin, DateTime dateMax);
+        bool HasOperation(int idOperation);
+
         Boolean Save(List<AccountStatement> accountStatements);
         AccountStatement Save(AccountStatement accountStatement);
         SoldeDto GetSolde(int? idUser, int? idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer);

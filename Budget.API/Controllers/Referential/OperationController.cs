@@ -1,12 +1,15 @@
-﻿using Budget.MODEL.Database;
+﻿using Budget.MODEL;
+using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using Budget.MODEL.Filter;
 using Budget.SERVICE;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Budget.API.Controllers.Referential
@@ -16,13 +19,12 @@ namespace Budget.API.Controllers.Referential
     [Route("api/referential/operations")]
     public class OperationController : Controller
     {
-        //private IOperationService _operationService;
         private readonly ReferentialService _referentialService;
-        private readonly IFilterService _filterService;
+        private readonly FilterService _filterService;
 
         public OperationController(
             ReferentialService referentialService,
-            IFilterService filterService
+            FilterService filterService
         )
         {
             _referentialService = referentialService;
@@ -69,7 +71,7 @@ namespace Budget.API.Controllers.Referential
         [Route("table-filter")]
         public IActionResult getTableFilter([FromBody] FilterOperationTableSelected filter)
         {
-            var result = _filterService.GetFilterOperationTable(filter);
+            var result = _filterService.FilterTableService.GetFilterOperationTable(filter);
 
             return Ok(result);
         }
@@ -77,52 +79,64 @@ namespace Budget.API.Controllers.Referential
 
 
         [HttpGet]
-        [Route("{idOperation}/user-groups/{idUserGroup}/detail")]
+        [Route("{idOperation}/user-groups/{idUserGroup}/operation-detail")]
         public IActionResult GetDetail(int idOperation, int idUserGroup)
         {
-                var results = _referentialService.OperationService.GetDetail(idOperation, idUserGroup);
+            var results = _referentialService.OperationService.GetDetail(idOperation, idUserGroup);
             return Ok(results);
         }
 
         [HttpPost]
-        [Route("save")]
-        public IActionResult SaveDetail([FromBody] OperationForDetailDto operationForDetailDto)
+        [Route("operation-detail-filter")]
+        public IActionResult GetDetailFilter([FromBody] OperationForDetail operationForDetail)
         {
-            var pagedList = _referentialService.OperationService.SaveDetail(operationForDetailDto);
+            return Ok(_filterService.FilterDetailService.GetFilterOperationDetail(operationForDetail));
+        }
+
+        [HttpPost]
+        [Route("save")]
+        public IActionResult SaveDetail([FromBody] OperationForDetail operationForDetail)
+        {
+            var pagedList = _referentialService.OperationService.SaveDetail(operationForDetail);
 
             return Ok(pagedList);
 
         }
 
         [HttpPost]
-        [Route("delete-operations")]
-        public IActionResult DeleteOperations([FromBody] List<int> idOperationList)
+        [Route("user-groups/{idUserGroup}/delete-operations")]
+        public IActionResult DeleteOperations(int idUserGroup, [FromBody] List<int> idOperationList)
         {
             try
             {
-                _referentialService.OperationService.DeleteOperations(idOperationList);
+                _referentialService.OperationService.DeleteOperations(idOperationList, idUserGroup);
                 return Ok("delete-operations-OK");
             }
-            catch (Exception e)
+            catch (BusinessException e)
             {
-                return BadRequest(e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.BusinessExceptionMessages);
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception);
             }
         }
 
-        [HttpDelete]
-        [Route("{idOperation}/delete")]
-        public IActionResult DeleteDetail(int idOperation)
-        {
-            try
-            {
-                var results = _referentialService.OperationService.DeleteDetail(idOperation);
-                return Ok(results);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
+        //[HttpDelete]
+        //[Route("{idOperation}/delete")]
+        //public IActionResult DeleteDetail(int idOperation)
+        //{
+
+        //    try
+        //    {
+        //        var results = _referentialService.OperationService.DeleteDetail(idOperation);
+        //        return Ok(results);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return BadRequest(e.Message);
+        //    }
+        //}
     }
 
 }

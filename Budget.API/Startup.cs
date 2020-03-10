@@ -234,10 +234,15 @@ namespace Budget.API
             services.AddScoped<IVPlanGlobalRepository, VPlanGlobalRepository>();
             services.AddScoped<IMailService, MailService>();
 
-            services.AddScoped<IFilterService, FilterService>();
+            services.AddScoped<IFilterTableService, FilterTableService>();
+            services.AddScoped<IFilterDetailService, FilterDetailService>();
             services.AddScoped<IPlanNotAsService, PlanNotAsService>();
+            services.AddScoped<IAccountStatementCheckReferentialService, AccountStatementCheckReferentialService>();
+            services.AddScoped<IBusinessExceptionMessageService, BusinessExceptionMessageService>();
+            services.AddScoped<IBusinessExceptionLibraryService, BusinessExceptionLibraryService>();
             
             services.AddTransient<ReferentialService>();
+            services.AddTransient<FilterService>();
 
             services.AddScoped<IContextTransaction, ContextTransaction>();
 

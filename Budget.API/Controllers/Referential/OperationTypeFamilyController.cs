@@ -18,11 +18,11 @@ namespace Budget.API.Controllers.Referential
     public class OperationTypeFamilyController : Controller
     {
         private IOperationTypeFamilyService _operationTypeFamilyService;
-        private IFilterService _filterService;
+        private FilterService _filterService;
 
         public OperationTypeFamilyController(
             IOperationTypeFamilyService operationTypeFamilyService,
-            IFilterService filterService
+            FilterService filterService
         )
         {
             _operationTypeFamilyService = operationTypeFamilyService;
@@ -51,7 +51,7 @@ namespace Budget.API.Controllers.Referential
         [Route("table-filter")]
         public IActionResult getOtfTableFilter([FromBody] FilterOtfTableSelected filter)
         {
-            var result = _filterService.GetFilterOtfTable(filter);
+            var result = _filterService.FilterTableService.GetFilterOtfTable(filter);
 
             return Ok(result);
         }

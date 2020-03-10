@@ -25,13 +25,17 @@ namespace Budget.MODEL.Filter
     {
         public List<SelectDto> OperationMethod { get; set; }
         public List<SelectGroupDto> OperationType { get; set; }
-
-        //public FilterOperationTableSelected Selected { get; set; }
-
+        
         public FilterOperationTableSelection()
         {
-            //Selected = new FilterOperationTableSelected();
+
         }
+    }
+
+    public class FilterOperationForDetail
+    {
+        public List<SelectDto> OperationMethod { get; set; }
+        public List<SelectGroupDto> OperationType { get; set; }
     }
    
 }

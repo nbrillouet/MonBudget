@@ -24,7 +24,7 @@ namespace Budget.API.Controllers
     public class AccountStatementController : Controller
     {
         private readonly IAccountStatementService _accountStatementService;
-        private readonly IFilterService _filterService;
+        private readonly FilterService _filterService;
         private readonly ReferentialService _referentialService;
 
 
@@ -33,7 +33,7 @@ namespace Budget.API.Controllers
         public AccountStatementController(
             IAccountStatementService accountStatementService,
             ReferentialService referentialService,
-            IFilterService filterService
+            FilterService filterService
 
             )
         {
@@ -49,7 +49,7 @@ namespace Budget.API.Controllers
         [Route("table-filter")]
         public IActionResult getAsTableFilter([FromBody] FilterAsTableSelected filter)
         {
-            var result = _filterService.GetFilterAsTable(filter);
+            var result = _filterService.FilterTableService.GetFilterAsTable(filter);
 
             return Ok(result);
         }

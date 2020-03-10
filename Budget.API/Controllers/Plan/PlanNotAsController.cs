@@ -15,11 +15,11 @@ namespace Budget.API.Controllers
     public class PlanNotAsController : Controller
     {
         private readonly IPlanNotAsService _planNotAsService;
-        private readonly IFilterService _filterService;
+        private readonly FilterService _filterService;
 
         public PlanNotAsController(
             IPlanNotAsService planNotAsService,
-            IFilterService filterService
+            FilterService filterService
             )
         {
             _planNotAsService = planNotAsService;
@@ -30,7 +30,7 @@ namespace Budget.API.Controllers
         [Route("plan-not-as-table-filter")]
         public IActionResult getPlanNotAsTableFilter([FromBody] FilterPlanNotAsTableSelected filter)
         {
-            var result = _filterService.GetFilterPlanNotAsTable(filter);
+            var result = _filterService.FilterTableService.GetFilterPlanNotAsTable(filter);
 
             return Ok(result);
         }

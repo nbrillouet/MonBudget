@@ -14,24 +14,33 @@ namespace Budget.SERVICE
     public class OperationService : IOperationService
     {
         private readonly IMapper _mapper;
-        private readonly IOperationRepository _operationRepository;
         private readonly ISelectService _selectService;
         private readonly IOperationMethodService _operationMethodService;
         private readonly IOperationTypeService _operationTypeService;
+        private readonly IAccountStatementCheckReferentialService _accountStatementCheckReferentialService;
+        private readonly IBusinessExceptionMessageService _businessExceptionMessageService;
+
+        private readonly IOperationRepository _operationRepository;
 
         public OperationService(
             IMapper mapper,
-            IOperationRepository operationRepository,
             ISelectService selectService,
             IOperationMethodService operationMethodService,
-            IOperationTypeService operationTypeService
+            IOperationTypeService operationTypeService,
+            IAccountStatementCheckReferentialService accountStatementCheckReferentialService,
+            IBusinessExceptionMessageService businessExceptionMessageService,
+
+            IOperationRepository operationRepository
             )
         {
             _mapper = mapper;
-            _operationRepository = operationRepository;
             _selectService = selectService;
             _operationMethodService = operationMethodService;
             _operationTypeService = operationTypeService;
+            _accountStatementCheckReferentialService = accountStatementCheckReferentialService;
+            _businessExceptionMessageService = businessExceptionMessageService;
+
+            _operationRepository = operationRepository;
         }
 
         public List<SelectDto> GetSelectList(int idUserGroup)
@@ -118,13 +127,11 @@ namespace Budget.SERVICE
             var pagedList = _operationRepository.GetTable(filter);
 
             var result = new PagedList<OperationForTableDto>(_mapper.Map<List<OperationForTableDto>>(pagedList.Datas), pagedList.Pagination);
-
             return result;
-
         }
 
 
-        public OperationForDetailDto GetDetail(int idOperation, int idUserGroup)
+        public OperationForDetail GetDetail(int idOperation, int idUserGroup)
         {
             Operation operation = new Operation();
             if (idOperation == -1)
@@ -136,7 +143,7 @@ namespace Budget.SERVICE
             {
                 operation = _operationRepository.GetDetail(idOperation);
             }
-            var operationDto = _mapper.Map<OperationForDetailDto>(operation);
+            var operationDto = _mapper.Map<OperationForDetail>(operation);
 
             operationDto.OperationMethod = new ComboSimple<SelectDto>
             {
@@ -151,7 +158,7 @@ namespace Budget.SERVICE
             return operationDto;
         }
 
-        public OperationForDetailDto SaveDetail(OperationForDetailDto operationForDetailDto)
+        public OperationForDetail SaveDetail(OperationForDetail operationForDetailDto)
         {
             var operation = _mapper.Map<Operation>(operationForDetailDto);
             if (operation.Id != 0)
@@ -163,7 +170,7 @@ namespace Budget.SERVICE
                 operation = _operationRepository.Create(operation);
             }
 
-            return _mapper.Map<OperationForDetailDto>(operation); ;
+            return _mapper.Map<OperationForDetail>(operation); ;
         }
 
         public Operation Create(Operation operation)
@@ -181,21 +188,63 @@ namespace Budget.SERVICE
             _operationRepository.Delete(operation);
         }
 
-        public bool DeleteDetail(int idOperation)
+        public bool Delete(int idOperation)
         {
             var operation = _operationRepository.GetById(idOperation);
-            if (operation.IsMandatory)
-                throw new Exception("Opération obligatoire, suppression impossible");
+
             _operationRepository.Delete(operation);
 
             return true;
         }
 
-        public void DeleteOperations(List<int> idOperationList)
+        public void DeleteOperations(List<int> idOperationList, int idUserGroup)
         {
-            foreach(var idOperation in idOperationList)
+            CheckForDeleteOperations(idOperationList);
+            foreach (var idOperation in idOperationList)
             {
-                DeleteDetail(idOperation);
+                Delete(idOperation);
+            }
+
+        }
+
+        private List<BusinessExceptionMessage> CheckForDelete(Operation operation)
+        {
+            List<BusinessExceptionMessage> businessExceptionMessages = new List<BusinessExceptionMessage>();
+            //Recherche si operation est mandatory
+            if (operation.IsMandatory)
+                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_OPE_ERR_000));
+
+            //Recherche si operation utilisée dans account statement file
+            if (_accountStatementCheckReferentialService.AsifHasOperation(operation.Id))
+            {
+                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_OPE_ERR_001));
+            }
+
+            //Recherche si operation utilisé dans account statement
+            if (_accountStatementCheckReferentialService.AsHasOperation(operation.Id))
+            {
+                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_OPE_ERR_002));
+            }
+
+            return businessExceptionMessages;
+            //if (businessExceptionMessages.Count > 0)
+            //{
+            //    throw new BusinessException(businessExceptionMessages);
+            //}
+        }
+
+        private void CheckForDeleteOperations(List<int> idOperationList)
+        {
+            List<BusinessExceptionMessage> businessExceptionMessages = new List<BusinessExceptionMessage>();
+            foreach (var idOperation in idOperationList)
+            {
+                var operation = _operationRepository.GetById(idOperation);
+                businessExceptionMessages.AddRange(CheckForDelete(operation));
+            }
+
+            if (businessExceptionMessages.Count() > 0)
+            {
+                throw new BusinessException(businessExceptionMessages);
             }
         }
     }

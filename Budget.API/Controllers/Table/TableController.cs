@@ -17,13 +17,13 @@ namespace Budget.API.Controllers
     public class TableController : Controller
     {
         private readonly IAccountStatementService _accountStatementService;
-        private readonly IFilterService _filterService;
+        private readonly FilterService _filterService;
 
         private Dictionary<string, object> serviceNames = new Dictionary<string, object>();
 
         public TableController(
             IAccountStatementService accountStatementService,
-            IFilterService filterService
+            FilterService filterService
             )
         {
             _accountStatementService = accountStatementService;
@@ -89,7 +89,7 @@ namespace Budget.API.Controllers
         [Route("filter")]
         public IActionResult getAsTableFilter([FromBody] FilterAsTableSelected filter)
         {
-            var result = _filterService.GetFilterAsTable(filter);
+            var result = _filterService.FilterTableService.GetFilterAsTable(filter);
 
             return Ok(result);
         }

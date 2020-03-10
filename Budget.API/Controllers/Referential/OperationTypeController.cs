@@ -18,13 +18,13 @@ namespace Budget.API.Controllers.Referential
     {
         private ReferentialService _referentialService;
         private IOperationTypeService _operationTypeService;
-        private IFilterService _filterService;
+        private FilterService _filterService;
 
 
         public OperationTypeController(
             ReferentialService referentialService,
             IOperationTypeService operationTypeService,
-            IFilterService filterService
+            FilterService filterService
         )
         {
             _referentialService = referentialService;
@@ -54,7 +54,7 @@ namespace Budget.API.Controllers.Referential
         [Route("table-filter")]
         public IActionResult getOtTableFilter([FromBody] FilterOtTableSelected filter)
         {
-            var result = _filterService.GetFilterOtTable(filter);
+            var result = _filterService.FilterTableService.GetFilterOtTable(filter);
 
             return Ok(result);
         }

@@ -4,7 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { IOperation, OperationForDetail } from "app/main/_models/referential/operation.model";
 import { ISelect, EnumSelectType } from "app/main/_models/generics/select.model";
 import { IUserForGroup } from "app/main/_models/user.model";
-import { FilterOperationTableSelected, FilterOperationTableSelection } from "app/main/_models/filters/operation.filter";
+import { FilterOperationTableSelected, FilterOperationTableSelection, FilterOperationDetail } from "app/main/_models/filters/operation.filter";
 
 
 @Injectable()
@@ -14,24 +14,24 @@ user = JSON.parse(localStorage.getItem('currentUser'));
 userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:this.user.idUserGroup} : null;
     
 constructor(
-        private _http: HttpClient
+        private _httpClient: HttpClient
     ) { }
 
     GetSelectList(idOperationMethod: number,idOperationType: number, enumSelectType: EnumSelectType) {
-        return this._http
+        return this._httpClient
             .get(`${this.baseUrl}referential/operations/user-groups/${this.user.idUserGroup}/operation-methods/${idOperationMethod}/operation-types/${idOperationType}/select-type/${enumSelectType}/operations`)
             .map(response => <ISelect[]>response);
     }
 
     GetSelectListByOperationMethods(operationMethods: ISelect[]) {
-        return this._http
+        return this._httpClient
             .post(`${this.baseUrl}referential/operations/user-groups/${this.user.idUserGroup}/select-list`,operationMethods)
             .map(res=><ISelect[]>res);
     }
 
     Create(operation: IOperation) {
         operation.idUserGroup = this.user.idUserGroup;
-        return this._http
+        return this._httpClient
             .post(`${this.baseUrl}referential/operations/create`,operation)
             .map(res=><IOperation>res);
     }
@@ -42,7 +42,7 @@ constructor(
     getOperationTable (filter: FilterOperationTableSelected) {
         filter.user =  this.userForGroup;
         
-        return this._http
+        return this._httpClient
             .post(`${this.baseUrl}referential/operations/filter`,filter)
             .map((response: any) => {
                 return response;
@@ -52,23 +52,28 @@ constructor(
     getOperationTableFilter(filter: FilterOperationTableSelected) {
         filter.user =  this.userForGroup;
             
-        return this._http
+        return this._httpClient
             .post(`${this.baseUrl}referential/operations/table-filter`,filter)
             .map((response: FilterOperationTableSelection) => {
                 return response;
             });
     }
 
+    getDetailFilter(filter: OperationForDetail) {
+        return this._httpClient
+            .post<FilterOperationDetail>(`${this.baseUrl}referential/operations/operation-detail-filter`,filter)
+    }
+
     getDetail(idOperation: number) {
-        return this._http
-            .get(`${this.baseUrl}referential/operations/${idOperation}/user-groups/${this.userForGroup.idUserGroup}/detail`)
+        return this._httpClient
+            .get(`${this.baseUrl}referential/operations/${idOperation}/user-groups/${this.userForGroup.idUserGroup}/operation-detail`)
             .map(response => <OperationForDetail>response)
     }
 
     saveDetail(operationDetail: OperationForDetail) {
         operationDetail.user =  this.userForGroup;
         
-        return this._http
+        return this._httpClient
             .post(`${this.baseUrl}referential/operations/save`,operationDetail)
             .map((response: OperationForDetail) => {
                 return response;
@@ -77,7 +82,7 @@ constructor(
 
     deleteOperationDetail(idOperation: number) {
   
-    return this._http
+    return this._httpClient
             .delete(`${this.baseUrl}referential/operations/${idOperation}/delete`)
             .map((response: boolean) => {
                 return response;
@@ -85,8 +90,8 @@ constructor(
     }
 
     deleteOperations(idOperationList: number[]) {
-        return this._http
-            .post(`${this.baseUrl}referential/delete-operations`,idOperationList)
+        return this._httpClient
+            .post(`${this.baseUrl}referential/operations/user-groups/${this.userForGroup.idUserGroup}/delete-operations`,idOperationList)
             .map((response: boolean) => {
                 return response;
             });

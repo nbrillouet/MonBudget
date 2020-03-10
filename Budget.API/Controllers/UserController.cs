@@ -29,13 +29,13 @@ namespace Budget.API.Controllers
         private readonly IMapper _mapper;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
         private Cloudinary _cloudinary;
-        private readonly IFilterService _filterService;
+        private readonly FilterService _filterService;
 
         public UserController(
             IUserService userService, 
             IMapper mapper,
             IOptions<CloudinarySettings> cloudinaryConfig,
-            IFilterService filterService,
+            FilterService filterService,
             IUserAccountService userAccountService
             )
         {
@@ -57,7 +57,7 @@ namespace Budget.API.Controllers
         [Route("table-filter")]
         public IActionResult getUserTableFilter([FromBody] FilterUserTableSelected filter)
         {
-            var result = _filterService.GetFilterUserTable(filter);
+            var result = _filterService.FilterTableService.GetFilterUserTable(filter);
 
             return Ok(result);
         }

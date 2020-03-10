@@ -17,13 +17,15 @@ namespace Budget.SERVICE
 {
     public class AccountStatementImportFileService : IAccountStatementImportFileService
     {
-        private readonly IAccountStatementImportFileRepository _accountStatementImportFileRepository;
+        
         private readonly IMapper _mapper;
         private readonly IAccountService _accountService;
         private readonly IAccountStatementService _accountStatementService;
         private readonly IOperationTransverseAsifService _operationTransverseAsifService;
         private readonly IOperationTransverseAsService _operationTransverseAsService;
         private readonly ReferentialService _referentialService;
+
+        private readonly IAccountStatementImportFileRepository _accountStatementImportFileRepository;
 
         public AccountStatementImportFileService(
             IAccountStatementImportFileRepository accountStatementImportFileRepository,
@@ -391,6 +393,8 @@ namespace Budget.SERVICE
 
             return operationDetail;
         }
+
+
 
 
     }

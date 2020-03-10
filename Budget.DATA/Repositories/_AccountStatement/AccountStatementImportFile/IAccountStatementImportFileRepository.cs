@@ -13,14 +13,11 @@ namespace Budget.DATA.Repositories
     {
         PagedList<AccountStatementImportFile> GetAsifTable(FilterAsifTableSelected filter);
         AccountStatementImportFile GetAsifDetail(int id);
-
         bool IsAccountStatementSaveable(int idImport);
-        //void Save(List<AccountStatementImportFile> accountStatementImportFiles);
+
         int Save(AccountStatementImportFile accountStatementImportFile);
         AccountStatementImportFile UpdateAsifState(AccountStatementImportFile item);
-        //void UpdateAsifStates(int idImport);
         void UpdateAsifStates(AccountStatementImportFile asif);
-
         bool SaveWithTran(List<AccountStatementImportFile> accountStatementImportFiles);
 
 
@@ -31,6 +28,8 @@ namespace Budget.DATA.Repositories
 
         Task<AccountStatementImportFile> GetForDetailByIdAsync(int id);
         List<AccountStatementImportFile> GetAsifsWithoutDuplicate(int idImport);
+
+        bool HasOperation(int idOperation);
 
     }
 }

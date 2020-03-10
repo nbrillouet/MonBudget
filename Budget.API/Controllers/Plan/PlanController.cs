@@ -24,7 +24,7 @@ namespace Budget.API.Controllers
         private readonly IPlanUserService _planUserService;
         private readonly IPlanPosteFrequencyService _planPosteFrequencyService;
         private readonly IPlanNotAsService _accountStatementPlanService;
-        private readonly IFilterService _filterService;
+        private readonly FilterService _filterService;
 
         public PlanController(
             IPlanService planService,
@@ -35,7 +35,7 @@ namespace Budget.API.Controllers
             IPlanUserService planUserService,
             IPlanPosteFrequencyService planPosteFrequencyService,
             IPlanNotAsService accountStatementPlanService,
-            IFilterService filterService
+            FilterService filterService
             )
         {
             _planService = planService;
@@ -70,7 +70,7 @@ namespace Budget.API.Controllers
         [Route("plans/plan-table-filter")]
         public IActionResult getPlanTableFilter([FromBody] FilterPlanTableSelected filter)
         {
-            var result = _filterService.GetFilterPlanTable(filter);
+            var result = _filterService.FilterTableService.GetFilterPlanTable(filter);
 
             return Ok(result);
         }

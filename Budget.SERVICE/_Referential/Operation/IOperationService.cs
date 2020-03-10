@@ -18,14 +18,14 @@ namespace Budget.SERVICE
         List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste);
         List<SelectDto> GetSelectListByIdList(List<int> idList);
         PagedList<OperationForTableDto> GetTable(FilterOperationTableSelected filter);
-        OperationForDetailDto GetDetail(int idOperation, int idUserGroup);
+        OperationForDetail GetDetail(int idOperation, int idUserGroup);
 
-        OperationForDetailDto SaveDetail(OperationForDetailDto operationForDetailDto);
+        OperationForDetail SaveDetail(OperationForDetail operationForDetail);
         Operation Create(Operation operation);
         void Update(Operation operation);
         void Delete(Operation operation);
-        bool DeleteDetail(int idOperation);
-        void DeleteOperations(List<int> idOperationList);
+        bool Delete(int idOperation);
+        void DeleteOperations(List<int> idOperationList, int idUserGroup);
 
     }
 }

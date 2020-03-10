@@ -399,5 +399,14 @@ namespace Budget.DATA.Repositories
 
             return results;
         }
+
+        public bool HasOperation(int idOperation)
+        {
+            var result = Context.AccountStatementImportFile
+                .Where(x => x.IdOperation == idOperation)
+                .Any();
+
+            return result;
+        }
     }
 }

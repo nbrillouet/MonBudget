@@ -6,15 +6,15 @@ using System.Text;
 
 namespace Budget.MODEL.Dto
 {
-    public class OperationDto
-    {
-        public int Id { get; set; }
-        public int IdOperationMethod { get; set; }
-        public int IdOperationType { get; set; }
-        public string Keyword { get; set; }
-        public string Label { get; set; }
-        public string Reference { get; set; }
-    }
+    //public class OperationDto
+    //{
+    //    public int Id { get; set; }
+    //    public int IdOperationMethod { get; set; }
+    //    public int IdOperationType { get; set; }
+    //    public string Keyword { get; set; }
+    //    public string Label { get; set; }
+    //    public string Reference { get; set; }
+    //}
 
     //public class OperationTmpDto
     //{
@@ -46,7 +46,7 @@ namespace Budget.MODEL.Dto
         public bool IsMandatory { get; set; }
     }
 
-    public class OperationForDetailDto
+    public class OperationForDetail
     {
         public int Id { get; set; }
         public string Label { get; set; }

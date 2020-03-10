@@ -261,7 +261,17 @@ namespace Budget.DATA.Repositories
                .FirstOrDefault();
         }
 
-        
+        public bool HasOperation(int idOperation)
+        {
+            var result = Context.AccountStatement
+                .Where(x => x.IdOperation == idOperation)
+                .Any();
+
+            return result;
+        }
+
+
+
 
 
 

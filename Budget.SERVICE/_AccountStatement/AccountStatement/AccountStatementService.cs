@@ -60,7 +60,6 @@ namespace Budget.SERVICE
             }
 
             return result;
-
         }
 
         public PagedList<AsForTableDto> GetPlanNotAsTable(FilterPlanNotAsTableGroupSelected filter)

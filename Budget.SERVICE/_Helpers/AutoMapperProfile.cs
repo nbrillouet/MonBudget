@@ -121,10 +121,10 @@ namespace Budget.SERVICE._Helpers
                .ForMember(d => d.IdUserGroup, o => o.MapFrom(s => s.User.IdUserGroup));
 
             CreateMap<Operation, OperationForTableDto>();
-            CreateMap<Operation, OperationForDetailDto>()
+            CreateMap<Operation, OperationForDetail>()
                 .ForMember(d => d.OperationMethod, o => o.Ignore())
                 .ForMember(d => d.OperationType, o => o.Ignore());
-            CreateMap<OperationForDetailDto, Operation>()
+            CreateMap<OperationForDetail, Operation>()
                .ForMember(d => d.OperationType, o => o.Ignore())
                .ForMember(d => d.OperationMethod, o => o.Ignore())
                .ForMember(d => d.IdOperationType, o => o.MapFrom(s => s.OperationType.Selected.Id))

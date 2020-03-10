@@ -8,6 +8,17 @@ export class Datas<T> extends Loader {
     }
 }
 
+export class DataInfo<T> extends Loader {
+    datas: T;
+        
+    constructor(){
+        super();
+        this.datas = null;
+    }
+}
+
+
+
 export class DatasFilter<T,U> extends Datas<T>  {
     filter: U;
     constructor () {

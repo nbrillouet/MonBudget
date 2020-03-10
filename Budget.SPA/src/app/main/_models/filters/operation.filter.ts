@@ -2,9 +2,9 @@ import { ISelect, ISelectGroup } from "../generics/select.model";
 import { IUserForGroup } from "../user.model";
 import { Pagination } from "../pagination.model";
 
-export class FilterOperation {
-    operationMethod: ISelect;
-    operationType: ISelect;
+export class FilterOperationDetail {
+    operationMethod: ISelect[];
+    operationType: ISelect[];
 }
 
 export class FilterOperationTableSelected {
@@ -18,9 +18,13 @@ export class FilterOperationTableSelected {
 export class FilterOperationTableSelection {
     operationType: ISelectGroup[];
     operationMethod: ISelect[];
-    // selected : FilterOperationTableSelected;
 
     constructor () {
-        // this.selected = new FilterOperationTableSelected();
+
     }
+}
+
+export class FilterOperation {
+    operationMethod: ISelect;
+    operationType: ISelect;
 }

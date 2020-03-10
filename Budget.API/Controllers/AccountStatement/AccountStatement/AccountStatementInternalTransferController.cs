@@ -15,11 +15,11 @@ namespace Budget.API.Controllers
     public class AccountStatementInternalTransferController : Controller
     {
         private readonly IAccountStatementService _accountStatementService;
-        private readonly IFilterService _filterService;
+        private readonly FilterService _filterService;
 
         public AccountStatementInternalTransferController(
             IAccountStatementService accountStatementService,
-            IFilterService filterService
+            FilterService filterService
 
             )
         {

@@ -27,12 +27,12 @@ namespace Budget.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IAccountStatementImportFileService _accountStatementImportFileService;
-        private readonly IFilterService _filterService;
+        private readonly FilterService _filterService;
 
         public AccountStatementImportFileController(
             IAccountStatementImportFileService accountStatementImportFileService,
             IMapper mapper,
-            IFilterService filterService)
+            FilterService filterService)
         {
             _mapper = mapper;
             _accountStatementImportFileService = accountStatementImportFileService;
@@ -43,7 +43,7 @@ namespace Budget.API.Controllers
         [Route("table-filter")]
         public IActionResult getAsifTableFilter([FromBody] FilterAsifTableSelected filter)
         {
-           var result = _filterService.GetFilterAsifTable(filter);
+           var result = _filterService.FilterTableService.GetFilterAsifTable(filter);
 
            return Ok(result);
         }
