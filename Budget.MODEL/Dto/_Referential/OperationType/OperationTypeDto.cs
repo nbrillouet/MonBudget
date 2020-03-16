@@ -11,13 +11,14 @@ namespace Budget.MODEL.Dto
         public SelectDto OperationTypeFamily { get; set; }
         public UserForGroupDto User { get; set; }
         public bool IsMandatory { get; set; }
+        public bool IsUsed { get; set; }
     }
 
-    public class OtForDetailDto
+    public class OtForDetail
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Label { get; set; }
-        public ComboSimple<SelectDto> OperationTypeFamily { get; set; }
+        public SelectDto OperationTypeFamily { get; set; }
         public UserForGroupDto User { get; set; }
         public bool IsMandatory { get; set; }
     }

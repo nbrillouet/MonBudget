@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace Budget.SERVICE
 {
-    public class OperationService : IOperationService
+    public partial class OperationService : IOperationService
     {
         private readonly IMapper _mapper;
         private readonly ISelectService _selectService;
@@ -19,6 +19,7 @@ namespace Budget.SERVICE
         private readonly IOperationTypeService _operationTypeService;
         private readonly IAccountStatementCheckReferentialService _accountStatementCheckReferentialService;
         private readonly IBusinessExceptionMessageService _businessExceptionMessageService;
+        private readonly IUserService _userService;
 
         private readonly IOperationRepository _operationRepository;
 
@@ -29,6 +30,7 @@ namespace Budget.SERVICE
             IOperationTypeService operationTypeService,
             IAccountStatementCheckReferentialService accountStatementCheckReferentialService,
             IBusinessExceptionMessageService businessExceptionMessageService,
+            IUserService userService,
 
             IOperationRepository operationRepository
             )
@@ -38,6 +40,7 @@ namespace Budget.SERVICE
             _operationMethodService = operationMethodService;
             _operationTypeService = operationTypeService;
             _accountStatementCheckReferentialService = accountStatementCheckReferentialService;
+            _userService = userService;
             _businessExceptionMessageService = businessExceptionMessageService;
 
             _operationRepository = operationRepository;
@@ -122,130 +125,58 @@ namespace Budget.SERVICE
             return _mapper.Map<SelectDto>(operation);
         }
 
-        public PagedList<OperationForTableDto> GetTable(FilterOperationTableSelected filter)
+        public PagedList<OperationForTableDto> GetForTable(FilterOperationTableSelected filter)
         {
-            var pagedList = _operationRepository.GetTable(filter);
+            var pagedList = _operationRepository.GetForTable(filter);
 
             var result = new PagedList<OperationForTableDto>(_mapper.Map<List<OperationForTableDto>>(pagedList.Datas), pagedList.Pagination);
+
+            foreach(var data in result.Datas)
+            {
+                Operation operation = _mapper.Map<Operation>(data);
+                data.IsUsed = CheckForDelete(operation).Count()>0 ? true : false;
+            }
+
             return result;
         }
 
 
-        public OperationForDetail GetDetail(int idOperation, int idUserGroup)
+        public OperationForDetail GetForDetail(int? idOperation, int idUser)
         {
-            Operation operation = new Operation();
-            if (idOperation == -1)
-            {
-                operation.OperationMethod = new OperationMethod { Id = 1, Label = "INCONNU" };
-                operation.OperationType = new OperationType { Id = 1, Label = "INCONNU" };
-            }
-            else
-            {
-                operation = _operationRepository.GetDetail(idOperation);
-            }
-            var operationDto = _mapper.Map<OperationForDetail>(operation);
+            var userForGroup = _userService.GetForUserGroup(idUser);
+            OperationForDetail operationForDetail = !idOperation.HasValue ? GetForCreate() : GetById(idOperation.Value);
+            operationForDetail.User = userForGroup;
 
-            operationDto.OperationMethod = new ComboSimple<SelectDto>
+            return operationForDetail;
+        }
+
+        //public bool HasOt(int idOt)
+        //{
+        //    return _operationRepository.HasOt(idOt);
+        //}
+
+
+        private OperationForDetail GetForCreate()
+        {
+            OperationForDetail operationForDetail = new OperationForDetail
             {
-                List = _operationMethodService.GetSelectList(EnumSelectType.Empty),
-                Selected = new SelectDto { Id = operation.OperationMethod.Id, Label = operation.OperationMethod.Label }
+                IsMandatory = false,
+                OperationMethod = null, // _operationMethodService.GetSelect((int)EnumOperationMethod.Inconnu), 
+                OperationType = null //, // _operationTypeService.GetSelect(EnumCodeOperationType.INCO, userForGroupDto.IdUserGroup),
+                //User = userForGroupDto
             };
-            operationDto.OperationType = new ComboSimple<SelectGroupDto>
-            {
-                List = _operationTypeService.GetSelectGroup(idUserGroup),
-                Selected = new SelectDto { Id = operation.OperationType.Id, Label = operation.OperationType.Label }
-            };
-            return operationDto;
+
+            return operationForDetail;
         }
 
-        public OperationForDetail SaveDetail(OperationForDetail operationForDetailDto)
+        private OperationForDetail GetById(int idOperation)
         {
-            var operation = _mapper.Map<Operation>(operationForDetailDto);
-            if (operation.Id != 0)
-            {
-                _operationRepository.Update(operation);
-            }
-            else
-            {
-                operation = _operationRepository.Create(operation);
-            }
-
-            return _mapper.Map<OperationForDetail>(operation); ;
+            Operation operation = _operationRepository.GetForDetail(idOperation);
+            var result = _mapper.Map<OperationForDetail>(operation);
+            return result;
         }
 
-        public Operation Create(Operation operation)
-        {
-            return _operationRepository.Create(operation);
-        }
 
-        public void Update(Operation operation)
-        {
-            _operationRepository.Update(operation);
-        }
-
-        public void Delete(Operation operation)
-        {
-            _operationRepository.Delete(operation);
-        }
-
-        public bool Delete(int idOperation)
-        {
-            var operation = _operationRepository.GetById(idOperation);
-
-            _operationRepository.Delete(operation);
-
-            return true;
-        }
-
-        public void DeleteOperations(List<int> idOperationList, int idUserGroup)
-        {
-            CheckForDeleteOperations(idOperationList);
-            foreach (var idOperation in idOperationList)
-            {
-                Delete(idOperation);
-            }
-
-        }
-
-        private List<BusinessExceptionMessage> CheckForDelete(Operation operation)
-        {
-            List<BusinessExceptionMessage> businessExceptionMessages = new List<BusinessExceptionMessage>();
-            //Recherche si operation est mandatory
-            if (operation.IsMandatory)
-                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_OPE_ERR_000));
-
-            //Recherche si operation utilisée dans account statement file
-            if (_accountStatementCheckReferentialService.AsifHasOperation(operation.Id))
-            {
-                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_OPE_ERR_001));
-            }
-
-            //Recherche si operation utilisé dans account statement
-            if (_accountStatementCheckReferentialService.AsHasOperation(operation.Id))
-            {
-                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_OPE_ERR_002));
-            }
-
-            return businessExceptionMessages;
-            //if (businessExceptionMessages.Count > 0)
-            //{
-            //    throw new BusinessException(businessExceptionMessages);
-            //}
-        }
-
-        private void CheckForDeleteOperations(List<int> idOperationList)
-        {
-            List<BusinessExceptionMessage> businessExceptionMessages = new List<BusinessExceptionMessage>();
-            foreach (var idOperation in idOperationList)
-            {
-                var operation = _operationRepository.GetById(idOperation);
-                businessExceptionMessages.AddRange(CheckForDelete(operation));
-            }
-
-            if (businessExceptionMessages.Count() > 0)
-            {
-                throw new BusinessException(businessExceptionMessages);
-            }
-        }
+        
     }
 }

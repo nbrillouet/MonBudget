@@ -2,7 +2,6 @@
 using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
-using Budget.MODEL.Dto.Select;
 using Budget.MODEL.Filter;
 
 namespace Budget.SERVICE._Helpers
@@ -50,7 +49,9 @@ namespace Budget.SERVICE._Helpers
 
             CreateMap<UserForAvatarCreationDto, User>();
             CreateMap<UserForLabelDto, User>();
-            CreateMap<UserForGroupDto, User>();
+            CreateMap<UserForGroupDto, User>()
+                .ReverseMap();
+
             CreateMap<User, UserForConnectionDto>()
                 .ForMember(d => d.Token, o => o.Ignore());
 
@@ -101,35 +102,50 @@ namespace Budget.SERVICE._Helpers
             CreateMap<Operation, SelectDto>();
             CreateMap<OperationTypeFamily, SelectDto>();
             CreateMap<Movement, SelectDto>();
-
-            CreateMap<OperationTypeFamily, OtfForTableDto>();
-            CreateMap<OperationTypeFamily, OtfForDetailDto>()
+            
+            CreateMap<OperationTypeFamily, OtfForTableDto>()
+            .ReverseMap();
+            CreateMap<OperationTypeFamily, OtfForDetail>()
+            .ReverseMap()
                 .ForMember(d => d.Movement, o => o.Ignore())
-                .ForMember(d => d.LogoClassName, o => o.Ignore());
-            CreateMap<OtfForDetailDto, OperationTypeFamily>()
-                .ForMember(d => d.Movement, o => o.Ignore())
-                .ForMember(d => d.LogoClassName, o => o.MapFrom(s => s.LogoClassName.Selected.Label))
-                .ForMember(d => d.IdMovement, o => o.MapFrom(s => s.Movement.Selected.Id))
+                .ForMember(d => d.Asset, o => o.Ignore())
+                .ForMember(d => d.IdMovement, o => o.MapFrom(s => s.Movement.Id))
                 .ForMember(d => d.IdUserGroup, o => o.MapFrom(s => s.User.IdUserGroup));
 
-            CreateMap<OperationType, OtForTableDto>();
-            CreateMap<OperationType, OtForDetailDto>()
+            CreateMap<Asset, SelectDto>()
+                .ForMember(d => d.Label, o => o.MapFrom(s => $"\\assets\\{s.Path}\\{s.Name}.{s.Extension}"))
+            .ReverseMap()
+                .ForMember(d => d.Extension, o => o.Ignore())
+                .ForMember(d => d.IdFamily, o => o.Ignore())
+                .ForMember(d => d.Name, o => o.Ignore())
+                .ForMember(d => d.Path, o => o.Ignore());
+
+            CreateMap<OperationType, OtForTableDto>()
+            .ReverseMap()
+                .ForMember(d => d.IdOperationTypeFamily, o => o.MapFrom(s => s.OperationTypeFamily.Id))
                 .ForMember(d => d.OperationTypeFamily, o => o.Ignore());
-            CreateMap<OtForDetailDto, OperationType>()
+
+            CreateMap<OperationType, OtForDetail>()
+            .ReverseMap()
                .ForMember(d => d.OperationTypeFamily, o => o.Ignore())
-               .ForMember(d => d.IdOperationTypeFamily, o => o.MapFrom(s => s.OperationTypeFamily.Selected.Id))
+               .ForMember(d => d.IdOperationTypeFamily, o => o.MapFrom(s => s.OperationTypeFamily.Id))
                .ForMember(d => d.IdUserGroup, o => o.MapFrom(s => s.User.IdUserGroup));
 
-            CreateMap<Operation, OperationForTableDto>();
-            CreateMap<Operation, OperationForDetail>()
+            CreateMap<Operation, OperationForTableDto>()
+            .ReverseMap()
+                .ForMember(d => d.OperationType, o => o.Ignore())
                 .ForMember(d => d.OperationMethod, o => o.Ignore())
-                .ForMember(d => d.OperationType, o => o.Ignore());
-            CreateMap<OperationForDetail, Operation>()
-               .ForMember(d => d.OperationType, o => o.Ignore())
-               .ForMember(d => d.OperationMethod, o => o.Ignore())
-               .ForMember(d => d.IdOperationType, o => o.MapFrom(s => s.OperationType.Selected.Id))
-               .ForMember(d => d.IdOperationMethod, o => o.MapFrom(s => s.OperationMethod.Selected.Id))
-               .ForMember(d => d.IdUserGroup, o => o.MapFrom(s => s.User.IdUserGroup));
+                .ForMember(d => d.IdOperationType, o => o.MapFrom(s => s.OperationType.Id))
+                .ForMember(d => d.IdOperationMethod, o => o.MapFrom(s => s.OperationMethod.Id))
+                .ForMember(d => d.IdUserGroup, o => o.MapFrom(s => s.User.IdUserGroup));
+
+            CreateMap<Operation, OperationForDetail>()
+            .ReverseMap()
+                .ForMember(d => d.OperationType, o => o.Ignore())
+                .ForMember(d => d.OperationMethod, o => o.Ignore())
+                .ForMember(d => d.IdOperationType, o => o.MapFrom(s => s.OperationType.Id))
+                .ForMember(d => d.IdOperationMethod, o => o.MapFrom(s => s.OperationMethod.Id))
+                .ForMember(d => d.IdUserGroup, o => o.MapFrom(s => s.User.IdUserGroup));
 
             CreateMap<AccountStatementImport, AsiForListDto>();
 
@@ -137,10 +153,7 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
 
             CreateMap<AccountStatementImportFile, AsifDetailDto>()
-                .ForMember(d => d.LogoName, opt => opt.MapFrom(source => source.OperationTypeFamily.LogoClassName))
-                //trouver l'url à partir de la className
-                //.ForMember(d => d.LogoUrl, o => o.ResolveUsing(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName)))
-                .ForMember(d => d.LogoUrl, o => o.MapFrom(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName,128)))
+                .ForMember(d => d.Asset, opt => opt.MapFrom(source => source.OperationTypeFamily.Asset))
                 .ForMember(d => d.Operation, o => o.Ignore())
                 .ForMember(d => d.OperationMethod, o => o.Ignore())
                 .ForMember(d => d.OperationType, o => o.Ignore())
@@ -148,10 +161,10 @@ namespace Budget.SERVICE._Helpers
 
 
             CreateMap<AccountStatement, AsDetailDto>()
-                .ForMember(d => d.LogoName, opt => opt.MapFrom(source => source.OperationTypeFamily.LogoClassName))
+                .ForMember(d => d.Asset, opt => opt.MapFrom(source => source.OperationTypeFamily.Asset))
                 //trouver l'url à partir de la className
                 //.ForMember(d => d.LogoUrl, o => o.ResolveUsing(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName)))
-                .ForMember(d => d.LogoUrl, o => o.MapFrom(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName,128)))
+                //.ForMember(d => d.LogoUrl, o => o.MapFrom(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName,128)))
                 .ForMember(d => d.Operation, o => o.Ignore())
                 .ForMember(d => d.OperationMethod, o => o.Ignore())
                 .ForMember(d => d.OperationType, o => o.Ignore())

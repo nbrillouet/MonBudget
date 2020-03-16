@@ -18,18 +18,38 @@ namespace Budget.SERVICE
         private readonly ISelectService _selectService;
         private readonly IMapper _mapper;
         private readonly IOperationTypeFamilyService _operationTypeFamilyService;
+        private readonly IBusinessExceptionMessageService _businessExceptionMessageService;
+        private readonly IAccountStatementCheckReferentialService _accountStatementCheckReferentialService;
+        private readonly IOperationCheckReferentialService _operationCheckReferentialService;
+        private readonly IUserService _userService;
 
         public OperationTypeService(
             IOperationTypeRepository operationTypeRepository,
             ISelectService selectService,
             IMapper mapper,
-            IOperationTypeFamilyService operationTypeFamilyService
+            IOperationTypeFamilyService operationTypeFamilyService,
+            IBusinessExceptionMessageService businessExceptionMessageService,
+            IAccountStatementCheckReferentialService accountStatementCheckReferentialService,
+            IOperationCheckReferentialService operationCheckReferentialService,
+            IUserService userService
             )
         {
             _operationTypeRepository = operationTypeRepository;
             _selectService = selectService;
             _mapper = mapper;
             _operationTypeFamilyService = operationTypeFamilyService;
+            _businessExceptionMessageService = businessExceptionMessageService;
+            _accountStatementCheckReferentialService = accountStatementCheckReferentialService;
+            _operationCheckReferentialService = operationCheckReferentialService;
+            _userService = userService;
+
+        }
+
+        public SelectDto GetSelect(EnumCodeOperationType enumCodeOperationType, int idUserGroup)
+        {
+            var OperationType = _operationTypeRepository.Get(enumCodeOperationType, idUserGroup);
+
+            return _mapper.Map<SelectDto>(OperationType);
         }
 
         public OperationType GetByIdWithOperationTypeFamily(int idOperationType)
@@ -104,7 +124,7 @@ namespace Budget.SERVICE
             if (enumSelectType == EnumSelectType.Inconnu)
             {
                 var operationTypeFamily = _operationTypeFamilyService.GetById(idOperationTypeFamily);
-                var select = _mapper.Map<SelectDto>(GetUnknown(operationTypeFamily.IdUserGroup));
+                var select = _mapper.Map<SelectDto>(GetUnknown(operationTypeFamily.User.IdUserGroup));
                 selectList.Add(select);
             }
             else
@@ -161,39 +181,73 @@ namespace Budget.SERVICE
             return operationType;
         }
 
-        public PagedList<OtForTableDto> GetOtTable(FilterOtTableSelected filter)
+        public PagedList<OtForTableDto> GetForTable(FilterOtTableSelected filter)
         {
-            var pagedList = _operationTypeRepository.GetOtTable(filter);
+            var pagedList = _operationTypeRepository.GetForTable(filter);
 
             var result = new PagedList<OtForTableDto>(_mapper.Map<List<OtForTableDto>>(pagedList.Datas), pagedList.Pagination);
+
+            foreach (var data in result.Datas)
+            {
+                OperationType ot = _mapper.Map<OperationType>(data);
+                data.IsUsed = CheckForDelete(ot).Count() > 0 ? true : false;
+            }
 
             return result;
 
         }
 
-        public OtForDetailDto GetOtDetail(int idOperationType, int idUserGroup)
+        public OtForDetail GetForDetail(int? idOt, int idUser)
         {
-            OperationType ot = new OperationType();
-            if (idOperationType == 0)
-            {
-                ot.OperationTypeFamily = new OperationTypeFamily { Id = 1, Label = "INCONNU" };
-            }
-            else
-            {
-                ot = _operationTypeRepository.GetOtDetail(idOperationType);
-            }
-            var otDto = _mapper.Map<OtForDetailDto>(ot);
+            var userForGroup = _userService.GetForUserGroup(idUser);
+            OtForDetail otForDetail = !idOt.HasValue ? GetForCreate() : GetById(idOt.Value);
+            otForDetail.User = userForGroup;
 
-            otDto.OperationTypeFamily = new ComboSimple<SelectDto>
-            {
-                List = _operationTypeFamilyService.GetSelectList(idUserGroup, EnumSelectType.Empty),
-                Selected = new SelectDto { Id = ot.OperationTypeFamily.Id, Label = ot.OperationTypeFamily.Label }
-            };
-
-            return otDto;
+            return otForDetail;
         }
 
-        public OtForDetailDto SaveOtDetail(OtForDetailDto otForDetailDto)
+        private OtForDetail GetForCreate()
+        {
+            OtForDetail otForDetail = new OtForDetail
+            {
+                IsMandatory = false,
+                OperationTypeFamily = null //, // _operationMethodService.GetSelect((int)EnumOperationMethod.Inconnu), 
+                //User = userForGroupDto
+            };
+
+            return otForDetail;
+        }
+
+        private OtForDetail GetById(int idOt)
+        {
+            OperationType ot = _operationTypeRepository.GetForDetail(idOt);
+            var result = _mapper.Map<OtForDetail>(ot);
+            return result;
+        }
+
+        //public OtForDetail GetForDetail(int idOperationType, int idUserGroup)
+        //{
+        //    OperationType ot = new OperationType();
+        //    if (idOperationType == 0)
+        //    {
+        //        ot.OperationTypeFamily = new OperationTypeFamily { Id = 1, Label = "INCONNU" };
+        //    }
+        //    else
+        //    {
+        //        ot = _operationTypeRepository.GetOtDetail(idOperationType);
+        //    }
+        //    var otDto = _mapper.Map<OtForDetail>(ot);
+
+        //    otDto.OperationTypeFamily = new ComboSimple<SelectDto>
+        //    {
+        //        List = _operationTypeFamilyService.GetSelectList(idUserGroup, EnumSelectType.Empty),
+        //        Selected = new SelectDto { Id = ot.OperationTypeFamily.Id, Label = ot.OperationTypeFamily.Label }
+        //    };
+
+        //    return otDto;
+        //}
+
+        public OtForDetail Save(OtForDetail otForDetailDto)
         {
             var ot = _mapper.Map<OperationType>(otForDetailDto);
             if (ot.Id != 0)
@@ -205,19 +259,90 @@ namespace Budget.SERVICE
                 ot = _operationTypeRepository.Create(ot);
             }
 
-            return _mapper.Map<OtForDetailDto>(ot); ;
+            return _mapper.Map<OtForDetail>(ot); ;
         }
 
-        public bool DeleteOtDetail(int idOt)
+        //public bool DeleteOtDetail(int idOt)
+        //{
+        //    var ot = _operationTypeRepository.GetById(idOt);
+        //    if (ot.IsMandatory)
+        //        throw new Exception("Type d'opération obligatoire, suppression impossible");
+        //    _operationTypeRepository.DeleteWithEscalation(ot);
+
+
+        //    return true;
+        //}
+
+        public void DeleteOtList(List<int> idOtList, int idUserGroup)
+        {
+            CheckForDeleteOperationTypeList(idOtList);
+            foreach (var idOperation in idOtList)
+            {
+                Delete(idOperation);
+            }
+        }
+
+        private void Delete(OperationType ot)
+        {
+            _operationTypeRepository.Delete(ot);
+        }
+
+        private bool Delete(int idOt)
         {
             var ot = _operationTypeRepository.GetById(idOt);
-            if (ot.IsMandatory)
-                throw new Exception("Type d'opération obligatoire, suppression impossible");
-            _operationTypeRepository.DeleteWithEscalation(ot);
 
+            _operationTypeRepository.Delete(ot);
 
             return true;
         }
+
+        private void CheckForDeleteOperationTypeList(List<int> idOtList)
+        {
+            List<BusinessExceptionMessage> businessExceptionMessages = new List<BusinessExceptionMessage>();
+            foreach (var idOt in idOtList)
+            {
+                var ot = _operationTypeRepository.GetById(idOt);
+                businessExceptionMessages.AddRange(CheckForDelete(ot));
+            }
+
+            if (businessExceptionMessages.Count() > 0)
+            {
+                throw new BusinessException(businessExceptionMessages);
+            }
+        }
+
+        private List<BusinessExceptionMessage> CheckForDelete(OperationType ot)
+        {
+            List<BusinessExceptionMessage> businessExceptionMessages = new List<BusinessExceptionMessage>();
+            //Recherche si operation est mandatory
+            if (ot.IsMandatory)
+                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_OTY_ERR_000));
+
+            //Recherche si operation type utilisée dans account statement file
+            if (_accountStatementCheckReferentialService.AsifHasOt(ot.Id))
+            {
+                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_OTY_ERR_001));
+            }
+
+            //Recherche si operation type utilisé dans account statement
+            if (_accountStatementCheckReferentialService.AsHasOt(ot.Id))
+            {
+                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_OTY_ERR_002));
+            }
+
+            //Recherche si operation type utilisé dans operation
+            if(_operationCheckReferentialService.HasOt(ot.Id))
+            {
+                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_OTY_ERR_003));
+            }
+
+            return businessExceptionMessages;
+            //if (businessExceptionMessages.Count > 0)
+            //{
+            //    throw new BusinessException(businessExceptionMessages);
+            //}
+        }
+
 
     }
 }

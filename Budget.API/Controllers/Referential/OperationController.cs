@@ -59,38 +59,36 @@ namespace Budget.API.Controllers.Referential
         /*-------------------------------------*/
         [HttpPost]
         [Route("filter")]
-        public IActionResult getTable([FromBody] FilterOperationTableSelected filter)
+        public IActionResult GetForTable([FromBody] FilterOperationTableSelected filter)
         {
-            var pagedList = _referentialService.OperationService.GetTable(filter);
+            var pagedList = _referentialService.OperationService.GetForTable(filter);
 
             return Ok(pagedList);
-
         }
 
         [HttpPost]
         [Route("table-filter")]
-        public IActionResult getTableFilter([FromBody] FilterOperationTableSelected filter)
+        public IActionResult GetTableFilter([FromBody] FilterOperationTableSelected filter)
         {
             var result = _filterService.FilterTableService.GetFilterOperationTable(filter);
 
             return Ok(result);
         }
-
-
+        
 
         [HttpGet]
-        [Route("{idOperation}/user-groups/{idUserGroup}/operation-detail")]
-        public IActionResult GetDetail(int idOperation, int idUserGroup)
+        [Route("{idOperation}/users/{idUser}/operation-detail")]
+        public IActionResult GetForDetail(int? idOperation, int idUser)
         {
-            var results = _referentialService.OperationService.GetDetail(idOperation, idUserGroup);
+            var results = _referentialService.OperationService.GetForDetail(idOperation, idUser);
             return Ok(results);
         }
 
         [HttpPost]
         [Route("operation-detail-filter")]
-        public IActionResult GetDetailFilter([FromBody] OperationForDetail operationForDetail)
+        public IActionResult GetForDetailFilter([FromBody] OperationForDetail operationForDetail)
         {
-            return Ok(_filterService.FilterDetailService.GetFilterOperationDetail(operationForDetail));
+            return Ok(_filterService.FilterDetailService.GetFilterForOperation(operationForDetail));
         }
 
         [HttpPost]

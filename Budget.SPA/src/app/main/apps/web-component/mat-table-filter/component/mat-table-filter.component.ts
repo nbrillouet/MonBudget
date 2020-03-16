@@ -76,7 +76,7 @@ export class MatTableFilterComponent implements OnInit, OnDestroy {
           this.dataSource.data = this.rows;
           this.loading(false);
         }
-      });
+    });
 
     this.$filterSelection$ = this.matTableFilter.filterSelection$.subscribe(selection=>{
       if(selection?.loader['filter-selection']?.loaded) {
@@ -110,17 +110,19 @@ export class MatTableFilterComponent implements OnInit, OnDestroy {
 
   getMatTableFilterRows(datas: Datas<any> ) {
     let tableRows: Row[] = [];
- 
+    
     for (let data of datas.datas) {
       let tableRow = new Row();
       for (let column of this.matTableFilter.columns) {
         let fields = column.field.split('-')
         let value= null;
-          if(fields.length>1){
-            value = data[fields[0]][fields[1]];
-          }
-          else
-            value = data[fields[0]]
+
+        if(fields.length>1){
+
+          value = data[fields[0]][fields[1]];
+        }
+        else
+          value = data[fields[0]];
 
         tableRow[`${column.field}`] = value;           
       }

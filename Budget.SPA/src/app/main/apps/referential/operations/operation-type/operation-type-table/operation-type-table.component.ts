@@ -6,7 +6,6 @@ import { OtTable } from 'app/main/_models/referential/operation-type.model';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
-import { OtService } from '../operation-type.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Datas } from 'app/main/_models/generics/detail-info.model';
 import { OtTableFilterSelectedState } from 'app/main/_ngxs/referential/operation-type/ot-table/ot-table-filter-selected/ot-table-filter-selected.state';
@@ -18,6 +17,7 @@ import { LoadOtTableFilterSelection } from 'app/main/_ngxs/referential/operation
 import { SynchronizeOtTableFilterSelected } from 'app/main/_ngxs/referential/operation-type/ot-table/ot-table-filter-selected/ot-table-filter-selected.action';
 import { OT_COLUMNS } from 'app/main/_constants/mat-table-filter-column.const';
 import { MatTableFilter } from 'app/main/apps/web-component/mat-table-filter/model/mat-table-filter.model';
+import { OtService } from 'app/main/_services/Referential/operation-type.service';
 
 @Component({
   selector: 'operation-type-table',
@@ -37,7 +37,7 @@ export class OperationTypeTableComponent implements OnInit {
     filterSelection$: this.otTableFilterSelection$,
     filterSelected$: this.otTableFilterSelected$,
     table$: this.otTable$,
-    toolbar: null
+    toolbar: {buttonAdd: {enabled: true,tooltip:'Ajouter un type d\'opération' }, buttonDelete:{enabled:true,tooltip:'supprimer'}, buttonFullscreen:{enabled:true} }
   };
 
   // columns = OT_COLUMNS;
@@ -88,27 +88,42 @@ export class OperationTypeTableComponent implements OnInit {
     this._store.dispatch(new LoadOtTableFilterSelection(selected));
   }
 
-  delete($event) {
-    this.confirmDialogRef = this._dialog.open(FuseConfirmDialogComponent, {
-          disableClose: false
-        });
-    
-        this.confirmDialogRef.componentInstance.confirmMessage = 'Etes vous sûr de supprimer cette catégorie d\'opération? Tous les types d\'opérations associés et les opérations seront supprimés';
-        
-        this.confirmDialogRef.afterClosed().subscribe(result => {
-          if (result)
-            {
-                this._otService.deleteOtDetail($event.id)
-                .subscribe(resp => {
-                  this._store.dispatch(new SynchronizeOtTableFilterSelected(this.filterOtSelected));
-                  this._notificationService.success('Suppression réussi', 'La catégorie d\'opération est supprimé');
-                }, error => {
-                  this._notificationService.error('Echec suppression', error);
-                })
-            }
-            this.confirmDialogRef = null;
-        });
+  addItem($event) {
+    this._router.navigate(['apps/referential/operations/operation-types/new']);
   }
+
+
+  deleteItems($event) {
+    console.log('delete', $event);
+    this._otService.deleteOtList($event).subscribe(resp => {
+      this._store.dispatch(new SynchronizeOtTableFilterSelected(this.filterOtSelected));
+      this._notificationService.success('Suppression réussie', `${$event.lentgh} type opération(s) supprimée(s)`);
+    }, error => {
+      this._notificationService.error('Echec suppression', error);
+    })
+  }
+
+  // delete($event) {
+  //   this.confirmDialogRef = this._dialog.open(FuseConfirmDialogComponent, {
+  //         disableClose: false
+  //       });
+    
+  //       this.confirmDialogRef.componentInstance.confirmMessage = 'Etes vous sûr de supprimer cette catégorie d\'opération? Tous les types d\'opérations associés et les opérations seront supprimés';
+        
+  //       this.confirmDialogRef.afterClosed().subscribe(result => {
+  //         if (result)
+  //           {
+  //               this._otService.deleteOtDetail($event.id)
+  //               .subscribe(resp => {
+  //                 this._store.dispatch(new SynchronizeOtTableFilterSelected(this.filterOtSelected));
+  //                 this._notificationService.success('Suppression réussi', 'La catégorie d\'opération est supprimé');
+  //               }, error => {
+  //                 this._notificationService.error('Echec suppression', error);
+  //               })
+  //           }
+  //           this.confirmDialogRef = null;
+  //       });
+  // }
 }
 
 

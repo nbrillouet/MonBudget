@@ -30,5 +30,11 @@ namespace Budget.MODEL.Filter
             //Selected = new FilterOtfTableSelected();
         }
     }
- 
+
+    public class FilterOtfForDetail
+    {
+        public List<SelectDto> Movement { get; set; }
+        public List<SelectDto> LogoClassName { get; set; }
+    }
+
 }

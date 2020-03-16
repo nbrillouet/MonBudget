@@ -3,9 +3,9 @@ import { OtfTable } from "app/main/_models/referential/operation-type-family.mod
 import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
 import { Injectable } from "@angular/core";
 import { LoaderState } from "app/main/_ngxs/_base/loader-state";
-import { OtfService } from "app/main/apps/referential/operations/operation-type-family/operation-type-family.service";
 import { LoadOtfTable, ClearOtfTable } from "./otf-table.action";
 import { UpdatePaginationOtfTableFilterSelected } from "./otf-table-filter-selected/otf-table-filter-selected.action";
+import { OtfService } from "app/main/_services/Referential/operation-type-family.service";
 
 export class OtfTableStateModel extends Datas<OtfTable[]> {
     constructor () {

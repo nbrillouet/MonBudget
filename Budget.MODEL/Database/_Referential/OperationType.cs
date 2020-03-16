@@ -32,10 +32,9 @@ namespace Budget.MODEL.Database
 
     }
 
-    //public enum EnumOperationType
-    //{
-    //    //InconnuCredit = 1,
-    //    //InconnuDebit = 114
-    //    Inconnu=1
-    //}
+    public enum EnumCodeOperationType
+    {
+        INCO = 1,
+        VIRI = 2
+    }
 }

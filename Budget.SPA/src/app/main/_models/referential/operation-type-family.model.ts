@@ -1,21 +1,21 @@
 import { ISelect } from "../generics/select.model";
-import { ComboSimple } from "../generics/combo.model";
 import { IUserForGroup } from "../user.model";
 
 export interface OtfTable {
     id : number;
     label : string;
-    logoClassName: string;
+    asset: string;
     movement: ISelect;
     user: IUserForGroup;
     isMandatory: boolean;
+    isUsed: boolean;
 }
 
-export interface OtfDetail {
+export interface OtfForDetail {
     id : number;
     label : string;
-    logoClassName: ComboSimple<ISelect>;
-    movement : ComboSimple<ISelect>;
+    asset: ISelect;
+    movement : ISelect;
     user: IUserForGroup;
     isMandatory: boolean;
 }

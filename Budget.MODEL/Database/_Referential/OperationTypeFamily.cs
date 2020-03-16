@@ -21,9 +21,9 @@ namespace Budget.MODEL.Database
         [ForeignKey("IdMovement")]
         public Movement Movement { get; set; }
 
-        [Column("LOGO_CLASS_NAME")]
-        [StringLength(30)]
-        public string LogoClassName { get; set; }
+        //[Column("LOGO_CLASS_NAME")]
+        //[StringLength(30)]
+        //public string LogoClassName { get; set; }
 
         [Column("ID_USER_GROUP")]
         public int IdUserGroup { get; set; }
@@ -33,6 +33,11 @@ namespace Budget.MODEL.Database
         [Column("CODE")]
         [StringLength(4)]
         public string Code { get; set; }
+
+        [Column("ID_ASSET")]
+        public int IdAsset { get; set; }
+        [ForeignKey("IdAsset")]
+        public Asset Asset { get; set; }
 
     }
 

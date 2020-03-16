@@ -171,34 +171,34 @@ function TooltipContentComponent_span_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, TooltipContentComponent_span_4_ng_template_1_Template, 0, 0, "ng-template", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r134 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r206 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngTemplateOutlet", ctx_r134.template)("ngTemplateOutletContext", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction1"](2, _c1, ctx_r134.context));
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngTemplateOutlet", ctx_r206.template)("ngTemplateOutletContext", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction1"](2, _c1, ctx_r206.context));
 } }
 function TooltipContentComponent_span_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "span", 6);
 } if (rf & 2) {
-    var ctx_r135 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("innerHTML", ctx_r135.title, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeHtml"]);
+    var ctx_r207 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("innerHTML", ctx_r207.title, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeHtml"]);
 } }
 function ChartComponent_ngx_charts_scale_legend_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceHTML"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "ngx-charts-scale-legend", 4);
 } if (rf & 2) {
-    var ctx_r137 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("horizontal", ctx_r137.legendOptions && ctx_r137.legendOptions.position === "below")("valueRange", ctx_r137.legendOptions.domain)("colors", ctx_r137.legendOptions.colors)("height", ctx_r137.view[1])("width", ctx_r137.legendWidth);
+    var ctx_r209 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("horizontal", ctx_r209.legendOptions && ctx_r209.legendOptions.position === "below")("valueRange", ctx_r209.legendOptions.domain)("colors", ctx_r209.legendOptions.colors)("height", ctx_r209.view[1])("width", ctx_r209.legendWidth);
 } }
 function ChartComponent_ngx_charts_legend_4_Template(rf, ctx) { if (rf & 1) {
-    var _r140 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r212 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceHTML"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "ngx-charts-legend", 5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("labelClick", function ChartComponent_ngx_charts_legend_4_Template_ngx_charts_legend_labelClick_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r140); var ctx_r139 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r139.legendLabelClick.emit($event); })("labelActivate", function ChartComponent_ngx_charts_legend_4_Template_ngx_charts_legend_labelActivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r140); var ctx_r141 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r141.legendLabelActivate.emit($event); })("labelDeactivate", function ChartComponent_ngx_charts_legend_4_Template_ngx_charts_legend_labelDeactivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r140); var ctx_r142 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r142.legendLabelDeactivate.emit($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("labelClick", function ChartComponent_ngx_charts_legend_4_Template_ngx_charts_legend_labelClick_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r212); var ctx_r211 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r211.legendLabelClick.emit($event); })("labelActivate", function ChartComponent_ngx_charts_legend_4_Template_ngx_charts_legend_labelActivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r212); var ctx_r213 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r213.legendLabelActivate.emit($event); })("labelDeactivate", function ChartComponent_ngx_charts_legend_4_Template_ngx_charts_legend_labelDeactivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r212); var ctx_r214 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r214.legendLabelDeactivate.emit($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r138 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("horizontal", ctx_r138.legendOptions && ctx_r138.legendOptions.position === "below")("data", ctx_r138.legendOptions.domain)("title", ctx_r138.legendOptions.title)("colors", ctx_r138.legendOptions.colors)("height", ctx_r138.view[1])("width", ctx_r138.legendWidth)("activeEntries", ctx_r138.activeEntries);
+    var ctx_r210 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("horizontal", ctx_r210.legendOptions && ctx_r210.legendOptions.position === "below")("data", ctx_r210.legendOptions.domain)("title", ctx_r210.legendOptions.title)("colors", ctx_r210.legendOptions.colors)("height", ctx_r210.view[1])("width", ctx_r210.legendWidth)("activeEntries", ctx_r210.activeEntries);
 } }
 var _c2 = ["*"];
 var _c3 = ["ngx-charts-axis-label", ""];
@@ -215,16 +215,16 @@ function XAxisTicksComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var tick_r146 = ctx.$implicit;
-    var ctx_r144 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r144.tickTransform(tick_r146));
+    var tick_r218 = ctx.$implicit;
+    var ctx_r216 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r216.tickTransform(tick_r218));
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r144.tickFormat(tick_r146));
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r216.tickFormat(tick_r218));
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("font-size", "12px");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("text-anchor", ctx_r144.textAnchor)("transform", ctx_r144.textTransform);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("text-anchor", ctx_r216.textAnchor)("transform", ctx_r216.textTransform);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", ctx_r144.tickTrim(ctx_r144.tickFormat(tick_r146)), " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", ctx_r216.tickTrim(ctx_r216.tickFormat(tick_r218)), " ");
 } }
 function XAxisTicksComponent__svg_g_3__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -232,10 +232,10 @@ function XAxisTicksComponent__svg_g_3__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "line", 6);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r148 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r148.gridLineTransform());
+    var ctx_r220 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r220.gridLineTransform());
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("y1", 0 - ctx_r148.gridLineHeight);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("y1", 0 - ctx_r220.gridLineHeight);
 } }
 function XAxisTicksComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -243,29 +243,29 @@ function XAxisTicksComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, XAxisTicksComponent__svg_g_3__svg_g_1_Template, 2, 2, "g", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var tick_r147 = ctx.$implicit;
-    var ctx_r145 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r145.tickTransform(tick_r147));
+    var tick_r219 = ctx.$implicit;
+    var ctx_r217 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r217.tickTransform(tick_r219));
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r145.showGridLines);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r217.showGridLines);
 } }
 var _c6 = ["ngx-charts-x-axis", ""];
 function XAxisComponent__svg_g_1_Template(rf, ctx) { if (rf & 1) {
-    var _r152 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r224 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function XAxisComponent__svg_g_1_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r152); var ctx_r151 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r151.emitTicksHeight($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function XAxisComponent__svg_g_1_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r224); var ctx_r223 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r223.emitTicksHeight($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r149 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("trimTicks", ctx_r149.trimTicks)("rotateTicks", ctx_r149.rotateTicks)("maxTickLength", ctx_r149.maxTickLength)("tickFormatting", ctx_r149.tickFormatting)("tickArguments", ctx_r149.tickArguments)("tickStroke", ctx_r149.tickStroke)("scale", ctx_r149.xScale)("orient", ctx_r149.xOrient)("showGridLines", ctx_r149.showGridLines)("gridLineHeight", ctx_r149.dims.height)("width", ctx_r149.dims.width)("tickValues", ctx_r149.ticks);
+    var ctx_r221 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("trimTicks", ctx_r221.trimTicks)("rotateTicks", ctx_r221.rotateTicks)("maxTickLength", ctx_r221.maxTickLength)("tickFormatting", ctx_r221.tickFormatting)("tickArguments", ctx_r221.tickArguments)("tickStroke", ctx_r221.tickStroke)("scale", ctx_r221.xScale)("orient", ctx_r221.xOrient)("showGridLines", ctx_r221.showGridLines)("gridLineHeight", ctx_r221.dims.height)("width", ctx_r221.dims.width)("tickValues", ctx_r221.ticks);
 } }
 function XAxisComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "g", 3);
 } if (rf & 2) {
-    var ctx_r150 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("label", ctx_r150.labelText)("offset", ctx_r150.labelOffset)("orient", "bottom")("height", ctx_r150.dims.height)("width", ctx_r150.dims.width);
+    var ctx_r222 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("label", ctx_r222.labelText)("offset", ctx_r222.labelOffset)("orient", "bottom")("height", ctx_r222.dims.height)("width", ctx_r222.dims.width);
 } }
 var _c7 = ["ngx-charts-y-axis-ticks", ""];
 function YAxisTicksComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
@@ -279,37 +279,37 @@ function YAxisTicksComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var tick_r158 = ctx.$implicit;
-    var ctx_r154 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r154.transform(tick_r158));
+    var tick_r230 = ctx.$implicit;
+    var ctx_r226 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r226.transform(tick_r230));
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r154.tickFormat(tick_r158));
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r226.tickFormat(tick_r230));
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("font-size", "12px");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("dy", ctx_r154.dy)("x", ctx_r154.x1)("y", ctx_r154.y1)("text-anchor", ctx_r154.textAnchor);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("dy", ctx_r226.dy)("x", ctx_r226.x1)("y", ctx_r226.y1)("text-anchor", ctx_r226.textAnchor);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", ctx_r154.tickTrim(ctx_r154.tickFormat(tick_r158)), " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", ctx_r226.tickTrim(ctx_r226.tickFormat(tick_r230)), " ");
 } }
 function YAxisTicksComponent__svg_path_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "path", 6);
 } if (rf & 2) {
-    var ctx_r155 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("d", ctx_r155.referenceAreaPath)("transform", ctx_r155.gridLineTransform());
+    var ctx_r227 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("d", ctx_r227.referenceAreaPath)("transform", ctx_r227.gridLineTransform());
 } }
 function YAxisTicksComponent__svg_g_4__svg_g_1__svg_line_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "line", 9);
 } if (rf & 2) {
-    var ctx_r161 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x2", ctx_r161.gridLineWidth);
+    var ctx_r233 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x2", ctx_r233.gridLineWidth);
 } }
 function YAxisTicksComponent__svg_g_4__svg_g_1__svg_line_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "line", 9);
 } if (rf & 2) {
-    var ctx_r162 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x2", 0 - ctx_r162.gridLineWidth);
+    var ctx_r234 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x2", 0 - ctx_r234.gridLineWidth);
 } }
 function YAxisTicksComponent__svg_g_4__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -318,12 +318,12 @@ function YAxisTicksComponent__svg_g_4__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, YAxisTicksComponent__svg_g_4__svg_g_1__svg_line_2_Template, 1, 1, "line", 8);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r160 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r160.gridLineTransform());
+    var ctx_r232 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r232.gridLineTransform());
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r160.orient === "left");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r232.orient === "left");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r160.orient === "right");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r232.orient === "right");
 } }
 function YAxisTicksComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -331,11 +331,11 @@ function YAxisTicksComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, YAxisTicksComponent__svg_g_4__svg_g_1_Template, 3, 3, "g", 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var tick_r159 = ctx.$implicit;
-    var ctx_r156 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r156.transform(tick_r159));
+    var tick_r231 = ctx.$implicit;
+    var ctx_r228 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r228.transform(tick_r231));
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r156.showGridLines);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r228.showGridLines);
 } }
 function YAxisTicksComponent__svg_g_5__svg_g_1__svg_g_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -348,14 +348,14 @@ function YAxisTicksComponent__svg_g_5__svg_g_1__svg_g_2_Template(rf, ctx) { if (
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var refLine_r163 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2).$implicit;
-    var ctx_r165 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var refLine_r235 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2).$implicit;
+    var ctx_r237 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r165.tickTrim(ctx_r165.tickFormat(refLine_r163.value)));
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r237.tickTrim(ctx_r237.tickFormat(refLine_r235.value)));
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("dy", ctx_r165.dy)("y", 0 - 6)("x", ctx_r165.gridLineWidth)("text-anchor", ctx_r165.textAnchor);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("dy", ctx_r237.dy)("y", 0 - 6)("x", ctx_r237.gridLineWidth)("text-anchor", ctx_r237.textAnchor);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", refLine_r163.name, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", refLine_r235.name, " ");
 } }
 function YAxisTicksComponent__svg_g_5__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -364,13 +364,13 @@ function YAxisTicksComponent__svg_g_5__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, YAxisTicksComponent__svg_g_5__svg_g_1__svg_g_2_Template, 5, 6, "g", 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var refLine_r163 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
-    var ctx_r164 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r164.transform(refLine_r163.value));
+    var refLine_r235 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
+    var ctx_r236 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r236.transform(refLine_r235.value));
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x2", ctx_r164.gridLineWidth)("transform", ctx_r164.gridLineTransform());
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x2", ctx_r236.gridLineWidth)("transform", ctx_r236.gridLineTransform());
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r164.showRefLabels);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r236.showRefLabels);
 } }
 function YAxisTicksComponent__svg_g_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -378,40 +378,40 @@ function YAxisTicksComponent__svg_g_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, YAxisTicksComponent__svg_g_5__svg_g_1_Template, 3, 4, "g", 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r157 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r229 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r157.showRefLines);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r229.showRefLines);
 } }
 var _c8 = ["ngx-charts-y-axis", ""];
 function YAxisComponent__svg_g_1_Template(rf, ctx) { if (rf & 1) {
-    var _r171 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r243 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function YAxisComponent__svg_g_1_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r171); var ctx_r170 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r170.emitTicksWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function YAxisComponent__svg_g_1_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r243); var ctx_r242 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r242.emitTicksWidth($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r168 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("trimTicks", ctx_r168.trimTicks)("maxTickLength", ctx_r168.maxTickLength)("tickFormatting", ctx_r168.tickFormatting)("tickArguments", ctx_r168.tickArguments)("tickValues", ctx_r168.ticks)("tickStroke", ctx_r168.tickStroke)("scale", ctx_r168.yScale)("orient", ctx_r168.yOrient)("showGridLines", ctx_r168.showGridLines)("gridLineWidth", ctx_r168.dims.width)("referenceLines", ctx_r168.referenceLines)("showRefLines", ctx_r168.showRefLines)("showRefLabels", ctx_r168.showRefLabels)("height", ctx_r168.dims.height);
+    var ctx_r240 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("trimTicks", ctx_r240.trimTicks)("maxTickLength", ctx_r240.maxTickLength)("tickFormatting", ctx_r240.tickFormatting)("tickArguments", ctx_r240.tickArguments)("tickValues", ctx_r240.ticks)("tickStroke", ctx_r240.tickStroke)("scale", ctx_r240.yScale)("orient", ctx_r240.yOrient)("showGridLines", ctx_r240.showGridLines)("gridLineWidth", ctx_r240.dims.width)("referenceLines", ctx_r240.referenceLines)("showRefLines", ctx_r240.showRefLines)("showRefLabels", ctx_r240.showRefLabels)("height", ctx_r240.dims.height);
 } }
 function YAxisComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "g", 3);
 } if (rf & 2) {
-    var ctx_r169 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("label", ctx_r169.labelText)("offset", ctx_r169.labelOffset)("orient", ctx_r169.yOrient)("height", ctx_r169.dims.height)("width", ctx_r169.dims.width);
+    var ctx_r241 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("label", ctx_r241.labelText)("offset", ctx_r241.labelOffset)("orient", ctx_r241.yOrient)("height", ctx_r241.dims.height)("width", ctx_r241.dims.width);
 } }
 var _c9 = ["ngx-charts-circle-series", ""];
 function CircleSeriesComponent__svg_g_0__svg_rect_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "rect", 4);
 } if (rf & 2) {
-    var ctx_r173 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    var ctx_r245 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x", ctx_r173.circle.cx - ctx_r173.circle.radius)("y", ctx_r173.circle.cy)("width", ctx_r173.circle.radius * 2)("height", ctx_r173.circle.height)("fill", ctx_r173.gradientFill);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x", ctx_r245.circle.cx - ctx_r245.circle.radius)("y", ctx_r245.circle.cy)("width", ctx_r245.circle.radius * 2)("height", ctx_r245.circle.height)("fill", ctx_r245.gradientFill);
 } }
 var _c10 = function (a0) { return { name: a0 }; };
 function CircleSeriesComponent__svg_g_0_Template(rf, ctx) { if (rf & 1) {
-    var _r175 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r247 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "defs");
@@ -419,18 +419,18 @@ function CircleSeriesComponent__svg_g_0_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](3, CircleSeriesComponent__svg_g_0__svg_rect_3_Template, 1, 6, "rect", 2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "g", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function CircleSeriesComponent__svg_g_0_Template__svg_g_select_4_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r175); var ctx_r174 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r174.onClick(ctx_r174.circle.data); })("activate", function CircleSeriesComponent__svg_g_0_Template__svg_g_activate_4_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r175); var ctx_r176 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r176.activateCircle(); })("deactivate", function CircleSeriesComponent__svg_g_0_Template__svg_g_deactivate_4_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r175); var ctx_r177 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r177.deactivateCircle(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function CircleSeriesComponent__svg_g_0_Template__svg_g_select_4_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r247); var ctx_r246 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r246.onClick(ctx_r246.circle.data); })("activate", function CircleSeriesComponent__svg_g_0_Template__svg_g_activate_4_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r247); var ctx_r248 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r248.activateCircle(); })("deactivate", function CircleSeriesComponent__svg_g_0_Template__svg_g_deactivate_4_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r247); var ctx_r249 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r249.deactivateCircle(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r172 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r244 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("name", ctx_r172.gradientId)("stops", ctx_r172.circle.gradientStops);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("name", ctx_r244.gradientId)("stops", ctx_r244.circle.gradientStops);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r172.barVisible && ctx_r172.type === "standard");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r244.barVisible && ctx_r244.type === "standard");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵclassProp"]("active", ctx_r172.isActive(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction1"](18, _c10, ctx_r172.circle.seriesName)));
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("cx", ctx_r172.circle.cx)("cy", ctx_r172.circle.cy)("r", ctx_r172.circle.radius)("fill", ctx_r172.circle.color)("pointerEvents", ctx_r172.circle.value === 0 ? "none" : "all")("data", ctx_r172.circle.value)("classNames", ctx_r172.circle.classNames)("tooltipDisabled", ctx_r172.tooltipDisabled)("tooltipPlacement", "top")("tooltipType", "tooltip")("tooltipTitle", ctx_r172.tooltipTemplate ? undefined : ctx_r172.getTooltipText(ctx_r172.circle))("tooltipTemplate", ctx_r172.tooltipTemplate)("tooltipContext", ctx_r172.circle.data);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵclassProp"]("active", ctx_r244.isActive(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction1"](18, _c10, ctx_r244.circle.seriesName)));
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("cx", ctx_r244.circle.cx)("cy", ctx_r244.circle.cy)("r", ctx_r244.circle.radius)("fill", ctx_r244.circle.color)("pointerEvents", ctx_r244.circle.value === 0 ? "none" : "all")("data", ctx_r244.circle.value)("classNames", ctx_r244.circle.classNames)("tooltipDisabled", ctx_r244.tooltipDisabled)("tooltipPlacement", "top")("tooltipType", "tooltip")("tooltipTitle", ctx_r244.tooltipTemplate ? undefined : ctx_r244.getTooltipText(ctx_r244.circle))("tooltipTemplate", ctx_r244.tooltipTemplate)("tooltipContext", ctx_r244.circle.data);
 } }
 var _c11 = ["ngx-charts-circle", ""];
 var _c12 = ["ngx-charts-grid-panel", ""];
@@ -439,27 +439,27 @@ function GridPanelSeriesComponent__svg_g_0_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "g", 1);
 } if (rf & 2) {
-    var gridPanel_r179 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵclassProp"]("grid-panel", true)("odd", gridPanel_r179.class === "odd")("even", gridPanel_r179.class === "even");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("height", gridPanel_r179.height)("width", gridPanel_r179.width)("x", gridPanel_r179.x)("y", gridPanel_r179.y);
+    var gridPanel_r251 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵclassProp"]("grid-panel", true)("odd", gridPanel_r251.class === "odd")("even", gridPanel_r251.class === "even");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("height", gridPanel_r251.height)("width", gridPanel_r251.width)("x", gridPanel_r251.x)("y", gridPanel_r251.y);
 } }
 var _c14 = ["ngx-charts-svg-linear-gradient", ""];
 function SvgLinearGradientComponent__svg_stop_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "stop");
 } if (rf & 2) {
-    var stop_r181 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("stop-color", stop_r181.color)("stop-opacity", stop_r181.opacity);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("offset", stop_r181.offset + "%");
+    var stop_r253 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("stop-color", stop_r253.color)("stop-opacity", stop_r253.opacity);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("offset", stop_r253.offset + "%");
 } }
 var _c15 = ["ngx-charts-svg-radial-gradient", ""];
 function SvgRadialGradientComponent__svg_stop_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "stop");
 } if (rf & 2) {
-    var stop_r183 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("stop-color", stop_r183.color)("stop-opacity", stop_r183.opacity);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("offset", stop_r183.offset + "%");
+    var stop_r255 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("stop-color", stop_r255.color)("stop-opacity", stop_r255.opacity);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("offset", stop_r255.offset + "%");
 } }
 var _c16 = ["ngx-charts-area", ""];
 function AreaComponent__svg_defs_0_Template(rf, ctx) { if (rf & 1) {
@@ -468,9 +468,9 @@ function AreaComponent__svg_defs_0_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "g", 2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r184 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r256 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("name", ctx_r184.gradientId)("stops", ctx_r184.gradientStops);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("name", ctx_r256.gradientId)("stops", ctx_r256.gradientStops);
 } }
 var _c17 = ["ngx-charts-count-up", ""];
 var _c18 = ["tooltipAnchor"];
@@ -481,12 +481,12 @@ function TooltipArea__svg_ng_template_2__xhtml_div_1_Template(rf, ctx) { if (rf 
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var tooltipItem_r190 = ctx.$implicit;
-    var ctx_r189 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    var tooltipItem_r262 = ctx.$implicit;
+    var ctx_r261 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("background-color", tooltipItem_r190.color);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("background-color", tooltipItem_r262.color);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", ctx_r189.getToolTipText(tooltipItem_r190), " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", ctx_r261.getToolTipText(tooltipItem_r262), " ");
 } }
 function TooltipArea__svg_ng_template_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -495,9 +495,9 @@ function TooltipArea__svg_ng_template_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, TooltipArea__svg_ng_template_2__xhtml_div_1_Template, 3, 3, "div", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var model_r188 = ctx.model;
+    var model_r260 = ctx.model;
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", model_r188);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", model_r260);
 } }
 var _c20 = ["ngx-charts-timeline", ""];
 function LegendComponent_header_1_Template(rf, ctx) { if (rf & 1) {
@@ -507,74 +507,74 @@ function LegendComponent_header_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r191 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r263 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r191.title);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r263.title);
 } }
 function LegendComponent_li_4_Template(rf, ctx) { if (rf & 1) {
-    var _r195 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r267 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "li", 6);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "ngx-charts-legend-entry", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function LegendComponent_li_4_Template_ngx_charts_legend_entry_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r195); var ctx_r194 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r194.labelClick.emit($event); })("activate", function LegendComponent_li_4_Template_ngx_charts_legend_entry_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r195); var ctx_r196 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r196.activate($event); })("deactivate", function LegendComponent_li_4_Template_ngx_charts_legend_entry_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r195); var ctx_r197 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r197.deactivate($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function LegendComponent_li_4_Template_ngx_charts_legend_entry_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r267); var ctx_r266 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r266.labelClick.emit($event); })("activate", function LegendComponent_li_4_Template_ngx_charts_legend_entry_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r267); var ctx_r268 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r268.activate($event); })("deactivate", function LegendComponent_li_4_Template_ngx_charts_legend_entry_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r267); var ctx_r269 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r269.deactivate($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var entry_r193 = ctx.$implicit;
-    var ctx_r192 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var entry_r265 = ctx.$implicit;
+    var ctx_r264 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("label", entry_r193.label)("formattedLabel", entry_r193.formattedLabel)("color", entry_r193.color)("isActive", ctx_r192.isActive(entry_r193));
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("label", entry_r265.label)("formattedLabel", entry_r265.formattedLabel)("color", entry_r265.color)("isActive", ctx_r264.isActive(entry_r265));
 } }
 function AdvancedLegendComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "div", 7);
 } if (rf & 2) {
-    var ctx_r198 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("countTo", ctx_r198.roundedTotal)("valueFormatting", ctx_r198.valueFormatting);
+    var ctx_r270 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("countTo", ctx_r270.roundedTotal)("valueFormatting", ctx_r270.valueFormatting);
 } }
 function AdvancedLegendComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 8);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r199 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r271 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", ctx_r199.valueFormatting ? ctx_r199.valueFormatting(ctx_r199.roundedTotal) : ctx_r199.defaultValueFormatting(ctx_r199.roundedTotal), " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", ctx_r271.valueFormatting ? ctx_r271.valueFormatting(ctx_r271.roundedTotal) : ctx_r271.defaultValueFormatting(ctx_r271.roundedTotal), " ");
 } }
 function AdvancedLegendComponent_div_7_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "div", 16);
 } if (rf & 2) {
-    var legendItem_r201 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
-    var ctx_r202 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("countTo", legendItem_r201._value)("valueFormatting", ctx_r202.valueFormatting);
+    var legendItem_r273 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
+    var ctx_r274 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("countTo", legendItem_r273._value)("valueFormatting", ctx_r274.valueFormatting);
 } }
 function AdvancedLegendComponent_div_7_div_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 17);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var legendItem_r201 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
-    var ctx_r203 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var legendItem_r273 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
+    var ctx_r275 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", ctx_r203.valueFormatting ? ctx_r203.valueFormatting(legendItem_r201.value) : ctx_r203.defaultValueFormatting(legendItem_r201.value), " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", ctx_r275.valueFormatting ? ctx_r275.valueFormatting(legendItem_r273.value) : ctx_r275.defaultValueFormatting(legendItem_r273.value), " ");
 } }
 function AdvancedLegendComponent_div_7_div_6_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "div", 18);
 } if (rf & 2) {
-    var legendItem_r201 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("countTo", legendItem_r201.percentage)("countSuffix", "%");
+    var legendItem_r273 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("countTo", legendItem_r273.percentage)("countSuffix", "%");
 } }
 function AdvancedLegendComponent_div_7_div_7_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 19);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var legendItem_r201 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
+    var legendItem_r273 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("", legendItem_r201.percentage.toLocaleString(), "%");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("", legendItem_r273.percentage.toLocaleString(), "%");
 } }
 function AdvancedLegendComponent_div_7_Template(rf, ctx) { if (rf & 1) {
-    var _r211 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r283 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 9);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("mouseenter", function AdvancedLegendComponent_div_7_Template_div_mouseenter_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r211); var legendItem_r201 = ctx.$implicit; var ctx_r210 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r210.activate.emit(legendItem_r201.data); })("mouseleave", function AdvancedLegendComponent_div_7_Template_div_mouseleave_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r211); var legendItem_r201 = ctx.$implicit; var ctx_r212 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r212.deactivate.emit(legendItem_r201.data); })("click", function AdvancedLegendComponent_div_7_Template_div_click_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r211); var legendItem_r201 = ctx.$implicit; var ctx_r213 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r213.select.emit(legendItem_r201.data); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("mouseenter", function AdvancedLegendComponent_div_7_Template_div_mouseenter_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r283); var legendItem_r273 = ctx.$implicit; var ctx_r282 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r282.activate.emit(legendItem_r273.data); })("mouseleave", function AdvancedLegendComponent_div_7_Template_div_mouseleave_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r283); var legendItem_r273 = ctx.$implicit; var ctx_r284 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r284.deactivate.emit(legendItem_r273.data); })("click", function AdvancedLegendComponent_div_7_Template_div_click_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r283); var legendItem_r273 = ctx.$implicit; var ctx_r285 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r285.select.emit(legendItem_r273.data); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "div", 10);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, AdvancedLegendComponent_div_7_div_2_Template, 1, 2, "div", 11);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](3, AdvancedLegendComponent_div_7_div_3_Template, 2, 1, "div", 12);
@@ -585,42 +585,42 @@ function AdvancedLegendComponent_div_7_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](7, AdvancedLegendComponent_div_7_div_7_Template, 2, 1, "div", 15);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var legendItem_r201 = ctx.$implicit;
-    var ctx_r200 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var legendItem_r273 = ctx.$implicit;
+    var ctx_r272 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("border-left-color", legendItem_r201.color);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("border-left-color", legendItem_r273.color);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r200.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r272.animations);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", !ctx_r200.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", !ctx_r272.animations);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](legendItem_r201.displayLabel);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](legendItem_r273.displayLabel);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r200.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r272.animations);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", !ctx_r200.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", !ctx_r272.animations);
 } }
 var _c21 = ["tooltipTemplate"];
 var _c22 = ["seriesTooltipTemplate"];
 function AreaChartComponent__svg_g_5_Template(rf, ctx) { if (rf & 1) {
-    var _r220 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r292 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function AreaChartComponent__svg_g_5_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r220); var ctx_r219 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r219.updateXAxisHeight($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function AreaChartComponent__svg_g_5_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r292); var ctx_r291 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r291.updateXAxisHeight($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r214 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r214.xScale)("dims", ctx_r214.dims)("showGridLines", ctx_r214.showGridLines)("showLabel", ctx_r214.showXAxisLabel)("labelText", ctx_r214.xAxisLabel)("trimTicks", ctx_r214.trimXAxisTicks)("rotateTicks", ctx_r214.rotateXAxisTicks)("maxTickLength", ctx_r214.maxXAxisTickLength)("tickFormatting", ctx_r214.xAxisTickFormatting)("ticks", ctx_r214.xAxisTicks);
+    var ctx_r286 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r286.xScale)("dims", ctx_r286.dims)("showGridLines", ctx_r286.showGridLines)("showLabel", ctx_r286.showXAxisLabel)("labelText", ctx_r286.xAxisLabel)("trimTicks", ctx_r286.trimXAxisTicks)("rotateTicks", ctx_r286.rotateXAxisTicks)("maxTickLength", ctx_r286.maxXAxisTickLength)("tickFormatting", ctx_r286.xAxisTickFormatting)("ticks", ctx_r286.xAxisTicks);
 } }
 function AreaChartComponent__svg_g_6_Template(rf, ctx) { if (rf & 1) {
-    var _r222 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r294 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function AreaChartComponent__svg_g_6_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r222); var ctx_r221 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r221.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function AreaChartComponent__svg_g_6_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r294); var ctx_r293 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r293.updateYAxisWidth($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r215 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r215.yScale)("dims", ctx_r215.dims)("showGridLines", ctx_r215.showGridLines)("showLabel", ctx_r215.showYAxisLabel)("labelText", ctx_r215.yAxisLabel)("trimTicks", ctx_r215.trimYAxisTicks)("maxTickLength", ctx_r215.maxYAxisTickLength)("tickFormatting", ctx_r215.yAxisTickFormatting)("ticks", ctx_r215.yAxisTicks);
+    var ctx_r287 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r287.yScale)("dims", ctx_r287.dims)("showGridLines", ctx_r287.showGridLines)("showLabel", ctx_r287.showYAxisLabel)("labelText", ctx_r287.yAxisLabel)("trimTicks", ctx_r287.trimYAxisTicks)("maxTickLength", ctx_r287.maxYAxisTickLength)("tickFormatting", ctx_r287.yAxisTickFormatting)("ticks", ctx_r287.yAxisTicks);
 } }
 function AreaChartComponent__svg_g_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -628,41 +628,41 @@ function AreaChartComponent__svg_g_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "g", 9);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r223 = ctx.$implicit;
-    var ctx_r216 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var series_r295 = ctx.$implicit;
+    var ctx_r288 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r216.xScale)("yScale", ctx_r216.yScale)("baseValue", ctx_r216.baseValue)("colors", ctx_r216.colors)("data", series_r223)("activeEntries", ctx_r216.activeEntries)("scaleType", ctx_r216.scaleType)("gradient", ctx_r216.gradient)("curve", ctx_r216.curve)("animations", ctx_r216.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r288.xScale)("yScale", ctx_r288.yScale)("baseValue", ctx_r288.baseValue)("colors", ctx_r288.colors)("data", series_r295)("activeEntries", ctx_r288.activeEntries)("scaleType", ctx_r288.scaleType)("gradient", ctx_r288.gradient)("curve", ctx_r288.curve)("animations", ctx_r288.animations);
 } }
 function AreaChartComponent__svg_g_9__svg_g_2_Template(rf, ctx) { if (rf & 1) {
-    var _r227 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r299 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function AreaChartComponent__svg_g_9__svg_g_2_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r227); var series_r225 = ctx.$implicit; var ctx_r226 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r226.onClick($event, series_r225); })("activate", function AreaChartComponent__svg_g_9__svg_g_2_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r227); var ctx_r228 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r228.onActivate($event); })("deactivate", function AreaChartComponent__svg_g_9__svg_g_2_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r227); var ctx_r229 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r229.onDeactivate($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function AreaChartComponent__svg_g_9__svg_g_2_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r299); var series_r297 = ctx.$implicit; var ctx_r298 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r298.onClick($event, series_r297); })("activate", function AreaChartComponent__svg_g_9__svg_g_2_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r299); var ctx_r300 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r300.onActivate($event); })("deactivate", function AreaChartComponent__svg_g_9__svg_g_2_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r299); var ctx_r301 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r301.onDeactivate($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r225 = ctx.$implicit;
-    var ctx_r224 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    var series_r297 = ctx.$implicit;
+    var ctx_r296 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r224.xScale)("yScale", ctx_r224.yScale)("colors", ctx_r224.colors)("activeEntries", ctx_r224.activeEntries)("data", series_r225)("scaleType", ctx_r224.scaleType)("visibleValue", ctx_r224.hoveredVertical)("tooltipDisabled", ctx_r224.tooltipDisabled)("tooltipTemplate", ctx_r224.tooltipTemplate);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r296.xScale)("yScale", ctx_r296.yScale)("colors", ctx_r296.colors)("activeEntries", ctx_r296.activeEntries)("data", series_r297)("scaleType", ctx_r296.scaleType)("visibleValue", ctx_r296.hoveredVertical)("tooltipDisabled", ctx_r296.tooltipDisabled)("tooltipTemplate", ctx_r296.tooltipTemplate);
 } }
 function AreaChartComponent__svg_g_9_Template(rf, ctx) { if (rf & 1) {
-    var _r231 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r303 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 10);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("mouseleave", function AreaChartComponent__svg_g_9_Template__svg_g_mouseleave_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r231); var ctx_r230 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r230.hideCircles(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("mouseleave", function AreaChartComponent__svg_g_9_Template__svg_g_mouseleave_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r303); var ctx_r302 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r302.hideCircles(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 11);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("hover", function AreaChartComponent__svg_g_9_Template__svg_g_hover_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r231); var ctx_r232 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r232.updateHoveredVertical($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("hover", function AreaChartComponent__svg_g_9_Template__svg_g_hover_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r303); var ctx_r304 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r304.updateHoveredVertical($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, AreaChartComponent__svg_g_9__svg_g_2_Template, 2, 9, "g", 12);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r217 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r289 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("dims", ctx_r217.dims)("xSet", ctx_r217.xSet)("xScale", ctx_r217.xScale)("yScale", ctx_r217.yScale)("results", ctx_r217.results)("colors", ctx_r217.colors)("tooltipDisabled", ctx_r217.tooltipDisabled)("tooltipTemplate", ctx_r217.seriesTooltipTemplate);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("dims", ctx_r289.dims)("xSet", ctx_r289.xSet)("xScale", ctx_r289.xScale)("yScale", ctx_r289.yScale)("results", ctx_r289.results)("colors", ctx_r289.colors)("tooltipDisabled", ctx_r289.tooltipDisabled)("tooltipTemplate", ctx_r289.seriesTooltipTemplate);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r217.results);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r289.results);
 } }
 function AreaChartComponent__svg_g_10__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -670,45 +670,45 @@ function AreaChartComponent__svg_g_10__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "g", 15);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r234 = ctx.$implicit;
-    var ctx_r233 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    var series_r306 = ctx.$implicit;
+    var ctx_r305 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r233.timelineXScale)("yScale", ctx_r233.timelineYScale)("baseValue", ctx_r233.baseValue)("colors", ctx_r233.colors)("data", series_r234)("scaleType", ctx_r233.scaleType)("gradient", ctx_r233.gradient)("curve", ctx_r233.curve)("animations", ctx_r233.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r305.timelineXScale)("yScale", ctx_r305.timelineYScale)("baseValue", ctx_r305.baseValue)("colors", ctx_r305.colors)("data", series_r306)("scaleType", ctx_r305.scaleType)("gradient", ctx_r305.gradient)("curve", ctx_r305.curve)("animations", ctx_r305.animations);
 } }
 var _c23 = function (a0, a1) { return [a0, a1]; };
 function AreaChartComponent__svg_g_10_Template(rf, ctx) { if (rf & 1) {
-    var _r236 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r308 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("onDomainChange", function AreaChartComponent__svg_g_10_Template__svg_g_onDomainChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r236); var ctx_r235 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r235.updateDomain($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("onDomainChange", function AreaChartComponent__svg_g_10_Template__svg_g_onDomainChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r308); var ctx_r307 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r307.updateDomain($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, AreaChartComponent__svg_g_10__svg_g_1_Template, 2, 9, "g", 4);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r218 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("results", ctx_r218.results)("view", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction2"](10, _c23, ctx_r218.timelineWidth, ctx_r218.height))("height", ctx_r218.timelineHeight)("scheme", ctx_r218.scheme)("customColors", ctx_r218.customColors)("legend", ctx_r218.legend)("scaleType", ctx_r218.scaleType);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r218.timelineTransform);
+    var ctx_r290 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("results", ctx_r290.results)("view", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction2"](10, _c23, ctx_r290.timelineWidth, ctx_r290.height))("height", ctx_r290.timelineHeight)("scheme", ctx_r290.scheme)("customColors", ctx_r290.customColors)("legend", ctx_r290.legend)("scaleType", ctx_r290.scaleType);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r290.timelineTransform);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r218.results)("ngForTrackBy", ctx_r218.trackBy);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r290.results)("ngForTrackBy", ctx_r290.trackBy);
 } }
 function AreaChartNormalizedComponent__svg_g_5_Template(rf, ctx) { if (rf & 1) {
-    var _r243 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r315 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function AreaChartNormalizedComponent__svg_g_5_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r243); var ctx_r242 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r242.updateXAxisHeight($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function AreaChartNormalizedComponent__svg_g_5_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r315); var ctx_r314 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r314.updateXAxisHeight($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r237 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r237.xScale)("dims", ctx_r237.dims)("showGridLines", ctx_r237.showGridLines)("showLabel", ctx_r237.showXAxisLabel)("labelText", ctx_r237.xAxisLabel)("trimTicks", ctx_r237.trimXAxisTicks)("rotateTicks", ctx_r237.rotateXAxisTicks)("maxTickLength", ctx_r237.maxXAxisTickLength)("tickFormatting", ctx_r237.xAxisTickFormatting)("ticks", ctx_r237.xAxisTicks);
+    var ctx_r309 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r309.xScale)("dims", ctx_r309.dims)("showGridLines", ctx_r309.showGridLines)("showLabel", ctx_r309.showXAxisLabel)("labelText", ctx_r309.xAxisLabel)("trimTicks", ctx_r309.trimXAxisTicks)("rotateTicks", ctx_r309.rotateXAxisTicks)("maxTickLength", ctx_r309.maxXAxisTickLength)("tickFormatting", ctx_r309.xAxisTickFormatting)("ticks", ctx_r309.xAxisTicks);
 } }
 function AreaChartNormalizedComponent__svg_g_6_Template(rf, ctx) { if (rf & 1) {
-    var _r245 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r317 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function AreaChartNormalizedComponent__svg_g_6_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r245); var ctx_r244 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r244.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function AreaChartNormalizedComponent__svg_g_6_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r317); var ctx_r316 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r316.updateYAxisWidth($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r238 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r238.yScale)("dims", ctx_r238.dims)("showGridLines", ctx_r238.showGridLines)("showLabel", ctx_r238.showYAxisLabel)("labelText", ctx_r238.yAxisLabel)("trimTicks", ctx_r238.trimYAxisTicks)("maxTickLength", ctx_r238.maxYAxisTickLength)("tickFormatting", ctx_r238.yAxisTickFormatting)("ticks", ctx_r238.yAxisTicks);
+    var ctx_r310 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r310.yScale)("dims", ctx_r310.dims)("showGridLines", ctx_r310.showGridLines)("showLabel", ctx_r310.showYAxisLabel)("labelText", ctx_r310.yAxisLabel)("trimTicks", ctx_r310.trimYAxisTicks)("maxTickLength", ctx_r310.maxYAxisTickLength)("tickFormatting", ctx_r310.yAxisTickFormatting)("ticks", ctx_r310.yAxisTicks);
 } }
 function AreaChartNormalizedComponent__svg_g_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -716,41 +716,41 @@ function AreaChartNormalizedComponent__svg_g_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "g", 9);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r246 = ctx.$implicit;
-    var ctx_r239 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var series_r318 = ctx.$implicit;
+    var ctx_r311 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r239.xScale)("yScale", ctx_r239.yScale)("colors", ctx_r239.colors)("data", series_r246)("scaleType", ctx_r239.scaleType)("activeEntries", ctx_r239.activeEntries)("gradient", ctx_r239.gradient)("curve", ctx_r239.curve)("animations", ctx_r239.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r311.xScale)("yScale", ctx_r311.yScale)("colors", ctx_r311.colors)("data", series_r318)("scaleType", ctx_r311.scaleType)("activeEntries", ctx_r311.activeEntries)("gradient", ctx_r311.gradient)("curve", ctx_r311.curve)("animations", ctx_r311.animations);
 } }
 function AreaChartNormalizedComponent__svg_g_9__svg_g_2_Template(rf, ctx) { if (rf & 1) {
-    var _r250 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r322 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function AreaChartNormalizedComponent__svg_g_9__svg_g_2_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r250); var series_r248 = ctx.$implicit; var ctx_r249 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r249.onClick($event, series_r248); })("activate", function AreaChartNormalizedComponent__svg_g_9__svg_g_2_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r250); var ctx_r251 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r251.onActivate($event); })("deactivate", function AreaChartNormalizedComponent__svg_g_9__svg_g_2_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r250); var ctx_r252 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r252.onDeactivate($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function AreaChartNormalizedComponent__svg_g_9__svg_g_2_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r322); var series_r320 = ctx.$implicit; var ctx_r321 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r321.onClick($event, series_r320); })("activate", function AreaChartNormalizedComponent__svg_g_9__svg_g_2_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r322); var ctx_r323 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r323.onActivate($event); })("deactivate", function AreaChartNormalizedComponent__svg_g_9__svg_g_2_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r322); var ctx_r324 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r324.onDeactivate($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r248 = ctx.$implicit;
-    var ctx_r247 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    var series_r320 = ctx.$implicit;
+    var ctx_r319 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r247.xScale)("yScale", ctx_r247.yScale)("colors", ctx_r247.colors)("activeEntries", ctx_r247.activeEntries)("data", series_r248)("scaleType", ctx_r247.scaleType)("visibleValue", ctx_r247.hoveredVertical)("tooltipDisabled", ctx_r247.tooltipDisabled)("tooltipTemplate", ctx_r247.tooltipTemplate);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r319.xScale)("yScale", ctx_r319.yScale)("colors", ctx_r319.colors)("activeEntries", ctx_r319.activeEntries)("data", series_r320)("scaleType", ctx_r319.scaleType)("visibleValue", ctx_r319.hoveredVertical)("tooltipDisabled", ctx_r319.tooltipDisabled)("tooltipTemplate", ctx_r319.tooltipTemplate);
 } }
 function AreaChartNormalizedComponent__svg_g_9_Template(rf, ctx) { if (rf & 1) {
-    var _r254 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r326 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 10);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("mouseleave", function AreaChartNormalizedComponent__svg_g_9_Template__svg_g_mouseleave_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r254); var ctx_r253 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r253.hideCircles(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("mouseleave", function AreaChartNormalizedComponent__svg_g_9_Template__svg_g_mouseleave_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r326); var ctx_r325 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r325.hideCircles(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 11);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("hover", function AreaChartNormalizedComponent__svg_g_9_Template__svg_g_hover_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r254); var ctx_r255 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r255.updateHoveredVertical($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("hover", function AreaChartNormalizedComponent__svg_g_9_Template__svg_g_hover_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r326); var ctx_r327 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r327.updateHoveredVertical($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, AreaChartNormalizedComponent__svg_g_9__svg_g_2_Template, 2, 9, "g", 12);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r240 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r312 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("dims", ctx_r240.dims)("xSet", ctx_r240.xSet)("xScale", ctx_r240.xScale)("yScale", ctx_r240.yScale)("results", ctx_r240.results)("colors", ctx_r240.colors)("showPercentage", true)("tooltipDisabled", ctx_r240.tooltipDisabled)("tooltipTemplate", ctx_r240.seriesTooltipTemplate);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("dims", ctx_r312.dims)("xSet", ctx_r312.xSet)("xScale", ctx_r312.xScale)("yScale", ctx_r312.yScale)("results", ctx_r312.results)("colors", ctx_r312.colors)("showPercentage", true)("tooltipDisabled", ctx_r312.tooltipDisabled)("tooltipTemplate", ctx_r312.seriesTooltipTemplate);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r240.results);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r312.results);
 } }
 function AreaChartNormalizedComponent__svg_g_10__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -758,44 +758,44 @@ function AreaChartNormalizedComponent__svg_g_10__svg_g_1_Template(rf, ctx) { if 
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "g", 15);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r257 = ctx.$implicit;
-    var ctx_r256 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    var series_r329 = ctx.$implicit;
+    var ctx_r328 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r256.timelineXScale)("yScale", ctx_r256.timelineYScale)("colors", ctx_r256.colors)("data", series_r257)("scaleType", ctx_r256.scaleType)("gradient", ctx_r256.gradient)("curve", ctx_r256.curve)("animations", ctx_r256.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r328.timelineXScale)("yScale", ctx_r328.timelineYScale)("colors", ctx_r328.colors)("data", series_r329)("scaleType", ctx_r328.scaleType)("gradient", ctx_r328.gradient)("curve", ctx_r328.curve)("animations", ctx_r328.animations);
 } }
 function AreaChartNormalizedComponent__svg_g_10_Template(rf, ctx) { if (rf & 1) {
-    var _r259 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r331 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("onDomainChange", function AreaChartNormalizedComponent__svg_g_10_Template__svg_g_onDomainChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r259); var ctx_r258 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r258.updateDomain($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("onDomainChange", function AreaChartNormalizedComponent__svg_g_10_Template__svg_g_onDomainChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r331); var ctx_r330 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r330.updateDomain($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, AreaChartNormalizedComponent__svg_g_10__svg_g_1_Template, 2, 8, "g", 4);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r241 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("results", ctx_r241.results)("view", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction2"](10, _c23, ctx_r241.timelineWidth, ctx_r241.height))("height", ctx_r241.timelineHeight)("scheme", ctx_r241.scheme)("customColors", ctx_r241.customColors)("legend", ctx_r241.legend)("scaleType", ctx_r241.scaleType);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r241.timelineTransform);
+    var ctx_r313 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("results", ctx_r313.results)("view", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction2"](10, _c23, ctx_r313.timelineWidth, ctx_r313.height))("height", ctx_r313.timelineHeight)("scheme", ctx_r313.scheme)("customColors", ctx_r313.customColors)("legend", ctx_r313.legend)("scaleType", ctx_r313.scaleType);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r313.timelineTransform);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r241.results)("ngForTrackBy", ctx_r241.trackBy);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r313.results)("ngForTrackBy", ctx_r313.trackBy);
 } }
 function AreaChartStackedComponent__svg_g_5_Template(rf, ctx) { if (rf & 1) {
-    var _r266 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r338 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function AreaChartStackedComponent__svg_g_5_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r266); var ctx_r265 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r265.updateXAxisHeight($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function AreaChartStackedComponent__svg_g_5_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r338); var ctx_r337 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r337.updateXAxisHeight($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r260 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r260.xScale)("dims", ctx_r260.dims)("showGridLines", ctx_r260.showGridLines)("showLabel", ctx_r260.showXAxisLabel)("labelText", ctx_r260.xAxisLabel)("trimTicks", ctx_r260.trimXAxisTicks)("rotateTicks", ctx_r260.rotateXAxisTicks)("maxTickLength", ctx_r260.maxXAxisTickLength)("tickFormatting", ctx_r260.xAxisTickFormatting)("ticks", ctx_r260.xAxisTicks);
+    var ctx_r332 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r332.xScale)("dims", ctx_r332.dims)("showGridLines", ctx_r332.showGridLines)("showLabel", ctx_r332.showXAxisLabel)("labelText", ctx_r332.xAxisLabel)("trimTicks", ctx_r332.trimXAxisTicks)("rotateTicks", ctx_r332.rotateXAxisTicks)("maxTickLength", ctx_r332.maxXAxisTickLength)("tickFormatting", ctx_r332.xAxisTickFormatting)("ticks", ctx_r332.xAxisTicks);
 } }
 function AreaChartStackedComponent__svg_g_6_Template(rf, ctx) { if (rf & 1) {
-    var _r268 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r340 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function AreaChartStackedComponent__svg_g_6_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r268); var ctx_r267 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r267.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function AreaChartStackedComponent__svg_g_6_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r340); var ctx_r339 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r339.updateYAxisWidth($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r261 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r261.yScale)("dims", ctx_r261.dims)("showGridLines", ctx_r261.showGridLines)("showLabel", ctx_r261.showYAxisLabel)("labelText", ctx_r261.yAxisLabel)("trimTicks", ctx_r261.trimYAxisTicks)("maxTickLength", ctx_r261.maxYAxisTickLength)("tickFormatting", ctx_r261.yAxisTickFormatting)("ticks", ctx_r261.yAxisTicks);
+    var ctx_r333 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r333.yScale)("dims", ctx_r333.dims)("showGridLines", ctx_r333.showGridLines)("showLabel", ctx_r333.showYAxisLabel)("labelText", ctx_r333.yAxisLabel)("trimTicks", ctx_r333.trimYAxisTicks)("maxTickLength", ctx_r333.maxYAxisTickLength)("tickFormatting", ctx_r333.yAxisTickFormatting)("ticks", ctx_r333.yAxisTicks);
 } }
 function AreaChartStackedComponent__svg_g_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -803,41 +803,41 @@ function AreaChartStackedComponent__svg_g_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "g", 9);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r269 = ctx.$implicit;
-    var ctx_r262 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var series_r341 = ctx.$implicit;
+    var ctx_r334 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r262.xScale)("yScale", ctx_r262.yScale)("colors", ctx_r262.colors)("data", series_r269)("scaleType", ctx_r262.scaleType)("gradient", ctx_r262.gradient)("activeEntries", ctx_r262.activeEntries)("curve", ctx_r262.curve)("animations", ctx_r262.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r334.xScale)("yScale", ctx_r334.yScale)("colors", ctx_r334.colors)("data", series_r341)("scaleType", ctx_r334.scaleType)("gradient", ctx_r334.gradient)("activeEntries", ctx_r334.activeEntries)("curve", ctx_r334.curve)("animations", ctx_r334.animations);
 } }
 function AreaChartStackedComponent__svg_g_9__svg_g_2_Template(rf, ctx) { if (rf & 1) {
-    var _r273 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r345 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 12);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function AreaChartStackedComponent__svg_g_9__svg_g_2_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r273); var series_r271 = ctx.$implicit; var ctx_r272 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r272.onClick($event, series_r271); })("activate", function AreaChartStackedComponent__svg_g_9__svg_g_2_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r273); var ctx_r274 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r274.onActivate($event); })("deactivate", function AreaChartStackedComponent__svg_g_9__svg_g_2_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r273); var ctx_r275 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r275.onDeactivate($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function AreaChartStackedComponent__svg_g_9__svg_g_2_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r345); var series_r343 = ctx.$implicit; var ctx_r344 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r344.onClick($event, series_r343); })("activate", function AreaChartStackedComponent__svg_g_9__svg_g_2_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r345); var ctx_r346 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r346.onActivate($event); })("deactivate", function AreaChartStackedComponent__svg_g_9__svg_g_2_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r345); var ctx_r347 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r347.onDeactivate($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r271 = ctx.$implicit;
-    var ctx_r270 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    var series_r343 = ctx.$implicit;
+    var ctx_r342 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r270.xScale)("yScale", ctx_r270.yScale)("colors", ctx_r270.colors)("activeEntries", ctx_r270.activeEntries)("data", series_r271)("scaleType", ctx_r270.scaleType)("visibleValue", ctx_r270.hoveredVertical)("tooltipDisabled", ctx_r270.tooltipDisabled)("tooltipTemplate", ctx_r270.tooltipTemplate);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r342.xScale)("yScale", ctx_r342.yScale)("colors", ctx_r342.colors)("activeEntries", ctx_r342.activeEntries)("data", series_r343)("scaleType", ctx_r342.scaleType)("visibleValue", ctx_r342.hoveredVertical)("tooltipDisabled", ctx_r342.tooltipDisabled)("tooltipTemplate", ctx_r342.tooltipTemplate);
 } }
 function AreaChartStackedComponent__svg_g_9_Template(rf, ctx) { if (rf & 1) {
-    var _r277 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r349 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 10);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("mouseleave", function AreaChartStackedComponent__svg_g_9_Template__svg_g_mouseleave_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r277); var ctx_r276 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r276.hideCircles(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("mouseleave", function AreaChartStackedComponent__svg_g_9_Template__svg_g_mouseleave_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r349); var ctx_r348 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r348.hideCircles(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 11);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("hover", function AreaChartStackedComponent__svg_g_9_Template__svg_g_hover_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r277); var ctx_r278 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r278.updateHoveredVertical($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("hover", function AreaChartStackedComponent__svg_g_9_Template__svg_g_hover_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r349); var ctx_r350 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r350.updateHoveredVertical($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, AreaChartStackedComponent__svg_g_9__svg_g_2_Template, 2, 9, "g", 4);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r263 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r335 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("dims", ctx_r263.dims)("xSet", ctx_r263.xSet)("xScale", ctx_r263.xScale)("yScale", ctx_r263.yScale)("results", ctx_r263.results)("colors", ctx_r263.colors)("tooltipDisabled", ctx_r263.tooltipDisabled)("tooltipTemplate", ctx_r263.seriesTooltipTemplate);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("dims", ctx_r335.dims)("xSet", ctx_r335.xSet)("xScale", ctx_r335.xScale)("yScale", ctx_r335.yScale)("results", ctx_r335.results)("colors", ctx_r335.colors)("tooltipDisabled", ctx_r335.tooltipDisabled)("tooltipTemplate", ctx_r335.seriesTooltipTemplate);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r263.results)("ngForTrackBy", ctx_r263.trackBy);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r335.results)("ngForTrackBy", ctx_r335.trackBy);
 } }
 function AreaChartStackedComponent__svg_g_10__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -845,24 +845,24 @@ function AreaChartStackedComponent__svg_g_10__svg_g_1_Template(rf, ctx) { if (rf
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "g", 14);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r280 = ctx.$implicit;
-    var ctx_r279 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    var series_r352 = ctx.$implicit;
+    var ctx_r351 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r279.timelineXScale)("yScale", ctx_r279.timelineYScale)("colors", ctx_r279.colors)("data", series_r280)("scaleType", ctx_r279.scaleType)("gradient", ctx_r279.gradient)("curve", ctx_r279.curve)("animations", ctx_r279.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r351.timelineXScale)("yScale", ctx_r351.timelineYScale)("colors", ctx_r351.colors)("data", series_r352)("scaleType", ctx_r351.scaleType)("gradient", ctx_r351.gradient)("curve", ctx_r351.curve)("animations", ctx_r351.animations);
 } }
 function AreaChartStackedComponent__svg_g_10_Template(rf, ctx) { if (rf & 1) {
-    var _r282 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r354 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("onDomainChange", function AreaChartStackedComponent__svg_g_10_Template__svg_g_onDomainChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r282); var ctx_r281 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r281.updateDomain($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("onDomainChange", function AreaChartStackedComponent__svg_g_10_Template__svg_g_onDomainChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r354); var ctx_r353 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r353.updateDomain($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, AreaChartStackedComponent__svg_g_10__svg_g_1_Template, 2, 8, "g", 4);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r264 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("results", ctx_r264.results)("view", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction2"](10, _c23, ctx_r264.timelineWidth, ctx_r264.height))("height", ctx_r264.timelineHeight)("scheme", ctx_r264.scheme)("customColors", ctx_r264.customColors)("legend", ctx_r264.legend)("scaleType", ctx_r264.scaleType);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r264.timelineTransform);
+    var ctx_r336 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("results", ctx_r336.results)("view", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction2"](10, _c23, ctx_r336.timelineWidth, ctx_r336.height))("height", ctx_r336.timelineHeight)("scheme", ctx_r336.scheme)("customColors", ctx_r336.customColors)("legend", ctx_r336.legend)("scaleType", ctx_r336.scaleType);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r336.timelineTransform);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r264.results)("ngForTrackBy", ctx_r264.trackBy);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r336.results)("ngForTrackBy", ctx_r336.trackBy);
 } }
 var _c24 = ["ngx-charts-area-series", ""];
 var _c25 = ["ngx-charts-bar", ""];
@@ -872,252 +872,56 @@ function BarComponent__svg_defs_0_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "g", 2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r283 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r355 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("orientation", ctx_r283.orientation)("name", ctx_r283.gradientId)("stops", ctx_r283.gradientStops);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("orientation", ctx_r355.orientation)("name", ctx_r355.gradientId)("stops", ctx_r355.gradientStops);
 } }
 function BarHorizontalComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
-    var _r287 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontalComponent__svg_g_2_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r287); var ctx_r286 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r286.updateXAxisHeight($event); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var ctx_r284 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r284.xScale)("dims", ctx_r284.dims)("showGridLines", ctx_r284.showGridLines)("showLabel", ctx_r284.showXAxisLabel)("labelText", ctx_r284.xAxisLabel)("trimTicks", ctx_r284.trimXAxisTicks)("rotateTicks", ctx_r284.rotateXAxisTicks)("maxTickLength", ctx_r284.maxXAxisTickLength)("tickFormatting", ctx_r284.xAxisTickFormatting)("ticks", ctx_r284.xAxisTicks);
-} }
-function BarHorizontalComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
-    var _r289 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontalComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r289); var ctx_r288 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r288.updateYAxisWidth($event); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var ctx_r285 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r285.yScale)("dims", ctx_r285.dims)("showLabel", ctx_r285.showYAxisLabel)("labelText", ctx_r285.yAxisLabel)("trimTicks", ctx_r285.trimYAxisTicks)("maxTickLength", ctx_r285.maxYAxisTickLength)("tickFormatting", ctx_r285.yAxisTickFormatting)("ticks", ctx_r285.yAxisTicks)("yAxisOffset", ctx_r285.dataLabelMaxWidth.negative);
-} }
-function BarHorizontal2DComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
-    var _r294 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontal2DComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r294); var ctx_r293 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r293.updateXAxisHeight($event); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var ctx_r290 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r290.valueScale)("dims", ctx_r290.dims)("showGridLines", ctx_r290.showGridLines)("showLabel", ctx_r290.showXAxisLabel)("labelText", ctx_r290.xAxisLabel)("trimTicks", ctx_r290.trimXAxisTicks)("rotateTicks", ctx_r290.rotateXAxisTicks)("maxTickLength", ctx_r290.maxXAxisTickLength)("tickFormatting", ctx_r290.xAxisTickFormatting)("ticks", ctx_r290.xAxisTicks);
-} }
-function BarHorizontal2DComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
-    var _r296 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontal2DComponent__svg_g_4_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r296); var ctx_r295 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r295.updateYAxisWidth($event); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var ctx_r291 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r291.groupScale)("dims", ctx_r291.dims)("showLabel", ctx_r291.showYAxisLabel)("labelText", ctx_r291.yAxisLabel)("trimTicks", ctx_r291.trimYAxisTicks)("maxTickLength", ctx_r291.maxYAxisTickLength)("tickFormatting", ctx_r291.yAxisTickFormatting)("ticks", ctx_r291.yAxisTicks)("yAxisOffset", ctx_r291.dataLabelMaxWidth.negative);
-} }
-function BarHorizontal2DComponent__svg_g_5_Template(rf, ctx) { if (rf & 1) {
-    var _r300 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BarHorizontal2DComponent__svg_g_5_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r300); var group_r297 = ctx.$implicit; var ctx_r299 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r299.onClick($event, group_r297); })("activate", function BarHorizontal2DComponent__svg_g_5_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r300); var group_r297 = ctx.$implicit; var ctx_r301 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r301.onActivate($event, group_r297); })("deactivate", function BarHorizontal2DComponent__svg_g_5_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r300); var group_r297 = ctx.$implicit; var ctx_r302 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r302.onDeactivate($event, group_r297); })("dataLabelWidthChanged", function BarHorizontal2DComponent__svg_g_5_Template__svg_g_dataLabelWidthChanged_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r300); var index_r298 = ctx.index; var ctx_r303 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r303.onDataLabelMaxWidthChanged($event, index_r298); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var group_r297 = ctx.$implicit;
-    var ctx_r292 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r292.groupTransform(group_r297));
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r292.valueScale)("activeEntries", ctx_r292.activeEntries)("yScale", ctx_r292.innerScale)("colors", ctx_r292.colors)("series", group_r297.series)("dims", ctx_r292.dims)("gradient", ctx_r292.gradient)("tooltipDisabled", ctx_r292.tooltipDisabled)("tooltipTemplate", ctx_r292.tooltipTemplate)("seriesName", group_r297.name)("roundEdges", ctx_r292.roundEdges)("animations", ctx_r292.animations)("showDataLabel", ctx_r292.showDataLabel)("dataLabelFormatting", ctx_r292.dataLabelFormatting)("noBarWhenZero", ctx_r292.noBarWhenZero);
-} }
-function BarHorizontalNormalizedComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
-    var _r308 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontalNormalizedComponent__svg_g_2_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r308); var ctx_r307 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r307.updateXAxisHeight($event); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var ctx_r304 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r304.xScale)("dims", ctx_r304.dims)("showGridLines", ctx_r304.showGridLines)("showLabel", ctx_r304.showXAxisLabel)("labelText", ctx_r304.xAxisLabel)("trimTicks", ctx_r304.trimXAxisTicks)("rotateTicks", ctx_r304.rotateXAxisTicks)("maxTickLength", ctx_r304.maxXAxisTickLength)("tickFormatting", ctx_r304.xAxisTickFormatting)("ticks", ctx_r304.xAxisTicks);
-} }
-function BarHorizontalNormalizedComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
-    var _r310 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontalNormalizedComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r310); var ctx_r309 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r309.updateYAxisWidth($event); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var ctx_r305 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r305.yScale)("dims", ctx_r305.dims)("showLabel", ctx_r305.showYAxisLabel)("labelText", ctx_r305.yAxisLabel)("trimTicks", ctx_r305.trimYAxisTicks)("maxTickLength", ctx_r305.maxYAxisTickLength)("tickFormatting", ctx_r305.yAxisTickFormatting)("ticks", ctx_r305.yAxisTicks);
-} }
-function BarHorizontalNormalizedComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
-    var _r313 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BarHorizontalNormalizedComponent__svg_g_4_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r313); var group_r311 = ctx.$implicit; var ctx_r312 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r312.onClick($event, group_r311); })("activate", function BarHorizontalNormalizedComponent__svg_g_4_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r313); var group_r311 = ctx.$implicit; var ctx_r314 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r314.onActivate($event, group_r311); })("deactivate", function BarHorizontalNormalizedComponent__svg_g_4_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r313); var group_r311 = ctx.$implicit; var ctx_r315 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r315.onDeactivate($event, group_r311); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var group_r311 = ctx.$implicit;
-    var ctx_r306 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r306.groupTransform(group_r311));
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r306.xScale)("yScale", ctx_r306.yScale)("activeEntries", ctx_r306.activeEntries)("colors", ctx_r306.colors)("series", group_r311.series)("dims", ctx_r306.dims)("gradient", ctx_r306.gradient)("tooltipDisabled", ctx_r306.tooltipDisabled)("tooltipTemplate", ctx_r306.tooltipTemplate)("seriesName", group_r311.name)("animations", ctx_r306.animations)("noBarWhenZero", ctx_r306.noBarWhenZero);
-} }
-function BarHorizontalStackedComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
-    var _r320 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontalStackedComponent__svg_g_2_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r320); var ctx_r319 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r319.updateXAxisHeight($event); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var ctx_r316 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r316.xScale)("dims", ctx_r316.dims)("showGridLines", ctx_r316.showGridLines)("showLabel", ctx_r316.showXAxisLabel)("labelText", ctx_r316.xAxisLabel)("trimTicks", ctx_r316.trimXAxisTicks)("rotateTicks", ctx_r316.rotateXAxisTicks)("maxTickLength", ctx_r316.maxXAxisTickLength)("tickFormatting", ctx_r316.xAxisTickFormatting)("ticks", ctx_r316.xAxisTicks);
-} }
-function BarHorizontalStackedComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
-    var _r322 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontalStackedComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r322); var ctx_r321 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r321.updateYAxisWidth($event); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var ctx_r317 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r317.yScale)("dims", ctx_r317.dims)("showLabel", ctx_r317.showYAxisLabel)("labelText", ctx_r317.yAxisLabel)("trimTicks", ctx_r317.trimYAxisTicks)("maxTickLength", ctx_r317.maxYAxisTickLength)("tickFormatting", ctx_r317.yAxisTickFormatting)("ticks", ctx_r317.yAxisTicks)("yAxisOffset", ctx_r317.dataLabelMaxWidth.negative);
-} }
-function BarHorizontalStackedComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
-    var _r326 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BarHorizontalStackedComponent__svg_g_4_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r326); var group_r323 = ctx.$implicit; var ctx_r325 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r325.onClick($event, group_r323); })("activate", function BarHorizontalStackedComponent__svg_g_4_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r326); var group_r323 = ctx.$implicit; var ctx_r327 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r327.onActivate($event, group_r323); })("deactivate", function BarHorizontalStackedComponent__svg_g_4_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r326); var group_r323 = ctx.$implicit; var ctx_r328 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r328.onDeactivate($event, group_r323); })("dataLabelWidthChanged", function BarHorizontalStackedComponent__svg_g_4_Template__svg_g_dataLabelWidthChanged_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r326); var index_r324 = ctx.index; var ctx_r329 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r329.onDataLabelMaxWidthChanged($event, index_r324); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var group_r323 = ctx.$implicit;
-    var ctx_r318 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r318.groupTransform(group_r323));
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r318.xScale)("yScale", ctx_r318.yScale)("colors", ctx_r318.colors)("series", group_r323.series)("activeEntries", ctx_r318.activeEntries)("dims", ctx_r318.dims)("gradient", ctx_r318.gradient)("tooltipDisabled", ctx_r318.tooltipDisabled)("tooltipTemplate", ctx_r318.tooltipTemplate)("seriesName", group_r323.name)("animations", ctx_r318.animations)("showDataLabel", ctx_r318.showDataLabel)("dataLabelFormatting", ctx_r318.dataLabelFormatting)("noBarWhenZero", ctx_r318.noBarWhenZero);
-} }
-function BarVerticalComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
-    var _r333 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVerticalComponent__svg_g_2_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r333); var ctx_r332 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r332.updateXAxisHeight($event); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var ctx_r330 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r330.xScale)("dims", ctx_r330.dims)("showLabel", ctx_r330.showXAxisLabel)("labelText", ctx_r330.xAxisLabel)("trimTicks", ctx_r330.trimXAxisTicks)("rotateTicks", ctx_r330.rotateXAxisTicks)("maxTickLength", ctx_r330.maxXAxisTickLength)("tickFormatting", ctx_r330.xAxisTickFormatting)("ticks", ctx_r330.xAxisTicks)("xAxisOffset", ctx_r330.dataLabelMaxHeight.negative);
-} }
-function BarVerticalComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
-    var _r335 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVerticalComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r335); var ctx_r334 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r334.updateYAxisWidth($event); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var ctx_r331 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r331.yScale)("dims", ctx_r331.dims)("showGridLines", ctx_r331.showGridLines)("showLabel", ctx_r331.showYAxisLabel)("labelText", ctx_r331.yAxisLabel)("trimTicks", ctx_r331.trimYAxisTicks)("maxTickLength", ctx_r331.maxYAxisTickLength)("tickFormatting", ctx_r331.yAxisTickFormatting)("ticks", ctx_r331.yAxisTicks);
-} }
-function BarVertical2DComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
-    var _r340 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVertical2DComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r340); var ctx_r339 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r339.updateXAxisHeight($event); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var ctx_r336 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r336.groupScale)("dims", ctx_r336.dims)("showLabel", ctx_r336.showXAxisLabel)("labelText", ctx_r336.xAxisLabel)("trimTicks", ctx_r336.trimXAxisTicks)("rotateTicks", ctx_r336.rotateXAxisTicks)("maxTickLength", ctx_r336.maxXAxisTickLength)("tickFormatting", ctx_r336.xAxisTickFormatting)("ticks", ctx_r336.xAxisTicks)("xAxisOffset", ctx_r336.dataLabelMaxHeight.negative);
-} }
-function BarVertical2DComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
-    var _r342 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVertical2DComponent__svg_g_4_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r342); var ctx_r341 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r341.updateYAxisWidth($event); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var ctx_r337 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r337.valueScale)("dims", ctx_r337.dims)("showGridLines", ctx_r337.showGridLines)("showLabel", ctx_r337.showYAxisLabel)("labelText", ctx_r337.yAxisLabel)("trimTicks", ctx_r337.trimYAxisTicks)("maxTickLength", ctx_r337.maxYAxisTickLength)("tickFormatting", ctx_r337.yAxisTickFormatting)("ticks", ctx_r337.yAxisTicks);
-} }
-function BarVertical2DComponent__svg_g_5_Template(rf, ctx) { if (rf & 1) {
-    var _r346 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BarVertical2DComponent__svg_g_5_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r346); var group_r343 = ctx.$implicit; var ctx_r345 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r345.onClick($event, group_r343); })("activate", function BarVertical2DComponent__svg_g_5_Template__svg_g_activate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r346); var group_r343 = ctx.$implicit; var ctx_r347 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r347.onActivate($event, group_r343); })("deactivate", function BarVertical2DComponent__svg_g_5_Template__svg_g_deactivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r346); var group_r343 = ctx.$implicit; var ctx_r348 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r348.onDeactivate($event, group_r343); })("dataLabelHeightChanged", function BarVertical2DComponent__svg_g_5_Template__svg_g_dataLabelHeightChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r346); var index_r344 = ctx.index; var ctx_r349 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r349.onDataLabelMaxHeightChanged($event, index_r344); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var group_r343 = ctx.$implicit;
-    var ctx_r338 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active")("activeEntries", ctx_r338.activeEntries)("xScale", ctx_r338.innerScale)("yScale", ctx_r338.valueScale)("colors", ctx_r338.colors)("series", group_r343.series)("dims", ctx_r338.dims)("gradient", ctx_r338.gradient)("tooltipDisabled", ctx_r338.tooltipDisabled)("tooltipTemplate", ctx_r338.tooltipTemplate)("showDataLabel", ctx_r338.showDataLabel)("dataLabelFormatting", ctx_r338.dataLabelFormatting)("seriesName", group_r343.name)("roundEdges", ctx_r338.roundEdges)("animations", ctx_r338.animations)("noBarWhenZero", ctx_r338.noBarWhenZero);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r338.groupTransform(group_r343));
-} }
-function BarVerticalNormalizedComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
-    var _r354 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVerticalNormalizedComponent__svg_g_2_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r354); var ctx_r353 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r353.updateXAxisHeight($event); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var ctx_r350 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r350.xScale)("dims", ctx_r350.dims)("showLabel", ctx_r350.showXAxisLabel)("labelText", ctx_r350.xAxisLabel)("trimTicks", ctx_r350.trimXAxisTicks)("rotateTicks", ctx_r350.rotateXAxisTicks)("maxTickLength", ctx_r350.maxXAxisTickLength)("tickFormatting", ctx_r350.xAxisTickFormatting)("ticks", ctx_r350.xAxisTicks);
-} }
-function BarVerticalNormalizedComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
-    var _r356 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVerticalNormalizedComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r356); var ctx_r355 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r355.updateYAxisWidth($event); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    var ctx_r351 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r351.yScale)("dims", ctx_r351.dims)("showGridLines", ctx_r351.showGridLines)("showLabel", ctx_r351.showYAxisLabel)("labelText", ctx_r351.yAxisLabel)("trimTicks", ctx_r351.trimYAxisTicks)("maxTickLength", ctx_r351.maxYAxisTickLength)("tickFormatting", ctx_r351.yAxisTickFormatting)("ticks", ctx_r351.yAxisTicks);
-} }
-function BarVerticalNormalizedComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
     var _r359 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BarVerticalNormalizedComponent__svg_g_4_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r359); var group_r357 = ctx.$implicit; var ctx_r358 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r358.onClick($event, group_r357); })("activate", function BarVerticalNormalizedComponent__svg_g_4_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r359); var group_r357 = ctx.$implicit; var ctx_r360 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r360.onActivate($event, group_r357); })("deactivate", function BarVerticalNormalizedComponent__svg_g_4_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r359); var group_r357 = ctx.$implicit; var ctx_r361 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r361.onDeactivate($event, group_r357); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontalComponent__svg_g_2_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r359); var ctx_r358 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r358.updateXAxisHeight($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var group_r357 = ctx.$implicit;
-    var ctx_r352 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r352.groupTransform(group_r357));
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r352.xScale)("yScale", ctx_r352.yScale)("activeEntries", ctx_r352.activeEntries)("colors", ctx_r352.colors)("series", group_r357.series)("dims", ctx_r352.dims)("gradient", ctx_r352.gradient)("tooltipDisabled", ctx_r352.tooltipDisabled)("tooltipTemplate", ctx_r352.tooltipTemplate)("seriesName", group_r357.name)("animations", ctx_r352.animations)("noBarWhenZero", ctx_r352.noBarWhenZero);
+    var ctx_r356 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r356.xScale)("dims", ctx_r356.dims)("showGridLines", ctx_r356.showGridLines)("showLabel", ctx_r356.showXAxisLabel)("labelText", ctx_r356.xAxisLabel)("trimTicks", ctx_r356.trimXAxisTicks)("rotateTicks", ctx_r356.rotateXAxisTicks)("maxTickLength", ctx_r356.maxXAxisTickLength)("tickFormatting", ctx_r356.xAxisTickFormatting)("ticks", ctx_r356.xAxisTicks);
 } }
-function BarVerticalStackedComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
+function BarHorizontalComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
+    var _r361 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontalComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r361); var ctx_r360 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r360.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var ctx_r357 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r357.yScale)("dims", ctx_r357.dims)("showLabel", ctx_r357.showYAxisLabel)("labelText", ctx_r357.yAxisLabel)("trimTicks", ctx_r357.trimYAxisTicks)("maxTickLength", ctx_r357.maxYAxisTickLength)("tickFormatting", ctx_r357.yAxisTickFormatting)("ticks", ctx_r357.yAxisTicks)("yAxisOffset", ctx_r357.dataLabelMaxWidth.negative);
+} }
+function BarHorizontal2DComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
     var _r366 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVerticalStackedComponent__svg_g_2_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r366); var ctx_r365 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r365.updateXAxisHeight($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontal2DComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r366); var ctx_r365 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r365.updateXAxisHeight($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
     var ctx_r362 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r362.xScale)("dims", ctx_r362.dims)("showLabel", ctx_r362.showXAxisLabel)("labelText", ctx_r362.xAxisLabel)("trimTicks", ctx_r362.trimXAxisTicks)("rotateTicks", ctx_r362.rotateXAxisTicks)("maxTickLength", ctx_r362.maxXAxisTickLength)("tickFormatting", ctx_r362.xAxisTickFormatting)("ticks", ctx_r362.xAxisTicks)("xAxisOffset", ctx_r362.dataLabelMaxHeight.negative);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r362.valueScale)("dims", ctx_r362.dims)("showGridLines", ctx_r362.showGridLines)("showLabel", ctx_r362.showXAxisLabel)("labelText", ctx_r362.xAxisLabel)("trimTicks", ctx_r362.trimXAxisTicks)("rotateTicks", ctx_r362.rotateXAxisTicks)("maxTickLength", ctx_r362.maxXAxisTickLength)("tickFormatting", ctx_r362.xAxisTickFormatting)("ticks", ctx_r362.xAxisTicks);
 } }
-function BarVerticalStackedComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
+function BarHorizontal2DComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
     var _r368 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVerticalStackedComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r368); var ctx_r367 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r367.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontal2DComponent__svg_g_4_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r368); var ctx_r367 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r367.updateYAxisWidth($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
     var ctx_r363 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r363.yScale)("dims", ctx_r363.dims)("showGridLines", ctx_r363.showGridLines)("showLabel", ctx_r363.showYAxisLabel)("labelText", ctx_r363.yAxisLabel)("trimTicks", ctx_r363.trimYAxisTicks)("maxTickLength", ctx_r363.maxYAxisTickLength)("tickFormatting", ctx_r363.yAxisTickFormatting)("ticks", ctx_r363.yAxisTicks);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r363.groupScale)("dims", ctx_r363.dims)("showLabel", ctx_r363.showYAxisLabel)("labelText", ctx_r363.yAxisLabel)("trimTicks", ctx_r363.trimYAxisTicks)("maxTickLength", ctx_r363.maxYAxisTickLength)("tickFormatting", ctx_r363.yAxisTickFormatting)("ticks", ctx_r363.yAxisTicks)("yAxisOffset", ctx_r363.dataLabelMaxWidth.negative);
 } }
-function BarVerticalStackedComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
+function BarHorizontal2DComponent__svg_g_5_Template(rf, ctx) { if (rf & 1) {
     var _r372 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BarVerticalStackedComponent__svg_g_4_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r372); var group_r369 = ctx.$implicit; var ctx_r371 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r371.onClick($event, group_r369); })("activate", function BarVerticalStackedComponent__svg_g_4_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r372); var group_r369 = ctx.$implicit; var ctx_r373 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r373.onActivate($event, group_r369); })("deactivate", function BarVerticalStackedComponent__svg_g_4_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r372); var group_r369 = ctx.$implicit; var ctx_r374 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r374.onDeactivate($event, group_r369); })("dataLabelHeightChanged", function BarVerticalStackedComponent__svg_g_4_Template__svg_g_dataLabelHeightChanged_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r372); var index_r370 = ctx.index; var ctx_r375 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r375.onDataLabelMaxHeightChanged($event, index_r370); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 8);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BarHorizontal2DComponent__svg_g_5_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r372); var group_r369 = ctx.$implicit; var ctx_r371 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r371.onClick($event, group_r369); })("activate", function BarHorizontal2DComponent__svg_g_5_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r372); var group_r369 = ctx.$implicit; var ctx_r373 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r373.onActivate($event, group_r369); })("deactivate", function BarHorizontal2DComponent__svg_g_5_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r372); var group_r369 = ctx.$implicit; var ctx_r374 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r374.onDeactivate($event, group_r369); })("dataLabelWidthChanged", function BarHorizontal2DComponent__svg_g_5_Template__svg_g_dataLabelWidthChanged_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r372); var index_r370 = ctx.index; var ctx_r375 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r375.onDataLabelMaxWidthChanged($event, index_r370); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
@@ -1126,30 +930,226 @@ function BarVerticalStackedComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r364.groupTransform(group_r369));
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r364.xScale)("yScale", ctx_r364.yScale)("activeEntries", ctx_r364.activeEntries)("colors", ctx_r364.colors)("series", group_r369.series)("dims", ctx_r364.dims)("gradient", ctx_r364.gradient)("tooltipDisabled", ctx_r364.tooltipDisabled)("tooltipTemplate", ctx_r364.tooltipTemplate)("showDataLabel", ctx_r364.showDataLabel)("dataLabelFormatting", ctx_r364.dataLabelFormatting)("seriesName", group_r369.name)("animations", ctx_r364.animations)("noBarWhenZero", ctx_r364.noBarWhenZero);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r364.valueScale)("activeEntries", ctx_r364.activeEntries)("yScale", ctx_r364.innerScale)("colors", ctx_r364.colors)("series", group_r369.series)("dims", ctx_r364.dims)("gradient", ctx_r364.gradient)("tooltipDisabled", ctx_r364.tooltipDisabled)("tooltipTemplate", ctx_r364.tooltipTemplate)("seriesName", group_r369.name)("roundEdges", ctx_r364.roundEdges)("animations", ctx_r364.animations)("showDataLabel", ctx_r364.showDataLabel)("dataLabelFormatting", ctx_r364.dataLabelFormatting)("noBarWhenZero", ctx_r364.noBarWhenZero);
+} }
+function BarHorizontalNormalizedComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
+    var _r380 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontalNormalizedComponent__svg_g_2_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r380); var ctx_r379 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r379.updateXAxisHeight($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var ctx_r376 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r376.xScale)("dims", ctx_r376.dims)("showGridLines", ctx_r376.showGridLines)("showLabel", ctx_r376.showXAxisLabel)("labelText", ctx_r376.xAxisLabel)("trimTicks", ctx_r376.trimXAxisTicks)("rotateTicks", ctx_r376.rotateXAxisTicks)("maxTickLength", ctx_r376.maxXAxisTickLength)("tickFormatting", ctx_r376.xAxisTickFormatting)("ticks", ctx_r376.xAxisTicks);
+} }
+function BarHorizontalNormalizedComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
+    var _r382 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontalNormalizedComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r382); var ctx_r381 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r381.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var ctx_r377 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r377.yScale)("dims", ctx_r377.dims)("showLabel", ctx_r377.showYAxisLabel)("labelText", ctx_r377.yAxisLabel)("trimTicks", ctx_r377.trimYAxisTicks)("maxTickLength", ctx_r377.maxYAxisTickLength)("tickFormatting", ctx_r377.yAxisTickFormatting)("ticks", ctx_r377.yAxisTicks);
+} }
+function BarHorizontalNormalizedComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
+    var _r385 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BarHorizontalNormalizedComponent__svg_g_4_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r385); var group_r383 = ctx.$implicit; var ctx_r384 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r384.onClick($event, group_r383); })("activate", function BarHorizontalNormalizedComponent__svg_g_4_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r385); var group_r383 = ctx.$implicit; var ctx_r386 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r386.onActivate($event, group_r383); })("deactivate", function BarHorizontalNormalizedComponent__svg_g_4_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r385); var group_r383 = ctx.$implicit; var ctx_r387 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r387.onDeactivate($event, group_r383); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var group_r383 = ctx.$implicit;
+    var ctx_r378 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r378.groupTransform(group_r383));
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r378.xScale)("yScale", ctx_r378.yScale)("activeEntries", ctx_r378.activeEntries)("colors", ctx_r378.colors)("series", group_r383.series)("dims", ctx_r378.dims)("gradient", ctx_r378.gradient)("tooltipDisabled", ctx_r378.tooltipDisabled)("tooltipTemplate", ctx_r378.tooltipTemplate)("seriesName", group_r383.name)("animations", ctx_r378.animations)("noBarWhenZero", ctx_r378.noBarWhenZero);
+} }
+function BarHorizontalStackedComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
+    var _r392 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontalStackedComponent__svg_g_2_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r392); var ctx_r391 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r391.updateXAxisHeight($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var ctx_r388 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r388.xScale)("dims", ctx_r388.dims)("showGridLines", ctx_r388.showGridLines)("showLabel", ctx_r388.showXAxisLabel)("labelText", ctx_r388.xAxisLabel)("trimTicks", ctx_r388.trimXAxisTicks)("rotateTicks", ctx_r388.rotateXAxisTicks)("maxTickLength", ctx_r388.maxXAxisTickLength)("tickFormatting", ctx_r388.xAxisTickFormatting)("ticks", ctx_r388.xAxisTicks);
+} }
+function BarHorizontalStackedComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
+    var _r394 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarHorizontalStackedComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r394); var ctx_r393 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r393.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var ctx_r389 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r389.yScale)("dims", ctx_r389.dims)("showLabel", ctx_r389.showYAxisLabel)("labelText", ctx_r389.yAxisLabel)("trimTicks", ctx_r389.trimYAxisTicks)("maxTickLength", ctx_r389.maxYAxisTickLength)("tickFormatting", ctx_r389.yAxisTickFormatting)("ticks", ctx_r389.yAxisTicks)("yAxisOffset", ctx_r389.dataLabelMaxWidth.negative);
+} }
+function BarHorizontalStackedComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
+    var _r398 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BarHorizontalStackedComponent__svg_g_4_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r398); var group_r395 = ctx.$implicit; var ctx_r397 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r397.onClick($event, group_r395); })("activate", function BarHorizontalStackedComponent__svg_g_4_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r398); var group_r395 = ctx.$implicit; var ctx_r399 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r399.onActivate($event, group_r395); })("deactivate", function BarHorizontalStackedComponent__svg_g_4_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r398); var group_r395 = ctx.$implicit; var ctx_r400 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r400.onDeactivate($event, group_r395); })("dataLabelWidthChanged", function BarHorizontalStackedComponent__svg_g_4_Template__svg_g_dataLabelWidthChanged_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r398); var index_r396 = ctx.index; var ctx_r401 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r401.onDataLabelMaxWidthChanged($event, index_r396); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var group_r395 = ctx.$implicit;
+    var ctx_r390 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r390.groupTransform(group_r395));
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r390.xScale)("yScale", ctx_r390.yScale)("colors", ctx_r390.colors)("series", group_r395.series)("activeEntries", ctx_r390.activeEntries)("dims", ctx_r390.dims)("gradient", ctx_r390.gradient)("tooltipDisabled", ctx_r390.tooltipDisabled)("tooltipTemplate", ctx_r390.tooltipTemplate)("seriesName", group_r395.name)("animations", ctx_r390.animations)("showDataLabel", ctx_r390.showDataLabel)("dataLabelFormatting", ctx_r390.dataLabelFormatting)("noBarWhenZero", ctx_r390.noBarWhenZero);
+} }
+function BarVerticalComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
+    var _r405 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVerticalComponent__svg_g_2_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r405); var ctx_r404 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r404.updateXAxisHeight($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var ctx_r402 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r402.xScale)("dims", ctx_r402.dims)("showLabel", ctx_r402.showXAxisLabel)("labelText", ctx_r402.xAxisLabel)("trimTicks", ctx_r402.trimXAxisTicks)("rotateTicks", ctx_r402.rotateXAxisTicks)("maxTickLength", ctx_r402.maxXAxisTickLength)("tickFormatting", ctx_r402.xAxisTickFormatting)("ticks", ctx_r402.xAxisTicks)("xAxisOffset", ctx_r402.dataLabelMaxHeight.negative);
+} }
+function BarVerticalComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
+    var _r407 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVerticalComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r407); var ctx_r406 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r406.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var ctx_r403 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r403.yScale)("dims", ctx_r403.dims)("showGridLines", ctx_r403.showGridLines)("showLabel", ctx_r403.showYAxisLabel)("labelText", ctx_r403.yAxisLabel)("trimTicks", ctx_r403.trimYAxisTicks)("maxTickLength", ctx_r403.maxYAxisTickLength)("tickFormatting", ctx_r403.yAxisTickFormatting)("ticks", ctx_r403.yAxisTicks);
+} }
+function BarVertical2DComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
+    var _r412 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVertical2DComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r412); var ctx_r411 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r411.updateXAxisHeight($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var ctx_r408 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r408.groupScale)("dims", ctx_r408.dims)("showLabel", ctx_r408.showXAxisLabel)("labelText", ctx_r408.xAxisLabel)("trimTicks", ctx_r408.trimXAxisTicks)("rotateTicks", ctx_r408.rotateXAxisTicks)("maxTickLength", ctx_r408.maxXAxisTickLength)("tickFormatting", ctx_r408.xAxisTickFormatting)("ticks", ctx_r408.xAxisTicks)("xAxisOffset", ctx_r408.dataLabelMaxHeight.negative);
+} }
+function BarVertical2DComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
+    var _r414 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVertical2DComponent__svg_g_4_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r414); var ctx_r413 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r413.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var ctx_r409 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r409.valueScale)("dims", ctx_r409.dims)("showGridLines", ctx_r409.showGridLines)("showLabel", ctx_r409.showYAxisLabel)("labelText", ctx_r409.yAxisLabel)("trimTicks", ctx_r409.trimYAxisTicks)("maxTickLength", ctx_r409.maxYAxisTickLength)("tickFormatting", ctx_r409.yAxisTickFormatting)("ticks", ctx_r409.yAxisTicks);
+} }
+function BarVertical2DComponent__svg_g_5_Template(rf, ctx) { if (rf & 1) {
+    var _r418 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 8);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BarVertical2DComponent__svg_g_5_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r418); var group_r415 = ctx.$implicit; var ctx_r417 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r417.onClick($event, group_r415); })("activate", function BarVertical2DComponent__svg_g_5_Template__svg_g_activate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r418); var group_r415 = ctx.$implicit; var ctx_r419 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r419.onActivate($event, group_r415); })("deactivate", function BarVertical2DComponent__svg_g_5_Template__svg_g_deactivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r418); var group_r415 = ctx.$implicit; var ctx_r420 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r420.onDeactivate($event, group_r415); })("dataLabelHeightChanged", function BarVertical2DComponent__svg_g_5_Template__svg_g_dataLabelHeightChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r418); var index_r416 = ctx.index; var ctx_r421 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r421.onDataLabelMaxHeightChanged($event, index_r416); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var group_r415 = ctx.$implicit;
+    var ctx_r410 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active")("activeEntries", ctx_r410.activeEntries)("xScale", ctx_r410.innerScale)("yScale", ctx_r410.valueScale)("colors", ctx_r410.colors)("series", group_r415.series)("dims", ctx_r410.dims)("gradient", ctx_r410.gradient)("tooltipDisabled", ctx_r410.tooltipDisabled)("tooltipTemplate", ctx_r410.tooltipTemplate)("showDataLabel", ctx_r410.showDataLabel)("dataLabelFormatting", ctx_r410.dataLabelFormatting)("seriesName", group_r415.name)("roundEdges", ctx_r410.roundEdges)("animations", ctx_r410.animations)("noBarWhenZero", ctx_r410.noBarWhenZero);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r410.groupTransform(group_r415));
+} }
+function BarVerticalNormalizedComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
+    var _r426 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVerticalNormalizedComponent__svg_g_2_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r426); var ctx_r425 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r425.updateXAxisHeight($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var ctx_r422 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r422.xScale)("dims", ctx_r422.dims)("showLabel", ctx_r422.showXAxisLabel)("labelText", ctx_r422.xAxisLabel)("trimTicks", ctx_r422.trimXAxisTicks)("rotateTicks", ctx_r422.rotateXAxisTicks)("maxTickLength", ctx_r422.maxXAxisTickLength)("tickFormatting", ctx_r422.xAxisTickFormatting)("ticks", ctx_r422.xAxisTicks);
+} }
+function BarVerticalNormalizedComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
+    var _r428 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVerticalNormalizedComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r428); var ctx_r427 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r427.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var ctx_r423 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r423.yScale)("dims", ctx_r423.dims)("showGridLines", ctx_r423.showGridLines)("showLabel", ctx_r423.showYAxisLabel)("labelText", ctx_r423.yAxisLabel)("trimTicks", ctx_r423.trimYAxisTicks)("maxTickLength", ctx_r423.maxYAxisTickLength)("tickFormatting", ctx_r423.yAxisTickFormatting)("ticks", ctx_r423.yAxisTicks);
+} }
+function BarVerticalNormalizedComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
+    var _r431 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BarVerticalNormalizedComponent__svg_g_4_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r431); var group_r429 = ctx.$implicit; var ctx_r430 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r430.onClick($event, group_r429); })("activate", function BarVerticalNormalizedComponent__svg_g_4_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r431); var group_r429 = ctx.$implicit; var ctx_r432 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r432.onActivate($event, group_r429); })("deactivate", function BarVerticalNormalizedComponent__svg_g_4_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r431); var group_r429 = ctx.$implicit; var ctx_r433 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r433.onDeactivate($event, group_r429); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var group_r429 = ctx.$implicit;
+    var ctx_r424 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r424.groupTransform(group_r429));
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r424.xScale)("yScale", ctx_r424.yScale)("activeEntries", ctx_r424.activeEntries)("colors", ctx_r424.colors)("series", group_r429.series)("dims", ctx_r424.dims)("gradient", ctx_r424.gradient)("tooltipDisabled", ctx_r424.tooltipDisabled)("tooltipTemplate", ctx_r424.tooltipTemplate)("seriesName", group_r429.name)("animations", ctx_r424.animations)("noBarWhenZero", ctx_r424.noBarWhenZero);
+} }
+function BarVerticalStackedComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
+    var _r438 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVerticalStackedComponent__svg_g_2_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r438); var ctx_r437 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r437.updateXAxisHeight($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var ctx_r434 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r434.xScale)("dims", ctx_r434.dims)("showLabel", ctx_r434.showXAxisLabel)("labelText", ctx_r434.xAxisLabel)("trimTicks", ctx_r434.trimXAxisTicks)("rotateTicks", ctx_r434.rotateXAxisTicks)("maxTickLength", ctx_r434.maxXAxisTickLength)("tickFormatting", ctx_r434.xAxisTickFormatting)("ticks", ctx_r434.xAxisTicks)("xAxisOffset", ctx_r434.dataLabelMaxHeight.negative);
+} }
+function BarVerticalStackedComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
+    var _r440 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BarVerticalStackedComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r440); var ctx_r439 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r439.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var ctx_r435 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r435.yScale)("dims", ctx_r435.dims)("showGridLines", ctx_r435.showGridLines)("showLabel", ctx_r435.showYAxisLabel)("labelText", ctx_r435.yAxisLabel)("trimTicks", ctx_r435.trimYAxisTicks)("maxTickLength", ctx_r435.maxYAxisTickLength)("tickFormatting", ctx_r435.yAxisTickFormatting)("ticks", ctx_r435.yAxisTicks);
+} }
+function BarVerticalStackedComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
+    var _r444 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BarVerticalStackedComponent__svg_g_4_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r444); var group_r441 = ctx.$implicit; var ctx_r443 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r443.onClick($event, group_r441); })("activate", function BarVerticalStackedComponent__svg_g_4_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r444); var group_r441 = ctx.$implicit; var ctx_r445 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r445.onActivate($event, group_r441); })("deactivate", function BarVerticalStackedComponent__svg_g_4_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r444); var group_r441 = ctx.$implicit; var ctx_r446 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r446.onDeactivate($event, group_r441); })("dataLabelHeightChanged", function BarVerticalStackedComponent__svg_g_4_Template__svg_g_dataLabelHeightChanged_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r444); var index_r442 = ctx.index; var ctx_r447 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r447.onDataLabelMaxHeightChanged($event, index_r442); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    var group_r441 = ctx.$implicit;
+    var ctx_r436 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r436.groupTransform(group_r441));
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r436.xScale)("yScale", ctx_r436.yScale)("activeEntries", ctx_r436.activeEntries)("colors", ctx_r436.colors)("series", group_r441.series)("dims", ctx_r436.dims)("gradient", ctx_r436.gradient)("tooltipDisabled", ctx_r436.tooltipDisabled)("tooltipTemplate", ctx_r436.tooltipTemplate)("showDataLabel", ctx_r436.showDataLabel)("dataLabelFormatting", ctx_r436.dataLabelFormatting)("seriesName", group_r441.name)("animations", ctx_r436.animations)("noBarWhenZero", ctx_r436.noBarWhenZero);
 } }
 var _c26 = ["ngx-charts-series-vertical", ""];
 function SeriesVerticalComponent__svg_g_0_Template(rf, ctx) { if (rf & 1) {
-    var _r380 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r452 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function SeriesVerticalComponent__svg_g_0_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r380); var ctx_r379 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r379.onClick($event); })("activate", function SeriesVerticalComponent__svg_g_0_Template__svg_g_activate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r380); var ctx_r381 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r381.activate.emit($event); })("deactivate", function SeriesVerticalComponent__svg_g_0_Template__svg_g_deactivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r380); var ctx_r382 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r382.deactivate.emit($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function SeriesVerticalComponent__svg_g_0_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r452); var ctx_r451 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r451.onClick($event); })("activate", function SeriesVerticalComponent__svg_g_0_Template__svg_g_activate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r452); var ctx_r453 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r453.activate.emit($event); })("deactivate", function SeriesVerticalComponent__svg_g_0_Template__svg_g_deactivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r452); var ctx_r454 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r454.deactivate.emit($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var bar_r378 = ctx.$implicit;
-    var ctx_r376 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active")("@.disabled", !ctx_r376.animations)("width", bar_r378.width)("height", bar_r378.height)("x", bar_r378.x)("y", bar_r378.y)("fill", bar_r378.color)("stops", bar_r378.gradientStops)("data", bar_r378.data)("orientation", "vertical")("roundEdges", bar_r378.roundEdges)("gradient", ctx_r376.gradient)("ariaLabel", bar_r378.ariaLabel)("isActive", ctx_r376.isActive(bar_r378.data))("tooltipDisabled", ctx_r376.tooltipDisabled)("tooltipPlacement", ctx_r376.tooltipPlacement)("tooltipType", ctx_r376.tooltipType)("tooltipTitle", ctx_r376.tooltipTemplate ? undefined : bar_r378.tooltipText)("tooltipTemplate", ctx_r376.tooltipTemplate)("tooltipContext", bar_r378.data)("noBarWhenZero", ctx_r376.noBarWhenZero)("animations", ctx_r376.animations);
+    var bar_r450 = ctx.$implicit;
+    var ctx_r448 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active")("@.disabled", !ctx_r448.animations)("width", bar_r450.width)("height", bar_r450.height)("x", bar_r450.x)("y", bar_r450.y)("fill", bar_r450.color)("stops", bar_r450.gradientStops)("data", bar_r450.data)("orientation", "vertical")("roundEdges", bar_r450.roundEdges)("gradient", ctx_r448.gradient)("ariaLabel", bar_r450.ariaLabel)("isActive", ctx_r448.isActive(bar_r450.data))("tooltipDisabled", ctx_r448.tooltipDisabled)("tooltipPlacement", ctx_r448.tooltipPlacement)("tooltipType", ctx_r448.tooltipType)("tooltipTitle", ctx_r448.tooltipTemplate ? undefined : bar_r450.tooltipText)("tooltipTemplate", ctx_r448.tooltipTemplate)("tooltipContext", bar_r450.data)("noBarWhenZero", ctx_r448.noBarWhenZero)("animations", ctx_r448.animations);
 } }
 function SeriesVerticalComponent__svg_g_1__svg_g_1_Template(rf, ctx) { if (rf & 1) {
-    var _r387 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r459 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function SeriesVerticalComponent__svg_g_1__svg_g_1_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r387); var i_r385 = ctx.index; var ctx_r386 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r386.dataLabelHeightChanged.emit({ size: $event, index: i_r385 }); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function SeriesVerticalComponent__svg_g_1__svg_g_1_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r459); var i_r457 = ctx.index; var ctx_r458 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r458.dataLabelHeightChanged.emit({ size: $event, index: i_r457 }); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var b_r384 = ctx.$implicit;
-    var ctx_r383 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("barX", b_r384.x)("barY", b_r384.y)("barWidth", b_r384.width)("barHeight", b_r384.height)("value", b_r384.total)("valueFormatting", ctx_r383.dataLabelFormatting)("orientation", "vertical");
+    var b_r456 = ctx.$implicit;
+    var ctx_r455 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("barX", b_r456.x)("barY", b_r456.y)("barWidth", b_r456.width)("barHeight", b_r456.height)("value", b_r456.total)("valueFormatting", ctx_r455.dataLabelFormatting)("orientation", "vertical");
 } }
 function SeriesVerticalComponent__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -1157,32 +1157,32 @@ function SeriesVerticalComponent__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, SeriesVerticalComponent__svg_g_1__svg_g_1_Template, 1, 7, "g", 3);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r377 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r449 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r377.barsForDataLabels)("ngForTrackBy", ctx_r377.trackDataLabelBy);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r449.barsForDataLabels)("ngForTrackBy", ctx_r449.trackDataLabelBy);
 } }
 var _c27 = ["ngx-charts-series-horizontal", ""];
 function SeriesHorizontal__svg_g_0_Template(rf, ctx) { if (rf & 1) {
-    var _r392 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r464 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function SeriesHorizontal__svg_g_0_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r392); var ctx_r391 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r391.click($event); })("activate", function SeriesHorizontal__svg_g_0_Template__svg_g_activate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r392); var ctx_r393 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r393.activate.emit($event); })("deactivate", function SeriesHorizontal__svg_g_0_Template__svg_g_deactivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r392); var ctx_r394 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r394.deactivate.emit($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function SeriesHorizontal__svg_g_0_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r464); var ctx_r463 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r463.click($event); })("activate", function SeriesHorizontal__svg_g_0_Template__svg_g_activate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r464); var ctx_r465 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r465.activate.emit($event); })("deactivate", function SeriesHorizontal__svg_g_0_Template__svg_g_deactivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r464); var ctx_r466 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r466.deactivate.emit($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var bar_r390 = ctx.$implicit;
-    var ctx_r388 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active")("width", bar_r390.width)("height", bar_r390.height)("x", bar_r390.x)("y", bar_r390.y)("fill", bar_r390.color)("stops", bar_r390.gradientStops)("data", bar_r390.data)("orientation", "horizontal")("roundEdges", bar_r390.roundEdges)("gradient", ctx_r388.gradient)("isActive", ctx_r388.isActive(bar_r390.data))("ariaLabel", bar_r390.ariaLabel)("animations", ctx_r388.animations)("tooltipDisabled", ctx_r388.tooltipDisabled)("tooltipPlacement", ctx_r388.tooltipPlacement)("tooltipType", ctx_r388.tooltipType)("tooltipTitle", ctx_r388.tooltipTemplate ? undefined : bar_r390.tooltipText)("tooltipTemplate", ctx_r388.tooltipTemplate)("tooltipContext", bar_r390.data)("noBarWhenZero", ctx_r388.noBarWhenZero);
+    var bar_r462 = ctx.$implicit;
+    var ctx_r460 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active")("width", bar_r462.width)("height", bar_r462.height)("x", bar_r462.x)("y", bar_r462.y)("fill", bar_r462.color)("stops", bar_r462.gradientStops)("data", bar_r462.data)("orientation", "horizontal")("roundEdges", bar_r462.roundEdges)("gradient", ctx_r460.gradient)("isActive", ctx_r460.isActive(bar_r462.data))("ariaLabel", bar_r462.ariaLabel)("animations", ctx_r460.animations)("tooltipDisabled", ctx_r460.tooltipDisabled)("tooltipPlacement", ctx_r460.tooltipPlacement)("tooltipType", ctx_r460.tooltipType)("tooltipTitle", ctx_r460.tooltipTemplate ? undefined : bar_r462.tooltipText)("tooltipTemplate", ctx_r460.tooltipTemplate)("tooltipContext", bar_r462.data)("noBarWhenZero", ctx_r460.noBarWhenZero);
 } }
 function SeriesHorizontal__svg_g_1__svg_g_1_Template(rf, ctx) { if (rf & 1) {
-    var _r399 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r471 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function SeriesHorizontal__svg_g_1__svg_g_1_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r399); var i_r397 = ctx.index; var ctx_r398 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r398.dataLabelWidthChanged.emit({ size: $event, index: i_r397 }); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function SeriesHorizontal__svg_g_1__svg_g_1_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r471); var i_r469 = ctx.index; var ctx_r470 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r470.dataLabelWidthChanged.emit({ size: $event, index: i_r469 }); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var b_r396 = ctx.$implicit;
-    var ctx_r395 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("barX", b_r396.x)("barY", b_r396.y)("barWidth", b_r396.width)("barHeight", b_r396.height)("value", b_r396.total)("valueFormatting", ctx_r395.dataLabelFormatting)("orientation", "horizontal");
+    var b_r468 = ctx.$implicit;
+    var ctx_r467 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("barX", b_r468.x)("barY", b_r468.y)("barWidth", b_r468.width)("barHeight", b_r468.height)("value", b_r468.total)("valueFormatting", ctx_r467.dataLabelFormatting)("orientation", "horizontal");
 } }
 function SeriesHorizontal__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -1190,66 +1190,66 @@ function SeriesHorizontal__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, SeriesHorizontal__svg_g_1__svg_g_1_Template, 1, 7, "g", 3);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r389 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r461 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r389.barsForDataLabels)("ngForTrackBy", ctx_r389.trackDataLabelBy);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r461.barsForDataLabels)("ngForTrackBy", ctx_r461.trackDataLabelBy);
 } }
 var _c28 = ["ngx-charts-bar-label", ""];
 function BubbleChartComponent__svg_g_5_Template(rf, ctx) { if (rf & 1) {
-    var _r404 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r476 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BubbleChartComponent__svg_g_5_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r404); var ctx_r403 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r403.updateXAxisHeight($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BubbleChartComponent__svg_g_5_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r476); var ctx_r475 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r475.updateXAxisHeight($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r400 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("showGridLines", ctx_r400.showGridLines)("dims", ctx_r400.dims)("xScale", ctx_r400.xScale)("showLabel", ctx_r400.showXAxisLabel)("labelText", ctx_r400.xAxisLabel)("trimTicks", ctx_r400.trimXAxisTicks)("rotateTicks", ctx_r400.rotateXAxisTicks)("maxTickLength", ctx_r400.maxXAxisTickLength)("tickFormatting", ctx_r400.xAxisTickFormatting)("ticks", ctx_r400.xAxisTicks);
+    var ctx_r472 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("showGridLines", ctx_r472.showGridLines)("dims", ctx_r472.dims)("xScale", ctx_r472.xScale)("showLabel", ctx_r472.showXAxisLabel)("labelText", ctx_r472.xAxisLabel)("trimTicks", ctx_r472.trimXAxisTicks)("rotateTicks", ctx_r472.rotateXAxisTicks)("maxTickLength", ctx_r472.maxXAxisTickLength)("tickFormatting", ctx_r472.xAxisTickFormatting)("ticks", ctx_r472.xAxisTicks);
 } }
 function BubbleChartComponent__svg_g_6_Template(rf, ctx) { if (rf & 1) {
-    var _r406 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r478 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BubbleChartComponent__svg_g_6_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r406); var ctx_r405 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r405.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function BubbleChartComponent__svg_g_6_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r478); var ctx_r477 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r477.updateYAxisWidth($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r401 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("showGridLines", ctx_r401.showGridLines)("yScale", ctx_r401.yScale)("dims", ctx_r401.dims)("showLabel", ctx_r401.showYAxisLabel)("labelText", ctx_r401.yAxisLabel)("trimTicks", ctx_r401.trimYAxisTicks)("maxTickLength", ctx_r401.maxYAxisTickLength)("tickFormatting", ctx_r401.yAxisTickFormatting)("ticks", ctx_r401.yAxisTicks);
+    var ctx_r473 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("showGridLines", ctx_r473.showGridLines)("yScale", ctx_r473.yScale)("dims", ctx_r473.dims)("showLabel", ctx_r473.showYAxisLabel)("labelText", ctx_r473.yAxisLabel)("trimTicks", ctx_r473.trimYAxisTicks)("maxTickLength", ctx_r473.maxYAxisTickLength)("tickFormatting", ctx_r473.yAxisTickFormatting)("ticks", ctx_r473.yAxisTicks);
 } }
 function BubbleChartComponent__svg_g_9_Template(rf, ctx) { if (rf & 1) {
-    var _r409 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r481 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BubbleChartComponent__svg_g_9_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r409); var series_r407 = ctx.$implicit; var ctx_r408 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r408.onClick($event, series_r407); })("activate", function BubbleChartComponent__svg_g_9_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r409); var ctx_r410 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r410.onActivate($event); })("deactivate", function BubbleChartComponent__svg_g_9_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r409); var ctx_r411 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r411.onDeactivate($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BubbleChartComponent__svg_g_9_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r481); var series_r479 = ctx.$implicit; var ctx_r480 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r480.onClick($event, series_r479); })("activate", function BubbleChartComponent__svg_g_9_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r481); var ctx_r482 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r482.onActivate($event); })("deactivate", function BubbleChartComponent__svg_g_9_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r481); var ctx_r483 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r483.onDeactivate($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r407 = ctx.$implicit;
-    var ctx_r402 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var series_r479 = ctx.$implicit;
+    var ctx_r474 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r402.xScale)("yScale", ctx_r402.yScale)("rScale", ctx_r402.rScale)("xScaleType", ctx_r402.xScaleType)("yScaleType", ctx_r402.yScaleType)("xAxisLabel", ctx_r402.xAxisLabel)("yAxisLabel", ctx_r402.yAxisLabel)("colors", ctx_r402.colors)("data", series_r407)("activeEntries", ctx_r402.activeEntries)("tooltipDisabled", ctx_r402.tooltipDisabled)("tooltipTemplate", ctx_r402.tooltipTemplate);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r474.xScale)("yScale", ctx_r474.yScale)("rScale", ctx_r474.rScale)("xScaleType", ctx_r474.xScaleType)("yScaleType", ctx_r474.yScaleType)("xAxisLabel", ctx_r474.xAxisLabel)("yAxisLabel", ctx_r474.yAxisLabel)("colors", ctx_r474.colors)("data", series_r479)("activeEntries", ctx_r474.activeEntries)("tooltipDisabled", ctx_r474.tooltipDisabled)("tooltipTemplate", ctx_r474.tooltipTemplate);
 } }
 var _c29 = ["ngx-charts-bubble-series", ""];
 function BubbleSeriesComponent__svg_g_0_Template(rf, ctx) { if (rf & 1) {
-    var _r415 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r487 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "g", 1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BubbleSeriesComponent__svg_g_0_Template__svg_g_select_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r415); var circle_r413 = ctx.$implicit; var ctx_r414 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r414.onClick(circle_r413.data); })("activate", function BubbleSeriesComponent__svg_g_0_Template__svg_g_activate_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r415); var circle_r413 = ctx.$implicit; var ctx_r416 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r416.activateCircle(circle_r413); })("deactivate", function BubbleSeriesComponent__svg_g_0_Template__svg_g_deactivate_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r415); var circle_r413 = ctx.$implicit; var ctx_r417 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r417.deactivateCircle(circle_r413); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function BubbleSeriesComponent__svg_g_0_Template__svg_g_select_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r487); var circle_r485 = ctx.$implicit; var ctx_r486 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r486.onClick(circle_r485.data); })("activate", function BubbleSeriesComponent__svg_g_0_Template__svg_g_activate_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r487); var circle_r485 = ctx.$implicit; var ctx_r488 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r488.activateCircle(circle_r485); })("deactivate", function BubbleSeriesComponent__svg_g_0_Template__svg_g_deactivate_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r487); var circle_r485 = ctx.$implicit; var ctx_r489 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r489.deactivateCircle(circle_r485); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var circle_r413 = ctx.$implicit;
-    var ctx_r412 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var circle_r485 = ctx.$implicit;
+    var ctx_r484 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", circle_r413.transform);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", circle_r485.transform);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("opacity", circle_r413.opacity);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵclassProp"]("active", circle_r413.isActive);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active")("cx", 0)("cy", 0)("r", circle_r413.radius)("fill", circle_r413.color)("pointerEvents", "all")("data", circle_r413.value)("classNames", circle_r413.classNames)("tooltipDisabled", ctx_r412.tooltipDisabled)("tooltipPlacement", "top")("tooltipType", "tooltip")("tooltipTitle", ctx_r412.tooltipTemplate ? undefined : ctx_r412.getTooltipText(circle_r413))("tooltipTemplate", ctx_r412.tooltipTemplate)("tooltipContext", circle_r413.data);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("opacity", circle_r485.opacity);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵclassProp"]("active", circle_r485.isActive);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active")("cx", 0)("cy", 0)("r", circle_r485.radius)("fill", circle_r485.color)("pointerEvents", "all")("data", circle_r485.value)("classNames", circle_r485.classNames)("tooltipDisabled", ctx_r484.tooltipDisabled)("tooltipPlacement", "top")("tooltipType", "tooltip")("tooltipTitle", ctx_r484.tooltipTemplate ? undefined : ctx_r484.getTooltipText(circle_r485))("tooltipTemplate", ctx_r484.tooltipTemplate)("tooltipContext", circle_r485.data);
 } }
 var _c30 = ["ngx-charts-heat-map-cell", ""];
 function HeatMapCellComponent__svg_defs_1_Template(rf, ctx) { if (rf & 1) {
@@ -1258,70 +1258,70 @@ function HeatMapCellComponent__svg_defs_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "g", 3);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r418 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r490 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("name", ctx_r418.gradientId)("stops", ctx_r418.gradientStops);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("name", ctx_r490.gradientId)("stops", ctx_r490.gradientStops);
 } }
 var _c31 = ["ngx-charts-heat-map-cell-series", ""];
 var _c32 = function (a0, a1, a2) { return { series: a0, name: a1, value: a2 }; };
 function HeatCellSeriesComponent__svg_g_0_Template(rf, ctx) { if (rf & 1) {
-    var _r422 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r494 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function HeatCellSeriesComponent__svg_g_0_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r422); var c_r420 = ctx.$implicit; var ctx_r421 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r421.onClick(c_r420.cell); })("activate", function HeatCellSeriesComponent__svg_g_0_Template__svg_g_activate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r422); var c_r420 = ctx.$implicit; var ctx_r423 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r423.activate.emit(c_r420.cell); })("deactivate", function HeatCellSeriesComponent__svg_g_0_Template__svg_g_deactivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r422); var c_r420 = ctx.$implicit; var ctx_r424 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r424.deactivate.emit(c_r420.cell); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function HeatCellSeriesComponent__svg_g_0_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r494); var c_r492 = ctx.$implicit; var ctx_r493 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r493.onClick(c_r492.cell); })("activate", function HeatCellSeriesComponent__svg_g_0_Template__svg_g_activate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r494); var c_r492 = ctx.$implicit; var ctx_r495 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r495.activate.emit(c_r492.cell); })("deactivate", function HeatCellSeriesComponent__svg_g_0_Template__svg_g_deactivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r494); var c_r492 = ctx.$implicit; var ctx_r496 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r496.deactivate.emit(c_r492.cell); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var c_r420 = ctx.$implicit;
-    var ctx_r419 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("x", c_r420.x)("y", c_r420.y)("width", c_r420.width)("height", c_r420.height)("fill", c_r420.fill)("data", c_r420.data)("gradient", ctx_r419.gradient)("animations", ctx_r419.animations)("tooltipDisabled", ctx_r419.tooltipDisabled)("tooltipPlacement", "top")("tooltipType", "tooltip")("tooltipTitle", ctx_r419.tooltipTemplate ? undefined : ctx_r419.tooltipText(c_r420))("tooltipTemplate", ctx_r419.tooltipTemplate)("tooltipContext", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction3"](14, _c32, c_r420.series, c_r420.label, c_r420.data));
+    var c_r492 = ctx.$implicit;
+    var ctx_r491 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("x", c_r492.x)("y", c_r492.y)("width", c_r492.width)("height", c_r492.height)("fill", c_r492.fill)("data", c_r492.data)("gradient", ctx_r491.gradient)("animations", ctx_r491.animations)("tooltipDisabled", ctx_r491.tooltipDisabled)("tooltipPlacement", "top")("tooltipType", "tooltip")("tooltipTitle", ctx_r491.tooltipTemplate ? undefined : ctx_r491.tooltipText(c_r492))("tooltipTemplate", ctx_r491.tooltipTemplate)("tooltipContext", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction3"](14, _c32, c_r492.series, c_r492.label, c_r492.data));
 } }
 function HeatMapComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
-    var _r429 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r501 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function HeatMapComponent__svg_g_2_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r429); var ctx_r428 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r428.updateXAxisHeight($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function HeatMapComponent__svg_g_2_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r501); var ctx_r500 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r500.updateXAxisHeight($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r425 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r425.xScale)("dims", ctx_r425.dims)("showLabel", ctx_r425.showXAxisLabel)("labelText", ctx_r425.xAxisLabel)("trimTicks", ctx_r425.trimXAxisTicks)("rotateTicks", ctx_r425.rotateXAxisTicks)("maxTickLength", ctx_r425.maxXAxisTickLength)("tickFormatting", ctx_r425.xAxisTickFormatting)("ticks", ctx_r425.xAxisTicks);
+    var ctx_r497 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r497.xScale)("dims", ctx_r497.dims)("showLabel", ctx_r497.showXAxisLabel)("labelText", ctx_r497.xAxisLabel)("trimTicks", ctx_r497.trimXAxisTicks)("rotateTicks", ctx_r497.rotateXAxisTicks)("maxTickLength", ctx_r497.maxXAxisTickLength)("tickFormatting", ctx_r497.xAxisTickFormatting)("ticks", ctx_r497.xAxisTicks);
 } }
 function HeatMapComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
-    var _r431 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r503 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function HeatMapComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r431); var ctx_r430 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r430.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function HeatMapComponent__svg_g_3_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r503); var ctx_r502 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r502.updateYAxisWidth($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r426 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r426.yScale)("dims", ctx_r426.dims)("showLabel", ctx_r426.showYAxisLabel)("labelText", ctx_r426.yAxisLabel)("trimTicks", ctx_r426.trimYAxisTicks)("maxTickLength", ctx_r426.maxYAxisTickLength)("tickFormatting", ctx_r426.yAxisTickFormatting)("ticks", ctx_r426.yAxisTicks);
+    var ctx_r498 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r498.yScale)("dims", ctx_r498.dims)("showLabel", ctx_r498.showYAxisLabel)("labelText", ctx_r498.yAxisLabel)("trimTicks", ctx_r498.trimYAxisTicks)("maxTickLength", ctx_r498.maxYAxisTickLength)("tickFormatting", ctx_r498.yAxisTickFormatting)("ticks", ctx_r498.yAxisTicks);
 } }
 function HeatMapComponent__svg_rect_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "rect");
 } if (rf & 2) {
-    var rect_r432 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x", rect_r432.x)("y", rect_r432.y)("rx", rect_r432.rx)("width", rect_r432.width)("height", rect_r432.height)("fill", rect_r432.fill);
+    var rect_r504 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x", rect_r504.x)("y", rect_r504.y)("rx", rect_r504.rx)("width", rect_r504.width)("height", rect_r504.height)("fill", rect_r504.fill);
 } }
 var _c33 = ["ngx-charts-line", ""];
 function LineChartComponent__svg_g_5_Template(rf, ctx) { if (rf & 1) {
-    var _r439 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r511 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function LineChartComponent__svg_g_5_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r439); var ctx_r438 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r438.updateXAxisHeight($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function LineChartComponent__svg_g_5_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r511); var ctx_r510 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r510.updateXAxisHeight($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r433 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r433.xScale)("dims", ctx_r433.dims)("showGridLines", ctx_r433.showGridLines)("showLabel", ctx_r433.showXAxisLabel)("labelText", ctx_r433.xAxisLabel)("trimTicks", ctx_r433.trimXAxisTicks)("rotateTicks", ctx_r433.rotateXAxisTicks)("maxTickLength", ctx_r433.maxXAxisTickLength)("tickFormatting", ctx_r433.xAxisTickFormatting)("ticks", ctx_r433.xAxisTicks);
+    var ctx_r505 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r505.xScale)("dims", ctx_r505.dims)("showGridLines", ctx_r505.showGridLines)("showLabel", ctx_r505.showXAxisLabel)("labelText", ctx_r505.xAxisLabel)("trimTicks", ctx_r505.trimXAxisTicks)("rotateTicks", ctx_r505.rotateXAxisTicks)("maxTickLength", ctx_r505.maxXAxisTickLength)("tickFormatting", ctx_r505.xAxisTickFormatting)("ticks", ctx_r505.xAxisTicks);
 } }
 function LineChartComponent__svg_g_6_Template(rf, ctx) { if (rf & 1) {
-    var _r441 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r513 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function LineChartComponent__svg_g_6_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r441); var ctx_r440 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r440.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function LineChartComponent__svg_g_6_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r513); var ctx_r512 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r512.updateYAxisWidth($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r434 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r434.yScale)("dims", ctx_r434.dims)("showGridLines", ctx_r434.showGridLines)("showLabel", ctx_r434.showYAxisLabel)("labelText", ctx_r434.yAxisLabel)("trimTicks", ctx_r434.trimYAxisTicks)("maxTickLength", ctx_r434.maxYAxisTickLength)("tickFormatting", ctx_r434.yAxisTickFormatting)("ticks", ctx_r434.yAxisTicks)("referenceLines", ctx_r434.referenceLines)("showRefLines", ctx_r434.showRefLines)("showRefLabels", ctx_r434.showRefLabels);
+    var ctx_r506 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r506.yScale)("dims", ctx_r506.dims)("showGridLines", ctx_r506.showGridLines)("showLabel", ctx_r506.showYAxisLabel)("labelText", ctx_r506.yAxisLabel)("trimTicks", ctx_r506.trimYAxisTicks)("maxTickLength", ctx_r506.maxYAxisTickLength)("tickFormatting", ctx_r506.yAxisTickFormatting)("ticks", ctx_r506.yAxisTicks)("referenceLines", ctx_r506.referenceLines)("showRefLines", ctx_r506.showRefLines)("showRefLabels", ctx_r506.showRefLabels);
 } }
 function LineChartComponent__svg_g_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -1329,42 +1329,42 @@ function LineChartComponent__svg_g_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "g", 9);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r442 = ctx.$implicit;
-    var ctx_r435 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var series_r514 = ctx.$implicit;
+    var ctx_r507 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r435.xScale)("yScale", ctx_r435.yScale)("colors", ctx_r435.colors)("data", series_r442)("activeEntries", ctx_r435.activeEntries)("scaleType", ctx_r435.scaleType)("curve", ctx_r435.curve)("rangeFillOpacity", ctx_r435.rangeFillOpacity)("hasRange", ctx_r435.hasRange)("animations", ctx_r435.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r507.xScale)("yScale", ctx_r507.yScale)("colors", ctx_r507.colors)("data", series_r514)("activeEntries", ctx_r507.activeEntries)("scaleType", ctx_r507.scaleType)("curve", ctx_r507.curve)("rangeFillOpacity", ctx_r507.rangeFillOpacity)("hasRange", ctx_r507.hasRange)("animations", ctx_r507.animations);
 } }
 function LineChartComponent__svg_g_9__svg_g_2_Template(rf, ctx) { if (rf & 1) {
-    var _r446 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r518 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function LineChartComponent__svg_g_9__svg_g_2_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r446); var ctx_r445 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r445.onClick($event); })("activate", function LineChartComponent__svg_g_9__svg_g_2_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r446); var ctx_r447 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r447.onActivate($event); })("deactivate", function LineChartComponent__svg_g_9__svg_g_2_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r446); var ctx_r448 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r448.onDeactivate($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function LineChartComponent__svg_g_9__svg_g_2_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r518); var ctx_r517 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r517.onClick($event); })("activate", function LineChartComponent__svg_g_9__svg_g_2_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r518); var ctx_r519 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r519.onActivate($event); })("deactivate", function LineChartComponent__svg_g_9__svg_g_2_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r518); var ctx_r520 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r520.onDeactivate($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r444 = ctx.$implicit;
-    var ctx_r443 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    var series_r516 = ctx.$implicit;
+    var ctx_r515 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r443.xScale)("yScale", ctx_r443.yScale)("colors", ctx_r443.colors)("data", series_r444)("scaleType", ctx_r443.scaleType)("visibleValue", ctx_r443.hoveredVertical)("activeEntries", ctx_r443.activeEntries)("tooltipDisabled", ctx_r443.tooltipDisabled)("tooltipTemplate", ctx_r443.tooltipTemplate);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r515.xScale)("yScale", ctx_r515.yScale)("colors", ctx_r515.colors)("data", series_r516)("scaleType", ctx_r515.scaleType)("visibleValue", ctx_r515.hoveredVertical)("activeEntries", ctx_r515.activeEntries)("tooltipDisabled", ctx_r515.tooltipDisabled)("tooltipTemplate", ctx_r515.tooltipTemplate);
 } }
 function LineChartComponent__svg_g_9_Template(rf, ctx) { if (rf & 1) {
-    var _r450 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r522 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 10);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("mouseleave", function LineChartComponent__svg_g_9_Template__svg_g_mouseleave_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r450); var ctx_r449 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r449.hideCircles(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("mouseleave", function LineChartComponent__svg_g_9_Template__svg_g_mouseleave_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r522); var ctx_r521 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r521.hideCircles(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 11);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("hover", function LineChartComponent__svg_g_9_Template__svg_g_hover_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r450); var ctx_r451 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r451.updateHoveredVertical($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("hover", function LineChartComponent__svg_g_9_Template__svg_g_hover_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r522); var ctx_r523 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r523.updateHoveredVertical($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, LineChartComponent__svg_g_9__svg_g_2_Template, 2, 9, "g", 12);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r436 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r508 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("dims", ctx_r436.dims)("xSet", ctx_r436.xSet)("xScale", ctx_r436.xScale)("yScale", ctx_r436.yScale)("results", ctx_r436.results)("colors", ctx_r436.colors)("tooltipDisabled", ctx_r436.tooltipDisabled)("tooltipTemplate", ctx_r436.seriesTooltipTemplate);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("dims", ctx_r508.dims)("xSet", ctx_r508.xSet)("xScale", ctx_r508.xScale)("yScale", ctx_r508.yScale)("results", ctx_r508.results)("colors", ctx_r508.colors)("tooltipDisabled", ctx_r508.tooltipDisabled)("tooltipTemplate", ctx_r508.seriesTooltipTemplate);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r436.results);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r508.results);
 } }
 function LineChartComponent__svg_g_10__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -1372,47 +1372,47 @@ function LineChartComponent__svg_g_10__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "g", 15);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r453 = ctx.$implicit;
-    var ctx_r452 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    var series_r525 = ctx.$implicit;
+    var ctx_r524 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r452.timelineXScale)("yScale", ctx_r452.timelineYScale)("colors", ctx_r452.colors)("data", series_r453)("scaleType", ctx_r452.scaleType)("curve", ctx_r452.curve)("hasRange", ctx_r452.hasRange)("animations", ctx_r452.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("xScale", ctx_r524.timelineXScale)("yScale", ctx_r524.timelineYScale)("colors", ctx_r524.colors)("data", series_r525)("scaleType", ctx_r524.scaleType)("curve", ctx_r524.curve)("hasRange", ctx_r524.hasRange)("animations", ctx_r524.animations);
 } }
 function LineChartComponent__svg_g_10_Template(rf, ctx) { if (rf & 1) {
-    var _r455 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r527 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("onDomainChange", function LineChartComponent__svg_g_10_Template__svg_g_onDomainChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r455); var ctx_r454 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r454.updateDomain($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("onDomainChange", function LineChartComponent__svg_g_10_Template__svg_g_onDomainChange_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r527); var ctx_r526 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r526.updateDomain($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, LineChartComponent__svg_g_10__svg_g_1_Template, 2, 8, "g", 4);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r437 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("results", ctx_r437.results)("view", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction2"](10, _c23, ctx_r437.timelineWidth, ctx_r437.height))("height", ctx_r437.timelineHeight)("scheme", ctx_r437.scheme)("customColors", ctx_r437.customColors)("scaleType", ctx_r437.scaleType)("legend", ctx_r437.legend);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r437.timelineTransform);
+    var ctx_r509 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("results", ctx_r509.results)("view", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction2"](10, _c23, ctx_r509.timelineWidth, ctx_r509.height))("height", ctx_r509.timelineHeight)("scheme", ctx_r509.scheme)("customColors", ctx_r509.customColors)("scaleType", ctx_r509.scaleType)("legend", ctx_r509.legend);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r509.timelineTransform);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r437.results)("ngForTrackBy", ctx_r437.trackBy);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r509.results)("ngForTrackBy", ctx_r509.trackBy);
 } }
 var _c34 = ["ngx-charts-line-series", ""];
 function LineSeriesComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "g", 4);
 } if (rf & 2) {
-    var ctx_r456 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("name", ctx_r456.gradientId)("stops", ctx_r456.gradientStops);
+    var ctx_r528 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("name", ctx_r528.gradientId)("stops", ctx_r528.gradientStops);
 } }
 function LineSeriesComponent__svg_g_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "g", 5);
 } if (rf & 2) {
-    var ctx_r457 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵclassProp"]("active", ctx_r457.isActive(ctx_r457.data))("inactive", ctx_r457.isInactive(ctx_r457.data));
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("data", ctx_r457.data)("path", ctx_r457.outerPath)("fill", ctx_r457.hasGradient ? ctx_r457.gradientUrl : ctx_r457.colors.getColor(ctx_r457.data.name))("opacity", ctx_r457.rangeFillOpacity)("animations", ctx_r457.animations);
+    var ctx_r529 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵclassProp"]("active", ctx_r529.isActive(ctx_r529.data))("inactive", ctx_r529.isInactive(ctx_r529.data));
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("data", ctx_r529.data)("path", ctx_r529.outerPath)("fill", ctx_r529.hasGradient ? ctx_r529.gradientUrl : ctx_r529.colors.getColor(ctx_r529.data.name))("opacity", ctx_r529.rangeFillOpacity)("animations", ctx_r529.animations);
 } }
 function PolarChartComponent__svg_g_4__svg_circle_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "circle", 8);
 } if (rf & 2) {
-    var r_r464 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("r", r_r464);
+    var r_r536 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("r", r_r536);
 } }
 function PolarChartComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -1420,17 +1420,17 @@ function PolarChartComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, PolarChartComponent__svg_g_4__svg_circle_1_Template, 1, 1, "circle", 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r458 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r530 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r458.radiusTicks);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r530.radiusTicks);
 } }
 function PolarChartComponent__svg_g_5__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "g", 10);
 } if (rf & 2) {
-    var tick_r466 = ctx.$implicit;
-    var ctx_r465 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("data", tick_r466)("radius", ctx_r465.outerRadius)("label", tick_r466.label)("max", ctx_r465.outerRadius)("value", ctx_r465.showGridLines ? 1 : ctx_r465.outerRadius)("explodeSlices", true)("animations", ctx_r465.animations)("labelTrim", ctx_r465.labelTrim)("labelTrimSize", ctx_r465.labelTrimSize);
+    var tick_r538 = ctx.$implicit;
+    var ctx_r537 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("data", tick_r538)("radius", ctx_r537.outerRadius)("label", tick_r538.label)("max", ctx_r537.outerRadius)("value", ctx_r537.showGridLines ? 1 : ctx_r537.outerRadius)("explodeSlices", true)("animations", ctx_r537.animations)("labelTrim", ctx_r537.labelTrim)("labelTrimSize", ctx_r537.labelTrimSize);
 } }
 function PolarChartComponent__svg_g_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -1438,62 +1438,62 @@ function PolarChartComponent__svg_g_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, PolarChartComponent__svg_g_5__svg_g_1_Template, 1, 9, "g", 9);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r459 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r531 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r459.thetaTicks);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r531.thetaTicks);
 } }
 function PolarChartComponent__svg_g_6_Template(rf, ctx) { if (rf & 1) {
-    var _r468 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r540 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 11);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function PolarChartComponent__svg_g_6_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r468); var ctx_r467 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r467.updateYAxisWidth($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("dimensionsChanged", function PolarChartComponent__svg_g_6_Template__svg_g_dimensionsChanged_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r540); var ctx_r539 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r539.updateYAxisWidth($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r460 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r460.yAxisScale)("dims", ctx_r460.yAxisDims)("showGridLines", ctx_r460.showGridLines)("showLabel", ctx_r460.showYAxisLabel)("labelText", ctx_r460.yAxisLabel)("trimTicks", ctx_r460.trimYAxisTicks)("maxTickLength", ctx_r460.maxYAxisTickLength)("tickFormatting", ctx_r460.yAxisTickFormatting);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r460.transformYAxis);
+    var ctx_r532 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("yScale", ctx_r532.yAxisScale)("dims", ctx_r532.yAxisDims)("showGridLines", ctx_r532.showGridLines)("showLabel", ctx_r532.showYAxisLabel)("labelText", ctx_r532.yAxisLabel)("trimTicks", ctx_r532.trimYAxisTicks)("maxTickLength", ctx_r532.maxYAxisTickLength)("tickFormatting", ctx_r532.yAxisTickFormatting);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r532.transformYAxis);
 } }
 function PolarChartComponent__svg_g_7_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "g", 12);
 } if (rf & 2) {
-    var ctx_r461 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("label", ctx_r461.xAxisLabel)("offset", ctx_r461.labelOffset)("orient", "bottom")("height", ctx_r461.dims.height)("width", ctx_r461.dims.width);
+    var ctx_r533 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("label", ctx_r533.xAxisLabel)("offset", ctx_r533.labelOffset)("orient", "bottom")("height", ctx_r533.dims.height)("width", ctx_r533.dims.width);
 } }
 function PolarChartComponent__svg_g_9_Template(rf, ctx) { if (rf & 1) {
-    var _r471 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r543 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function PolarChartComponent__svg_g_9_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r471); var ctx_r470 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r470.onClick($event); })("activate", function PolarChartComponent__svg_g_9_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r471); var ctx_r472 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r472.onActivate($event); })("deactivate", function PolarChartComponent__svg_g_9_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r471); var ctx_r473 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r473.onDeactivate($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function PolarChartComponent__svg_g_9_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r543); var ctx_r542 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r542.onClick($event); })("activate", function PolarChartComponent__svg_g_9_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r543); var ctx_r544 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r544.onActivate($event); })("deactivate", function PolarChartComponent__svg_g_9_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r543); var ctx_r545 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r545.onDeactivate($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r469 = ctx.$implicit;
-    var ctx_r462 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var series_r541 = ctx.$implicit;
+    var ctx_r534 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", "active");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("gradient", ctx_r462.gradient)("xScale", ctx_r462.xScale)("yScale", ctx_r462.yScale)("colors", ctx_r462.colors)("data", series_r469)("activeEntries", ctx_r462.activeEntries)("scaleType", ctx_r462.scaleType)("curve", ctx_r462.curve)("rangeFillOpacity", ctx_r462.rangeFillOpacity)("animations", ctx_r462.animations)("tooltipDisabled", ctx_r462.tooltipDisabled)("tooltipTemplate", ctx_r462.tooltipTemplate);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("gradient", ctx_r534.gradient)("xScale", ctx_r534.xScale)("yScale", ctx_r534.yScale)("colors", ctx_r534.colors)("data", series_r541)("activeEntries", ctx_r534.activeEntries)("scaleType", ctx_r534.scaleType)("curve", ctx_r534.curve)("rangeFillOpacity", ctx_r534.rangeFillOpacity)("animations", ctx_r534.animations)("tooltipDisabled", ctx_r534.tooltipDisabled)("tooltipTemplate", ctx_r534.tooltipTemplate);
 } }
 var _c35 = ["ngx-charts-polar-series", ""];
 function PolarSeriesComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "g", 4);
 } if (rf & 2) {
-    var ctx_r474 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("color", ctx_r474.seriesColor)("name", ctx_r474.gradientId)("startOpacity", 0.25)("endOpacity", 1)("stops", ctx_r474.gradientStops);
+    var ctx_r546 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("color", ctx_r546.seriesColor)("name", ctx_r546.gradientId)("startOpacity", 0.25)("endOpacity", 1)("stops", ctx_r546.gradientStops);
 } }
 function PolarSeriesComponent__svg_g_4_Template(rf, ctx) { if (rf & 1) {
-    var _r478 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r550 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function PolarSeriesComponent__svg_g_4_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r478); var circle_r476 = ctx.$implicit; var ctx_r477 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r477.select.emit(circle_r476.data); })("activate", function PolarSeriesComponent__svg_g_4_Template__svg_g_activate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r478); var circle_r476 = ctx.$implicit; var ctx_r479 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r479.activate.emit({ name: circle_r476.data.series }); })("deactivate", function PolarSeriesComponent__svg_g_4_Template__svg_g_deactivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r478); var circle_r476 = ctx.$implicit; var ctx_r480 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r480.deactivate.emit({ name: circle_r476.data.series }); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function PolarSeriesComponent__svg_g_4_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r550); var circle_r548 = ctx.$implicit; var ctx_r549 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r549.select.emit(circle_r548.data); })("activate", function PolarSeriesComponent__svg_g_4_Template__svg_g_activate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r550); var circle_r548 = ctx.$implicit; var ctx_r551 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r551.activate.emit({ name: circle_r548.data.series }); })("deactivate", function PolarSeriesComponent__svg_g_4_Template__svg_g_deactivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r550); var circle_r548 = ctx.$implicit; var ctx_r552 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r552.deactivate.emit({ name: circle_r548.data.series }); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var circle_r476 = ctx.$implicit;
-    var ctx_r475 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("opacity", ctx_r475.inactive ? 0.2 : 1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("cx", circle_r476.cx)("cy", circle_r476.cy)("r", ctx_r475.circleRadius)("fill", circle_r476.color)("tooltipDisabled", ctx_r475.tooltipDisabled)("tooltipPlacement", "top")("tooltipTitle", ctx_r475.tooltipTemplate ? undefined : ctx_r475.tooltipText(circle_r476))("tooltipTemplate", ctx_r475.tooltipTemplate)("tooltipContext", circle_r476.data);
+    var circle_r548 = ctx.$implicit;
+    var ctx_r547 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("opacity", ctx_r547.inactive ? 0.2 : 1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("cx", circle_r548.cx)("cy", circle_r548.cy)("r", ctx_r547.circleRadius)("fill", circle_r548.color)("tooltipDisabled", ctx_r547.tooltipDisabled)("tooltipPlacement", "top")("tooltipTitle", ctx_r547.tooltipTemplate ? undefined : ctx_r547.tooltipText(circle_r548))("tooltipTemplate", ctx_r547.tooltipTemplate)("tooltipContext", circle_r548.data);
 } }
 var _c36 = ["ngx-charts-pie-label", ""];
 var _c37 = ["ngx-charts-pie-arc", ""];
@@ -1503,16 +1503,16 @@ function PieArcComponent__svg_defs_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "g", 3);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r481 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r553 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("color", ctx_r481.fill)("name", ctx_r481.radialGradientId)("startOpacity", ctx_r481.startOpacity);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("color", ctx_r553.fill)("name", ctx_r553.radialGradientId)("startOpacity", ctx_r553.startOpacity);
 } }
 function PieGridComponent__svg_g_2__svg_text_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "text", 10);
 } if (rf & 2) {
-    var series_r483 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("countTo", series_r483.percent)("countSuffix", "%");
+    var series_r555 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("countTo", series_r555.percent)("countSuffix", "%");
 } }
 function PieGridComponent__svg_g_2__svg_text_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -1520,18 +1520,18 @@ function PieGridComponent__svg_g_2__svg_text_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r483 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
+    var series_r555 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", series_r483.percent.toLocaleString(), " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", series_r555.percent.toLocaleString(), " ");
 } }
 function PieGridComponent__svg_g_2__svg_text_6_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "text", 12);
 } if (rf & 2) {
-    var series_r483 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
-    var ctx_r486 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("countTo", series_r483.total)("countPrefix", ctx_r486.label + ": ");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("y", series_r483.outerRadius);
+    var series_r555 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
+    var ctx_r558 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("countTo", series_r555.total)("countPrefix", ctx_r558.label + ": ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("y", series_r555.outerRadius);
 } }
 function PieGridComponent__svg_g_2__svg_text_7_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -1539,19 +1539,19 @@ function PieGridComponent__svg_g_2__svg_text_7_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r483 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
-    var ctx_r487 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("y", series_r483.outerRadius);
+    var series_r555 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
+    var ctx_r559 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("y", series_r555.outerRadius);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate2"](" ", ctx_r487.label, ": ", series_r483.total.toLocaleString(), " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate2"](" ", ctx_r559.label, ": ", series_r555.total.toLocaleString(), " ");
 } }
 var _c38 = function (a0) { return { data: a0 }; };
 function PieGridComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
-    var _r493 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r565 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 3);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function PieGridComponent__svg_g_2_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r493); var ctx_r492 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r492.onClick($event); })("activate", function PieGridComponent__svg_g_2_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r493); var ctx_r494 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r494.onActivate($event); })("deactivate", function PieGridComponent__svg_g_2_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r493); var ctx_r495 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r495.onDeactivate($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function PieGridComponent__svg_g_2_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r565); var ctx_r564 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r564.onClick($event); })("activate", function PieGridComponent__svg_g_2_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r565); var ctx_r566 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r566.onActivate($event); })("deactivate", function PieGridComponent__svg_g_2_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r565); var ctx_r567 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r567.onDeactivate($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, PieGridComponent__svg_g_2__svg_text_2_Template, 1, 2, "text", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](3, PieGridComponent__svg_g_2__svg_text_3_Template, 2, 1, "text", 6);
@@ -1562,60 +1562,60 @@ function PieGridComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](7, PieGridComponent__svg_g_2__svg_text_7_Template, 2, 3, "text", 9);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var series_r483 = ctx.$implicit;
-    var ctx_r482 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", series_r483.transform);
+    var series_r555 = ctx.$implicit;
+    var ctx_r554 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", series_r555.transform);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("colors", series_r483.colors)("data", series_r483.data)("innerRadius", series_r483.innerRadius)("outerRadius", series_r483.outerRadius)("animations", ctx_r482.animations)("tooltipDisabled", ctx_r482.tooltipDisabled)("tooltipPlacement", "top")("tooltipType", "tooltip")("tooltipTitle", ctx_r482.tooltipTemplate ? undefined : ctx_r482.tooltipText(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction1"](17, _c38, series_r483)))("tooltipTemplate", ctx_r482.tooltipTemplate)("tooltipContext", series_r483.data[0].data);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("colors", series_r555.colors)("data", series_r555.data)("innerRadius", series_r555.innerRadius)("outerRadius", series_r555.outerRadius)("animations", ctx_r554.animations)("tooltipDisabled", ctx_r554.tooltipDisabled)("tooltipPlacement", "top")("tooltipType", "tooltip")("tooltipTitle", ctx_r554.tooltipTemplate ? undefined : ctx_r554.tooltipText(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction1"](17, _c38, series_r555)))("tooltipTemplate", ctx_r554.tooltipTemplate)("tooltipContext", series_r555.data[0].data);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r482.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r554.animations);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", !ctx_r482.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", !ctx_r554.animations);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", series_r483.label, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", series_r555.label, " ");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r482.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r554.animations);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", !ctx_r482.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", !ctx_r554.animations);
 } }
 var _c39 = ["ngx-charts-pie-grid-series", ""];
 function PieGridSeriesComponent__svg_g_1_Template(rf, ctx) { if (rf & 1) {
-    var _r499 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r571 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function PieGridSeriesComponent__svg_g_1_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r499); var ctx_r498 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r498.onClick($event); })("activate", function PieGridSeriesComponent__svg_g_1_Template__svg_g_activate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r499); var ctx_r500 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r500.activate.emit($event); })("deactivate", function PieGridSeriesComponent__svg_g_1_Template__svg_g_deactivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r499); var ctx_r501 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r501.deactivate.emit($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function PieGridSeriesComponent__svg_g_1_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r571); var ctx_r570 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r570.onClick($event); })("activate", function PieGridSeriesComponent__svg_g_1_Template__svg_g_activate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r571); var ctx_r572 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r572.activate.emit($event); })("deactivate", function PieGridSeriesComponent__svg_g_1_Template__svg_g_deactivate_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r571); var ctx_r573 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r573.deactivate.emit($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var arc_r497 = ctx.$implicit;
-    var ctx_r496 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("startAngle", arc_r497.startAngle)("endAngle", arc_r497.endAngle)("innerRadius", ctx_r496.innerRadius)("outerRadius", ctx_r496.outerRadius)("fill", ctx_r496.color(arc_r497))("value", arc_r497.data.value)("data", arc_r497.data)("gradient", false)("pointerEvents", arc_r497.pointerEvents)("animate", arc_r497.animate);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("class", arc_r497.class);
+    var arc_r569 = ctx.$implicit;
+    var ctx_r568 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("startAngle", arc_r569.startAngle)("endAngle", arc_r569.endAngle)("innerRadius", ctx_r568.innerRadius)("outerRadius", ctx_r568.outerRadius)("fill", ctx_r568.color(arc_r569))("value", arc_r569.data.value)("data", arc_r569.data)("gradient", false)("pointerEvents", arc_r569.pointerEvents)("animate", arc_r569.animate);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("class", arc_r569.class);
 } }
 var _c40 = ["ngx-charts-pie-series", ""];
 function PieSeriesComponent__svg_g_0__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "g", 3);
 } if (rf & 2) {
-    var arc_r503 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
-    var ctx_r504 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("data", arc_r503)("radius", ctx_r504.outerRadius)("color", ctx_r504.color(arc_r503))("label", ctx_r504.labelText(arc_r503))("labelTrim", ctx_r504.trimLabels)("labelTrimSize", ctx_r504.maxLabelLength)("max", ctx_r504.max)("value", arc_r503.value)("explodeSlices", ctx_r504.explodeSlices)("animations", ctx_r504.animations);
+    var arc_r575 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit;
+    var ctx_r576 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("data", arc_r575)("radius", ctx_r576.outerRadius)("color", ctx_r576.color(arc_r575))("label", ctx_r576.labelText(arc_r575))("labelTrim", ctx_r576.trimLabels)("labelTrimSize", ctx_r576.maxLabelLength)("max", ctx_r576.max)("value", arc_r575.value)("explodeSlices", ctx_r576.explodeSlices)("animations", ctx_r576.animations);
 } }
 function PieSeriesComponent__svg_g_0_Template(rf, ctx) { if (rf & 1) {
-    var _r507 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r579 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, PieSeriesComponent__svg_g_0__svg_g_1_Template, 1, 10, "g", 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "g", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function PieSeriesComponent__svg_g_0_Template__svg_g_select_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r507); var ctx_r506 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r506.onClick($event); })("activate", function PieSeriesComponent__svg_g_0_Template__svg_g_activate_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r507); var ctx_r508 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r508.activate.emit($event); })("deactivate", function PieSeriesComponent__svg_g_0_Template__svg_g_deactivate_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r507); var ctx_r509 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r509.deactivate.emit($event); })("dblclick", function PieSeriesComponent__svg_g_0_Template__svg_g_dblclick_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r507); var ctx_r510 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r510.dblclick.emit($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function PieSeriesComponent__svg_g_0_Template__svg_g_select_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r579); var ctx_r578 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r578.onClick($event); })("activate", function PieSeriesComponent__svg_g_0_Template__svg_g_activate_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r579); var ctx_r580 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r580.activate.emit($event); })("deactivate", function PieSeriesComponent__svg_g_0_Template__svg_g_deactivate_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r579); var ctx_r581 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r581.deactivate.emit($event); })("dblclick", function PieSeriesComponent__svg_g_0_Template__svg_g_dblclick_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r579); var ctx_r582 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r582.dblclick.emit($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var arc_r503 = ctx.$implicit;
-    var ctx_r502 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var arc_r575 = ctx.$implicit;
+    var ctx_r574 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r502.labelVisible(arc_r503));
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r574.labelVisible(arc_r575));
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("startAngle", arc_r503.startAngle)("endAngle", arc_r503.endAngle)("innerRadius", ctx_r502.innerRadius)("outerRadius", ctx_r502.outerRadius)("fill", ctx_r502.color(arc_r503))("value", arc_r503.data.value)("gradient", ctx_r502.gradient)("data", arc_r503.data)("max", ctx_r502.max)("explodeSlices", ctx_r502.explodeSlices)("isActive", ctx_r502.isActive(arc_r503.data))("animate", ctx_r502.animations)("tooltipDisabled", ctx_r502.tooltipDisabled)("tooltipPlacement", "top")("tooltipType", "tooltip")("tooltipTitle", ctx_r502.getTooltipTitle(arc_r503))("tooltipTemplate", ctx_r502.tooltipTemplate)("tooltipContext", arc_r503.data);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("startAngle", arc_r575.startAngle)("endAngle", arc_r575.endAngle)("innerRadius", ctx_r574.innerRadius)("outerRadius", ctx_r574.outerRadius)("fill", ctx_r574.color(arc_r575))("value", arc_r575.data.value)("gradient", ctx_r574.gradient)("data", arc_r575.data)("max", ctx_r574.max)("explodeSlices", ctx_r574.explodeSlices)("isActive", ctx_r574.isActive(arc_r575.data))("animate", ctx_r574.animations)("tooltipDisabled", ctx_r574.tooltipDisabled)("tooltipPlacement", "top")("tooltipType", "tooltip")("tooltipTitle", ctx_r574.getTooltipTitle(arc_r575))("tooltipTemplate", ctx_r574.tooltipTemplate)("tooltipContext", arc_r575.data);
 } }
 var _c41 = ["textEl"];
 var _c42 = ["ngx-charts-card", ""];
@@ -1623,29 +1623,29 @@ function CardComponent__svg_path_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "path", 7);
 } if (rf & 2) {
-    var ctx_r511 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("fill", ctx_r511.bandColor)("transform", ctx_r511.transformBand)("d", ctx_r511.bandPath);
+    var ctx_r583 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("fill", ctx_r583.bandColor)("transform", ctx_r583.transformBand)("d", ctx_r583.bandPath);
 } }
 var _c43 = ["ngx-charts-card-series", ""];
 function CardSeriesComponent__svg_rect_0_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "rect", 2);
 } if (rf & 2) {
-    var c_r515 = ctx.$implicit;
-    var ctx_r513 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("fill", ctx_r513.emptyColor);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x", c_r515.x)("y", c_r515.y)("width", c_r515.width)("height", c_r515.height);
+    var c_r587 = ctx.$implicit;
+    var ctx_r585 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("fill", ctx_r585.emptyColor);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x", c_r587.x)("y", c_r587.y)("width", c_r587.width)("height", c_r587.height);
 } }
 function CardSeriesComponent__svg_g_1_Template(rf, ctx) { if (rf & 1) {
-    var _r518 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r590 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function CardSeriesComponent__svg_g_1_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r518); var ctx_r517 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r517.onClick($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function CardSeriesComponent__svg_g_1_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r590); var ctx_r589 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r589.onClick($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var c_r516 = ctx.$implicit;
-    var ctx_r514 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("x", c_r516.x)("y", c_r516.y)("width", c_r516.width)("height", c_r516.height)("color", c_r516.color)("bandColor", c_r516.bandColor)("textColor", c_r516.textColor)("data", c_r516.data)("label", c_r516.label)("medianSize", ctx_r514.medianSize)("valueFormatting", ctx_r514.valueFormatting)("labelFormatting", ctx_r514.labelFormatting)("animations", ctx_r514.animations);
+    var c_r588 = ctx.$implicit;
+    var ctx_r586 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("x", c_r588.x)("y", c_r588.y)("width", c_r588.width)("height", c_r588.height)("color", c_r588.color)("bandColor", c_r588.bandColor)("textColor", c_r588.textColor)("data", c_r588.data)("label", c_r588.label)("medianSize", ctx_r586.medianSize)("valueFormatting", ctx_r586.valueFormatting)("labelFormatting", ctx_r586.labelFormatting)("animations", ctx_r586.animations);
 } }
 var _c44 = ["ngx-charts-tree-map-cell", ""];
 function TreeMapCellComponent__svg_defs_1_Template(rf, ctx) { if (rf & 1) {
@@ -1654,24 +1654,24 @@ function TreeMapCellComponent__svg_defs_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "g", 3);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r519 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r591 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("name", ctx_r519.gradientId)("stops", ctx_r519.gradientStops);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("name", ctx_r591.gradientId)("stops", ctx_r591.gradientStops);
 } }
 function TreeMapCellComponent__svg_foreignObject_3__xhtml_span_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "span", 8);
 } if (rf & 2) {
-    var ctx_r521 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("countTo", ctx_r521.value)("valueFormatting", ctx_r521.valueFormatting);
+    var ctx_r593 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("countTo", ctx_r593.value)("valueFormatting", ctx_r593.valueFormatting);
 } }
 function TreeMapCellComponent__svg_foreignObject_3__xhtml_span_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "span", 9);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r522 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    var ctx_r594 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", ctx_r522.formattedValue, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", ctx_r594.formattedValue, " ");
 } }
 function TreeMapCellComponent__svg_foreignObject_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -1685,29 +1685,29 @@ function TreeMapCellComponent__svg_foreignObject_3_Template(rf, ctx) { if (rf & 
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r520 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r592 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("pointer-events", "none");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x", ctx_r520.x)("y", ctx_r520.y)("width", ctx_r520.width)("height", ctx_r520.height);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x", ctx_r592.x)("y", ctx_r592.y)("width", ctx_r592.width)("height", ctx_r592.height);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("color", ctx_r520.getTextColor())("height", ctx_r520.height + "px")("width", ctx_r520.width + "px");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("color", ctx_r592.getTextColor())("height", ctx_r592.height + "px")("width", ctx_r592.width + "px");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("innerHTML", ctx_r520.formattedLabel, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeHtml"]);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("innerHTML", ctx_r592.formattedLabel, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeHtml"]);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r520.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r592.animations);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", !ctx_r520.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", !ctx_r592.animations);
 } }
 var _c45 = ["ngx-charts-tree-map-cell-series", ""];
 function TreeMapCellSeriesComponent__svg_g_0_Template(rf, ctx) { if (rf & 1) {
-    var _r526 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r598 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g", 1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function TreeMapCellSeriesComponent__svg_g_0_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r526); var ctx_r525 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r525.onClick($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function TreeMapCellSeriesComponent__svg_g_0_Template__svg_g_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r598); var ctx_r597 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r597.onClick($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var c_r524 = ctx.$implicit;
-    var ctx_r523 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("data", c_r524.data)("x", c_r524.x)("y", c_r524.y)("width", c_r524.width)("height", c_r524.height)("fill", c_r524.fill)("label", c_r524.label)("value", c_r524.value)("valueType", c_r524.valueType)("valueFormatting", ctx_r523.valueFormatting)("labelFormatting", ctx_r523.labelFormatting)("gradient", ctx_r523.gradient)("animations", ctx_r523.animations)("tooltipDisabled", ctx_r523.tooltipDisabled)("tooltipPlacement", "top")("tooltipType", "tooltip")("tooltipTitle", ctx_r523.tooltipTemplate ? undefined : ctx_r523.getTooltipText(c_r524))("tooltipTemplate", ctx_r523.tooltipTemplate)("tooltipContext", c_r524.data);
+    var c_r596 = ctx.$implicit;
+    var ctx_r595 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("data", c_r596.data)("x", c_r596.x)("y", c_r596.y)("width", c_r596.width)("height", c_r596.height)("fill", c_r596.fill)("label", c_r596.label)("value", c_r596.value)("valueType", c_r596.valueType)("valueFormatting", ctx_r595.valueFormatting)("labelFormatting", ctx_r595.labelFormatting)("gradient", ctx_r595.gradient)("animations", ctx_r595.animations)("tooltipDisabled", ctx_r595.tooltipDisabled)("tooltipPlacement", "top")("tooltipType", "tooltip")("tooltipTitle", ctx_r595.tooltipTemplate ? undefined : ctx_r595.getTooltipText(c_r596))("tooltipTemplate", ctx_r595.tooltipTemplate)("tooltipContext", c_r596.data);
 } }
 var _c46 = ["valueTextEl"];
 var _c47 = ["unitsTextEl"];
@@ -1715,38 +1715,38 @@ function LinearGaugeComponent__svg_line_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "line", 10);
 } if (rf & 2) {
-    var ctx_r527 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r527.transformLine)("stroke", ctx_r527.colors.getColor(ctx_r527.units));
+    var ctx_r599 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r599.transformLine)("stroke", ctx_r599.colors.getColor(ctx_r599.units));
 } }
 function LinearGaugeComponent__svg_line_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "line", 11);
 } if (rf & 2) {
-    var ctx_r528 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r528.transformLine)("stroke", ctx_r528.colors.getColor(ctx_r528.units));
+    var ctx_r600 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r600.transformLine)("stroke", ctx_r600.colors.getColor(ctx_r600.units));
 } }
 var _c48 = function () { return {}; };
 function GaugeComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
-    var _r536 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    var _r608 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "g");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "g", 5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function GaugeComponent__svg_g_2_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r536); var ctx_r535 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r535.onClick($event); })("activate", function GaugeComponent__svg_g_2_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r536); var ctx_r537 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r537.onActivate($event); })("deactivate", function GaugeComponent__svg_g_2_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r536); var ctx_r538 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r538.onDeactivate($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("select", function GaugeComponent__svg_g_2_Template__svg_g_select_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r608); var ctx_r607 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r607.onClick($event); })("activate", function GaugeComponent__svg_g_2_Template__svg_g_activate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r608); var ctx_r609 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r609.onActivate($event); })("deactivate", function GaugeComponent__svg_g_2_Template__svg_g_deactivate_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r608); var ctx_r610 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r610.onDeactivate($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var arc_r534 = ctx.$implicit;
-    var ctx_r531 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r531.rotation);
+    var arc_r606 = ctx.$implicit;
+    var ctx_r603 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r603.rotation);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("backgroundArc", arc_r534.backgroundArc)("valueArc", arc_r534.valueArc)("cornerRadius", ctx_r531.cornerRadius)("colors", ctx_r531.colors)("isActive", ctx_r531.isActive(arc_r534.valueArc.data))("tooltipDisabled", ctx_r531.tooltipDisabled)("tooltipTemplate", ctx_r531.tooltipTemplate)("valueFormatting", ctx_r531.valueFormatting)("animations", ctx_r531.animations);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("backgroundArc", arc_r606.backgroundArc)("valueArc", arc_r606.valueArc)("cornerRadius", ctx_r603.cornerRadius)("colors", ctx_r603.colors)("isActive", ctx_r603.isActive(arc_r606.valueArc.data))("tooltipDisabled", ctx_r603.tooltipDisabled)("tooltipTemplate", ctx_r603.tooltipTemplate)("valueFormatting", ctx_r603.valueFormatting)("animations", ctx_r603.animations);
 } }
 function GaugeComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "g", 6);
 } if (rf & 2) {
-    var ctx_r532 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("bigSegments", ctx_r532.bigSegments)("smallSegments", ctx_r532.smallSegments)("min", ctx_r532.min)("max", ctx_r532.max)("radius", ctx_r532.outerRadius)("angleSpan", ctx_r532.angleSpan)("valueScale", ctx_r532.valueScale)("startAngle", ctx_r532.startAngle)("tickFormatting", ctx_r532.axisTickFormatting);
+    var ctx_r604 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("bigSegments", ctx_r604.bigSegments)("smallSegments", ctx_r604.smallSegments)("min", ctx_r604.min)("max", ctx_r604.max)("radius", ctx_r604.outerRadius)("angleSpan", ctx_r604.angleSpan)("valueScale", ctx_r604.valueScale)("startAngle", ctx_r604.startAngle)("tickFormatting", ctx_r604.axisTickFormatting);
 } }
 function GaugeComponent__svg_text_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -1759,13 +1759,13 @@ function GaugeComponent__svg_text_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r533 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    var ctx_r605 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("text-anchor", "middle");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r533.textTransform);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", ctx_r605.textTransform);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r533.displayValue);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r605.displayValue);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r533.units);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r605.units);
 } }
 var _c49 = ["ngx-charts-gauge-arc", ""];
 var _c50 = ["ngx-charts-gauge-axis", ""];
@@ -1775,9 +1775,9 @@ function GaugeAxisComponent__svg_g_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "path");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var tick_r543 = ctx.$implicit;
+    var tick_r615 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("d", tick_r543.line);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("d", tick_r615.line);
 } }
 function GaugeAxisComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -1787,12 +1787,12 @@ function GaugeAxisComponent__svg_g_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var tick_r544 = ctx.$implicit;
+    var tick_r616 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("text-anchor", tick_r544.textAnchor);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", tick_r544.textTransform);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("text-anchor", tick_r616.textAnchor);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("transform", tick_r616.textTransform);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", tick_r544.text, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", tick_r616.text, " ");
 } }
 function GaugeAxisComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnamespaceSVG"]();
@@ -1800,9 +1800,9 @@ function GaugeAxisComponent__svg_g_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "path");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var tick_r545 = ctx.$implicit;
+    var tick_r617 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("d", tick_r545.line);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("d", tick_r617.line);
 } }
 function isViewContainerRef(x) {
     return x.element;
@@ -5517,12 +5517,12 @@ TooltipArea.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineCompon
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](4, "rect", 2, 3);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     } if (rf & 2) {
-        var _r185 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵreference"](3);
+        var _r257 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵreference"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x", 0)("width", ctx.dims.width)("height", ctx.dims.height);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵstyleProp"]("opacity", ctx.anchorOpacity)("pointer-events", "none");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", ctx.anchorOpacity !== 0 ? "active" : "inactive")("tooltipDisabled", ctx.tooltipDisabled)("tooltipPlacement", "right")("tooltipType", "tooltip")("tooltipSpacing", 15)("tooltipTemplate", ctx.tooltipTemplate ? ctx.tooltipTemplate : _r185)("tooltipContext", ctx.anchorValues)("tooltipImmediateExit", true);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("@animationState", ctx.anchorOpacity !== 0 ? "active" : "inactive")("tooltipDisabled", ctx.tooltipDisabled)("tooltipPlacement", "right")("tooltipType", "tooltip")("tooltipSpacing", 15)("tooltipTemplate", ctx.tooltipTemplate ? ctx.tooltipTemplate : _r257)("tooltipContext", ctx.anchorValues)("tooltipImmediateExit", true);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("x", ctx.anchorPos)("width", 1)("height", ctx.dims.height);
     } }, directives: [TooltipDirective, _angular_common__WEBPACK_IMPORTED_MODULE_2__["NgForOf"]], encapsulation: 2, data: { animation: [
             Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["trigger"])('animationState', [
@@ -55543,6 +55543,114 @@ var DataPieChart = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/main/_models/filters/account-month-year.filter.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/main/_models/filters/account-month-year.filter.ts ***!
+  \*******************************************************************/
+/*! exports provided: FilterAccountMonthYear */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilterAccountMonthYear", function() { return FilterAccountMonthYear; });
+/* harmony import */ var _generics_date_time_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../generics/date-time.model */ "./src/app/main/_models/generics/date-time.model.ts");
+
+var FilterAccountMonthYear = /** @class */ (function () {
+    function FilterAccountMonthYear() {
+        this.idAccount = null;
+        this.monthYear = this.getMonthYear();
+    }
+    FilterAccountMonthYear.prototype.getMonthYear = function () {
+        var currentDate = new Date();
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        var id = currentDate.getMonth() + 1;
+        var month = _generics_date_time_model__WEBPACK_IMPORTED_MODULE_0__["DateTimeFactory"].getMonths.filter(function (x) { return x.id === id; })[0];
+        var monthYear = {
+            month: month,
+            year: currentDate.getFullYear()
+        };
+        return monthYear;
+    };
+    return FilterAccountMonthYear;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/main/_models/filters/account-statement.filter.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/main/_models/filters/account-statement.filter.ts ***!
+  \******************************************************************/
+/*! exports provided: FilterAsTableSelected, EnumFilterTableSelectedType, FilterAsTableSelection, FilterAsDetail */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilterAsTableSelected", function() { return FilterAsTableSelected; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EnumFilterTableSelectedType", function() { return EnumFilterTableSelectedType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilterAsTableSelection", function() { return FilterAsTableSelection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilterAsDetail", function() { return FilterAsDetail; });
+/* harmony import */ var _pagination_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../pagination.model */ "./src/app/main/_models/pagination.model.ts");
+/* harmony import */ var _account_month_year_filter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./account-month-year.filter */ "./src/app/main/_models/filters/account-month-year.filter.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+var FilterAsTableSelected = /** @class */ (function (_super) {
+    __extends(FilterAsTableSelected, _super);
+    function FilterAsTableSelected() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.user = null;
+        _this.operationMethod = null;
+        _this.operationTypeFamily = null;
+        _this.operationType = null;
+        _this.operation = null;
+        _this.dateIntegration = null;
+        _this.amountOperation = null;
+        _this.pagination = new _pagination_model__WEBPACK_IMPORTED_MODULE_0__["Pagination"]();
+        return _this;
+    }
+    return FilterAsTableSelected;
+}(_account_month_year_filter__WEBPACK_IMPORTED_MODULE_1__["FilterAccountMonthYear"]));
+
+var EnumFilterTableSelectedType;
+(function (EnumFilterTableSelectedType) {
+    EnumFilterTableSelectedType[EnumFilterTableSelectedType["AS"] = 0] = "AS";
+})(EnumFilterTableSelectedType || (EnumFilterTableSelectedType = {}));
+var FilterAsTableSelection = /** @class */ (function () {
+    // selected : FilterAsTableSelected;
+    function FilterAsTableSelection() {
+        this.operationMethod = null;
+        this.operationTypeFamily = null;
+        this.operationType = null;
+        this.operation = null;
+        // this.selected = new FilterAsTableSelected();
+    }
+    return FilterAsTableSelection;
+}());
+
+var FilterAsDetail = /** @class */ (function () {
+    function FilterAsDetail() {
+    }
+    return FilterAsDetail;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/main/_models/generics/date-time.model.ts":
 /*!**********************************************************!*\
   !*** ./src/app/main/_models/generics/date-time.model.ts ***!
@@ -55587,283 +55695,6 @@ var DateTimeFactory = /** @class */ (function () {
     return DateTimeFactory;
 }());
 
-
-
-/***/ }),
-
-/***/ "./src/app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action.ts":
-/*!***************************************************************************************************************!*\
-  !*** ./src/app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action.ts ***!
-  \***************************************************************************************************************/
-/*! exports provided: AS_TABLE_FILTER_LOAD, AS_TABLE_FILTER_CHANGE, AS_TABLE_FILTER_UPDATE_PAGINATION, LoadAsTableFilter, ChangeAsTableFilter, UpdatePaginationAsTableFilter */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AS_TABLE_FILTER_LOAD", function() { return AS_TABLE_FILTER_LOAD; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AS_TABLE_FILTER_CHANGE", function() { return AS_TABLE_FILTER_CHANGE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AS_TABLE_FILTER_UPDATE_PAGINATION", function() { return AS_TABLE_FILTER_UPDATE_PAGINATION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoadAsTableFilter", function() { return LoadAsTableFilter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChangeAsTableFilter", function() { return ChangeAsTableFilter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdatePaginationAsTableFilter", function() { return UpdatePaginationAsTableFilter; });
-var AS_TABLE_FILTER_LOAD = 'as-table-filter-load';
-// export const AS_TABLE_FILTER_LOAD_SUCCESS = 'as-table-filter-load-success';
-var AS_TABLE_FILTER_CHANGE = 'as-table-filter-change';
-var AS_TABLE_FILTER_UPDATE_PAGINATION = 'as-table-filter-update-pagination';
-var LoadAsTableFilter = /** @class */ (function () {
-    function LoadAsTableFilter(payload) {
-        this.payload = payload;
-    }
-    LoadAsTableFilter.type = AS_TABLE_FILTER_LOAD;
-    return LoadAsTableFilter;
-}());
-
-// export class LoadAsTableFilterSuccess {
-//     static readonly type = AS_TABLE_FILTER_LOAD_SUCCESS;
-//     constructor(public payload: FilterAsTable) { }
-// }
-var ChangeAsTableFilter = /** @class */ (function () {
-    function ChangeAsTableFilter(payload) {
-        this.payload = payload;
-    }
-    ChangeAsTableFilter.type = AS_TABLE_FILTER_CHANGE;
-    return ChangeAsTableFilter;
-}());
-
-var UpdatePaginationAsTableFilter = /** @class */ (function () {
-    function UpdatePaginationAsTableFilter(payload) {
-        this.payload = payload;
-    }
-    UpdatePaginationAsTableFilter.type = AS_TABLE_FILTER_UPDATE_PAGINATION;
-    return UpdatePaginationAsTableFilter;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/main/_ngxs/account-statement/account-statement-list/account-statement-list.action.ts":
-/*!******************************************************************************************************!*\
-  !*** ./src/app/main/_ngxs/account-statement/account-statement-list/account-statement-list.action.ts ***!
-  \******************************************************************************************************/
-/*! exports provided: AS_TABLE_LOAD, AS_TABLE_LOAD_SUCCESS, AS_TABLE_CLEAR, LoadAsTableDatas, ClearAsTableDatas */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AS_TABLE_LOAD", function() { return AS_TABLE_LOAD; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AS_TABLE_LOAD_SUCCESS", function() { return AS_TABLE_LOAD_SUCCESS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AS_TABLE_CLEAR", function() { return AS_TABLE_CLEAR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoadAsTableDatas", function() { return LoadAsTableDatas; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClearAsTableDatas", function() { return ClearAsTableDatas; });
-var AS_TABLE_LOAD = 'as-table-load';
-var AS_TABLE_LOAD_SUCCESS = 'as-table-load-success';
-var AS_TABLE_CLEAR = 'as-table-clear';
-var LoadAsTableDatas = /** @class */ (function () {
-    function LoadAsTableDatas(payload) {
-        this.payload = payload;
-    }
-    LoadAsTableDatas.type = AS_TABLE_LOAD;
-    return LoadAsTableDatas;
-}());
-
-// export class LoadAsTableDatasSuccess {
-//     static readonly type = AS_TABLE_LOAD_SUCCESS;
-//     constructor(public payload: any) { }
-// }
-var ClearAsTableDatas = /** @class */ (function () {
-    function ClearAsTableDatas() {
-    }
-    ClearAsTableDatas.type = AS_TABLE_CLEAR;
-    return ClearAsTableDatas;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/main/_ngxs/account-statement/account-statement-list/account-statement-list.state.ts":
-/*!*****************************************************************************************************!*\
-  !*** ./src/app/main/_ngxs/account-statement/account-statement-list/account-statement-list.state.ts ***!
-  \*****************************************************************************************************/
-/*! exports provided: AsTableStateModel, AsTableState */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AsTableStateModel", function() { return AsTableStateModel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AsTableState", function() { return AsTableState; });
-/* harmony import */ var app_main_apps_account_statement_account_statement_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app/main/apps/account-statement/account-statement.service */ "./src/app/main/apps/account-statement/account-statement.service.ts");
-/* harmony import */ var _account_statement_list_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./account-statement-list.action */ "./src/app/main/_ngxs/account-statement/account-statement-list/account-statement-list.action.ts");
-/* harmony import */ var _account_statement_list_filter_account_statement_filter_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../account-statement-list-filter/account-statement-filter.action */ "./src/app/main/_ngxs/account-statement/account-statement-list-filter/account-statement-filter.action.ts");
-/* harmony import */ var _ngxs_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngxs/store */ "./node_modules/@ngxs/store/__ivy_ngcc__/fesm5/ngxs-store.js");
-/* harmony import */ var _base_loader_state__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../_base/loader-state */ "./src/app/main/_ngxs/_base/loader-state.ts");
-/* harmony import */ var app_main_models_generics_detail_info_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/main/_models/generics/detail-info.model */ "./src/app/main/_models/generics/detail-info.model.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm5/core.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-
-
-
-
-
-
-
-
-
-
-var AsTableStateModel = /** @class */ (function (_super) {
-    __extends(AsTableStateModel, _super);
-    function AsTableStateModel() {
-        return _super.call(this) || this;
-    }
-    return AsTableStateModel;
-}(app_main_models_generics_detail_info_model__WEBPACK_IMPORTED_MODULE_5__["Datas"]));
-
-var asTableStateModel = new AsTableStateModel();
-var AsTableState = /** @class */ (function (_super) {
-    __extends(AsTableState, _super);
-    function AsTableState(_asService, _store) {
-        var _this = _super.call(this) || this;
-        _this._asService = _asService;
-        _this._store = _store;
-        return _this;
-    }
-    AsTableState.get = function (state) {
-        return state;
-    };
-    // @Selector()
-    // static getFilter(state: AsTableStateModel) {
-    //     return state.filter;
-    // }
-    AsTableState.prototype.delay = function (ms) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(function () { return resolve(); }, ms); }).then(function () { return console.log("fired"); })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    AsTableState.prototype.LoadAsTableDatas = function (context, action) {
-        var _this = this;
-        this.loading(context, 'datas');
-        var state = context.getState();
-        state.datas = null;
-        context.patchState(state);
-        this._asService.getAsTable(action.payload)
-            .subscribe(function (result) {
-            var state = context.getState();
-            state.datas = result.datas;
-            context.patchState(state);
-            //TODO a controler
-            _this._store.dispatch(new _account_statement_list_filter_account_statement_filter_action__WEBPACK_IMPORTED_MODULE_2__["UpdatePaginationAsTableFilter"](result.pagination));
-            _this.loaded(context, 'datas');
-        });
-    };
-    // @Action(LoadAsTableDatasSuccess)
-    // loadSuccess(context: StateContext<AsTableStateModel>, action: LoadAsTableDatasSuccess) {
-    //     let state = context.getState();
-    //     state.datas = action.payload.datas;
-    //     context.patchState(state);
-    //     this._store.dispatch(new UpdatePaginationAsTableFilter(action.payload.pagination));
-    // }
-    AsTableState.prototype.clear = function (context) {
-        return context.setState(new AsTableStateModel());
-    };
-    AsTableState.ɵfac = function AsTableState_Factory(t) { return new (t || AsTableState)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](app_main_apps_account_statement_account_statement_service__WEBPACK_IMPORTED_MODULE_0__["AsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"])); };
-    AsTableState.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdefineInjectable"]({ token: AsTableState, factory: AsTableState.ɵfac });
-    __decorate([
-        Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Action"])(_account_statement_list_action__WEBPACK_IMPORTED_MODULE_1__["LoadAsTableDatas"]),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object, _account_statement_list_action__WEBPACK_IMPORTED_MODULE_1__["LoadAsTableDatas"]]),
-        __metadata("design:returntype", void 0)
-    ], AsTableState.prototype, "LoadAsTableDatas", null);
-    __decorate([
-        Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Action"])(_account_statement_list_action__WEBPACK_IMPORTED_MODULE_1__["ClearAsTableDatas"]),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object]),
-        __metadata("design:returntype", void 0)
-    ], AsTableState.prototype, "clear", null);
-    __decorate([
-        Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Selector"])(),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [AsTableStateModel]),
-        __metadata("design:returntype", void 0)
-    ], AsTableState, "get", null);
-    AsTableState = __decorate([
-        Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["State"])({
-            name: 'AsTable',
-            defaults: asTableStateModel
-        }),
-        __metadata("design:paramtypes", [app_main_apps_account_statement_account_statement_service__WEBPACK_IMPORTED_MODULE_0__["AsService"],
-            _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"]])
-    ], AsTableState);
-    return AsTableState;
-}(_base_loader_state__WEBPACK_IMPORTED_MODULE_4__["LoaderState"]));
-
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵsetClassMetadata"](AsTableState, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_6__["Injectable"]
-    }], function () { return [{ type: app_main_apps_account_statement_account_statement_service__WEBPACK_IMPORTED_MODULE_0__["AsService"] }, { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }]; }, { LoadAsTableDatas: [], clear: [] }); })();
 
 
 /***/ }),
@@ -55943,117 +55774,108 @@ var ReferentialServiceModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/main/apps/account-statement/account-statement.service.ts":
-/*!**************************************************************************!*\
-  !*** ./src/app/main/apps/account-statement/account-statement.service.ts ***!
-  \**************************************************************************/
-/*! exports provided: AsService */
+/***/ "./src/app/main/apps/web-component/spinner/four-cube/four-cube.component.ts":
+/*!**********************************************************************************!*\
+  !*** ./src/app/main/apps/web-component/spinner/four-cube/four-cube.component.ts ***!
+  \**********************************************************************************/
+/*! exports provided: FourCubeComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AsService", function() { return AsService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FourCubeComponent", function() { return FourCubeComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm5/core.js");
-/* harmony import */ var environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm5/http.js");
 
 
-
-
-
-var AsService = /** @class */ (function () {
-    function AsService(http) {
-        this.http = http;
-        this.baseUrl = environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl;
-        this.user = JSON.parse(localStorage.getItem('currentUser'));
-        this.userForGroup = { id: this.user.id, idUserGroup: this.user.idUserGroup };
+var FourCubeComponent = /** @class */ (function () {
+    function FourCubeComponent() {
     }
-    AsService.prototype.getAsTableFilter = function (filter) {
-        filter.user = this.userForGroup;
-        return this.http
-            .post(this.baseUrl + "account-statements/table-filter", filter)
-            .map(function (response) {
-            return response;
-        });
+    FourCubeComponent.prototype.ngOnInit = function () {
     };
-    AsService.prototype.getAsTable = function (filter) {
-        filter.user = this.userForGroup;
-        return this.http
-            .post(this.baseUrl + "tables/datas", filter)
-            .map(function (response) {
-            return response;
-        });
-    };
-    AsService.prototype.getAsDetail = function (filter) {
-        filter.user = this.userForGroup;
-        return this.http
-            .post(this.baseUrl + "account-statements/detail", filter)
-            .map(function (response) { return response; });
-    };
-    AsService.prototype.getAsSolde = function (filter) {
-        filter.user = this.userForGroup;
-        return this.http
-            .post(this.baseUrl + "account-statements/solde-filter", filter)
-            .map(function (response) { return response; });
-    };
-    AsService.prototype.getAsInternalTransferCouple = function (filter) {
-        filter.user = this.userForGroup;
-        return this.http
-            .post(this.baseUrl + "account-statement-internal-transfers/list-filter", filter)
-            .map(function (resp) { return resp; });
-    };
-    AsService.prototype.update = function (asDetail) {
-        asDetail.user = this.userForGroup;
-        return this.http
-            .post(this.baseUrl + "account-statements/update", asDetail)
-            .map(function (resp) { return resp; });
-    };
-    AsService.prototype.getAsChartEvolutionBrut = function (filter) {
-        filter.user = this.userForGroup;
-        return this.http
-            .post(this.baseUrl + "account-statement-charts/chart-evolution-brut", filter)
-            .map(function (response) { return response; });
-    };
-    AsService.prototype.getAsChartEvolutionNoIntTransfer = function (filter) {
-        filter.user = this.userForGroup;
-        return this.http
-            .post(this.baseUrl + "account-statement-charts/chart-evolution-no-int-transfer", filter)
-            .map(function (response) { return response; });
-    };
-    AsService.prototype.getAsChartEvolutionCustomOtf = function (filter) {
-        filter.user = this.userForGroup;
-        return this.http
-            .post(this.baseUrl + "account-statement-charts/chart-evolution-custom-otf", filter)
-            .map(function (response) { return response; });
-    };
-    AsService.prototype.getAsChartEvolutionCustomOtfFilter = function (filter) {
-        filter.user = this.userForGroup;
-        return this.http
-            .post(this.baseUrl + "account-statement-charts/chart-evolution-custom-otf-filter", filter)
-            .map(function (response) { return response; });
-    };
-    AsService.prototype.updateAsChartEvolutionCustomOtfFilter = function (filter) {
-        filter.user = this.userForGroup;
-        return this.http
-            .post(this.baseUrl + "account-statement-charts/chart-evolution-custom-otf-filter/update", filter)
-            .map(function (response) {
-            return response;
-        });
-    };
-    AsService.prototype.GetAsChartCategorisationDebit = function (filter) {
-        filter.user = this.userForGroup;
-        return this.http
-            .post(this.baseUrl + "account-statement-charts/chart-categorisation-debit", filter)
-            .map(function (response) { return response; });
-    };
-    AsService.ɵfac = function AsService_Factory(t) { return new (t || AsService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"])); };
-    AsService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: AsService, factory: AsService.ɵfac });
-    return AsService;
+    FourCubeComponent.ɵfac = function FourCubeComponent_Factory(t) { return new (t || FourCubeComponent)(); };
+    FourCubeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: FourCubeComponent, selectors: [["spinner-four-cube"]], inputs: { size: "size" }, decls: 21, vars: 2, consts: [[1, "boxes"], [1, "box"]], template: function FourCubeComponent_Template(rf, ctx) { if (rf & 1) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](2, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](5, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 1);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](7, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](8, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](9, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](10, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "div", 1);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](12, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](13, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](14, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](15, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "div", 1);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](17, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](18, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](19, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](20, "div");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        } if (rf & 2) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstyleProp"]("--size", ctx.size, "px");
+        } }, styles: [".boxes[_ngcontent-%COMP%] {\n  --duration: 1000ms;\n  height: calc(var(--size) * 2);\n  width: calc(var(--size) * 3);\n  position: relative;\n  -webkit-transform-style: preserve-3d;\n          transform-style: preserve-3d;\n  -webkit-transform-origin: 50% 50%;\n          transform-origin: 50% 50%;\n  margin-top: calc(var(--size) * 1.5 * -1);\n  -webkit-transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);\n          transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);\n}\n.boxes[_ngcontent-%COMP%]   .box[_ngcontent-%COMP%] {\n  width: var(--size);\n  height: var(--size);\n  top: 0;\n  left: 0;\n  position: absolute;\n  -webkit-transform-style: preserve-3d;\n          transform-style: preserve-3d;\n}\n.boxes[_ngcontent-%COMP%]   .box[_ngcontent-%COMP%]:nth-child(1) {\n  -webkit-transform: translate(100%, 0);\n          transform: translate(100%, 0);\n  -webkit-animation: box1 var(--duration) linear infinite;\n          animation: box1 var(--duration) linear infinite;\n}\n.boxes[_ngcontent-%COMP%]   .box[_ngcontent-%COMP%]:nth-child(2) {\n  -webkit-transform: translate(0, 100%);\n          transform: translate(0, 100%);\n  -webkit-animation: box2 var(--duration) linear infinite;\n          animation: box2 var(--duration) linear infinite;\n}\n.boxes[_ngcontent-%COMP%]   .box[_ngcontent-%COMP%]:nth-child(3) {\n  -webkit-transform: translate(100%, 100%);\n          transform: translate(100%, 100%);\n  -webkit-animation: box3 var(--duration) linear infinite;\n          animation: box3 var(--duration) linear infinite;\n}\n.boxes[_ngcontent-%COMP%]   .box[_ngcontent-%COMP%]:nth-child(4) {\n  -webkit-transform: translate(200%, 0);\n          transform: translate(200%, 0);\n  -webkit-animation: box4 var(--duration) linear infinite;\n          animation: box4 var(--duration) linear infinite;\n}\n.boxes[_ngcontent-%COMP%]   .box[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%] {\n  --background: #5C8DF6;\n  --top: auto;\n  --right: auto;\n  --bottom: auto;\n  --left: auto;\n  --translateZ: calc(var(--size) / 2);\n  --rotateY: 0deg;\n  --rotateX: 0deg;\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  background: var(--background);\n  top: var(--top);\n  right: var(--right);\n  bottom: var(--bottom);\n  left: var(--left);\n  -webkit-transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));\n          transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));\n}\n.boxes[_ngcontent-%COMP%]   .box[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%]:nth-child(1) {\n  --top: 0;\n  --left: 0;\n}\n.boxes[_ngcontent-%COMP%]   .box[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%]:nth-child(2) {\n  --background: #145af2;\n  --right: 0;\n  --rotateY: 90deg;\n}\n.boxes[_ngcontent-%COMP%]   .box[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%]:nth-child(3) {\n  --background: #447cf5;\n  --rotateX: -90deg;\n}\n.boxes[_ngcontent-%COMP%]   .box[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%]:nth-child(4) {\n  --background: #DBE3F4;\n  --top: 0;\n  --left: 0;\n  --translateZ: calc(var(--size) * 3 * -1);\n}\n@-webkit-keyframes box1 {\n  0%, 50% {\n    -webkit-transform: translate(100%, 0);\n            transform: translate(100%, 0);\n  }\n  100% {\n    -webkit-transform: translate(200%, 0);\n            transform: translate(200%, 0);\n  }\n}\n@keyframes box1 {\n  0%, 50% {\n    -webkit-transform: translate(100%, 0);\n            transform: translate(100%, 0);\n  }\n  100% {\n    -webkit-transform: translate(200%, 0);\n            transform: translate(200%, 0);\n  }\n}\n@-webkit-keyframes box2 {\n  0% {\n    -webkit-transform: translate(0, 100%);\n            transform: translate(0, 100%);\n  }\n  50% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0);\n  }\n  100% {\n    -webkit-transform: translate(100%, 0);\n            transform: translate(100%, 0);\n  }\n}\n@keyframes box2 {\n  0% {\n    -webkit-transform: translate(0, 100%);\n            transform: translate(0, 100%);\n  }\n  50% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0);\n  }\n  100% {\n    -webkit-transform: translate(100%, 0);\n            transform: translate(100%, 0);\n  }\n}\n@-webkit-keyframes box3 {\n  0%, 50% {\n    -webkit-transform: translate(100%, 100%);\n            transform: translate(100%, 100%);\n  }\n  100% {\n    -webkit-transform: translate(0, 100%);\n            transform: translate(0, 100%);\n  }\n}\n@keyframes box3 {\n  0%, 50% {\n    -webkit-transform: translate(100%, 100%);\n            transform: translate(100%, 100%);\n  }\n  100% {\n    -webkit-transform: translate(0, 100%);\n            transform: translate(0, 100%);\n  }\n}\n@-webkit-keyframes box4 {\n  0% {\n    -webkit-transform: translate(200%, 0);\n            transform: translate(200%, 0);\n  }\n  50% {\n    -webkit-transform: translate(200%, 100%);\n            transform: translate(200%, 100%);\n  }\n  100% {\n    -webkit-transform: translate(100%, 100%);\n            transform: translate(100%, 100%);\n  }\n}\n@keyframes box4 {\n  0% {\n    -webkit-transform: translate(200%, 0);\n            transform: translate(200%, 0);\n  }\n  50% {\n    -webkit-transform: translate(200%, 100%);\n            transform: translate(200%, 100%);\n  }\n  100% {\n    -webkit-transform: translate(100%, 100%);\n            transform: translate(100%, 100%);\n  }\n}\nhtml[_ngcontent-%COMP%] {\n  -webkit-font-smoothing: antialiased;\n}\n*[_ngcontent-%COMP%] {\n  box-sizing: border-box;\n}\n*[_ngcontent-%COMP%]:before, *[_ngcontent-%COMP%]:after {\n  box-sizing: border-box;\n}\nbody[_ngcontent-%COMP%] {\n  min-height: 100vh;\n  font-family: Roboto, Arial;\n  color: #ADAFB6;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center;\n  background: #F9FBFF;\n}\nbody[_ngcontent-%COMP%]   .dribbble[_ngcontent-%COMP%] {\n  position: fixed;\n  display: block;\n  right: 20px;\n  bottom: 20px;\n}\nbody[_ngcontent-%COMP%]   .dribbble[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  display: block;\n  height: 28px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWFpbi9hcHBzL3dlYi1jb21wb25lbnQvc3Bpbm5lci9mb3VyLWN1YmUvQzpcXFByb2plY3RzXFxBbmd1bGFyXFx1ZGVteS1hcHAtZnVzZVxcQnVkZ2V0LlNQQS9zcmNcXGFwcFxcbWFpblxcYXBwc1xcd2ViLWNvbXBvbmVudFxcc3Bpbm5lclxcZm91ci1jdWJlXFxmb3VyLWN1YmUuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL21haW4vYXBwcy93ZWItY29tcG9uZW50L3NwaW5uZXIvZm91ci1jdWJlL2ZvdXItY3ViZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFLQTtFQUdJLGtCQUFBO0VBQ0EsNkJBQUE7RUFDQSw0QkFBQTtFQUNBLGtCQUFBO0VBQ0Esb0NBQUE7VUFBQSw0QkFBQTtFQUNBLGlDQUFBO1VBQUEseUJBQUE7RUFDQSx3Q0FBQTtFQUNBLDhFQUFBO1VBQUEsc0VBQUE7QUNOSjtBRE9JO0VBQ0ksa0JBQUE7RUFDQSxtQkFBQTtFQUNBLE1BQUE7RUFDQSxPQUFBO0VBQ0Esa0JBQUE7RUFDQSxvQ0FBQTtVQUFBLDRCQUFBO0FDTFI7QURNUTtFQUNJLHFDQUFBO1VBQUEsNkJBQUE7RUFDQSx1REFBQTtVQUFBLCtDQUFBO0FDSlo7QURNUTtFQUNJLHFDQUFBO1VBQUEsNkJBQUE7RUFDQSx1REFBQTtVQUFBLCtDQUFBO0FDSlo7QURNUTtFQUNJLHdDQUFBO1VBQUEsZ0NBQUE7RUFDQSx1REFBQTtVQUFBLCtDQUFBO0FDSlo7QURNUTtFQUNJLHFDQUFBO1VBQUEsNkJBQUE7RUFDQSx1REFBQTtVQUFBLCtDQUFBO0FDSlo7QURNUTtFQUNJLHFCQUFBO0VBQ0EsV0FBQTtFQUNBLGFBQUE7RUFDQSxjQUFBO0VBQ0EsWUFBQTtFQUNBLG1DQUFBO0VBQ0EsZUFBQTtFQUNBLGVBQUE7RUFDQSxrQkFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsNkJBQUE7RUFDQSxlQUFBO0VBQ0EsbUJBQUE7RUFDQSxxQkFBQTtFQUNBLGlCQUFBO0VBQ0EsZ0dBQUE7VUFBQSx3RkFBQTtBQ0paO0FES1k7RUFDSSxRQUFBO0VBQ0EsU0FBQTtBQ0hoQjtBREtZO0VBQ0kscUJBQUE7RUFDQSxVQUFBO0VBQ0EsZ0JBQUE7QUNIaEI7QURLWTtFQUNJLHFCQUFBO0VBQ0EsaUJBQUE7QUNIaEI7QURLWTtFQUNJLHFCQUFBO0VBQ0EsUUFBQTtFQUNBLFNBQUE7RUFDQSx3Q0FBQTtBQ0hoQjtBRFNBO0VBQ0k7SUFFSSxxQ0FBQTtZQUFBLDZCQUFBO0VDUE47RURTRTtJQUNJLHFDQUFBO1lBQUEsNkJBQUE7RUNQTjtBQUNGO0FEQUE7RUFDSTtJQUVJLHFDQUFBO1lBQUEsNkJBQUE7RUNQTjtFRFNFO0lBQ0kscUNBQUE7WUFBQSw2QkFBQTtFQ1BOO0FBQ0Y7QURVQTtFQUNJO0lBQ0kscUNBQUE7WUFBQSw2QkFBQTtFQ1JOO0VEVUU7SUFDSSxrQ0FBQTtZQUFBLDBCQUFBO0VDUk47RURVRTtJQUNJLHFDQUFBO1lBQUEsNkJBQUE7RUNSTjtBQUNGO0FEREE7RUFDSTtJQUNJLHFDQUFBO1lBQUEsNkJBQUE7RUNSTjtFRFVFO0lBQ0ksa0NBQUE7WUFBQSwwQkFBQTtFQ1JOO0VEVUU7SUFDSSxxQ0FBQTtZQUFBLDZCQUFBO0VDUk47QUFDRjtBRFdBO0VBQ0k7SUFFSSx3Q0FBQTtZQUFBLGdDQUFBO0VDVk47RURZRTtJQUNJLHFDQUFBO1lBQUEsNkJBQUE7RUNWTjtBQUNGO0FER0E7RUFDSTtJQUVJLHdDQUFBO1lBQUEsZ0NBQUE7RUNWTjtFRFlFO0lBQ0kscUNBQUE7WUFBQSw2QkFBQTtFQ1ZOO0FBQ0Y7QURhQTtFQUNJO0lBQ0kscUNBQUE7WUFBQSw2QkFBQTtFQ1hOO0VEYUU7SUFDSSx3Q0FBQTtZQUFBLGdDQUFBO0VDWE47RURhRTtJQUNJLHdDQUFBO1lBQUEsZ0NBQUE7RUNYTjtBQUNGO0FERUE7RUFDSTtJQUNJLHFDQUFBO1lBQUEsNkJBQUE7RUNYTjtFRGFFO0lBQ0ksd0NBQUE7WUFBQSxnQ0FBQTtFQ1hOO0VEYUU7SUFDSSx3Q0FBQTtZQUFBLGdDQUFBO0VDWE47QUFDRjtBRGNBO0VBQ0ksbUNBQUE7QUNaSjtBRGVBO0VBQ0ksc0JBQUE7QUNaSjtBRGFJO0VBRUksc0JBQUE7QUNaUjtBRGlCQTtFQUNJLGlCQUFBO0VBQ0EsMEJBQUE7RUFDQSxjQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0VBQ0Esd0JBQUE7VUFBQSx1QkFBQTtFQUNBLHlCQUFBO1VBQUEsbUJBQUE7RUFDQSxtQkFBQTtBQ2RKO0FEZUk7RUFDSSxlQUFBO0VBQ0EsY0FBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0FDYlI7QURjUTtFQUNJLGNBQUE7RUFDQSxZQUFBO0FDWloiLCJmaWxlIjoic3JjL2FwcC9tYWluL2FwcHMvd2ViLWNvbXBvbmVudC9zcGlubmVyL2ZvdXItY3ViZS9mb3VyLWN1YmUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIkY29sb3I6ICM1QzhERjY7XHJcbiRjb2xvclJpZ2h0OiBkYXJrZW4oIzVDOERGNiwgMTUlKTtcclxuJGNvbG9yTGVmdDogZGFya2VuKCM1QzhERjYsIDUlKTtcclxuJHNoYWRvdzogI0RCRTNGNDtcclxuXHJcbi5ib3hlcyB7XHJcbiAgICBcclxuICAgIFxyXG4gICAgLS1kdXJhdGlvbjogMTAwMG1zO1xyXG4gICAgaGVpZ2h0OiBjYWxjKHZhcigtLXNpemUpICogMik7XHJcbiAgICB3aWR0aDogY2FsYyh2YXIoLS1zaXplKSAqIDMpO1xyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgdHJhbnNmb3JtLXN0eWxlOiBwcmVzZXJ2ZS0zZDtcclxuICAgIHRyYW5zZm9ybS1vcmlnaW46IDUwJSA1MCU7XHJcbiAgICBtYXJnaW4tdG9wOiBjYWxjKHZhcigtLXNpemUpICogMS41ICogLTEpO1xyXG4gICAgdHJhbnNmb3JtOiByb3RhdGVYKDYwZGVnKSByb3RhdGVaKDQ1ZGVnKSByb3RhdGVZKDBkZWcpIHRyYW5zbGF0ZVooMHB4KTtcclxuICAgIC5ib3gge1xyXG4gICAgICAgIHdpZHRoOiB2YXIoLS1zaXplKTtcclxuICAgICAgICBoZWlnaHQ6IHZhcigtLXNpemUpO1xyXG4gICAgICAgIHRvcDogMDtcclxuICAgICAgICBsZWZ0OiAwO1xyXG4gICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgICAgICB0cmFuc2Zvcm0tc3R5bGU6IHByZXNlcnZlLTNkO1xyXG4gICAgICAgICY6bnRoLWNoaWxkKDEpIHtcclxuICAgICAgICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMTAwJSwgMCk7XHJcbiAgICAgICAgICAgIGFuaW1hdGlvbjogYm94MSB2YXIoLS1kdXJhdGlvbikgbGluZWFyIGluZmluaXRlO1xyXG4gICAgICAgIH1cclxuICAgICAgICAmOm50aC1jaGlsZCgyKSB7XHJcbiAgICAgICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKDAsIDEwMCUpO1xyXG4gICAgICAgICAgICBhbmltYXRpb246IGJveDIgdmFyKC0tZHVyYXRpb24pIGxpbmVhciBpbmZpbml0ZTtcclxuICAgICAgICB9XHJcbiAgICAgICAgJjpudGgtY2hpbGQoMykge1xyXG4gICAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgxMDAlLCAxMDAlKTtcclxuICAgICAgICAgICAgYW5pbWF0aW9uOiBib3gzIHZhcigtLWR1cmF0aW9uKSBsaW5lYXIgaW5maW5pdGU7XHJcbiAgICAgICAgfVxyXG4gICAgICAgICY6bnRoLWNoaWxkKDQpIHtcclxuICAgICAgICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMjAwJSwgMCk7XHJcbiAgICAgICAgICAgIGFuaW1hdGlvbjogYm94NCB2YXIoLS1kdXJhdGlvbikgbGluZWFyIGluZmluaXRlO1xyXG4gICAgICAgIH1cclxuICAgICAgICAmID4gZGl2IHtcclxuICAgICAgICAgICAgLS1iYWNrZ3JvdW5kOiAjeyRjb2xvcn07XHJcbiAgICAgICAgICAgIC0tdG9wOiBhdXRvO1xyXG4gICAgICAgICAgICAtLXJpZ2h0OiBhdXRvO1xyXG4gICAgICAgICAgICAtLWJvdHRvbTogYXV0bztcclxuICAgICAgICAgICAgLS1sZWZ0OiBhdXRvO1xyXG4gICAgICAgICAgICAtLXRyYW5zbGF0ZVo6IGNhbGModmFyKC0tc2l6ZSkgLyAyKTtcclxuICAgICAgICAgICAgLS1yb3RhdGVZOiAwZGVnO1xyXG4gICAgICAgICAgICAtLXJvdGF0ZVg6IDBkZWc7XHJcbiAgICAgICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgICAgICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgICAgICAgIGhlaWdodDogMTAwJTtcclxuICAgICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tYmFja2dyb3VuZCk7XHJcbiAgICAgICAgICAgIHRvcDogdmFyKC0tdG9wKTtcclxuICAgICAgICAgICAgcmlnaHQ6IHZhcigtLXJpZ2h0KTtcclxuICAgICAgICAgICAgYm90dG9tOiB2YXIoLS1ib3R0b20pO1xyXG4gICAgICAgICAgICBsZWZ0OiB2YXIoLS1sZWZ0KTtcclxuICAgICAgICAgICAgdHJhbnNmb3JtOiByb3RhdGVZKHZhcigtLXJvdGF0ZVkpKSByb3RhdGVYKHZhcigtLXJvdGF0ZVgpKSB0cmFuc2xhdGVaKHZhcigtLXRyYW5zbGF0ZVopKTtcclxuICAgICAgICAgICAgJjpudGgtY2hpbGQoMSkge1xyXG4gICAgICAgICAgICAgICAgLS10b3A6IDA7XHJcbiAgICAgICAgICAgICAgICAtLWxlZnQ6IDA7XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgJjpudGgtY2hpbGQoMikge1xyXG4gICAgICAgICAgICAgICAgLS1iYWNrZ3JvdW5kOiAjeyRjb2xvclJpZ2h0fTtcclxuICAgICAgICAgICAgICAgIC0tcmlnaHQ6IDA7XHJcbiAgICAgICAgICAgICAgICAtLXJvdGF0ZVk6IDkwZGVnO1xyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICY6bnRoLWNoaWxkKDMpIHtcclxuICAgICAgICAgICAgICAgIC0tYmFja2dyb3VuZDogI3skY29sb3JMZWZ0fTtcclxuICAgICAgICAgICAgICAgIC0tcm90YXRlWDogLTkwZGVnO1xyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICY6bnRoLWNoaWxkKDQpIHtcclxuICAgICAgICAgICAgICAgIC0tYmFja2dyb3VuZDogI3skc2hhZG93fTtcclxuICAgICAgICAgICAgICAgIC0tdG9wOiAwO1xyXG4gICAgICAgICAgICAgICAgLS1sZWZ0OiAwO1xyXG4gICAgICAgICAgICAgICAgLS10cmFuc2xhdGVaOiBjYWxjKHZhcigtLXNpemUpICogMyAqIC0xKTtcclxuICAgICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuICAgIH1cclxufVxyXG5cclxuQGtleWZyYW1lcyBib3gxIHtcclxuICAgIDAlLFxyXG4gICAgNTAlIHtcclxuICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgxMDAlLCAwKTtcclxuICAgIH1cclxuICAgIDEwMCUge1xyXG4gICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKDIwMCUsIDApO1xyXG4gICAgfVxyXG59XHJcblxyXG5Aa2V5ZnJhbWVzIGJveDIge1xyXG4gICAgMCV7XHJcbiAgICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMCwgMTAwJSk7XHJcbiAgICB9XHJcbiAgICA1MCUge1xyXG4gICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKDAsIDApO1xyXG4gICAgfVxyXG4gICAgMTAwJSB7XHJcbiAgICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMTAwJSwgMCk7XHJcbiAgICB9XHJcbn1cclxuXHJcbkBrZXlmcmFtZXMgYm94MyB7XHJcbiAgICAwJSxcclxuICAgIDUwJSB7XHJcbiAgICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMTAwJSwgMTAwJSk7XHJcbiAgICB9XHJcbiAgICAxMDAlIHtcclxuICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgwLCAxMDAlKTtcclxuICAgIH1cclxufVxyXG5cclxuQGtleWZyYW1lcyBib3g0IHtcclxuICAgIDAle1xyXG4gICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKDIwMCUsIDApO1xyXG4gICAgfVxyXG4gICAgNTAlIHtcclxuICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgyMDAlLCAxMDAlKTtcclxuICAgIH1cclxuICAgIDEwMCUge1xyXG4gICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKDEwMCUsIDEwMCUpO1xyXG4gICAgfVxyXG59XHJcblxyXG5odG1sIHtcclxuICAgIC13ZWJraXQtZm9udC1zbW9vdGhpbmc6IGFudGlhbGlhc2VkO1xyXG59XHJcblxyXG4qIHtcclxuICAgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XHJcbiAgICAmOmJlZm9yZSxcclxuICAgICY6YWZ0ZXIge1xyXG4gICAgICAgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XHJcbiAgICB9XHJcbn1cclxuXHJcbi8vIENlbnRlciAmIGRyaWJiYmxlXHJcbmJvZHkge1xyXG4gICAgbWluLWhlaWdodDogMTAwdmg7XHJcbiAgICBmb250LWZhbWlseTogUm9ib3RvLCBBcmlhbDtcclxuICAgIGNvbG9yOiAjQURBRkI2O1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgIGJhY2tncm91bmQ6ICNGOUZCRkY7XHJcbiAgICAuZHJpYmJibGUge1xyXG4gICAgICAgIHBvc2l0aW9uOiBmaXhlZDtcclxuICAgICAgICBkaXNwbGF5OiBibG9jaztcclxuICAgICAgICByaWdodDogMjBweDtcclxuICAgICAgICBib3R0b206IDIwcHg7XHJcbiAgICAgICAgaW1nIHtcclxuICAgICAgICAgICAgZGlzcGxheTogYmxvY2s7XHJcbiAgICAgICAgICAgIGhlaWdodDogMjhweDtcclxuICAgICAgICB9XHJcbiAgICB9XHJcbn0iLCIuYm94ZXMge1xuICAtLWR1cmF0aW9uOiAxMDAwbXM7XG4gIGhlaWdodDogY2FsYyh2YXIoLS1zaXplKSAqIDIpO1xuICB3aWR0aDogY2FsYyh2YXIoLS1zaXplKSAqIDMpO1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHRyYW5zZm9ybS1zdHlsZTogcHJlc2VydmUtM2Q7XG4gIHRyYW5zZm9ybS1vcmlnaW46IDUwJSA1MCU7XG4gIG1hcmdpbi10b3A6IGNhbGModmFyKC0tc2l6ZSkgKiAxLjUgKiAtMSk7XG4gIHRyYW5zZm9ybTogcm90YXRlWCg2MGRlZykgcm90YXRlWig0NWRlZykgcm90YXRlWSgwZGVnKSB0cmFuc2xhdGVaKDBweCk7XG59XG4uYm94ZXMgLmJveCB7XG4gIHdpZHRoOiB2YXIoLS1zaXplKTtcbiAgaGVpZ2h0OiB2YXIoLS1zaXplKTtcbiAgdG9wOiAwO1xuICBsZWZ0OiAwO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRyYW5zZm9ybS1zdHlsZTogcHJlc2VydmUtM2Q7XG59XG4uYm94ZXMgLmJveDpudGgtY2hpbGQoMSkge1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgxMDAlLCAwKTtcbiAgYW5pbWF0aW9uOiBib3gxIHZhcigtLWR1cmF0aW9uKSBsaW5lYXIgaW5maW5pdGU7XG59XG4uYm94ZXMgLmJveDpudGgtY2hpbGQoMikge1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgwLCAxMDAlKTtcbiAgYW5pbWF0aW9uOiBib3gyIHZhcigtLWR1cmF0aW9uKSBsaW5lYXIgaW5maW5pdGU7XG59XG4uYm94ZXMgLmJveDpudGgtY2hpbGQoMykge1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgxMDAlLCAxMDAlKTtcbiAgYW5pbWF0aW9uOiBib3gzIHZhcigtLWR1cmF0aW9uKSBsaW5lYXIgaW5maW5pdGU7XG59XG4uYm94ZXMgLmJveDpudGgtY2hpbGQoNCkge1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgyMDAlLCAwKTtcbiAgYW5pbWF0aW9uOiBib3g0IHZhcigtLWR1cmF0aW9uKSBsaW5lYXIgaW5maW5pdGU7XG59XG4uYm94ZXMgLmJveCA+IGRpdiB7XG4gIC0tYmFja2dyb3VuZDogIzVDOERGNjtcbiAgLS10b3A6IGF1dG87XG4gIC0tcmlnaHQ6IGF1dG87XG4gIC0tYm90dG9tOiBhdXRvO1xuICAtLWxlZnQ6IGF1dG87XG4gIC0tdHJhbnNsYXRlWjogY2FsYyh2YXIoLS1zaXplKSAvIDIpO1xuICAtLXJvdGF0ZVk6IDBkZWc7XG4gIC0tcm90YXRlWDogMGRlZztcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xuICBiYWNrZ3JvdW5kOiB2YXIoLS1iYWNrZ3JvdW5kKTtcbiAgdG9wOiB2YXIoLS10b3ApO1xuICByaWdodDogdmFyKC0tcmlnaHQpO1xuICBib3R0b206IHZhcigtLWJvdHRvbSk7XG4gIGxlZnQ6IHZhcigtLWxlZnQpO1xuICB0cmFuc2Zvcm06IHJvdGF0ZVkodmFyKC0tcm90YXRlWSkpIHJvdGF0ZVgodmFyKC0tcm90YXRlWCkpIHRyYW5zbGF0ZVoodmFyKC0tdHJhbnNsYXRlWikpO1xufVxuLmJveGVzIC5ib3ggPiBkaXY6bnRoLWNoaWxkKDEpIHtcbiAgLS10b3A6IDA7XG4gIC0tbGVmdDogMDtcbn1cbi5ib3hlcyAuYm94ID4gZGl2Om50aC1jaGlsZCgyKSB7XG4gIC0tYmFja2dyb3VuZDogIzE0NWFmMjtcbiAgLS1yaWdodDogMDtcbiAgLS1yb3RhdGVZOiA5MGRlZztcbn1cbi5ib3hlcyAuYm94ID4gZGl2Om50aC1jaGlsZCgzKSB7XG4gIC0tYmFja2dyb3VuZDogIzQ0N2NmNTtcbiAgLS1yb3RhdGVYOiAtOTBkZWc7XG59XG4uYm94ZXMgLmJveCA+IGRpdjpudGgtY2hpbGQoNCkge1xuICAtLWJhY2tncm91bmQ6ICNEQkUzRjQ7XG4gIC0tdG9wOiAwO1xuICAtLWxlZnQ6IDA7XG4gIC0tdHJhbnNsYXRlWjogY2FsYyh2YXIoLS1zaXplKSAqIDMgKiAtMSk7XG59XG5cbkBrZXlmcmFtZXMgYm94MSB7XG4gIDAlLCA1MCUge1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKDEwMCUsIDApO1xuICB9XG4gIDEwMCUge1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKDIwMCUsIDApO1xuICB9XG59XG5Aa2V5ZnJhbWVzIGJveDIge1xuICAwJSB7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMCwgMTAwJSk7XG4gIH1cbiAgNTAlIHtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgwLCAwKTtcbiAgfVxuICAxMDAlIHtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgxMDAlLCAwKTtcbiAgfVxufVxuQGtleWZyYW1lcyBib3gzIHtcbiAgMCUsIDUwJSB7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMTAwJSwgMTAwJSk7XG4gIH1cbiAgMTAwJSB7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMCwgMTAwJSk7XG4gIH1cbn1cbkBrZXlmcmFtZXMgYm94NCB7XG4gIDAlIHtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgyMDAlLCAwKTtcbiAgfVxuICA1MCUge1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKDIwMCUsIDEwMCUpO1xuICB9XG4gIDEwMCUge1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKDEwMCUsIDEwMCUpO1xuICB9XG59XG5odG1sIHtcbiAgLXdlYmtpdC1mb250LXNtb290aGluZzogYW50aWFsaWFzZWQ7XG59XG5cbioge1xuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xufVxuKjpiZWZvcmUsICo6YWZ0ZXIge1xuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xufVxuXG5ib2R5IHtcbiAgbWluLWhlaWdodDogMTAwdmg7XG4gIGZvbnQtZmFtaWx5OiBSb2JvdG8sIEFyaWFsO1xuICBjb2xvcjogI0FEQUZCNjtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGJhY2tncm91bmQ6ICNGOUZCRkY7XG59XG5ib2R5IC5kcmliYmJsZSB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgZGlzcGxheTogYmxvY2s7XG4gIHJpZ2h0OiAyMHB4O1xuICBib3R0b206IDIwcHg7XG59XG5ib2R5IC5kcmliYmJsZSBpbWcge1xuICBkaXNwbGF5OiBibG9jaztcbiAgaGVpZ2h0OiAyOHB4O1xufSJdfQ== */"] });
+    return FourCubeComponent;
 }());
 
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AsService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }]; }, null); })();
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FourCubeComponent, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
+        args: [{
+                selector: 'spinner-four-cube',
+                templateUrl: './four-cube.component.html',
+                styleUrls: ['./four-cube.component.scss']
+            }]
+    }], function () { return []; }, { size: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+        }] }); })();
+
+
+/***/ }),
+
+/***/ "./src/app/main/apps/web-component/spinner/spinner.module.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/main/apps/web-component/spinner/spinner.module.ts ***!
+  \*******************************************************************/
+/*! exports provided: SpinnerModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SpinnerModule", function() { return SpinnerModule; });
+/* harmony import */ var _four_cube_four_cube_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./four-cube/four-cube.component */ "./src/app/main/apps/web-component/spinner/four-cube/four-cube.component.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm5/core.js");
+
+
+
+var SpinnerModule = /** @class */ (function () {
+    function SpinnerModule() {
+    }
+    SpinnerModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({ type: SpinnerModule });
+    SpinnerModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({ factory: function SpinnerModule_Factory(t) { return new (t || SpinnerModule)(); }, imports: [[]] });
+    return SpinnerModule;
+}());
+
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](SpinnerModule, { declarations: [_four_cube_four_cube_component__WEBPACK_IMPORTED_MODULE_0__["FourCubeComponent"]], exports: [_four_cube_four_cube_component__WEBPACK_IMPORTED_MODULE_0__["FourCubeComponent"]] }); })();
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](SpinnerModule, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
+        args: [{
+                declarations: [
+                    _four_cube_four_cube_component__WEBPACK_IMPORTED_MODULE_0__["FourCubeComponent"]
+                ],
+                imports: [],
+                exports: [
+                    _four_cube_four_cube_component__WEBPACK_IMPORTED_MODULE_0__["FourCubeComponent"]
+                ]
+            }]
+    }], null, null); })();
 
 
 /***/ }),
@@ -56191,10 +56013,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _widget_card_chart_bar_skeleton_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./widget-card-chart-bar-skeleton.model */ "./src/app/main/apps/widgets/widget-card-chart-bar/widget-card-chart-bar-skeleton.model.ts");
 /* harmony import */ var app_main_models_chart_widget_card_chart_bar_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/main/_models/chart/widget-card-chart-bar.model */ "./src/app/main/_models/chart/widget-card-chart-bar.model.ts");
 /* harmony import */ var ng2_charts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ng2-charts */ "./node_modules/ng2-charts/__ivy_ngcc__/fesm5/ng2-charts.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm5/common.js");
-/* harmony import */ var _angular_flex_layout_flex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/flex-layout/flex */ "./node_modules/@angular/flex-layout/__ivy_ngcc__/esm5/flex.es5.js");
-/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/__ivy_ngcc__/fesm5/icon.js");
-/* harmony import */ var _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/progress-spinner */ "./node_modules/@angular/material/__ivy_ngcc__/fesm5/progress-spinner.js");
+/* harmony import */ var _fuse_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fuse/animations */ "./src/@fuse/animations/index.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm5/common.js");
+/* harmony import */ var _angular_flex_layout_flex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/flex-layout/flex */ "./node_modules/@angular/flex-layout/__ivy_ngcc__/esm5/flex.es5.js");
+/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/__ivy_ngcc__/fesm5/icon.js");
+/* harmony import */ var _web_component_spinner_four_cube_four_cube_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../web-component/spinner/four-cube/four-cube.component */ "./src/app/main/apps/web-component/spinner/four-cube/four-cube.component.ts");
 
 
 
@@ -56205,9 +56028,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function WidgetCardChartBarComponent_ng_container_2_div_8_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 15);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-icon", 16);
+
+function WidgetCardChartBarComponent_div_2_div_8_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-icon", 15);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "trending_up");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "span");
@@ -56215,13 +56039,13 @@ function WidgetCardChartBarComponent_ng_container_2_div_8_Template(rf, ctx) { if
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r950 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
+    var ctx_r823 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", ctx_r950.widget.title.ratioAmount, "%");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", ctx_r823.widget.title.ratioAmount, "%");
 } }
-function WidgetCardChartBarComponent_ng_container_2_div_9_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 17);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-icon", 18);
+function WidgetCardChartBarComponent_div_2_div_9_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 16);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-icon", 17);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "trending_down");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "span");
@@ -56229,13 +56053,13 @@ function WidgetCardChartBarComponent_ng_container_2_div_9_Template(rf, ctx) { if
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r951 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
+    var ctx_r824 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", ctx_r951.widget.title.ratioAmount, "%");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", ctx_r824.widget.title.ratioAmount, "%");
 } }
-function WidgetCardChartBarComponent_ng_container_2_div_10_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 19);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-icon", 20);
+function WidgetCardChartBarComponent_div_2_div_10_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 18);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-icon", 19);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "trending_flat");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "span");
@@ -56243,125 +56067,84 @@ function WidgetCardChartBarComponent_ng_container_2_div_10_Template(rf, ctx) { i
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r952 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
+    var ctx_r825 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", ctx_r952.widget.title.ratioAmount, "%");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", ctx_r825.widget.title.ratioAmount, "%");
 } }
-function WidgetCardChartBarComponent_ng_container_2_Template(rf, ctx) { if (rf & 1) {
-    var _r954 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerStart"](0, 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 5);
+function WidgetCardChartBarComponent_div_2_Template(rf, ctx) { if (rf & 1) {
+    var _r827 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 4);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "div", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "div", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "div", 7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "div", 6);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](8, WidgetCardChartBarComponent_ng_container_2_div_8_Template, 5, 1, "div", 9);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](9, WidgetCardChartBarComponent_ng_container_2_div_9_Template, 5, 1, "div", 10);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](10, WidgetCardChartBarComponent_ng_container_2_div_10_Template, 5, 1, "div", 11);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "div", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div", 7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](8, WidgetCardChartBarComponent_div_2_div_8_Template, 5, 1, "div", 8);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](9, WidgetCardChartBarComponent_div_2_div_9_Template, 5, 1, "div", 9);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](10, WidgetCardChartBarComponent_div_2_div_10_Template, 5, 1, "div", 10);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "div", 11);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](12);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](13, "div", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "canvas", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("chartClick", function WidgetCardChartBarComponent_ng_container_2_Template_canvas_chartClick_14_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r954); var ctx_r953 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r953.chartClicked($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](13, "div", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "canvas", 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("chartClick", function WidgetCardChartBarComponent_div_2_Template_canvas_chartClick_14_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r827); var ctx_r826 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r826.chartClicked($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r947 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    var ctx_r820 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r947.widget.title.label);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r820.widget.title.label);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", ctx_r947.widget.title.averageAmount, " \u20AC ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", ctx_r820.widget.title.averageAmount, " \u20AC ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r947.widget.title.ratioAmount > 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r820.widget.title.ratioAmount > 0);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r947.widget.title.ratioAmount < 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r820.widget.title.ratioAmount < 0);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r947.widget.title.ratioAmount == 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r820.widget.title.ratioAmount == 0);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r947.widget.title.ratioLabel);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r820.widget.title.ratioLabel);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("datasets", ctx_r947.widget.datasets)("labels", ctx_r947.widget.labels)("colors", ctx_r947.widget.colors)("options", ctx_r947.widget.options)("chartType", ctx_r947.widget.chartType);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("datasets", ctx_r820.widget.datasets)("labels", ctx_r820.widget.labels)("colors", ctx_r820.widget.colors)("options", ctx_r820.widget.options)("chartType", ctx_r820.widget.chartType);
 } }
 function WidgetCardChartBarComponent_ng_template_3_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](0, " TOTO ");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 21);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](2, "mat-spinner", 22);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "div", 23);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4, "chargement...");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 20);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "spinner-four-cube", 21);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
+var _c0 = function () { return { y: "100%" }; };
+var _c1 = function (a1) { return { value: "*", params: a1 }; };
 var WidgetCardChartBarComponent = /** @class */ (function () {
-    // widget8: any = {};
     function WidgetCardChartBarComponent() {
-        //   this.widget8 = {
-        //     title    : 'Budget Distribution',
-        //     mainChart: [
-        //       {
-        //           name : 'Wireframing',
-        //           value: 12
-        //       },
-        //       {
-        //           name : 'Design',
-        //           value: 17
-        //       },
-        //       {
-        //           name : 'Coding',
-        //           value: 28
-        //       },
-        //       {
-        //           name : 'Marketing',
-        //           value: 25
-        //       },
-        //       {
-        //           name : 'Extra',
-        //           value: 13
-        //       },
-        //       {
-        //         name : 'Extra',
-        //         value: 2
-        //     }
-        //   ],
-        //     legend       : false,
-        //     explodeSlices: true,
-        //     labels       : true,
-        //     doughnut     : false,
-        //     gradient     : true,
-        //     scheme       : {
-        //         domain: ['#f44336', '#9c27b0', '#03a9f4', '#e91e63', '#ffc107','#f44336','#f44336']
-        //     },
-        //     onSelect     : (ev) => {
-        //     }
-        // };
     }
     WidgetCardChartBarComponent.prototype.ngOnChanges = function (changes) {
         var _this = this;
-        this.widgetCardChartBar = changes.widgetCardChartBar.currentValue;
+        var _a;
         this.isLoaded = false;
-        if (this.widgetCardChartBar != null) {
-            if (this.widgetCardChartBar.isLoaded) {
-                this.widget = null;
-                this.widget = _widget_card_chart_bar_skeleton_model__WEBPACK_IMPORTED_MODULE_1__["WidgetCardChartBarSkeleton"].getEmptyGraph;
-                this.widget.datasets = this.widgetCardChartBar.chart.dataSets;
-                this.widget.labels = this.widgetCardChartBar.chart.labels.map(function (x) { return x.label; });
-                this.widget.colors = this.widgetCardChartBar.chart.colors;
-                this.widget.title = this.widgetCardChartBar.title;
-                this.widget.options.scales.yAxes = this.widgetCardChartBar.chart.options.scales.yAxes;
-                //force refresh graph
-                setTimeout(function () {
-                    _this._chart.refresh();
-                }, 10);
-                this.isLoaded = true;
-            }
+        this.widgetCardChartBar = changes.widgetCardChartBar.currentValue;
+        if ((_a = this.widgetCardChartBar) === null || _a === void 0 ? void 0 : _a.isLoaded) {
+            // if(this.widgetCardChartBar.isLoaded) {
+            //   this.widget = null;
+            this.widget = _widget_card_chart_bar_skeleton_model__WEBPACK_IMPORTED_MODULE_1__["WidgetCardChartBarSkeleton"].getEmptyGraph;
+            this.widget.datasets = this.widgetCardChartBar.chart.dataSets;
+            this.widget.labels = this.widgetCardChartBar.chart.labels.map(function (x) { return x.label; });
+            this.widget.colors = this.widgetCardChartBar.chart.colors;
+            this.widget.title = this.widgetCardChartBar.title;
+            this.widget.options.scales.yAxes = this.widgetCardChartBar.chart.options.scales.yAxes;
+            //force refresh graph
+            setTimeout(function () {
+                _this._chart.refresh();
+            }, 10);
+            this.isLoaded = true;
+            // }
         }
     };
     WidgetCardChartBarComponent.prototype.ngOnInit = function () {
@@ -56378,17 +56161,19 @@ var WidgetCardChartBarComponent = /** @class */ (function () {
         } if (rf & 2) {
             var _t;
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx._chart = _t.first);
-        } }, inputs: { widgetCardChartBar: "widgetCardChartBar" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵNgOnChangesFeature"]()], decls: 5, vars: 1, consts: [[1, "p-8"], [1, "fuse-card"], ["else", "", "tp_loading", "", 4, "ngIf"], ["tp_loading", ""], ["else", "", "tp_loading", ""], ["fxLayout", "row", "fxLayoutAlign", "space-between end", "fxLayoutWrap", "", 1, "p-12", "pb-0"], [1, "h3", "secondary-text"], [1, "font-size-24", "font-weight-300", "line-height-1", "mt-8"], ["fxLayout", "row", "fxLayoutAlign", "end center", 1, "py-6", "font-size-12"], ["fxFlex", "row", "fxLayoutAlign", "end center", "class", "green-fg", 4, "ngIf"], ["fxFlex", "row", "fxLayoutAlign", "end center", "class", "red-fg", 4, "ngIf"], ["fxFlex", "row", "fxLayoutAlign", "end center", "class", "grey-fg", 4, "ngIf"], [1, "ml-4", "text-nowrap"], [1, "h-96", "w-100-p"], ["baseChart", "", 3, "datasets", "labels", "colors", "options", "chartType", "chartClick"], ["fxFlex", "row", "fxLayoutAlign", "end center", 1, "green-fg"], [1, "green-fg", "mr-4"], ["fxFlex", "row", "fxLayoutAlign", "end center", 1, "red-fg"], [1, "red-fg", "mr-4"], ["fxFlex", "row", "fxLayoutAlign", "end center", 1, "grey-fg"], [1, "grey-fg", "mr-4"], ["fxLayout", "column", "fxLayoutAlign", "center center", 1, "h-96", "w-100-p"], ["diameter", "40", "color", "accent", "fxLayout", "row"], ["fxLayout", "row"]], template: function WidgetCardChartBarComponent_Template(rf, ctx) { if (rf & 1) {
+        } }, inputs: { widgetCardChartBar: "widgetCardChartBar" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵNgOnChangesFeature"]()], decls: 5, vars: 6, consts: [[1, "p-8"], [1, "fuse-card"], [4, "ngIf", "ngIfElse"], ["tp_progress", ""], ["fxLayout", "row", "fxLayoutAlign", "space-between end", "fxLayoutWrap", "", 1, "p-12", "pb-0"], [1, "h3", "secondary-text"], [1, "font-size-24", "font-weight-300", "line-height-1", "mt-8"], ["fxLayout", "row", "fxLayoutAlign", "end center", 1, "py-6", "font-size-12"], ["fxFlex", "row", "fxLayoutAlign", "end center", "class", "green-fg", 4, "ngIf"], ["fxFlex", "row", "fxLayoutAlign", "end center", "class", "red-fg", 4, "ngIf"], ["fxFlex", "row", "fxLayoutAlign", "end center", "class", "grey-fg", 4, "ngIf"], [1, "ml-4", "text-nowrap"], [1, "h-96", "w-100-p"], ["baseChart", "", 3, "datasets", "labels", "colors", "options", "chartType", "chartClick"], ["fxFlex", "row", "fxLayoutAlign", "end center", 1, "green-fg"], [1, "green-fg", "mr-4"], ["fxFlex", "row", "fxLayoutAlign", "end center", 1, "red-fg"], [1, "red-fg", "mr-4"], ["fxFlex", "row", "fxLayoutAlign", "end center", 1, "grey-fg"], [1, "grey-fg", "mr-4"], ["fxLayout", "column", "fxLayoutAlign", "center center", 1, "h-96", "w-100-p"], ["size", "10"]], template: function WidgetCardChartBarComponent_Template(rf, ctx) { if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, WidgetCardChartBarComponent_ng_container_2_Template, 15, 11, "ng-container", 2);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, WidgetCardChartBarComponent_div_2_Template, 15, 11, "div", 2);
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, WidgetCardChartBarComponent_ng_template_3_Template, 5, 0, "ng-template", null, 3, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplateRefExtractor"]);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, WidgetCardChartBarComponent_ng_template_3_Template, 2, 0, "ng-template", null, 3, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplateRefExtractor"]);
         } if (rf & 2) {
+            var _r821 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](4);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("@animate", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](4, _c1, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](3, _c0)));
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.isLoaded);
-        } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"], _angular_flex_layout_flex__WEBPACK_IMPORTED_MODULE_5__["DefaultLayoutDirective"], _angular_flex_layout_flex__WEBPACK_IMPORTED_MODULE_5__["DefaultLayoutAlignDirective"], ng2_charts__WEBPACK_IMPORTED_MODULE_3__["BaseChartDirective"], _angular_flex_layout_flex__WEBPACK_IMPORTED_MODULE_5__["DefaultFlexDirective"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_6__["MatIcon"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_7__["MatSpinner"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL21haW4vYXBwcy93aWRnZXRzL3dpZGdldC1jYXJkLWNoYXJ0LWJhci93aWRnZXQtY2FyZC1jaGFydC1iYXIuY29tcG9uZW50LnNjc3MifQ== */"] });
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.isLoaded)("ngIfElse", _r821);
+        } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"], _angular_flex_layout_flex__WEBPACK_IMPORTED_MODULE_6__["DefaultLayoutDirective"], _angular_flex_layout_flex__WEBPACK_IMPORTED_MODULE_6__["DefaultLayoutAlignDirective"], ng2_charts__WEBPACK_IMPORTED_MODULE_3__["BaseChartDirective"], _angular_flex_layout_flex__WEBPACK_IMPORTED_MODULE_6__["DefaultFlexDirective"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_7__["MatIcon"], _web_component_spinner_four_cube_four_cube_component__WEBPACK_IMPORTED_MODULE_8__["FourCubeComponent"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL21haW4vYXBwcy93aWRnZXRzL3dpZGdldC1jYXJkLWNoYXJ0LWJhci93aWRnZXQtY2FyZC1jaGFydC1iYXIuY29tcG9uZW50LnNjc3MifQ== */"], data: { animation: _fuse_animations__WEBPACK_IMPORTED_MODULE_4__["fuseAnimations"] } });
     return WidgetCardChartBarComponent;
 }());
 
@@ -56397,7 +56182,8 @@ var WidgetCardChartBarComponent = /** @class */ (function () {
         args: [{
                 selector: 'widget-card-chart-bar',
                 templateUrl: './widget-card-chart-bar.component.html',
-                styleUrls: ['./widget-card-chart-bar.component.scss']
+                styleUrls: ['./widget-card-chart-bar.component.scss'],
+                animations: _fuse_animations__WEBPACK_IMPORTED_MODULE_4__["fuseAnimations"]
             }]
     }], function () { return []; }, { widgetCardChartBar: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
@@ -56444,33 +56230,33 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function WidgetCardChartPieSelectComponent_div_2_ngx_charts_pie_chart_13_Template(rf, ctx) { if (rf & 1) {
-    var _r960 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+    var _r833 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ngx-charts-pie-chart", 16);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("select", function WidgetCardChartPieSelectComponent_div_2_ngx_charts_pie_chart_13_Template_ngx_charts_pie_chart_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r960); var ctx_r959 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); return ctx_r959.onSelect($event); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("select", function WidgetCardChartPieSelectComponent_div_2_ngx_charts_pie_chart_13_Template_ngx_charts_pie_chart_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r833); var ctx_r832 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); return ctx_r832.onSelect($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r957 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("scheme", ctx_r957.widget.pieChart.scheme)("results", ctx_r957.widget.data.mainChart)("explodeSlices", ctx_r957.widget.pieChart.explodeSlices)("labels", ctx_r957.widget.pieChart.labels)("doughnut", ctx_r957.widget.pieChart.doughnut)("gradient", ctx_r957.widget.pieChart.gradient);
+    var ctx_r830 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("scheme", ctx_r830.widget.pieChart.scheme)("results", ctx_r830.widget.data.mainChart)("explodeSlices", ctx_r830.widget.pieChart.explodeSlices)("labels", ctx_r830.widget.pieChart.labels)("doughnut", ctx_r830.widget.pieChart.doughnut)("gradient", ctx_r830.widget.pieChart.gradient);
 } }
 function WidgetCardChartPieSelectComponent_div_2_mat_optgroup_18_mat_option_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-option", 19);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var item_r963 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", item_r963);
+    var item_r836 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", item_r836);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", item_r963.name, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", item_r836.name, " ");
 } }
 function WidgetCardChartPieSelectComponent_div_2_mat_optgroup_18_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-optgroup", 17);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, WidgetCardChartPieSelectComponent_div_2_mat_optgroup_18_mat_option_1_Template, 2, 2, "mat-option", 18);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var group_r961 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("label", group_r961.name);
+    var group_r834 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("label", group_r834.name);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", group_r961.selects);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", group_r834.selects);
 } }
 function WidgetCardChartPieSelectComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 3);
@@ -56505,18 +56291,18 @@ function WidgetCardChartPieSelectComponent_div_2_Template(rf, ctx) { if (rf & 1)
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r956 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    var ctx_r829 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", ctx_r956.widget.data.title, " op\u00E9ration ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", ctx_r829.widget.data.title, " op\u00E9ration ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](10, 6, ctx_r956.test, "1.0-2"));
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](10, 6, ctx_r829.test, "1.0-2"));
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("formGroup", ctx_r956.selectMultipleForm);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("formGroup", ctx_r829.selectMultipleForm);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("placeholder", ctx_r956.widget.data.title);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("compareWith", ctx_r956.compareObjects);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("placeholder", ctx_r829.widget.data.title);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("compareWith", ctx_r829.compareObjects);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r956.widget.data.ranges.list);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r829.widget.data.ranges.list);
 } }
 var WidgetCardChartPieSelectComponent = /** @class */ (function () {
     function WidgetCardChartPieSelectComponent(_formBuilder) {
@@ -56854,6 +56640,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _widget_card_simple_chart_bar_widget_card_simple_chart_bar_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./widget-card-simple-chart-bar/widget-card-simple-chart-bar.component */ "./src/app/main/apps/widgets/widget-card-simple-chart-bar/widget-card-simple-chart-bar.component.ts");
 /* harmony import */ var _widget_card_chart_pie_select_widget_card_chart_pie_select_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./widget-card-chart-pie-select/widget-card-chart-pie-select.component */ "./src/app/main/apps/widgets/widget-card-chart-pie-select/widget-card-chart-pie-select.component.ts");
 /* harmony import */ var app_angular_material_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! app/angular-material.module */ "./src/app/angular-material.module.ts");
+/* harmony import */ var _web_component_spinner_spinner_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../web-component/spinner/spinner.module */ "./src/app/main/apps/web-component/spinner/spinner.module.ts");
+
 
 
 
@@ -56876,7 +56664,10 @@ var WidgetsModule = /** @class */ (function () {
                 app_angular_material_module__WEBPACK_IMPORTED_MODULE_10__["AngularMaterialModule"],
                 _fuse_components__WEBPACK_IMPORTED_MODULE_5__["FuseWidgetModule"],
                 _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_6__["NgxChartsModule"],
-                ng2_charts__WEBPACK_IMPORTED_MODULE_7__["ChartsModule"]
+                ng2_charts__WEBPACK_IMPORTED_MODULE_7__["ChartsModule"],
+                _web_component_spinner_spinner_module__WEBPACK_IMPORTED_MODULE_11__["SpinnerModule"]
+                // BrowserAnimationsModule,
+                // NoopAnimationsModule
             ]] });
     return WidgetsModule;
 }());
@@ -56889,7 +56680,11 @@ var WidgetsModule = /** @class */ (function () {
         app_angular_material_module__WEBPACK_IMPORTED_MODULE_10__["AngularMaterialModule"],
         _fuse_components__WEBPACK_IMPORTED_MODULE_5__["FuseWidgetModule"],
         _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_6__["NgxChartsModule"],
-        ng2_charts__WEBPACK_IMPORTED_MODULE_7__["ChartsModule"]], exports: [_widget_card_simple_chart_bar_widget_card_simple_chart_bar_component__WEBPACK_IMPORTED_MODULE_8__["WidgetCardSimpleChartBarComponent"],
+        ng2_charts__WEBPACK_IMPORTED_MODULE_7__["ChartsModule"],
+        _web_component_spinner_spinner_module__WEBPACK_IMPORTED_MODULE_11__["SpinnerModule"]
+        // BrowserAnimationsModule,
+        // NoopAnimationsModule
+    ], exports: [_widget_card_simple_chart_bar_widget_card_simple_chart_bar_component__WEBPACK_IMPORTED_MODULE_8__["WidgetCardSimpleChartBarComponent"],
         _widget_card_chart_bar_widget_card_chart_bar_component__WEBPACK_IMPORTED_MODULE_3__["WidgetCardChartBarComponent"],
         _widget_card_chart_pie_select_widget_card_chart_pie_select_component__WEBPACK_IMPORTED_MODULE_9__["WidgetCardChartPieSelectComponent"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](WidgetsModule, [{
@@ -56907,7 +56702,10 @@ var WidgetsModule = /** @class */ (function () {
                     app_angular_material_module__WEBPACK_IMPORTED_MODULE_10__["AngularMaterialModule"],
                     _fuse_components__WEBPACK_IMPORTED_MODULE_5__["FuseWidgetModule"],
                     _swimlane_ngx_charts__WEBPACK_IMPORTED_MODULE_6__["NgxChartsModule"],
-                    ng2_charts__WEBPACK_IMPORTED_MODULE_7__["ChartsModule"]
+                    ng2_charts__WEBPACK_IMPORTED_MODULE_7__["ChartsModule"],
+                    _web_component_spinner_spinner_module__WEBPACK_IMPORTED_MODULE_11__["SpinnerModule"]
+                    // BrowserAnimationsModule,
+                    // NoopAnimationsModule
                 ],
                 exports: [
                     _widget_card_simple_chart_bar_widget_card_simple_chart_bar_component__WEBPACK_IMPORTED_MODULE_8__["WidgetCardSimpleChartBarComponent"],

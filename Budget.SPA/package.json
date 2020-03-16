@@ -16,7 +16,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cy:gui": "concurrently \"npm run start\" \"wait-on http-get://localhost:4200 && cypress open\" --kill-others"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +43,7 @@
     "angular2-notifications": "3.0.0",
     "chart.js": "2.9.3",
     "classlist.js": "1.1.20150312",
+    "concurrently": "^5.1.0",
     "d3": "5.15.0",
     "date-fns": "1.30.1",
     "lodash": "4.17.15",
@@ -57,6 +59,7 @@
     "rxjs": "6.5.4",
     "rxjs-compat": "^6.5.4",
     "tslib": "^1.10.0",
+    "wait-on": "^4.0.1",
     "web-animations-js": "^2.3.2",
     "zone.js": "~0.10.2"
   },

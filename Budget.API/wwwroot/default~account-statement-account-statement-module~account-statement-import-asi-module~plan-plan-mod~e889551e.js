@@ -1,50 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~account-statement-account-statement-module~account-statement-import-asi-module~plan-plan-mod~e889551e"],{
 
-/***/ "./src/app/main/_models/generics/select.model.ts":
-/*!*******************************************************!*\
-  !*** ./src/app/main/_models/generics/select.model.ts ***!
-  \*******************************************************/
-/*! exports provided: SelectYear, EnumSelectType, SelectNameValue, SelectNameValueGroup */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectYear", function() { return SelectYear; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EnumSelectType", function() { return EnumSelectType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectNameValue", function() { return SelectNameValue; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectNameValueGroup", function() { return SelectNameValueGroup; });
-var SelectYear = /** @class */ (function () {
-    function SelectYear() {
-    }
-    return SelectYear;
-}());
-
-var EnumSelectType;
-(function (EnumSelectType) {
-    EnumSelectType[EnumSelectType["empty"] = 0] = "empty";
-    EnumSelectType[EnumSelectType["inconnu"] = 1] = "inconnu";
-    EnumSelectType[EnumSelectType["inconnue"] = 11] = "inconnue";
-    EnumSelectType[EnumSelectType["tous"] = 2] = "tous";
-    EnumSelectType[EnumSelectType["toutes"] = 22] = "toutes";
-    EnumSelectType[EnumSelectType["aucun"] = 3] = "aucun";
-    EnumSelectType[EnumSelectType["aucune"] = 33] = "aucune";
-})(EnumSelectType || (EnumSelectType = {}));
-var SelectNameValue = /** @class */ (function () {
-    function SelectNameValue() {
-    }
-    return SelectNameValue;
-}());
-
-var SelectNameValueGroup = /** @class */ (function () {
-    function SelectNameValueGroup() {
-    }
-    return SelectNameValueGroup;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/main/_services/Referential/account-type.service.ts":
 /*!********************************************************************!*\
   !*** ./src/app/main/_services/Referential/account-type.service.ts ***!
@@ -419,61 +374,72 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var OperationService = /** @class */ (function () {
-    function OperationService(_http) {
-        this._http = _http;
+    function OperationService(_httpClient) {
+        this._httpClient = _httpClient;
         this.baseUrl = environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl;
         this.user = JSON.parse(localStorage.getItem('currentUser'));
         this.userForGroup = this.user != null ? { id: this.user.id, idUserGroup: this.user.idUserGroup } : null;
     }
     OperationService.prototype.GetSelectList = function (idOperationMethod, idOperationType, enumSelectType) {
-        return this._http
+        return this._httpClient
             .get(this.baseUrl + "referential/operations/user-groups/" + this.user.idUserGroup + "/operation-methods/" + idOperationMethod + "/operation-types/" + idOperationType + "/select-type/" + enumSelectType + "/operations")
             .map(function (response) { return response; });
     };
     OperationService.prototype.GetSelectListByOperationMethods = function (operationMethods) {
-        return this._http
+        return this._httpClient
             .post(this.baseUrl + "referential/operations/user-groups/" + this.user.idUserGroup + "/select-list", operationMethods)
             .map(function (res) { return res; });
     };
     OperationService.prototype.Create = function (operation) {
         operation.idUserGroup = this.user.idUserGroup;
-        return this._http
+        return this._httpClient
             .post(this.baseUrl + "referential/operations/create", operation)
             .map(function (res) { return res; });
     };
     /*---------------------------------------------------------------*/
-    OperationService.prototype.getTable = function (filter) {
+    OperationService.prototype.getOperationTable = function (filter) {
         filter.user = this.userForGroup;
-        return this._http
+        return this._httpClient
             .post(this.baseUrl + "referential/operations/filter", filter)
             .map(function (response) {
             return response;
         });
     };
-    OperationService.prototype.getTableFilter = function (filter) {
+    OperationService.prototype.getOperationTableFilter = function (filter) {
         filter.user = this.userForGroup;
-        return this._http
+        return this._httpClient
             .post(this.baseUrl + "referential/operations/table-filter", filter)
             .map(function (response) {
             return response;
         });
     };
-    OperationService.prototype.getDetail = function (idOperation) {
-        return this._http
-            .get(this.baseUrl + "referential/operations/" + idOperation + "/user-groups/" + this.userForGroup.idUserGroup + "/detail")
+    OperationService.prototype.getDetailFilter = function (filter) {
+        return this._httpClient
+            .post(this.baseUrl + "referential/operations/operation-detail-filter", filter);
+    };
+    OperationService.prototype.getForDetail = function (filter) {
+        return this._httpClient
+            .get(this.baseUrl + "referential/operations/" + filter.id + "/users/" + this.userForGroup.id + "/operation-detail")
             .map(function (response) { return response; });
     };
     OperationService.prototype.saveDetail = function (operationDetail) {
         operationDetail.user = this.userForGroup;
-        return this._http
+        return this._httpClient
             .post(this.baseUrl + "referential/operations/save", operationDetail)
             .map(function (response) {
             return response;
         });
     };
-    OperationService.prototype.deleteDetail = function (idOperation) {
-        return this._http
+    OperationService.prototype.deleteOperationDetail = function (idOperation) {
+        return this._httpClient
             .delete(this.baseUrl + "referential/operations/" + idOperation + "/delete")
+            .map(function (response) {
+            return response;
+        });
+    };
+    OperationService.prototype.deleteOperations = function (idOperationList) {
+        return this._httpClient
+            .post(this.baseUrl + "referential/operations/user-groups/" + this.userForGroup.idUserGroup + "/delete-operations", idOperationList)
             .map(function (response) {
             return response;
         });

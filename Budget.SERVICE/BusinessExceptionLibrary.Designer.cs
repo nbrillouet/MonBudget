@@ -86,5 +86,86 @@ namespace Budget.SERVICE {
                 return ResourceManager.GetString("BUS_OPE_ERR_002", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Catégorie opération obligatoire, suppression impossible.
+        /// </summary>
+        internal static string BUS_OTF_ERR_000 {
+            get {
+                return ResourceManager.GetString("BUS_OTF_ERR_000", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Catégorie opération utilisée dans un ou plusieurs import(s).
+        /// </summary>
+        internal static string BUS_OTF_ERR_001 {
+            get {
+                return ResourceManager.GetString("BUS_OTF_ERR_001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Catégorie opération utilisée dans un ou plusieurs relevé(s) de compte.
+        /// </summary>
+        internal static string BUS_OTF_ERR_002 {
+            get {
+                return ResourceManager.GetString("BUS_OTF_ERR_002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Catégorie opération utilisée dans une ou plusieurs type d&apos;opération(s).
+        /// </summary>
+        internal static string BUS_OTF_ERR_003 {
+            get {
+                return ResourceManager.GetString("BUS_OTF_ERR_003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Catégorie opération utilisée dans une ou plusieurs customisation utilisateur.
+        /// </summary>
+        internal static string BUS_OTF_ERR_004 {
+            get {
+                return ResourceManager.GetString("BUS_OTF_ERR_004", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Type opération obligatoire, suppression impossible.
+        /// </summary>
+        internal static string BUS_OTY_ERR_000 {
+            get {
+                return ResourceManager.GetString("BUS_OTY_ERR_000", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Type opération utilisée dans un ou plusieurs import(s).
+        /// </summary>
+        internal static string BUS_OTY_ERR_001 {
+            get {
+                return ResourceManager.GetString("BUS_OTY_ERR_001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Type opération utilisée dans un ou plusieurs relevé(s) de compte.
+        /// </summary>
+        internal static string BUS_OTY_ERR_002 {
+            get {
+                return ResourceManager.GetString("BUS_OTY_ERR_002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Type opération utilisée dans une ou plusieurs opération(s).
+        /// </summary>
+        internal static string BUS_OTY_ERR_003 {
+            get {
+                return ResourceManager.GetString("BUS_OTY_ERR_003", resourceCulture);
+            }
+        }
     }
 }

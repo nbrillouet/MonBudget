@@ -417,7 +417,7 @@ function FuseRegisterComponent_div_2_mat_error_19_Template(rf, ctx) { if (rf & 1
 var _c0 = function () { return { duration: "300ms", y: "100px" }; };
 var _c1 = function (a1) { return { value: "*", params: a1 }; };
 function FuseRegisterComponent_div_2_Template(rf, ctx) { if (rf & 1) {
-    var _r355 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+    var _r350 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 3);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 4);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](2, "img", 5);
@@ -426,7 +426,7 @@ function FuseRegisterComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4, "CREATE AN ACCOUNT");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "form", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngSubmit", function FuseRegisterComponent_div_2_Template_form_ngSubmit_5_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r355); var ctx_r354 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r354.register(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngSubmit", function FuseRegisterComponent_div_2_Template_form_ngSubmit_5_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r350); var ctx_r349 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r349.register(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "mat-form-field");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](7, "input", 8);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](8, FuseRegisterComponent_div_2_mat_error_8_Template, 2, 0, "mat-error", 9);
@@ -469,24 +469,24 @@ function FuseRegisterComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r347 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    var ctx_r342 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("@animate", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](11, _c1, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](10, _c0)));
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("formGroup", ctx_r347.registerForm);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("formGroup", ctx_r342.registerForm);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r347.registerFormErrors.name.required);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r342.registerFormErrors.name.required);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r347.registerFormErrors.email.required);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r342.registerFormErrors.email.required);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !ctx_r347.registerFormErrors.email.required && ctx_r347.registerFormErrors.email.email);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !ctx_r342.registerFormErrors.email.required && ctx_r342.registerFormErrors.email.email);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r347.registerFormErrors.password.required);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r342.registerFormErrors.password.required);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r347.registerFormErrors.passwordConfirm.required);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r342.registerFormErrors.passwordConfirm.required);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r347.registerFormErrors.passwordConfirm.passwordsNotMatch);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r342.registerFormErrors.passwordConfirm.passwordsNotMatch);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx_r347.registerForm.invalid);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx_r342.registerForm.invalid);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("routerLink", "/pages/auth/login");
 } }
@@ -944,11 +944,11 @@ function HomeNavigationComponent_li_17_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, HomeNavigationComponent_li_17_a_2_Template, 2, 2, "a", 22);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r364 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    var ctx_r359 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !ctx_r364.isDocumentation());
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !ctx_r359.isDocumentation());
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r364.isDocumentation());
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r359.isDocumentation());
 } }
 function HomeNavigationComponent_li_18_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 9);
@@ -1117,9 +1117,9 @@ function HomeComponent_mat_toolbar_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    var ctx_r356 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    var ctx_r351 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Bienvenue ", ctx_r356.user.userName, "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Bienvenue ", ctx_r351.user.userName, "");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("routerLink", "/apps/plans");
 } }
@@ -1145,7 +1145,7 @@ var HomeComponent = /** @class */ (function () {
     function HomeComponent(_fuseConfig) {
         this._fuseConfig = _fuseConfig;
         this.user = JSON.parse(localStorage.getItem('currentUser'));
-        console.log('at home');
+        this.image = '/assets/images/logos/MB_logo1.svg';
         this._fuseConfig.config = {
             layout: {
                 navbar: {
@@ -1166,7 +1166,7 @@ var HomeComponent = /** @class */ (function () {
     HomeComponent.prototype.ngOnInit = function () {
     };
     HomeComponent.ɵfac = function HomeComponent_Factory(t) { return new (t || HomeComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_fuse_services_config_service__WEBPACK_IMPORTED_MODULE_1__["FuseConfigService"])); };
-    HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: HomeComponent, selectors: [["home"]], decls: 121, vars: 14, consts: [[1, "wrapper"], ["color", "primary", 4, "ngIf"], [1, "page-header", "section-dark", 2, "background-image", "url('assets/images/home/login-image.jpg')"], [1, "filter"], [1, "content-center"], [1, "container"], [1, "title-brand"], [1, "angular-logo"], ["width", "100px", "height", "100px", "src", "assets/images/logos/MB_logo1.svg", "alt", ""], [1, "presentation-title"], [1, "presentation-subtitle", "text-center"], [1, "moving-clouds", 2, "background-image", "url('assets/images/home/clouds.png')"], [1, "category-absolute", "ml-auto", "mr-auto"], [1, "main"], [1, "section", "section-dark", "section-nucleo-icons"], [1, "row"], [1, "col-lg-6", "col-md-12"], [1, "title"], [1, "description"], [1, "btn", "btn-danger", "btn-round", 3, "routerLink"], ["href", "https://nucleoapp.com/?ref=1712", "target", "_blank", 1, "btn", "btn-outline-danger", "btn-round"], [1, "icons-container"], [1, "nc-icon", "nc-time-alarm"], [1, "nc-icon", "nc-atom"], [1, "nc-icon", "nc-camera-compact"], [1, "nc-icon", "nc-watch-time"], [1, "nc-icon", "nc-key-25"], [1, "nc-icon", "nc-diamond"], [1, "nc-icon", "nc-user-run"], [1, "nc-icon", "nc-layout-11"], [1, "nc-icon", "nc-badge"], [1, "nc-icon", "nc-bulb-63"], [1, "nc-icon", "nc-favourite-28"], [1, "nc-icon", "nc-planet"], [1, "nc-icon", "nc-tie-bow"], [1, "nc-icon", "nc-zoom-split"], [1, "nc-icon", "nc-cloud-download-93"], [1, "section", "section-dark"], [1, "col-md-8", "ml-auto", "mr-auto", "text-center"], [1, "section", "section-image", "section-login", 2, "background-image", "url('assets/images/home/login-image.jpg')"], [1, "col-lg-4", "col-md-6", "col-sm-12", "ml-auto", "mr-auto"], [1, "card", "card-register"], [1, "social-line", "text-center"], ["href", "#pablo", 1, "btn", "btn-neutral", "btn-facebook", "btn-just-icon"], [1, "fa", "fa-facebook-square"], ["href", "#pablo", 1, "btn", "btn-neutral", "btn-google", "btn-just-icon"], [1, "fa", "fa-google-plus"], ["href", "#pablo", 1, "btn", "btn-neutral", "btn-twitter", "btn-just-icon"], [1, "fa", "fa-twitter"], [1, "forgot"], ["href", "#", 1, "btn", "btn-link", "btn-danger"], ["routerLinkActive", "active", 1, "col", "text-center"], [1, "btn", "btn-outline-neutral", "btn-round", "btn-lg", 3, "routerLink"], [1, "row", "example-page"], ["routerLinkActive", "active", 1, "col-md-6", "text-center"], [3, "routerLink"], ["src", "./assets/images/home/landing-page.JPG", "alt", "Rounded Image", 1, "img-rounded", "img-responsive", 2, "width", "100%"], [1, "btn", "btn-outline-neutral", "btn-round", 3, "routerLink"], ["src", "./assets/images/home/profile-page.JPG", "alt", "Rounded Image", 1, "img-rounded", "img-responsive", 2, "width", "100%"], [1, "section"], [1, "container", "text-center"], [1, "col-md-6", "download-area", "ml-auto", "mr-auto"], ["href", "https://www.creative-tim.com/product/paper-kit-2", 1, "btn", "btn-warning", "btn-round"], ["href", "https://www.creative-tim.com/product/paper-kit-2-angular", 1, "btn", "btn-danger", "btn-round"], [1, "row", "justify-content-md-center", "sharing-area", "text-center"], [1, "text-center", "col-md-12", "col-lg-8"], ["href", "#pablo", "rel", "tooltip", "title", "Tweet!", 1, "btn", "btn-twitter-bg", "twitter-sharrre", "btn-round"], ["href", "#pablo", "rel", "tooltip", "title", "Share!", 1, "btn", "btn-google-bg", "linkedin-sharrre", "btn-round"], ["href", "#pablo", "rel", "tooltip", "title", "Share!", 1, "btn", "btn-facebook-bg", "facebook-sharrre", "btn-round"], ["href", "https://github.com/creativetimofficial/paper-kit", "rel", "tooltip", "title", "Star on Github", 1, "btn", "btn-github-bg", "btn-github", "sharrre", "btn-round"], [1, "fa", "fa-github"], ["color", "primary"], [1, "example-spacer"], ["mat-mini-fab", "", 3, "routerLink"], ["mat-raised-button", "", 3, "routerLink"]], template: function HomeComponent_Template(rf, ctx) { if (rf & 1) {
+    HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: HomeComponent, selectors: [["home"]], decls: 121, vars: 14, consts: [[1, "wrapper"], ["color", "primary", 4, "ngIf"], [1, "page-header", "section-dark", 2, "background-image", "url('assets/images/home/login-image.jpg')"], [1, "filter"], [1, "content-center"], [1, "container"], [1, "title-brand"], [1, "angular-logo"], ["src", "assets/images/logos/MB_logo1.svg", "width", "100px", "height", "100px"], [1, "presentation-title"], [1, "presentation-subtitle", "text-center"], [1, "moving-clouds", 2, "background-image", "url('assets/images/home/clouds.png')"], [1, "category-absolute", "ml-auto", "mr-auto"], [1, "main"], [1, "section", "section-dark", "section-nucleo-icons"], [1, "row"], [1, "col-lg-6", "col-md-12"], [1, "title"], [1, "description"], [1, "btn", "btn-danger", "btn-round", 3, "routerLink"], ["href", "https://nucleoapp.com/?ref=1712", "target", "_blank", 1, "btn", "btn-outline-danger", "btn-round"], [1, "icons-container"], [1, "nc-icon", "nc-time-alarm"], [1, "nc-icon", "nc-atom"], [1, "nc-icon", "nc-camera-compact"], [1, "nc-icon", "nc-watch-time"], [1, "nc-icon", "nc-key-25"], [1, "nc-icon", "nc-diamond"], [1, "nc-icon", "nc-user-run"], [1, "nc-icon", "nc-layout-11"], [1, "nc-icon", "nc-badge"], [1, "nc-icon", "nc-bulb-63"], [1, "nc-icon", "nc-favourite-28"], [1, "nc-icon", "nc-planet"], [1, "nc-icon", "nc-tie-bow"], [1, "nc-icon", "nc-zoom-split"], [1, "nc-icon", "nc-cloud-download-93"], [1, "section", "section-dark"], [1, "col-md-8", "ml-auto", "mr-auto", "text-center"], [1, "section", "section-image", "section-login", 2, "background-image", "url('assets/images/home/login-image.jpg')"], [1, "col-lg-4", "col-md-6", "col-sm-12", "ml-auto", "mr-auto"], [1, "card", "card-register"], [1, "social-line", "text-center"], ["href", "#pablo", 1, "btn", "btn-neutral", "btn-facebook", "btn-just-icon"], [1, "fa", "fa-facebook-square"], ["href", "#pablo", 1, "btn", "btn-neutral", "btn-google", "btn-just-icon"], [1, "fa", "fa-google-plus"], ["href", "#pablo", 1, "btn", "btn-neutral", "btn-twitter", "btn-just-icon"], [1, "fa", "fa-twitter"], [1, "forgot"], ["href", "#", 1, "btn", "btn-link", "btn-danger"], ["routerLinkActive", "active", 1, "col", "text-center"], [1, "btn", "btn-outline-neutral", "btn-round", "btn-lg", 3, "routerLink"], [1, "row", "example-page"], ["routerLinkActive", "active", 1, "col-md-6", "text-center"], [3, "routerLink"], ["src", "./assets/images/home/landing-page.JPG", "alt", "Rounded Image", 1, "img-rounded", "img-responsive", 2, "width", "100%"], [1, "btn", "btn-outline-neutral", "btn-round", 3, "routerLink"], ["src", "./assets/images/home/profile-page.JPG", "alt", "Rounded Image", 1, "img-rounded", "img-responsive", 2, "width", "100%"], [1, "section"], [1, "container", "text-center"], [1, "col-md-6", "download-area", "ml-auto", "mr-auto"], ["href", "https://www.creative-tim.com/product/paper-kit-2", 1, "btn", "btn-warning", "btn-round"], ["href", "https://www.creative-tim.com/product/paper-kit-2-angular", 1, "btn", "btn-danger", "btn-round"], [1, "row", "justify-content-md-center", "sharing-area", "text-center"], [1, "text-center", "col-md-12", "col-lg-8"], ["href", "#pablo", "rel", "tooltip", "title", "Tweet!", 1, "btn", "btn-twitter-bg", "twitter-sharrre", "btn-round"], ["href", "#pablo", "rel", "tooltip", "title", "Share!", 1, "btn", "btn-google-bg", "linkedin-sharrre", "btn-round"], ["href", "#pablo", "rel", "tooltip", "title", "Share!", 1, "btn", "btn-facebook-bg", "facebook-sharrre", "btn-round"], ["href", "https://github.com/creativetimofficial/paper-kit", "rel", "tooltip", "title", "Star on Github", 1, "btn", "btn-github-bg", "btn-github", "sharrre", "btn-round"], [1, "fa", "fa-github"], ["color", "primary"], [1, "example-spacer"], ["mat-mini-fab", "", 3, "routerLink"], ["mat-raised-button", "", 3, "routerLink"]], template: function HomeComponent_Template(rf, ctx) { if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, HomeComponent_mat_toolbar_1_Template, 7, 2, "mat-toolbar", 1);
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, HomeComponent_mat_toolbar_2_Template, 6, 1, "mat-toolbar", 1);
@@ -1483,11 +1483,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _home_home_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./home/home.module */ "./src/app/main/pages/home/home.module.ts");
 
 
-// import { Login2Module } from './authentication/login-2/login-2.module';
 
 
 
 
+// import { LazyLoadImageModule } from 'ng-lazyload-image';
 // import { Register2Module } from './authentication/register-2/register-2.module';
 // import { ForgotPasswordModule } from './authentication/forgot-password/forgot-password.module';
 // import { ForgotPassword2Module } from './authentication/forgot-password-2/forgot-password-2.module';
@@ -1510,6 +1510,7 @@ var FusePagesModule = /** @class */ (function () {
     }
     FusePagesModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: FusePagesModule });
     FusePagesModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function FusePagesModule_Factory(t) { return new (t || FusePagesModule)(); }, imports: [[
+                // LazyLoadImageModule,
                 // Auth
                 _home_home_module__WEBPACK_IMPORTED_MODULE_4__["HomeModule"],
                 _authentication_login_login_module__WEBPACK_IMPORTED_MODULE_1__["LoginModule"],
@@ -1547,6 +1548,7 @@ var FusePagesModule = /** @class */ (function () {
 }());
 
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](FusePagesModule, { imports: [
+        // LazyLoadImageModule,
         // Auth
         _home_home_module__WEBPACK_IMPORTED_MODULE_4__["HomeModule"],
         _authentication_login_login_module__WEBPACK_IMPORTED_MODULE_1__["LoginModule"],
@@ -1583,7 +1585,11 @@ var FusePagesModule = /** @class */ (function () {
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FusePagesModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
+                declarations: [
+                // ProgressiveImageLoaderDirective
+                ],
                 imports: [
+                    // LazyLoadImageModule,
                     // Auth
                     _home_home_module__WEBPACK_IMPORTED_MODULE_4__["HomeModule"],
                     _authentication_login_login_module__WEBPACK_IMPORTED_MODULE_1__["LoginModule"],

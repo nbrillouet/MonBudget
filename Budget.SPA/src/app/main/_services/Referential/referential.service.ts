@@ -1,13 +1,13 @@
 import { Injectable, Injector } from "@angular/core";
 import { OperationMethodService } from "./operation-method.service";
-import { OperationTypeFamilyService } from "./operation-type-family.service";
-import { OperationTypeService } from "./operation-type.service";
 import { AccountTypeService } from "./account-type.service";
 import { AccountService } from "./account.service";
 import { OperationService } from "./operation.service";
 import { OperationTransverseService } from "./operation-tranverse.service";
 import { BankAgencyService } from "./bank-agency.service";
 import { BankSubFamilyService } from "./bank-sub-family.service";
+import { OtService } from "./operation-type.service";
+import { OtfService } from "./operation-type-family.service";
 
 //FACADE
 @Injectable()
@@ -58,21 +58,21 @@ export class ReferentialService {
     }
   
     //OperationTypeFamilyService
-    private _operationTypeFamilyService: OperationTypeFamilyService;
-    public get operationTypeFamilyService(): OperationTypeFamilyService {
-        if(!this._operationTypeFamilyService){
-        this._operationTypeFamilyService = this.injector.get(OperationTypeFamilyService);
+    private _otfService: OtfService;
+    public get operationTypeFamilyService(): OtfService {
+        if(!this._otfService){
+        this._otfService = this.injector.get(OtfService);
         }
-        return this._operationTypeFamilyService;
+        return this._otfService;
     }
 
     //OperationTypeService
-    private _operationTypeService: OperationTypeService;
-    public get operationTypeService(): OperationTypeService {
-        if(!this._operationTypeService){
-        this._operationTypeService = this.injector.get(OperationTypeService);
+    private _otService: OtService;
+    public get operationTypeService(): OtService {
+        if(!this._otService){
+        this._otService = this.injector.get(OtService);
         }
-        return this._operationTypeService;
+        return this._otService;
     }
 
     //OperationTransverseService

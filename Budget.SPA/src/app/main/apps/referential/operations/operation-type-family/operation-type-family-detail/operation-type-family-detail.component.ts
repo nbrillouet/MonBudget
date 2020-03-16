@@ -2,18 +2,20 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
 import { fuseAnimations } from '@fuse/animations';
-import { Observable } from 'rxjs';
-import { OtfDetail } from 'app/main/_models/referential/operation-type-family.model';
+import { Observable, Subscription } from 'rxjs';
+import { OtfForDetail } from 'app/main/_models/referential/operation-type-family.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
-import { OtfService } from '../operation-type-family.service';
 import { FilterSelected } from 'app/main/_models/generics/filter.info.model';
-import { Datas } from 'app/main/_models/generics/detail-info.model';
+import { Datas, DetailInfo, DataInfo } from 'app/main/_models/generics/detail-info.model';
 import { OtfDetailState } from 'app/main/_ngxs/referential/operation-type-family/otf-detail/otf-detail.state';
-import { FilterOtfTableSelected } from 'app/main/_models/filters/operation-type-family.filter';
+import { FilterOtfTableSelected, FilterOtfDetail } from 'app/main/_models/filters/operation-type-family.filter';
 import { OtfTableFilterSelectedState } from 'app/main/_ngxs/referential/operation-type-family/otf-table/otf-table-filter-selected/otf-table-filter-selected.state';
-import { LoadOtfDetail, ClearOtfDetail } from 'app/main/_ngxs/referential/operation-type-family/otf-detail/otf-detail.action';
+import { LoadOtfDetail, ClearOtfDetail, SynchronizeOtfDetail } from 'app/main/_ngxs/referential/operation-type-family/otf-detail/otf-detail.action';
 import { SynchronizeOtfTableFilterSelected } from 'app/main/_ngxs/referential/operation-type-family/otf-table/otf-table-filter-selected/otf-table-filter-selected.action';
+import { OtfService } from 'app/main/_services/Referential/operation-type-family.service';
+import { OtfDetailFilterState } from 'app/main/_ngxs/referential/operation-type-family/otf-detail/otf-detail-filter/otf-detail-filter.state';
+import { FilterForDetail } from 'app/main/_models/filters/shared/filterDetail.filter';
 
 @Component({
   selector: 'operation-type-family-detail',
@@ -22,15 +24,16 @@ import { SynchronizeOtfTableFilterSelected } from 'app/main/_ngxs/referential/op
   animations   : fuseAnimations
 })
 export class OperationTypeFamilyDetailComponent implements OnInit, OnDestroy {
-@Select(OtfDetailState.get) otfDetail$: Observable<Datas<OtfDetail>>;
-@Select(OtfTableFilterSelectedState.get) otfTableFilterSelected$: Observable<FilterSelected<FilterOtfTableSelected>>;
+  @Select(OtfDetailState.get) detailInfo$: Observable<DetailInfo<OtfForDetail, FilterForDetail>>;
+  @Select(OtfDetailFilterState.get) detailFilterInfo$: Observable<DataInfo<FilterOtfDetail>>;
 
-idOperationTypeFamily: number;
+  @Select(OtfTableFilterSelectedState.get) otfTableFilterSelected$: Observable<FilterSelected<FilterOtfTableSelected>>;
+
+$DetailInfo$: Subscription;
+otfForDetail: OtfForDetail
+
 filterOtfSelected: FilterOtfTableSelected;
-otfDetail: OtfDetail;
 firstLoad: boolean=true;
-formLoaded: boolean;
-
 otfDetailForm: FormGroup;
 
   constructor(
@@ -42,23 +45,21 @@ otfDetailForm: FormGroup;
   ) { 
 
     this.otfTableFilterSelected$.subscribe(selected=>{
-      this.filterOtfSelected = selected.selected; // JSON.parse(JSON.stringify(otfTableFilter.filters));
+      if(selected?.loader['filter-selected']?.loaded) {
+        this.filterOtfSelected = selected.selected; 
+      }
     });
 
-
-    this.otfDetail$.subscribe(otfDetail=>{
-   
-      if(otfDetail?.loader['datas']?.loaded) {
-
-        this.otfDetail = JSON.parse(JSON.stringify(otfDetail.datas));
- 
+    this.$DetailInfo$ = this.detailInfo$.subscribe(x => {
+      if(x?.loader['datas']?.loaded) {
+        console.log('x',x);
+        this.otfForDetail = x.datas;
         if(this.firstLoad) {
           //creation du formulaire
           this.createForms();
           this.firstLoad=false;
+          console.log('firstLoad',this.firstLoad);
         }
-
-        this.formLoaded=true;
       }
     });
 
@@ -66,8 +67,8 @@ otfDetailForm: FormGroup;
 
   ngOnInit() {
     this._activatedRoute.params.subscribe(routeParams => {
-      this.idOperationTypeFamily = routeParams['idOperationTypeFamily']=='new' ? -1 : routeParams['idOperationTypeFamily'];
-      this._store.dispatch(new LoadOtfDetail(this.idOperationTypeFamily));
+      let idOtf = routeParams['idOperationTypeFamily']=='new' ? 0 : routeParams['idOperationTypeFamily'];
+      this._store.dispatch(new LoadOtfDetail(<FilterForDetail>{ id:idOtf }));
     });
   }
 
@@ -78,24 +79,24 @@ otfDetailForm: FormGroup;
   createForms() {
     
     this.otfDetailForm = this._formBuilder.group({
-        label: [this.otfDetail.label, [Validators.required]],
-        logoClassName: [this.otfDetail.logoClassName.selected, [Validators.required]],
-        movement: [this.otfDetail.movement.selected, [Validators.required]],
+        label: [this.otfForDetail.label, [Validators.required]],
+        asset: [this.otfForDetail.asset, [Validators.required]],
+        movement: [this.otfForDetail.movement, [Validators.required]],
       });
      
     this.otfDetailForm.valueChanges.subscribe(val=>{
-        this.otfDetail.label = val.label;
-        this.otfDetail.logoClassName.selected = val.logoClassName;
-        this.otfDetail.movement.selected = val.movement;
-        //TODO synchronize
-        // this._store.dispatch(new LoadOtfDetailSuccess(this.otfDetail));
+        this.otfForDetail.label = val.label;
+        this.otfForDetail.asset = val.asset;
+        this.otfForDetail.movement = val.movement;
+        
+        this._store.dispatch(new SynchronizeOtfDetail(this.otfForDetail));
       });
  
   }  
 
   
-  saveOtf() {
-    this._otfService.saveOtfDetail(this.otfDetail)
+  save() {
+    this._otfService.save(this.otfForDetail)
       .subscribe(resp=> {
         if(resp)
         {

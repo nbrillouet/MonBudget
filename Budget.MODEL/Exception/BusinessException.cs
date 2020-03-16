@@ -26,5 +26,16 @@ namespace Budget.MODEL
         BUS_OPE_ERR_000,     //Opération obligatoire, suppression impossible
         BUS_OPE_ERR_001,     //Opération utilisée dans un ou plusieurs imports
         BUS_OPE_ERR_002,     //Opération utilisée dans un ou plusieurs relevés de compte
+
+        BUS_OTY_ERR_000,     //Type opération obligatoire, suppression impossible
+        BUS_OTY_ERR_001,     //Type opération utilisée dans un ou plusieurs import(s)
+        BUS_OTY_ERR_002,     //Type opération utilisée dans un ou plusieurs relevé(s) de compte
+        BUS_OTY_ERR_003,     //Type opération utilisée dans une ou plusieurs opération(s)
+
+        BUS_OTF_ERR_000,     //Catégorie opération obligatoire, suppression impossible
+        BUS_OTF_ERR_001,     //Catégorie opération utilisée dans un ou plusieurs import(s)
+        BUS_OTF_ERR_002,     //Catégorie opération utilisée dans un ou plusieurs relevé(s) de compte
+        BUS_OTF_ERR_003,     //Catégorie opération utilisée dans une ou plusieurs type d'opération(s)
+        BUS_OTF_ERR_004,     //Catégorie opération utilisée dans une ou plusieurs customisation utilisateur
     }
 }

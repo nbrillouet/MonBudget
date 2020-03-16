@@ -51,6 +51,13 @@ namespace Budget.SERVICE
             return userForDetailDto;
         }
 
+        public UserForGroupDto GetForUserGroup(int id)
+        {
+            var user = _userRepository.GetById(id);
+
+            return _mapper.Map<UserForGroupDto>(user);
+        }
+
         public async Task<User> GetByIdAsync(int id)
         {
             var user = await _userRepository.GetByIdAsync(id);

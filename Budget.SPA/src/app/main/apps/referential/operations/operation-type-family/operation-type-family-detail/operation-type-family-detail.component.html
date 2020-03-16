@@ -1,4 +1,6 @@
-<div id="product" class="page-layout carded fullwidth" fusePerfectScrollbar>
+<div 
+    *ngIf="!firstLoad && (detailFilterInfo$ | async)?.loader['datas']?.loaded as loaded else tp_progress"
+    class="page-layout carded fullwidth" fusePerfectScrollbar>
 
     <!-- TOP BACKGROUND -->
     <div class="top-bg accent"></div>
@@ -17,18 +19,18 @@
                     [routerLink]="['/apps/referential/operations/operation-type-families']">
                     <mat-icon>arrow_back</mat-icon>
                 </button>
-
-                <div class="product-image mr-8 mr-sm-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-                    <img *ngIf="formLoaded && otfDetail" [src]="'assets/images/Otf/'+otfDetail.logoClassName.selected.label+'_128.png'">
+                
+                <div class="header-image mr-8 mr-sm-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    <img [src]="(detailInfo$ | async).datas.asset.label">
                 </div>
 
                 <div fxLayout="column" fxLayoutAlign="start start"
                      *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                    <div class="h2" *ngIf="formLoaded && otfDetail && idOperationTypeFamily!=-1" >
-                        {{otfDetail.label}}
+                    <div class="h2" *ngIf="(detailInfo$ | async).datas.id" >
+                        {{otfForDetail.label}}
                     </div>
-                    <div class="h2" *ngIf="formLoaded && otfDetail && idOperationTypeFamily==-1" >
-                            Nouvelle catégorie d'opération
+                    <div class="h2" *ngIf="!(detailInfo$ | async).datas.id" >
+                        Nouvelle catégorie d'opération
                     </div>
                     <div class="subtitle secondary-text">
                         <span>Détail de la catégorie d'opérations</span>
@@ -36,10 +38,10 @@
                 </div>
             </div>
             <!-- / APP TITLE -->
-            <button mat-raised-button *ngIf="formLoaded && otfDetail"
+            <button mat-raised-button 
                 class="save-product-button mat-white-bg mt-16 mt-sm-0"
                 [disabled]= "otfDetailForm.invalid || otfDetailForm.pristine"
-                (click)="saveOtf()"
+                (click)="save()"
             >
                 <span>ENREGISTRER</span>
             </button>
@@ -49,7 +51,7 @@
         <!-- CONTENT CARD -->
         <div class="content-card white">
 
-            <form *ngIf="formLoaded && otfDetail" 
+            <form 
                 name="otfDetailForm" 
                 [formGroup]="otfDetailForm" 
                 class="product w-100-p" 
@@ -68,7 +70,7 @@
                     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
                         <mat-label>Mouvement</mat-label>
                         <mat-select formControlName="movement" placeholder="Mouvement" [compareWith]="compareObjects" >
-                            <mat-option *ngFor="let item of otfDetail.movement.list" [value]="item">
+                            <mat-option *ngFor="let item of (detailFilterInfo$ | async).datas.movement" [value]="item">
                                 {{ item.label }}
                             </mat-option>
                         </mat-select>
@@ -76,9 +78,9 @@
 
                     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
                         <mat-label>Icône</mat-label>
-                        <mat-select formControlName="logoClassName" placeholder="Icône" [compareWith]="compareObjects" >
-                            <mat-option *ngFor="let item of otfDetail.logoClassName.list" [value]="item">
-                                <img [src]="'assets/images/Otf/'+item.label+'_32.png'">
+                        <mat-select formControlName="asset" placeholder="Icône" [compareWith]="compareObjects" >
+                            <mat-option *ngFor="let item of (detailFilterInfo$ | async).datas.asset" [value]="item">
+                                <img [src]="item.label">
                                 {{ item.label }}
                             </mat-option>
                         </mat-select>
@@ -100,5 +102,27 @@
     </div>
     <!-- / CENTER -->
 </div>
+
+<ng-template #tp_progress>
+    <mat-progress-bar
+        color="primary"
+        mode="indeterminate">
+    </mat-progress-bar>
+</ng-template>
+
+
+<!-- <svg id="icon-phone"> 
+	<g>
+		<rect x="0" y="0" width="100" height="100" fill="#000000"
+		  />
+		
+</g>
+</svg> -->
+
+<!-- <svg id="icon-phone" width="200px" height="200px" viewBox="0 0 2000 2000" preserveAspectRatio="xMidYMid meet">
+    <g id="layer101" fill="#000000" stroke="none">
+        <path d="M355.23 448c14.876 73.042 79.376 128 156.792 128 77.418 0 141.916-54.958 156.752-128h64c-15.668 108.25-108.168 192-220.752 192-112.542 0-205.082-83.75-220.75-192h63.958zM512.022 704c17.666 0 32 14.334 32 32v64c0 17.666-14.334 32-32 32-17.664 0-32-14.334-32-32v-64c0-17.666 14.336-32 32-32zM806.146 710.166c-12.498 12.5-32.748 12.5-45.25 0l-45.25-45.25c-12.498-12.5-12.498-32.75 0-45.25 12.502-12.5 32.752-12.5 45.25 0l45.25 45.25c12.5 12.5 12.5 32.75 0 45.25zM308.354 664.916l-45.25 45.25c-12.498 12.5-32.746 12.5-45.25 0-12.498-12.5-12.498-32.75 0-45.25l45.25-45.25c12.504-12.5 32.752-12.5 45.25 0 12.504 12.5 12.504 32.75 0 45.25zM704.022 384h-384c-17.664 0-32-14.334-32-32s14.336-32 32-32h384c17.666 0 32 14.334 32 32s-14.334 32-32 32zM640.022 256h-256c-17.664 0-32-14.334-32-32s14.336-32 32-32h256c17.666 0 32 14.334 32 32s-14.334 32-32 32z"/>
+    </g>
+</svg> -->
 
 

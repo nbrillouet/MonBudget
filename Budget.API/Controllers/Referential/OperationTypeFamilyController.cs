@@ -4,6 +4,7 @@ using Budget.MODEL.Dto;
 using Budget.MODEL.Filter;
 using Budget.SERVICE;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,15 @@ namespace Budget.API.Controllers.Referential
     [Route("api/referential/operation-type-families")]
     public class OperationTypeFamilyController : Controller
     {
-        private IOperationTypeFamilyService _operationTypeFamilyService;
+        private ReferentialService _referentialService;
         private FilterService _filterService;
 
         public OperationTypeFamilyController(
-            IOperationTypeFamilyService operationTypeFamilyService,
+            ReferentialService referentialService,
             FilterService filterService
         )
         {
-            _operationTypeFamilyService = operationTypeFamilyService;
+            _referentialService = referentialService;
             _filterService = filterService;
         }
 
@@ -33,7 +34,7 @@ namespace Budget.API.Controllers.Referential
         [Route("user-groups/{idUser}/movements/{idMovement}/select-type/{idSelectType}/select-list")]
         public IActionResult GetSelectList(int idUserGroup, int idMovement, int idSelectType)
         {
-            var selectsDto = _operationTypeFamilyService.GetSelectList(idUserGroup, (EnumMovement)idMovement,(EnumSelectType)idSelectType);
+            var selectsDto = _referentialService.OperationTypeFamilyService.GetSelectList(idUserGroup, (EnumMovement)idMovement,(EnumSelectType)idSelectType);
 
             return Ok(selectsDto);
         }
@@ -42,7 +43,7 @@ namespace Budget.API.Controllers.Referential
         [Route("user-groups/{idUser}/select-group-list")]
         public IActionResult GetSelectGroupList(int idUserGroup)
         {
-            var selectsDto = _operationTypeFamilyService.GetSelectGroup(idUserGroup);
+            var selectsDto = _referentialService.OperationTypeFamilyService.GetSelectGroup(idUserGroup);
 
             return Ok(selectsDto);
         }
@@ -58,46 +59,71 @@ namespace Budget.API.Controllers.Referential
 
         [HttpPost]
         [Route("filter")]
-        public IActionResult getOtfTable([FromBody] FilterOtfTableSelected filter)
+        public IActionResult getForTable([FromBody] FilterOtfTableSelected filter)
         {
-            var pagedList = _operationTypeFamilyService.GetOtfTable(filter);
+            var pagedList = _referentialService.OperationTypeFamilyService.GetForTable(filter);
 
             return Ok(pagedList);
-
         }
 
         [HttpGet]
-        [Route("{idOperationTypeFamily}/detail")]
-        public IActionResult GetOtfDetail(int idOperationTypeFamily)
+        [Route("{idOperationTypeFamily}/users/{idUser}/operation-type-family-detail")]
+        public IActionResult GetForDetail(int idOperationTypeFamily, int idUser)
         {
-            var results = _operationTypeFamilyService.GetOtfDetail(idOperationTypeFamily);
+            var results = _referentialService.OperationTypeFamilyService.GetForDetail(idOperationTypeFamily, idUser);
             return Ok(results);
         }
 
         [HttpPost]
-        [Route("save")]
-        public IActionResult SaveOtfDetail([FromBody] OtfForDetailDto otfForDetailDto)
+        [Route("operation-type-family-detail-filter")]
+        public IActionResult GetForDetailFilter([FromBody] OtfForDetail otfForDetail)
         {
-            var pagedList = _operationTypeFamilyService.SaveOtfDetail(otfForDetailDto);
+            return Ok(_filterService.FilterDetailService.GetFilterForOtf(otfForDetail));
+        }
+
+        [HttpPost]
+        [Route("operation-type-family-save")]
+        public IActionResult Save([FromBody] OtfForDetail otfForDetailDto)
+        {
+            var pagedList = _referentialService.OperationTypeFamilyService.Save(otfForDetailDto);
 
             return Ok(pagedList);
 
         }
 
-        [HttpDelete]
-        [Route("{idOtf}/delete")]
-        public IActionResult DeleteOtfDetail(int idOtf)
+        [HttpPost]
+        [Route("user-groups/{idUserGroup}/delete-operation-type-family-list")]
+        public IActionResult DeleteList(int idUserGroup, [FromBody] List<int> idOtfList)
         {
             try
             {
-                var results = _operationTypeFamilyService.DeleteOtfDetail(idOtf);
-                return Ok(results);
+                _referentialService.OperationTypeFamilyService.DeleteList(idOtfList, idUserGroup);
+                return Ok("delete-operation-type-list-OK");
             }
-            catch(Exception e)
+            catch (BusinessException e)
             {
-                return BadRequest(e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.BusinessExceptionMessages);
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception);
             }
         }
+
+        //[HttpDelete]
+        //[Route("{idOtf}/delete")]
+        //public IActionResult DeleteOtfDetail(int idOtf)
+        //{
+        //    try
+        //    {
+        //        var results = _operationTypeFamilyService.DeleteOtfDetail(idOtf);
+        //        return Ok(results);
+        //    }
+        //    catch(Exception e)
+        //    {
+        //        return BadRequest(e.Message);
+        //    }
+        //}
 
     }
 

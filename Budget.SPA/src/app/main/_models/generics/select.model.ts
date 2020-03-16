@@ -3,9 +3,7 @@ export interface ISelect {
     label: string;
 }
 
-export interface ISelectGroup {
-    id: number;
-    label: string;
+export interface ISelectGroup extends ISelect {
     selects: ISelect[];
 }
 

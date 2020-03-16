@@ -14,10 +14,10 @@ import { SynchronizeOtfTableFilterSelected } from 'app/main/_ngxs/referential/op
 import { LoadOtfTableFilterSelection } from 'app/main/_ngxs/referential/operation-type-family/otf-table/otf-table-filter-selection/otf-table-filter-selection.action';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
-import { OtfService } from '../operation-type-family.service';
 import { NotificationsService } from 'angular2-notifications';
 import { OTF_COLUMNS } from 'app/main/_constants/mat-table-filter-column.const';
 import { MatTableFilter } from 'app/main/apps/web-component/mat-table-filter/model/mat-table-filter.model';
+import { OtfService } from 'app/main/_services/Referential/operation-type-family.service';
 
 @Component({
   selector: 'operation-type-family-table',
@@ -38,7 +38,7 @@ export class OperationTypeFamilyTableComponent implements OnInit {
     filterSelection$: this.otfTableFilterSelection$,
     filterSelected$: this.otfTableFilterSelected$,
     table$: this.otfTable$,
-    toolbar: null
+    toolbar: {buttonAdd: {enabled: true,tooltip:'Ajouter une catégorie d\'opération' }, buttonDelete:{enabled:true,tooltip:'supprimer catégorie d\'opération(s)'}, buttonFullscreen:{enabled:true} }
   };
 
   // columns = OTF_COLUMNS;
@@ -94,27 +94,41 @@ export class OperationTypeFamilyTableComponent implements OnInit {
     this._store.dispatch(new LoadOtfTableFilterSelection(selected));
   }
 
-  delete($event) {
-    this.confirmDialogRef = this._dialog.open(FuseConfirmDialogComponent, {
-          disableClose: false
-        });
-    
-        this.confirmDialogRef.componentInstance.confirmMessage = 'Etes vous sûr de supprimer cette catégorie d\'opération? Tous les types d\'opérations associés et les opérations seront supprimés';
-    
-        this.confirmDialogRef.afterClosed().subscribe(result => {
-          if (result)
-            {
-                this._otfService.deleteOtfDetail($event.id)
-                .subscribe(resp => {
-                  this._store.dispatch(new SynchronizeOtfTableFilterSelected(this.filterOtfSelected));
-                  this._notificationService.success('Suppression réussi', 'La catégorie d\'opération est supprimé');
-                }, error => {
-                  this._notificationService.error('Echec suppression', error);
-                })
-            }
-            this.confirmDialogRef = null;
-        });
+  addItem($event) {
+    this._router.navigate(['apps/referential/operations/operation-type-families/new']);
   }
+
+  deleteItems($event) {
+    console.log('delete', $event);
+    this._otfService.deleteOtfList($event).subscribe(resp => {
+      this._store.dispatch(new SynchronizeOtfTableFilterSelected(this.filterOtfSelected));
+      this._notificationService.success('Suppression réussie', `${$event.lentgh} catégorie opération(s) supprimée(s)`);
+    }, error => {
+      this._notificationService.error('Echec suppression', error);
+    })
+  }
+
+  // delete($event) {
+  //   this.confirmDialogRef = this._dialog.open(FuseConfirmDialogComponent, {
+  //         disableClose: false
+  //       });
+    
+  //       this.confirmDialogRef.componentInstance.confirmMessage = 'Etes vous sûr de supprimer cette catégorie d\'opération? Tous les types d\'opérations associés et les opérations seront supprimés';
+    
+  //       this.confirmDialogRef.afterClosed().subscribe(result => {
+  //         if (result)
+  //           {
+  //               this._otfService.deleteOtfDetail($event.id)
+  //               .subscribe(resp => {
+  //                 this._store.dispatch(new SynchronizeOtfTableFilterSelected(this.filterOtfSelected));
+  //                 this._notificationService.success('Suppression réussi', 'La catégorie d\'opération est supprimé');
+  //               }, error => {
+  //                 this._notificationService.error('Echec suppression', error);
+  //               })
+  //           }
+  //           this.confirmDialogRef = null;
+  //       });
+  // }
 
 
 

@@ -44,14 +44,16 @@ namespace Budget.MODEL.Dto
         public SelectDto OperationType { get; set; }
         public UserForGroupDto User { get; set; }
         public bool IsMandatory { get; set; }
+
+        public bool IsUsed { get; set; }
     }
 
     public class OperationForDetail
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Label { get; set; }
-        public ComboSimple<SelectDto> OperationMethod { get; set; }
-        public ComboSimple<SelectGroupDto> OperationType { get; set; }
+        public SelectDto OperationMethod { get; set; }
+        public SelectDto OperationType { get; set; }
         public UserForGroupDto User { get; set; }
         public bool IsMandatory { get; set; }
     }

@@ -30,6 +30,8 @@ namespace Budget.DATA.Repositories
         List<AccountStatementImportFile> GetAsifsWithoutDuplicate(int idImport);
 
         bool HasOperation(int idOperation);
+        bool HasOt(int idOt);
+        bool HasOtf(int idOtf);
 
     }
 }

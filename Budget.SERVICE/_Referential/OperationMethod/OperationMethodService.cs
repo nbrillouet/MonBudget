@@ -38,7 +38,12 @@ namespace Budget.SERVICE
             return selectList;
         }
 
+        public SelectDto GetSelect(int idOperationMethod)
+        {
+            var operationMethod = _operationMethodRepository.GetById(idOperationMethod);
 
+            return _mapper.Map<SelectDto>(operationMethod);
+        }
 
 
 

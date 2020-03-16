@@ -50,8 +50,7 @@ namespace Budget.MODEL.Dto
         public bool IsDuplicated { get; set; }
 
         public int IdMovement { get; set; }
-        public string LogoName { get; set; }
-        public string LogoUrl { get; set; }
+        public SelectDto Asset { get; set; }
         public string OperationKeywordTemp { get; set; }
         public string OperationLabelTemp { get; set; }
         public string PlaceLabelTemp { get; set; }

@@ -14,10 +14,8 @@ namespace Budget.DATA.Repositories
         List<OperationTypeFamily> GetAllByOrder(int idUserGroup);
         List<OperationTypeFamily> GetByIdList(List<int> idList);
         OperationTypeFamily GetByCodeUserGroup(EnumCodeOtf enumCodeOtf, int idUserGroup);
-
-        PagedList<OperationTypeFamily> GetOtfTable(FilterOtfTableSelected filter);
-        OperationTypeFamily GetOtfDetail(int idOperationTypeFamily);
-        //OperationTypeFamily GetUnknown(int idUserGroup);
+        PagedList<OperationTypeFamily> GetForTable(FilterOtfTableSelected filter);
+        OperationTypeFamily GetForDetail(int idOtf);
 
         void DeleteWithEscalation(OperationTypeFamily operationTypeFamily);
 

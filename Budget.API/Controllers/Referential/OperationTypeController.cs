@@ -3,6 +3,7 @@ using Budget.MODEL.Dto;
 using Budget.MODEL.Filter;
 using Budget.SERVICE;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -61,44 +62,69 @@ namespace Budget.API.Controllers.Referential
 
         [HttpPost]
         [Route("filter")]
-        public IActionResult getOtTable([FromBody] FilterOtTableSelected filter)
+        public IActionResult getForTable([FromBody] FilterOtTableSelected filter)
         {
-            var pagedList = _operationTypeService.GetOtTable(filter);
+            var pagedList = _operationTypeService.GetForTable(filter);
 
             return Ok(pagedList);
 
         }
 
         [HttpGet]
-        [Route("{idOperationType}/user-groups/{idUserGroup}/detail")]
-        public IActionResult GetOtDetail(int idOperationType, int idUserGroup)
+        [Route("{idOperationType}/users/{idUser}/detail")]
+        public IActionResult GetOtDetail(int idOperationType, int idUser)
         {
-            var results = _operationTypeService.GetOtDetail(idOperationType, idUserGroup);
+            var results = _operationTypeService.GetForDetail(idOperationType, idUser);
             return Ok(results);
         }
 
         [HttpPost]
-        [Route("save")]
-        public IActionResult SaveOtDetail([FromBody] OtForDetailDto otForDetailDto)
+        [Route("operation-type-detail-filter")]
+        public IActionResult GetForDetailFilter([FromBody] OtForDetail otForDetail)
         {
-            var pagedList = _operationTypeService.SaveOtDetail(otForDetailDto);
-
-            return Ok(pagedList);
-
+            return Ok(_filterService.FilterDetailService.GetFilterForOt(otForDetail));
         }
 
-        [HttpDelete]
-        [Route("{idOt}/delete")]
-        public IActionResult DeleteOtDetail(int idOt)
+        [HttpPost]
+        [Route("save")]
+        public IActionResult Save([FromBody] OtForDetail otForDetail)
+        {
+            var pagedList = _operationTypeService.Save(otForDetail);
+
+            return Ok(pagedList);
+        }
+
+        //[HttpDelete]
+        //[Route("{idOt}/delete")]
+        //public IActionResult DeleteOtDetail(int idOt)
+        //{
+        //    try
+        //    {
+        //        var results = _operationTypeService.DeleteOtDetail(idOt);
+        //        return Ok(results);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return BadRequest(e.Message);
+        //    }
+        //}
+
+        [HttpPost]
+        [Route("user-groups/{idUserGroup}/delete-operation-type-list")]
+        public IActionResult DeleteOtList(int idUserGroup, [FromBody] List<int> idOtList)
         {
             try
             {
-                var results = _operationTypeService.DeleteOtDetail(idOt);
-                return Ok(results);
+                _referentialService.OperationTypeService.DeleteOtList(idOtList, idUserGroup);
+                return Ok("delete-operation-type-list-OK");
             }
-            catch (Exception e)
+            catch (BusinessException e)
             {
-                return BadRequest(e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.BusinessExceptionMessages);
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception);
             }
         }
 

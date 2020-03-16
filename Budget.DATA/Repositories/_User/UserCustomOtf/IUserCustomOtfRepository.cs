@@ -7,5 +7,6 @@ namespace Budget.DATA.Repositories
     {
         List<OperationTypeFamily> GetOperationTypeFamilySelect(int idUser,int? idAccount);
         List<UserCustomOtf> Get(int idUser, int? idAccount);
+        bool HasOtf(int idOtf);
     }
 }

@@ -34,10 +34,10 @@ namespace Budget.MODEL.Dto
         public string LabelOperation { get; set; }
         public DateTime? DateIntegration { get; set; }
         public bool IsDuplicated { get; set; }
-
         public int IdMovement { get; set; }
-        public string LogoName { get; set; }
-        public string LogoUrl { get; set; }
+        public SelectDto Asset { get; set; }
+        //public string LogoName { get; set; }
+        //public string LogoUrl { get; set; }
         public bool IsLocalisable { get; set; }
         public OperationDetailDto OperationDetail { get; set; }
         public GMapSearchInfoDto GMapSearchInfo { get; set; }

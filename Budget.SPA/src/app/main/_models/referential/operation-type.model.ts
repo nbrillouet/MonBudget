@@ -1,6 +1,5 @@
 import { ISelect } from "../generics/select.model";
 import { IUserForGroup } from "../user.model";
-import { ComboSimple } from "../generics/combo.model";
 
 export interface OtTable {
     id : number;
@@ -8,12 +7,13 @@ export interface OtTable {
     operationTypeFamily: ISelect;
     user: IUserForGroup;
     isMandatory: boolean;
+    isUsed: boolean;
 }
 
-export interface OtDetail {
+export interface OtForDetail {
     id : number;
     label : string;
-    operationTypeFamily : ComboSimple<ISelect>;
+    operationTypeFamily : ISelect;
     user: IUserForGroup;
     isMandatory: boolean;
 }

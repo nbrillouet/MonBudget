@@ -1,10 +1,18 @@
 import { Loader } from "./loading-info.model";
 
+
 export class Datas<T> extends Loader {
     datas: T;
     constructor() {
         super();
         this.datas = null;
+    }
+}
+
+export class DatasFilter<T,U> extends Datas<T>  {
+    filter: U;
+    constructor () {
+        super();
     }
 }
 
@@ -17,10 +25,9 @@ export class DataInfo<T> extends Loader {
     }
 }
 
-
-
-export class DatasFilter<T,U> extends Datas<T>  {
+export class DetailInfo<T,U> extends DataInfo<T>  {
     filter: U;
+    
     constructor () {
         super();
     }

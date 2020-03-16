@@ -64,49 +64,26 @@ namespace Budget.DATA.Repositories
             return results;
         }
 
-        public PagedList<OperationTypeFamily> GetOtfTable(FilterOtfTableSelected filter)
+        public PagedList<OperationTypeFamily> GetForTable(FilterOtfTableSelected filter)
         {
             var operationTypeFamilies = Context.OperationTypeFamily
                 .Where(x=>x.IdUserGroup == filter.User.IdUserGroup)
                 .Include(x => x.Movement)
+                .Include(x => x.Asset)
                 .AsQueryable();
 
             operationTypeFamilies = GenericTableFilter.GetGenericFilters(operationTypeFamilies, filter);
-
-            //if (filter.Label != null)
-            //{
-            //    operationTypeFamilies = operationTypeFamilies.Where(x => x.Label.Contains(filter.Label));
-            //}
-            //if (filter.Movement != null)
-            //{
-            //    operationTypeFamilies = operationTypeFamilies.Where(x => x.IdMovement == filter.Movement.Id);
-            //}
-
-            ////string columnSorted;
-            ////columnSorted = $"OperationTypeFamily.{filter.Pagination.SortColumn}";
-            ////if (filter.Pagination.SortColumn.Contains("movement"))
-            ////{
-            ////    columnSorted = $"{columnSorted}.Label";
-            ////}
-
-            //if (filter.Pagination.SortDirection == "asc")
-            //{
-            //    operationTypeFamilies = operationTypeFamilies.OrderBy(filter.Pagination.SortColumn);
-            //}
-            //else
-            //{
-            //    operationTypeFamilies = operationTypeFamilies.OrderByDescending(filter.Pagination.SortColumn);
-            //}
 
             var results = PagedListRepository<OperationTypeFamily>.Create(operationTypeFamilies, filter.Pagination);
             return results;
         }
 
-        public OperationTypeFamily GetOtfDetail(int idOperationTypeFamily)
+        public OperationTypeFamily GetForDetail(int idOtf)
         {
             var operationTypeFamily = Context.OperationTypeFamily
-                .Where(x => x.Id == idOperationTypeFamily)
+                .Where(x => x.Id == idOtf)
                 .Include(x=>x.Movement)
+                .Include(x=>x.Asset)
                 .FirstOrDefault();
 
             return operationTypeFamily;

@@ -126,4 +126,31 @@
   <data name="BUS_OPE_ERR_002" xml:space="preserve">
     <value>Opération utilisée dans un ou plusieurs relevés de compte</value>
   </data>
+  <data name="BUS_OTF_ERR_000" xml:space="preserve">
+    <value>Catégorie opération obligatoire, suppression impossible</value>
+  </data>
+  <data name="BUS_OTF_ERR_001" xml:space="preserve">
+    <value>Catégorie opération utilisée dans un ou plusieurs import(s)</value>
+  </data>
+  <data name="BUS_OTF_ERR_002" xml:space="preserve">
+    <value>Catégorie opération utilisée dans un ou plusieurs relevé(s) de compte</value>
+  </data>
+  <data name="BUS_OTF_ERR_003" xml:space="preserve">
+    <value>Catégorie opération utilisée dans une ou plusieurs type d'opération(s)</value>
+  </data>
+  <data name="BUS_OTF_ERR_004" xml:space="preserve">
+    <value>Catégorie opération utilisée dans une ou plusieurs customisation utilisateur</value>
+  </data>
+  <data name="BUS_OTY_ERR_000" xml:space="preserve">
+    <value>Type opération obligatoire, suppression impossible</value>
+  </data>
+  <data name="BUS_OTY_ERR_001" xml:space="preserve">
+    <value>Type opération utilisée dans un ou plusieurs import(s)</value>
+  </data>
+  <data name="BUS_OTY_ERR_002" xml:space="preserve">
+    <value>Type opération utilisée dans un ou plusieurs relevé(s) de compte</value>
+  </data>
+  <data name="BUS_OTY_ERR_003" xml:space="preserve">
+    <value>Type opération utilisée dans une ou plusieurs opération(s)</value>
+  </data>
 </root>

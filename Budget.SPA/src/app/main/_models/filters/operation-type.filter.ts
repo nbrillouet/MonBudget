@@ -1,6 +1,10 @@
 import { IUserForGroup } from "../user.model";
 import { Pagination } from "../pagination.model";
-import { ISelect } from "../generics/select.model";
+import { ISelect, ISelectGroup } from "../generics/select.model";
+
+export class FilterOtDetail {
+    operationTypeFamily: ISelectGroup[];
+}
 
 export class FilterOtTableSelected {
     user: IUserForGroup = null;
@@ -11,9 +15,8 @@ export class FilterOtTableSelected {
 
 export class FilterOtTableSelection {
     operationTypeFamily: ISelect[];
-    // selected : FilterOtTableSelected;
 
     constructor () {
-        // this.selected = new FilterOtTableSelected();
+
     }
 }

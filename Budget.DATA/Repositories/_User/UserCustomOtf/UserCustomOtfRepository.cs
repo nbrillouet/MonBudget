@@ -41,5 +41,14 @@ namespace Budget.DATA.Repositories
             return results.ToList(); ;
         }
 
+        public bool HasOtf(int idOtf)
+        {
+            var result = Context.UserCustomOtf
+                .Where(x => x.IdOperationTypeFamily == idOtf)
+                .Any();
+
+            return result;
+        }
+
     }
 }

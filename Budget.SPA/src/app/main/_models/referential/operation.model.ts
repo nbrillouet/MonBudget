@@ -20,13 +20,14 @@ export interface OperationTable {
     operationType: ISelect;
     user: IUserForGroup;
     isMandatory: boolean;
+    isUsed: boolean;
 }
 
 export interface OperationForDetail {
     id : number;
     label : string;
-    operationMethod: ComboSimple<ISelect>;
-    operationType : ComboSimple<ISelectGroup>;
+    operationMethod: ISelect;
+    operationType : ISelect;
     user: IUserForGroup;
     isMandatory: boolean;
 }

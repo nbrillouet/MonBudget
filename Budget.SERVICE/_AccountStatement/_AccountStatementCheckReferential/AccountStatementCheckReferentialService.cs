@@ -33,5 +33,23 @@ namespace Budget.SERVICE
         {
             return _accountStatementRepository.HasOperation(idOperation);
         }
+
+        public bool AsifHasOt(int idOt)
+        {
+            return _accountStatementImportFileRepository.HasOt(idOt);
+        }
+
+        public bool AsHasOt(int idOt)
+        {
+            return _accountStatementRepository.HasOt(idOt);
+        }
+        public bool AsifHasOtf(int idOtf)
+        {
+            return _accountStatementImportFileRepository.HasOtf(idOtf);
+        }
+        public bool AsHasOtf(int idOtf)
+        {
+            return _accountStatementRepository.HasOtf(idOtf);
+        }
     }
 }

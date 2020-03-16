@@ -10,6 +10,7 @@ namespace Budget.DATA.Repositories
 {
     public interface IOperationTypeRepository : IBaseRepository<OperationType>
     {
+        OperationType Get(EnumCodeOperationType enumCodeOperationType, int idUserGroup);
         List<OperationType> GetByIdUserGroup(int idUserGroup);
         List<OperationType> GetByIdOperationTypeFamily(int idOperationTypeFamily);
         List<OperationType> GetByOperationTypeFamilies(int idUserGroup, List<SelectDto> OperationTypeFamilies);
@@ -17,8 +18,10 @@ namespace Budget.DATA.Repositories
         List<OperationType> GetByIdMovement(int idUserGroup, EnumMovement enumMovement);
         List<OperationType> GetByIdList(List<int> idList);
         OperationType GetUnknown(int idUserGroup);
-        PagedList<OperationType> GetOtTable(FilterOtTableSelected filter);
-        OperationType GetOtDetail(int idOperationType);
+        PagedList<OperationType> GetForTable(FilterOtTableSelected filter);
+        //OperationType GetForDetail(int idOperationType);
+        OperationType GetForDetail(int idOt);
+        bool HasOtf(int idOtf);
 
         void DeleteWithEscalation(OperationType operationType);
     }

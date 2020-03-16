@@ -8,6 +8,8 @@ namespace Budget.SERVICE
 {
     public interface IFilterDetailService
     {
-        FilterOperationForDetail GetFilterOperationDetail(OperationForDetail operationForData);
+        FilterOperationForDetail GetFilterForOperation(OperationForDetail operationForDetail);
+        FilterOtForDetail GetFilterForOt(OtForDetail otForDetail);
+        FilterOtfForDetail GetFilterForOtf(OtfForDetail otfForDetail);
     }
 }

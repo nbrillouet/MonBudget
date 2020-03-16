@@ -3,8 +3,8 @@ import { LoaderState } from "app/main/_ngxs/_base/loader-state";
 import { Injectable } from "@angular/core";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { LoadOtfTableFilterSelection } from "./otf-table-filter-selection.action";
-import { OtfService } from "app/main/apps/referential/operations/operation-type-family/operation-type-family.service";
 import { FilterOtfTableSelection } from "app/main/_models/filters/operation-type-family.filter";
+import { OtfService } from "app/main/_services/Referential/operation-type-family.service";
 
 export class OtfTableFilterSelectionStateModel extends FilterSelection<FilterOtfTableSelection> {
     constructor () {

@@ -1,10 +1,10 @@
-import { OtService } from "app/main/apps/referential/operations/operation-type/operation-type.service";
 import { FilterSelection } from "app/main/_models/generics/filter.info.model";
 import { FilterOtTableSelection } from "app/main/_models/filters/operation-type.filter";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { Injectable } from "@angular/core";
 import { LoaderState } from "app/main/_ngxs/_base/loader-state";
 import { LoadOtTableFilterSelection } from "./ot-table-filter-selection.action";
+import { OtService } from "app/main/_services/Referential/operation-type.service";
 
 export class OtTableFilterSelectionStateModel extends FilterSelection<FilterOtTableSelection> {
     constructor () {
@@ -45,7 +45,7 @@ export class OtTableFilterSelectionState extends LoaderState {
         state.selection = null;
         context.patchState(state);
 
-        this._otService.getOtTableFilter(action.payload)
+        this._otService.getForTableFilter(action.payload)
             .subscribe(result=> {
                 let state = context.getState();
                 state.selection = result;

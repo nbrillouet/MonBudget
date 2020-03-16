@@ -55,23 +55,26 @@ export const PLAN_COLUMNS: Column[]=
 
 export const OTF_COLUMNS : Column[]=
 [ 
+  { field: 'isUsed',label:'',isSortable:false,width:{isFixed:true,value:50},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type: EnumStyleType.dotBool,datas:null}},
   { field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
-  { field: 'logoClassName',label:'',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.image,datas:null}},
+  { field: 'asset-label',label:'',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.image,datas:null}},
   { field: 'label',label:'libellé',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.label, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
   { field: 'movement-label',label:'sens',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
-  { field: 'none',label:'',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.buttonIcon,datas:{icon: 'delete_forever',tooltip: 'supprimer enregistrement'}}}
+  //{ field: 'none',label:'',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.buttonIcon,datas:{icon: 'delete_forever',tooltip: 'supprimer enregistrement'}}}
 ];
 
 export const OT_COLUMNS: Column[]=
 [ 
+  { field: 'isUsed',label:'',isSortable:false,width:{isFixed:true,value:50},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type: EnumStyleType.dotBool,datas:null}},
   { field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
   { field: 'operationTypeFamily-label',label:'Catégorie opération',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null}},
-  { field: 'label',label:'libellé',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.label, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}},
-  { field: 'none',label:'',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.buttonIcon,datas:{icon: 'delete_forever',tooltip: 'supprimer enregistrement'}}}
+  { field: 'label',label:'libellé',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.label, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.label,datas:null}}
+  //{ field: 'none',label:'',isSortable:false,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:false,style:{type:EnumStyleType.buttonIcon,datas:{icon: 'delete_forever',tooltip: 'supprimer enregistrement'}}}
 ];
 
 export const OPERATION_COLUMNS: Column[]=
 [ 
+  { field: 'isUsed',label:'',isSortable:false,width:{isFixed:true,value:50},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type: EnumStyleType.dotBool,datas:null}},
   { field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
   { field: 'operationMethod-label',label:'Méthode opération',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultiple, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null}},
   { field: 'operationType-label',label:'Type opération',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.comboMultipleGroup, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null}},

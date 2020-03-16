@@ -102,13 +102,31 @@
               <ng-container [ngSwitch]="column.style.type">
                 <!-- STYLE: DOT-DATAS -->
                 <div *ngSwitchCase="enumStyleType.dotDatas">
-                  <mat-chip class="mini-select"  *ngFor="let dot of row[column.field]"
-                    [matTooltip]="dot.id + ': ' + dot.label"
-                    [ngStyle]="{'background-color':dot.value }"
-                  >
-                  </mat-chip>
+                  <mat-chip-list>
+                    <mat-chip class="mini-select"  *ngFor="let dot of row[column.field]"
+                      [matTooltip]="dot.id + ': ' + dot.label"
+                      [ngStyle]="{'background-color':dot.value }"
+                    >
+                    </mat-chip>
+                  </mat-chip-list>
                 </div>
-                
+
+                <!-- STYLE: DOT-BOOL -->
+                <div *ngSwitchCase="enumStyleType.dotBool">
+                  <mat-chip-list>
+                    <mat-chip 
+                      class="mini-select" 
+                      [matTooltip]="row[column.field]"
+                      [ngStyle]="{'background-color':row[column.field] ? '#EB4D4D' : '#0D9FE6' }"
+                    >
+                    </mat-chip>
+                  </mat-chip-list>
+                  
+                <!-- <mat-chip color="primary" selected>Primary fish</mat-chip></mat-chip-list> -->
+                  
+                </div>
+
+                <!-- STYLE: IMAGE -->
                 <div *ngSwitchCase="enumStyleType.image">
                   <img class="avatar small" [src]="row[column.field]">
                 </div>
@@ -145,6 +163,7 @@
                 <!-- STYLE: CHECKBOX -->
                 <div *ngSwitchCase="enumStyleType.checkboxDelete">
                   <mat-checkbox 
+                    [disabled]="row['isUsed']"
                     (change)="onCheckboxDeleteChange($event,row['id'])"
                     (click)="$event.stopPropagation()">
                   </mat-checkbox>

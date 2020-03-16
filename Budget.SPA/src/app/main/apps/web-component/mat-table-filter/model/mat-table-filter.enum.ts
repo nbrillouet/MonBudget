@@ -12,6 +12,7 @@ export enum EnumStyleType {
     dotDatas=0,
     numberUpDown=1,
     buttonIcon=2,
-    image,
-    checkboxDelete
+    image=3,
+    checkboxDelete=4,
+    dotBool=5
 }

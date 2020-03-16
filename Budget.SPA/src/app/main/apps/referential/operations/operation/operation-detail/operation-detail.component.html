@@ -1,4 +1,6 @@
-<div id="product" class="page-layout carded fullwidth" fusePerfectScrollbar>
+<div 
+    *ngIf="!firstLoad && (detailFilterInfo$ | async).loader['datas']?.loaded as loaded else tp_progress"
+    class="page-layout carded fullwidth" fusePerfectScrollbar>
 
   <!-- TOP BACKGROUND -->
   <div class="top-bg accent"></div>
@@ -20,10 +22,10 @@
 
               <div fxLayout="column" fxLayoutAlign="start start"
                    *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                  <div class="h2" *ngIf="formLoaded && operationDetail && idOperation!=-1" >
+                  <div class="h2" *ngIf="operationDetail.id!=0" >
                       {{operationDetail.label}}
                   </div>
-                  <div class="h2" *ngIf="formLoaded && operationDetail && idOperation==-1" >
+                  <div class="h2" *ngIf="operationDetail.id==0" >
                           Nouvelle opération
                   </div>
                   <div class="subtitle secondary-text">
@@ -32,10 +34,10 @@
               </div>
           </div>
           <!-- / APP TITLE -->
-          <button mat-raised-button *ngIf="formLoaded && operationDetail"
+          <button mat-raised-button
               class="save-product-button mat-white-bg mt-16 mt-sm-0"
               [disabled]= "operationDetailForm.invalid || operationDetailForm.pristine"
-              (click)="saveOt()"
+              (click)="save()"
           >
               <span>ENREGISTRER</span>
           </button>
@@ -45,7 +47,7 @@
       <!-- CONTENT CARD -->
       <div class="content-card white">
 
-          <form *ngIf="formLoaded && operationDetail" 
+          <form  
               name="operationDetailForm" 
               [formGroup]="operationDetailForm" 
               class="product w-100-p" 
@@ -63,10 +65,11 @@
 
                   <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
                       <mat-label>Méthode opérations</mat-label>
-                      <mat-select formControlName="operationMethod" placeholder="Méthode opérations" [compareWith]="compareObjects" >
-                          <mat-option *ngFor="let item of operationDetail.operationMethod.list" [value]="item">
-                              {{ item.label }}
-                          </mat-option>
+                      <mat-select formControlName="operationMethod" placeholder="Méthode opérations" [compareWith]="compareObjects"  >
+                        <!-- <mat-select-trigger>{{operationMethod?.label}}</mat-select-trigger>   -->
+                        <mat-option *ngFor="let item of (detailFilterInfo$ | async).datas.operationMethod" [value]="item" >
+                            {{ item.label }}
+                        </mat-option>
                       </mat-select>
                   </mat-form-field>
 
@@ -77,18 +80,13 @@
                       [compareWith]="compareObjects" 
                       placeholder="Type opérations" >
                     
-                    <mat-optgroup *ngFor="let group of operationDetail.operationType.list" [label]="group.label">
-                      <mat-option *ngFor="let item of group.selects" [value]="item">
+                    <mat-optgroup *ngFor="let group of (detailFilterInfo$ | async).datas.operationType" [label]="group.label">
+                      <mat-option *ngFor="let item of group.selects" [value]="item" >
                         {{ item.label }}
                       </mat-option>
                     </mat-optgroup>
                   </mat-select>
 
-                    <!-- <mat-select formControlName="operationType" placeholder="Type opérations" [compareWith]="compareObjects" >
-                        <mat-option *ngFor="let item of operationDetail.operationType.list" [value]="item">
-                            {{ item.label }}
-                        </mat-option>
-                    </mat-select> -->
                 </mat-form-field>
 
               </div>
@@ -101,3 +99,10 @@
   </div>
   <!-- / CENTER -->
 </div>
+
+<ng-template #tp_progress>
+    <mat-progress-bar
+        color="primary"
+        mode="indeterminate">
+    </mat-progress-bar>
+</ng-template>

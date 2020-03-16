@@ -16,9 +16,9 @@ namespace Budget.DATA.Repositories
         List<Operation> GetByIdMovement(int idUserGroup, EnumMovement enumMovement);
         List<Operation> GetByIdList(List<int> idList);
         Operation GetUnknown(int idUserGroup);
-        PagedList<Operation> GetTable(FilterOperationTableSelected filter);
-        Operation GetDetail(int idOperation);
-        //void DeleteWithEscalation(Operation operation);
+        PagedList<Operation> GetForTable(FilterOperationTableSelected filter);
+        Operation GetForDetail(int idOperation);
+        bool HasOt(int idOt);
 
     }
 }

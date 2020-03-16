@@ -1,4 +1,5 @@
 ﻿using Budget.MODEL.Dto;
+using Budget.MODEL.Dto.Select;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,12 +24,15 @@ namespace Budget.MODEL.Filter
     {
         public List<SelectDto> OperationTypeFamily { get; set; }
 
-        //public FilterOtTableSelected Selected { get; set; }
-
         public FilterOtTableSelection()
         {
-            //Selected = new FilterOtTableSelected();
+
         }
+    }
+
+    public class FilterOtForDetail
+    {
+        public List<SelectGroupDto> OperationTypeFamily { get; set; }
     }
 
 }

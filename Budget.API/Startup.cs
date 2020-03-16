@@ -238,6 +238,10 @@ namespace Budget.API
             services.AddScoped<IFilterDetailService, FilterDetailService>();
             services.AddScoped<IPlanNotAsService, PlanNotAsService>();
             services.AddScoped<IAccountStatementCheckReferentialService, AccountStatementCheckReferentialService>();
+            services.AddScoped<IOperationCheckReferentialService, OperationCheckReferentialService>();
+            services.AddScoped<IUserCheckReferentialService, UserCheckReferentialService>();
+            services.AddScoped<IOperationTypeCheckReferentialService, OperationTypeCheckReferentialService>();
+
             services.AddScoped<IBusinessExceptionMessageService, BusinessExceptionMessageService>();
             services.AddScoped<IBusinessExceptionLibraryService, BusinessExceptionLibraryService>();
             

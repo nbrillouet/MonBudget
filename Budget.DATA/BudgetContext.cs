@@ -29,6 +29,7 @@ namespace Budget.DATA
         public DbSet<OperationTransverseAsif> OperationTransverseAsif { get; set; }
         public DbSet<OperationTransverseAs> OperationTransverseAs { get; set; }
         public DbSet<OperationMethod> OperationMethod { get; set; }
+        public DbSet<Asset> Asset { get; set; }
         public DbSet<OperationMethodLexical> OperationMethodLexical { get; set; }
         public DbSet<Operation> Operation { get; set; }
         public DbSet<AccountStatement> AccountStatement { get; set; }

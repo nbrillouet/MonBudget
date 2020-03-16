@@ -270,11 +270,23 @@ namespace Budget.DATA.Repositories
             return result;
         }
 
+        public bool HasOt(int idOt)
+        {
+            var result = Context.AccountStatement
+                .Where(x => x.IdOperationType == idOt)
+                .Any();
 
+            return result;
+        }
 
+        public bool HasOtf(int idOtf)
+        {
+            var result = Context.AccountStatement
+                .Where(x => x.IdOperationTypeFamily == idOtf)
+                .Any();
 
-
-
+            return result;
+        }
 
 
     }

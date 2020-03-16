@@ -5,7 +5,7 @@ import { IOperation, OperationForDetail } from "app/main/_models/referential/ope
 import { ISelect, EnumSelectType } from "app/main/_models/generics/select.model";
 import { IUserForGroup } from "app/main/_models/user.model";
 import { FilterOperationTableSelected, FilterOperationTableSelection, FilterOperationDetail } from "app/main/_models/filters/operation.filter";
-
+import { FilterForDetail } from "app/main/_models/filters/shared/filterDetail.filter";
 
 @Injectable()
 export class OperationService {
@@ -58,15 +58,15 @@ constructor(
                 return response;
             });
     }
-
+ 
     getDetailFilter(filter: OperationForDetail) {
         return this._httpClient
             .post<FilterOperationDetail>(`${this.baseUrl}referential/operations/operation-detail-filter`,filter)
     }
 
-    getDetail(idOperation: number) {
+    getForDetail(filter: FilterForDetail) {
         return this._httpClient
-            .get(`${this.baseUrl}referential/operations/${idOperation}/user-groups/${this.userForGroup.idUserGroup}/operation-detail`)
+            .get(`${this.baseUrl}referential/operations/${filter.id}/users/${this.userForGroup.id}/operation-detail`)
             .map(response => <OperationForDetail>response)
     }
 
@@ -80,14 +80,14 @@ constructor(
             });
     }
 
-    deleteOperationDetail(idOperation: number) {
+    // deleteOperationDetail(idOperation: number) {
   
-    return this._httpClient
-            .delete(`${this.baseUrl}referential/operations/${idOperation}/delete`)
-            .map((response: boolean) => {
-                return response;
-            });
-    }
+    //     return this._httpClient
+    //         .delete(`${this.baseUrl}referential/operations/${idOperation}/delete`)
+    //         .map((response: boolean) => {
+    //             return response;
+    //         });
+    // }
 
     deleteOperations(idOperationList: number[]) {
         return this._httpClient

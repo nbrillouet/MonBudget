@@ -1,19 +1,22 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { OperationForDetail } from 'app/main/_models/referential/operation.model';
-import { Observable } from 'rxjs';
-import { FilterInfo, FilterSelected } from 'app/main/_models/generics/filter.info.model';
+import { Observable, Subscription } from 'rxjs';
+import { FilterSelected } from 'app/main/_models/generics/filter.info.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
 import { NotificationsService } from 'angular2-notifications';
 import { OperationService } from 'app/main/_services/Referential/operation.service';
-import { Datas } from 'app/main/_models/generics/detail-info.model';
+import { DetailInfo, DataInfo } from 'app/main/_models/generics/detail-info.model';
 import { OperationDetailState } from 'app/main/_ngxs/referential/operation/operation-detail/operation-detail.state';
 import { OperationTableFilterSelectedState } from 'app/main/_ngxs/referential/operation/operation-table/operation-table-filter-selected/operation-table-filter-selected.state';
-import { FilterOperationTableSelected } from 'app/main/_models/filters/operation.filter';
-import { LoadOperationDetail, ClearOperationDetail } from 'app/main/_ngxs/referential/operation/operation-detail/operation-detail.action';
+import { FilterOperationTableSelected, FilterOperationDetail } from 'app/main/_models/filters/operation.filter';
+import { LoadOperationDetail, SynchronizeOperationDetail, ClearOperationDetail } from 'app/main/_ngxs/referential/operation/operation-detail/operation-detail.action';
 import { LoadOperationTable } from 'app/main/_ngxs/referential/operation/operation-table/operation-table.action';
+import { FilterForDetail } from 'app/main/_models/filters/shared/filterDetail.filter';
+import { OperationDetailFilterState } from 'app/main/_ngxs/referential/operation/operation-detail/operation-detail-filter/operation-detail-filter.state';
+import { SynchronizeOperationTableFilterSelected } from 'app/main/_ngxs/referential/operation/operation-table/operation-table-filter-selected/operation-table-filter-selected.action';
 
 @Component({
   selector: 'operation-detail',
@@ -23,15 +26,16 @@ import { LoadOperationTable } from 'app/main/_ngxs/referential/operation/operati
 })
 
 export class OperationDetailComponent implements OnInit, OnDestroy {
+  @Select(OperationDetailState.get) detailInfo$: Observable<DetailInfo<OperationForDetail, FilterForDetail>>;
+  @Select(OperationDetailFilterState.get) detailFilterInfo$: Observable<DataInfo<FilterOperationDetail>>;
 
-@Select(OperationDetailState.get) operationDetail$: Observable<Datas<OperationForDetail>>;
-@Select(OperationTableFilterSelectedState.get) operationTableFilterSelected$: Observable<FilterSelected<FilterOperationTableSelected>>;
+  @Select(OperationTableFilterSelectedState.get) operationTableFilterSelected$: Observable<FilterSelected<FilterOperationTableSelected>>;
 
-idOperation: number;
+  $DetailInfo$: Subscription;
+  operationDetail: OperationForDetail;
+
 filterOperationSelected: FilterOperationTableSelected;
-operationDetail: OperationForDetail;
 firstLoad: boolean=true;
-formLoaded: boolean;
 
 operationDetailForm: FormGroup;
 
@@ -49,16 +53,17 @@ operationDetailForm: FormGroup;
       }
     });
 
-
-    this.operationDetail$.subscribe(operationDetail=>{
-        if(operationDetail?.loader['datas']?.loaded) {
-        this.operationDetail = JSON.parse(JSON.stringify(operationDetail.datas));
+    this.$DetailInfo$ = this.detailInfo$.subscribe(x => {
+    // this.operationDetail$.subscribe(operationDetail=>{
+      if(x?.loader['datas']?.loaded) {
+        console.log('x',x);
+        this.operationDetail = x.datas; //JSON.parse(JSON.stringify(x.datas));
         if(this.firstLoad) {
           //creation du formulaire
           this.createForms();
           this.firstLoad=false;
         }
-        this.formLoaded=true;
+        // this.formLoaded=true;
       }
     });
 
@@ -66,12 +71,13 @@ operationDetailForm: FormGroup;
 
   ngOnInit() {
     this._activatedRoute.params.subscribe(routeParams => {
-      this.idOperation = routeParams['idOperation']=='new' ? -1 : routeParams['idOperation'];
-      this._store.dispatch(new LoadOperationDetail(this.idOperation));
+      let idOperation = routeParams['idOperation']=='new' ? null : routeParams['idOperation'];
+      this._store.dispatch(new LoadOperationDetail(<FilterForDetail>{id:idOperation}));
     });
   }
 
   ngOnDestroy() {
+    this.$DetailInfo$.unsubscribe();
     this._store.dispatch(new ClearOperationDetail());
   }
 
@@ -79,29 +85,29 @@ operationDetailForm: FormGroup;
     
     this.operationDetailForm = this._formBuilder.group({
         label: [this.operationDetail.label, [Validators.required]],
-        operationMethod: [this.operationDetail.operationMethod.selected, [Validators.required]],
-        operationType: [this.operationDetail.operationType.selected, [Validators.required]]
-      });
+        operationMethod: [this.operationDetail.operationMethod, [Validators.required]],
+        operationType: [this.operationDetail.operationType, [Validators.required]]
+    });
      
     this.operationDetailForm.valueChanges.subscribe(val=>{
         this.operationDetail.label = val.label;
-        this.operationDetail.operationMethod.selected = val.operationMethod;
-        this.operationDetail.operationType.selected = val.operationType;
+        this.operationDetail.operationMethod = val.operationMethod;
+        this.operationDetail.operationType = val.operationType;
 
-        //TODO synchronize
-        // this._store.dispatch(new LoadOperationForDetailSuccess(this.operationDetail));
+        this._store.dispatch(new SynchronizeOperationDetail(this.operationDetail));
       });
  
   }  
 
   
-  saveOt() {
+  save() {
     this._operationService.saveDetail(this.operationDetail)
       .subscribe(resp=> {
         if(resp)
         {
           this._notificationService.success('Enregistrement effectué', `Opération enregistrée`);
-          this._store.dispatch(new LoadOperationTable(this.filterOperationSelected));
+          this._store.dispatch(new SynchronizeOperationTableFilterSelected(this.filterOperationSelected));
+          // this._store.dispatch(new LoadOperationTable(this.filterOperationSelected));
         }
         else {
           this._notificationService.error('Echec de l\'enregistrement');
@@ -114,5 +120,9 @@ operationDetailForm: FormGroup;
     return true;
     else return false;
   }
+
+  // displayFn(state:ISelect){
+  //   return state ? state.label : null;
+  // }
 
 }

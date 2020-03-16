@@ -17,6 +17,8 @@ namespace Budget.DATA.Repositories
         AccountStatement GetAsDetail(int id);
         List<AccountStatement> GetByDatePlanPosteReferenceList(List<PlanPosteReference> planPosteReferences, DateTime dateMin, DateTime dateMax);
         bool HasOperation(int idOperation);
+        bool HasOt(int idOt);
+        bool HasOtf(int idOtf);
 
         Boolean Save(List<AccountStatement> accountStatements);
         AccountStatement Save(AccountStatement accountStatement);

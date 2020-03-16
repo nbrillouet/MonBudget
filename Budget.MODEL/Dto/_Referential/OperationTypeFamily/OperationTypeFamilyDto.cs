@@ -9,17 +9,18 @@ namespace Budget.MODEL.Dto
         public int Id { get; set; }
         public string Label { get; set; }
         public SelectDto Movement { get; set; }
-        public string LogoClassName { get; set; }
+        public SelectDto Asset { get; set; }
         public UserForGroupDto User { get; set; }
         public bool IsMandatory { get; set; }
+        public bool IsUsed { get; set; }
     }
 
-    public class OtfForDetailDto 
+    public class OtfForDetail
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Label { get; set; }
-        public ComboSimple<SelectDto> Movement { get; set; }
-        public ComboSimple<SelectDto> LogoClassName { get; set; }
+        public SelectDto Movement { get; set; }
+        public SelectDto Asset { get; set; }
         public UserForGroupDto User { get; set; }
         public bool IsMandatory { get; set; }
     }

@@ -20,6 +20,16 @@ namespace Budget.DATA.Repositories
             _operationRepository = operationRepository;
         }
 
+        public OperationType Get(EnumCodeOperationType enumCodeOperationType, int idUserGroup)
+        {
+            var result = Context.OperationType
+                .Where(x => x.Code == enumCodeOperationType.ToString())
+                .Where(x => x.IdUserGroup == idUserGroup);
+
+            return result.FirstOrDefault();
+
+        }
+
         public List<OperationType> GetByIdOperationTypeFamily(int idOperationTypeFamily)
         {
             var results = Context.OperationType
@@ -119,7 +129,7 @@ namespace Budget.DATA.Repositories
             return operationType;
         }
 
-        public PagedList<OperationType> GetOtTable(FilterOtTableSelected filter)
+        public PagedList<OperationType> GetForTable(FilterOtTableSelected filter)
         {
             var operationTypes = Context.OperationType
                 .Where(x => x.IdUserGroup == filter.User.IdUserGroup)
@@ -127,36 +137,38 @@ namespace Budget.DATA.Repositories
                 .AsQueryable();
 
             operationTypes = GenericTableFilter.GetGenericFilters(operationTypes, filter);
-            //if (filter.Label != null)
-            //{
-            //    operationTypes = operationTypes.Where(x => x.Label.Contains(filter.Label));
-            //}
-            //if (filter.Otf != null)
-            //{
-            //    operationTypes = operationTypes.Where(x => x.IdOperationTypeFamily == filter.Otf.Id);
-            //}
-
-            //if (filter.Pagination.SortDirection == "asc")
-            //{
-            //    operationTypes = operationTypes.OrderBy(filter.Pagination.SortColumn);
-            //}
-            //else
-            //{
-            //    operationTypes = operationTypes.OrderByDescending(filter.Pagination.SortColumn);
-            //}
 
             var results = PagedListRepository<OperationType>.Create(operationTypes, filter.Pagination);
             return results;
         }
 
-        public OperationType GetOtDetail(int idOperationType)
+        public OperationType GetForDetail(int idOt)
         {
             var operationType = Context.OperationType
-                .Where(x => x.Id == idOperationType)
+                .Where(x => x.Id == idOt)
                 .Include(x => x.OperationTypeFamily)
                 .FirstOrDefault();
 
             return operationType;
+        }
+
+        //public OperationType GetOtDetail(int idOperationType)
+        //{
+        //    var operationType = Context.OperationType
+        //        .Where(x => x.Id == idOperationType)
+        //        .Include(x => x.OperationTypeFamily)
+        //        .FirstOrDefault();
+
+        //    return operationType;
+        //}
+
+        public bool HasOtf(int idOtf)
+        {
+            var result = Context.OperationType
+                .Where(x => x.IdOperationTypeFamily == idOtf)
+                .Any();
+
+            return result;
         }
 
         public void DeleteWithEscalation(OperationType operationType)
@@ -173,7 +185,6 @@ namespace Budget.DATA.Repositories
             DeleteWithTran(operationType);
 
             Context.SaveChanges();
-
         }
 
 

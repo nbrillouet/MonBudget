@@ -1,5 +1,3 @@
-import { OperationTypeService } from "./operation-type.service";
-import { OperationTypeFamilyService } from "./operation-type-family.service";
 import { OperationMethodService } from "./operation-method.service";
 import { AccountService } from "./account.service";
 import { AccountTypeService } from "./account-type.service";
@@ -9,6 +7,8 @@ import { ReferentialService } from "./referential.service";
 import { OperationTransverseService } from "./operation-tranverse.service";
 import { BankAgencyService } from "./bank-agency.service";
 import { BankSubFamilyService } from "./bank-sub-family.service";
+import { OtService } from "./operation-type.service";
+import { OtfService } from "./operation-type-family.service";
 
 @NgModule({
     imports: [
@@ -20,8 +20,8 @@ import { BankSubFamilyService } from "./bank-sub-family.service";
     providers : [
         ReferentialService,
         OperationService,
-        OperationTypeService,
-        OperationTypeFamilyService,
+        OtService,
+        OtfService,
         OperationMethodService,
         BankAgencyService,
         AccountService,

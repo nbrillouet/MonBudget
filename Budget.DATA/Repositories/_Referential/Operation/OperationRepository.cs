@@ -113,7 +113,7 @@ namespace Budget.DATA.Repositories
             return operation;
         }
 
-        public PagedList<Operation> GetTable(FilterOperationTableSelected filter)
+        public PagedList<Operation> GetForTable(FilterOperationTableSelected filter)
         {
             var operations = Context.Operation
                 .Where(x => x.IdUserGroup == filter.User.IdUserGroup)
@@ -123,43 +123,26 @@ namespace Budget.DATA.Repositories
 
             operations = GenericTableFilter.GetGenericFilters(operations, filter);
 
-            //if (filter.Label != null)
-            //{
-            //    operations = operations.Where(x => x.Label.Contains(filter.Label));
-            //}
-
-            //if (filter.OperationMethods != null && filter.OperationMethods.Count>0)
-            //{
-            //    var idOperationMethods = filter.OperationMethods.Select(x => x.Id).ToList();
-            //    operations = operations.Where(x => idOperationMethods.Contains(x.IdOperationMethod));
-            //}
-
-            //if (filter.OperationTypes != null && filter.OperationTypes.Count>0)
-            //{
-            //    var idOperationTypes = filter.OperationTypes.Select(x => x.Id).ToList();
-            //    operations = operations.Where(x => idOperationTypes.Contains(x.IdOperationType));
-            //}
-
-            //if (filter.Pagination.SortDirection == "asc")
-            //{
-            //    operations = operations.OrderBy(filter.Pagination.SortColumn);
-            //}
-            //else
-            //{
-            //    operations = operations.OrderByDescending(filter.Pagination.SortColumn);
-            //}
-
             var results = PagedListRepository<Operation>.Create(operations, filter.Pagination);
             return results;
         }
 
-        public Operation GetDetail(int idOperation)
+        public Operation GetForDetail(int idOperation)
         {
             var operation = Context.Operation
                 .Where(x => x.Id == idOperation)
                 .Include(x => x.OperationMethod)
                 .Include(x=>x.OperationType)
                 .FirstOrDefault();
+
+            return operation;
+        }
+
+        public bool HasOt(int idOt)
+        {
+            var operation = Context.Operation
+                .Where(x => x.IdOperationType == idOt)
+                .Any();
 
             return operation;
         }

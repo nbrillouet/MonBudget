@@ -3,9 +3,9 @@ import { OtTable } from "app/main/_models/referential/operation-type.model";
 import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
 import { Injectable } from "@angular/core";
 import { LoaderState } from "app/main/_ngxs/_base/loader-state";
-import { OtService } from "app/main/apps/referential/operations/operation-type/operation-type.service";
 import { LoadOtTable, ClearOtTable } from "./ot-table.action";
 import { UpdatePaginationOtTableFilterSelected } from "./ot-table-filter-selected/ot-table-filter-selected.action";
+import { OtService } from "app/main/_services/Referential/operation-type.service";
 
 export class OtTableStateModel extends Datas<OtTable[]> {
     constructor () {
@@ -33,7 +33,7 @@ export class OtTableState extends LoaderState {
     }
 
     @Action(LoadOtTable)
-    loadGrid(context: StateContext<OtTableStateModel>, action: LoadOtTable) {
+    LoadOtTable(context: StateContext<OtTableStateModel>, action: LoadOtTable) {
         this.loading(context,'datas');
         
         const state = context.getState();
@@ -53,7 +53,7 @@ export class OtTableState extends LoaderState {
     }
 
     @Action(ClearOtTable)
-    clear(context: StateContext<OtTableStateModel>) {
+    ClearOtTable(context: StateContext<OtTableStateModel>) {
         return context.setState(new OtTableStateModel());
     }
 }

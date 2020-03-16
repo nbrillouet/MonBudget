@@ -27,7 +27,6 @@ namespace Budget.SERVICE
 
         public List<SelectDto> GetSelectList(EnumSelectType enumSelectType)
         {
-            //var selectList = _selectService.GetSelectList(enumSelectType);
             List<SelectDto> selectList = new List<SelectDto>();
             var movements = _movementRepository.GetAllOrdering();
             selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(movements).ToList());

@@ -2,8 +2,9 @@ import { DataInfo } from "app/main/_models/generics/detail-info.model";
 import { FilterOperationDetail } from "app/main/_models/filters/operation.filter";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { LoaderState } from "app/main/_ngxs/_base/loader-state";
-import { ReferentialService } from "app/main/_services/Referential/referential.service";
 import { LoadOperationDetailFilter, ClearOperationDetailFilter } from "./operation-detail-filter.action";
+import { Injectable } from "@angular/core";
+import { OperationService } from "app/main/_services/Referential/operation.service";
 
 export class OperationDetailFilterStateModel extends DataInfo<FilterOperationDetail> {
     constructor() {
@@ -16,10 +17,10 @@ let operationDetailFilterStateModel = new OperationDetailFilterStateModel();
     name: 'OperationDetailFilter',
     defaults: operationDetailFilterStateModel
 })
-
+@Injectable()
 export class OperationDetailFilterState extends LoaderState {
     constructor(
-        private _referentialService: ReferentialService
+        private _operationService: OperationService
     ) {
         super();
     }
@@ -41,7 +42,7 @@ export class OperationDetailFilterState extends LoaderState {
         state.datas = null;
         context.patchState(state);
         
-        this._referentialService.operationService.getDetailFilter(action.payload)
+        this._operationService.getDetailFilter(action.payload)
             .subscribe(result => {
                 let state = context.getState();
                 state.datas = result;
@@ -55,3 +56,4 @@ export class OperationDetailFilterState extends LoaderState {
     ClearOperationDetailFilter(context: StateContext<OperationDetailFilterStateModel>) {
         return context.setState(new OperationDetailFilterStateModel());
     }
+}

@@ -1,4 +1,6 @@
-<div id="product" class="page-layout carded fullwidth" fusePerfectScrollbar>
+<div 
+    *ngIf="!firstLoad && (detailFilterInfo$ | async)?.loader['datas']?.loaded as loaded else tp_progress"
+    class="page-layout carded fullwidth" fusePerfectScrollbar>
 
     <!-- TOP BACKGROUND -->
     <div class="top-bg accent"></div>
@@ -20,10 +22,10 @@
 
                 <div fxLayout="column" fxLayoutAlign="start start"
                      *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                    <div class="h2" *ngIf="formLoaded && otDetail && idOperationType!=-1" >
-                        {{otDetail.label}}
+                    <div class="h2" *ngIf="(detailInfo$ | async).datas.id" >
+                        {{ (detailInfo$ | async).datas.label }}
                     </div>
-                    <div class="h2" *ngIf="formLoaded && otDetail && idOperationType==-1" >
+                    <div class="h2" *ngIf="!(detailInfo$ | async).datas.id" >
                             Nouveau type d'opération
                     </div>
                     <div class="subtitle secondary-text">
@@ -32,10 +34,10 @@
                 </div>
             </div>
             <!-- / APP TITLE -->
-            <button mat-raised-button *ngIf="formLoaded && otDetail"
+            <button mat-raised-button 
                 class="save-product-button mat-white-bg mt-16 mt-sm-0"
-                [disabled]= "otDetailForm.invalid || otDetailForm.pristine"
-                (click)="saveOt()"
+                [disabled]= "(otDetailForm.invalid || otDetailForm.pristine)"
+                (click)="save()"
             >
                 <span>ENREGISTRER</span>
             </button>
@@ -45,7 +47,7 @@
         <!-- CONTENT CARD -->
         <div class="content-card white">
 
-            <form *ngIf="formLoaded && otDetail" 
+            <form 
                 name="otDetailForm" 
                 [formGroup]="otDetailForm" 
                 class="product w-100-p" 
@@ -63,10 +65,18 @@
 
                     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
                         <mat-label>catégorie d'opérations</mat-label>
+                        
+                        
                         <mat-select formControlName="operationTypeFamily" placeholder="catégorie d'opérations" [compareWith]="compareObjects" >
-                            <mat-option *ngFor="let item of otDetail.operationTypeFamily.list" [value]="item">
+                            <mat-optgroup *ngFor="let group of (detailFilterInfo$ | async).datas.operationTypeFamily" [label]="group.label">
+                                <mat-option *ngFor="let item of group.selects" [value]="item" >
+                                  {{ item.label }}
+                                </mat-option>
+                            </mat-optgroup>
+                            
+                            <!-- <mat-option *ngFor="let item of otDetail.operationTypeFamily.list" [value]="item">
                                 {{ item.label }}
-                            </mat-option>
+                            </mat-option> -->
                         </mat-select>
                     </mat-form-field>
 
@@ -80,3 +90,10 @@
     </div>
     <!-- / CENTER -->
 </div>
+
+<ng-template #tp_progress>
+    <mat-progress-bar
+        color="primary"
+        mode="indeterminate">
+    </mat-progress-bar>
+</ng-template>

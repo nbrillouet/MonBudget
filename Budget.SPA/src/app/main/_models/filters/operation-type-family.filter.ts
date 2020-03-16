@@ -13,9 +13,12 @@ export class FilterOtfTableSelected {
 export class FilterOtfTableSelection {
     movement: ISelect[];
 
-    // selected : FilterOtfTableSelected;
-
     constructor () {
-        // this.selected = new FilterOtfTableSelected();
+
     }
+}
+
+export class FilterOtfDetail {
+    asset: ISelect[];
+    movement: ISelect[]
 }

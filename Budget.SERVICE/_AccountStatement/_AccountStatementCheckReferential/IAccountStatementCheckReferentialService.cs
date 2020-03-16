@@ -9,5 +9,11 @@ namespace Budget.SERVICE
     {
         bool AsifHasOperation(int idOperation);
         bool AsHasOperation(int idOperation);
+
+        bool AsifHasOt(int idOt);
+        bool AsHasOt(int idOt);
+
+        bool AsifHasOtf(int idOtf);
+        bool AsHasOtf(int idOtf);
     }
 }

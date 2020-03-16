@@ -4,7 +4,7 @@ import { Pagination } from "../pagination.model";
 
 export class FilterOperationDetail {
     operationMethod: ISelect[];
-    operationType: ISelect[];
+    operationType: ISelectGroup[];
 }
 
 export class FilterOperationTableSelected {
@@ -16,8 +16,8 @@ export class FilterOperationTableSelected {
 }
 
 export class FilterOperationTableSelection {
-    operationType: ISelectGroup[];
     operationMethod: ISelect[];
+    operationType: ISelectGroup[];
 
     constructor () {
 

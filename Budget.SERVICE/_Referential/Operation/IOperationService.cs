@@ -17,8 +17,9 @@ namespace Budget.SERVICE
         List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationMethodList, List<SelectDto> operationTypeFamilyList, List<SelectDto> operationTypeList);
         List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste);
         List<SelectDto> GetSelectListByIdList(List<int> idList);
-        PagedList<OperationForTableDto> GetTable(FilterOperationTableSelected filter);
-        OperationForDetail GetDetail(int idOperation, int idUserGroup);
+        PagedList<OperationForTableDto> GetForTable(FilterOperationTableSelected filter);
+        OperationForDetail GetForDetail(int? idOperation, int idUser);
+        
 
         OperationForDetail SaveDetail(OperationForDetail operationForDetail);
         Operation Create(Operation operation);

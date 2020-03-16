@@ -5,15 +5,23 @@
     }
 
 
-#product {
+// #product {
 
     .header {
 
-        .product-image {
+        .header-image {
             overflow: hidden;
             width: 56px;
+            min-width: 56px;
+            max-width: 56px;
             height: 56px;
-            border: 3px solid rgba(0, 0, 0, 0.12);
+            min-height: 56px;
+            max-height: 56px;
+            border-radius: 4px;
+            // overflow: hidden;
+            // width: 56px;
+            // height: 56px;
+            border: 2px solid rgba(0, 0, 0, 0.12);
 
             img {
                 height: 100%;
@@ -27,38 +35,51 @@
         }
     }
 
-    .content {
+//     .content {
 
-        .mat-tab-group,
-        .mat-tab-body-wrapper,
-        .tab-content{
-            flex: 1 1 auto;
-            max-width: 100%;
-        }
+//         .mat-tab-group,
+//         .mat-tab-body-wrapper,
+//         .tab-content{
+//             flex: 1 1 auto;
+//             max-width: 100%;
+//         }
 
-        .mat-tab-body-content {
-            display: flex;
-        }
+//         .mat-tab-body-content {
+//             display: flex;
+//         }
 
-        .mat-tab-label {
-            height: 64px;
-        }
+//         .mat-tab-label {
+//             height: 64px;
+//         }
 
-        .product-image {
-            overflow: hidden;
-            width: 128px;
-            height: 128px;
-            margin-right: 16px;
-            margin-bottom: 16px;
-            border: 3px solid rgba(0, 0, 0, 0.12);
+//         .product-image {
+//             overflow: hidden;
+//             width: 128px;
+//             height: 128px;
+//             margin-right: 16px;
+//             margin-bottom: 16px;
+//             border: 3px solid rgba(0, 0, 0, 0.12);
 
-            img {
-                height: 100%;
-                width: auto;
-                max-width: none;
-            }
-        }
+//             img {
+//                 height: 100%;
+//                 width: auto;
+//                 max-width: none;
+//             }
+//         }
 
-    }
+//     }
 
-}
+// }
+
+// .svg{
+//     height:100px;
+//     width:100px;
+//     background-repeat: no-repeat;
+//     background-size: 100px 100px;
+//     fill:blue;
+// }
+
+// .svg:hover {
+//     fill: red;
+
+//   }
