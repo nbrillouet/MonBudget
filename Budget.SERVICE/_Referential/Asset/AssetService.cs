@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Budget.DATA.Repositories;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using System;
@@ -25,13 +26,13 @@ namespace Budget.SERVICE
         }
 
 
-        public List<SelectDto> GetSelectList(EnumAssetFamily enumAssetFamily)
+        public List<SelectCode> GetSelectList(EnumAssetFamily enumAssetFamily)
         {
-            var selectList = _selectService.GetSelectList(enumSelectType);
-            //var bankAgencies = _bankAgencyRepository.GetByIdBankSubFamily(idBankSubFamily);
-            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(selectList).ToList());
+            //var selectList = _selectService.GetSelectList(enumAssetFamily);
+            var assets = _assetRepository.GetList(enumAssetFamily);
+            //selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(selectList).ToList());
 
-            return selectList;
+            return _mapper.Map<List<SelectCode>>(assets);
         }
 
     }

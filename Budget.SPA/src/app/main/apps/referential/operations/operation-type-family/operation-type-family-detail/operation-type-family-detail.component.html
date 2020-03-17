@@ -21,7 +21,7 @@
                 </button>
                 
                 <div class="header-image mr-8 mr-sm-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-                    <img [src]="(detailInfo$ | async).datas.asset.label">
+                    <img [src]="(detailInfo$ | async).datas.asset.code">
                 </div>
 
                 <div fxLayout="column" fxLayoutAlign="start start"
@@ -80,7 +80,7 @@
                         <mat-label>Icône</mat-label>
                         <mat-select formControlName="asset" placeholder="Icône" [compareWith]="compareObjects" >
                             <mat-option *ngFor="let item of (detailFilterInfo$ | async).datas.asset" [value]="item">
-                                <img [src]="item.label">
+                                <img class="select-image" [src]="item.code">
                                 {{ item.label }}
                             </mat-option>
                         </mat-select>

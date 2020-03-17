@@ -35,7 +35,7 @@ namespace Budget.API.Controllers.Referential
 
         [HttpPost]
         [Route("user-groups/{idUserGroup}/select-list")]
-        public IActionResult GetSelectListByOperationTypeFamily(int idUserGroup, [FromBody] List<SelectDto> operationTypeFamilies)
+        public IActionResult GetSelectListByOperationTypeFamily(int idUserGroup, [FromBody] List<Select> operationTypeFamilies)
         {
             var results = _referentialService.OperationTypeService.GetSelectList(idUserGroup, operationTypeFamilies);
             return Ok(results);

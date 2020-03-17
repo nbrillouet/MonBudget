@@ -80,39 +80,39 @@ namespace Budget.SERVICE
             var accountStatement = _accountStatementRepository.GetAsDetail(filter.IdAs.Value);
             var asDetailDto = _mapper.Map<AsDetailDto>(accountStatement);
 
-            asDetailDto.OperationMethod = new ComboSimple<SelectDto>
+            asDetailDto.OperationMethod = new ComboSimple<Select>
             {
                 List = _referentialService.OperationMethodService.GetSelectList(EnumSelectType.Inconnu),
-                Selected = new SelectDto { Id = accountStatement.OperationMethod.Id, Label = accountStatement.OperationMethod.Label }
+                Selected = new Select { Id = accountStatement.OperationMethod.Id, Label = accountStatement.OperationMethod.Label }
             };
-            asDetailDto.OperationTypeFamily = new ComboSimple<SelectDto>
+            asDetailDto.OperationTypeFamily = new ComboSimple<Select>
             {
                 List = _referentialService.OperationTypeFamilyService.GetSelectList(filter.User.IdUserGroup, (EnumMovement)asDetailDto.IdMovement, EnumSelectType.Inconnu),
-                Selected = new SelectDto { Id = accountStatement.OperationTypeFamily.Id, Label = accountStatement.OperationTypeFamily.Label }
+                Selected = new Select { Id = accountStatement.OperationTypeFamily.Id, Label = accountStatement.OperationTypeFamily.Label }
             };
-            asDetailDto.OperationType = new ComboSimple<SelectDto>
+            asDetailDto.OperationType = new ComboSimple<Select>
             {
                 List = _referentialService.OperationTypeService.GetSelectList(accountStatement.OperationTypeFamily.Id, EnumSelectType.Empty),
-                Selected = new SelectDto { Id = accountStatement.OperationType.Id, Label = accountStatement.OperationType.Label }
+                Selected = new Select { Id = accountStatement.OperationType.Id, Label = accountStatement.OperationType.Label }
             };
 
-            asDetailDto.Operation = new ComboSimple<SelectDto>
+            asDetailDto.Operation = new ComboSimple<Select>
             {
                 List = _referentialService.OperationService.GetSelectList(filter.User.IdUserGroup, accountStatement.OperationMethod.Id, accountStatement.OperationType.Id, EnumSelectType.Inconnu),
-                Selected = new SelectDto { Id = accountStatement.Operation.Id, Label = accountStatement.Operation.Label }
+                Selected = new Select { Id = accountStatement.Operation.Id, Label = accountStatement.Operation.Label }
             };
 
-            asDetailDto.OperationTransverse = new ComboMultiple<SelectDto>
+            asDetailDto.OperationTransverse = new ComboMultiple<Select>
             {
                 List = _referentialService.OperationTransverseService.GetSelectList(filter.User.Id, EnumSelectType.Empty),
                 ListSelected = _operationTransverseAsService.GetOperationTransverseSelectList(filter.IdAs.Value, EnumSelectType.Empty)
             };
 
-            List<SelectDto> operationDetailList = null;
+            List<Select> operationDetailList = null;
             if (!asDetailDto.IsLocalisable)
             {
-                operationDetailList = new List<SelectDto> { new SelectDto { Id = 2, Label = "N/A" } };
-                asDetailDto.OperationPlace = new ComboSimple<SelectDto>
+                operationDetailList = new List<Select> { new Select { Id = 2, Label = "N/A" } };
+                asDetailDto.OperationPlace = new ComboSimple<Select>
                 {
                     List = operationDetailList,
                     Selected = operationDetailList[0]
@@ -120,11 +120,11 @@ namespace Budget.SERVICE
             }
             else
             {
-                operationDetailList = new List<SelectDto> { new SelectDto { Id = 1, Label = "INCONNU" }, new SelectDto { Id = 3, Label = "INTERNET" }, new SelectDto { Id = 4, Label = "AUTRES" } };
+                operationDetailList = new List<Select> { new Select { Id = 1, Label = "INCONNU" }, new Select { Id = 3, Label = "INTERNET" }, new Select { Id = 4, Label = "AUTRES" } };
                 var operationDetailSelected = asDetailDto.OperationDetail.GMapAddress.Id == 1 ? operationDetailList[0]
                         : asDetailDto.OperationDetail.GMapAddress.Id == 3 ? operationDetailList[1]
                         : operationDetailList[2];
-                asDetailDto.OperationPlace = new ComboSimple<SelectDto>
+                asDetailDto.OperationPlace = new ComboSimple<Select>
                 {
                     List = operationDetailList,
                     Selected = operationDetailSelected

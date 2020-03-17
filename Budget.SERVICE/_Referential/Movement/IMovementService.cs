@@ -7,7 +7,7 @@ namespace Budget.SERVICE
 {
     public interface IMovementService
     {
-        List<SelectDto> GetSelectList(EnumSelectType enumSelectType);
+        List<Select> GetSelectList(EnumSelectType enumSelectType);
     }
 
 }

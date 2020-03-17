@@ -32,7 +32,7 @@ namespace Budget.DATA.Repositories
             return results;
         }
 
-        public bool Update(List<SelectDto> operationTransverses, int idAsif)
+        public bool Update(List<Select> operationTransverses, int idAsif)
         {
             //suppression des liaisons pour l' idAsif
             var toDeletes = GetByIdAsif(idAsif);

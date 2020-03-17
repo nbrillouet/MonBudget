@@ -25,11 +25,11 @@ namespace Budget.SERVICE
             _mapper = mapper;
         }
 
-        public List<SelectDto> GetSelectList(EnumSelectType enumSelectType)
+        public List<Select> GetSelectList(EnumSelectType enumSelectType)
         {
-            List<SelectDto> selectList = new List<SelectDto>();
+            List<Select> selectList = new List<Select>();
             var movements = _movementRepository.GetAllOrdering();
-            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(movements).ToList());
+            selectList.AddRange(_mapper.Map<IEnumerable<Select>>(movements).ToList());
 
             return selectList;
         }

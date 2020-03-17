@@ -28,11 +28,11 @@ namespace Budget.SERVICE
 
         //}
 
-        public List<SelectDto> GetSelectList(EnumSelectType enumSelectType)
+        public List<Select> GetSelectList(EnumSelectType enumSelectType)
         {
-            List<SelectDto> Selectlist = new List<SelectDto>();
+            List<Select> Selectlist = new List<Select>();
 
-            SelectDto select = new SelectDto();
+            Select select = new Select();
             switch (enumSelectType)
             {
                 case EnumSelectType.Empty:
@@ -58,19 +58,19 @@ namespace Budget.SERVICE
                     //        break;
                     //}
 
-                    select = new SelectDto { Id = 1, Label = "INCONNU" };
+                    select = new Select { Id = 1, Label = "INCONNU" };
                     break;
                 case EnumSelectType.Tous:
-                    select = new SelectDto { Id = 0, Label = "TOUS" };
+                    select = new Select { Id = 0, Label = "TOUS" };
                     break;
                 case EnumSelectType.Toutes:
-                    select = new SelectDto { Id = 0, Label = "TOUTES" };
+                    select = new Select { Id = 0, Label = "TOUTES" };
                     break;
                 case EnumSelectType.Aucun:
-                    select = new SelectDto { Id = -1, Label = "AUCUN" };
+                    select = new Select { Id = -1, Label = "AUCUN" };
                     break;
                 case EnumSelectType.Aucune:
-                    select = new SelectDto { Id = -1, Label = "AUCUNE" };
+                    select = new Select { Id = -1, Label = "AUCUNE" };
                     break;
             }
 

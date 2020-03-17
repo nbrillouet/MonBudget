@@ -76,7 +76,7 @@ namespace Budget.SERVICE
             foreach (var poste in postes)
             {
                 PosteForTrackingDto posteForTracking = new PosteForTrackingDto();
-                posteForTracking.Poste = _mapper.Map<SelectDto>(poste);
+                posteForTracking.Poste = _mapper.Map<Select>(poste);
 
                 var vByPoste = vPlanGlobal.Where(x => x.IdPoste == poste.Id).ToList();
                 //recherche des planPoste et affectation au planTrackingDto

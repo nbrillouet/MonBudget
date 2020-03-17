@@ -1,4 +1,4 @@
-import { ISelect } from "../generics/select.model";
+import { ISelect, ISelectCode } from "../generics/select.model";
 import { OperationDetail } from "../referential/operation-detail.model";
 import { ComboSimple, ComboMultiple } from "../generics/combo.model";
 import { GMapSearchInfo } from "../g-map.model.";
@@ -39,8 +39,8 @@ export class AsifDetail {
     idDuplicated: boolean;
 
     idMovement: number;
-    logoName: string;
-    logoUrl: string;
+    asset: ISelectCode;
+
     operationKeywordTemp: string;
     operationLabelTemp: string;
     placeLabelTemp: string;

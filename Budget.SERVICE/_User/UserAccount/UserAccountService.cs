@@ -2,11 +2,8 @@
 using Budget.DATA.Repositories;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
-using Budget.MODEL.Dto.Select;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Budget.SERVICE
 {
@@ -44,7 +41,7 @@ namespace Budget.SERVICE
                     var acc = bankAgencies.SelectMany(x => x.Accounts).Distinct().Where(u => u.Id == account.Id).FirstOrDefault();
                     var idx = acc.UserAccounts.FindIndex(x => x.IdUser == idUser);
                     acc.UserAccounts.RemoveAt(idx);
-                    account.LinkedUsers = _mapper.Map<List<SelectDto>>(acc.UserAccounts.Select(x => x.User).ToList());
+                    account.LinkedUsers = _mapper.Map<List<Select>>(acc.UserAccounts.Select(x => x.User).ToList());
                 }
             }
             return bankAgencyAccountsDtos;
@@ -66,7 +63,7 @@ namespace Budget.SERVICE
                 {
                     Id = bankSubFamily.Id,
                     Label = bankSubFamily.LabelLong,
-                    Selects = _mapper.Map<List<SelectDto>>(bankAgencies.Where(x => x.BankSubFamily.Id == bankSubFamily.Id).Select(x => x.Accounts).ToList()[0])
+                    Selects = _mapper.Map<List<Select>>(bankAgencies.Where(x => x.BankSubFamily.Id == bankSubFamily.Id).Select(x => x.Accounts).ToList()[0])
                 };
                 results.Add(SelectGroupDto);
             }

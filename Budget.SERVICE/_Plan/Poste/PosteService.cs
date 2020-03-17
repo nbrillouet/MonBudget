@@ -28,11 +28,11 @@ namespace Budget.SERVICE
             return _posteRepository.GetById(idPoste);
         }
 
-        public List<SelectDto> GetAllSelect()
+        public List<Select> GetAllSelect()
         {
             var postes = _posteRepository.GetAll();
 
-            return _mapper.Map<List<SelectDto>>(postes);
+            return _mapper.Map<List<Select>>(postes);
         }
     }
 

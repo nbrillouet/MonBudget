@@ -1,8 +1,5 @@
 ﻿using Budget.MODEL.Dto;
-using Budget.MODEL.Dto.Select;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Budget.MODEL.Filter
 {
@@ -10,8 +7,8 @@ namespace Budget.MODEL.Filter
     {
         public UserForGroupDto User { get; set; }
         public string Label { get; set; }
-        public List<SelectDto> OperationMethod { get; set; }
-        public List<SelectDto> OperationType { get; set; }
+        public List<Select> OperationMethod { get; set; }
+        public List<Select> OperationType { get; set; }
         public Pagination Pagination { get; set; }
 
         public FilterOperationTableSelected()
@@ -23,7 +20,7 @@ namespace Budget.MODEL.Filter
 
     public class FilterOperationTableSelection
     {
-        public List<SelectDto> OperationMethod { get; set; }
+        public List<Select> OperationMethod { get; set; }
         public List<SelectGroupDto> OperationType { get; set; }
         
         public FilterOperationTableSelection()
@@ -34,7 +31,7 @@ namespace Budget.MODEL.Filter
 
     public class FilterOperationForDetail
     {
-        public List<SelectDto> OperationMethod { get; set; }
+        public List<Select> OperationMethod { get; set; }
         public List<SelectGroupDto> OperationType { get; set; }
     }
    

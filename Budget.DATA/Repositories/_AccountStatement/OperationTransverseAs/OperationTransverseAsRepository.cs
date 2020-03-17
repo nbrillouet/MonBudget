@@ -37,7 +37,7 @@ namespace Budget.DATA.Repositories
         //    return Updtae(operationTransverseAs);
         //}
 
-        public bool Update(List<SelectDto> operationTransverses, int idAs)
+        public bool Update(List<Select> operationTransverses, int idAs)
         {
             //suppression des liaisons pour l' idAs
             var toDeletes = GetByIdAs(idAs);

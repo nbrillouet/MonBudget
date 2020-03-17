@@ -8,8 +8,8 @@ namespace Budget.MODEL.Dto
     {
         public int Id { get; set; }
         public string Label { get; set; }
-        public SelectDto Movement { get; set; }
-        public SelectDto Asset { get; set; }
+        public Select Movement { get; set; }
+        public SelectCode Asset { get; set; }
         public UserForGroupDto User { get; set; }
         public bool IsMandatory { get; set; }
         public bool IsUsed { get; set; }
@@ -19,8 +19,8 @@ namespace Budget.MODEL.Dto
     {
         public int? Id { get; set; }
         public string Label { get; set; }
-        public SelectDto Movement { get; set; }
-        public SelectDto Asset { get; set; }
+        public Select Movement { get; set; }
+        public SelectCode Asset { get; set; }
         public UserForGroupDto User { get; set; }
         public bool IsMandatory { get; set; }
     }

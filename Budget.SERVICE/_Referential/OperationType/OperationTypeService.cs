@@ -3,12 +3,9 @@ using Budget.DATA.Repositories;
 using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
-using Budget.MODEL.Dto.Select;
 using Budget.MODEL.Filter;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Budget.SERVICE
 {
@@ -45,11 +42,11 @@ namespace Budget.SERVICE
 
         }
 
-        public SelectDto GetSelect(EnumCodeOperationType enumCodeOperationType, int idUserGroup)
+        public Select GetSelect(EnumCodeOperationType enumCodeOperationType, int idUserGroup)
         {
             var OperationType = _operationTypeRepository.Get(enumCodeOperationType, idUserGroup);
 
-            return _mapper.Map<SelectDto>(OperationType);
+            return _mapper.Map<Select>(OperationType);
         }
 
         public OperationType GetByIdWithOperationTypeFamily(int idOperationType)
@@ -80,7 +77,7 @@ namespace Budget.SERVICE
             //return results;
         }
 
-        public List<SelectGroupDto> GetSelectGroup(int idUserGroup, List<SelectDto> operationTypeFamilies)
+        public List<SelectGroupDto> GetSelectGroup(int idUserGroup, List<Select> operationTypeFamilies)
         {
             if(operationTypeFamilies == null || operationTypeFamilies.Count==0)
             {
@@ -91,7 +88,7 @@ namespace Budget.SERVICE
             //var operationTypeFamilies = _operationTypeFamilyService.GetByIds(idUserGroup);
         }
 
-        private List<SelectGroupDto> GetSelectGroup(List<SelectDto> operationTypeFamilies)
+        private List<SelectGroupDto> GetSelectGroup(List<Select> operationTypeFamilies)
         {
             List<SelectGroupDto> results = new List<SelectGroupDto>();
             foreach (var operationTypeFamily in operationTypeFamilies)
@@ -102,7 +99,7 @@ namespace Budget.SERVICE
                     Label = operationTypeFamily.Label
                 };
                 var operationTypes = _operationTypeRepository.GetByIdOperationTypeFamily(operationTypeFamily.Id);
-                var operationTypesDto = _mapper.Map<List<SelectDto>>(operationTypes);
+                var operationTypesDto = _mapper.Map<List<Select>>(operationTypes);
                 selectGroupDto.Selects = operationTypesDto;
 
                 results.Add(selectGroupDto);
@@ -111,20 +108,20 @@ namespace Budget.SERVICE
             return results;
         }
 
-        public List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationTypeFamilies)
+        public List<Select> GetSelectList(int idUserGroup, List<Select> operationTypeFamilies)
         {
             var operationTypes = _operationTypeRepository.GetByOperationTypeFamilies(idUserGroup, operationTypeFamilies);
-            return _mapper.Map<List<SelectDto>>(operationTypes);
+            return _mapper.Map<List<Select>>(operationTypes);
         }
 
-        public List<SelectDto> GetSelectList(int idOperationTypeFamily, EnumSelectType enumSelectType)
+        public List<Select> GetSelectList(int idOperationTypeFamily, EnumSelectType enumSelectType)
         {
             
-            List<SelectDto> selectList = new List<SelectDto>();
+            List<Select> selectList = new List<Select>();
             if (enumSelectType == EnumSelectType.Inconnu)
             {
                 var operationTypeFamily = _operationTypeFamilyService.GetById(idOperationTypeFamily);
-                var select = _mapper.Map<SelectDto>(GetUnknown(operationTypeFamily.User.IdUserGroup));
+                var select = _mapper.Map<Select>(GetUnknown(operationTypeFamily.User.IdUserGroup));
                 selectList.Add(select);
             }
             else
@@ -136,7 +133,7 @@ namespace Budget.SERVICE
 
             //var selectList = _selectService.GetSelectList(EnumTableRef.OperationType, operationTypeFamily.IdUserGroup,enumSelectType);
             var operationTypeFamilies = _operationTypeRepository.GetByIdOperationTypeFamily(idOperationTypeFamily);
-            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(operationTypeFamilies).ToList());
+            selectList.AddRange(_mapper.Map<IEnumerable<Select>>(operationTypeFamilies).ToList());
 
             return selectList;
         }
@@ -160,7 +157,7 @@ namespace Budget.SERVICE
                 var operationTypesByFamily = operationTypes.Where(x => x.IdOperationTypeFamily == operationTypeFamily.Id).ToList();
                 foreach (var operationType in operationTypesByFamily)
                 {
-                    SelectDto selectDto = new SelectDto { Id = operationType.Id, Label = operationType.Label };
+                    Select selectDto = new Select { Id = operationType.Id, Label = operationType.Label };
                     selectGroup.Selects.Add(selectDto);
                 }
 
@@ -169,10 +166,10 @@ namespace Budget.SERVICE
             return results;
         }
 
-        public List<SelectDto> GetSelectListByIdList(List<int> idList)
+        public List<Select> GetSelectListByIdList(List<int> idList)
         {
             List<OperationType> operationTypes = _operationTypeRepository.GetByIdList(idList);
-            return _mapper.Map<List<SelectDto>>(operationTypes);
+            return _mapper.Map<List<Select>>(operationTypes);
         }
 
         public OperationType GetUnknown(int idUserGroup)

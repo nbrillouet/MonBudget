@@ -1,5 +1,5 @@
 import { ComboSimple, ComboMultiple } from "../generics/combo.model";
-import { ISelect } from "../generics/select.model";
+import { ISelect, ISelectCode } from "../generics/select.model";
 import { OperationDetail } from "../referential/operation-detail.model";
 import { GMapSearchInfo } from "../g-map.model.";
 import { IUserForGroup } from "../user.model";
@@ -20,8 +20,7 @@ export class AsDetail {
     idDuplicated: boolean;
 
     idMovement: number;
-    logoName: string;
-    logoUrl: string;
+    asset: ISelectCode;
 
     isLocalisable: boolean;
     operationDetail: OperationDetail;

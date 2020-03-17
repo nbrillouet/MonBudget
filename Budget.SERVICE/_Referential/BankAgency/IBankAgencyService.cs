@@ -7,7 +7,7 @@ namespace Budget.SERVICE
 {
     public interface IBankAgencyService
     {
-        List<SelectDto> GetSelectList(int idBankSubFamily, EnumSelectType enumSelectType);
+        List<Select> GetSelectList(int idBankSubFamily, EnumSelectType enumSelectType);
 
     }
 

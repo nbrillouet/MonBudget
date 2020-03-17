@@ -5,19 +5,23 @@ using System.Threading.Tasks;
 
 namespace Budget.MODEL.Dto
 {
-    public class SelectDto
+    public class Select
     {
         public int Id { get; set; }
         public string Label { get; set; }
-
     }
 
-    public class SelectValueDto<T>
+    public class SelectCode: Select
     {
-        public int Id { get; set; }
-        public string Label { get; set; }
-        public T Value { get; set; }
+        public string Code { get; set; }
     }
+
+    //public class SelectValueDto<T>
+    //{
+    //    public int Id { get; set; }
+    //    public string Label { get; set; }
+    //    public T Value { get; set; }
+    //}
 
     public class SelectNameValueDto<T>
     {
@@ -37,13 +41,13 @@ namespace Budget.MODEL.Dto
     public class ComboSimple<T>
     {
         public List<T> List { get; set; }
-        public SelectDto Selected { get; set; }
+        public Select Selected { get; set; }
     }
 
     public class ComboMultiple<T>
     {
         public List<T> List { get; set; }
-        public List<SelectDto> ListSelected { get; set; }
+        public List<Select> ListSelected { get; set; }
     }
 
     public class ComboNameValueMultiple<T,U>

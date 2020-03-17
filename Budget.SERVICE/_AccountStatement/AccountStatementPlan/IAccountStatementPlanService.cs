@@ -10,6 +10,6 @@ namespace Budget.SERVICE
     {
         List<AccountStatementPlan> GetByIdPlan(int IdPlan);
         void SaveByIdPlan(int idPlan);
-        List<SelectValueDto<string>> GetPlansByIdAccountStatement(int idAccountStatement, int year);
+        List<SelectCode> GetPlansByIdAccountStatement(int idAccountStatement, int year);
     }
 }

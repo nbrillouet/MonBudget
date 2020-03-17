@@ -8,8 +8,8 @@ namespace Budget.SERVICE
 {
     public interface IOperationTransverseAsService
     {
-        List<SelectDto> GetOperationTransverseSelectList(int IdAccountStatementFile, EnumSelectType enumSelectType);
-        bool Update(List<SelectDto> operationTransverses, int idAs);
+        List<Select> GetOperationTransverseSelectList(int IdAccountStatementFile, EnumSelectType enumSelectType);
+        bool Update(List<Select> operationTransverses, int idAs);
         OperationTransverseAs Save(OperationTransverseAs operationTransverseAs);
 
     }

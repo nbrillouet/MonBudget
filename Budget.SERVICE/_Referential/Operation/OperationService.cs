@@ -3,9 +3,7 @@ using Budget.DATA.Repositories;
 using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
-using Budget.MODEL.Dto.Select;
 using Budget.MODEL.Filter;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -46,19 +44,19 @@ namespace Budget.SERVICE
             _operationRepository = operationRepository;
         }
 
-        public List<SelectDto> GetSelectList(int idUserGroup)
+        public List<Select> GetSelectList(int idUserGroup)
         {
             var operations = _operationRepository.GetSelectList(idUserGroup);
-            return _mapper.Map<List<SelectDto>>(operations);
+            return _mapper.Map<List<Select>>(operations);
         }
 
 
-        public List<SelectDto> GetSelectList(int idUserGroup, int idOperationMethod, int idOperationType, EnumSelectType enumSelectType)
+        public List<Select> GetSelectList(int idUserGroup, int idOperationMethod, int idOperationType, EnumSelectType enumSelectType)
         {
-            List<SelectDto> selectList = new List<SelectDto>();
+            List<Select> selectList = new List<Select>();
             if (enumSelectType == EnumSelectType.Inconnu)
             {
-                var select = _mapper.Map<SelectDto>(GetUnknown(idUserGroup));
+                var select = _mapper.Map<Select>(GetUnknown(idUserGroup));
                 selectList.Add(select);
             }
             else
@@ -68,15 +66,15 @@ namespace Budget.SERVICE
 
             //var selectList = _selectService.GetSelectList(EnumTableRef.Operation, idUserGroup,  enumSelectType);
             var operations = _operationRepository.GetSelectList(idUserGroup, idOperationMethod, idOperationType);
-            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(operations).ToList());
+            selectList.AddRange(_mapper.Map<IEnumerable<Select>>(operations).ToList());
 
             return selectList;
         }
 
-        public List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationMethodList, List<SelectDto> operationTypeFamilyList, List<SelectDto> operationTypeList)
+        public List<Select> GetSelectList(int idUserGroup, List<Select> operationMethodList, List<Select> operationTypeFamilyList, List<Select> operationTypeList)
         {
             var operations = _operationRepository.GetSelectList(idUserGroup, operationMethodList, operationTypeFamilyList, operationTypeList);
-            return _mapper.Map<List<SelectDto>>(operations);
+            return _mapper.Map<List<Select>>(operations);
         }
         //public List<SelectDto> GetSelectList(int idUserGroup, List<SelectDto> operationTypes)
         //{
@@ -92,10 +90,10 @@ namespace Budget.SERVICE
             return GetSelectGroupList(operations);
         }
 
-        public List<SelectDto> GetSelectListByIdList(List<int> idList)
+        public List<Select> GetSelectListByIdList(List<int> idList)
         {
             List<Operation> operations = _operationRepository.GetByIdList(idList);
-            return _mapper.Map<List<SelectDto>>(operations);
+            return _mapper.Map<List<Select>>(operations);
         }
 
         private List<SelectGroupDto> GetSelectGroupList(List<Operation> operations)
@@ -110,7 +108,7 @@ namespace Budget.SERVICE
                 var operationsByOperationType = operations.Where(x => x.IdOperationType == operationType.Id).ToList();
                 foreach (var operation in operationsByOperationType)
                 {
-                    SelectDto selectDto = new SelectDto { Id = operation.Id, Label = operation.Label };
+                    Select selectDto = new Select { Id = operation.Id, Label = operation.Label };
                     selectGroup.Selects.Add(selectDto);
                 }
 
@@ -119,10 +117,10 @@ namespace Budget.SERVICE
             return results;
         }
 
-        public SelectDto GetUnknown(int idUserGroup)
+        public Select GetUnknown(int idUserGroup)
         {
             var operation = _operationRepository.GetUnknown(idUserGroup);
-            return _mapper.Map<SelectDto>(operation);
+            return _mapper.Map<Select>(operation);
         }
 
         public PagedList<OperationForTableDto> GetForTable(FilterOperationTableSelected filter)

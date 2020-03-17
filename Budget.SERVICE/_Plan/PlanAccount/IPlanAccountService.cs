@@ -1,6 +1,5 @@
 ﻿using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
-using Budget.MODEL.Dto.Select;
 using System.Collections.Generic;
 
 namespace Budget.SERVICE
@@ -11,7 +10,7 @@ namespace Budget.SERVICE
         List<PlanAccount> GetByIdPlan(int idPlan);
         void DeleteByIdPlan(int idPlan);
         void Create(PlanAccount planAccount);
-        void Save(int idPlan, List<SelectDto> accounts);
+        void Save(int idPlan, List<Select> accounts);
         //void Update(PlanAccount planAccount);
         //void Delete(PlanAccount planAccount);
     }

@@ -1,8 +1,6 @@
 ﻿using Budget.MODEL.Dto;
-using Budget.MODEL.Dto.Select;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Budget.MODEL.Filter
 {
@@ -13,15 +11,15 @@ namespace Budget.MODEL.Filter
         public UserForGroupDto User { get; set; }
         public int? IdImport { get; set; }
         public int? IndexTabAsifState { get; set; }
-        public SelectDto Account { get; set; }
-        public SelectDto AsifState { get; set; }
+        public Select Account { get; set; }
+        public Select AsifState { get; set; }
         public string AsiBankAgencyLabel { get; set; }
         public DateTime? AsiDateImport { get; set; }
 
-        public List<SelectDto> OperationMethod { get; set; }
-        public List<SelectDto> OperationTypeFamily { get; set; }
-        public List<SelectDto> OperationType { get; set; }
-        public List<SelectDto> Operation { get; set; }
+        public List<Select> OperationMethod { get; set; }
+        public List<Select> OperationTypeFamily { get; set; }
+        public List<Select> OperationType { get; set; }
+        public List<Select> Operation { get; set; }
         public FilterDateRange DateIntegration { get; set; }
         public FilterNumberRange AmountOperation { get; set; }
 
@@ -36,13 +34,13 @@ namespace Budget.MODEL.Filter
     {
         //public string AsiBankAgencyLabel { get; set; }
         //public DateTime AsiDateImport { get; set; }
-        public List<SelectDto> Account { get; set; }
-        public List<SelectDto> AsifState { get; set; }
+        public List<Select> Account { get; set; }
+        public List<Select> AsifState { get; set; }
 
-        public List<SelectDto> OperationMethod { get; set; }
+        public List<Select> OperationMethod { get; set; }
         public List<SelectGroupDto> OperationTypeFamily { get; set; }
         public List<SelectGroupDto> OperationType { get; set; }
-        public List<SelectDto> Operation { get; set; }
+        public List<Select> Operation { get; set; }
 
 
         public FilterAsifTableSelection()

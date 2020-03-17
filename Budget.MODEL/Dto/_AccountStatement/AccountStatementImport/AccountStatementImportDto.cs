@@ -13,8 +13,8 @@ namespace Budget.MODEL.Dto
     public class AsiForListDto
     {
         public int Id { get; set; }
-        public SelectDto User { get; set; }
-        public SelectDto BankAgency { get; set; }
+        public Select User { get; set; }
+        public Select BankAgency { get; set; }
         public string FileImport { get; set; }
         public DateTime DateImport { get; set; }
     }
@@ -22,8 +22,8 @@ namespace Budget.MODEL.Dto
     public class AsiForTableDto
     {
         public int Id { get; set; }
-        public SelectDto User { get; set; }
-        public SelectDto BankAgency { get; set; }
+        public Select User { get; set; }
+        public Select BankAgency { get; set; }
         public string FileImport { get; set; }
         public DateTime DateImport { get; set; }
     }

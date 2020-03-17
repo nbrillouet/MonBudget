@@ -21,10 +21,10 @@ namespace Budget.SERVICE
         }
 
 
-        public List<SelectDto> GetSelectAll()
+        public List<Select> GetSelectAll()
         {
             List<Month> months = _monthRepository.GetAllByOrder();
-            var monthsDto = _mapper.Map<List<SelectDto>>(months);
+            var monthsDto = _mapper.Map<List<Select>>(months);
             return monthsDto;
         }
 

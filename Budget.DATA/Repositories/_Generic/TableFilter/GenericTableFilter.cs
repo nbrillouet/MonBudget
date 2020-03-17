@@ -29,9 +29,9 @@ namespace Budget.DATA.Repositories
 
                         if (value is int || value is int?)
                             context = context.Where(x => (int)x.GetValueByName(item.Name) == (int)value);
-                        if (value is List<SelectDto>)
+                        if (value is List<Select>)
                         {
-                            List<SelectDto> t = (List<SelectDto>)value;
+                            List<Select> t = (List<Select>)value;
                             if (t != null && t.Count > 0)
                             {
                                 var ids = t.Select(x => x.Id).ToList();

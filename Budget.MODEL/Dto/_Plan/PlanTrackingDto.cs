@@ -37,7 +37,7 @@ namespace Budget.MODEL.Dto
 
     public class PosteForTrackingDto : PlanForTrackingValue
     {
-        public SelectDto Poste { get; set; }
+        public Select Poste { get; set; }
         public List<PlanPosteForTrackingDto> PlanPostes { get; set; }
     }
 

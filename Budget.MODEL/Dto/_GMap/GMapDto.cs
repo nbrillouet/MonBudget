@@ -10,16 +10,16 @@ namespace Budget.MODEL.Dto
         public string FormattedAddress { get; set; }
         public double Lat { get; set; }
         public double Lng { get; set; }
-        public SelectDto gMapAdministrativeAreaLevel1 { get; set; }
-        public SelectDto gMapAdministrativeAreaLevel2 { get; set; }
-        public SelectDto gMapCountry { get; set; }
-        public SelectDto gMapLocality { get; set; }
-        public SelectDto gMapNeighborhood { get; set; }
-        public SelectDto gMapPostalCode { get; set; }
-        public SelectDto gMapRoute { get; set; }
-        public SelectDto gMapStreetNumber { get; set; }
-        public SelectDto gMapSublocalityLevel1 { get; set; }
-        public SelectDto gMapSublocalityLevel2 { get; set; }
+        public Select gMapAdministrativeAreaLevel1 { get; set; }
+        public Select gMapAdministrativeAreaLevel2 { get; set; }
+        public Select gMapCountry { get; set; }
+        public Select gMapLocality { get; set; }
+        public Select gMapNeighborhood { get; set; }
+        public Select gMapPostalCode { get; set; }
+        public Select gMapRoute { get; set; }
+        public Select gMapStreetNumber { get; set; }
+        public Select gMapSublocalityLevel1 { get; set; }
+        public Select gMapSublocalityLevel2 { get; set; }
         public List<GMapTypeDto> GMapTypes { get; set; }
     }
 

@@ -13,10 +13,10 @@ export class SelectYear {
     year:number;
 }
 
-export interface ISelectColor {
+export interface ISelectCode {
     id: number;
     label: string;
-    color: string;
+    code: string;
 }
 
 export enum EnumSelectType {

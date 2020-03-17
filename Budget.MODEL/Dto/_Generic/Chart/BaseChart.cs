@@ -20,14 +20,14 @@ namespace Budget.MODEL.Dto
     public class BaseChart
     {
         public List<DataSet> DataSets { get; set; }
-        public List<SelectDto> Labels { get; set; }
+        public List<Select> Labels { get; set; }
         public Options Options { get; set; }
         public List<Color> Colors {get; set; }
 
         public BaseChart()
         {
             DataSets = new List<DataSet>();
-            Labels = new List<SelectDto>();
+            Labels = new List<Select>();
             Colors = new List<Color>();
             Options = new Options();
         }

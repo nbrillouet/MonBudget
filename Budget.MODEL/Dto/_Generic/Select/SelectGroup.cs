@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Budget.MODEL.Dto.Select
+namespace Budget.MODEL.Dto
 {
     public class SelectGroupDto
     {
         public int Id { get; set; }
         public string Label { get; set; }
-        public List<SelectDto> Selects { get; set; }
+        public List<Select> Selects { get; set; }
 
         public SelectGroupDto()
         {
-            Selects = new List<SelectDto>();
+            Selects = new List<Select>();
         }
     }
 

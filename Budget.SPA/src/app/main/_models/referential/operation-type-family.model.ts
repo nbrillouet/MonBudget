@@ -1,10 +1,10 @@
-import { ISelect } from "../generics/select.model";
+import { ISelect, ISelectCode } from "../generics/select.model";
 import { IUserForGroup } from "../user.model";
 
 export interface OtfTable {
     id : number;
     label : string;
-    asset: string;
+    asset: ISelectCode;
     movement: ISelect;
     user: IUserForGroup;
     isMandatory: boolean;
@@ -14,7 +14,7 @@ export interface OtfTable {
 export interface OtfForDetail {
     id : number;
     label : string;
-    asset: ISelect;
+    asset: ISelectCode;
     movement : ISelect;
     user: IUserForGroup;
     isMandatory: boolean;

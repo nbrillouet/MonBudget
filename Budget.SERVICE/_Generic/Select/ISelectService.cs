@@ -8,6 +8,6 @@ namespace Budget.SERVICE
 {
     public interface ISelectService
     {
-        List<SelectDto> GetSelectList(EnumSelectType enumSelectType);
+        List<Select> GetSelectList(EnumSelectType enumSelectType);
     }
 }

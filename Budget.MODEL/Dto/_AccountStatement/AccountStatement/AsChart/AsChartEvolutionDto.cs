@@ -1,11 +1,7 @@
 ﻿using Budget.MODEL.Dto;
-using Budget.MODEL.Dto.Select;
 using Budget.MODEL.Filter;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Budget.MODEL
 {
@@ -42,7 +38,7 @@ namespace Budget.MODEL
         public UserForGroupDto User { get; set; }
         public int? IdAccount { get; set; }
         public MonthYear MonthYear { get; set; }
-        public List<SelectDto> OperationTypeFamilies { get; set; }
+        public List<Select> OperationTypeFamilies { get; set; }
     }
 
     public class AsEvolutionCdbDto

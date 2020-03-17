@@ -145,6 +145,9 @@ namespace Budget.API
             services.AddScoped<IMovementService, MovementService>();
             services.AddScoped<IMovementRepository, MovementRepository>();
 
+            services.AddScoped<IAssetService, AssetService>();
+            services.AddScoped<IAssetRepository, AssetRepository>();
+
             services.AddScoped<IPlanService, PlanService>();
             services.AddScoped<IPlanRepository, PlanRepository>();
 

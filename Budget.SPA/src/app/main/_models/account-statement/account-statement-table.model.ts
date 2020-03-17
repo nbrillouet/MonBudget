@@ -1,5 +1,5 @@
 
-import { ISelect, ISelectColor } from "../generics/select.model";
+import { ISelect, ISelectCode } from "../generics/select.model";
 
 export class AsTable {
     id: number;
@@ -13,5 +13,5 @@ export class AsTable {
     labelOperation: string;
     dateIntegration: Date;
     idDuplicated: boolean;
-    plans: ISelectColor[];
+    plans: ISelectCode[];
 }

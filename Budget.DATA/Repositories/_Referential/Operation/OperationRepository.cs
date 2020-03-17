@@ -36,7 +36,7 @@ namespace Budget.DATA.Repositories
             return results.ToList(); ;
         }
 
-        public List<Operation> GetSelectList(int idUserGroup, List<SelectDto> operationMethodList, List<SelectDto> operationTypeFamilyList, List<SelectDto> operationTypeList)
+        public List<Operation> GetSelectList(int idUserGroup, List<Select> operationMethodList, List<Select> operationTypeFamilyList, List<Select> operationTypeList)
         {
             var idOperationMethodList = (operationMethodList != null && operationMethodList.Any())
                 ? operationMethodList.Select(x => x.Id).ToList()

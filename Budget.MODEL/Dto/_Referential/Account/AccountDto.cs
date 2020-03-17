@@ -28,11 +28,11 @@ namespace Budget.MODEL.Dto
         public int Id { get; set; }
         public string Number { get; set; }
         public string Label { get; set; }
-        public ComboSimple<SelectDto> BankFamily { get; set; }
-        public ComboSimple<SelectDto> BankSubFamily { get; set; }
-        public ComboSimple<SelectDto> BankAgency { get; set; }
-        public ComboSimple<SelectDto> AccountType { get; set; }
-        public List<SelectDto> LinkedUsers { get; set; }
+        public ComboSimple<Select> BankFamily { get; set; }
+        public ComboSimple<Select> BankSubFamily { get; set; }
+        public ComboSimple<Select> BankAgency { get; set; }
+        public ComboSimple<Select> AccountType { get; set; }
+        public List<Select> LinkedUsers { get; set; }
         public double StartAmount { get; set; }
         public double AlertThreshold { get; set; }
     }

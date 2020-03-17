@@ -13,11 +13,11 @@ namespace Budget.SERVICE
     {
         PagedList<AsifForTableDto> GetAsifTable(FilterAsifTableSelected filter);
         AsifDetailDto GetAsifDetail(FilterAsifDetail filter);
-        List<SelectDto> GetAccountSelectListByIdImport(int idImport);
+        List<Select> GetAccountSelectListByIdImport(int idImport);
         AccountStatementImportFile GetById(int IdAccountStatementImportFile);
         AccountStatementImportFile InitForImport(int idUserGroup);
         AsifGroupByAccounts GetListDto(int idImport);
-        List<SelectDto> GetAsifStates(int idImport, int idAccount);
+        List<Select> GetAsifStates(int idImport, int idAccount);
         Task<AsifDetailDto> GetForDetailByIdAsync(int id);
         string GetOperationLabelWork(string operationLabel);
         OperationDetail GetOperationDetail(int idUserGroup, AccountStatementImportFile accountStatementImportFile);

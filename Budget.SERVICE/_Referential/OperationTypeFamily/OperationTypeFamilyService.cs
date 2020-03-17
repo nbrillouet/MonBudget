@@ -4,15 +4,11 @@ using Budget.DATA.Repositories.ContextTransaction;
 using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
-using Budget.MODEL.Dto.Select;
 using Budget.MODEL.Filter;
 using Microsoft.AspNetCore.Hosting;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Web;
 
 namespace Budget.SERVICE
 {
@@ -64,12 +60,12 @@ namespace Budget.SERVICE
         //}
                
 
-        public List<SelectDto> GetSelectList(int idUserGroup, EnumMovement enumMovement, EnumSelectType enumSelectType)
+        public List<Select> GetSelectList(int idUserGroup, EnumMovement enumMovement, EnumSelectType enumSelectType)
         {
-            List<SelectDto> selectList = new List<SelectDto>();
+            List<Select> selectList = new List<Select>();
             if (enumSelectType == EnumSelectType.Inconnu)
             {
-                var select = _mapper.Map<SelectDto>(GetByCodeUserGroupForSelect(EnumCodeOtf.INCO, idUserGroup));
+                var select = _mapper.Map<Select>(GetByCodeUserGroupForSelect(EnumCodeOtf.INCO, idUserGroup));
                 selectList.Add(select);
             }
             else
@@ -79,17 +75,17 @@ namespace Budget.SERVICE
 
             //var selectList = _selectService.GetSelectList(EnumTableRef.OperationTypeFamily, idUserGroup,  enumSelectType);
             var operationTypeFamilies = _operationTypeFamilyRepository.GetByIdMovement(idUserGroup, enumMovement);
-            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(operationTypeFamilies).ToList());
+            selectList.AddRange(_mapper.Map<IEnumerable<Select>>(operationTypeFamilies).ToList());
 
             return selectList;
         }
 
-        public List<SelectDto> GetSelectList(int idUserGroup, EnumSelectType enumSelectType)
+        public List<Select> GetSelectList(int idUserGroup, EnumSelectType enumSelectType)
         {
-            List<SelectDto> selectList=new List<SelectDto>();
+            List<Select> selectList=new List<Select>();
             if (enumSelectType== EnumSelectType.Inconnu)
             {
-                var select = _mapper.Map<SelectDto>(GetByCodeUserGroupForSelect(EnumCodeOtf.INCO,idUserGroup));
+                var select = _mapper.Map<Select>(GetByCodeUserGroupForSelect(EnumCodeOtf.INCO,idUserGroup));
                 selectList.Add(select);
             }
             else
@@ -98,7 +94,7 @@ namespace Budget.SERVICE
             }
             
             var operationTypeFamilies = _operationTypeFamilyRepository.GetByIdUserGroup(idUserGroup);
-            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(operationTypeFamilies).ToList());
+            selectList.AddRange(_mapper.Map<IEnumerable<Select>>(operationTypeFamilies).ToList());
 
             return selectList;
         }
@@ -128,10 +124,10 @@ namespace Budget.SERVICE
 
         }
 
-        public List<SelectDto> GetSelectListByIdList(List<int> idList)
+        public List<Select> GetSelectListByIdList(List<int> idList)
         {
             List<OperationTypeFamily> operationTypeFamilies = _operationTypeFamilyRepository.GetByIdList(idList);
-            return _mapper.Map<List<SelectDto>>(operationTypeFamilies);
+            return _mapper.Map<List<Select>>(operationTypeFamilies);
         }
 
         private SelectGroupDto GetSelectGroup(List<OperationTypeFamily> operationTypeFamilies, string label)
@@ -140,7 +136,7 @@ namespace Budget.SERVICE
             {
                 Id = operationTypeFamilies[0].Id,
                 Label = label,
-                Selects = _mapper.Map<List<SelectDto>>(operationTypeFamilies)
+                Selects = _mapper.Map<List<Select>>(operationTypeFamilies)
             };
 
             return selectGroupDto;
@@ -153,7 +149,7 @@ namespace Budget.SERVICE
             SelectGroupDto selectGroup = new SelectGroupDto { Id = (int)enumMovement, Label = enumMovement.ToString() };
             foreach (var operationTypeFamily in operationTypeFamilies)
             {
-                SelectDto selectDto = new SelectDto { Id = operationTypeFamily.Id, Label = operationTypeFamily.Label };
+                Select selectDto = new Select { Id = operationTypeFamily.Id, Label = operationTypeFamily.Label };
                 selectGroup.Selects.Add(selectDto);
             }
             results.Add(selectGroup);
@@ -161,10 +157,10 @@ namespace Budget.SERVICE
             return results;
         }
 
-        public List<SelectDto> GetByIdUserGroup(int idUserGroup)
+        public List<Select> GetByIdUserGroup(int idUserGroup)
         {
             List<OperationTypeFamily> operationTypeFamilies = _operationTypeFamilyRepository.GetByIdUserGroup(idUserGroup);
-            return _mapper.Map<List<SelectDto>>(operationTypeFamilies);
+            return _mapper.Map<List<Select>>(operationTypeFamilies);
         }
 
         public PagedList<OtfForTableDto> GetForTable(FilterOtfTableSelected filter)
@@ -174,7 +170,6 @@ namespace Budget.SERVICE
 
             foreach(var data in result.Datas)
             {
-                //data.LogoClassName = $"assets\\images\\Otf\\{data.LogoClassName}_32.png";
                 OperationTypeFamily otf = _mapper.Map<OperationTypeFamily>(data);
                 data.IsUsed = CheckForDelete(otf).Count() > 0 ? true : false;
             }
@@ -186,7 +181,7 @@ namespace Budget.SERVICE
         {
             var userForGroup = _userService.GetForUserGroup(idUser);
             OtfForDetail otfForDetail = !idOtf.HasValue ? GetForCreate() : GetById(idOtf.Value);
-            otfForDetail.User = userForGroup;
+            otfForDetail.User = _mapper.Map<UserForGroupDto>(userForGroup);
 
             return otfForDetail;
 
@@ -241,10 +236,10 @@ namespace Budget.SERVICE
             return result;
         }
 
-        public SelectDto GetByCodeUserGroupForSelect(EnumCodeOtf enumCodeOtf, int idUserGroup)
+        public Select GetByCodeUserGroupForSelect(EnumCodeOtf enumCodeOtf, int idUserGroup)
         {
             var operationTypeFamily = _operationTypeFamilyRepository.GetByCodeUserGroup(enumCodeOtf, idUserGroup);
-            return _mapper.Map<SelectDto>(operationTypeFamily);
+            return _mapper.Map<Select>(operationTypeFamily);
         }
 
         //public SelectDto GetUnknown(int idUserGroup)
@@ -253,9 +248,9 @@ namespace Budget.SERVICE
         //    return _mapper.Map<SelectDto>(operationTypeFamily);
         //}
 
-        private List<SelectDto> GetOtfLogoList()
+        private List<Select> GetOtfLogoList()
         {
-            List<SelectDto> logoList = new List<SelectDto>();
+            List<Select> logoList = new List<Select>();
             var basePath = _hostingEnvironment.WebRootPath;
             var files = Directory.EnumerateFiles($"{basePath}/assets/images/Otf");
             int i = 0;
@@ -264,7 +259,7 @@ namespace Budget.SERVICE
                 string fileName = Path.GetFileName(file);
                 if(fileName.Contains("_32"))
                 {
-                    var logo = new SelectDto
+                    var logo = new Select
                     {
                         Id = i,
                         Label = fileName.Replace("_32.png",string.Empty)

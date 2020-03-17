@@ -27,12 +27,12 @@ namespace Budget.SERVICE
             _selectService = selectService;
         }
 
-        public List<SelectDto> GetOperationTransverseSelectList(int IdAccountStatement, EnumSelectType enumSelectType)
+        public List<Select> GetOperationTransverseSelectList(int IdAccountStatement, EnumSelectType enumSelectType)
         {
             //var selectList = _selectService.GetSelectList(enumSelectType);
-            List<SelectDto> selectList = new List<SelectDto>();
+            List<Select> selectList = new List<Select>();
             var results = _operationTransverseAsRepository.GetOperationTransverseList(IdAccountStatement);
-            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(results).ToList());
+            selectList.AddRange(_mapper.Map<IEnumerable<Select>>(results).ToList());
 
             return selectList;
         }
@@ -50,7 +50,7 @@ namespace Budget.SERVICE
             return operationTransverseAs;
         }
 
-        public bool Update(List<SelectDto> operationTransverses, int idAs)
+        public bool Update(List<Select> operationTransverses, int idAs)
         {
             var result = _operationTransverseAsRepository.Update(operationTransverses, idAs);
             return result;

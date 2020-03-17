@@ -13,7 +13,7 @@ namespace Budget.DATA.Repositories
         OperationType Get(EnumCodeOperationType enumCodeOperationType, int idUserGroup);
         List<OperationType> GetByIdUserGroup(int idUserGroup);
         List<OperationType> GetByIdOperationTypeFamily(int idOperationTypeFamily);
-        List<OperationType> GetByOperationTypeFamilies(int idUserGroup, List<SelectDto> OperationTypeFamilies);
+        List<OperationType> GetByOperationTypeFamilies(int idUserGroup, List<Select> OperationTypeFamilies);
         OperationType GetByIdWithOperationTypeFamily(int idOperationType);
         List<OperationType> GetByIdMovement(int idUserGroup, EnumMovement enumMovement);
         List<OperationType> GetByIdList(List<int> idList);

@@ -12,7 +12,7 @@ namespace Budget.DATA.Repositories
     {
         List<Operation> GetSelectList(int idUserGroup);
         List<Operation> GetSelectList(int idUserGroup, int idOperationMethod, int idOperationType);
-        List<Operation> GetSelectList(int idUserGroup, List<SelectDto> operationMethodList, List<SelectDto> operationTypeFamilyList, List<SelectDto> operationTypeList);
+        List<Operation> GetSelectList(int idUserGroup, List<Select> operationMethodList, List<Select> operationTypeFamilyList, List<Select> operationTypeList);
         List<Operation> GetByIdMovement(int idUserGroup, EnumMovement enumMovement);
         List<Operation> GetByIdList(List<int> idList);
         Operation GetUnknown(int idUserGroup);

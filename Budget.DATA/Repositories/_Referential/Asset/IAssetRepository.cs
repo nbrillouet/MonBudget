@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Budget.MODEL.Database;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Budget.DATA.Repositories._Referential.Asset
+namespace Budget.DATA.Repositories
 {
-    class IAssetRepository
+    public interface IAssetRepository : IBaseRepository<Asset> 
     {
+        List<Asset> GetList(EnumAssetFamily enumAssetFamily);
     }
 }

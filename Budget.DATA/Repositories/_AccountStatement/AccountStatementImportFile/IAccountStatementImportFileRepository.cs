@@ -23,7 +23,7 @@ namespace Budget.DATA.Repositories
 
 
         List<string> GetDistinctAccountNumber(int idImport);
-        List<SelectDto> GetAsifStates(int idImport, int idAccount);
+        List<Select> GetAsifStates(int idImport, int idAccount);
         List<AccountStatementImportFile> GetByIdImport(int IdImport);
 
         Task<AccountStatementImportFile> GetForDetailByIdAsync(int id);

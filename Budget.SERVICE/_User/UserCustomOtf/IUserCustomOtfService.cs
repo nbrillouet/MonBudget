@@ -9,7 +9,7 @@ namespace Budget.SERVICE
 {
     public interface IUserCustomOtfService
     {
-        List<SelectDto> GetOperationTypeFamilySelect(int idUser,int? idAccount);
+        List<Select> GetOperationTypeFamilySelect(int idUser,int? idAccount);
         bool Update(AsChartEvolutionCustomOtfFilterSelected filter);
     }
 }

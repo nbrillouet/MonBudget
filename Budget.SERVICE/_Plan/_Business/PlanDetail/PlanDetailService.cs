@@ -47,7 +47,7 @@ namespace Budget.SERVICE
         public PlanForDetailDto GetForDetail(int idPlan, int idUserGroup)
         {
             var users = _userService.GetByIdUserGroup(idUserGroup);
-            var userList = _mapper.Map<List<SelectDto>>(users);
+            var userList = _mapper.Map<List<Select>>(users);
 
             PlanForDetailDto planForDetailDto = new PlanForDetailDto();
             //Recherche des accounts (list + selected)

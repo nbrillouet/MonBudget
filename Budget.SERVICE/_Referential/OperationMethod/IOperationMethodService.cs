@@ -9,8 +9,8 @@ namespace Budget.SERVICE
 {
     public interface IOperationMethodService 
     {
-        List<SelectDto> GetSelectList(EnumSelectType enumSelectType);
-        SelectDto GetSelect(int idOperationMethod);
+        List<Select> GetSelectList(EnumSelectType enumSelectType);
+        Select GetSelect(int idOperationMethod);
         OperationMethod GetOperationMethodByFileLabel(string operationLabel, EnumBankFamily enumBankFamily);
         OperationMethod GetById(int idOperationMethod);
         List<OperationMethod> GetAll();

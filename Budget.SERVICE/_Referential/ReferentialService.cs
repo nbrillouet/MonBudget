@@ -15,6 +15,7 @@ namespace Budget.SERVICE
         public IOperationTypeService OperationTypeService { get; }
         public IOperationTypeFamilyService OperationTypeFamilyService { get; }
         public IMovementService MovementService { get; }
+        public IAssetService AssetService { get; }
 
         public ReferentialService(
             IBankFileDefinitionService bankFileDefinitionService,
@@ -25,7 +26,8 @@ namespace Budget.SERVICE
             IAccountService accountService,
             IOperationService operationService,
             IOperationTypeFamilyService operationTypeFamilyService,
-            IMovementService movementService
+            IMovementService movementService,
+            IAssetService assetService
             )
         {
             BankFileDefinitionService = bankFileDefinitionService;
@@ -37,6 +39,7 @@ namespace Budget.SERVICE
             OperationService = operationService;
             OperationTypeFamilyService = operationTypeFamilyService;
             MovementService = movementService;
+            AssetService = assetService;
         }
 
     }

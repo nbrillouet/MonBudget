@@ -8,7 +8,7 @@ namespace Budget.SERVICE
 {
     public interface IMonthService
     {
-        List<SelectDto> GetSelectAll();
+        List<Select> GetSelectAll();
         List<Month> GetAll();
         List<Month> GetAnnual();
 

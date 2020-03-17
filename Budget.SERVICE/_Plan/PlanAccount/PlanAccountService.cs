@@ -2,11 +2,7 @@
 using Budget.DATA.Repositories;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
-using Budget.MODEL.Dto.Select;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Budget.SERVICE
 {
@@ -45,11 +41,11 @@ namespace Budget.SERVICE
             return _planAccountRepository.GetByIdPlan(idPlan);
         }
 
-        private List<SelectDto> GetSelectAccountByIdPlan(int idPlan)
+        private List<Select> GetSelectAccountByIdPlan(int idPlan)
         {
             List<Account> accounts = _planAccountRepository.GetSelectAccountByIdPlan(idPlan);
 
-            return _mapper.Map<List<SelectDto>>(accounts);
+            return _mapper.Map<List<Select>>(accounts);
         }
         
         public void DeleteByIdPlan(int idPlan)
@@ -66,7 +62,7 @@ namespace Budget.SERVICE
             _planAccountRepository.Create(planAccount);
         }
 
-        public void Save(int idPlan, List<SelectDto> accounts)
+        public void Save(int idPlan, List<Select> accounts)
         {
             DeleteByIdPlan(idPlan);
             foreach (var account in accounts)

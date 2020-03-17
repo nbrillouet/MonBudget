@@ -7,35 +7,35 @@ namespace Budget.MODEL.Dto
     public class AsForTableDto
     {
         public int Id { get; set; }
-        public SelectDto Operation { get; set; }
-        public SelectDto OperationMethod { get; set; }
-        public SelectDto OperationType { get; set; }
-        public SelectDto OperationTypeFamily { get; set; }
+        public Select Operation { get; set; }
+        public Select OperationMethod { get; set; }
+        public Select OperationType { get; set; }
+        public Select OperationTypeFamily { get; set; }
         public DateTime? DateIntegration { get; set; }
         public double AmountOperation { get; set; }
         public string LabelOperation { get; set; }
-        public List<SelectValueDto<string>> Plans { get; set; }
-        public SelectDto Account { get; set; }
-        public SelectDto BankAgency { get; set; }
+        public List<SelectCode> Plans { get; set; }
+        public Select Account { get; set; }
+        public Select BankAgency { get; set; }
     }
 
     public class AsDetailDto
     {
         public int Id { get; set; }
         public UserForGroupDto User { get; set; }
-        public ComboSimple<SelectDto> Operation { get; set; }
-        public ComboSimple<SelectDto> OperationMethod { get; set; }
-        public ComboSimple<SelectDto> OperationType { get; set; }
-        public ComboSimple<SelectDto> OperationTypeFamily { get; set; }
-        public ComboSimple<SelectDto> OperationPlace { get; set; }
-        public ComboMultiple<SelectDto> OperationTransverse { get; set; }
+        public ComboSimple<Select> Operation { get; set; }
+        public ComboSimple<Select> OperationMethod { get; set; }
+        public ComboSimple<Select> OperationType { get; set; }
+        public ComboSimple<Select> OperationTypeFamily { get; set; }
+        public ComboSimple<Select> OperationPlace { get; set; }
+        public ComboMultiple<Select> OperationTransverse { get; set; }
 
         public double AmountOperation { get; set; }
         public string LabelOperation { get; set; }
         public DateTime? DateIntegration { get; set; }
         public bool IsDuplicated { get; set; }
         public int IdMovement { get; set; }
-        public SelectDto Asset { get; set; }
+        public Select Asset { get; set; }
         //public string LogoName { get; set; }
         //public string LogoUrl { get; set; }
         public bool IsLocalisable { get; set; }

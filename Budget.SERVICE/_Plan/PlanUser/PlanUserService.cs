@@ -2,11 +2,8 @@
 using Budget.DATA.Repositories;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
-using Budget.MODEL.Dto.Select;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Budget.SERVICE
 {
@@ -45,15 +42,15 @@ namespace Budget.SERVICE
             return planUsers.Select(x => x.Plan).ToList();
         }
 
-        public ComboMultiple<SelectDto> GetUserComboMultiple(int idPlan, int idUserGroup)
+        public ComboMultiple<Select> GetUserComboMultiple(int idPlan, int idUserGroup)
         {
             var users = _userService.GetByIdUserGroup(idUserGroup);
-            var userList = _mapper.Map<List<SelectDto>>(users);
+            var userList = _mapper.Map<List<Select>>(users);
 
             var planUsers = GetByIdPlan(idPlan);
-            var usersSelected = _mapper.Map<List<SelectDto>>(planUsers);
+            var usersSelected = _mapper.Map<List<Select>>(planUsers);
 
-            ComboMultiple<SelectDto> result = new ComboMultiple<SelectDto>
+            ComboMultiple<Select> result = new ComboMultiple<Select>
             {
                 List = userList,
                 ListSelected = usersSelected

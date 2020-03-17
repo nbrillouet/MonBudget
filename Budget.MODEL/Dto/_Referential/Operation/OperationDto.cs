@@ -1,5 +1,4 @@
 ﻿using Budget.MODEL.Database;
-using Budget.MODEL.Dto.Select;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -40,8 +39,8 @@ namespace Budget.MODEL.Dto
     {
         public int Id { get; set; }
         public string Label { get; set; }
-        public SelectDto OperationMethod { get; set; }
-        public SelectDto OperationType { get; set; }
+        public Select OperationMethod { get; set; }
+        public Select OperationType { get; set; }
         public UserForGroupDto User { get; set; }
         public bool IsMandatory { get; set; }
 
@@ -52,8 +51,8 @@ namespace Budget.MODEL.Dto
     {
         public int? Id { get; set; }
         public string Label { get; set; }
-        public SelectDto OperationMethod { get; set; }
-        public SelectDto OperationType { get; set; }
+        public Select OperationMethod { get; set; }
+        public Select OperationType { get; set; }
         public UserForGroupDto User { get; set; }
         public bool IsMandatory { get; set; }
     }

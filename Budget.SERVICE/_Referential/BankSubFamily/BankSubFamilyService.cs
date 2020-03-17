@@ -32,11 +32,11 @@ namespace Budget.SERVICE
             return _bankSubFamilyRepository.GetById(idBankAgency);
         }
 
-        public List<SelectDto> GetSelectList(int idBankFamily, EnumSelectType enumSelectType)
+        public List<Select> GetSelectList(int idBankFamily, EnumSelectType enumSelectType)
         {
             var selectList = _selectService.GetSelectList(enumSelectType);
             var bankAgencies = _bankSubFamilyRepository.GetByIdBankFamily(idBankFamily);
-            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(bankAgencies).ToList());
+            selectList.AddRange(_mapper.Map<IEnumerable<Select>>(bankAgencies).ToList());
 
             return selectList;
         }

@@ -26,12 +26,12 @@ namespace Budget.SERVICE
             _selectService = selectService;
         }
 
-        public List<SelectDto> GetSelectList(int idUser, EnumSelectType enumSelectType)
+        public List<Select> GetSelectList(int idUser, EnumSelectType enumSelectType)
         {
             //var selectList = _selectService.GetSelectList(enumSelectType);
-            List<SelectDto> selectList = new List<SelectDto>();
+            List<Select> selectList = new List<Select>();
             var results = _operationTransverseRepository.GetSelectList(idUser);
-            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(results).ToList());
+            selectList.AddRange(_mapper.Map<IEnumerable<Select>>(results).ToList());
 
             return selectList;
         }

@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
-using Budget.MODEL.Dto.Select;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Budget.SERVICE
 {
@@ -53,11 +50,11 @@ namespace Budget.SERVICE
             var planPoste = _planPosteService.GetById(idPlanPoste);
 
             PlanPosteForDetailDto planPosteForDetailDto = _mapper.Map<PlanPosteForDetailDto>(planPoste);
-            planPosteForDetailDto.Poste = _mapper.Map<SelectDto>(planPoste.Poste);
+            planPosteForDetailDto.Poste = _mapper.Map<Select>(planPoste.Poste);
 
             var referenceTableList = _referenceTableService.GetAll();
-            planPosteForDetailDto.ReferenceTable.List = _mapper.Map<List<SelectDto>>(referenceTableList);
-            planPosteForDetailDto.ReferenceTable.Selected =  _mapper.Map<SelectDto>(planPoste.ReferenceTable);
+            planPosteForDetailDto.ReferenceTable.List = _mapper.Map<List<Select>>(referenceTableList);
+            planPosteForDetailDto.ReferenceTable.Selected =  _mapper.Map<Select>(planPoste.ReferenceTable);
 
 
 
@@ -76,11 +73,11 @@ namespace Budget.SERVICE
             PlanPosteForDetailDto planPosteForDetailDto = new PlanPosteForDetailDto();
             planPosteForDetailDto.IdPlan = idPlan;
             planPosteForDetailDto.IdPoste = idPoste;
-            planPosteForDetailDto.Poste = _mapper.Map<SelectDto>(_posteService.GetById(idPoste));
+            planPosteForDetailDto.Poste = _mapper.Map<Select>(_posteService.GetById(idPoste));
 
             var referenceTableList = _referenceTableService.GetAll();
-            planPosteForDetailDto.ReferenceTable.List = _mapper.Map<List<SelectDto>>(referenceTableList);
-            planPosteForDetailDto.ReferenceTable.Selected = new SelectDto();
+            planPosteForDetailDto.ReferenceTable.List = _mapper.Map<List<Select>>(referenceTableList);
+            planPosteForDetailDto.ReferenceTable.Selected = new Select();
 
             planPosteForDetailDto.PlanPosteUser = _planPosteUserService.InitForCreation(idPlan);
             
@@ -158,7 +155,7 @@ namespace Budget.SERVICE
             return planPoste.Id;
         }
 
-        private void UpdatePlanPosteReference(int idPlanPoste,int idReferenceTable, List<SelectDto> planPosteReferences)
+        private void UpdatePlanPosteReference(int idPlanPoste,int idReferenceTable, List<Select> planPosteReferences)
         {
             //sauvegarde PlanPosteReference
             //suppression des PlanPosteReference pour l'idPoste

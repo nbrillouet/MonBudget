@@ -59,7 +59,7 @@ namespace Budget.SERVICE
             return planPosteUsersForDetailDto;
         }
 
-        public void Save(int idPlan, List<SelectDto> selectUsers)
+        public void Save(int idPlan, List<Select> selectUsers)
         {
             //Suppression
             //DeleteByIdPlan(idPlan);
@@ -94,7 +94,7 @@ namespace Budget.SERVICE
             return _planPosteUserRepository.GetById(idPlanPosteUser);
         }
 
-        private List<PlanPosteUser> UserNotInForPlan(int idPlan, List<SelectDto> planUsers)
+        private List<PlanPosteUser> UserNotInForPlan(int idPlan, List<Select> planUsers)
         {
             var idUserList = planUsers.Select(x => x.Id).ToList();
             return _planPosteUserRepository.UserNotInForPlan(idPlan, idUserList);

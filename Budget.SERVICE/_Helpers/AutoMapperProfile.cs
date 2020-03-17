@@ -10,7 +10,7 @@ namespace Budget.SERVICE._Helpers
     {
         public AutoMapperProfile()
         {
-            CreateMap<User, SelectDto>()
+            CreateMap<User, Select>()
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.FirstName + " " + s.LastName));
 
 
@@ -65,15 +65,15 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(d => d.BankFamily, o => o.Ignore())
                 .ForMember(d => d.BankSubFamily, o => o.Ignore())
                 .ForMember(d => d.LinkedUsers, o => o.Ignore());
-            CreateMap<Account, SelectDto>()
+            CreateMap<Account, Select>()
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.Number + " - " + s.Label));
 
             CreateMap<BankFamily, BankGenericDto>();
-            CreateMap<BankFamily, SelectDto>()
+            CreateMap<BankFamily, Select>()
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong));
-            CreateMap<BankSubFamily, SelectDto>()
+            CreateMap<BankSubFamily, Select>()
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong));
-            CreateMap<BankAgency, SelectDto>();
+            CreateMap<BankAgency, Select>();
             CreateMap<BankSubFamily, BankGenericDto>();
             CreateMap<BankAgency, BankAgencyDto>()
                 .ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankSubFamily.BankFamily))
@@ -96,12 +96,12 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(d => d.OperationTypeFamily, o => o.MapFrom(s => s.OperationType.OperationTypeFamily))
                 .ForMember(d => d.BankAgency, o => o.MapFrom(s => s.Account.BankAgency));
 
-            CreateMap<Movement, SelectDto>();
+            CreateMap<Movement, Select>();
 
-            CreateMap<OperationMethod, SelectDto>();
-            CreateMap<Operation, SelectDto>();
-            CreateMap<OperationTypeFamily, SelectDto>();
-            CreateMap<Movement, SelectDto>();
+            CreateMap<OperationMethod, Select>();
+            CreateMap<Operation, Select>();
+            CreateMap<OperationTypeFamily, Select>();
+            CreateMap<Movement, Select>();
             
             CreateMap<OperationTypeFamily, OtfForTableDto>()
             .ReverseMap();
@@ -112,8 +112,9 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(d => d.IdMovement, o => o.MapFrom(s => s.Movement.Id))
                 .ForMember(d => d.IdUserGroup, o => o.MapFrom(s => s.User.IdUserGroup));
 
-            CreateMap<Asset, SelectDto>()
-                .ForMember(d => d.Label, o => o.MapFrom(s => $"\\assets\\{s.Path}\\{s.Name}.{s.Extension}"))
+            CreateMap<Asset, SelectCode>()
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.Name))
+                .ForMember(d => d.Code, o => o.MapFrom(s => $"\\assets\\{s.Path}\\{s.Name}.{s.Extension}"))
             .ReverseMap()
                 .ForMember(d => d.Extension, o => o.Ignore())
                 .ForMember(d => d.IdFamily, o => o.Ignore())
@@ -174,7 +175,7 @@ namespace Budget.SERVICE._Helpers
             CreateMap<Plan, PlanForDetailDto>()
                 .ForMember(d => d.Plan, o => o.MapFrom(s => s));
 
-            CreateMap<PlanUser, SelectDto>()
+            CreateMap<PlanUser, Select>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.User.Id))
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.User.FirstName + " " + s.User.LastName));
 
@@ -189,20 +190,20 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(d => d.PlanPosteFrequencies, o => o.Ignore())
                 .ForMember(d => d.ReferenceTable, o => o.Ignore());
 
-            CreateMap<AccountStatementPlan, SelectValueDto<string>>()
+            CreateMap<AccountStatementPlan, SelectCode>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.IdPlan))
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.Plan.Label))
-                .ForMember(d => d.Value, o => o.MapFrom(s => s.Plan.Color));
+                .ForMember(d => d.Code, o => o.MapFrom(s => s.Plan.Color));
 
-            CreateMap<Month, SelectDto>()
+            CreateMap<Month, Select>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong));
             //CreateMap<Frequency, FrequencyDto>()
             //    .ForMember(d => d.monthLabelShort, o => o.Ignore());
             
 
-            CreateMap<Poste, SelectDto>();
-            CreateMap<ReferenceTable, SelectDto>();
+            CreateMap<Poste, Select>();
+            CreateMap<ReferenceTable, Select>();
                 //.ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 //.ForMember(d => d.Label, o => o.MapFrom(s => s.Label));
 
@@ -218,16 +219,16 @@ namespace Budget.SERVICE._Helpers
 
             //GMap
             CreateMap<GMapAddress, GMapAddressDto>();
-            CreateMap<GMapAdministrativeAreaLevel1, SelectDto>();
-            CreateMap<GMapAdministrativeAreaLevel2, SelectDto>();
-            CreateMap<GMapCountry, SelectDto>();
-            CreateMap<GMapLocality, SelectDto>();
-            CreateMap<GMapNeighborhood, SelectDto>();
-            CreateMap<GMapPostalCode, SelectDto>();
-            CreateMap<GMapRoute, SelectDto>();
-            CreateMap<GMapStreetNumber, SelectDto>();
-            CreateMap<GMapSublocalityLevel1, SelectDto>();
-            CreateMap<GMapSublocalityLevel2, SelectDto>();
+            CreateMap<GMapAdministrativeAreaLevel1, Select>();
+            CreateMap<GMapAdministrativeAreaLevel2, Select>();
+            CreateMap<GMapCountry, Select>();
+            CreateMap<GMapLocality, Select>();
+            CreateMap<GMapNeighborhood, Select>();
+            CreateMap<GMapPostalCode, Select>();
+            CreateMap<GMapRoute, Select>();
+            CreateMap<GMapStreetNumber, Select>();
+            CreateMap<GMapSublocalityLevel1, Select>();
+            CreateMap<GMapSublocalityLevel2, Select>();
             CreateMap<GMapType, GMapTypeDto>()
                 .ForMember(d => d.Label, o => o.Ignore());
 

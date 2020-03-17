@@ -32,10 +32,10 @@ namespace Budget.SERVICE
 
         }
 
-        public List<SelectDto> GetOperationTypeFamilySelect (int idUser,int? idAccount)
+        public List<Select> GetOperationTypeFamilySelect (int idUser,int? idAccount)
         {
             var otfs = _userCustomOtfRepository.GetOperationTypeFamilySelect(idUser, idAccount);
-            return _mapper.Map<List<SelectDto>>(otfs);
+            return _mapper.Map<List<Select>>(otfs);
 
         }
 

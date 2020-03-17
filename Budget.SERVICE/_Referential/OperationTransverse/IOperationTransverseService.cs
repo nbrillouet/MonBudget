@@ -8,7 +8,7 @@ namespace Budget.SERVICE
 {
     public interface IOperationTransverseService
     {
-        List<SelectDto> GetSelectList(int idUser, EnumSelectType enumSelectType);
+        List<Select> GetSelectList(int idUser, EnumSelectType enumSelectType);
 
         OperationTransverse Add(OperationTransverse operationTransverse);
     }

@@ -20,8 +20,7 @@
                 </button>
 
                 <div class="product-image mr-8 mr-sm-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-                    <!-- <img *ngIf="product.images[0]" [src]="product.images[0].url"> -->
-                    <img *ngIf="formLoaded && asifDetail" [src]="asifDetail.logoUrl">
+                    <img *ngIf="formLoaded && asifDetail" [src]="asifDetail.asset.code">
                 </div>
 
                 <div fxLayout="column" fxLayoutAlign="start start"

@@ -7,7 +7,7 @@ namespace Budget.MODEL.Filter
 {
     public class MonthYear
     {
-        public SelectDto Month { get; set; }
+        public Select Month { get; set; }
         public int Year { get; set; }
     }
 }

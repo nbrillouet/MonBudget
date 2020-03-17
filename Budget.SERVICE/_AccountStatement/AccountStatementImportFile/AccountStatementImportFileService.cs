@@ -60,39 +60,39 @@ namespace Budget.SERVICE
             var asif = _accountStatementImportFileRepository.GetAsifDetail(filter.IdAsif.Value);
             var asifDetailDto = _mapper.Map<AsifDetailDto>(asif);
 
-            asifDetailDto.OperationMethod = new ComboSimple<SelectDto>
+            asifDetailDto.OperationMethod = new ComboSimple<Select>
             {
                 List = _referentialService.OperationMethodService.GetSelectList(EnumSelectType.Inconnu),
-                Selected = new SelectDto { Id = asif.OperationMethod.Id, Label = asif.OperationMethod.Label }
+                Selected = new Select { Id = asif.OperationMethod.Id, Label = asif.OperationMethod.Label }
             };
-            asifDetailDto.OperationTypeFamily = new ComboSimple<SelectDto>
+            asifDetailDto.OperationTypeFamily = new ComboSimple<Select>
             {
                 List = _referentialService.OperationTypeFamilyService.GetSelectList(filter.User.IdUserGroup, (EnumMovement)asifDetailDto.IdMovement, EnumSelectType.Inconnu),
-                Selected = new SelectDto { Id = asif.OperationTypeFamily.Id, Label = asif.OperationTypeFamily.Label }
+                Selected = new Select { Id = asif.OperationTypeFamily.Id, Label = asif.OperationTypeFamily.Label }
             };
-            asifDetailDto.OperationType = new ComboSimple<SelectDto>
+            asifDetailDto.OperationType = new ComboSimple<Select>
             {
                 List = _referentialService.OperationTypeService.GetSelectList(asif.OperationTypeFamily.Id, EnumSelectType.Empty),
-                Selected = new SelectDto { Id = asif.OperationType.Id, Label = asif.OperationType.Label }
+                Selected = new Select { Id = asif.OperationType.Id, Label = asif.OperationType.Label }
             };
 
-            asifDetailDto.Operation = new ComboSimple<SelectDto>
+            asifDetailDto.Operation = new ComboSimple<Select>
             {
                 List = _referentialService.OperationService.GetSelectList(filter.User.IdUserGroup, asif.OperationMethod.Id, asif.OperationType.Id, EnumSelectType.Inconnu),
-                Selected = new SelectDto { Id = asif.Operation.Id, Label = asif.Operation.Label }
+                Selected = new Select { Id = asif.Operation.Id, Label = asif.Operation.Label }
             };
 
-            asifDetailDto.OperationTransverse = new ComboMultiple<SelectDto>
+            asifDetailDto.OperationTransverse = new ComboMultiple<Select>
             {
                 List = _referentialService.OperationTransverseService.GetSelectList(filter.User.Id, EnumSelectType.Empty),
                 ListSelected = _operationTransverseAsifService.GetOperationTransverseSelectList(filter.IdAsif.Value, EnumSelectType.Empty)
             };
 
-            List<SelectDto> operationDetailList = null;
+            List<Select> operationDetailList = null;
             if (!asifDetailDto.IsLocalisable)
             {
-                operationDetailList = new List<SelectDto> { new SelectDto { Id = 2, Label = "N/A" } };
-                asifDetailDto.OperationPlace = new ComboSimple<SelectDto>
+                operationDetailList = new List<Select> { new Select { Id = 2, Label = "N/A" } };
+                asifDetailDto.OperationPlace = new ComboSimple<Select>
                 {
                     List = operationDetailList,
                     Selected = operationDetailList[0]
@@ -100,11 +100,11 @@ namespace Budget.SERVICE
             }
             else
             {
-                operationDetailList = new List<SelectDto> { new SelectDto { Id = 1, Label = "INCONNU" }, new SelectDto { Id = 3, Label = "INTERNET" }, new SelectDto { Id = 4, Label = "AUTRES" } };
+                operationDetailList = new List<Select> { new Select { Id = 1, Label = "INCONNU" }, new Select { Id = 3, Label = "INTERNET" }, new Select { Id = 4, Label = "AUTRES" } };
                 var operationDetailSelected = asifDetailDto.OperationDetail.GMapAddress.Id == 1 ? operationDetailList[0]
                         : asifDetailDto.OperationDetail.GMapAddress.Id == 3 ? operationDetailList[1]
                         : operationDetailList[2];
-                asifDetailDto.OperationPlace = new ComboSimple<SelectDto>
+                asifDetailDto.OperationPlace = new ComboSimple<Select>
                 {
                     List = operationDetailList,
                     Selected = operationDetailSelected
@@ -212,19 +212,19 @@ namespace Budget.SERVICE
             return accounts;
         }
 
-        public List<SelectDto> GetAccountSelectListByIdImport(int idImport)
+        public List<Select> GetAccountSelectListByIdImport(int idImport)
         {
-            List<SelectDto> accounts = new List<SelectDto>();
+            List<Select> accounts = new List<Select>();
             var accountNumbers = GetDistinctAccountNumber(idImport);
             foreach (string accountNumber in accountNumbers)
             {
-                accounts.Add(_mapper.Map<SelectDto>(_accountService.GetByNumber(accountNumber)));
+                accounts.Add(_mapper.Map<Select>(_accountService.GetByNumber(accountNumber)));
             }
 
             return accounts;
         }
 
-        public List<SelectDto> GetAsifStates(int idImport, int idAccount)
+        public List<Select> GetAsifStates(int idImport, int idAccount)
         {
             return _accountStatementImportFileRepository.GetAsifStates(idImport, idAccount);
         }

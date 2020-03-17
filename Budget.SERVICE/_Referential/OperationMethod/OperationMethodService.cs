@@ -28,21 +28,21 @@ namespace Budget.SERVICE
             _mapper = mapper;
         }
 
-        public List<SelectDto> GetSelectList(EnumSelectType enumSelectType)
+        public List<Select> GetSelectList(EnumSelectType enumSelectType)
         {
             var selectList = _selectService.GetSelectList(enumSelectType);
             var operationMethods = _operationMethodRepository.GetAllByOrder();
 
-            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(operationMethods).ToList());
+            selectList.AddRange(_mapper.Map<IEnumerable<Select>>(operationMethods).ToList());
 
             return selectList;
         }
 
-        public SelectDto GetSelect(int idOperationMethod)
+        public Select GetSelect(int idOperationMethod)
         {
             var operationMethod = _operationMethodRepository.GetById(idOperationMethod);
 
-            return _mapper.Map<SelectDto>(operationMethod);
+            return _mapper.Map<Select>(operationMethod);
         }
 
 

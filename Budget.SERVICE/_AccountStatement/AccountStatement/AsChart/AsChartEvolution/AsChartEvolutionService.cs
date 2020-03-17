@@ -85,7 +85,7 @@ namespace Budget.SERVICE
             List<string> colors = new List<string>();
             foreach (var baseChartData in baseChartDatas)
             {
-                widgetCardChartBar.Chart.Labels.Add(new SelectDto() {
+                widgetCardChartBar.Chart.Labels.Add(new Select() {
                     Id = Int32.Parse(baseChartData.Month),
                     Label = $"{DateHelper.GetLabelMonthShort(baseChartData.Month)} {baseChartData.Year}"
                     });
@@ -132,7 +132,7 @@ namespace Budget.SERVICE
         public List<WidgetCardChartBar> GetAsChartEvolutionCustomOtf(FilterAsTableSelected filterAsTableSelected)
         {
             //Rechercher les operationTypeFamily favori pour l'utilisateur
-            List<SelectDto> otfs = _userCustomOtfService.GetOperationTypeFamilySelect(filterAsTableSelected.User.Id, filterAsTableSelected.IdAccount);
+            List<Select> otfs = _userCustomOtfService.GetOperationTypeFamilySelect(filterAsTableSelected.User.Id, filterAsTableSelected.IdAccount);
             List<WidgetCardChartBar> widgetCardChartBars = new List<WidgetCardChartBar>();
             foreach (var otf in otfs)
             {

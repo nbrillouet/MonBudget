@@ -72,11 +72,11 @@ namespace Budget.SERVICE
             }
         }
 
-        public List<SelectValueDto<string>> GetPlansByIdAccountStatement(int IdAccountStatement, int year)
+        public List<SelectCode> GetPlansByIdAccountStatement(int IdAccountStatement, int year)
         {
             var accountStatementPlans = _accountStatementPlanRepository.GetPlansByIdAccountStatement(IdAccountStatement, year);
 
-            return _mapper.Map<List<SelectValueDto<string>>>(accountStatementPlans);
+            return _mapper.Map<List<SelectCode>>(accountStatementPlans);
         }
     }
 }

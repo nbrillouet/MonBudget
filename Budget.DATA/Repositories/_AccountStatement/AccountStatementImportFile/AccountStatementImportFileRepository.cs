@@ -161,21 +161,21 @@ namespace Budget.DATA.Repositories
         //    return await PagedListRepository<AccountStatementImportFile>.CreateAsync(accountStatementImportFiles, filter.PageNumber, filter.PageSize);
         //}
 
-        public List<SelectDto> GetAsifStates (int idImport, int idAccount)
+        public List<Select> GetAsifStates (int idImport, int idAccount)
         {
-            List<SelectDto> asifStates = new List<SelectDto>();
+            List<Select> asifStates = new List<Select>();
 
             if(HasAsifMethodLess(idImport, idAccount))
             {
-                asifStates.Add(new SelectDto { Id = (int)EnumAsifState.MethodLess, Label = "Erreur méthode" });
+                asifStates.Add(new Select { Id = (int)EnumAsifState.MethodLess, Label = "Erreur méthode" });
             }
             if (HasAsifOperationLess(idImport, idAccount))
             {
-                asifStates.Add(new SelectDto { Id = (int)EnumAsifState.OperationLess, Label = "Erreur opération" });
+                asifStates.Add(new Select { Id = (int)EnumAsifState.OperationLess, Label = "Erreur opération" });
             }
             if (HasAsifComplete(idImport, idAccount))
             {
-                asifStates.Add(new SelectDto { Id = (int)EnumAsifState.Complete, Label = "complet" });
+                asifStates.Add(new Select { Id = (int)EnumAsifState.Complete, Label = "complet" });
             }
 
             return asifStates;

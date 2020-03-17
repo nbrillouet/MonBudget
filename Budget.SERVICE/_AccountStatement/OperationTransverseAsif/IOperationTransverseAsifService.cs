@@ -9,8 +9,8 @@ namespace Budget.SERVICE
     public interface IOperationTransverseAsifService
     {
         List<OperationTransverseAsif> GetByIdAsif(int idAsif);
-        List<SelectDto> GetOperationTransverseSelectList(int IdAccountStatementFile, EnumSelectType enumSelectType);
-        bool Update(List<SelectDto> operationTransverses, int idAsif);
+        List<Select> GetOperationTransverseSelectList(int IdAccountStatementFile, EnumSelectType enumSelectType);
+        bool Update(List<Select> operationTransverses, int idAsif);
 
     }
 }

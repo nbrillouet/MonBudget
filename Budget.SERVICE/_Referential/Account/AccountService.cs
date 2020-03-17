@@ -81,32 +81,32 @@ namespace Budget.SERVICE
             }
             var accountDto = _mapper.Map<AccountForDetailDto>(account);
 
-            accountDto.AccountType = new ComboSimple<SelectDto>
+            accountDto.AccountType = new ComboSimple<Select>
             {
                 List = _accountTypeService.GetSelectList(EnumSelectType.Empty),
-                Selected = _mapper.Map<SelectDto>(account.AccountType)
+                Selected = _mapper.Map<Select>(account.AccountType)
             };
 
-            accountDto.BankFamily = new ComboSimple<SelectDto>
+            accountDto.BankFamily = new ComboSimple<Select>
             {
                 List = _bankFamilyService.GetSelectList(EnumSelectType.Empty),
-                Selected = _mapper.Map<SelectDto>(account.BankAgency.BankSubFamily.BankFamily)
+                Selected = _mapper.Map<Select>(account.BankAgency.BankSubFamily.BankFamily)
             };
 
-            accountDto.BankSubFamily = new ComboSimple<SelectDto>
+            accountDto.BankSubFamily = new ComboSimple<Select>
             {
                 List = _bankSubFamilyService.GetSelectList(account.BankAgency.BankSubFamily.BankFamily.Id, EnumSelectType.Empty),
-                Selected = _mapper.Map<SelectDto>(account.BankAgency.BankSubFamily)
+                Selected = _mapper.Map<Select>(account.BankAgency.BankSubFamily)
             };
 
-            accountDto.BankAgency = new ComboSimple<SelectDto>
+            accountDto.BankAgency = new ComboSimple<Select>
             {
                 List = _bankAgencyService.GetSelectList(account.BankAgency.BankSubFamily.Id,EnumSelectType.Empty),
-                Selected = _mapper.Map<SelectDto>(account.BankAgency)
+                Selected = _mapper.Map<Select>(account.BankAgency)
             };
 
 
-            accountDto.LinkedUsers = _mapper.Map<List<SelectDto>>(account.UserAccounts.Select(x => x.User).ToList());
+            accountDto.LinkedUsers = _mapper.Map<List<Select>>(account.UserAccounts.Select(x => x.User).ToList());
             return accountDto;
 
         }

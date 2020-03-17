@@ -8,7 +8,7 @@ namespace Budget.MODEL.Dto
     {
         public int Id { get; set; }
         public string Label { get; set; }
-        public SelectDto OperationTypeFamily { get; set; }
+        public Select OperationTypeFamily { get; set; }
         public UserForGroupDto User { get; set; }
         public bool IsMandatory { get; set; }
         public bool IsUsed { get; set; }
@@ -18,7 +18,7 @@ namespace Budget.MODEL.Dto
     {
         public int? Id { get; set; }
         public string Label { get; set; }
-        public SelectDto OperationTypeFamily { get; set; }
+        public Select OperationTypeFamily { get; set; }
         public UserForGroupDto User { get; set; }
         public bool IsMandatory { get; set; }
     }

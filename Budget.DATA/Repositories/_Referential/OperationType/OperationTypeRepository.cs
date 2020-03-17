@@ -48,7 +48,7 @@ namespace Budget.DATA.Repositories
                 .ToList();
         }
 
-        public List<OperationType> GetByOperationTypeFamilies(int idUserGroup, List<SelectDto> OperationTypeFamilies)
+        public List<OperationType> GetByOperationTypeFamilies(int idUserGroup, List<Select> OperationTypeFamilies)
         {
             List<OperationType> results;
             if (OperationTypeFamilies == null || !OperationTypeFamilies.Any())

@@ -53,7 +53,7 @@ namespace Budget.SERVICE
         {
             FilterOtfForDetail filterOtfForDetail = new FilterOtfForDetail()
             {
-                LogoClassName = _referentialService.AssetService.GetSelectList(EnumAssetFamily.OTF), // GetOtfLogoList(),
+                Asset = _referentialService.AssetService.GetSelectList(EnumAssetFamily.OTF), // GetOtfLogoList(),
                 Movement = _referentialService.MovementService.GetSelectList(EnumSelectType.Empty)
             };
 
@@ -63,9 +63,9 @@ namespace Budget.SERVICE
 
 
 
-        private List<SelectDto> GetOtfLogoList()
+        private List<Select> GetOtfLogoList()
         {
-            List<SelectDto> logoList = new List<SelectDto>();
+            List<Select> logoList = new List<Select>();
             var basePath = _hostingEnvironment.WebRootPath;
             var files = Directory.EnumerateFiles($"{basePath}/assets/images/Otf");
             int i = 0;
@@ -74,7 +74,7 @@ namespace Budget.SERVICE
                 string fileName = Path.GetFileName(file);
                 if (fileName.Contains("_32"))
                 {
-                    var logo = new SelectDto
+                    var logo = new Select
                     {
                         Id = i,
                         Label = fileName.Replace("_32.png", string.Empty)

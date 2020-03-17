@@ -32,17 +32,17 @@ namespace Budget.SERVICE
             return _operationTransverseAsifRepository.GetByIdAsif(idAsif);
         }
 
-        public List<SelectDto> GetOperationTransverseSelectList(int IdAccountStatementFile, EnumSelectType enumSelectType)
+        public List<Select> GetOperationTransverseSelectList(int IdAccountStatementFile, EnumSelectType enumSelectType)
         {
             //var selectList = _selectService.GetSelectList(enumSelectType);
-            List<SelectDto> selectList = new List<SelectDto>();
+            List<Select> selectList = new List<Select>();
             var results = _operationTransverseAsifRepository.GetOperationTransverseList(IdAccountStatementFile);
-            selectList.AddRange(_mapper.Map<IEnumerable<SelectDto>>(results).ToList());
+            selectList.AddRange(_mapper.Map<IEnumerable<Select>>(results).ToList());
 
             return selectList;
         }
 
-        public bool Update(List<SelectDto> operationTransverses,int idAsif)
+        public bool Update(List<Select> operationTransverses,int idAsif)
         {
             var result = _operationTransverseAsifRepository.Update(operationTransverses, idAsif);
             return result;

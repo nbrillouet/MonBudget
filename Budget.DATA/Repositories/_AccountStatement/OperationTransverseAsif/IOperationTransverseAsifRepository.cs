@@ -10,6 +10,6 @@ namespace Budget.DATA.Repositories
     {
         List<OperationTransverse> GetOperationTransverseList(int IdAccountStatementFile);
         List<OperationTransverseAsif> GetByIdAsif(int idAsif);
-        bool Update(List<SelectDto> operationTransverses, int idAsif);
+        bool Update(List<Select> operationTransverses, int idAsif);
     }
 }

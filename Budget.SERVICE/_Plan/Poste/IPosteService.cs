@@ -9,7 +9,7 @@ namespace Budget.SERVICE
     public interface IPosteService
     {
         Poste GetById(int idPoste);
-        List<SelectDto> GetAllSelect();
+        List<Select> GetAllSelect();
     }
 
 }
