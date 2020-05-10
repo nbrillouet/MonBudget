@@ -61,6 +61,15 @@ namespace Budget.SERVICE {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Import utilisé dans un ou plusieurs relevé de comptes.
+        /// </summary>
+        internal static string BUS_ASI_ERR_000 {
+            get {
+                return ResourceManager.GetString("BUS_ASI_ERR_000", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Opération obligatoire, suppression impossible.
         /// </summary>
         internal static string BUS_OPE_ERR_000 {

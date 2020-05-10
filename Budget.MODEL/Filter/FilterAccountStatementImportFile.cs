@@ -12,7 +12,7 @@ namespace Budget.MODEL.Filter
         public int? IdImport { get; set; }
         public int? IndexTabAsifState { get; set; }
         public Select Account { get; set; }
-        public Select AsifState { get; set; }
+        public Select State { get; set; }
         public string AsiBankAgencyLabel { get; set; }
         public DateTime? AsiDateImport { get; set; }
 
@@ -35,7 +35,7 @@ namespace Budget.MODEL.Filter
         //public string AsiBankAgencyLabel { get; set; }
         //public DateTime AsiDateImport { get; set; }
         public List<Select> Account { get; set; }
-        public List<Select> AsifState { get; set; }
+        public List<Select> State { get; set; }
 
         public List<Select> OperationMethod { get; set; }
         public List<SelectGroupDto> OperationTypeFamily { get; set; }

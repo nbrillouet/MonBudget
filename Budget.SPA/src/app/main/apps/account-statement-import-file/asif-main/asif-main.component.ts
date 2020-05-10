@@ -46,6 +46,7 @@ export class AsifMainComponent implements OnInit {
           this.filterAsifSelection = result.selection.selection;
           this.filterAsifSelected = result.selected.selected;
           this.filterAsifSelected.account = result.selection.selection.account[0];
+          this.filterAsifSelected.state = result.selection.selection.state[0];
           this._store.dispatch(new SynchronizeAsifTableFilterSelected(this.filterAsifSelected));
         }
       });

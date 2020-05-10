@@ -83,6 +83,9 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankSubFamily.BankFamily));
             //.ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankSubFamily));
 
+            CreateMap<StateAsif, Select>()
+                .ReverseMap();
+
             //CreateMap<BankAgency, SelectDto>()
             //    .ForMember(d=>d.Label,o=>o.MapFrom(s=>s.BankSubFamily.LabelLong));
             CreateMap<BankAgency, BankAgencyForListDto>();

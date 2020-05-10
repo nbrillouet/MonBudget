@@ -62,10 +62,10 @@ namespace Budget.API.Controllers
         }
 
         [HttpGet]
-        [Route("asi/{id}/asi-detail")]
-        public IActionResult getById(int id)
+        [Route("{idImport}/asi-detail")]
+        public IActionResult getById(int idImport)
         {
-            var pagedList = _accountStatementImportService.GetByIdForData(id);
+            var pagedList = _accountStatementImportService.GetByIdForData(idImport);
 
             return Ok(pagedList);
         }
@@ -120,6 +120,25 @@ namespace Budget.API.Controllers
             return Ok(asifGroupByAccounts);
         }
 
-        
+        [HttpPost]
+        [Route("delete-asi-list")]
+        public IActionResult DeleteList([FromBody] List<int> idAsiList)
+        {
+            try
+            {
+                _accountStatementImportService.DeleteList(idAsiList);
+                return Ok("delete-asi-list-OK");
+            }
+            catch (BusinessException e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, e.BusinessExceptionMessages);
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception);
+            }
+        }
+
+
     }
 }

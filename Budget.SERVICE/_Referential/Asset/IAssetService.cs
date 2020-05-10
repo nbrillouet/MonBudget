@@ -9,5 +9,6 @@ namespace Budget.SERVICE
     public interface IAssetService
     {
         List<SelectCode> GetSelectList(EnumAssetFamily enumAssetFamily);
+        SelectCode GetSelect(EnumAsset enumAsset);
     }
 }

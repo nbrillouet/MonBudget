@@ -25,6 +25,8 @@ namespace Budget.SERVICE
         private readonly IContextTransaction _contextTransaction;
         private readonly IBanquePopulaireImportFileService _banquePopulaireImportFileService;
         private readonly ICreditAgricoleImportFileService _creditAgricoleImportFileService;
+        private readonly IBusinessExceptionMessageService _businessExceptionMessageService;
+        private readonly IAccountStatementCheckReferentialService _accountStatementCheckReferentialService;
 
         public AccountStatementImportService(
             IMapper mapper,
@@ -35,7 +37,10 @@ namespace Budget.SERVICE
             IParameterService parameterService,
             IContextTransaction contextTransaction,
             IBanquePopulaireImportFileService banquePopulaireImportFileService,
-            ICreditAgricoleImportFileService creditAgricoleImportFileService)
+            ICreditAgricoleImportFileService creditAgricoleImportFileService,
+            IBusinessExceptionMessageService businessExceptionMessageService,
+            IAccountStatementCheckReferentialService accountStatementCheckReferentialService
+            )
         {
             _mapper = mapper;
             _accountStatementImportRepository = accountStatementImportRepository;
@@ -46,6 +51,8 @@ namespace Budget.SERVICE
             _contextTransaction = contextTransaction;
             _banquePopulaireImportFileService = banquePopulaireImportFileService;
             _creditAgricoleImportFileService = creditAgricoleImportFileService;
+            _businessExceptionMessageService = businessExceptionMessageService;
+            _accountStatementCheckReferentialService = accountStatementCheckReferentialService;
         }
 
         public List<BankAgency> GetDistinctBankAgencies(int idUser)
@@ -113,47 +120,17 @@ namespace Budget.SERVICE
 
         private EnumBankFamily GetFileBankType(string[] header)
         {
-            if (isBanquePopulaireFile(header))
+            if (_banquePopulaireImportFileService.isBanquePopulaireFile(header))
                 return EnumBankFamily.BanquePopulaire;
-            else if (isCreditAgricoleFile(header))
+            else if (_creditAgricoleImportFileService.isCreditAgricoleFile(header))
                 return EnumBankFamily.CreditAgricole;
             else
                 return EnumBankFamily.Inconnu;
         }
 
-        private Boolean isBanquePopulaireFile(string[] header)
-        {
-            List<BankFileDefinition> bankFileDefinitions = _bankFileDefinitionService.GetByIdBankFamily((int)EnumBankFamily.BanquePopulaire);
-            if (header.Length == bankFileDefinitions.Count)
-            {
-                for (int i = 0; i < bankFileDefinitions.Count; i++)
-                {
-                    if (header[i] != bankFileDefinitions[i].LabelField)
-                        return false;
-                }
-            }
-            else
-                return false;
+        
 
-            return true;
-        }
-
-        private Boolean isCreditAgricoleFile(string[] header)
-        {
-            List<BankFileDefinition> bankFileDefinitions = _bankFileDefinitionService.GetByIdBankFamily((int)EnumBankFamily.CreditAgricole);
-            if (header.Length == bankFileDefinitions.Count)
-            {
-                for (int i = 0; i < bankFileDefinitions.Count; i++)
-                {
-                    if (header[i] != bankFileDefinitions[i].LabelField)
-                        return false;
-                }
-            }
-            else
-                return false;
-
-            return true;
-        }
+        
 
         private AccountStatementImport ImportFileBanquePopulaire(StreamReader reader, User user)
         {
@@ -173,7 +150,10 @@ namespace Budget.SERVICE
 
         private AccountStatementImport ImportFileCreditAgricole(StreamReader reader, User user)
         {
-            var caReader = _creditAgricoleImportFileService.FormatFile(reader, user);
+            var caReader = _creditAgricoleImportFileService.IsFormatFile(reader)
+                ? _creditAgricoleImportFileService.GetFormatFile(reader,user)
+                : _creditAgricoleImportFileService.FormatFile(reader, user);
+            //var caReader = _creditAgricoleImportFileService.FormatFile(reader, user);
             try
             {
                 List<String> accountNumbers = GetAccountNumbers(caReader, 0);
@@ -286,6 +266,59 @@ namespace Budget.SERVICE
                 accountNumbers.Add(accountNumbersGroup.Key);
             }
             return accountNumbers;
+        }
+
+        public void DeleteList(List<int> idAsiList)
+        {
+            CheckForDeleteList(idAsiList);
+            foreach (var idAsi in idAsiList)
+            {
+                _accountStatementImportFileService.DeleteByIdImport(idAsi);
+                Delete(idAsi);
+
+            }
+        }
+
+        private void CheckForDeleteList(List<int> idAsiList)
+        {
+            List<BusinessExceptionMessage> businessExceptionMessages = new List<BusinessExceptionMessage>();
+            foreach (var idAsi in idAsiList)
+            {
+                var asi = _accountStatementImportRepository.GetById(idAsi);
+                businessExceptionMessages.AddRange(CheckForDelete(asi));
+            }
+
+            if (businessExceptionMessages.Count() > 0)
+            {
+                throw new BusinessException(businessExceptionMessages);
+            }
+        }
+
+        private void Delete(AccountStatementImport asi)
+        {
+            _accountStatementImportRepository.Delete(asi);
+        }
+
+        private bool Delete(int idAsi)
+        {
+            var asi = _accountStatementImportRepository.GetById(idAsi);
+
+            _accountStatementImportRepository.Delete(asi);
+
+            return true;
+        }
+
+        private List<BusinessExceptionMessage> CheckForDelete(AccountStatementImport asi)
+        {
+            List<BusinessExceptionMessage> businessExceptionMessages = new List<BusinessExceptionMessage>();
+
+            //Recherche si import utilisé dans account statement file
+            if (_accountStatementCheckReferentialService.AsHasAsi(asi.Id))
+            {
+                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_ASI_ERR_000));
+            }
+
+            return businessExceptionMessages;
         }
 
     }

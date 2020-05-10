@@ -15,5 +15,7 @@ namespace Budget.SERVICE
 
         bool AsifHasOtf(int idOtf);
         bool AsHasOtf(int idOtf);
+
+        bool AsHasAsi(int idAsi);
     }
 }

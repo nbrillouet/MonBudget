@@ -29,6 +29,11 @@ namespace Budget.DATA.Repositories
 
                         if (value is int || value is int?)
                             context = context.Where(x => (int)x.GetValueByName(item.Name) == (int)value);
+                        if (value is Select)
+                        {
+                            Select select = (Select)value;
+                            context = context.Where(x => (int)x.GetValueByName($"Id{item.Name}") >= select.Id);
+                        }
                         if (value is List<Select>)
                         {
                             List<Select> t = (List<Select>)value;

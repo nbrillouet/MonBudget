@@ -3,7 +3,7 @@
   [selectedIndex]="filterAsifSelected.indexTabAsifState"
   (selectedTabChange)="onTabChanged($event)">
   <ng-container > 
-    <mat-tab *ngFor="let asifState of filterAsifSelection.asifState; index as i" [label]="asifState.label">
+    <mat-tab *ngFor="let state of filterAsifSelection.state; index as i" [label]="state.label">
       <asif-table *ngIf="filterAsifSelected.indexTabAsifState == i"></asif-table> 
     </mat-tab>
  

@@ -121,7 +121,7 @@ namespace Budget.SERVICE
             if (enumSelectType == EnumSelectType.Inconnu)
             {
                 var operationTypeFamily = _operationTypeFamilyService.GetById(idOperationTypeFamily);
-                var select = _mapper.Map<Select>(GetUnknown(operationTypeFamily.User.IdUserGroup));
+                var select = _mapper.Map<Select>(GetUnknown(operationTypeFamily.IdUserGroup));
                 selectList.Add(select);
             }
             else

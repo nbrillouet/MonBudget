@@ -2,3 +2,26 @@
     height:32px;
     width:38px;
 }
+
+
+
+.mat-tab-body-content {
+overflow: hidden !important;
+}
+
+
+.mat-tab-group {
+    height: 100% !important;
+
+    .mat-tab-body-wrapper {
+        height: 100% !important;
+
+    }
+    .mat-tab-label {
+        background-color: #FFFFFF !important;
+    }
+
+    .mat-tab-label-container {
+        padding: 0 24px;
+    }
+}

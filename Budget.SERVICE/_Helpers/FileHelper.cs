@@ -99,5 +99,13 @@ namespace Budget.SERVICE._Helpers
 
             return index;
         }
+
+        public static string RemoveDiatrics(string label)
+        {
+            string textEncode = System.Web.HttpUtility.UrlEncode(label, Encoding.GetEncoding("iso-8859-7"));
+            string textDecode = System.Web.HttpUtility.UrlDecode(textEncode);
+
+            return textDecode;
+        }
     }
 }

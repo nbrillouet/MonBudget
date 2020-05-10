@@ -55,6 +55,7 @@ namespace Budget.DATA.Repositories
         public AccountStatementImport GetEagerById(int idImport)
         {
             var result = Context.AccountStatementImport
+                .Where(x=>x.Id== idImport)
                 .Include(x => x.BankAgency)
                 .Include(x => x.User)
                 .FirstOrDefault();

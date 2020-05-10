@@ -51,5 +51,10 @@ namespace Budget.SERVICE
         {
             return _accountStatementRepository.HasOtf(idOtf);
         }
+
+        public bool AsHasAsi(int idAsi)
+        {
+            return _accountStatementRepository.HasAsi(idAsi);
+        }
     }
 }

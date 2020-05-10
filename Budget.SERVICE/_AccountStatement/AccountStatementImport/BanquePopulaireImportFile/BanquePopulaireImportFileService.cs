@@ -14,17 +14,36 @@ namespace Budget.SERVICE
     public class BanquePopulaireImportFileService : BankingImportService, IBanquePopulaireImportFileService
     {
         private readonly IAccountStatementImportFileService _asifService;
+        private readonly IBankFileDefinitionService _bankFileDefinitionService;
         private readonly ReferentialService _referentialService;
 
         public BanquePopulaireImportFileService(
             IAccountStatementImportFileService asifService,
+            IBankFileDefinitionService bankFileDefinitionService,
             ReferentialService referentialService
             )
         {
             _asifService = asifService;
+            _bankFileDefinitionService = bankFileDefinitionService;
             _referentialService = referentialService;
         }
 
+        public Boolean isBanquePopulaireFile(string[] header)
+        {
+            List<BankFileDefinition> bankFileDefinitions = _bankFileDefinitionService.GetByIdBankFamily((int)EnumBankFamily.BanquePopulaire);
+            if (header.Length == bankFileDefinitions.Count)
+            {
+                for (int i = 0; i < bankFileDefinitions.Count; i++)
+                {
+                    if (header[i] != bankFileDefinitions[i].LabelField)
+                        return false;
+                }
+            }
+            else
+                return false;
+
+            return true;
+        }
 
         public override List<AccountStatementImportFile> ImportFile(StreamReader reader, AccountStatementImport accountStatementImport, User user)
         {

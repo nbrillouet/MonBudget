@@ -5,8 +5,7 @@ import { GMapSearchComponent } from './g-map-search/g-map-search.component';
 import { GMapService } from './g-map.service';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { AngularMaterialModule } from 'app/angular-material.module';
-// import { SharedModule } from '../../../../core/modules/shared.module';
-
+import { GMAP_KEY } from 'app/main/_constants/gmap-api-key.model';
 
 @NgModule({
   imports: [
@@ -14,7 +13,7 @@ import { AngularMaterialModule } from 'app/angular-material.module';
     FuseSharedModule,
     AngularMaterialModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCDu6ltyq_mapV2qhPHzZnjcJQo_MbLX8M'
+      apiKey: GMAP_KEY
   })
   ],
   declarations: [GMapSearchComponent],

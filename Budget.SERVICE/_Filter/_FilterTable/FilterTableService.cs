@@ -79,8 +79,9 @@ namespace Budget.SERVICE
             filterAsifTable.Account = accounts;
 
             var account = filter.Account == null ? accounts[0] : filter.Account;
-            var asifStates = _accountStatementImportFileService.GetAsifStates(filter.IdImport.Value, account.Id);
-            filterAsifTable.AsifState = asifStates;
+
+            var states = _accountStatementImportFileService.GetAsifStates(filter.IdImport.Value, account.Id);
+            filterAsifTable.State = states;
 
             var operationMethods = _referentialService.OperationMethodService.GetSelectList(EnumSelectType.Empty);
             filterAsifTable.OperationMethod = operationMethods;

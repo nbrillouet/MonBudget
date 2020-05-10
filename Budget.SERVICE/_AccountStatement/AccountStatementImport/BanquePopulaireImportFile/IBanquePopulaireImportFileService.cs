@@ -10,6 +10,7 @@ namespace Budget.SERVICE
     public interface IBanquePopulaireImportFileService
     {
         //List<String> GetAccountNumbers(StreamReader reader);
+        Boolean isBanquePopulaireFile(string[] header);
         List<AccountStatementImportFile> ImportFile(StreamReader reader, AccountStatementImport accountStatementImport, User user);
     }
 }

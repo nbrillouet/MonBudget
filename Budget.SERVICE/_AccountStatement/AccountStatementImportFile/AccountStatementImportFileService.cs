@@ -59,6 +59,7 @@ namespace Budget.SERVICE
         {
             var asif = _accountStatementImportFileRepository.GetAsifDetail(filter.IdAsif.Value);
             var asifDetailDto = _mapper.Map<AsifDetailDto>(asif);
+            asifDetailDto.Asset = _mapper.Map<SelectCode>(asif.OperationTypeFamily.Asset);
 
             asifDetailDto.OperationMethod = new ComboSimple<Select>
             {
@@ -394,7 +395,14 @@ namespace Budget.SERVICE
             return operationDetail;
         }
 
-
+        public void DeleteByIdImport(int idImport)
+        {
+            List<AccountStatementImportFile> accountStatementImportFiles = _accountStatementImportFileRepository.GetByIdImport(idImport);
+            foreach(var accountStatementImportFile in accountStatementImportFiles)
+            {
+                _accountStatementImportFileRepository.Delete(accountStatementImportFile);
+            }
+        }
 
 
     }

@@ -17,6 +17,7 @@
                 > .center {
 
                     > .content-card {
+                        // display: inherit;
                         background: map-get($background, card);
                         border-radius: 8px 8px 0 0;
 
@@ -133,7 +134,7 @@ $carded-header-height-without-toolbar: $carded-header-height - $carded-toolbar-h
                 }
 
                 > .content-card {
-                    display: flex;
+                    // display: flex;
                     flex-direction: column;
                     flex: 1 0 auto;
                     overflow: hidden;

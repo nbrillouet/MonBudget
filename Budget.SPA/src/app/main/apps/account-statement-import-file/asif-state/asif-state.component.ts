@@ -26,14 +26,13 @@ export class AsifStateComponent implements OnInit {
   ) { 
 
     this.asifTableFilterSelected$.subscribe(selected=>{
-      if(selected?.loader['filter-selected']?.loaded
-        && (!this.filterAsifSelected || selected?.selected?.account!=this.filterAsifSelected?.account)) {
+      if(selected?.loader['filter-selected']?.loaded && (!this.filterAsifSelected || selected?.selected?.account!=this.filterAsifSelected?.account)) {
           this.filterAsifSelected = selected.selected;
       }
     });
 
     this.asifTableFilterSelection$.subscribe(selection=>{
-      if(selection?.loader['filter-selection']?.loaded  && !this.filterAsifSelection) {
+      if(selection?.loader['filter-selection']?.loaded && !this.filterAsifSelection) {
         this.filterAsifSelection = selection.selection;
       }
     });
@@ -44,9 +43,9 @@ export class AsifStateComponent implements OnInit {
   }
 
   onTabChanged($event) {
-    debugger;
+    // debugger;
     this.filterAsifSelected.indexTabAsifState=$event.index;
-    this.filterAsifSelected.asifState = this.filterAsifSelection.asifState[$event.index]; //.find(x=>x.id==$event.index);
+    this.filterAsifSelected.state = this.filterAsifSelection.state[$event.index]; //.find(x=>x.id==$event.index);
 
     this._store.dispatch(new SynchronizeAsifTableFilterSelected(this.filterAsifSelected));
   }

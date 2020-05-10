@@ -17,17 +17,103 @@ namespace Budget.SERVICE
     {
         private readonly IParameterService _parameterService;
         private readonly IAccountStatementImportFileService _asifService;
+        private readonly IBankFileDefinitionService _bankFileDefinitionService;
         private readonly ReferentialService _referentialService;
+        
 
         public CreditAgricoleImportFileService(
             IParameterService parameterService,
             IAccountStatementImportFileService asifService,
+            IBankFileDefinitionService bankFileDefinitionService,
             ReferentialService referentialService
         )
         {
             _parameterService = parameterService;
             _asifService = asifService;
+            _bankFileDefinitionService = bankFileDefinitionService;
             _referentialService = referentialService;
+
+        }
+
+        public Boolean isCreditAgricoleFile(string[] header)
+        {
+            List<BankFileDefinition> bankFileDefinitions = _bankFileDefinitionService.GetByIdBankFamily((int)EnumBankFamily.CreditAgricole);
+            if (header.Length == bankFileDefinitions.Count)
+            {
+                for (int i = 0; i < bankFileDefinitions.Count; i++)
+                {
+                    if (header[i] != bankFileDefinitions[i].LabelField)
+                        return false;
+                }
+            }
+            else
+                return false;
+
+            return true;
+        }
+
+        //Fichier deja formaté pour import (fichier preparé manuellement)
+        public bool IsFormatFile(StreamReader reader)
+        {
+            bool firstLine = true;
+            //bool isFormatFile = false;
+
+            reader.DiscardBufferedData();
+            reader.BaseStream.Seek(0, SeekOrigin.Begin);
+
+
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                if (firstLine)
+                {
+                    var header = line.Split(";");
+                    if (isCreditAgricoleFile(header))
+                        return true;
+                    //{
+                    //    isFormatFile = true;
+                    //    string dir = _parameterService.GetImportFileDir(user.Id);
+                    //    dir = dir + "ca_TMP.csv";
+                    //    writer = new StreamWriter(dir);
+                    //}
+                    firstLine = false;
+                }
+                //if (isFormatFile)
+                //{
+                //    writer.WriteLine(line);
+                //}
+                else
+                    return false;
+            }
+            return false;
+        }
+
+        public StreamReader GetFormatFile(StreamReader reader, User user)
+        {
+            bool firstLine = true;
+            string dir = _parameterService.GetImportFileDir(user.Id);
+            dir = dir + "ca_TMP.csv";
+
+            StreamWriter writer = new StreamWriter(dir);
+
+            while (!reader.EndOfStream)
+            {
+                if (firstLine)
+                    firstLine = false;
+                else
+                {
+                    var line = reader.ReadLine();
+                    writer.WriteLine(line);
+                }
+            }
+
+            writer.Close();
+            writer.Dispose();
+
+            StreamReader myReader = new StreamReader(dir);
+
+
+            return myReader;
         }
 
         public StreamReader FormatFile(StreamReader reader, User user)
@@ -109,7 +195,8 @@ namespace Budget.SERVICE
                 asif.IdImport = accountStatementImport.Id;
                 asif.DateImport = DateTime.Now;
                 asif.Reference = null;
-                asif.LabelOperation = values[2].ToString();
+                asif.LabelOperation = values[2].ToString().Replace("/t","").Trim();
+                asif.LabelOperation = FileHelper.RemoveDiatrics(asif.LabelOperation);
 
                 asif.LabelOperationWork = _asifService.GetOperationLabelWork(asif.LabelOperation);
                 //asif.LabelOperationWork = asif.LabelOperationWork.ToString().Replace(" ", "");
@@ -143,7 +230,7 @@ namespace Budget.SERVICE
                 }
 
                 //Determination de operationDetail (operation+addresse) à partir des keywords
-                OperationDetail operationDetail = _asifService.GetOperationDetail(user.Id, asif);
+                OperationDetail operationDetail = _asifService.GetOperationDetail(user.IdUserGroup, asif);
                 if (operationDetail != null)
                 {
                     asif.IdOperation = operationDetail.Operation.Id;
@@ -187,15 +274,29 @@ namespace Budget.SERVICE
         {
             int idx = 0;
             int year = dateIntegration.Year;
-            string dateOperation;
+            string dateOperation=string.Empty;
             switch (enumOperationMethod)
             {
                 case EnumOperationMethod.PaiementCarte:
                     //Recherche pos de 'Paiement Par Carte', la date est au format dd/MM et commence 5 pos avant. 
                     //Prendre l'année de la date integration pour mettre annee sur date operation
                     idx = trimOperationLabel.IndexOf("PAIEMENTPARCARTE");
-                    idx = idx - 4;
-                    dateOperation = trimOperationLabel.Substring(idx, 4);
+                    if(idx>-1)
+                    {
+                        idx = idx - 4;
+                        dateOperation = trimOperationLabel.Substring(idx, 4);
+                    }
+                    else if (trimOperationLabel.IndexOf("CARTE")==0)
+                    {
+                        //date est en dernier dans ce cas si pas presence de "MTINITIAL"
+                        var idxInitial = trimOperationLabel.IndexOf("MTINITIAL");
+                        if(idxInitial==-1)
+                            dateOperation = trimOperationLabel.Substring(trimOperationLabel.Length - 4);
+                        else
+                        {
+                            dateOperation = trimOperationLabel.Substring(idxInitial - 4,4);
+                        }
+                    }
                     
                     return DateTime.ParseExact($"{dateOperation}{year}", "ddMMyyyy", CultureInfo.CurrentCulture);
 
@@ -203,8 +304,28 @@ namespace Budget.SERVICE
                     //Recherche pos de 'Retrait Au Distributeur', la date / heure est au format dd/MM hhhmm et commence 9 pos avant.
                     //Prendre l'année de la date integration pour mettre annee sur date operation
                     idx = trimOperationLabel.IndexOf("RETRAITAUDISTRIBUTEUR");
-                    idx = idx - 9;
-                    dateOperation = $"{trimOperationLabel.Substring(idx, 4)}{year} {trimOperationLabel.Substring(idx+4, 5).Replace("H",":")}:00.000";
+                    if (idx > -1)
+                    {
+                        idx = idx - 9;
+                        dateOperation = $"{trimOperationLabel.Substring(idx, 4)}{year} {trimOperationLabel.Substring(idx + 4, 5).Replace("H", ":")}:00.000";
+                    }
+                    else if (trimOperationLabel.IndexOf("RETDAB") == 0)
+                    {
+                        //date est en dernier dans ce cas si pas presence de "MTINITIAL"
+                        var idxInitial = trimOperationLabel.IndexOf("MTINITIAL");
+                        if (idxInitial == -1)
+                        {
+                            var ddmm = trimOperationLabel.Substring(trimOperationLabel.Length - 9).Substring(0, 4);
+                            var hh = trimOperationLabel.Substring(trimOperationLabel.Length - 9).Substring(4).Replace("H", ":");
+                            dateOperation = $"{ddmm}{year} {hh}:00.000";
+                        }
+                        else
+                        {
+                            dateOperation = $"{trimOperationLabel.Substring(idxInitial - 4, 4)}{year} 12:00:00.000";
+                        }
+
+
+                    }
 
                     return DateTime.ParseExact($"{dateOperation}", "ddMMyyyy HH:mm:ss.fff", CultureInfo.CurrentCulture);
             }
@@ -240,13 +361,22 @@ namespace Budget.SERVICE
         {
             string placeLabel = string.Empty;
             string placeKeyword = string.Empty;
-            //string operationLabel = string.Empty;
+            int idx = 0;
+            string operationLabel = string.Empty;
 
             //recherche position de 'paiement par carte' et enlever la date devant (format ddMM)
-            int idx = labelWork.IndexOf(operationMethodKeyword) - 4;
-            string operationLabel = labelWork.Substring(0, idx);
-            operationLabel = FileHelper.ExcludeNumbers(operationLabel);
+            switch (operationMethodKeyword)
+            {
+                case "PAIEMENTPARCARTE":
+                    idx = labelWork.IndexOf(operationMethodKeyword) - 4;
+                    operationLabel = labelWork.Substring(0, idx);
+                    break;
+                case "CARTE":
+                    operationLabel = labelWork.Substring(5);
+                    break;
+            }
 
+            operationLabel = FileHelper.ExcludeNumbers(operationLabel);
             var labelOperation = string.Empty;
             //recherche dans operation_detail le mot clef du lieu
             var operationDetail = _referentialService.OperationDetailService.FindKeywordPlace(idUserGroup, operationLabel);

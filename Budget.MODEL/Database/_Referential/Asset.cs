@@ -33,4 +33,8 @@ namespace Budget.MODEL.Database
     {
         OTF = 1
     }
+    public enum EnumAsset
+    {
+        OTF_UNKNOWN = 1
+    }
 }

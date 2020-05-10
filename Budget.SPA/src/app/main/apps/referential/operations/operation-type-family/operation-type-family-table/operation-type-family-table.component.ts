@@ -99,7 +99,6 @@ export class OperationTypeFamilyTableComponent implements OnInit {
   }
 
   deleteItems($event) {
-    console.log('delete', $event);
     this._otfService.deleteOtfList($event).subscribe(resp => {
       this._store.dispatch(new SynchronizeOtfTableFilterSelected(this.filterOtfSelected));
       this._notificationService.success('Suppression réussie', `${$event.lentgh} catégorie opération(s) supprimée(s)`);

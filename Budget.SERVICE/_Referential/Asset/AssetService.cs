@@ -35,6 +35,13 @@ namespace Budget.SERVICE
             return _mapper.Map<List<SelectCode>>(assets);
         }
 
+        public SelectCode GetSelect(EnumAsset enumAsset)
+        {
+            var asset = _assetRepository.GetById((int)enumAsset);
+
+            return _mapper.Map<SelectCode>(asset);
+        }
+
     }
 
 }

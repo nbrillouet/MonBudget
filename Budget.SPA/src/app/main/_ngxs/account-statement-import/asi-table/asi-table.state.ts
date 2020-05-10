@@ -54,8 +54,7 @@ export class AsiTableState extends LoaderState {
                 state.datas = result.datas;
                 context.patchState(state);
 
-                //TODO a controler
-                this._store.dispatch(new UpdatePaginationAsiTableFilterSelected(action.payload.pagination));
+                this._store.dispatch(new UpdatePaginationAsiTableFilterSelected(result.pagination));
                 
                 this.loaded(context,'datas');
             });

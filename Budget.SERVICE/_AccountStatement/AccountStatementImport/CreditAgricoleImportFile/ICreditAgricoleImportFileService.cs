@@ -9,7 +9,10 @@ namespace Budget.SERVICE
 {
     public interface ICreditAgricoleImportFileService
     {
+        Boolean isCreditAgricoleFile(string[] header);
         StreamReader FormatFile(StreamReader reader, User user);
+        StreamReader GetFormatFile(StreamReader reader, User user);
+        bool IsFormatFile(StreamReader reader);
         List<AccountStatementImportFile> ImportFile(StreamReader reader, AccountStatementImport accountStatementImport, User user);
     }
 

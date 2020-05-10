@@ -25,6 +25,7 @@ namespace Budget.SERVICE
         private readonly IAccountStatementCheckReferentialService _accountStatementCheckReferentialService;
         private readonly IUserCheckReferentialService _userCheckReferentialService;
         private readonly IUserService _userService;
+        private readonly IAssetService _assetService;
 
         public OperationTypeFamilyService(
             IOperationTypeFamilyRepository operationTypeFamilyRepository,
@@ -37,7 +38,8 @@ namespace Budget.SERVICE
             IBusinessExceptionMessageService businessExceptionMessageService,
             IAccountStatementCheckReferentialService accountStatementCheckReferentialService,
             IUserCheckReferentialService userCheckReferentialService,
-            IUserService userService
+            IUserService userService,
+            IAssetService assetService
             //IOperationTypeService operationTypeService
             )
         {
@@ -52,6 +54,7 @@ namespace Budget.SERVICE
             _accountStatementCheckReferentialService = accountStatementCheckReferentialService;
             _userCheckReferentialService = userCheckReferentialService;
             _userService = userService;
+            _assetService = assetService;
         }
 
         //public OperationTypeFamily GetById(int idOperationTypeFamily)
@@ -180,7 +183,7 @@ namespace Budget.SERVICE
         public OtfForDetail GetForDetail(int? idOtf, int idUser)
         {
             var userForGroup = _userService.GetForUserGroup(idUser);
-            OtfForDetail otfForDetail = !idOtf.HasValue ? GetForCreate() : GetById(idOtf.Value);
+            OtfForDetail otfForDetail = !idOtf.HasValue ? GetForCreate() : GetForDetail(idOtf.Value);
             otfForDetail.User = _mapper.Map<UserForGroupDto>(userForGroup);
 
             return otfForDetail;
@@ -221,19 +224,24 @@ namespace Budget.SERVICE
             OtfForDetail otfForDetail = new OtfForDetail
             {
                 IsMandatory = false,
-                Asset= null,
+                Asset= _assetService.GetSelect(EnumAsset.OTF_UNKNOWN),
                 Movement= null
             };
 
             return otfForDetail;
         }
 
-        public OtfForDetail GetById(int idOtf)
+        public OtfForDetail GetForDetail(int idOtf)
         {
             OperationTypeFamily otf = _operationTypeFamilyRepository.GetForDetail(idOtf);
             var result = _mapper.Map<OtfForDetail>(otf);
 
             return result;
+        }
+
+        public OperationTypeFamily GetById(int idOtf)
+        {
+            return _operationTypeFamilyRepository.GetById(idOtf);
         }
 
         public Select GetByCodeUserGroupForSelect(EnumCodeOtf enumCodeOtf, int idUserGroup)

@@ -19,6 +19,7 @@ namespace Budget.DATA.Repositories
         bool HasOperation(int idOperation);
         bool HasOt(int idOt);
         bool HasOtf(int idOtf);
+        bool HasAsi(int idAsi);
 
         Boolean Save(List<AccountStatement> accountStatements);
         AccountStatement Save(AccountStatement accountStatement);

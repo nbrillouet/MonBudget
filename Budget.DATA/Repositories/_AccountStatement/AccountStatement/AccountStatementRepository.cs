@@ -288,6 +288,15 @@ namespace Budget.DATA.Repositories
             return result;
         }
 
+        public bool HasAsi(int idAsi)
+        {
+            var result = Context.AccountStatement
+                .Where(x => x.IdImport == idAsi)
+                .Any();
+
+            return result;
+        }
+
 
     }
 }

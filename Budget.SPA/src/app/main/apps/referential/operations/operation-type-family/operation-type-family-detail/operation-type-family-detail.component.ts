@@ -52,13 +52,11 @@ otfDetailForm: FormGroup;
 
     this.$DetailInfo$ = this.detailInfo$.subscribe(x => {
       if(x?.loader['datas']?.loaded) {
-        console.log('x',x);
         this.otfForDetail = x.datas;
         if(this.firstLoad) {
           //creation du formulaire
           this.createForms();
           this.firstLoad=false;
-          console.log('firstLoad',this.firstLoad);
         }
       }
     });
@@ -67,7 +65,7 @@ otfDetailForm: FormGroup;
 
   ngOnInit() {
     this._activatedRoute.params.subscribe(routeParams => {
-      let idOtf = routeParams['idOperationTypeFamily']=='new' ? 0 : routeParams['idOperationTypeFamily'];
+      let idOtf = routeParams['idOperationTypeFamily']=='new' ? null : routeParams['idOperationTypeFamily'];
       this._store.dispatch(new LoadOtfDetail(<FilterForDetail>{ id:idOtf }));
     });
   }

@@ -27,6 +27,7 @@ namespace Budget.SERVICE
         bool Update(AsifDetailDto asifDetailDto);
         void SaveWithTran(List<AccountStatementImportFile> accountStatementImportFiles);
         bool SaveInAccountStatement(int idImport);
+        void DeleteByIdImport(int idImport);
 
 
 

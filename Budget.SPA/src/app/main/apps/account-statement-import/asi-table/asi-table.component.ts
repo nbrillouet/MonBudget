@@ -13,6 +13,9 @@ import { AsiTableState } from 'app/main/_ngxs/account-statement-import/asi-table
 import { LoadAsiTable } from 'app/main/_ngxs/account-statement-import/asi-table/asi-table.action';
 import { ASI_COLUMNS } from 'app/main/_constants/mat-table-filter-column.const';
 import { MatTableFilter } from '../../web-component/mat-table-filter/model/mat-table-filter.model';
+import { AsiService } from '../asi.service';
+import { NotificationsService } from 'angular2-notifications';
+import { SynchronizeAsiTableFilterSelected } from 'app/main/_ngxs/account-statement-import/asi-table/asi-table-filter-selected/asi-table-filter-selected.action';
 
 @Component({
   selector: 'asi-table',
@@ -25,34 +28,29 @@ export class AsiTableComponent {
   @Select(AsiTableFilterSelectionState.get) asiTableFilterSelection$: Observable<FilterSelection<FilterAsiTableSelection>>;
   @Select(AsiTableFilterSelectedState.get) asiTableFilterSelected$: Observable<FilterSelected<FilterAsiTableSelected>>;
   @Select(AsiTableState.get) asiTable$: Observable<Datas<AsiTable[]>>;
-
+  // buttonAdd: {enabled: true,tooltip:'Ajouter une catégorie d\'opération' },
+  filterAsiSelected: FilterAsiTableSelected;
   matTableFilter: MatTableFilter = {
     columns: ASI_COLUMNS,
     filterSelection$: this.asiTableFilterSelection$,
     filterSelected$: this.asiTableFilterSelected$,
     table$: this.asiTable$,
-    toolbar: null
+    toolbar: { buttonDelete:{enabled:true,tooltip:'supprimer import(s)'}, buttonFullscreen:{enabled:true} }
   };
-
-  // columns = ASI_COLUMNS;
-  // : Column[]=
-  //   [ 
-  //     {index:0, field: 'id',label:'id',isSortable:true,width:{isFixed:true,value:70},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type:EnumStyleType.label,datas:null }},
-  //     {index:1, field: 'fileImport',label:'nom fichier',isSortable:true,width:{isFixed:false,value:-1},filter: {type:EnumFilterType.none, datas: null, isEmpty: true}, pipe: false,style:{type: EnumStyleType.label,datas:null}},
-  //     {index:2, field: 'dateImport',label:'Date import',isSortable:true,width:{isFixed:true,value:100}, filter: {type:EnumFilterType.none, datas: null, isEmpty: true},pipe:true,style:{type:EnumStyleType.label,datas:null} }
-  //   ];
 
   constructor(
     private _router: Router,
     private _store: Store,
     private _activatedRoute: ActivatedRoute,
+    private _asiService: AsiService,
+    private _notificationsService : NotificationsService
     ) {
       
-      // this.asiTableFilterSelected$.subscribe(filterAsi=>{
-      //   if(filterAsi?.loader['filter-selected']?.loaded) {
-      //     this.filterAsi = filterAsi.filters;
-      //   }
-      // });
+      this.asiTableFilterSelected$.subscribe(selected=>{
+        if(selected?.loader['filter-selected']?.loaded) {
+          this.filterAsiSelected = selected.selected;
+        }
+      });
 
   }
 
@@ -68,6 +66,14 @@ export class AsiTableComponent {
 
   }
 
+  deleteItems($event) {
+    this._asiService.deleteList($event).subscribe(resp => {
+      this._store.dispatch(new SynchronizeAsiTableFilterSelected(this.filterAsiSelected));
+      this._notificationsService.success('Suppression réussie', `${$event.lentgh} import(s) supprimée(s)`);
+    }, error => {
+      this._notificationsService.error('Echec suppression', error);
+    })
+  }
 
 
 }

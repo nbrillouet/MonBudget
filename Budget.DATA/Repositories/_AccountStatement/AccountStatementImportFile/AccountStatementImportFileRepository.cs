@@ -35,6 +35,7 @@ namespace Budget.DATA.Repositories
                 .Include(x => x.OperationMethod)
                 .Include(x => x.OperationType)
                 .Include(x => x.OperationTypeFamily)
+                    .Include(x => x.OperationTypeFamily.Asset)
                 .Include(x => x.OperationDetail)
                     .Include(x => x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel1)
                     .Include(x => x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel2)
@@ -56,7 +57,7 @@ namespace Budget.DATA.Repositories
         {
             var result = Context.AccountStatementImportFile
                 .Where(x=>x.IdImport== idImport)
-                .Where(x => x.EnumAsifState != EnumAsifState.Complete)
+                .Where(x => x.IdState != (int)EnumStateAsif.Complete)
                 .Any();
 
             return !result;
@@ -110,6 +111,10 @@ namespace Budget.DATA.Repositories
 
             accountStatementImportFiles = GenericTableFilter.GetGenericFilters(accountStatementImportFiles, filter);
 
+            if (filter.State != null)
+            {
+                accountStatementImportFiles = accountStatementImportFiles.Where(x => x.IdState == filter.State.Id);
+            }
             //if (filter.IdImport != null)
             //{
             //    accountStatementImportFiles = accountStatementImportFiles.Where(x => x.IdImport == filter.IdImport);
@@ -167,15 +172,15 @@ namespace Budget.DATA.Repositories
 
             if(HasAsifMethodLess(idImport, idAccount))
             {
-                asifStates.Add(new Select { Id = (int)EnumAsifState.MethodLess, Label = "Erreur méthode" });
+                asifStates.Add(new Select { Id = (int)EnumStateAsif.MethodLess, Label = "Erreur méthode" });
             }
             if (HasAsifOperationLess(idImport, idAccount))
             {
-                asifStates.Add(new Select { Id = (int)EnumAsifState.OperationLess, Label = "Erreur opération" });
+                asifStates.Add(new Select { Id = (int)EnumStateAsif.OperationLess, Label = "Erreur opération" });
             }
             if (HasAsifComplete(idImport, idAccount))
             {
-                asifStates.Add(new Select { Id = (int)EnumAsifState.Complete, Label = "complet" });
+                asifStates.Add(new Select { Id = (int)EnumStateAsif.Complete, Label = "complet" });
             }
 
             return asifStates;
@@ -186,7 +191,7 @@ namespace Budget.DATA.Repositories
             return Context.AccountStatementImportFile
                 .Where(x => x.IdImport == idImport &&
                 x.IdAccount == idAccount &&
-                x.EnumAsifState == EnumAsifState.Complete)
+                x.IdState == (int)EnumStateAsif.Complete)
                 .Any();
         }
 
@@ -195,7 +200,7 @@ namespace Budget.DATA.Repositories
             return Context.AccountStatementImportFile
                 .Where(x => x.IdImport == idImport &&
                 x.IdAccount == idAccount &&
-                x.EnumAsifState == EnumAsifState.OperationLess)
+                x.IdState == (int)EnumStateAsif.OperationLess)
                 .Any();
         }
 
@@ -204,7 +209,7 @@ namespace Budget.DATA.Repositories
             return Context.AccountStatementImportFile
                 .Where(x => x.IdImport == idImport &&
                 x.IdAccount == idAccount &&
-                x.EnumAsifState == EnumAsifState.MethodLess)
+                x.IdState == (int)EnumStateAsif.MethodLess)
                 .Any();
         }
 
@@ -378,11 +383,11 @@ namespace Budget.DATA.Repositories
 
             //determination du State
             if (item.IdOperation != item.UnknownId.IdOperation && item.IdOperationMethod != item.UnknownId.IdOperationMethod && item.IdOperationDetail!= item.UnknownId.IdOperationDetail)
-                item.EnumAsifState = EnumAsifState.Complete;
+                item.IdState = (int)EnumStateAsif.Complete;
             else if (item.IdOperationMethod == item.UnknownId.IdOperationMethod)
-                item.EnumAsifState = EnumAsifState.MethodLess;
+                item.IdState = (int)EnumStateAsif.MethodLess;
             else //if (item.IdOperation == 1)
-                item.EnumAsifState = EnumAsifState.OperationLess;
+                item.IdState = (int)EnumStateAsif.OperationLess;
 
             //if (item.OperationDetail.IdGMapAddress == (int)EnumGMapAddress.Inconnu && (item.IdOperationMethod == (int)EnumOperationMethod.PaiementCarte || item.IdOperationMethod == (int)EnumOperationMethod.RetraitCarte))
             //    item.EnumAsifState = EnumAsifState.OperationLess;

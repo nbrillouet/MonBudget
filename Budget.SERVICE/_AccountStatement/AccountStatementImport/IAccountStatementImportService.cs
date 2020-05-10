@@ -15,9 +15,9 @@ namespace Budget.SERVICE
         PagedList<AsiForTableDto> GetAsiTable(FilterAsiTableSelected filter);
         Task<AccountStatementImport> GetByIdAsync(int idImport);
         AsiForTableDto GetByIdForData(int idImport);
-        //AccountStatementImport GetById(int idImport);
         AsiForListDto GetForDetailById(int idImport);
         AccountStatementImport ImportFile(StreamReader reader, User user);
         AccountStatementImport SaveWithTran(AccountStatementImport accountStatementImport);
+        void DeleteList(List<int> idAsiList);
     }
 }

@@ -56,7 +56,6 @@ operationDetailForm: FormGroup;
     this.$DetailInfo$ = this.detailInfo$.subscribe(x => {
     // this.operationDetail$.subscribe(operationDetail=>{
       if(x?.loader['datas']?.loaded) {
-        console.log('x',x);
         this.operationDetail = x.datas; //JSON.parse(JSON.stringify(x.datas));
         if(this.firstLoad) {
           //creation du formulaire

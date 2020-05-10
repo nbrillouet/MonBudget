@@ -1,6 +1,6 @@
 import { AsifDetail } from "app/main/_models/account-statement-import/account-statement-import-file.model";
 import { AsifService } from "app/main/apps/account-statement-import-file/asif.service";
-import { LoadAsifDetail, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationType, ClearAsifDetail } from "./asif-detail.action";
+import { LoadAsifDetail, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationType, ClearAsifDetail, SynchronizeAsifDetail } from "./asif-detail.action";
 import { ReferentialService } from "app/main/_services/Referential/referential.service";
 import { EnumSelectType, ISelect } from "app/main/_models/generics/select.model";
 import { ComboSimple } from "app/main/_models/generics/combo.model";
@@ -59,6 +59,15 @@ export class AsifDetailState extends LoaderState {
                 this.loaded(context,'datas');
             });
 
+    }
+
+    @Action(SynchronizeAsifDetail)
+    SynchronizeAsifDetail(context: StateContext<AsifDetailStateModel>, action: SynchronizeAsifDetail) {
+        let state = context.getState();
+        console.log('state.datas',state.datas);
+        console.log('action.payload',action.payload);
+        state.datas = action.payload;
+        context.patchState(state);
     }
 
     // @Action(LoadAsifDetailSuccess)

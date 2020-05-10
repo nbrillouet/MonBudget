@@ -8,7 +8,11 @@ namespace Budget.SERVICE
 {
     public interface IOperationTypeFamilyService
     {
-        OtfForDetail GetById(int idOtf);
+        PagedList<OtfForTableDto> GetForTable(FilterOtfTableSelected filter);
+        OtfForDetail GetForDetail(int idOtf);
+        OtfForDetail GetForDetail(int? idOtf, int idUser);
+        OperationTypeFamily GetById(int idOtf);
+
         Select GetByCodeUserGroupForSelect(EnumCodeOtf enumCodeOtf, int idUserGroup);
         List<Select> GetSelectList(int idUserGroup, EnumMovement enumMovement, EnumSelectType enumSelectType);
         List<Select> GetSelectList(int idUserGroup, EnumSelectType enumSelectType);
@@ -17,8 +21,8 @@ namespace Budget.SERVICE
         List<Select> GetSelectListByIdList(List<int> idList);
         List<Select> GetByIdUserGroup(int idUserGroup);
 
-        PagedList<OtfForTableDto> GetForTable(FilterOtfTableSelected filter);
-        OtfForDetail GetForDetail(int? idOtf, int idUser);
+        
+        
         OtfForDetail Save(OtfForDetail otfForDetail);
         void DeleteList(List<int> idOtfList, int idUserGroup);
 

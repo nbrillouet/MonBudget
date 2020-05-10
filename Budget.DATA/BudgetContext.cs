@@ -20,6 +20,7 @@ namespace Budget.DATA
         public DbSet<BankFamily> BankFamily { get; set; }
         public DbSet<BankSubFamily> BankSubFamily { get; set; }
         public DbSet<BankAgency> BankAgency { get; set; }
+        public DbSet<StateAsif> StateAsif { get; set; }
         public DbSet<Movement> Movement { get; set; }
         public DbSet<AccountType> AccountType { get; set; }
         public DbSet<Account> Account { get; set; }

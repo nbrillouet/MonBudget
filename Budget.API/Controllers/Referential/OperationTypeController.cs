@@ -72,7 +72,7 @@ namespace Budget.API.Controllers.Referential
 
         [HttpGet]
         [Route("{idOperationType}/users/{idUser}/detail")]
-        public IActionResult GetOtDetail(int idOperationType, int idUser)
+        public IActionResult GetOtDetail(int? idOperationType, int idUser)
         {
             var results = _operationTypeService.GetForDetail(idOperationType, idUser);
             return Ok(results);

@@ -10,6 +10,7 @@ export const ASIF_DETAIL_OPERATION_TYPE_FAMILY_CHANGE = 'asif-detail-operation-t
 export const ASIF_DETAIL_OPERATION_TYPE_CHANGE = 'asif-detail-operation-type-change'
 // export const ASIF_DETAIL_OPERATION_TYPE_CHANGE_SUCCESS = 'asif-detail-operation-type-change-success'
 export const ASIF_DETAIL_CLEAR = 'asif-detail-clear';
+export const ASIF_DETAIL_SYNCHRONIZE = 'asif-detail-synchronize';
 
 export class LoadAsifDetail {
     static readonly type = ASIF_DETAIL_LOAD;
@@ -17,11 +18,11 @@ export class LoadAsifDetail {
     constructor(public payload: FilterAsifDetail) { }
 }
 
-// export class LoadAsifDetailSuccess {
-//     static readonly type = ASIF_DETAIL_LOAD_SUCCESS;
- 
-//     constructor(public payload: AsifDetail) { }
-// }
+export class SynchronizeAsifDetail {
+    static readonly type = ASIF_DETAIL_SYNCHRONIZE;
+
+    constructor(public payload: AsifDetail) { }
+}
 
 export class ClearAsifDetail {
     static readonly type = ASIF_DETAIL_CLEAR;

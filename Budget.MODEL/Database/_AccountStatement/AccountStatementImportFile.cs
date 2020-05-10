@@ -95,8 +95,12 @@ namespace Budget.MODEL.Database
         [Column("LABEL_OPERATION_WORK")]
         [StringLength(500)]
         public string LabelOperationWork { get; set; }
-        [Column("STATE")]
-        public EnumAsifState EnumAsifState { get; set; }
+
+        [Column("ID_STATE")]
+        public int IdState { get; set; }
+        [ForeignKey("IdState")]
+        public StateAsif State { get; set; }
+
         [Column("IS_DUPLICATED")]
         public bool IsDuplicated { get; set; }
 
@@ -121,12 +125,7 @@ namespace Budget.MODEL.Database
         }
 
     }
-    public enum EnumAsifState
-    {
-        Complete = 1,
-        MethodLess = 2,
-        OperationLess = 3
-    }
+       
 
     public class UnknownId
     {

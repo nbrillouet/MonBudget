@@ -7,7 +7,7 @@ export class FilterAsifTableSelected {
     user: IUserForGroup= null;
     idImport: number;
     account: ISelect;
-    asifState: ISelect;
+    state: ISelect;
     indexTabAsifState: number;
     asiBankAgencyLabel: string;
     asiDateImport: Date;
@@ -16,7 +16,7 @@ export class FilterAsifTableSelected {
     constructor () {
         this.idImport = null;
         this.account = null; 
-        this.asifState =null;
+        this.state =null;
         this.indexTabAsifState = 0;
         this.pagination = new Pagination();
     }
@@ -26,7 +26,7 @@ export class FilterAsifTableSelection {
     // asiBankAgencyLabel: string;
     // asiDateImport: Date;
     account: ISelect[];
-    asifState: ISelect[];
+    state: ISelect[];
     
     operationMethod: ISelect[]=null;
     operationTypeFamily: ISelectGroup[]=null;

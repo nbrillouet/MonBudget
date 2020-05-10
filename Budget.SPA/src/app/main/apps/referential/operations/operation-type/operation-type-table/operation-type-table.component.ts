@@ -94,7 +94,6 @@ export class OperationTypeTableComponent implements OnInit {
 
 
   deleteItems($event) {
-    console.log('delete', $event);
     this._otService.deleteOtList($event).subscribe(resp => {
       this._store.dispatch(new SynchronizeOtTableFilterSelected(this.filterOtSelected));
       this._notificationService.success('Suppression réussie', `${$event.lentgh} type opération(s) supprimée(s)`);

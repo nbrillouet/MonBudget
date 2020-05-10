@@ -52,7 +52,6 @@ otDetailForm: FormGroup;
 
     this.$DetailInfo$ = this.detailInfo$.subscribe(x => {
       if(x?.loader['datas']?.loaded) {
-        console.log('x',x);
         this.otForDetail = x.datas;
         if(this.firstLoad) {
           //creation du formulaire
@@ -64,7 +63,7 @@ otDetailForm: FormGroup;
     });
 
     this.detailFilterInfo$.subscribe(x=> {
-      console.log('filter',x);
+
     })
     // this.otDetail$.subscribe(otDetail=>{
     //   if(otDetail?.loader['datas']?.loaded) {
@@ -82,7 +81,7 @@ otDetailForm: FormGroup;
 
   ngOnInit() {
     this._activatedRoute.params.subscribe(routeParams => {
-      let idOt = routeParams['idOperationType']=='new' ? 0 : routeParams['idOperationType'];
+      let idOt = routeParams['idOperationType']=='new' ? null : routeParams['idOperationType'];
       this._store.dispatch(new LoadOtDetail(<FilterForDetail>{id:idOt}));
     });
   }

@@ -43,16 +43,14 @@
           <!-- / HEADER -->
           <div class="content-card">
 
-            <!-- <selected-bar class="mat-accent-600-bg" *ngIf="hasSelectedRows" [@slideInTop]></selected-bar> -->
-            
             <div class="content-card white" fxFlexFill *ngIf="fileInProgress" fxLayout="column" fxLayoutAlign="center center">
                 <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
                 <div fxLayout="row">chargement...</div>
             </div>
 
-            <div class="content-card white" *ngIf="(!fileInProgress && !fileError && !fileSuccess)">
-                <asi-filter fusePerfectScrollbar></asi-filter>
-            </div>
+            <!-- <div style="height:inherit;" > -->
+            <asi-filter *ngIf="(!fileInProgress && !fileError && !fileSuccess)" style="height:inherit;"></asi-filter>
+            <!-- </div> -->
               
           </div>
       </div>

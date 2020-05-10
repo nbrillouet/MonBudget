@@ -68,7 +68,7 @@ namespace Budget.API.Controllers.Referential
 
         [HttpGet]
         [Route("{idOperationTypeFamily}/users/{idUser}/operation-type-family-detail")]
-        public IActionResult GetForDetail(int idOperationTypeFamily, int idUser)
+        public IActionResult GetForDetail(int? idOperationTypeFamily, int idUser)
         {
             var results = _referentialService.OperationTypeFamilyService.GetForDetail(idOperationTypeFamily, idUser);
             return Ok(results);

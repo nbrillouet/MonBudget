@@ -46,6 +46,7 @@ export class OtService {
         }
         
         getForDetail(filter: FilterForDetail) {
+            console.log('filter',filter);
           return this._httpClient
               .get(`${this.baseUrl}referential/operation-types/${filter.id}/users/${this.userForGroup.id}/detail`)
               .map(response => <OtForDetail>response)

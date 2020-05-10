@@ -198,9 +198,6 @@ namespace Budget.DATA.Migrations
                     b.Property<DateTime?>("DateOperation")
                         .HasColumnName("DATE_OPERATION");
 
-                    b.Property<int>("EnumAsifState")
-                        .HasColumnName("STATE");
-
                     b.Property<int?>("IdAccount")
                         .HasColumnName("ID_ACCOUNT");
 
@@ -224,6 +221,9 @@ namespace Budget.DATA.Migrations
 
                     b.Property<int>("IdOperationTypeFamily")
                         .HasColumnName("ID_OPERATION_TYPE_FAMILY");
+
+                    b.Property<int>("IdState")
+                        .HasColumnName("ID_STATE");
 
                     b.Property<bool>("IsDuplicated")
                         .HasColumnName("IS_DUPLICATED");
@@ -272,6 +272,8 @@ namespace Budget.DATA.Migrations
                     b.HasIndex("IdOperationType");
 
                     b.HasIndex("IdOperationTypeFamily");
+
+                    b.HasIndex("IdState");
 
                     b.ToTable("ACCOUNT_STATEMENT_IMPORT_FILE","as");
                 });
@@ -1254,6 +1256,21 @@ namespace Budget.DATA.Migrations
                     b.ToTable("REFERENCE_TABLE","plan");
                 });
 
+            modelBuilder.Entity("Budget.MODEL.Database.StateAsif", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Label")
+                        .HasColumnName("LABEL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("STATE_ASIF","ref");
+                });
+
             modelBuilder.Entity("Budget.MODEL.Database.UserAccount", b =>
                 {
                     b.Property<int>("Id")
@@ -1595,6 +1612,11 @@ namespace Budget.DATA.Migrations
                     b.HasOne("Budget.MODEL.Database.OperationTypeFamily", "OperationTypeFamily")
                         .WithMany()
                         .HasForeignKey("IdOperationTypeFamily")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.Database.StateAsif", "State")
+                        .WithMany()
+                        .HasForeignKey("IdState")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

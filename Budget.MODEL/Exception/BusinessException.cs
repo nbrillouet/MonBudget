@@ -37,5 +37,7 @@ namespace Budget.MODEL
         BUS_OTF_ERR_002,     //Catégorie opération utilisée dans un ou plusieurs relevé(s) de compte
         BUS_OTF_ERR_003,     //Catégorie opération utilisée dans une ou plusieurs type d'opération(s)
         BUS_OTF_ERR_004,     //Catégorie opération utilisée dans une ou plusieurs customisation utilisateur
+
+        BUS_ASI_ERR_000     //Import utilisé dans un ou plusieurs relevé de comptes
     }
 }

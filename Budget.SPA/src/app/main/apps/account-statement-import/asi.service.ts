@@ -12,27 +12,35 @@ baseUrl = environment.apiUrl;
 user : IUser;
 
     constructor(
-        private http: HttpClient
+        private _httpClient: HttpClient
     ) { 
         this.user = JSON.parse(localStorage.getItem('currentUser'));
     }
     
     getAsiTableFilter(filter: FilterAsiTableSelected) {
-        return this.http
+        return this._httpClient
             .post(`${this.baseUrl}account-statement-import/table-filter`,filter)
             .map(response => <FilterAsiTableSelection>response);
     }
 
     getAsiTable (filter: FilterAsiTableSelected) {
-        return this.http
+        return this._httpClient
             .post(`${this.baseUrl}account-statement-import/filter`,filter)
-            .map((response: Datas<AsiTable[]>) => response);
+            .map((response: any) => response);
     }
 
     getById(idImport: number) {
-        return this.http
-            .get(`${this.baseUrl}account-statement-import/asi/${idImport}/asi-detail`)
+        return this._httpClient
+            .get(`${this.baseUrl}account-statement-import/${idImport}/asi-detail`)
             .map((response: AsiTable) => response);
+    }
+
+    deleteList(idAsiList: number[]) {
+        return this._httpClient
+            .post(`${this.baseUrl}account-statement-import/delete-asi-list`,idAsiList)
+            .map((response: boolean) => {
+                return response;
+            });
     }
 
 

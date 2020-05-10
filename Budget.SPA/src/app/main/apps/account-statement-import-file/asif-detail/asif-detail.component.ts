@@ -8,7 +8,7 @@ import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { FilterInfo, FilterSelected } from 'app/main/_models/generics/filter.info.model';
 import { FilterAsifDetail, FilterAsifTableSelected } from 'app/main/_models/filters/account-statement-import-file.filter';
-import { LoadAsifDetail, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationType, ClearAsifDetail } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.action';
+import { LoadAsifDetail, asifDetailChangeOperationTypeFamily, asifDetailChangeOperationType, ClearAsifDetail, SynchronizeAsifDetail } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.action';
 import { AsifDetailState } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.state';
 import { AsifDetail } from 'app/main/_models/account-statement-import/account-statement-import-file.model';
 import { IOperation } from 'app/main/_models/referential/operation.model';
@@ -69,7 +69,6 @@ fullscreen: boolean;
     this.asifDetail$.subscribe(asifDetail=>{
       if(asifDetail?.loader['datas']?.loaded) {
         this.asifDetail = JSON.parse(JSON.stringify(asifDetail.datas));
-
         if(this.firstLoad) {
           //creation du formulaire
           this.createForms();
@@ -138,7 +137,9 @@ fullscreen: boolean;
       
       this.asifDetailForm.get('operationType').valueChanges
         .subscribe(val => {
+          console.log('this.asifDetail',this.asifDetail);
           let operationFilter=<FilterOperation> { operationType: val, operationMethod:this.asifDetail.operationMethod.selected}
+          
           this._store.dispatch(new asifDetailChangeOperationType(operationFilter));
           this.asifDetailForm.controls['operation'].setValue({id:1,label:'INCONNU'});
         });
@@ -164,11 +165,11 @@ fullscreen: boolean;
               operationPlaceSearch: this.asifDetail.placeLabelTemp
             };
           }
-          //TODO synchronize
-          // this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
+          this._store.dispatch(new SynchronizeAsifDetail(this.asifDetail));
         });
      
       this.asifDetailForm.valueChanges.subscribe(val=>{
+        
         this.asifDetail.operationMethod.selected = val.operationMethod;
         this.asifDetail.operationTypeFamily.selected = val.operationTypeFamily;
         this.asifDetail.operationType.selected = val.operationType;
@@ -182,8 +183,7 @@ fullscreen: boolean;
         this.asifDetail.placeKeywordTemp = val.placeKeywordTemp;
         this.asifDetail.operationPlace.selected = val.operationPlace;
 
-        //TODO synchronize
-        // this._store.dispatch(new LoadAsifDetailSuccess(this.asifDetail));
+        this._store.dispatch(new SynchronizeAsifDetail(this.asifDetail));
       });
  
       this.operationAddForm = this._formBuilder.group({
