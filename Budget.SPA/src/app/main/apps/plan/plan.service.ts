@@ -9,20 +9,30 @@ import { PlanDetail } from "app/main/_models/plan/plan.model";
 import { PlanForTracking } from "app/main/_models/plan/plan-tracking.model";
 import { PlanAmountFilter } from "app/main/_models/filters/plan-amount.filter";
 import { AsTable } from "app/main/_models/account-statement/account-statement-table.model";
-import { IUserForGroup } from "app/main/_models/user.model";
+import { IUserForGroup, IUser } from "app/main/_models/user.model";
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 import { FilterPlanNotAsTableSelected, FilterPlanNotAsTableSelection, FilterPlanNotAsTableGroupSelected } from "app/main/_models/filters/plan-not-as.filter";
+import { Select } from "@ngxs/store";
+import { UserDetailState } from "app/main/_ngxs/user/user-detail/user-detail.state";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class PlanService {
+    @Select(UserDetailState.getUser) user$: Observable<IUser>;
+    
 baseUrl = environment.apiUrl;
-user = JSON.parse(localStorage.getItem('currentUser'));
-userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:this.user.idUserGroup} : null;
+currentUser: IUser;
+userForGroup: IUserForGroup; 
 
     constructor(
         private http: HttpClient,
         private errorService: ErrorService
-    ) { }
+    ) {
+        this.user$.subscribe((user:IUser) => {
+            this.currentUser = user;
+            this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
+        });
+     }
     
     getPlanTableFilter(filter: FilterPlanTableSelected) {
         filter.user=this.userForGroup;

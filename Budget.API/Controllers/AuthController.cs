@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using Budget.MODEL.Dto;
 using Budget.HELPER;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Budget.API.Controllers
 {
@@ -25,62 +26,156 @@ namespace Budget.API.Controllers
     {
         private IAuthService _authService;
         private IConfiguration _config;
+
         private readonly IMapper _mapper;
+        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IMailRegisterValidationService _mailRegisterValidationService;
 
         public AuthController(
             IAuthService authService,
             IConfiguration config,
-            IMapper mapper)
+            IMapper mapper,
+            IHostingEnvironment hostingEnvironment,
+            IMailRegisterValidationService mailRegisterValidationService)
         {
             _authService = authService;
             _config = config;
             _mapper = mapper;
+            _mailRegisterValidationService = mailRegisterValidationService;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody]UserForRegisterDto userForRegisterDto)
+        public IActionResult Register([FromBody]UserForRegister userForRegister)
         {
-            userForRegisterDto.Name = userForRegisterDto.Name.ToLower();
-            if (await _authService.UserExists(userForRegisterDto.Name))
-                ModelState.AddModelError("UserName","Username already exists");
-            
-            //validate request
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var userToCreate = new User
+            try
             {
-                UserName = userForRegisterDto.Name
-            };
+                var user = _authService.Register(userForRegister);
+                //var user = new User
+                //{
+                //    MailAddress = "nico_brillouet@hotmail.com",
+                //    UserName = "nico"
+                //};
 
-            var createdUser = await _authService.Register(userToCreate, userForRegisterDto.Password);
-
-            return StatusCode(201);
+                
+                return Ok(user);
+            }
+            catch (BusinessException e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, e.BusinessExceptionMessages);
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception);
+            }
         }
+
+        [HttpGet("account-activation/{activationCode}")]
+        public IActionResult AccountActivation(string activationCode)
+        {
+            try
+            {
+                var user = _authService.ActivateAccount(activationCode);
+
+                return Ok(user);
+            }
+            catch (BusinessException e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, e.BusinessExceptionMessages);
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception);
+            }
+        }
+
+        [HttpGet("account-password-recovery/{mail}")]
+        public IActionResult AccountPasswordRecovery(string mail)
+        {
+            try
+            {
+                _authService.PasswordRecovery(mail);
+
+                return Ok();
+            }
+            catch (BusinessException e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, e.BusinessExceptionMessages);
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception);
+            }
+        }
+
+        [HttpGet("user-encrypt/{user}")]
+        public IActionResult GetUserEncrypt(string user)
+        {
+            try
+            {
+                return Ok(_authService.GetUserEncrypt(System.Uri.UnescapeDataString(user)));
+            }
+            catch (BusinessException e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, e.BusinessExceptionMessages);
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception);
+            }
+        }
+
+        [HttpPost("change-password")]
+        public IActionResult ChangePassword([FromBody] UserForPasswordChange userForPasswordChange)
+        {
+            try
+            {
+                return Ok(_authService.ChangePassword(userForPasswordChange));
+            }
+            catch (BusinessException e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, e.BusinessExceptionMessages);
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception);
+            }
+        }
+
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]UserForLoginDto userForLoginDto)
         {
-            //throw new Exception("Computer says no!");
-
-            var userRetrieve = await _authService.Login(userForLoginDto.Username, userForLoginDto.Password);
-
-            if (userRetrieve == null)
+            try
             {
-                ModelState.AddModelError("Login Error","Incorrect username or password");
-                return BadRequest(ModelState);
-                // return Unauthorized();
+                var userForDetail = _authService.Login(userForLoginDto.Username, userForLoginDto.Password);
+                userForDetail.Token = GetToken(userForDetail);
+                return Ok(userForDetail);
             }
+            catch (BusinessException e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, e.BusinessExceptionMessages);
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception);
+            }
+        }
+
+        private string GetToken(UserForDetailDto userForDetail)
+        {
             //generate token
             var tokenHandler = new JwtSecurityTokenHandler();
-            //var key = Encoding.ASCII.GetBytes(CryptoHelper.Decrypt(_config.GetSection("AppSettings:Token").Value));
+
             var key = Encoding.ASCII.GetBytes(_config.GetSection("AppSettings:Token").Value);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier,userRetrieve.Id.ToString()),
-                    new Claim(ClaimTypes.Name, userRetrieve.UserName),
+                    new Claim(ClaimTypes.NameIdentifier,userForDetail.Id.ToString()),
+                    new Claim(ClaimTypes.Name, userForDetail.UserName),
+                    new Claim(ClaimTypes.GroupSid, userForDetail.IdUserGroup.ToString()),
+                    new Claim(ClaimTypes.Role, userForDetail.Role),
                     new Claim(ClaimTypes.Locality, "fr")
                 }),
 
@@ -92,11 +187,39 @@ namespace Budget.API.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            var user = _mapper.Map<UserForConnectionDto>(userRetrieve);
-            user.Token = tokenString;
-            return Ok(user);
-
-            
+            return tokenString;
         }
+
+
+        //if (userRetrieve == null)
+        //{
+        //    ModelState.AddModelError("Login Error","Incorrect username or password");
+        //    return BadRequest(ModelState);
+        //    // return Unauthorized();
+        //}
+        ////generate token
+        //var tokenHandler = new JwtSecurityTokenHandler();
+
+        //var key = Encoding.ASCII.GetBytes(_config.GetSection("AppSettings:Token").Value);
+        //var tokenDescriptor = new SecurityTokenDescriptor
+        //{
+        //    Subject = new ClaimsIdentity(new Claim[]
+        //    {
+        //        new Claim(ClaimTypes.NameIdentifier,userRetrieve.Id.ToString()),
+        //        new Claim(ClaimTypes.Name, userRetrieve.UserName),
+        //        new Claim(ClaimTypes.Locality, "fr")
+        //    }),
+
+        //    Expires = DateTime.Now.AddDays(1),
+        //    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+        //        SecurityAlgorithms.HmacSha512Signature)
+        //};
+
+        //var token = tokenHandler.CreateToken(tokenDescriptor);
+        //var tokenString = tokenHandler.WriteToken(token);
+
+        //var user = _mapper.Map<UserForConnection>(userRetrieve);
+        //user.Token = tokenString;
+        //return Ok(user);
     }
 }

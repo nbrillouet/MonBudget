@@ -5,9 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Budget.MODEL.Dto
 {
     [NotMapped]
+    public class Solde : SoldeDto
+    {
+        public Select Account { get; set; }
+        public DateTime DateMax { get; set; }
+    }
+
+    [NotMapped]
     public class SoldeDto
     {
-        
+        public int IdAccount { get; set; }
         private double _credit;
         [Key]
         public double Credit

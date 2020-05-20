@@ -28,6 +28,9 @@ import { AsifTableFilterSelectedState } from "app/main/_ngxs/account-statement-i
 import { AsifTableState } from "app/main/_ngxs/account-statement-import-file/asif-table/asif-table.state";
 import { AsifTableComponent } from "../account-statement-import-file/asif-table/asif-table.component";
 import { AsiTableComponent } from "./asi-table/asi-table.component";
+import { AsDetailGenericComponent } from "../shared/as-detail-generic/as-detail-generic.component";
+import { AsService } from "../account-statement/account-statement.service";
+import { AsifDetailFilterState } from "app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail-filter/asif-detail-filter.state";
 
 const routes = [
     {
@@ -38,7 +41,7 @@ const routes = [
     },
     {
         // ':idImport/accounts/:idAccount/account-statement-import-files/:idImportFile/detail'
-        path     : ':idImport/account-statement-import-files/:idImportFile/detail',
+        path     : ':idImport/account-statement-import-files/:idAsif/detail',
         component: AsifDetailComponent,
         canActivate: [AuthGuard]
     },
@@ -69,7 +72,8 @@ const routes = [
         AsifTableFilterSelectionState,
         AsifTableFilterSelectedState,
         AsifTableState,
-        AsifDetailState
+        AsifDetailState,
+        AsifDetailFilterState
 
       ]),
       RouterModule.forChild(routes)
@@ -79,6 +83,7 @@ const routes = [
         AsifTableComponent,
         AsifStateComponent,
         AsifDetailComponent,
+
         
         AsiUploadComponent,
         AsiMainComponent,
@@ -86,6 +91,7 @@ const routes = [
         AsiTableComponent
     ],
     providers : [
+        AsService,
         AsiService,
         AsifService,
         PreventUnsavedChanges,

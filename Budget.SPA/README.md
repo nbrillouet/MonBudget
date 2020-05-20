@@ -40,5 +40,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 	"angular-calendar": "0.27.13",
     "typescript": "3.5.2"
     "ngx-gauge": "^1.0.0-beta.12",
+
+    "cypress": "^4.1.0",
 	
 

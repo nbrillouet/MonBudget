@@ -41,7 +41,7 @@ namespace Budget.SERVICE
         }
 
         //Recherche des account statement non pris en compte dans le plan indiqué en parametre
-        public PagedList<AsForTableDto> GetPlanNotAsTable(FilterPlanNotAsTableGroupSelected filter)
+        public PagedList<AsForTable> GetPlanNotAsTable(FilterPlanNotAsTableGroupSelected filter)
         {
             filter.FilterFixedPlanNotAsTableSelected = GetFilterFixedPlanNotAsTableSelected(filter.FilterFixedPlanNotAsTableSelected);
 

@@ -1,5 +1,5 @@
 export const NAVIGATION_LOAD = 'navigation-load';
-export const NAVIGATION_LOAD_SUCCESS = 'navigation-load-success';
+export const NAVIGATION_CLEAR = 'navigation-clear';
 
 export const NAVIGATION_ADD = 'navigation-add';
 
@@ -9,11 +9,10 @@ export class LoadNavigation {
     constructor(public payload: any) { }
 }
 
-// export class LoadNavigationSuccess {
-//     static readonly type = NAVIGATION_LOAD_SUCCESS;
- 
-//     constructor(public payload: any) { }
-// }
+export class ClearNavigation {
+    static readonly type = NAVIGATION_CLEAR;
+}
+
 
 export class AddNavigation {
     static readonly type = NAVIGATION_ADD;

@@ -10,6 +10,8 @@ import { FuseConfigService }    from '@fuse/services/config.service';
 import { fuseAnimations }       from '@fuse/animations';
 import { AuthService } from 'app/main/_services/auth.service';
 import { takeUntil } from 'rxjs/operators';
+import { LoadUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.action';
+import { Store } from '@ngxs/store';
 
 @Component({
     selector   : 'fuse-login',
@@ -27,17 +29,18 @@ export class FuseLoginComponent implements OnInit
         private formBuilder: FormBuilder,
         private authService : AuthService,
         private router: Router,
-        private notif: NotificationsService
+        private notif: NotificationsService,
+        private _store: Store
     )
     {
-        this._fuseConfigService.config
-            // .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(
-                (config) => {
-                    var titi = config;
+        // this._fuseConfigService.config
+        //     // .pipe(takeUntil(this._unsubscribeAll))
+        //     .subscribe(
+        //         (config) => {
+        //             var titi = config;
               
-                }
-            );
+        //         }
+        //     );
 
        
         // Configure the layout
@@ -105,7 +108,6 @@ export class FuseLoginComponent implements OnInit
         this.authService
             .login(this.loginForm.value.username,this.loginForm.value.password)
             .subscribe(data=>{
-
                 this.notif.success('Connexion réussie!','Vous êtes maintenant connecté');
             },error => {
                 this.notif.error('Erreur connexion',error);

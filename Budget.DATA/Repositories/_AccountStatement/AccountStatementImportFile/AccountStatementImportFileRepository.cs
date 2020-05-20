@@ -28,7 +28,7 @@ namespace Budget.DATA.Repositories
 
         }
 
-        public AccountStatementImportFile GetAsifDetail(int id)
+        public AccountStatementImportFile GetForDetail(int id)
         {
             var accountStatementImportFile = Context.AccountStatementImportFile
                 .Include(x => x.Operation)

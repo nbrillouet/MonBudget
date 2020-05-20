@@ -2,30 +2,41 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ISelectGroup, EnumSelectType, ISelect } from 'app/main/_models/generics/select.model';
-import { IUserForGroup } from 'app/main/_models/user.model';
+import { IUserForGroup, IUser } from 'app/main/_models/user.model';
 import { FilterOtfTableSelected, FilterOtfTableSelection, FilterOtfDetail } from 'app/main/_models/filters/operation-type-family.filter';
 import { OtfForDetail } from 'app/main/_models/referential/operation-type-family.model';
 import { FilterForDetail } from 'app/main/_models/filters/shared/filterDetail.filter';
+import { Select } from '@ngxs/store';
+import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class OtfService {
+    @Select(UserDetailState.getUser) user$: Observable<IUser>;
+    
     baseUrl = environment.apiUrl;
-    user = JSON.parse(localStorage.getItem('currentUser'));
-    userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:this.user.idUserGroup} : null;
+    currentUser: IUser;
+    // user = JSON.parse(localStorage.getItem('currentUser'));
+    userForGroup: IUserForGroup; // = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:this.user.idUserGroup} : null;
   
         constructor(
             private _httpClient: HttpClient
-        ) { }
+        ) {
+            this.user$.subscribe((user:IUser) => {
+                this.currentUser = user;
+                this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
+            });
+         }
             
         getSelectGroupList() {
             return this._httpClient
-                .get(this.baseUrl + `referential/operation-type-families/users/${this.user.id}/select-group-list`)
+                .get(this.baseUrl + `referential/operation-type-families/users/${this.currentUser.id}/select-group-list`)
                 .map(response => <ISelectGroup[]>response);
         }
     
         getSelectList(idMovement: number,enumSelectType: EnumSelectType) {
             return this._httpClient
-                .get(this.baseUrl + `referential/operation-type-families/user-groups/${this.user.idUserGroup}/movements/${idMovement}/select-type/${<number>enumSelectType}/select-list`)
+                .get(this.baseUrl + `referential/operation-type-families/user-groups/${this.currentUser.idUserGroup}/movements/${idMovement}/select-type/${<number>enumSelectType}/select-list`)
                 .map(response => <ISelect[]>response);
         }
 
@@ -40,7 +51,6 @@ export class OtfService {
     
         getOtfTableFilter(filter: FilterOtfTableSelected) {
           filter.user =  this.userForGroup;
-          
           return this._httpClient
                 .post(`${this.baseUrl}referential/operation-type-families/table-filter`,filter)
                 .map((response: FilterOtfTableSelection) => {

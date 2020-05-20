@@ -16,6 +16,7 @@ namespace Budget.DATA.Repositories
         {
             var results = Context.Asset
                 .Where(x => x.IdFamily == (int)enumAssetFamily)
+                .OrderBy(x=>x.Name)
                 .ToList();
 
             return results;

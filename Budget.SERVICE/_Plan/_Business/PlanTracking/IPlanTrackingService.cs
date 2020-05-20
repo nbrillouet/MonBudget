@@ -9,6 +9,6 @@ namespace Budget.SERVICE
     public interface IPlanTrackingService
     {
         PlanForTrackingDto Get(FilterPlanTracking filterPlanTracking);
-        List<AsForTableDto> GetPlanAmountTable(FilterPlanAmount filter);
+        List<AsForTable> GetPlanAmountTable(FilterPlanAmount filter);
     }
 }

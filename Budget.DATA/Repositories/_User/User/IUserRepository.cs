@@ -15,8 +15,11 @@ namespace Budget.DATA.Repositories
         List<User> GetByIdUserGroup(int idUserGroup);
 
         User GetForDetailById(int id);
+        User GetLast();
+        User GetByActivationCode(string activationCode);
+        User GetByMail(string mail);
+        int GetNewUserGroup();
 
-        
     }
 
 }

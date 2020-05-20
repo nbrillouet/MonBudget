@@ -11,7 +11,7 @@ import { WidgetsModule } from '../widgets/widgets.module';
 import { NgxsModule } from '@ngxs/store';
 import { AsSoldeState } from 'app/main/_ngxs/account-statement/account-statement-solde/account-statement-solde.state';
 import { AsService } from './account-statement.service';
-import { AsDetailState } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.state';
+// import { AsDetailState } from 'app/main/_ngxs/account-statement/account-statement-detail/account-statement-detail.state';
 import { AsChartState } from 'app/main/_ngxs/account-statement/account-statement-chart/account-statement-chart.state';
 import { AsChartEvolutionComponent } from './account-statement-chart/as-chart-evolution/as-chart-evolution.component';
 import { AsInternalTransferCoupleComponent } from './account-statement-internal-transfer/as-internal-transfer-couple/as-internal-transfer-couple.component';
@@ -27,6 +27,11 @@ import { AsTableFilterSelectionState } from 'app/main/_ngxs/account-statement/as
 import { AsTableFilterSelectedState } from 'app/main/_ngxs/account-statement/as-table/as-table-filter-selected/as-table-filter-selected.state';
 import { DatePipe } from '@angular/common';
 import { AccountStatementTableComponent } from './account-statement-table/account-statement-table.component';
+import { AsDetailState } from 'app/main/_ngxs/account-statement/account-statement-detail/as-detail.state';
+import { AsDetailFilterState } from 'app/main/_ngxs/account-statement/account-statement-detail/as-detail-filter/as-detail-filter.state';
+import { AsDetailGenericComponent } from '../shared/as-detail-generic/as-detail-generic.component';
+import { AsifService } from '../account-statement-import-file/asif.service';
+
 
 const routes = [
   // {
@@ -72,6 +77,7 @@ const routes = [
       AsTableFilterSelectionState,
       AsTableFilterSelectedState,
       AsTableState,
+      AsDetailFilterState,
       AsDetailState,
       AsSoldeState,
       AsChartState,
@@ -85,6 +91,7 @@ const routes = [
     AccountStatementTableComponent,
 
     AccountStatementDetailComponent,
+    // AsDetailGenericComponent,
     AsChartEvolutionComponent,
     AsChartCategorisationComponent,
     AsInternalTransferMainComponent,
@@ -92,6 +99,7 @@ const routes = [
     
   ],
   providers : [
+    AsifService,
     AsService,
     DatePipe
     // DateFormatPipe,

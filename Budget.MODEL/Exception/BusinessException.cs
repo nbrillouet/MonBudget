@@ -38,6 +38,16 @@ namespace Budget.MODEL
         BUS_OTF_ERR_003,     //Catégorie opération utilisée dans une ou plusieurs type d'opération(s)
         BUS_OTF_ERR_004,     //Catégorie opération utilisée dans une ou plusieurs customisation utilisateur
 
-        BUS_ASI_ERR_000     //Import utilisé dans un ou plusieurs relevé de comptes
+        BUS_ASI_ERR_000,     //Import utilisé dans un ou plusieurs relevé de comptes
+
+        BUS_AUTH_ERR_000,    //Un utilisateur possède déjà cette adresse Email
+        BUS_AUTH_ERR_001,    //Le mot de passe doit être supérieur à 8 caractères
+        BUS_AUTH_ERR_002,    //Nom utilisateur ou mot de passe incorrect
+        BUS_AUTH_ERR_003,    //Le mail indiqué n'existe pas
+        BUS_AUTH_ERR_004,    //L'utilisateur n'existe pas
+        BUS_AUTH_ERR_005,    //L'adresse mail indiqué ne correspond pas à l'adresse mail du compte
+        BUS_AUTH_ERR_006,    //Email non vérifié, connexion impossible
+
+        BUS_USER_ERR_000     //Compte non trouvé, validation impossible
     }
 }

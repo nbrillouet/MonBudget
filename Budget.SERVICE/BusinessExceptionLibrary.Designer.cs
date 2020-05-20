@@ -70,6 +70,69 @@ namespace Budget.SERVICE {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Un utilisateur possède déjà cette adresse Email .
+        /// </summary>
+        internal static string BUS_AUTH_ERR_000 {
+            get {
+                return ResourceManager.GetString("BUS_AUTH_ERR_000", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Le mot de passe doit être supérieur à 8 caractères.
+        /// </summary>
+        internal static string BUS_AUTH_ERR_001 {
+            get {
+                return ResourceManager.GetString("BUS_AUTH_ERR_001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nom utilisateur ou mot de passe incorrect.
+        /// </summary>
+        internal static string BUS_AUTH_ERR_002 {
+            get {
+                return ResourceManager.GetString("BUS_AUTH_ERR_002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Le mail indiqué n&apos;existe pas.
+        /// </summary>
+        internal static string BUS_AUTH_ERR_003 {
+            get {
+                return ResourceManager.GetString("BUS_AUTH_ERR_003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à L&apos;utilisateur n&apos;existe pas.
+        /// </summary>
+        internal static string BUS_AUTH_ERR_004 {
+            get {
+                return ResourceManager.GetString("BUS_AUTH_ERR_004", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à L&apos;adresse mail indiqué ne correspond pas à l&apos;adresse mail du compte.
+        /// </summary>
+        internal static string BUS_AUTH_ERR_005 {
+            get {
+                return ResourceManager.GetString("BUS_AUTH_ERR_005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Email non vérifié, connexion impossible.
+        /// </summary>
+        internal static string BUS_AUTH_ERR_006 {
+            get {
+                return ResourceManager.GetString("BUS_AUTH_ERR_006", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Opération obligatoire, suppression impossible.
         /// </summary>
         internal static string BUS_OPE_ERR_000 {
@@ -174,6 +237,15 @@ namespace Budget.SERVICE {
         internal static string BUS_OTY_ERR_003 {
             get {
                 return ResourceManager.GetString("BUS_OTY_ERR_003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Compte non trouvé, validation impossible.
+        /// </summary>
+        internal static string BUS_USER_ERR_000 {
+            get {
+                return ResourceManager.GetString("BUS_USER_ERR_000", resourceCulture);
             }
         }
     }

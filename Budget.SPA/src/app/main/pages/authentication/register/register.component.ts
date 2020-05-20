@@ -22,20 +22,38 @@ export class FuseRegisterComponent implements OnInit
     registerFormErrors: any;
     
     constructor(
-        private fuseConfig: FuseConfigService,
+        private _fuseConfigService: FuseConfigService,
         private formBuilder: FormBuilder,
         private authService: AuthService,
         private notif: NotificationsService,
         private router: Router
     )
     {
-        this.fuseConfig.setConfig({
+        this._fuseConfigService.config = {
             layout: {
-                navigation: 'none',
-                toolbar   : 'none',
-                footer    : 'none'
+                navbar   : {
+                    hidden: true
+                },
+                toolbar  : {
+                    hidden: true
+                },
+                footer   : {
+                    hidden: true
+                },
+                sidepanel: {
+                    hidden: true
+                }
+                
             }
-        });
+        };
+
+        // this.fuseConfig.setConfig({
+        //     layout: {
+        //         navigation: 'none',
+        //         toolbar   : 'none',
+        //         footer    : 'none'
+        //     }
+        // });
 
         this.registerFormErrors = {
             name           : {},
@@ -84,8 +102,8 @@ export class FuseRegisterComponent implements OnInit
     register()
     {
         this.authService.register(this.registerForm.value).subscribe(()=>{
-            this.notif.success('Registration success','you are now registred')
-            this.router.navigate(['/pages/auth/login']);
+            // this.notif.success('Registration success','you are now registred')
+            this.router.navigate(['/pages/auth/mail-confirm']);
         }, error =>{
             this.notif.error('Registration failed',error)
         });

@@ -32,6 +32,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const MATERIAL = [
     MatBadgeModule,
@@ -65,7 +66,8 @@ const MATERIAL = [
     MatStepperModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
-    CdkTableModule
+    CdkTableModule,
+    MatNativeDateModule
     //FlexLayoutModule, CovalentHighlightModule, CovalentMarkdownModule
 ]
 

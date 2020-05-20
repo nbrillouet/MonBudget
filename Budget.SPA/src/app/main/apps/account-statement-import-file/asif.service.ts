@@ -3,63 +3,86 @@ import { environment } from "environments/environment";
 import { ErrorService } from "app/main/_services/error.service";
 import { HttpClient } from '@angular/common/http';
 import { FilterAsifTableSelected, FilterAsifDetail, FilterAsifTableSelection } from "app/main/_models/filters/account-statement-import-file.filter";
-import { AsifDetail } from "app/main/_models/account-statement-import/account-statement-import-file.model";
-import { IUserForGroup } from "app/main/_models/user.model";
+import { AsifDetail, AsifForDetail } from "app/main/_models/account-statement-import/account-statement-import-file.model";
+import { IUserForGroup, IUser } from "app/main/_models/user.model";
+import { Select } from "@ngxs/store";
+import { UserDetailState } from "app/main/_ngxs/user/user-detail/user-detail.state";
+import { Observable } from "rxjs";
+import { FilterForDetail } from "app/main/_models/filters/shared/filterDetail.filter";
 
 @Injectable()
 export class AsifService {
-baseUrl = environment.apiUrl;
-user = JSON.parse(localStorage.getItem('currentUser'));
-userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:this.user.idUserGroup} : null;
+    @Select(UserDetailState.getUser) user$: Observable<IUser>;
     
+baseUrl = environment.apiUrl;
+currentUser: IUser;
+userForGroup: IUserForGroup; 
+
     constructor(
-        private http: HttpClient
-    ) { }
+        private _httpClient: HttpClient
+    ) { 
+        this.user$.subscribe((user:IUser) => {
+            this.currentUser = user;
+            this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
+        });
+    }
 
     getAsifTable (filter: FilterAsifTableSelected) {
         filter.user=this.userForGroup;
-        return this.http
+        return this._httpClient
         .post(`${this.baseUrl}account-statement-import-files/filter`,filter)
         .map((response: any) => response);
     }
 
     getAsifTableFilter(filter: FilterAsifTableSelected) {
         filter.user=this.userForGroup;
-        return this.http
+        return this._httpClient
             .post(`${this.baseUrl}account-statement-import-files/table-filter`,filter)
             .map((response: FilterAsifTableSelection) => {
                 return response;
             });
     }
 
-    getAsifDetail(filter: FilterAsifDetail) {
-        filter.user=this.userForGroup;
-        return this.http
-            .post(this.baseUrl + `account-statement-import-files/detail`,filter)
-            .map(response => <AsifDetail>response)
+    getDetailFilter(filter: AsifForDetail) {
+        filter.user = this.userForGroup;
+        return this._httpClient
+            .post<FilterAsifDetail>(`${this.baseUrl}account-statement-import-files/asif-detail-filter`,filter)
     }
 
+    getForDetail(filter: FilterForDetail) {
+        return this._httpClient
+            .get(`${this.baseUrl}account-statement-import-files/${filter.id}/asif-detail`)
+            .map(response => <AsifForDetail>response)
+    }
+    
+    // getAsifDetail(filter: FilterAsifDetail) {
+    //     filter.user=this.userForGroup;
+    //     return this.http
+    //         .post(this.baseUrl + `account-statement-import-files/detail`,filter)
+    //         .map(response => <AsifDetail>response)
+    // }
+
     getById(id: number) {
-        return this.http
+        return this._httpClient
             .get(this.baseUrl + `account-statement-import-files/${id}/detail`)
             .map(response => <AsifDetail>response);
     }
 
     isSaveableInAccountStatement(idImport: number) {
-        return this.http
+        return this._httpClient
             .get(`${this.baseUrl}account-statement-import-files/imports/${idImport}/isSaveableInAccountStatement`)
             .map(resp=><boolean>resp);
     }
 
     saveInAccountStatement(idImport: number) {
-        return this.http
+        return this._httpClient
             .get(`${this.baseUrl}account-statement-import-files/imports/${idImport}/saveInAccountStatement`)
             .map(resp=><boolean>resp);
     }
 
     update(asifDetail: AsifDetail) {
         asifDetail.user = this.userForGroup;
-        return this.http
+        return this._httpClient
             .post(`${this.baseUrl}account-statement-import-files/update`,asifDetail)
             .map(resp=><boolean>resp);
     }

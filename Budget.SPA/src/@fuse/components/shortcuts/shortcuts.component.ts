@@ -196,7 +196,7 @@ export class FuseShortcutsComponent implements OnInit, OnDestroy
                 //     .subscribe(()=>{
                 //         this.shortcutItems.splice(i, 1);
                 //         this.authService.changeShortcuts(this.shortcutItems);
-                //         localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+                
 
                 //     },error =>{
 

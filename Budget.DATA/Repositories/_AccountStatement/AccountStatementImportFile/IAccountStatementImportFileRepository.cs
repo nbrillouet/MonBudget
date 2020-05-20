@@ -12,7 +12,8 @@ namespace Budget.DATA.Repositories
     public interface IAccountStatementImportFileRepository : IBaseRepository<AccountStatementImportFile>
     {
         PagedList<AccountStatementImportFile> GetAsifTable(FilterAsifTableSelected filter);
-        AccountStatementImportFile GetAsifDetail(int id);
+        AccountStatementImportFile GetForDetail(int id);
+        //AccountStatementImportFile GetAsifDetail(int id);
         bool IsAccountStatementSaveable(int idImport);
 
         int Save(AccountStatementImportFile accountStatementImportFile);

@@ -1,3 +1,4 @@
+
 <div id="products" class="page-layout carded fullwidth inner-scroll">
     <!-- HEADER -->
     <div class="top-bg accent header-1-background"></div>
@@ -12,7 +13,7 @@
                             </mat-icon>
                             
                             <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                                Compte courant 
+                                {{(asSolde$ | async).datas?.account.label}}
                             </span>
                         </div>
                     </div>
@@ -24,7 +25,7 @@
                             <mat-chip class="mat-chip-green" >Crédit: {{solde.credit}} €</mat-chip>
                             <mat-chip class="mat-chip-red" >Débit: {{solde.debit}} €</mat-chip>
                             <mat-chip [ngClass]="solde.total>0 ? 'mat-chip-green' : 'mat-chip-red'" >Balance: {{solde.total}} €</mat-chip>
-                            <mat-chip [ngClass]="solde.solde>0 ? 'mat-chip-green' : 'mat-chip-red'" >Solde au {{solde.dateEnd }}: {{solde.solde}} €</mat-chip>
+                            <mat-chip [ngClass]="solde.solde>0 ? 'mat-chip-green' : 'mat-chip-red'" >Solde au {{solde.dateMax | date :'dd/MM/yyyy' }}: {{solde.solde}} €</mat-chip>
                         </mat-chip-list>
                     </div>
                 </div>

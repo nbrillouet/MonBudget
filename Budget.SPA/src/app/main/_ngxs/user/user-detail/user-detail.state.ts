@@ -1,5 +1,5 @@
 import { IUser, User } from "app/main/_models/user.model";
-import { AddUser, DeleteUser, User_DeleteShortcut, User_AddShortcut, LoadUserDetail } from "./user-detail.action";
+import { AddUser, DeleteUser, User_DeleteShortcut, User_AddShortcut, LoadUserDetail, ClearUserDetail } from "./user-detail.action";
 import { UserService } from "app/main/apps/referential/user/user.service";
 import { IUserShortcut } from "app/main/_models/user-shortcut.model";
 import { State, Action, StateContext, Selector } from "@ngxs/store";
@@ -31,24 +31,20 @@ export class UserDetailState {
 
     @Action(LoadUserDetail)
     loadUserDetail(context: StateContext<UserDetailStateModel>, action: LoadUserDetail) {
-        const state = context.getState();
-
-        this._userService.getUser(action.payload.id)
-            .subscribe(result=> {
-                context.patchState(
-                    result
-                );
-            });
+        // const state = context.getState();
+        context.patchState(action.payload);
+        // this._userService.getUser(action.payload.id)
+        //     .subscribe(result=> {
+        //         context.patchState(
+        //             result
+        //         );
+        //     });
     }
 
-    // @Action(LoadUserDetailSuccess)
-    // loadUserDetailSuccess(context: StateContext<UserDetailStateModel>, action: LoadUserDetailSuccess) {
-
-    //     context.patchState(
-    //         action.payload
-    //     );
-
-    // }
+    @Action(ClearUserDetail)
+    clear(context: StateContext<UserDetailStateModel>) {
+        return context.setState(new UserDetailStateModel());
+    }
 
 
     @Action(AddUser)
@@ -82,17 +78,6 @@ export class UserDetailState {
                 // state.shortcuts.splice(state.shortcuts.findIndex(x=>x.id==action.id), 1)
             })
     }
-
-    // @Action(User_DeleteShortcutSuccess)
-    // removeShortcutSuccess(context: StateContext<UserDetailStateModel>, action: User_DeleteShortcutSuccess) {
-    //     const state = context.getState();
-    //     state.shortcuts.splice(state.shortcuts.findIndex(x=>x.id==action.id), 1);
-        
-    //     context.patchState(
-    //         state
-    //     );
-
-    // }
 
     @Action(User_AddShortcut)
     addShortcut(context: StateContext<UserDetailStateModel>, action: User_AddShortcut) {

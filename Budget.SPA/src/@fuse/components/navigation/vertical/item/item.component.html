@@ -1,10 +1,16 @@
 <ng-container *ngIf="!item.hidden">
 
     <!-- item.url -->
-    <a class="nav-link" [ngClass]="item.classes" *ngIf="item.url && !item.externalUrl && !item.function"
-       [routerLink]="[item.url]" [routerLinkActive]="['active', 'accent']"
-       [routerLinkActiveOptions]="{exact: item.exactMatch || false}"
-       [target]="item.openInNewTab ? '_blank' : '_self'">
+    <!--  -->
+    <!-- (click)="todo(item.url)" -->
+    <a class="nav-link" 
+        *ngIf="item.url && !item.externalUrl && !item.function"
+        [ngClass]="item.classes" 
+        [routerLink]="[item.url]"
+        
+        [routerLinkActive]="['active', 'accent']"
+        [target]="item.openInNewTab ? '_blank' : '_self'"
+    >
         <ng-container *ngTemplateOutlet="itemContent"></ng-container>
     </a>
 
@@ -16,23 +22,24 @@
 
     <!-- item.function -->
     <span class="nav-link" [ngClass]="item.classes" *ngIf="!item.url && item.function"
-          (click)="item.function()">
+        (click)="item.function()"
+    >
         <ng-container *ngTemplateOutlet="itemContent"></ng-container>
     </span>
 
     <!-- item.url && item.function -->
-    <a class="nav-link" [ngClass]="item.classes" *ngIf="item.url && !item.externalUrl && item.function"
-       (click)="item.function()"
-       [routerLink]="[item.url]" [routerLinkActive]="['active', 'accent']"
-       [routerLinkActiveOptions]="{exact: item.exactMatch || false}"
-       [target]="item.openInNewTab ? '_blank' : '_self'">
+     <a class="nav-link" [ngClass]="item.classes" *ngIf="item.url && !item.externalUrl && item.function"
+        (click)="item.function()"
+        [routerLink]="[item.url]" [routerLinkActive]="['active', 'accent']"
+        [routerLinkActiveOptions]="{exact: item.exactMatch || false}"
+        [target]="item.openInNewTab ? '_blank' : '_self'">
         <ng-container *ngTemplateOutlet="itemContent"></ng-container>
     </a>
 
     <!-- item.externalUrl && item.function -->
     <a class="nav-link" [ngClass]="item.classes" *ngIf="item.url && item.externalUrl && item.function"
-       (click)="item.function()"
-       [href]="item.url" [target]="item.openInNewTab ? '_blank' : '_self'">
+        (click)="item.function()"
+        [href]="item.url" [target]="item.openInNewTab ? '_blank' : '_self'">
         <ng-container *ngTemplateOutlet="itemContent"></ng-container>
     </a>
 

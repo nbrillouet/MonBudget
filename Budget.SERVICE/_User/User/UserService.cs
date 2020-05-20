@@ -16,18 +16,24 @@ namespace Budget.SERVICE
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserAccountService _userAccountService;
+        private readonly IBusinessExceptionMessageService _businessExceptionMessageService;
+        //private readonly ReferentialService _referentialService;
         private readonly IMapper _mapper;
-        
+
 
         public UserService(
             IUserRepository userRepository,
             IMapper mapper,
-            IUserAccountService userAccountService
+            IUserAccountService userAccountService,
+            IBusinessExceptionMessageService businessExceptionMessageService
+            //ReferentialService referentialService
             )
         {
             _userRepository = userRepository;
             _userAccountService = userAccountService;
             _mapper = mapper;
+            _businessExceptionMessageService = businessExceptionMessageService;
+            //_referentialService = referentialService;
         }
 
         public PagedList<UserForTableDto> GetUserTable(FilterUserTableSelected filter)
@@ -65,15 +71,40 @@ namespace Budget.SERVICE
             return user;
         }
 
-        //public Task<PagedList<User>> GetUsers(Pagination userParams)
-        //{
-        //    return _userRepository.GetUsers(userParams);
-        //}
+        public User GetLast()
+        {
+            return _userRepository.GetLast();
+        }
+        
+        public User ActivateAccount(string activationCode)
+        {
+            var user = _userRepository.GetByActivationCode(activationCode);
+            CheckForActivateAccount(user);
 
-        //public Task<List<User>> GetAllAsync()
-        //{
-        //    return _userRepository.GetAllAsync();
-        //}
+            // Mettre à jour l'activation Code à ACTIVATED
+            user.ActivationCode = "ACTIVATED";
+            // Mettre à jour le flag mail à true
+            user.IsMailConfirmed = true;
+            // Creation d'un nouveau user group
+            user.IdUserGroup = _userRepository.GetNewUserGroup();
+
+            user = _userRepository.Update(user);
+
+            //Ajout du referentiel pour l'utilisateur
+            //_referentialService.OperationService.InitUser(user);
+
+            return user;
+        }
+
+        public User GetById(int id)
+        {
+            return _userRepository.GetById(id);
+        }
+
+        public User GetByMail(string mail)
+        {
+            return _userRepository.GetByMail(mail);
+        }
 
         public List<User> GetAll()
         {
@@ -103,7 +134,20 @@ namespace Budget.SERVICE
             _userRepository.Update(user);
         }
 
-        
+        private void CheckForActivateAccount(User user)
+        {
+            List<BusinessExceptionMessage> businessExceptionMessages = new List<BusinessExceptionMessage>();
+            //Recherche si utilisateur est trouvé par son code activation
+            if (user==null)
+                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_USER_ERR_000));
+
+            if (businessExceptionMessages.Count() > 0)
+            {
+                throw new BusinessException(businessExceptionMessages);
+            }
+
+        }
+
 
 
     }

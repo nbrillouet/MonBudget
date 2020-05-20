@@ -12,12 +12,17 @@ namespace Budget.SERVICE
     public interface IUserService
     {
         PagedList<UserForTableDto> GetUserTable(FilterUserTableSelected filter);
+        User GetById(int id);
         Task<User> GetByIdAsync(int id);
+        User GetLast();
+        User GetByMail(string mail);
+        User ActivateAccount(string activationCode);
         UserForDetailDto GetForDetailById(int id);
         UserForGroupDto GetForUserGroup(int id);
 
         List<User> GetAll();
         List<User> GetByIdUserGroup(int idUserGroup);
+
         void Update(UserForDetailDto entity);
         void Update(User entity);
     }

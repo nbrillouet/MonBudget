@@ -17,6 +17,8 @@ import { PlanPosteDetailComponent } from '../plan-detail/plan-poste/plan-poste-d
 import { PlanForTrackingState } from 'app/main/_ngxs/plan/plan-tracking/plan-tracking.state';
 import { ClearPlanPosteDetailDatas } from 'app/main/_ngxs/plan/plan-detail/plan-poste/plan-poste-detail/plan-poste-detail.action';
 import { ChangePlanForTrackingFilter } from 'app/main/_ngxs/plan/plan-tracking/plan-tracking.action';
+import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
+import { IUser } from 'app/main/_models/user.model';
 
 
 @Component({
@@ -28,7 +30,8 @@ import { ChangePlanForTrackingFilter } from 'app/main/_ngxs/plan/plan-tracking/p
 })
 export class PlanSuiviComponent implements OnInit {
   @Select(PlanForTrackingState.get) planTracking$: Observable<DatasFilter<PlanForTracking,FilterPlanTracking>>;
-
+  @Select(UserDetailState.getUser) user$: Observable<IUser>;
+  
   selectYears : SelectYear[];
 
   planSelected: SelectYear;
@@ -106,31 +109,25 @@ export class PlanSuiviComponent implements OnInit {
   ) { 
     this.grap = this.testGraph;
 
+    this.user$.subscribe((user:IUser) => {
+      this._planService.GetPlanList(user.id).subscribe(plan => {
+        this.selectYears = plan;
 
-      let user = JSON.parse(localStorage.getItem('currentUser'));
-      if(user) {
-        this._planService.GetPlanList(user.id).subscribe(plan => {
-          this.selectYears = plan;
-
-          this.planSelected = plan[0];
-          this.monthYear={month:{id:1,label:'jan'},year:this.planSelected.year};
-          
-          this.planForm = this._fb.group({
-            planSelected: [this.planSelected, null]
-          });
-
-          this.filter = new FilterPlanTracking();
-          this.filter.idPlan = this.planSelected.id;
-          this.filter.monthYear = this.monthYear;
-          // this._store.dispatch(new ChangePlanTrackingFilter(this.filter));
-
-          this.isLoaded=true;
+        this.planSelected = plan[0];
+        this.monthYear={month:{id:1,label:'jan'},year:this.planSelected.year};
+        
+        this.planForm = this._fb.group({
+          planSelected: [this.planSelected, null]
         });
-      }
-    // });
 
+        this.filter = new FilterPlanTracking();
+        this.filter.idPlan = this.planSelected.id;
+        this.filter.monthYear = this.monthYear;
 
-    
+        this.isLoaded=true;
+      });
+    });
+
   }
 
   ngOnInit() {

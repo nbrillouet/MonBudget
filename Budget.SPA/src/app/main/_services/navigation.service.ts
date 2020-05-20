@@ -23,13 +23,17 @@ constructor(
             icon : 'settings',
             children: []
             }
-        var userMenu = {
-            id   : 'users',
-            title: 'Utilisateurs',
-            // 'translate': 'NAV.USER.TITLE',
-            type : 'item',
-            url  : '/apps/referential/users'
-        };
+
+        if(user.role=="Admin") {
+            var userMenu = {
+                id   : 'users',
+                title: 'Utilisateurs',
+                // 'translate': 'NAV.USER.TITLE',
+                type : 'item',
+                url  : '/apps/referential/users'
+            };
+            referentialMenu.children.push(userMenu);
+        }
 
         var accountMenu = {
             id   : 'accounts',
@@ -48,7 +52,7 @@ constructor(
         };
 
 
-        referentialMenu.children.push(userMenu);
+        
         referentialMenu.children.push(accountMenu);
         referentialMenu.children.push(operationMenu);
         

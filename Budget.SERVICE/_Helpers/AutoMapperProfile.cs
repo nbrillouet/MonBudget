@@ -10,8 +10,25 @@ namespace Budget.SERVICE._Helpers
     {
         public AutoMapperProfile()
         {
+            
             CreateMap<User, Select>()
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.FirstName + " " + s.LastName));
+
+            //CreateMap<UserForRegister, User>()
+            //    .ForMember(d => d.UserName, o => o.MapFrom(s => s.Name))
+            //    .ForMember(d => d.MailAddress, o => o.MapFrom(s => s.Email))
+            //    .ForAllOtherMembers(o => o.Ignore());
+
+            CreateMap<User, UserForRegister>()
+                .ForMember(d => d.Email, o => o.MapFrom(s => s.MailAddress))
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.UserName))
+                .ForMember(d => d.Password, o => o.Ignore())
+                .ForMember(d => d.PasswordConfirm, o => o.Ignore())
+            .ReverseMap()
+                .ForMember(d => d.UserName, o => o.MapFrom(s => s.Name))
+                .ForMember(d => d.MailAddress, o => o.MapFrom(s => s.Email))
+                .ForAllOtherMembers(o => o.Ignore());
+
 
 
             CreateMap<User, UserForListDto>()
@@ -38,21 +55,20 @@ namespace Budget.SERVICE._Helpers
                     //opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                     opt.MapFrom(d => d.DateOfBirth.CalculateAge());
                 })
-                .ForMember(d => d.BankAgencies, o => o.Ignore());
-                //.ForMember(d => d.Accounts, o => o.MapFrom(s => s.UserAccounts.Select(ua => ua.Account).ToList()));
-
-            CreateMap<UserForDetailDto, User>()
+                .ForMember(d => d.BankAgencies, o => o.Ignore())
+                .ForMember(d => d.Token, o => o.Ignore())
+            .ReverseMap()
                 .ForMember(d => d.PasswordHash, o => o.Ignore())
                 .ForMember(d => d.PasswordSalt, o => o.Ignore())
                 .ForMember(d => d.GMapAddress, o => o.Ignore())
                 .ForMember(d => d.UserAccounts, o => o.Ignore());
-
+ 
             CreateMap<UserForAvatarCreationDto, User>();
             CreateMap<UserForLabelDto, User>();
             CreateMap<UserForGroupDto, User>()
                 .ReverseMap();
 
-            CreateMap<User, UserForConnectionDto>()
+            CreateMap<User, UserForConnection>()
                 .ForMember(d => d.Token, o => o.Ignore());
 
             CreateMap<UserShortcut, UserShortcutDto>();
@@ -95,11 +111,19 @@ namespace Budget.SERVICE._Helpers
             //    .ForMember(d => d.Color, o => o.MapFrom(s => s.BankSubFamily.BankFamily.LogoClassName));
 
 
-            CreateMap<AccountStatement, AsForTableDto>()
+            CreateMap<AccountStatement, AsForTable>()
                 .ForMember(d => d.OperationTypeFamily, o => o.MapFrom(s => s.OperationType.OperationTypeFamily))
                 .ForMember(d => d.BankAgency, o => o.MapFrom(s => s.Account.BankAgency));
 
+            CreateMap<AccountStatement, AsForDetail>()
+                .ForMember(d => d.Asset, opt => opt.MapFrom(source => source.OperationTypeFamily.Asset));
+                //.ForMember(d => d.Operation, o => o.MapFrom(s => s.))
+                //.ForMember(d => d.OperationMethod, o => o.Ignore())
+                //.ForMember(d => d.OperationType, o => o.Ignore())
+                //.ForMember(d => d.OperationTypeFamily, o => o.Ignore());
+
             CreateMap<Movement, Select>();
+            CreateMap<SoldeDto, Solde>();
 
             CreateMap<OperationMethod, Select>();
             CreateMap<Operation, Select>();
@@ -113,7 +137,8 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(d => d.Movement, o => o.Ignore())
                 .ForMember(d => d.Asset, o => o.Ignore())
                 .ForMember(d => d.IdMovement, o => o.MapFrom(s => s.Movement.Id))
-                .ForMember(d => d.IdUserGroup, o => o.MapFrom(s => s.User.IdUserGroup));
+                .ForMember(d => d.IdUserGroup, o => o.MapFrom(s => s.User.IdUserGroup))
+                .ForMember(d => d.IdAsset, o => o.MapFrom(s => s.Asset.Id));
 
             CreateMap<Asset, SelectCode>()
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.Name))
@@ -156,23 +181,16 @@ namespace Budget.SERVICE._Helpers
             CreateMap<AccountStatementImportFile, AccountStatement>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
 
-            CreateMap<AccountStatementImportFile, AsifDetailDto>()
-                .ForMember(d => d.Asset, opt => opt.MapFrom(source => source.OperationTypeFamily.Asset))
-                .ForMember(d => d.Operation, o => o.Ignore())
-                .ForMember(d => d.OperationMethod, o => o.Ignore())
-                .ForMember(d => d.OperationType, o => o.Ignore())
-                .ForMember(d => d.OperationTypeFamily, o => o.Ignore());
+            CreateMap<AccountStatementImportFile, AsifForDetail>()
+                .ForMember(d => d.Asset, o => o.MapFrom(s => s.OperationTypeFamily.Asset));
+                //.ForMember(d => d.Asset, o => o.MapFrom(s => s.OperationTypeFamily.Asset))
+                //.ForMember(d => d.Operation, o => o.Ignore())
+                //.ForMember(d => d.OperationMethod, o => o.Ignore())
+                //.ForMember(d => d.OperationType, o => o.Ignore())
+                //.ForMember(d => d.OperationTypeFamily, o => o.Ignore());
 
 
-            CreateMap<AccountStatement, AsDetailDto>()
-                .ForMember(d => d.Asset, opt => opt.MapFrom(source => source.OperationTypeFamily.Asset))
-                //trouver l'url à partir de la className
-                //.ForMember(d => d.LogoUrl, o => o.ResolveUsing(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName)))
-                //.ForMember(d => d.LogoUrl, o => o.MapFrom(s => StringHelper.GetLogoUrl(s.OperationTypeFamily.LogoClassName,128)))
-                .ForMember(d => d.Operation, o => o.Ignore())
-                .ForMember(d => d.OperationMethod, o => o.Ignore())
-                .ForMember(d => d.OperationType, o => o.Ignore())
-                .ForMember(d => d.OperationTypeFamily, o => o.Ignore());
+            
 
             //Plan
             CreateMap<Plan, PlanForDetailDto>()

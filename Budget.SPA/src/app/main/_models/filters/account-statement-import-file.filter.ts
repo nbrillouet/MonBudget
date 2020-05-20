@@ -2,6 +2,7 @@ import { ComboSimple } from "../generics/combo.model";
 import { ISelect, ISelectGroup } from "../generics/select.model";
 import { Pagination } from "../pagination.model";
 import { IUserForGroup } from "../user.model";
+import { FilterAsDetail } from "./account-statement.filter";
 
 export class FilterAsifTableSelected {
     user: IUserForGroup= null;
@@ -37,8 +38,17 @@ export class FilterAsifTableSelection {
     }
 }
 
-export class FilterAsifDetail {
-    idAsif: number;
-    user: IUserForGroup;
+export class FilterAsifDetail extends FilterAsDetail {
+    // operation : ISelect[];
+    // operationMethod: ISelect[];
+    // operationType: ISelect[];
+    // operationTypeFamily: ISelect[];
+    // operationPlace: ISelect[];
+    // operationTransverse: ISelect[];
 }
+
+// export class FilterAsifDetail {
+//     idAsif: number;
+//     user: IUserForGroup;
+// }
 

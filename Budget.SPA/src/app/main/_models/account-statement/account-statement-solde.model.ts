@@ -1,12 +1,11 @@
+import { ISelect } from "../generics/select.model";
+
 export class AsSolde {
-    // id: number;
-    // idAccount: number;
-    // dateStart: Date;
-    // dateEnd: Date;
+    account: ISelect;
     credit: number;
     debit: number;
     total: number;
     solde: number;
+    dateMax: Date;
     // isWithItTransfer: boolean;
-
 }

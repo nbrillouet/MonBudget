@@ -74,7 +74,7 @@ export class AsChartEvolutionComponent implements OnInit, OnDestroy {
 
         if(JSON.stringify(filterAccountMonthYear)!=JSON.stringify(this.filter)) {
           this.filter = JSON.parse(JSON.stringify(filterAccountMonthYear));
-
+          
           this._store.dispatch(new LoadAsChartEvolutionBrut(filterSelected.selected));
           this._store.dispatch(new LoadAsChartEvolutionNoIntTransfer(filterSelected.selected));
           this._store.dispatch(new LoadAsChartEvolutionCustomOtf(filterSelected.selected));

@@ -16,7 +16,7 @@
 
                 > .center {
 
-                    > .content-card {
+                    > .content-card, .content-card-alt {
                         // display: inherit;
                         background: map-get($background, card);
                         border-radius: 8px 8px 0 0;
@@ -25,6 +25,7 @@
                             border-bottom-color: map-get($foreground, divider);
                         }
                     }
+
                 }
             }
 
@@ -132,9 +133,9 @@ $carded-header-height-without-toolbar: $carded-header-height - $carded-toolbar-h
                     min-height: $carded-header-height-without-toolbar !important;
                     max-height: $carded-header-height-without-toolbar !important;
                 }
-
-                > .content-card {
-                    // display: flex;
+                //ERREUR CSS FOOT
+                > .content-card, .content-card-alt {
+                    
                     flex-direction: column;
                     flex: 1 0 auto;
                     overflow: hidden;
@@ -154,6 +155,10 @@ $carded-header-height-without-toolbar: $carded-header-height - $carded-toolbar-h
                         flex: 1 0 auto;
                     }
                 }
+                > .content-card {
+                    display: flex;
+                }
+                
             }
 
             // Tabbed
@@ -209,7 +214,7 @@ $carded-header-height-without-toolbar: $carded-header-height - $carded-toolbar-h
                 > .center {
                     flex: 1 1 auto;
 
-                    > .content-card {
+                    > .content-card, .content-card-alt {
                         flex: 1 1 auto;
 
                         > .content {
@@ -218,6 +223,7 @@ $carded-header-height-without-toolbar: $carded-header-height - $carded-toolbar-h
                             -webkit-overflow-scrolling: touch;
                         }
                     }
+
                 }
 
                 // Tabbed

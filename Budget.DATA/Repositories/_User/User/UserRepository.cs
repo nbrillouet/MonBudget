@@ -58,5 +58,37 @@ namespace Budget.DATA.Repositories
                 .OrderBy(x => x.LastName)
                 .ToList();
         }
+
+        public User GetLast()
+        {
+            return Context.User
+                .OrderByDescending(x => x.Id)
+                .FirstOrDefault();
+        }
+
+        public User GetByActivationCode(string activationCode)
+        {
+            return Context.User
+                .Where(x => x.ActivationCode == activationCode)
+                .FirstOrDefault();
+        }
+
+        public int GetNewUserGroup()
+        {
+            var user = Context.User
+                .OrderByDescending(x => x.IdUserGroup)
+                .FirstOrDefault();
+
+            return user.IdUserGroup + 1;
+        }
+
+        public User GetByMail(string mail)
+        {
+            var user = Context.User
+                .Where(x => x.MailAddress == mail)
+                .FirstOrDefault();
+
+            return user;
+        }
     }
 }

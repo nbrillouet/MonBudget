@@ -70,12 +70,6 @@ namespace Budget.SERVICE
 
             return results;
         }
-        //public List<SelectGroupDto> GetAccountComboMultiple(int idUser)
-        //{
-        //    var accounts = _userAccountRepository.GetAccounts(idUser);
-
-        //    return null;
-        //}
 
         public UserAccount Create(UserAccount userAccount)
         {

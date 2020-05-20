@@ -11,9 +11,10 @@ import { navigation } from 'app/navigation/navigation';
 import { AuthService } from 'app/main/_services/auth.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { IUser } from 'app/main/_models/user.model';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
+import { ClearUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.action';
 
 @Component({
     selector     : 'toolbar',
@@ -51,8 +52,9 @@ export class ToolbarComponent implements OnInit, OnDestroy
         private _fuseSidebarService: FuseSidebarService,
         private _translateService: TranslateService,
         private _authService: AuthService,
-        private notif: NotificationsService,
-        private router: Router
+        private _notificationsService: NotificationsService,
+        private _router: Router,
+        private _store: Store
     )
     {
       
@@ -192,15 +194,14 @@ export class ToolbarComponent implements OnInit, OnDestroy
 
     logout()
     {
-        // this._authService.userToken = null;
-        // localStorage.removeItem('budgetToken');
-        localStorage.removeItem('currentUser');
+        this._authService.logout();
 
+        // this._authService.currentUser = null;
+        // this._notificationsService.info('logged out success','Vous êtes maintenant déconnecté');
+        // this._router.navigate(['/pages/auth/login']);
+    }
 
-        this._authService.currentUser = null;
-        // localStorage.removeItem('user');
-
-        this.notif.info('logged out success','You are now logged out');
-        this.router.navigate(['/pages/auth/login']);
+    getUserProfile(idUser: number) {
+        this._router.navigate([`apps/referential/users/${idUser}/detail`]);
     }
 }

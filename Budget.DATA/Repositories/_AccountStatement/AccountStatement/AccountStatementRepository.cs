@@ -77,13 +77,14 @@ namespace Budget.DATA.Repositories
             return accountStatements.ToList().Count();
         }
 
-        public AccountStatement GetAsDetail(int id)
+        public AccountStatement GetForDetail(int id)
         {
             var accountStatement = Context.AccountStatement
                 .Include(x => x.Operation)
                 .Include(x => x.OperationMethod)
                 .Include(x => x.OperationType)
                 .Include(x => x.OperationTypeFamily)
+                    .Include(x=>x.OperationTypeFamily.Asset)
                 .Include(x => x.OperationDetail)
                     .Include(x => x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel1)
                     .Include(x => x.OperationDetail.GMapAddress.gMapAdministrativeAreaLevel2)

@@ -4,6 +4,7 @@ import { ComboSimple, ComboMultiple } from "../generics/combo.model";
 import { GMapSearchInfo } from "../g-map.model.";
 import { IUserForGroup } from "../user.model";
 import { IAccount } from "../referential/account.model";
+import { AsForDetail } from "../account-statement/account-statement-detail.model";
 
 export interface IAsifGroupByAccounts {
     accounts : IAccount[],
@@ -23,6 +24,38 @@ export class AsifTable {
     detailRow: boolean;
 }
 
+export class AsifForDetail extends AsForDetail {
+    
+    operationKeywordTemp: string;
+    operationLabelTemp: string;
+    placeLabelTemp: string;
+    placeKeywordTemp: string;
+
+}
+
+// export class AsForDetail {
+//     id: number;
+//     user: IUserForGroup;
+//     operation : ISelect;
+//     operationMethod: ISelect;
+//     operationType: ISelect;
+//     operationTypeFamily: ISelect;
+//     operationPlace: ISelect;
+//     operationTransverse: ISelect[];
+
+//     amountOperation : number;
+//     labelOperation: string;
+//     dateIntegration: Date;
+//     idDuplicated: boolean;
+
+//     idMovement: number;
+//     asset: ISelectCode;
+
+//     isLocalisable: boolean;
+//     operationDetail: OperationDetail;
+//     gMapSearchInfo: GMapSearchInfo;
+// }
+
 export class AsifDetail {
     id: number;
     user: IUserForGroup;
@@ -41,13 +74,14 @@ export class AsifDetail {
     idMovement: number;
     asset: ISelectCode;
 
+    isLocalisable: boolean;
+    operationDetail: OperationDetail;
+    gMapSearchInfo: GMapSearchInfo;
+
     operationKeywordTemp: string;
     operationLabelTemp: string;
     placeLabelTemp: string;
     placeKeywordTemp: string;
-    isLocalisable: boolean;
-    operationDetail: OperationDetail;
-    gMapSearchInfo: GMapSearchInfo;
 
 }
 

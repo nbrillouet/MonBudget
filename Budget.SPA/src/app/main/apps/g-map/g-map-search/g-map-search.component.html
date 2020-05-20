@@ -13,12 +13,21 @@
                     formControlName="operationPlaceSearch"
                     placeholder="Indicatif lieu opération (pays / ville / departement...)">
             </mat-form-field>
-            <button mat-mini-fab type="button" (click)="searchGoogleMap()">
+            <button 
+                mat-mini-fab 
+                (click)="cancelSearch()">
+                <mat-icon style="color:white">cancel</mat-icon>
+            </button>
+            <button 
+                style="margin-left:20px"
+                mat-mini-fab 
+                (click)="searchGoogleMap()">
                 <mat-icon style="color:white">language</mat-icon>
             </button>
         </div>
-        
+
         <div *ngIf="addressVisible"> 
+
         <div class="w-100-p" >
             <mat-form-field fxFlex>
                 <input matInput
@@ -34,30 +43,48 @@
               <mat-icon style="color:white">search</mat-icon>
             </button>
         </div>
+        <!-- [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}" -->
+        
+        <div 
+            *ngIf="addressDetailVisible"
+            [@animate]="{value:'*',params:{delay:'100ms', y:'100%'}}"
+           > 
 
-        <div *ngIf="addressDetailVisible" > 
             <div class="w-100-p" fxLayout="row">
-                <mat-form-field [style.fontSize.px]="10" fxFlex *ngIf="!unknownData('country')">
+                <mat-form-field 
+                    *ngIf="!unknownData('country')"
+                    appearance="outline" floatLabel="always">
+                    <mat-label>Pays</mat-label>
                     <input matInput
                         name="country"
                         formControlName="country"
                         placeholder="Pays">
                 </mat-form-field>
     
-                <mat-form-field fxFlex *ngIf="!unknownData('administrativeAreaLevel1')">
+                <mat-form-field 
+                    *ngIf="!unknownData('administrativeAreaLevel1')"
+                    appearance="outline" floatLabel="always">
+                    <mat-label>Région</mat-label>
                     <input matInput
                         name="administrativeAreaLevel1"
                         formControlName="administrativeAreaLevel1"
                         placeholder="Région">
                 </mat-form-field>
-                <mat-form-field fxFlex *ngIf="!unknownData('administrativeAreaLevel2')">
+
+                <mat-form-field 
+                    *ngIf="!unknownData('administrativeAreaLevel2')"
+                    appearance="outline" floatLabel="always">
+                    <mat-label>Département</mat-label>
                     <input matInput
                         name="administrativeAreaLevel2"
                         formControlName="administrativeAreaLevel2"
                         placeholder="Département">
                 </mat-form-field>
                 
-                <mat-form-field fxFlex *ngIf="!unknownData('neighborhood')">
+                <mat-form-field 
+                    *ngIf="!unknownData('neighborhood')"
+                    appearance="outline" floatLabel="always">
+                    <mat-label>Quartier</mat-label>
                     <input matInput
                         name="neighborhood"
                         formControlName="neighborhood"
@@ -65,37 +92,55 @@
                 </mat-form-field>
             </div> 
             <div class="w-100-p" fxLayout="row">
-                <mat-form-field fxFlex *ngIf="!unknownData('streetNumber')">
+                <mat-form-field 
+                    *ngIf="!unknownData('streetNumber')"
+                    appearance="outline" floatLabel="always">
+                    <mat-label>N° Rue</mat-label>
                     <input matInput
                         name="streetNumber"
                         formControlName="streetNumber"
                         placeholder="N° Rue">
                 </mat-form-field>
-                <mat-form-field fxFlex *ngIf="!unknownData('route')">
+                <mat-form-field 
+                    *ngIf="!unknownData('route')"
+                    appearance="outline" floatLabel="always">
+                    <mat-label>Nom de Rue</mat-label>
                     <input matInput
                         name="route"
                         formControlName="route"
                         placeholder="Nom de Rue">
                 </mat-form-field>
-                <mat-form-field fxFlex *ngIf="!unknownData('postalCode')">
+                <mat-form-field 
+                    *ngIf="!unknownData('postalCode')"
+                    appearance="outline" floatLabel="always">
+                    <mat-label>Code Postal</mat-label>
                     <input matInput
                         name="postalCode"
                         formControlName="postalCode"
                         placeholder="Code Postal">
                 </mat-form-field>
-                <mat-form-field fxFlex *ngIf="!unknownData('locality')">
+                <mat-form-field 
+                    *ngIf="!unknownData('locality')"
+                    appearance="outline" floatLabel="always">
+                    <mat-label>Localité</mat-label>
                     <input matInput
                         name="locality"
                         formControlName="locality"
                         placeholder="Localité">
                 </mat-form-field>
-                <mat-form-field fxFlex *ngIf="!unknownData('subLocalityLevel1')">
+                <mat-form-field 
+                    *ngIf="!unknownData('subLocalityLevel1')"
+                    appearance="outline" floatLabel="always">
+                    <mat-label>Sous localité niveau 1</mat-label>
                     <input matInput
                         name="subLocalityLevel1"
                         formControlName="subLocalityLevel1"
                         placeholder="Sous localité niveau 1">
                 </mat-form-field>
-                <mat-form-field fxFlex *ngIf="!unknownData('subLocalityLevel2')">
+                <mat-form-field 
+                    *ngIf="!unknownData('subLocalityLevel2')"
+                    appearance="outline" floatLabel="always">
+                    <mat-label>Sous localité niveau 2</mat-label>
                     <input matInput
                         name="subLocalityLevel2"
                         formControlName="subLocalityLevel2"

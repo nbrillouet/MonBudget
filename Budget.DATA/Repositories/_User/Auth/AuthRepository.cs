@@ -15,10 +15,9 @@ namespace Budget.DATA.Repositories
 
         }
 
-        public async Task<User> Login(string username, string password)
+        public User Login(string username, string password)
         {
-
-            var user = await Context.User
+            var user = Context.User
                 .Where(x => x.UserName == username)
                 .Include(x => x.Shortcuts)
                 .Include(x=>x.UserAccounts)
@@ -27,7 +26,7 @@ namespace Budget.DATA.Repositories
                  .Include(x => x.UserAccounts)
                     .ThenInclude(u => u.Account)
                         .ThenInclude(a => a.AccountType)
-                .FirstOrDefaultAsync();
+                .FirstOrDefault();
 
             if (user == null)
                 return null;
@@ -50,37 +49,39 @@ namespace Budget.DATA.Repositories
                     if (computedHash[i] != passwordHash[i])
                         return false;
                 }
-
             }
             return true;
         }
 
-        public async Task<User> Register(User user, string password)
+        public User Register(User user)
         {
-            byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            //byte[] passwordHash, passwordSalt;
+            //CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
+            //user.PasswordHash = passwordHash;
+            //user.PasswordSalt = passwordSalt;
+            return Create(user);
 
-            await Context.User.AddAsync(user);
-            await Context.SaveChangesAsync();
 
-            return user;
+
+            //Context.User.Add(user);
+            //Context.SaveChanges();
+
+            //return user;
         }
 
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
-        }
+        //private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        //{
+        //    using (var hmac = new System.Security.Cryptography.HMACSHA512())
+        //    {
+        //        passwordSalt = hmac.Key;
+        //        passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+        //    }
+        //}
 
-        public async Task<bool> UserExists(string username)
+        public bool UserExists(string mail)
         {
-            if (await Context.User.AnyAsync(x => x.UserName == username))
+            if (Context.User.Any(x => x.MailAddress == mail))
                 return true;
 
             return false;

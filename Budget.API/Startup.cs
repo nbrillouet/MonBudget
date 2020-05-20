@@ -24,6 +24,10 @@ using Budget.DATA.Repositories.GMap;
 using Budget.DATA.Repositories.ContextTransaction;
 using Microsoft.EntityFrameworkCore;
 using Budget.HELPER;
+using Budget.MODEL.Dto;
+using Microsoft.AspNetCore.Identity;
+using Budget.MODEL.Mailing;
+using Budget.MODEL;
 
 namespace Budget.API
 {
@@ -53,9 +57,30 @@ namespace Budget.API
 
             //var decrypt = CryptoHelper.Decrypt(Configuration.GetConnectionString("DefaultConnexion"));
             var defaultconnection = CryptoHelper.Decrypt(Configuration.GetConnectionString("DefaultConnexion"));
+            //Add context DB
             services.AddDbContext<BudgetContext>(options =>
                 options.UseSqlServer(CryptoHelper.Decrypt(Configuration.GetConnectionString("DefaultConnexion"))));
 
+            //Add identity
+            //services.AddIdentity<IdentityUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<BudgetContext>();
+                //.AddDefaultTokenProviders();
+
+            //services.AddIdentityServer().AddDeveloperSigningCredential()
+            //      // this adds the operational data from DB (codes, tokens, consents)
+            //      .AddOperationalStore(options =>
+            //      {
+            //          options.ConfigureDbContext = builder => builder.UseSqlServer(Configuration.GetConnectionString("Default"));
+            //          // this enables automatic token cleanup. this is optional.
+            //          options.EnableTokenCleanup = true;
+            //          options.TokenCleanupInterval = 30; // interval in seconds
+            //      })
+            //      .AddInMemoryIdentityResources(Config.GetIdentityResources())
+            //      .AddInMemoryApiResources(Config.GetApiResources())
+            //      .AddInMemoryClients(Config.GetClients())
+            //      .AddAspNetIdentity<AppUser>();
+
+            //Add Cors
             services.AddCors();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
 
@@ -236,6 +261,10 @@ namespace Budget.API
             services.AddScoped<ISelectService, SelectService>();
             services.AddScoped<IVPlanGlobalRepository, VPlanGlobalRepository>();
             services.AddScoped<IMailService, MailService>();
+            services.AddScoped<IMailRegisterValidationService, MailRegisterValidationService>();
+            services.AddScoped<IMailPasswordRecoveryService, MailPasswordRecoveryService>();
+            
+
 
             services.AddScoped<IFilterTableService, FilterTableService>();
             services.AddScoped<IFilterDetailService, FilterDetailService>();
@@ -268,6 +297,18 @@ namespace Budget.API
                         ValidateAudience = false
                     };
                 });
+
+            //Identity
+            //services.AddIdentity<UserForLoginDto, IdentityRole>(opt =>
+            //{
+            //    opt.Password.RequiredLength = 7;
+            //    opt.Password.RequireDigit = false;
+            //    opt.Password.RequireUppercase = false;
+
+            //    opt.User.RequireUniqueEmail = true;
+
+            //    opt.SignIn.RequireConfirmedEmail = true;
+            //});
 
             services.AddMvc().AddJsonOptions(opt=>
             {

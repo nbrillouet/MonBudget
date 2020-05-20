@@ -2,20 +2,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-
-// import { Http, Headers, RequestOptions,Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { IUser } from '../_models/user.model';
+import { IUser, UserForRegister, UserForPasswordChange } from '../_models/user.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { IUserShortcut } from '../_models/user-shortcut.model';
-import { ErrorService } from './error.service';
 import { environment } from '../../../environments/environment';
-import { NavigationService } from './navigation.service';
-import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { ISelect } from '../_models/generics/select.model';
+import { Store } from '@ngxs/store';
+import { ClearUserDetail, LoadUserDetail } from '../_ngxs/user/user-detail/user-detail.action';
+import { ClearNavigation } from '../_ngxs/navigation/navigation.action';
+import { NotificationsService } from 'angular2-notifications';
+import { Router } from '@angular/router';
+import { UserService } from '../apps/referential/user/user.service';
 
 @Injectable()
 export class AuthService {
@@ -32,8 +32,12 @@ export class AuthService {
     currentShortcuts = this.shortcuts.asObservable();
 
     constructor(
-        private errorService: ErrorService,
-        private http: HttpClient) { }
+        private _httpClient: HttpClient,
+        private _store: Store,
+        private _notificationsService: NotificationsService,
+        private _router: Router,
+        private _userService: UserService
+        ) { }
     
     loadUserProfile(user: IUser) {
         this.currentUser = user;
@@ -61,20 +65,28 @@ export class AuthService {
     }
 
     GetBankAgencies(idUser:number) {
-        return this.http
+        return this._httpClient
             .get(this.baseUrl + `users/${idUser}/bankAgencies`)
-            .map(response => <ISelect[]>response)
-            .catch(this.errorService.handleError);
+            .map(response => <ISelect[]>response);
+            // .catch(this.errorService.handleError);
     }
 
     login(username: string, password: string) {
-        return this.http.post<any>(`${this.baseUrl}auth/login`, { username:username, password:password })
+        return this._httpClient.post<IUser>(`${this.baseUrl}auth/login`, { username:username, password:password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    // localStorage.setItem('token', JSON.stringify(user.token));
+                    this._store.dispatch(new LoadUserDetail(user));
+                    // localStorage.setItem('currentUser', JSON.stringify(user));
 
-                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    // // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    // this._userService.getUser(user.id).subscribe(x=>{
+                    //     let usercurrent = x;
+                    //     console.log('usercurrent',usercurrent);
+                       
+                    // })
+                    
                 }
              
                 return user;
@@ -83,54 +95,47 @@ export class AuthService {
 
     register(model: any)
     {
-        return null;
+        return this._httpClient.post(this.baseUrl + 'auth/register',model)
+            // .catch(this.errorService.handleError);
+    }
 
-        // return this.http.post(this.baseUrl + 'auth/register',model, this.requestOptions())
-        //     .catch(this.errorService.handleError);
+    accountActivation(code: string) {
+        return this._httpClient
+            .get(`${this.baseUrl}auth/account-activation/${code}`)
+            .map(response => <any>response)
+
+        // return this.http.post(this.baseUrl + 'auth/account-activation',code)
     }
     
-    // login(username: string, password: string) {
-    //     return this.http.post<any>('/api/login', { username, password })
-    //     .pipe(map(user => {
-    //     // login successful if there's a jwt token in the response
-    //     if (user && user.token) {
-    //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-    //     localStorage.setItem('TokenInfo', JSON.stringify(user));
-    //     }
-        
-    //     return user;
-    //     }));
-    //     }
+    accountPasswordRecovery(mail: string) {
+        return this._httpClient
+            .get(`${this.baseUrl}auth/account-password-recovery/${mail}`)
+            .map(response => <any>response)
+    }
+
+    getUserEncrypt(user: string) {
+        return this._httpClient
+            .get(`${this.baseUrl}auth/user-encrypt/${encodeURIComponent(user)}`)
+            .map(response => <UserForRegister>response)
+    }
+
+    changePassword(user: UserForPasswordChange) {
+        return this._httpClient
+            .post<any>(`${this.baseUrl}auth/change-password`,user);
+
+    }
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        this.currentUser = null;
+        // localStorage.removeItem('token');
+        this._store.dispatch(new ClearNavigation());
+        this._store.dispatch(new ClearUserDetail());
+
+        
+        this._notificationsService.info('logged out success','Vous êtes maintenant déconnecté');
+        this._router.navigate(['/pages/auth/login']);
     }
-
-    // login(model: any) {
-    //     const headers = new Headers({'Content-type': 'application/json'});
-    //     const options = new RequestOptions({headers: headers});
-    //     return this.http.post(this.baseUrl + 'auth/login',model, options).map((response:Response)=>{
-    //         const resp = response.json();
-    //         if(resp){
-    //             localStorage.setItem('budgetToken',resp.tokenString);
-    //             this.decodedToken = this.jwtHleper.decodeToken(resp.tokenString);
-    //             this.userToken = resp.tokenString;
-
-    //             localStorage.setItem('user', JSON.stringify(resp.user));
-                
-    //             this.loadUserProfile(resp.user);
-                
-                
-    //             // this.currentUser = user.user;
-
-    //             // this.changeAvatar(this.currentUser.avatarUrl);
-    //             // this.changeShortcuts(this.currentUser.shortcuts);
-    //         }
-    //     }).catch(this.errorService.handleError);
-    // }
-
-
 
     loggedIn(){
         return null;

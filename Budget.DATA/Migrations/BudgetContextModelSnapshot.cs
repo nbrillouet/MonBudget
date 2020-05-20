@@ -1407,6 +1407,8 @@ namespace Budget.DATA.Migrations
 
                     b.Property<double>("Debit");
 
+                    b.Property<int>("IdAccount");
+
                     b.Property<double>("Solde");
 
                     b.Property<double>("Total");
@@ -1439,6 +1441,9 @@ namespace Budget.DATA.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ActivationCode")
+                        .HasColumnName("ACTIVATION_CODE");
+
                     b.Property<string>("AvatarUrl")
                         .HasColumnName("AVATAR_URL");
 
@@ -1466,14 +1471,23 @@ namespace Budget.DATA.Migrations
                     b.Property<int>("IdUserGroup")
                         .HasColumnName("ID_USER_GROUP");
 
+                    b.Property<bool>("IsMailConfirmed")
+                        .HasColumnName("IS_MAIL_CONFIRMED");
+
                     b.Property<string>("LastName")
                         .HasColumnName("LAST_NAME");
+
+                    b.Property<string>("MailAddress")
+                        .HasColumnName("MAIL_ADDRESS");
 
                     b.Property<byte[]>("PasswordHash")
                         .HasColumnName("PASSWORD_HASH");
 
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnName("PASSWORD_SALT");
+
+                    b.Property<string>("Role")
+                        .HasColumnName("ROLE");
 
                     b.Property<string>("UserName")
                         .HasColumnName("USER_NAME");

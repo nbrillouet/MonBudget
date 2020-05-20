@@ -46,89 +46,124 @@ namespace Budget.SERVICE
             _referentialService = referentialService;
         }
 
-        public PagedList<AsifForTableDto> GetAsifTable(FilterAsifTableSelected filter)
+        public PagedList<AsifForTable> GetAsifTable(FilterAsifTableSelected filter)
         {
             var pagedList = _accountStatementImportFileRepository.GetAsifTable(filter);
 
-            var result = new PagedList<AsifForTableDto>(_mapper.Map<List<AsifForTableDto>>(pagedList.Datas), pagedList.Pagination);
+            var result = new PagedList<AsifForTable>(_mapper.Map<List<AsifForTable>>(pagedList.Datas), pagedList.Pagination);
 
             return result;
         }
 
-        public AsifDetailDto GetAsifDetail(FilterAsifDetail filter)
+        public AsifForDetail GetForDetail(int idAsif)
         {
-            var asif = _accountStatementImportFileRepository.GetAsifDetail(filter.IdAsif.Value);
-            var asifDetailDto = _mapper.Map<AsifDetailDto>(asif);
-            asifDetailDto.Asset = _mapper.Map<SelectCode>(asif.OperationTypeFamily.Asset);
+            AsifForDetail asifForDetail = GetById(idAsif);
 
-            asifDetailDto.OperationMethod = new ComboSimple<Select>
-            {
-                List = _referentialService.OperationMethodService.GetSelectList(EnumSelectType.Inconnu),
-                Selected = new Select { Id = asif.OperationMethod.Id, Label = asif.OperationMethod.Label }
-            };
-            asifDetailDto.OperationTypeFamily = new ComboSimple<Select>
-            {
-                List = _referentialService.OperationTypeFamilyService.GetSelectList(filter.User.IdUserGroup, (EnumMovement)asifDetailDto.IdMovement, EnumSelectType.Inconnu),
-                Selected = new Select { Id = asif.OperationTypeFamily.Id, Label = asif.OperationTypeFamily.Label }
-            };
-            asifDetailDto.OperationType = new ComboSimple<Select>
-            {
-                List = _referentialService.OperationTypeService.GetSelectList(asif.OperationTypeFamily.Id, EnumSelectType.Empty),
-                Selected = new Select { Id = asif.OperationType.Id, Label = asif.OperationType.Label }
-            };
-
-            asifDetailDto.Operation = new ComboSimple<Select>
-            {
-                List = _referentialService.OperationService.GetSelectList(filter.User.IdUserGroup, asif.OperationMethod.Id, asif.OperationType.Id, EnumSelectType.Inconnu),
-                Selected = new Select { Id = asif.Operation.Id, Label = asif.Operation.Label }
-            };
-
-            asifDetailDto.OperationTransverse = new ComboMultiple<Select>
-            {
-                List = _referentialService.OperationTransverseService.GetSelectList(filter.User.Id, EnumSelectType.Empty),
-                ListSelected = _operationTransverseAsifService.GetOperationTransverseSelectList(filter.IdAsif.Value, EnumSelectType.Empty)
-            };
-
-            List<Select> operationDetailList = null;
-            if (!asifDetailDto.IsLocalisable)
-            {
-                operationDetailList = new List<Select> { new Select { Id = 2, Label = "N/A" } };
-                asifDetailDto.OperationPlace = new ComboSimple<Select>
-                {
-                    List = operationDetailList,
-                    Selected = operationDetailList[0]
-                };
-            }
-            else
-            {
-                operationDetailList = new List<Select> { new Select { Id = 1, Label = "INCONNU" }, new Select { Id = 3, Label = "INTERNET" }, new Select { Id = 4, Label = "AUTRES" } };
-                var operationDetailSelected = asifDetailDto.OperationDetail.GMapAddress.Id == 1 ? operationDetailList[0]
-                        : asifDetailDto.OperationDetail.GMapAddress.Id == 3 ? operationDetailList[1]
-                        : operationDetailList[2];
-                asifDetailDto.OperationPlace = new ComboSimple<Select>
-                {
-                    List = operationDetailList,
-                    Selected = operationDetailSelected
-                };
-
-                if (operationDetailSelected.Id == 4)
-                {
-                    asifDetailDto.GMapSearchInfo = new GMapSearchInfoDto
-                    {
-                        IdGMapAddress = asifDetailDto.OperationDetail.GMapAddress.Id,
-                        OperationPositionSearch = asifDetailDto.OperationLabelTemp,
-                        OperationPlaceSearch = asifDetailDto.PlaceLabelTemp
-                    };
-                }
-            }
-            
-            return asifDetailDto;
+            return asifForDetail;
         }
 
-        public AccountStatementImportFile GetById(int IdAccountStatementImportFile)
+        private AsifForDetail GetById(int idAsif)
         {
-            return _accountStatementImportFileRepository.GetById(IdAccountStatementImportFile);
+            AccountStatementImportFile asif = _accountStatementImportFileRepository.GetForDetail(idAsif);
+            var asifForDetail = _mapper.Map<AsifForDetail>(asif);
+
+            asifForDetail.OperationPlace = !asifForDetail.IsLocalisable
+                ? new Select { Id = 2, Label = "N/A" }
+                : asifForDetail.OperationDetail.GMapAddress.Id == 1
+                    ? new Select { Id = 1, Label = "INCONNU" }
+                    : asifForDetail.OperationDetail.GMapAddress.Id == 3
+                        ? new Select { Id = 3, Label = "INTERNET" }
+                        : new Select { Id = 4, Label = "AUTRES" };
+
+            if (asifForDetail.OperationPlace.Id == 4)
+            {
+                asifForDetail.GMapSearchInfo = new GMapSearchInfoDto
+                {
+                    IdGMapAddress = asifForDetail.OperationDetail.GMapAddress.Id,
+                    OperationPositionSearch = asifForDetail.OperationDetail.KeywordOperation,
+                    OperationPlaceSearch = asifForDetail.OperationDetail.KeywordPlace
+                };
+            }
+
+            asifForDetail.OperationTransverse = _operationTransverseAsService.GetOperationTransverseSelectList(idAsif, EnumSelectType.Empty);
+
+            return asifForDetail;
         }
+
+        //public AsifDetailDto GetAsifDetail(FilterAsifDetail filter)
+        //{
+        //    var asif = _accountStatementImportFileRepository.GetAsifDetail(filter.IdAsif.Value);
+        //    var asifDetailDto = _mapper.Map<AsifDetailDto>(asif);
+        //    asifDetailDto.Asset = _mapper.Map<SelectCode>(asif.OperationTypeFamily.Asset);
+
+        //    asifDetailDto.OperationMethod = new ComboSimple<Select>
+        //    {
+        //        List = _referentialService.OperationMethodService.GetSelectList(EnumSelectType.Inconnu),
+        //        Selected = new Select { Id = asif.OperationMethod.Id, Label = asif.OperationMethod.Label }
+        //    };
+        //    asifDetailDto.OperationTypeFamily = new ComboSimple<Select>
+        //    {
+        //        List = _referentialService.OperationTypeFamilyService.GetSelectList(filter.User.IdUserGroup, (EnumMovement)asifDetailDto.IdMovement, EnumSelectType.Inconnu),
+        //        Selected = new Select { Id = asif.OperationTypeFamily.Id, Label = asif.OperationTypeFamily.Label }
+        //    };
+        //    asifDetailDto.OperationType = new ComboSimple<Select>
+        //    {
+        //        List = _referentialService.OperationTypeService.GetSelectList(asif.OperationTypeFamily.Id, EnumSelectType.Empty),
+        //        Selected = new Select { Id = asif.OperationType.Id, Label = asif.OperationType.Label }
+        //    };
+
+        //    asifDetailDto.Operation = new ComboSimple<Select>
+        //    {
+        //        List = _referentialService.OperationService.GetSelectList(filter.User.IdUserGroup, asif.OperationMethod.Id, asif.OperationType.Id, EnumSelectType.Inconnu),
+        //        Selected = new Select { Id = asif.Operation.Id, Label = asif.Operation.Label }
+        //    };
+
+        //    asifDetailDto.OperationTransverse = new ComboMultiple<Select>
+        //    {
+        //        List = _referentialService.OperationTransverseService.GetSelectList(filter.User.Id, EnumSelectType.Empty),
+        //        ListSelected = _operationTransverseAsifService.GetOperationTransverseSelectList(filter.IdAsif.Value, EnumSelectType.Empty)
+        //    };
+
+        //    List<Select> operationDetailList = null;
+        //    if (!asifDetailDto.IsLocalisable)
+        //    {
+        //        operationDetailList = new List<Select> { new Select { Id = 2, Label = "N/A" } };
+        //        asifDetailDto.OperationPlace = new ComboSimple<Select>
+        //        {
+        //            List = operationDetailList,
+        //            Selected = operationDetailList[0]
+        //        };
+        //    }
+        //    else
+        //    {
+        //        operationDetailList = new List<Select> { new Select { Id = 1, Label = "INCONNU" }, new Select { Id = 3, Label = "INTERNET" }, new Select { Id = 4, Label = "AUTRES" } };
+        //        var operationDetailSelected = asifDetailDto.OperationDetail.GMapAddress.Id == 1 ? operationDetailList[0]
+        //                : asifDetailDto.OperationDetail.GMapAddress.Id == 3 ? operationDetailList[1]
+        //                : operationDetailList[2];
+        //        asifDetailDto.OperationPlace = new ComboSimple<Select>
+        //        {
+        //            List = operationDetailList,
+        //            Selected = operationDetailSelected
+        //        };
+
+        //        if (operationDetailSelected.Id == 4)
+        //        {
+        //            asifDetailDto.GMapSearchInfo = new GMapSearchInfoDto
+        //            {
+        //                IdGMapAddress = asifDetailDto.OperationDetail.GMapAddress.Id,
+        //                OperationPositionSearch = asifDetailDto.OperationLabelTemp,
+        //                OperationPlaceSearch = asifDetailDto.PlaceLabelTemp
+        //            };
+        //        }
+        //    }
+
+        //    return asifDetailDto;
+        //}
+
+        //public AccountStatementImportFile GetById(int IdAccountStatementImportFile)
+        //{
+        //    return _accountStatementImportFileRepository.GetById(IdAccountStatementImportFile);
+        //}
 
         public List<AccountStatementImportFile> GetByIdImport(int idImport)
         {
@@ -230,13 +265,13 @@ namespace Budget.SERVICE
             return _accountStatementImportFileRepository.GetAsifStates(idImport, idAccount);
         }
 
-        public async Task<AsifDetailDto> GetForDetailByIdAsync(int id)
-        {
-            var accountStatementImportFile = await _accountStatementImportFileRepository.GetForDetailByIdAsync(id);
-            var asifDetailDto = _mapper.Map<AsifDetailDto>(accountStatementImportFile);
+        //public async Task<AsifDetailDto> GetForDetailByIdAsync(int id)
+        //{
+        //    var accountStatementImportFile = await _accountStatementImportFileRepository.GetForDetailByIdAsync(id);
+        //    var asifDetailDto = _mapper.Map<AsifDetailDto>(accountStatementImportFile);
 
-            return asifDetailDto;
-        }
+        //    return asifDetailDto;
+        //}
 
         public bool SaveInAccountStatement(int idImport)
         {
@@ -318,57 +353,55 @@ namespace Budget.SERVICE
             return _accountStatementImportFileRepository.IsAccountStatementSaveable(idImport);
         }
 
-        public bool Update(AsifDetailDto asifDetailDto)
+        public bool Update(AsifForDetail asifForDetail)
         {
             //chargement du accountStatementFile
-            var asif = _accountStatementImportFileRepository.GetById(asifDetailDto.Id);
+            var asif = _accountStatementImportFileRepository.GetById(asifForDetail.Id);
 
             //mise à jour des données
-            asif.AmountOperation = asifDetailDto.AmountOperation;
-            asif.DateIntegration = asifDetailDto.DateIntegration.Value.Date;
-            asif.LabelOperation = asifDetailDto.LabelOperation;
-            asif.IdOperation = asifDetailDto.Operation.Selected.Id;
-            asif.IdOperationMethod = asifDetailDto.OperationMethod.Selected.Id;
-            asif.IdOperationType = asifDetailDto.OperationType.Selected.Id;
-            asif.IdOperationTypeFamily = asifDetailDto.OperationTypeFamily.Selected.Id;
-            asif.OperationKeywordTemp = asifDetailDto.OperationKeywordTemp;
-            asif.PlaceKeywordTemp = asifDetailDto.PlaceKeywordTemp;
+            asif.AmountOperation = asifForDetail.AmountOperation;
+            asif.DateIntegration = asifForDetail.DateIntegration.Value.Date;
+            asif.LabelOperation = asifForDetail.LabelOperation;
+            asif.IdOperation = asifForDetail.Operation.Id;
+            asif.IdOperationMethod = asifForDetail.OperationMethod.Id;
+            asif.IdOperationType = asifForDetail.OperationType.Id;
+            asif.IdOperationTypeFamily = asifForDetail.OperationTypeFamily.Id;
+            asif.OperationKeywordTemp = asifForDetail.OperationKeywordTemp;
+            asif.PlaceKeywordTemp = asifForDetail.PlaceKeywordTemp;
 
-            switch(asifDetailDto.OperationPlace.Selected.Id)
+            switch (asifForDetail.OperationPlace.Id)
             {
                 case 2:
-                    asifDetailDto.OperationDetail.GMapAddress.Id = 2;
-                    asifDetailDto.OperationDetail.KeywordOperation = asifDetailDto.OperationKeywordTemp;
-                    asifDetailDto.OperationDetail.KeywordPlace = null;
+                    asifForDetail.OperationDetail.GMapAddress.Id = 2;
+                    asifForDetail.OperationDetail.KeywordPlace = null;
                     break;
                 case 3:
-                    asifDetailDto.OperationDetail.GMapAddress.Id = 3;
-                    asifDetailDto.OperationDetail.KeywordOperation = asifDetailDto.OperationKeywordTemp;
-                    asifDetailDto.OperationDetail.KeywordPlace = "--INTERNET--";
+                    asifForDetail.OperationDetail.GMapAddress.Id = 3;
+                    asifForDetail.OperationDetail.KeywordPlace = "--INTERNET--";
                     break;
                 default:
-                    asifDetailDto.OperationDetail.KeywordOperation = asifDetailDto.OperationKeywordTemp;
-                    asifDetailDto.OperationDetail.KeywordPlace = asifDetailDto.PlaceKeywordTemp;
                     break;
             }
 
-            var idOdUnknown =_referentialService.OperationDetailService.GetUnknown(asifDetailDto.User.IdUserGroup).Id;
+
             //Recherche si operation detail existe déjà, sinon creation
+            var idOdUnknown = _referentialService.OperationDetailService.GetUnknown(asifForDetail.User.IdUserGroup).Id;
             OperationDetail operationDetail = new OperationDetail
             {
-                Id = asifDetailDto.OperationDetail.Id== idOdUnknown ? 0 : asifDetailDto.OperationDetail.Id,
-                IdUserGroup = asifDetailDto.User.IdUserGroup,
-                IdOperation = asifDetailDto.Operation.Selected.Id,
-                IdGMapAddress = asifDetailDto.OperationDetail.GMapAddress.Id,
-                KeywordOperation = asifDetailDto.OperationDetail.KeywordOperation,
-                KeywordPlace = asifDetailDto.OperationDetail.KeywordPlace
-            };
+                Id = asifForDetail.OperationDetail.Id == idOdUnknown ? 0 : asifForDetail.OperationDetail.Id,
+                IdUserGroup = asifForDetail.User.IdUserGroup,
+                IdOperation = asifForDetail.Operation.Id,
+                IdGMapAddress = asifForDetail.OperationDetail.GMapAddress.Id,
+                KeywordOperation = asifForDetail.OperationDetail.KeywordOperation,
+                KeywordPlace = asifForDetail.OperationDetail.KeywordPlace,
+
+        };
             operationDetail = _referentialService.OperationDetailService.GetOrCreate(operationDetail);
             asif.IdOperationDetail = operationDetail.Id;
 
-
             //Mise à jour de l'operationTransverse
-            _operationTransverseAsifService.Update(asifDetailDto.OperationTransverse.ListSelected, asifDetailDto.Id);
+            if (asifForDetail.OperationTransverse != null)
+                _operationTransverseAsService.Update(asifForDetail.OperationTransverse, asifForDetail.Id);
 
             //Mise à jour de l'asifState et du duplicate
             asif = _accountStatementImportFileRepository.UpdateAsifState(asif);
@@ -379,6 +412,68 @@ namespace Budget.SERVICE
             return true;
 
         }
+
+        //public bool Update(AsifDetailDto asifDetailDto)
+        //{
+        //    //chargement du accountStatementFile
+        //    var asif = _accountStatementImportFileRepository.GetById(asifDetailDto.Id);
+
+        //    //mise à jour des données
+        //    asif.AmountOperation = asifDetailDto.AmountOperation;
+        //    asif.DateIntegration = asifDetailDto.DateIntegration.Value.Date;
+        //    asif.LabelOperation = asifDetailDto.LabelOperation;
+        //    asif.IdOperation = asifDetailDto.Operation.Selected.Id;
+        //    asif.IdOperationMethod = asifDetailDto.OperationMethod.Selected.Id;
+        //    asif.IdOperationType = asifDetailDto.OperationType.Selected.Id;
+        //    asif.IdOperationTypeFamily = asifDetailDto.OperationTypeFamily.Selected.Id;
+        //    asif.OperationKeywordTemp = asifDetailDto.OperationKeywordTemp;
+        //    asif.PlaceKeywordTemp = asifDetailDto.PlaceKeywordTemp;
+
+        //    switch(asifDetailDto.OperationPlace.Selected.Id)
+        //    {
+        //        case 2:
+        //            asifDetailDto.OperationDetail.GMapAddress.Id = 2;
+        //            asifDetailDto.OperationDetail.KeywordOperation = asifDetailDto.OperationKeywordTemp;
+        //            asifDetailDto.OperationDetail.KeywordPlace = null;
+        //            break;
+        //        case 3:
+        //            asifDetailDto.OperationDetail.GMapAddress.Id = 3;
+        //            asifDetailDto.OperationDetail.KeywordOperation = asifDetailDto.OperationKeywordTemp;
+        //            asifDetailDto.OperationDetail.KeywordPlace = "--INTERNET--";
+        //            break;
+        //        default:
+        //            asifDetailDto.OperationDetail.KeywordOperation = asifDetailDto.OperationKeywordTemp;
+        //            asifDetailDto.OperationDetail.KeywordPlace = asifDetailDto.PlaceKeywordTemp;
+        //            break;
+        //    }
+
+        //    var idOdUnknown =_referentialService.OperationDetailService.GetUnknown(asifDetailDto.User.IdUserGroup).Id;
+        //    //Recherche si operation detail existe déjà, sinon creation
+        //    OperationDetail operationDetail = new OperationDetail
+        //    {
+        //        Id = asifDetailDto.OperationDetail.Id== idOdUnknown ? 0 : asifDetailDto.OperationDetail.Id,
+        //        IdUserGroup = asifDetailDto.User.IdUserGroup,
+        //        IdOperation = asifDetailDto.Operation.Selected.Id,
+        //        IdGMapAddress = asifDetailDto.OperationDetail.GMapAddress.Id,
+        //        KeywordOperation = asifDetailDto.OperationDetail.KeywordOperation,
+        //        KeywordPlace = asifDetailDto.OperationDetail.KeywordPlace
+        //    };
+        //    operationDetail = _referentialService.OperationDetailService.GetOrCreate(operationDetail);
+        //    asif.IdOperationDetail = operationDetail.Id;
+
+
+        //    //Mise à jour de l'operationTransverse
+        //    _operationTransverseAsifService.Update(asifDetailDto.OperationTransverse.ListSelected, asifDetailDto.Id);
+
+        //    //Mise à jour de l'asifState et du duplicate
+        //    asif = _accountStatementImportFileRepository.UpdateAsifState(asif);
+
+        //    //update de accountStatementFile
+        //    _accountStatementImportFileRepository.Update(asif);
+
+        //    return true;
+
+        //}
 
         public OperationDetail GetOperationDetail(int idUserGroup, AccountStatementImportFile accountStatementImportFile)
         {

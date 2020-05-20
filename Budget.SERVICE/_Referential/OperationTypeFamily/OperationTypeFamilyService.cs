@@ -20,7 +20,6 @@ namespace Budget.SERVICE
         private readonly IMovementService _movementService;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IContextTransaction _contextTransaction;
-        private readonly IMailService _mailService;
         private readonly IBusinessExceptionMessageService _businessExceptionMessageService;
         private readonly IAccountStatementCheckReferentialService _accountStatementCheckReferentialService;
         private readonly IUserCheckReferentialService _userCheckReferentialService;
@@ -34,7 +33,6 @@ namespace Budget.SERVICE
             IMapper mapper,
             IHostingEnvironment hostingEnvironment,
             IContextTransaction contextTransaction,
-            IMailService mailService,
             IBusinessExceptionMessageService businessExceptionMessageService,
             IAccountStatementCheckReferentialService accountStatementCheckReferentialService,
             IUserCheckReferentialService userCheckReferentialService,
@@ -49,7 +47,6 @@ namespace Budget.SERVICE
             _movementService = movementService;
             _hostingEnvironment = hostingEnvironment;
             _contextTransaction = contextTransaction;
-            _mailService = mailService;
             _businessExceptionMessageService = businessExceptionMessageService;
             _accountStatementCheckReferentialService = accountStatementCheckReferentialService;
             _userCheckReferentialService = userCheckReferentialService;

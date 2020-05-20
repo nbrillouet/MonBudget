@@ -20,6 +20,8 @@ import { NavigationService } from './main/_services/navigation.service';
 import { AddNavigation } from './main/_ngxs/navigation/navigation.action';
 import { NavigationState } from './main/_ngxs/navigation/navigation.state';
 import { UserDetailState } from './main/_ngxs/user/user-detail/user-detail.state';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector   : 'app',
@@ -68,9 +70,16 @@ export class AppComponent implements OnInit, OnDestroy
         private _translateService: TranslateService,
         private _platform: Platform,
         private navigationService: NavigationService,
-        private store: Store
+        private store: Store,
+        private matIconRegistry: MatIconRegistry,
+        private domSanitizer: DomSanitizer
+
     )
     {
+        this.matIconRegistry.addSvgIcon(
+            'loginIcon',
+            this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/images/home/Login.svg')
+        );
         // // Get default navigation
         // this.navigation = navigation;
 
@@ -175,15 +184,15 @@ export class AppComponent implements OnInit, OnDestroy
 
                 this.document.body.classList.add(this.fuseConfig.colorTheme);
             });
-
-            // var toto = this._fuseNavigationService.getCurrentNavigation();
+            
   
             this.user$.subscribe((user:IUser) => {
+
+                console.log('user',user);
                 if(user) {
                     this.navigation$.subscribe(result => {
+                        
                         if(!result) {
-                            this._fuseNavigationService.unregister('admin-nav');
-                            // this.navigation = navigation;
                             this.navigation= [{'id'      : 'applications',
                                     'title'   : 'Applications',
                                     'translate': 'NAV.APPLICATIONS',
@@ -195,13 +204,21 @@ export class AppComponent implements OnInit, OnDestroy
                             this.navigation[0].children.push(this.navigationService.getImportAccountMenu());
                             this.navigation[0].children.push(this.navigationService.getPlanMenu());
                             this.store.dispatch(new AddNavigation(this.navigation));
-
-                            // Register the new navigation
-                            this._fuseNavigationService.register('admin-nav', this.navigation);
-                            
-                            // Set the current navigation
-                            this._fuseNavigationService.setCurrentNavigation('admin-nav');
+                        }else{
+                            this.navigation = result;
                         }
+
+                        let isRegister = this._fuseNavigationService.isRegister('admin-nav');
+                        if(isRegister)
+                            this._fuseNavigationService.unregister('admin-nav');
+                        // Register the new navigation
+                        this._fuseNavigationService.register('admin-nav', this.navigation);
+                        // Set the current navigation
+                        this._fuseNavigationService.setCurrentNavigation('admin-nav');
+                        // else {
+                        //     let currentMenu = this._fuseNavigationService.getCurrentNavigation();
+
+                        // }
                     });
                 }
 

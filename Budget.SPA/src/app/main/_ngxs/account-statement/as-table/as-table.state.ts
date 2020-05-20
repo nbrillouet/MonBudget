@@ -35,7 +35,7 @@ export class AsTableState extends LoaderState {
 
     async delay(ms: number) {
         await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
-      }
+    }
 
     @Action(LoadAsTable)
     LoadAsTable(context: StateContext<AsTableStateModel>, action: LoadAsTable) {

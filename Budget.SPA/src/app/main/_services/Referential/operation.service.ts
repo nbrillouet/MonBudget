@@ -3,34 +3,44 @@ import { environment } from "environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { IOperation, OperationForDetail } from "app/main/_models/referential/operation.model";
 import { ISelect, EnumSelectType } from "app/main/_models/generics/select.model";
-import { IUserForGroup } from "app/main/_models/user.model";
+import { IUserForGroup, IUser } from "app/main/_models/user.model";
 import { FilterOperationTableSelected, FilterOperationTableSelection, FilterOperationDetail } from "app/main/_models/filters/operation.filter";
 import { FilterForDetail } from "app/main/_models/filters/shared/filterDetail.filter";
+import { Select } from "@ngxs/store";
+import { UserDetailState } from "app/main/_ngxs/user/user-detail/user-detail.state";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class OperationService {
+@Select(UserDetailState.getUser) user$: Observable<IUser>;
+
 baseUrl = environment.apiUrl;
-user = JSON.parse(localStorage.getItem('currentUser'));
-userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:this.user.idUserGroup} : null;
-    
+currentUser: IUser;
+userForGroup: IUserForGroup; 
+
 constructor(
         private _httpClient: HttpClient
-    ) { }
+    ) {
+        this.user$.subscribe((user:IUser) => {
+            this.currentUser = user;
+            this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
+        });
+     }
 
     GetSelectList(idOperationMethod: number,idOperationType: number, enumSelectType: EnumSelectType) {
         return this._httpClient
-            .get(`${this.baseUrl}referential/operations/user-groups/${this.user.idUserGroup}/operation-methods/${idOperationMethod}/operation-types/${idOperationType}/select-type/${enumSelectType}/operations`)
+            .get(`${this.baseUrl}referential/operations/user-groups/${this.currentUser.idUserGroup}/operation-methods/${idOperationMethod}/operation-types/${idOperationType}/select-type/${enumSelectType}/operations`)
             .map(response => <ISelect[]>response);
     }
 
     GetSelectListByOperationMethods(operationMethods: ISelect[]) {
         return this._httpClient
-            .post(`${this.baseUrl}referential/operations/user-groups/${this.user.idUserGroup}/select-list`,operationMethods)
+            .post(`${this.baseUrl}referential/operations/user-groups/${this.currentUser.idUserGroup}/select-list`,operationMethods)
             .map(res=><ISelect[]>res);
     }
 
     Create(operation: IOperation) {
-        operation.idUserGroup = this.user.idUserGroup;
+        operation.idUserGroup = this.currentUser.idUserGroup;
         return this._httpClient
             .post(`${this.baseUrl}referential/operations/create`,operation)
             .map(res=><IOperation>res);
@@ -61,7 +71,7 @@ constructor(
  
     getDetailFilter(filter: OperationForDetail) {
         return this._httpClient
-            .post<FilterOperationDetail>(`${this.baseUrl}referential/operations/operation-detail-filter`,filter)
+            .post<FilterOperationDetail>(`${this.baseUrl}referential/operations/operation-detail-filter`,filter);
     }
 
     getForDetail(filter: FilterForDetail) {

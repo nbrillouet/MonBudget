@@ -120,6 +120,27 @@
   <data name="BUS_ASI_ERR_000" xml:space="preserve">
     <value>Import utilisé dans un ou plusieurs relevé de comptes</value>
   </data>
+  <data name="BUS_AUTH_ERR_000" xml:space="preserve">
+    <value>Un utilisateur possède déjà cette adresse Email </value>
+  </data>
+  <data name="BUS_AUTH_ERR_001" xml:space="preserve">
+    <value>Le mot de passe doit être supérieur à 8 caractères</value>
+  </data>
+  <data name="BUS_AUTH_ERR_002" xml:space="preserve">
+    <value>Nom utilisateur ou mot de passe incorrect</value>
+  </data>
+  <data name="BUS_AUTH_ERR_003" xml:space="preserve">
+    <value>Le mail indiqué n'existe pas</value>
+  </data>
+  <data name="BUS_AUTH_ERR_004" xml:space="preserve">
+    <value>L'utilisateur n'existe pas</value>
+  </data>
+  <data name="BUS_AUTH_ERR_005" xml:space="preserve">
+    <value>L'adresse mail indiqué ne correspond pas à l'adresse mail du compte</value>
+  </data>
+  <data name="BUS_AUTH_ERR_006" xml:space="preserve">
+    <value>Email non vérifié, connexion impossible</value>
+  </data>
   <data name="BUS_OPE_ERR_000" xml:space="preserve">
     <value>Opération obligatoire, suppression impossible</value>
   </data>
@@ -155,5 +176,8 @@
   </data>
   <data name="BUS_OTY_ERR_003" xml:space="preserve">
     <value>Type opération utilisée dans une ou plusieurs opération(s)</value>
+  </data>
+  <data name="BUS_USER_ERR_000" xml:space="preserve">
+    <value>Compte non trouvé, validation impossible</value>
   </data>
 </root>

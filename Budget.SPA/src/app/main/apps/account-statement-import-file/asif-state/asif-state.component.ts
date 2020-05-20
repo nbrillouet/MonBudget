@@ -43,7 +43,7 @@ export class AsifStateComponent implements OnInit {
   }
 
   onTabChanged($event) {
-    // debugger;
+
     this.filterAsifSelected.indexTabAsifState=$event.index;
     this.filterAsifSelected.state = this.filterAsifSelection.state[$event.index]; //.find(x=>x.id==$event.index);
 

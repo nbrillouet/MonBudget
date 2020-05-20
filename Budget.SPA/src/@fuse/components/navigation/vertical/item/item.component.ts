@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { FuseNavigationItem } from '@fuse/types';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector   : 'fuse-nav-vertical-item',
@@ -32,7 +33,8 @@ export class FuseNavVerticalItemComponent implements OnInit, OnDestroy
      */
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
-        private _fuseNavigationService: FuseNavigationService
+        private _fuseNavigationService: FuseNavigationService,
+        private _router: Router
     )
     {
         // Set the private defaults
@@ -69,5 +71,16 @@ export class FuseNavVerticalItemComponent implements OnInit, OnDestroy
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
+    }
+
+    todo(url) {
+        // this._router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+        // this._router.navigate([url]));
+
+
+        // this._router.navigated = false;
+        this._router.navigate([`${url}`]);
+        // this._router.navigate([`${url}`]);
+        
     }
 }

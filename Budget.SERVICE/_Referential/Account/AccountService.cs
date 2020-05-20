@@ -111,6 +111,12 @@ namespace Budget.SERVICE
 
         }
 
+        public Select GetSelectById(int idAccount)
+        {
+            var account = _accountRepository.GetById(idAccount);
+            return _mapper.Map<Select>(account);
+        }
+
         public void Update(AccountForDetailDto accountForDetailDto)
         {
             //var account = _accountRepository.GetById(accountForDetailDto.Id);

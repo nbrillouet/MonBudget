@@ -14,7 +14,7 @@ namespace Budget.DATA.Repositories
         PagedList<AccountStatement> GetAsTable(FilterAsTableSelected filter);
         PagedList<AccountStatement> GetPlanNotAsTable(FilterPlanNotAsTableGroupSelected filter);
         int GetPlanNotAsCount(FilterFixedPlanNotAsTableSelected filterFixed);
-        AccountStatement GetAsDetail(int id);
+        AccountStatement GetForDetail(int id);
         List<AccountStatement> GetByDatePlanPosteReferenceList(List<PlanPosteReference> planPosteReferences, DateTime dateMin, DateTime dateMax);
         bool HasOperation(int idOperation);
         bool HasOt(int idOt);

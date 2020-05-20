@@ -1,4 +1,5 @@
 ﻿using Budget.MODEL;
+using Budget.MODEL.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,8 +9,11 @@ namespace Budget.SERVICE
 {
     public interface IAuthService
     {
-        Task<User> Register(User user, string password);
-        Task<User> Login(string username, string password);
-        Task<bool> UserExists(string username);
+        User Register(UserForRegister userForRegister);
+        User ActivateAccount(string activationCode);
+        UserForRegister GetUserEncrypt(string userId);
+        bool ChangePassword(UserForPasswordChange userForPasswordChange);
+        void PasswordRecovery(string mail);
+        UserForDetailDto Login(string username, string password);
     }
 }

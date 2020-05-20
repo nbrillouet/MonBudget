@@ -3,13 +3,15 @@ import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { IUser } from 'app/main/_models/user.model';
-import { Store } from '@ngxs/store';
+import { Store, Select } from '@ngxs/store';
 import { AreaImport, IAccount } from 'app/main/_models/referential/account.model';
 import { FilterAsiTableSelected } from 'app/main/_models/filters/account-statement-import.filter';
 import { LoadAsiTableFilterSelection } from 'app/main/_ngxs/account-statement-import/asi-table/asi-table-filter-selection/asi-table-filter-selection.action';
 import { SynchronizeAsiTableFilterSelected } from 'app/main/_ngxs/account-statement-import/asi-table/asi-table-filter-selected/asi-table-filter-selected.action';
 import { FilterAsifTableSelected } from 'app/main/_models/filters/account-statement-import-file.filter';
 import { SynchronizeAsifTableFilterSelected } from 'app/main/_ngxs/account-statement-import-file/asif-table/asif-table-filter-selected/asif-table-filter-selected.action';
+import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'asi-main',
@@ -18,10 +20,10 @@ import { SynchronizeAsifTableFilterSelected } from 'app/main/_ngxs/account-state
   animations : fuseAnimations
 })
 export class AsiMainComponent implements OnInit {
-
-  user: IUser;
+  @Select(UserDetailState.getUser) user$: Observable<IUser>;
+  
+  currentUser: IUser;
   filterAsiSelected: FilterAsiTableSelected;
-  // filterAsif: FilterAsifTable
   fileInProgress: boolean;
   fileError: boolean;
   fileSuccess: boolean;
@@ -36,13 +38,15 @@ export class AsiMainComponent implements OnInit {
     private _store: Store,
     public router: Router,
     private activatedRoute: ActivatedRoute) {
+      this.user$.subscribe((user:IUser) => {
+        this.currentUser = user;
+        this.filterAsiSelected = new FilterAsiTableSelected();
+        this.filterAsiSelected.idUser = this.currentUser.id;
+        
+        this._store.dispatch(new SynchronizeAsiTableFilterSelected(this.filterAsiSelected));
+        this._store.dispatch(new LoadAsiTableFilterSelection(this.filterAsiSelected));
+      });
 
-      this.user = JSON.parse(localStorage.getItem('currentUser'));
-      this.filterAsiSelected = new FilterAsiTableSelected();
-      this.filterAsiSelected.idUser=this.user.id;
-      
-      this._store.dispatch(new SynchronizeAsiTableFilterSelected(this.filterAsiSelected));
-      this._store.dispatch(new LoadAsiTableFilterSelection(this.filterAsiSelected));
     }
     
   ngOnInit() {

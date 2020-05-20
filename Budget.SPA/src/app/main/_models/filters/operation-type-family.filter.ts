@@ -1,5 +1,5 @@
 import { Pagination } from "../pagination.model";
-import { ISelect } from "../generics/select.model";
+import { ISelect, ISelectCode } from "../generics/select.model";
 import { IUserForGroup } from "../user.model";
 
 export class FilterOtfTableSelected {
@@ -19,6 +19,6 @@ export class FilterOtfTableSelection {
 }
 
 export class FilterOtfDetail {
-    asset: ISelect[];
+    asset: ISelectCode[];
     movement: ISelect[]
 }

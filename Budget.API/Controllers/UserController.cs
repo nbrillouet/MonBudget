@@ -55,8 +55,10 @@ namespace Budget.API.Controllers
 
         [HttpPost]
         [Route("table-filter")]
+        [Authorize(Roles = "Admin")]
         public IActionResult getUserTableFilter([FromBody] FilterUserTableSelected filter)
         {
+            var toto = HttpContext.User.Claims;
             var result = _filterService.FilterTableService.GetFilterUserTable(filter);
 
             return Ok(result);
@@ -64,6 +66,7 @@ namespace Budget.API.Controllers
 
         [HttpPost]
         [Route("filter")]
+        [Authorize(Roles = "Admin")]
         public IActionResult getUserTable([FromBody] FilterUserTableSelected filter)
         {
             var pagedList = _userService.GetUserTable(filter);

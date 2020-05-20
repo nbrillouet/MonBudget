@@ -9,7 +9,7 @@ namespace Budget.SERVICE
 {
     public interface IPlanNotAsService
     {
-        PagedList<AsForTableDto> GetPlanNotAsTable(FilterPlanNotAsTableGroupSelected filter);
+        PagedList<AsForTable> GetPlanNotAsTable(FilterPlanNotAsTableGroupSelected filter);
         int GetPlanNotAsCount(int idPlan, int idUserGroup);
 
     }

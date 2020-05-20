@@ -2,48 +2,81 @@
 <!-- <home-navigation></home-navigation> -->
 
 <div class="wrapper">
-        <mat-toolbar *ngIf="user" color="primary">
-            <span >Bienvenue {{user.userName}}</span>
-            <span class="example-spacer"></span>
-            <button mat-mini-fab [routerLink]="'/apps/plans'" >
-                <mat-icon>verified_user</mat-icon>
-            </button>
-            <!-- <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon"></mat-icon> -->
-        </mat-toolbar>  
-
-        <mat-toolbar *ngIf="!user" color="primary">
-            <span>MonBudget.net</span>
+        <mat-toolbar *ngIf="currentUser"
+            class="fixed-toolbar"
+            style="background-color: #1E5426;">
+            <span style="color:white;">Bienvenue {{currentUser.userName}}</span>
             <span class="example-spacer"></span>
             <button 
+                style="margin-right:10px;"
+                mat-mini-fab 
+                [routerLink]="'/apps/plans'" >
+                <mat-icon>verified_user</mat-icon>
+            </button>
+            
+            <button 
+                mat-mini-fab
+                (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+            </button>
+        </mat-toolbar>  
+        
+        
+
+        <mat-toolbar class="fixed-toolbar" *ngIf="!currentUser" style="background-color: #1E5426;">
+            <span style="color:white;">MonBudget.net</span>
+            <span class="example-spacer"></span>
+            <button 
+                style="margin-right:10px;" 
+                mat-flat-button 
+                color="accent"
+                [routerLink]="'/pages/auth/login'">
+                connexion
+                <mat-icon>lock</mat-icon>
+            </button>
+
+            <button mat-flat-button 
+                color="accent"
+                [routerLink]="'/pages/auth/register'">
+                inscription
+                <mat-icon>person_add</mat-icon>
+            </button>
+
+           
+            <!-- <button 
+                mat-flat-button
+                class="button-svg" 
+                [routerLink]="'/pages/auth/login'" >
+            </button> -->
+            <!-- <button 
                 mat-raised-button
-                [routerLink]="'/pages/auth/login'"
-                >Connexion</button>
+                [routerLink]="'/pages/auth/login'">
+                Connexion
+            </button> -->
+
+
+            
         </mat-toolbar>
         
   <div class="page-header section-dark" style="background-image: url('assets/images/home/login-image.jpg')">
 
     <div class="filter"></div>
-
+    
       <div class="content-center">
 
           <div class="container">
-              <div class="title-brand">
-                    <!-- assets/images/logos/MB_logo1.svg -->
+              <!-- <div class="title-brand"> -->
                   <div class="angular-logo">
-                      <img 
+                      <img style="margin-top:15px;display:inline;"
                         src="assets/images/logos/MB_logo1.svg"
-                        width="100px" height="100px">
+                        width="100px" height="100px"> 
+                        <div class="presentation-title" style="display:inline;">
+                            Mon budget
+                            <!-- <h1 class="presentation-title">Mon Budget</h1> -->
+                        </div>
                   </div>
-                  <h1 class="presentation-title">Mon Budget</h1>
-                  <!-- <div class="fog-low">
-                      <img src="assets/images/home/fog-low.png" alt="">
-                  </div>
-                  <div class="fog-low right">
-                      <img src="assets/images/home/fog-low.png" alt="">
-                  </div> -->
-              </div>
 
-              <h2 class="presentation-subtitle text-center">Gestion de votre budget personnel</h2>
+              <!-- <h2 class="presentation-subtitle text-center">Gestion de votre budget personnel</h2> -->
           </div>
       </div>
       <div class="moving-clouds" style="background-image: url('assets/images/home/clouds.png'); "></div>

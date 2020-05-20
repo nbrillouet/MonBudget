@@ -5,16 +5,23 @@ import { FilterAsiTableSelected, FilterAsiTableSelection } from 'app/main/_model
 import { AsiTable } from 'app/main/_models/account-statement-import/account-statement-import.model';
 import { IUser } from 'app/main/_models/user.model';
 import { Datas } from 'app/main/_models/generics/detail-info.model';
+import { Select } from '@ngxs/store';
+import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AsiService {
+    @Select(UserDetailState.getUser) user$: Observable<IUser>;
+    
 baseUrl = environment.apiUrl;
-user : IUser;
+currentUser: IUser;
 
     constructor(
         private _httpClient: HttpClient
     ) { 
-        this.user = JSON.parse(localStorage.getItem('currentUser'));
+        this.user$.subscribe((user:IUser) => {
+            this.currentUser = user;
+        });
     }
     
     getAsiTableFilter(filter: FilterAsiTableSelected) {

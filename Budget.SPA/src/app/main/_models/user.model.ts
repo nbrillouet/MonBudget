@@ -17,6 +17,7 @@ export class UserTable {
 
 export interface IUser {
     id: number;
+    idUserGroup: number;
     userName: string;
     lastName: string;
     firstName: string;
@@ -29,11 +30,14 @@ export interface IUser {
     IdAvatarCloud : string;
     avatarUrl: string;
     shortcuts: IUserShortcut[];
+    role: string;
+    token: string;
     bankAgencies: IBankAgencyAccounts[];
 }
 
 export class User implements IUser {
     id: number;
+    idUserGroup: number;
     userName: string;
     lastName: string;
     firstName: string;
@@ -46,6 +50,8 @@ export class User implements IUser {
     IdAvatarCloud : string;
     avatarUrl: string;
     shortcuts: IUserShortcut[];
+    role: string;
+    token: string;
     bankAgencies: IBankAgencyAccounts[];
 }
 
@@ -58,6 +64,25 @@ export interface IUserForLabel {
 export interface IUserForGroup {
     id: number;
     idUserGroup: number;
+}
+
+export class UserForRegister {
+    name: string;
+    email: string;
+    password: string;
+    passwordConfirm: string;
+}
+
+export class UserForPasswordChange {
+    idCrypted: string;
+    name: string;
+    email: string;
+    password: string;
+}
+
+export enum Role {
+    user = 'User',
+    admin = 'Admin'
 }
 // export interface IUserCurrent {
 //     id: number;

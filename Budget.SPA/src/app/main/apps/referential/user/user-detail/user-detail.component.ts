@@ -136,7 +136,7 @@ export class UserDetailComponent implements OnInit {
     if (this.user.idGMapAddress!=$event.id)
     {
       this.user.idGMapAddress = $event.id;
-
+      this.userForm.markAsDirty();
     }
     
   }

@@ -11,5 +11,7 @@ namespace Budget.SERVICE
         FilterOperationForDetail GetFilterForOperation(OperationForDetail operationForDetail);
         FilterOtForDetail GetFilterForOt(OtForDetail otForDetail);
         FilterOtfForDetail GetFilterForOtf(OtfForDetail otfForDetail);
+        FilterAsForDetail GetFilterForAs(AsForDetail asForDetail);
+        FilterAsifForDetail GetFilterForAsif(AsifForDetail asifForDetail);
     }
 }

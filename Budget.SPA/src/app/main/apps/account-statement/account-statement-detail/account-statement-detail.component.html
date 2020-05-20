@@ -18,13 +18,13 @@
             </button>
 
             <div class="product-image mr-8 mr-sm-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-                <img *ngIf="formLoaded && asDetail" [src]="asDetail.asset.code">
+                <img *ngIf="formLoaded && asForDetail" [src]="asForDetail.asset.code">
             </div>
 
             <div fxLayout="column" fxLayoutAlign="start start"
                 *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                <div class="h2" *ngIf="formLoaded && asDetail" >
-                    {{asDetail.labelOperation}}
+                <div class="h2" *ngIf="formLoaded && asForDetail" >
+                    {{asForDetail.labelOperation}}
                 </div>
                 <div class="subtitle secondary-text">
                     <span>Détail de l'opération</span>
@@ -33,11 +33,11 @@
         </div>
           <!-- / APP TITLE -->
 
-        <button mat-raised-button *ngIf="formLoaded && asDetail"
+        <button mat-raised-button *ngIf="formLoaded && asForDetail"
             class="save-product-button mat-white-bg mt-16 mt-sm-0"
             [disabled]= "asDetailForm.invalid 
                 || asDetailForm.pristine 
-                || (asDetail.isLocalisable && asDetail.operationPlace.selected.id>3 && asDetail.operationDetail.gMapAddress.id==1)"
+                || (asForDetail.isLocalisable && asForDetail.operationPlace.id>3 && asForDetail.operationDetail.gMapAddress.id==1)"
             (click)="updateAs()"
         >
             <span>SAVE</span>
@@ -51,7 +51,7 @@
         <!-- CONTENT -->
         <div class="content" >
 
-        <form *ngIf="formLoaded && asDetail"
+        <form *ngIf="formLoaded && asForDetail"
             name="asDetailForm" 
             [formGroup]="asDetailForm" 
             class="product w-100-p" fxLayout="column" fxFlex
@@ -73,13 +73,24 @@
                         <mat-datepicker #dpIntegration disabled="false"></mat-datepicker>
                     </mat-form-field> -->
 
-                    <mat-form-field class="w-100-p">
+
+                    <mat-form-field class="w-100-p" appearance="outline" floatLabel="always" >
+                        <mat-label>Date Intégration</mat-label>
+                        <input matInput 
+                          [matDatepicker]="dateIntegrationPicker" 
+                          formControlName="dateIntegration"> 
+                        <mat-datepicker-toggle matSuffix [for]="dateIntegrationPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #dateIntegrationPicker></mat-datepicker>
+                      </mat-form-field>
+
+
+                    <!-- <mat-form-field class="w-100-p">
                         <input
                             matInput
                             name="dateIntegration"
                             formControlName="dateIntegration"
                             placeholder="Date intégration">
-                    </mat-form-field>
+                    </mat-form-field> -->
 
                         <mat-form-field class="w-100-p">
                             <input matInput
@@ -87,8 +98,8 @@
                                     formControlName="amountOperation"
                                     placeholder="Montant" type="number">
                             <span matPrefix >€&nbsp;</span>
-                            <mat-icon *ngIf="asDetail.amountOperation>0" matSuffix  class="green-fg mr-2">trending_up</mat-icon>
-                            <mat-icon *ngIf="asDetail.amountOperation<0" matSuffix  class="red-fg mr-2">trending_down</mat-icon>
+                            <mat-icon *ngIf="asForDetail.amountOperation>0" matSuffix  class="green-fg mr-2">trending_up</mat-icon>
+                            <mat-icon *ngIf="asForDetail.amountOperation<0" matSuffix  class="red-fg mr-2">trending_down</mat-icon>
                         </mat-form-field>
                     
                     </div>
@@ -98,7 +109,7 @@
                     <div class="tab-content p-24" fusePerfectScrollbar>
                         <mat-form-field class="w-100-p" >
                             <mat-select formControlName="operationMethod" placeholder="Méthodes d'opération" [compareWith]="compareObjects" >
-                                <mat-option *ngFor="let item of asDetail.operationMethod.list" [value]="item">
+                                <mat-option *ngFor="let item of asForDetail.operationMethod.list" [value]="item">
                                     {{ item.label }}
                                 </mat-option>
                             </mat-select>
@@ -246,7 +257,7 @@
                                     placeholder="Mot clef pour recherche de l'opération">
                             </mat-form-field>
                         </div>
-                        <div class="w-100-p" fxLayout="row" *ngIf="asDetail.isLocalisable && asDetail.operationDetail.gMapAddress.id!=2 && asDetail.operationDetail.gMapAddress.id!=3" >
+                        <div class="w-100-p" fxLayout="row" *ngIf="asForDetail.isLocalisable && asForDetail.operationDetail.gMapAddress.id!=2 && asForDetail.operationDetail.gMapAddress.id!=3" >
                             <mat-form-field fxFlex>
                                 <input matInput 
                                     name="placeKeywordTemp"
@@ -260,7 +271,7 @@
                     </div>
                 </mat-tab>
                 
-                <mat-tab label="Géolocalisation" [disabled]="asDetail && !asDetail.isLocalisable">
+                <mat-tab label="Géolocalisation" [disabled]="asForDetail && !asForDetail.isLocalisable">
                     <div class="tab-content p-24" fusePerfectScrollbar>
                         <mat-error *ngIf="asDetailForm.get('operationPlace').errors && asDetailForm.get('operationPlace').hasError('isUnknown')">
                             <p>La sélection ne doit pas être inconnue</p>
@@ -275,7 +286,7 @@
                             </mat-form-field>
                         </div>
                         
-                        <g-map-search *ngIf="asDetail.gMapSearchInfo" [gMapSearchInfo]="asDetail.gMapSearchInfo" (changeGMapAddress)="onChangeGMapAddress($event)"></g-map-search>
+                        <g-map-search *ngIf="asForDetail.gMapSearchInfo" [gMapSearchInfo]="asForDetail.gMapSearchInfo" (changeGMapAddress)="onChangeGMapAddress($event)"></g-map-search>
                     </div>
                 </mat-tab>
             </mat-tab-group>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 
 namespace Budget.HELPER
 {
@@ -38,7 +39,10 @@ namespace Budget.HELPER
                         Buffer.BlockCopy(iv, 0, result, 0, iv.Length);
                         Buffer.BlockCopy(encrypted, 0, result, iv.Length, encrypted.Length);
 
-                        return Convert.ToBase64String(result);
+                        var toBase64String = Convert.ToBase64String(result);
+                        var toto = HttpUtility.UrlEncode(toBase64String);
+                        return toto;
+                        //return Convert.ToBase64String(result).Replace('/','*');
                     }
                 }
             }
@@ -76,5 +80,10 @@ namespace Budget.HELPER
                 }
             }
         }
+
+        
+
     }
+
+
 }

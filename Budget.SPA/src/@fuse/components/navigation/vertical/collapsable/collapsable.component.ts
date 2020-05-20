@@ -264,4 +264,6 @@ export class FuseNavVerticalCollapsableComponent implements OnInit, OnDestroy
         return false;
     }
 
+
+
 }

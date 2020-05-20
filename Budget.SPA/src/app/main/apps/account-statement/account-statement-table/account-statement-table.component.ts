@@ -17,7 +17,6 @@ import { Subscription } from 'rxjs';
 import { AS_MODEL_1_COLUMNS } from 'app/main/_constants/mat-table-filter-column.const';
 import { MatTableFilter } from '../../web-component/mat-table-filter/model/mat-table-filter.model';
 
-
 @Component({
   selector: 'account-statement-table',
   templateUrl: './account-statement-table.component.html',
@@ -36,7 +35,7 @@ export class AccountStatementTableComponent implements OnInit, OnDestroy {
   asTableFilterSelected$$: Subscription;
   asTable$$: Subscription;
 
-  filterAsSelected: FilterAsTableSelected = new FilterAsTableSelected();
+  filterAsSelected: FilterAsTableSelected;
   matTableFilter: MatTableFilter = {
     columns: AS_MODEL_1_COLUMNS,
     filterSelection$: this.asTableFilterSelection$,
@@ -63,12 +62,17 @@ export class AccountStatementTableComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _store: Store
     ) {
-      this._store.dispatch(new LoadAsTableFilterSelection(this.filterAsSelected));
-
+      
       this.asTableFilterSelected$$ = this.asTableFilterSelected$
         .subscribe(selected => {
+
           if(selected?.loader['filter-selected']?.loaded) {
-            this.filterAsSelected = selected.selected;
+            if(JSON.stringify(this.filterAsSelected) != JSON.stringify(selected.selected)) {
+              
+              this.filterAsSelected = JSON.parse(JSON.stringify(selected.selected));
+              this._store.dispatch(new LoadAsTableFilterSelection(this.filterAsSelected));
+              this._store.dispatch(new LoadAsTable(this.filterAsSelected));
+            }
           }
         });
 

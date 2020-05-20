@@ -17,13 +17,14 @@ import { UserTableFilterSelectionState } from 'app/main/_ngxs/user/user-table/us
 import { UserTableState } from 'app/main/_ngxs/user/user-table/user-table.state';
 import { DatePipe } from '@angular/common';
 import { UserTableComponent } from './user-table/user-table.component';
+import { Role } from 'app/main/_models/user.model';
 
 const routes = [
   {
       path     : '',
       component: UserTableComponent,
-      // resolve  : { users: UserListResolver },
-      canActivate: [AuthGuard]
+      canActivate: [AuthGuard],
+      data: { roles: [Role.admin]}
   },
   {
       path     : ':idUser/detail',
@@ -32,11 +33,7 @@ const routes = [
       canActivate: [AuthGuard]
       // canDeactivate: [PreventUnsavedChanges]
   }
-  // ,
-  // {
-  //     path      : '**',
-  //     redirectTo: ''
-  // }
+
 ];
 
 @NgModule({

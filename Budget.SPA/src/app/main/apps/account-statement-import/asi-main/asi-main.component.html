@@ -26,7 +26,7 @@
                   <div fxLayout="row">
                       <div *ngIf="areaImport?.historicView" class="logo mt-16 m-sm-0"
                           fxLayout="row" fxLayoutAlign="start center">
-                          <asi-upload [user]="user" 
+                          <asi-upload [user]="currentUser" 
                             (fileError)="getFileError($event)" 
                             (fileSuccess)="getFileSuccess($event)" 
                             (fileInProgress)="getFileInProgress($event)" 
@@ -41,9 +41,9 @@
           </div>
           
           <!-- / HEADER -->
-          <div class="content-card">
+          <div class="content-card-alt">
 
-            <div class="content-card white" fxFlexFill *ngIf="fileInProgress" fxLayout="column" fxLayoutAlign="center center">
+            <div class="content-card-alt white" fxFlexFill *ngIf="fileInProgress" fxLayout="column" fxLayoutAlign="center center">
                 <mat-spinner diameter="40" color="accent" fxLayout="row"></mat-spinner>
                 <div fxLayout="row">chargement...</div>
             </div>

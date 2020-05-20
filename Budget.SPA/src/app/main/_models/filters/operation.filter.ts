@@ -24,7 +24,7 @@ export class FilterOperationTableSelection {
     }
 }
 
-export class FilterOperation {
+export class FilterOperationType {
     operationMethod: ISelect;
     operationType: ISelect;
 }

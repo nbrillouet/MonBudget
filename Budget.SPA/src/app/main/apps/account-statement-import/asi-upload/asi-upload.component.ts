@@ -47,11 +47,11 @@ export class AsiUploadComponent implements OnInit {
   }
 
   initializeUploader() {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    // let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.uploader = new FileUploader({
       url: `${this.baseUrl}account-statement-import/users/${this.user.id}/upload-file`,
-      authToken: `Bearer ${currentUser.token}`, // 'Bearer ' + localStorage.getItem('currentUser').token,
+      authToken: `Bearer ${this.user.token}`, // 'Bearer ' + localStorage.getItem('currentUser').token,
       isHTML5: true,
       // allowedMimeType: ['text/csv'], // CSV File limitation,
       // allowedFileType: ['application'],

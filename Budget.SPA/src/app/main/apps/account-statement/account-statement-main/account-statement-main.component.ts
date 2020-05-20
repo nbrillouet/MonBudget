@@ -12,6 +12,8 @@ import { DatasFilter } from 'app/main/_models/generics/detail-info.model';
 import { FilterSelected } from 'app/main/_models/generics/filter.info.model';
 import { SynchronizeAsTableFilterSelected } from 'app/main/_ngxs/account-statement/as-table/as-table-filter-selected/as-table-filter-selected.action';
 import { AsTableFilterSelectedState } from 'app/main/_ngxs/account-statement/as-table/as-table-filter-selected/as-table-filter-selected.state';
+import { filter } from 'rxjs/operators';
+import { HelperService } from 'app/main/_services/helper.service';
 
 @Component({
   selector: 'account-statement-main',
@@ -27,23 +29,26 @@ export class AccountStatementMainComponent implements OnInit {
 
 selectedIndex: number = 0;
 fullscreen: boolean;
-idAccount: number = null;
+asTableFilterSelected: FilterAsTableSelected;
+soldeToLoad: boolean;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _store: Store,
     private _fuseConfigService: FuseConfigService,
+    private _helperService: HelperService
   ) {
 
-    this._activatedRoute.params.subscribe(x=>{
+    this._activatedRoute.params.subscribe(params=>{
+      
       let idTab = localStorage.getItem('account-statement-main-tab');
       this.selectedIndex = idTab ? Number(idTab) : 0;
-      this.idAccount = x.idAccount;
-      // let filterAsSelected = new FilterAsTableSelected();
-      // filterAsSelected.idAccount=x.idAccount;
-      
-      // this._store.dispatch(new SynchronizeAsTableFilterSelected(filterAsSelected));
-      // this._store.dispatch(new LoadAsSolde(filterAsSelected));
+
+      let asTableFilter = this._store.selectSnapshot<FilterAsTableSelected>(x => x.AsTableFilterSelected.selected);
+      asTableFilter.idAccount = params.idAccount;
+
+      this._store.dispatch(new SynchronizeAsTableFilterSelected(asTableFilter));
+
     })
 
     // Subscribe to the config changes
@@ -54,18 +59,13 @@ idAccount: number = null;
 
     this.asTableFilterSelected$
       .subscribe(x=> {
-        // this._store.dispatch(new LoadAsSolde(x.selected));
-        if(!x.selected.idAccount) {
-          x.selected.idAccount=this.idAccount;
-          this._store.dispatch(new SynchronizeAsTableFilterSelected(x.selected));
-          this._store.dispatch(new LoadAsSolde(x.selected));
-        }
+
         if (x?.loader['filter-selected']?.loaded) {
-          
-    //           // this._store.dispatch(new LoadAsSolde(x.selected));
-    // //       this._store.dispatch(new SynchronizeAsTableFilterSelected(x.selected));
-          // this._store.dispatch(new LoadAsSolde(x.selected));
-        }
+          if(!this._helperService.areEquals(x.selected,this.asTableFilterSelected)) {
+            this.asTableFilterSelected = this._helperService.getDeepClone(x.selected);
+            this._store.dispatch(new LoadAsSolde(this.asTableFilterSelected));
+          }
+         }
       });
 
     
@@ -73,16 +73,7 @@ idAccount: number = null;
   }
 
   ngOnInit() {
-    // this.asTableFilter$.subscribe(filter=>{
-    //   if(filter.loader['filters'] && filter.loader['filters'].loaded) {
-        
-    //     this.filterAsSelected = filter.filters.selected;
-    //     if(this.reload) {
-    //       this.loadTab();
-    //       this.reload=false;
-    //     }
-    //   }
-    // })
+
   }
 
   onTabClick($event){

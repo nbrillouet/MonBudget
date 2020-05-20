@@ -7,11 +7,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Budget.MODEL
 {
     [Table("USER", Schema = "user")]
-    public class User
+    public class User 
     {
         [Key]
         [Column("ID")]
         public int Id { get; set; }
+        
         [Column("USER_NAME")]
         public string UserName { get; set; }
         [Column("LAST_NAME")]
@@ -19,6 +20,7 @@ namespace Budget.MODEL
         [Column("FIRST_NAME")]
         public string FirstName { get; set; }
         [Column("PASSWORD_HASH")]
+        //public override byte[] PasswordHash { get; set; }
         public byte[] PasswordHash { get; set; }
         [Column("PASSWORD_SALT")]
         public byte[] PasswordSalt { get; set; }
@@ -42,6 +44,18 @@ namespace Budget.MODEL
         public string IdAvatarCloud { get; set; }
         [Column("ID_USER_GROUP")]
         public int IdUserGroup { get; set; }
+
+        [Column("MAIL_ADDRESS")]
+        public string MailAddress { get; set; }
+
+        [Column("ACTIVATION_CODE")]
+        public string ActivationCode { get; set; }
+
+        [Column("IS_MAIL_CONFIRMED")]
+        public bool IsMailConfirmed { get; set; }
+        [Column("ROLE")]
+        public string Role { get; set; }
+
         public List<UserShortcut> Shortcuts { get; set; }
         public virtual List<UserAccount> UserAccounts { get; set; }
 
@@ -52,4 +66,10 @@ namespace Budget.MODEL
         }
         
     }
+
+    public enum EnumRole {
+        Admin = 1,
+        User = 2
+    }
+
 }

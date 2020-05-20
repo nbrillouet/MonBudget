@@ -1,0 +1,349 @@
+<!-- id="product"  -->
+<!-- *ngIf="!firstLoad && (detailFilterInfo$ | async)?.loader['datas']?.loaded as loaded else tp_progress"     -->
+<div id="product"
+    *ngIf="asGenDetailFilter else tp_progress"
+    class="page-layout carded fullwidth inner-scroll"
+    fusePerfectScrollbar>
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+
+      <!-- HEADER -->
+      <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+          <!-- APP TITLE -->
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <!-- [queryParams]="{ idTab: 2 }" -->
+            <!-- [routerLink]="['/apps/account-statements/accounts',idAccount]" -->
+            <button class="mr-0 mr-sm-16" 
+                mat-icon-button
+                (click)="goBack()" >
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+
+            <div class="product-image mr-8 mr-sm-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                <img [src]="asGenForDetail.asset.code">
+            </div>
+
+            <div fxLayout="column" fxLayoutAlign="start start"
+                *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                <div class="h2"  >
+                    {{asGenForDetail.labelOperation}}
+                </div>
+                <div class="subtitle secondary-text">
+                    <span>Détail de l'opération</span>
+                </div>
+            </div>
+        </div>
+          <!-- / APP TITLE -->
+
+        <button mat-raised-button 
+            class="save-product-button mat-white-bg mt-16 mt-sm-0"
+            [disabled]= "asGenDetailForm.invalid 
+                || asGenDetailForm.pristine 
+                || (asGenForDetail.isLocalisable && asGenForDetail.operationPlace.id>3 && asGenForDetail.operationDetail.gMapAddress.id==1)"
+            (click)="updateAsGen()"
+        >
+            <span>SAVE</span>
+        </button>
+    </div>
+      <!-- / HEADER -->
+
+      <!-- CONTENT CARD -->
+    <div class="content-card mat-white-bg">
+
+        <!-- CONTENT -->
+        <div class="content" >
+
+        <form 
+            name="asDetailForm" 
+            [formGroup]="asGenDetailForm" 
+            class="product w-100-p" fxLayout="column" fxFlex
+        >
+
+            <mat-tab-group>
+                <mat-tab label="Détail">
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+                    <mat-form-field class="w-100-p">
+                            <input matInput
+                                    name="labelOperation"
+                                    formControlName="labelOperation"
+                                    placeholder="Libellé opération">
+                    </mat-form-field>
+
+                    <!-- <mat-form-field class="w-100-p">
+                        <input matInput [matDatepicker]="dpIntegration" formControlName="dateIntegration" placeholder="Date intégration" disabled> 
+                        <mat-datepicker-toggle matSuffix [for]="dpIntegration"></mat-datepicker-toggle>
+                        <mat-datepicker #dpIntegration disabled="false"></mat-datepicker>
+                    </mat-form-field> -->
+
+                    <!-- appearance="outline" floatLabel="always" -->
+                    <mat-form-field class="w-100-p"  >
+                        <mat-label>Date Intégration</mat-label>
+                        <input matInput 
+                          [matDatepicker]="dateIntegrationPicker" 
+                          formControlName="dateIntegration"> 
+                        <mat-datepicker-toggle matSuffix [for]="dateIntegrationPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #dateIntegrationPicker></mat-datepicker>
+                      </mat-form-field>
+
+
+                    <!-- <mat-form-field class="w-100-p">
+                        <input
+                            matInput
+                            name="dateIntegration"
+                            formControlName="dateIntegration"
+                            placeholder="Date intégration">
+                    </mat-form-field> -->
+
+                        <mat-form-field class="w-100-p">
+                            <input matInput
+                                type="number"
+                                name="amountOperation"
+                                formControlName="amountOperation"
+                                placeholder="Montant" >
+                            <span matPrefix >€&nbsp;</span>
+                            <mat-icon *ngIf="asGenForDetail.amountOperation>0" matSuffix  class="green-fg mr-2">trending_up</mat-icon>
+                            <mat-icon *ngIf="asGenForDetail.amountOperation<0" matSuffix  class="red-fg mr-2">trending_down</mat-icon>
+                        </mat-form-field>
+                    
+                    </div>
+                </mat-tab>
+
+                <mat-tab label="Classification">
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+                        <mat-form-field class="w-100-p" >
+                            <mat-select formControlName="operationMethod" placeholder="Méthodes d'opération" [compareWith]="compareObjects" >
+                                <mat-option *ngFor="let item of asGenDetailFilter.operationMethod" [value]="item">
+                                    {{ item.label }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        
+                        <mat-error *ngIf="asGenDetailForm.get('operationTypeFamily').errors && asGenDetailForm.get('operationTypeFamily').hasError('isUnknown')">
+                            <p>La sélection ne doit pas être inconnue</p>
+                        </mat-error>
+                        <mat-form-field class="w-100-p">
+                            <mat-select formControlName="operationTypeFamily" 
+                                placeholder="Catégories d'opération"  [compareWith]="compareObjects">
+                                <mat-option *ngFor="let item of asGenDetailFilter.operationTypeFamily" [value]="item">
+                                    {{ item.label }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-error *ngIf="asGenDetailForm.get('operationType').errors && asGenDetailForm.get('operationType').hasError('isUnknown')">
+                            <p>La sélection ne doit pas être inconnue</p>
+                        </mat-error>
+                        <mat-form-field class="w-100-p">
+                            <mat-select matInput formControlName="operationType" placeholder="Types d'opération" [compareWith]="compareObjects" >
+                                <mat-option *ngFor="let item of asGenDetailFilter.operationType" [value]="item">
+                                    {{ item.label }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <div *ngIf="!isNewOperationTemplate">
+                            <mat-error *ngIf="asGenDetailForm.get('operation').errors && asGenDetailForm.get('operation').hasError('isUnknown')">
+                                <p>La sélection ne doit pas être inconnue</p>
+                            </mat-error>
+                            <div class="w-100-p">
+                                <mat-form-field fxFlex>
+                                    <mat-select matInput formControlName="operation" placeholder="Opérations" [compareWith]="compareObjects" >
+                                        <mat-option *ngFor="let item of asGenDetailFilter.operation" [value]="item">
+                                            {{ item.label }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <button mat-mini-fab type="button" (click)="isNewOperationTemplate=!isNewOperationTemplate">
+                                    <mat-icon style="color:white">add</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <form *ngIf="isNewOperationTemplate"  name="operationAddForm" [formGroup]="operationAddForm" >
+                            <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                                <div class="h2 secondary-text">Proposition d'opération</div>
+                            </div>
+                            <div class="w-100-p" fxLayout="row">
+                                <mat-form-field fxFlex>
+                                    <input matInput
+                                        name="operationLabelTemp"
+                                        formControlName="operationLabelTemp"
+                                        placeholder="Opération">
+                                </mat-form-field>
+                                
+                                <div class="w-10-p pb-20"  fxLayoutAlign="end center">
+                                    <button 
+                                        mat-mini-fab 
+                                        (click)="isNewOperationTemplate=!isNewOperationTemplate"
+                                        matTooltip="Annuler">
+                                        <mat-icon style="color:white">cancel</mat-icon>
+                                    </button>
+
+                                    <button 
+                                        style="margin-left:20px"
+                                        mat-mini-fab 
+                                        [disabled]="operationAddForm.invalid || operationAddForm.get('operationLabelTemp').errors" 
+                                        (click)="addOperation()"
+                                        matTooltip="Valider">
+                                        <mat-icon style="color:white">check</mat-icon>
+                                    </button>
+                                </div>
+                                <!-- <mat-error *ngIf="operationAddForm.get('operationLabelTemp').errors && operationAddForm.get('operationLabelTemp').hasError('isUnknown')">
+                                    <p>L'opération doit contenir un libellé</p>
+                                </mat-error> -->
+                            </div>
+
+
+                            <!-- <button mat-raised-button 
+                                class="save-product-button mat-white-bg mt-16 mt-sm-0"
+                                [disabled]="operationAddForm.invalid || operationAddForm.get('operationLabelTemp').errors" (click)="addOperation()">
+                                <span>VALIDER</span>
+                            </button>
+                            <mat-error *ngIf="operationAddForm.get('operationLabelTemp').errors && operationAddForm.get('operationLabelTemp').hasError('isUnknown')">
+                                <p>L'opération doit contenir un libellé</p>
+                            </mat-error> -->
+                        </form>
+
+                        <div *ngIf="!isNewOperationTransverseTemplate">
+                            <div class="w-100-p" fxLayout="row" fxLayoutAlign="space-between center" >
+                                <mat-form-field class="w-90-p" fxFlex appearance="outline" floatLabel="always">
+                                    <mat-label>Opérations transverse</mat-label> 
+                                    <!-- (selectionChange)="bindAsDetail(operationTransverseAddForm)" -->
+                                    <mat-select 
+                                        matInput 
+                                        formControlName="operationTransverse" 
+                                        placeholder="Opérations transverse" 
+                                        [compareWith]="compareObjects" 
+                                        multiple>
+                                        <mat-option *ngFor="let item of asGenDetailFilter.operationTransverse" [value]="item">
+                                            {{ item.label }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div class="w-10-p pb-20"  fxLayoutAlign="end center">
+                                    <button  mat-mini-fab type="button" (click)="isNewOperationTransverseTemplate=!isNewOperationTransverseTemplate">
+                                        <mat-icon style="color:white">add</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                            
+                        <form *ngIf="isNewOperationTransverseTemplate"  name="operationTransverseAddForm" [formGroup]="operationTransverseAddForm" >
+                            <div fxLayout="row" fxLayoutAlign="space-around center">
+                                <mat-form-field class="w-90-p" appearance="outline" floatLabel="always" fxFlex>
+                                    <mat-label>Opération transverse</mat-label> 
+                                    <input matInput
+                                        name="operationTransverse"
+                                        formControlName="operationTransverse" 
+                                        placeholder="Opération transverse">
+                                </mat-form-field>
+                                
+                                <div class="w-10-p pb-20"  fxLayoutAlign="end center">
+                                    <button mat-mini-fab type="button" (click)="isNewOperationTransverseTemplate=!isNewOperationTransverseTemplate">
+                                        <mat-icon style="color:white">cancel</mat-icon>
+                                    </button>
+
+                                    <button 
+                                        style="margin-left:20px"
+                                        mat-mini-fab 
+                                        [disabled]="operationTransverseAddForm.invalid" 
+                                        (click)="addOperationTransverse()"
+                                        matTooltip="Valider">
+                                        <mat-icon style="color:white">check</mat-icon>
+                                    </button>
+
+                                 </div>
+                            </div>
+                            
+                            <!-- <button mat-raised-button 
+                                class="save-product-button mat-white-bg mt-16 mt-sm-0"
+                                [disabled]="operationTransverseAddForm.invalid" (click)="addOperationTransverse()">
+                                <span>VALIDER</span>
+                            </button>
+                            <mat-error *ngIf="operationTransverseAddForm.get('operationTransverse').errors">
+                                <p>L'opération transverse doit contenir un libellé</p>
+                            </mat-error> -->
+                        </form>
+                    </div>
+                </mat-tab>
+                
+                <mat-tab label="Mots clefs">
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+                        <div class="w-100-p" fxLayout="row" style="margin-bottom:20px">       
+                        <mat-card  style="width:100%">
+                            <mat-card-header>
+                                <div mat-card-avatar><mat-icon>feedback</mat-icon></div>
+                                <mat-card-title>Les mots clefs permettent de retrouver les informations dans le libellé d'opérations.</mat-card-title>
+                                <mat-card-subtitle>Un mot clef ne doit pas comporter d'espace, ni de caractères spéciaux (-/*)</mat-card-subtitle>
+                            </mat-card-header>
+                        </mat-card> 
+                    </div>
+
+                        
+                        <div class="w-100-p" fxLayout="row">
+                            <mat-form-field fxFlex>
+                                <input matInput
+                                    name="operationKeywordTemp"
+                                    formControlName="operationKeywordTemp"
+                                    placeholder="Mot clef pour recherche de l'opération">
+                            </mat-form-field>
+                        </div>
+                        <div class="w-100-p" fxLayout="row" *ngIf="asGenForDetail.isLocalisable && asGenForDetail.operationDetail.gMapAddress.id!=2 && asGenForDetail.operationDetail.gMapAddress.id!=3" >
+                            <mat-form-field fxFlex>
+                                <input matInput 
+                                    name="placeKeywordTemp"
+                                    formControlName="placeKeywordTemp"
+                                    placeholder="Mot clef pour recherche du lieu d'opération">
+                            </mat-form-field>
+                        </div>
+                        <mat-error *ngIf="asGenDetailForm.get('placeKeywordTemp').errors && asGenDetailForm.get('placeKeywordTemp').hasError('isLocalisable')">
+                            <p>La sélection ne doit pas être vide</p>
+                        </mat-error>
+                    </div>
+                </mat-tab>
+                
+                <mat-tab label="Géolocalisation" [disabled]="asGenForDetail && !asGenForDetail.isLocalisable">
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+                        <mat-error *ngIf="asGenDetailForm.get('operationPlace').errors && asGenDetailForm.get('operationPlace').hasError('isUnknown')">
+                            <p>La sélection ne doit pas être inconnue</p>
+                        </mat-error>
+                        <div style="margin-left:10px;margin-right:10px;" class="w-100-p" fxLayout="row">
+                            <mat-form-field fxFlex>
+                                <mat-select formControlName="operationPlace" placeholder="Lieu opération" [compareWith]="compareObjects" >
+                                    <mat-option *ngFor="let item of asGenDetailFilter.operationPlace" [value]="item">
+                                        {{ item.label }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        
+                        <g-map-search *ngIf="asGenForDetail.gMapSearchInfo" [gMapSearchInfo]="asGenForDetail.gMapSearchInfo" (changeGMapAddress)="onChangeGMapAddress($event)"></g-map-search>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </form>
+
+        </div>
+        <!-- / CONTENT -->
+
+    </div>
+      <!-- / CONTENT CARD -->
+
+  </div>
+  <!-- / CENTER -->
+</div>
+
+<ng-template #tp_progress>
+    <mat-progress-bar
+        color="primary"
+        mode="indeterminate">
+    </mat-progress-bar>
+</ng-template>
+

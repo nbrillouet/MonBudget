@@ -57,22 +57,36 @@ namespace Budget.API.Controllers
             return Ok(pagedList);
         }
 
-        [HttpPost]
-        [Route("detail")]
-        public IActionResult GetAsifDetail([FromBody] FilterAsifDetail filter)
+        //[HttpPost]
+        //[Route("detail")]
+        //public IActionResult GetAsifDetail([FromBody] FilterAsifDetail filter)
+        //{
+        //    var asifDto = _accountStatementImportFileService.GetAsifDetail(filter);
+
+        //    return Ok(asifDto);
+        //}
+        [HttpGet]
+        [Route("{idAsif}/asif-detail")]
+        public IActionResult GetForDetail(int idAsif)
         {
-            var asifDto = _accountStatementImportFileService.GetAsifDetail(filter);
-            
-            return Ok(asifDto);
+            var results = _accountStatementImportFileService.GetForDetail(idAsif);
+            return Ok(results);
+        }
+
+        [HttpPost]
+        [Route("asif-detail-filter")]
+        public IActionResult GetForDetailFilter([FromBody] AsifForDetail asifForDetail)
+        {
+            return Ok(_filterService.FilterDetailService.GetFilterForAsif(asifForDetail));
         }
 
         [HttpPost]
         [Route("update")]
-        public IActionResult update([FromBody] AsifDetailDto asifDetailDto)
+        public IActionResult update([FromBody] AsifForDetail asifForDetail)
         {
             try
             {
-                var result = _accountStatementImportFileService.Update(asifDetailDto);
+                var result = _accountStatementImportFileService.Update(asifForDetail);
 
                 return Ok(result);
             }

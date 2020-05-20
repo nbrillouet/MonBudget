@@ -4346,7 +4346,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, a, .td
     }
   
     .presentation-title {
-      font-size: 5em;
+      font-size: 8em;
     }
   
     .presentation-subtitle {
@@ -5745,7 +5745,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, a, .td
     width: 100%;
     z-index: 1;
     display: flex;
-    align-items: center;
+    // align-items: center;
     justify-content: center;
   }
   .page-header .filter::after {
@@ -5929,7 +5929,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, a, .td
   }
   
   .presentation-title {
-    font-size: 8em;
+    font-size: 7em;
     font-weight: 700;
     margin: 0;
     color: #FFFFFF;
@@ -5980,7 +5980,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, a, .td
   }
   
   .page-header .content-center {
-    margin-top: 50px;
+    margin-top: 10px;
   }
   
   .moving-clouds {
@@ -6013,3 +6013,18 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, a, .td
   .example-spacer {
     flex: 1 1 auto;
   }
+
+  .fixed-toolbar {
+    position: sticky;
+    position: -webkit-sticky; /* For macOS/iOS Safari */
+    top: 0; /* Sets the sticky toolbar to be on top */
+    z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+  }
+  // .button-svg {
+  //   background: url('assets/images/home/Login2.png') no-repeat;
+  //   background-size: 100%;
+  //   cursor:pointer;
+  //   width: 100px;
+  //   height: 30px;
+  //   // border: none;
+  // }

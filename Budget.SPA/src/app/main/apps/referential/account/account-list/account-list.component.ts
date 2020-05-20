@@ -20,7 +20,8 @@ import { IAccountForDetail, IAccount } from 'app/main/_models/referential/accoun
 export class AccountListComponent implements OnInit {
 @Select(UserDetailState.getUser) user$: Observable<IUser>;
 
-bankAgencies: IBankAgencyAccounts[];
+currentUser: IUser;
+// bankAgencies: IBankAgencyAccounts[];
 checkboxes: number[]=[];
 hasSelectedAccounts: boolean = false;
 linkUserToolTip: string;
@@ -35,7 +36,7 @@ confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
  
     this.user$.subscribe((user:IUser) => {
       if(user) {
-          this.bankAgencies = user.bankAgencies;
+        this.currentUser = user;
       }
     });
   }
@@ -70,8 +71,7 @@ confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
     this.confirmDialogRef.afterClosed().subscribe(result => {
         if (result)
         {
-            let user: IUser = JSON.parse(localStorage.getItem('user'));
-            this._referentialService.accountService.delete(user.id,account)
+            this._referentialService.accountService.delete(this.currentUser.id,account)
             .subscribe(next => {
               this.deleteFromBankAgencies(account.id);
               this.notificationService.success('Suppression réussi', 'Compte supprimé');
@@ -98,7 +98,7 @@ confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
 
   deleteFromBankAgencies(idAccount:number) {
         
-    for(let bankAgency of this.bankAgencies)
+    for(let bankAgency of this.currentUser.bankAgencies)
     {
       var index = bankAgency.accounts.findIndex(x=>x.id==idAccount);
       if (index > -1) {

@@ -15,12 +15,6 @@ namespace Budget.MODEL.Filter
         
         public bool IsWithITransfer { get; set; }
         public Pagination Pagination { get; set; }
-
-        //public FilterAsTableSelected()
-        //{
-        //    this.EnumFilterTableSelectedType = EnumFilterTableSelectedType.accountStatement;
-        //}
-
     }
 
     public class FilterAsTableSelection
@@ -35,11 +29,21 @@ namespace Budget.MODEL.Filter
         }
     }
 
-    public class FilterAsDetail
+    public class FilterAsForDetail
     {
-        public int? IdAs { get; set; }
-        public UserForGroupDto User { get; set; }
+        public List<Select> OperationMethod { get; set; }
+        public List<Select> OperationTypeFamily { get; set; }
+        public List<Select> OperationType { get; set; }
+        public List<Select> Operation { get; set; }
+        public List<Select> OperationTransverse { get; set; }
+        public List<Select> OperationPlace { get; set; }
     }
+
+    //public class FilterAsDetail
+    //{
+    //    public int? IdAs { get; set; }
+    //    //public UserForGroupDto User { get; set; }
+    //}
 
 
     

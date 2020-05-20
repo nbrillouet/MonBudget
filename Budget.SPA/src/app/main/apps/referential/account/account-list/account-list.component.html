@@ -40,7 +40,7 @@
     
     
     <div fxLayout='column' class="cards">
-        <div *ngFor="let bankAgency of bankAgencies">
+        <div *ngFor="let bankAgency of currentUser.bankAgencies">
             <mat-card class="example-card" >
                 <mat-card-header >
                     <img mat-card-avatar src="assets/images/{{bankAgency.bankFamily.logoClassName}}"   alt="bank agency logo">

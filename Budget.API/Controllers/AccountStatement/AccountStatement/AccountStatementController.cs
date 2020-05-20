@@ -177,15 +177,29 @@ namespace Budget.API.Controllers
 
         //}
 
-        [HttpPost]
-        [Route("detail")]
-        public IActionResult GetAsDetail([FromBody] FilterAsDetail filter)
+        [HttpGet]
+        [Route("{idAs}/as-detail")]
+        public IActionResult GetForDetail(int idAs)
         {
-
-            var asifDto = _accountStatementService.GetAsDetail(filter);
-
-            return Ok(asifDto);
+            var results = _accountStatementService.GetForDetail(idAs);
+            return Ok(results);
         }
+
+        [HttpPost]
+        [Route("as-detail-filter")]
+        public IActionResult GetForDetailFilter([FromBody] AsForDetail asForDetail)
+        {
+            return Ok(_filterService.FilterDetailService.GetFilterForAs(asForDetail));
+        }
+
+        //[HttpPost]
+        //[Route("detail")]
+        //public IActionResult GetAsDetail([FromBody] FilterAsDetail filter)
+        //{
+        //    var asifDto = _accountStatementService.GetAsDetail(filter);
+
+        //    return Ok(asifDto);
+        //}
 
         [HttpPost]
         [Route("solde-filter")]
@@ -199,11 +213,11 @@ namespace Budget.API.Controllers
 
         [HttpPost]
         [Route("update")]
-        public IActionResult update([FromBody] AsDetailDto asDetailDto)
+        public IActionResult Update([FromBody] AsForDetail asForDetail)
         {
             try
             {
-                var result = _accountStatementService.Update(asDetailDto);
+                var result = _accountStatementService.Update(asForDetail);
 
                 return Ok(result);
             }
@@ -213,7 +227,7 @@ namespace Budget.API.Controllers
             }
         }
 
-        
+
 
     }
 }

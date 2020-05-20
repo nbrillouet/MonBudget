@@ -1,5 +1,5 @@
 // import { State, Selector, Action, StateContext } from "app/main/_ngxs/navigation/node_modules/@ngxs/store";
-import { LoadNavigation, AddNavigation } from "./navigation.action";
+import { LoadNavigation, AddNavigation, ClearNavigation } from "./navigation.action";
 import { State, Selector, Action, StateContext } from "@ngxs/store";
 import { Injectable } from "@angular/core";
 
@@ -56,6 +56,11 @@ export class NavigationState {
             // result //action.payload[0]
         // );
 
+    }
+
+    @Action(ClearNavigation)
+    clearNavigation(context: StateContext<NavigationStateModel>) {
+        return context.setState(new NavigationStateModel());
     }
 
     

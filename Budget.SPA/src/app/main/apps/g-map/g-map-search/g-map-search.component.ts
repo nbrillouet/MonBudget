@@ -89,6 +89,10 @@ export class GMapSearchComponent implements OnInit,OnChanges {
     this.changeLocation(keyword);
   }
 
+  cancelSearch(){
+    this.searchVisible=!this.searchVisible;
+    this.addressVisible=!this.addressVisible;
+  }
   changeLocation(keyword: string)
   {
     this.gMapService.GetGeoById(keyword)

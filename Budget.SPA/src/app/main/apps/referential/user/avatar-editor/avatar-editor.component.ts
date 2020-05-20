@@ -25,7 +25,7 @@ export class AvatarEditorComponent implements OnInit {
   uploader: FileUploader = new FileUploader({});
   hasBaseDropZoneOver: boolean = false;
   baseUrl = environment.apiUrl;
-  user: IUser;
+  currentUser: IUser;
 
   constructor(
     private authService: AuthService,
@@ -36,7 +36,7 @@ export class AvatarEditorComponent implements OnInit {
   ngOnInit() {
     this.user$.subscribe((user:IUser) => {
       if(user) {
-          this.user = user;
+          this.currentUser = user;
       }
     });
 
@@ -49,10 +49,10 @@ export class AvatarEditorComponent implements OnInit {
 
   initializeUploader() {
 
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    // let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.uploader = new FileUploader({
-      url: `${this.baseUrl}users/${this.user.id}/avatar`,
-      authToken: `Bearer ${currentUser.token}`,
+      url: `${this.baseUrl}users/${this.currentUser.id}/avatar`,
+      authToken: `Bearer ${this.currentUser.token}`,
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,
@@ -63,7 +63,7 @@ export class AvatarEditorComponent implements OnInit {
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const res: IUser = JSON.parse(response);
-        this.user.avatarUrl = res.avatarUrl;
+        this.currentUser.avatarUrl = res.avatarUrl;
 
 
         // this.authService.changeAvatar(res.avatarUrl);
@@ -71,7 +71,7 @@ export class AvatarEditorComponent implements OnInit {
         //pour fonctionnement meme quand refresh du navigateur:
         // this.authService.currentUser.avatarUrl = res.avatarUrl;
         // localStorage.setItem('user',JSON.stringify(this.authService.currentUser));
-        this._store.dispatch(new LoadUserDetail(this.user))
+        this._store.dispatch(new LoadUserDetail(this.currentUser))
         this.notificationService.success('Enregistrement réussi', 'Votre avatar est modifié');
 
       }

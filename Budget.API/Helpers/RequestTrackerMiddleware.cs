@@ -55,7 +55,10 @@ namespace Budget.API.Helpers
 
             //Continue down the Middleware pipeline, eventually returning to this class
             await _next(context);
+            //var toto = context.User.FindFirst(ClaimTypes.Role).Value;
             var idUser = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+
             if (idUser!=null)
             {
                 User user = await _userService.GetByIdAsync(Convert.ToInt32(idUser));

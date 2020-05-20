@@ -1,21 +1,31 @@
 import { environment } from "environments/environment";
 import { Injectable } from "@angular/core";
-import { IUserForGroup } from "app/main/_models/user.model";
+import { IUserForGroup, IUser } from "app/main/_models/user.model";
 import { HttpClient } from "@angular/common/http";
 import { FilterPlanPosteTableSelected, FilterPlanPosteTableSelection, PlanPosteReferenceFilter } from "app/main/_models/filters/plan-poste.filter";
 import { PlanPosteForDetail, PlanPosteFrequencyFilter, PlanPosteFrequencyForDetail } from "app/main/_models/plan.model";
 import { ComboMultiple } from "app/main/_models/generics/combo.model";
 import { ISelectGroup } from "app/main/_models/generics/select.model";
+import { Select } from "@ngxs/store";
+import { UserDetailState } from "app/main/_ngxs/user/user-detail/user-detail.state";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class PlanPosteService {
+    @Select(UserDetailState.getUser) user$: Observable<IUser>;
+    
 baseUrl = environment.apiUrl;
-user = JSON.parse(localStorage.getItem('currentUser'));
-userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:this.user.idUserGroup} : null;
+currentUser: IUser;
+userForGroup: IUserForGroup; 
 
     constructor(
         private http: HttpClient
-    ) { }
+    ) {
+        this.user$.subscribe((user:IUser) => {
+            this.currentUser = user;
+            this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
+        });
+     }
     
     getPlanPosteTableFilter(filter: FilterPlanPosteTableSelected) {
         // filter.user=this.userForGroup;

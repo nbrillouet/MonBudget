@@ -35,9 +35,18 @@ export class FilterAsTableSelection {
 }
 
 export class FilterAsDetail {
-    idAs: number;
-    user: IUserForGroup;
+    operation : ISelect[];
+    operationMethod: ISelect[];
+    operationType: ISelect[];
+    operationTypeFamily: ISelect[];
+    operationPlace: ISelect[];
+    operationTransverse: ISelect[];
 }
+
+// export class FilterAsDetail {
+//     idAs: number;
+//     user: IUserForGroup;
+// }
 
 
 

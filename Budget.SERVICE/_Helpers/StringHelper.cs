@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Budget.SERVICE._Helpers
@@ -12,6 +13,14 @@ namespace Budget.SERVICE._Helpers
                 return $"assets/images/Otf/{logoClassName}_{logoSize}.png";
 
             return $"assets/images/Otf/OtfInconnu_{logoSize}.png";
+        }
+
+        private static Random random = new Random();
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

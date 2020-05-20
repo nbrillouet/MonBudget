@@ -14,10 +14,9 @@ namespace Budget.SERVICE
         void Update(AccountForDetailDto accountForDetailDto);
         Account Create(int idUser, AccountForDetailDto accountForDetailDto);
         Account GetByNumber(string number);
-
         List<Account> GetAll();
         List<Account> GetByIdBankAgency(int idBankAgency);
-
+        Select GetSelectById(int idAccount);
 
         void Update(Account account);
         void Delete(Account account);

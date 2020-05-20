@@ -2,21 +2,30 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ISelect, EnumSelectType } from 'app/main/_models/generics/select.model';
-import { IUserForGroup } from 'app/main/_models/user.model';
+import { IUserForGroup, IUser } from 'app/main/_models/user.model';
 import { FilterOtTableSelected, FilterOtTableSelection, FilterOtDetail } from 'app/main/_models/filters/operation-type.filter';
 import { OtForDetail } from 'app/main/_models/referential/operation-type.model';
 import { FilterForDetail } from 'app/main/_models/filters/shared/filterDetail.filter';
+import { Select } from '@ngxs/store';
+import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class OtService {
+    @Select(UserDetailState.getUser) user$: Observable<IUser>;
 
     baseUrl = environment.apiUrl;
-    user = JSON.parse(localStorage.getItem('currentUser'));
-    userForGroup = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:this.user.idUserGroup} : null;
-  
+    currentUser: IUser;
+    userForGroup: IUserForGroup; 
+
     constructor(
             private _httpClient: HttpClient
-        ) { }
+        ) {
+            this.user$.subscribe((user:IUser) => {
+                this.currentUser = user;
+                this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
+            });
+         }
         
         GetSelectList(idOperationTypeFamily: number, enumSelectType: EnumSelectType) {
             return this._httpClient
@@ -46,7 +55,6 @@ export class OtService {
         }
         
         getForDetail(filter: FilterForDetail) {
-            console.log('filter',filter);
           return this._httpClient
               .get(`${this.baseUrl}referential/operation-types/${filter.id}/users/${this.userForGroup.id}/detail`)
               .map(response => <OtForDetail>response)
@@ -59,7 +67,7 @@ export class OtService {
 
         getSelectListByOperationTypeFamily(operationTypeFamilies: ISelect[]) {
             return this._httpClient
-                .post(`${this.baseUrl}referential/operation-types/user-groups/${this.user.idUserGroup}/select-list`,operationTypeFamilies)
+                .post(`${this.baseUrl}referential/operation-types/user-groups/${this.currentUser.idUserGroup}/select-list`,operationTypeFamilies)
                 .map(res=><ISelect[]>res);
         }
 

@@ -49,12 +49,16 @@ namespace Budget.MODEL.Filter
         }
     }
 
-    public class FilterAsifDetail
-    {
-        public int? IdAsif { get; set; }
-        public UserForGroupDto User { get; set; }
-    }
+    //public class FilterAsifDetail
+    //{
+    //    public int? IdAsif { get; set; }
+    //    public UserForGroupDto User { get; set; }
+    //}
 
+    public class FilterAsifForDetail: FilterAsForDetail
+    {
+
+    }
 
     //public class FilterAccountStatementImportFile : Pagination
     //{
