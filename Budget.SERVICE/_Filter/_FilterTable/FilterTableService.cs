@@ -60,13 +60,10 @@ namespace Budget.SERVICE
         public FilterAsiTableSelection GetFilterAsiTable(FilterAsiTableSelected filter)
         {
             FilterAsiTableSelection filterAsiTable = new FilterAsiTableSelection();
-            //filterAsiTable.Selected = filter;
 
             var BankAgencies = _accountStatementImportService.GetDistinctBankAgencies(filter.IdUser.Value);
             var BankAgenciesDto = _mapper.Map<List<BankAgencyDto>>(BankAgencies);
             filterAsiTable.BankAgencies = BankAgenciesDto;
-
-            //filterAsiTable.Selected.IdBankAgency = BankAgenciesDto.Count==0 ? null : filter.IdBankAgency == null ? BankAgenciesDto[0].Id : filter.IdBankAgency;
 
             return filterAsiTable;
         }
@@ -96,23 +93,25 @@ namespace Budget.SERVICE
             filterAsifTable.Operation = operations;
 
             return filterAsifTable;
-
         }
 
         public FilterUserTableSelection GetFilterUserTable(FilterUserTableSelected filter)
         {
             FilterUserTableSelection filterUserTable = new FilterUserTableSelection();
-            //filterUserTable.Selected = filter;
 
             return filterUserTable;
+        }
+
+        public FilterAccountTableSelection GetFilterAccountTable(FilterAccountTableSelected filter)
+        {
+            FilterAccountTableSelection filterAccountTableSelection = new FilterAccountTableSelection();
+            return filterAccountTableSelection;
         }
 
         public FilterOtfTableSelection GetFilterOtfTable(FilterOtfTableSelected filter)
         {
             FilterOtfTableSelection filterOtfTable = new FilterOtfTableSelection();
-            //{
-            //    Selected = filter
-            //};
+
             var Movements = _referentialService.MovementService.GetSelectList(EnumSelectType.Empty);
 
             filterOtfTable.Movement = Movements;

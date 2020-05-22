@@ -1,4 +1,6 @@
-﻿using Budget.MODEL.Database;
+﻿using Budget.MODEL;
+using Budget.MODEL.Database;
+using Budget.MODEL.Filter;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,26 @@ namespace Budget.DATA.Repositories
     {
         public AccountRepository(BudgetContext context) : base(context)
         {
+        }
+
+        public PagedList<Account> GetForTable(FilterAccountTableSelected filter)
+        {
+            var accounts = Context.Account
+                .Where(x => x.UserAccounts.Any(o => o.IdUser == filter.User.Id))
+                .Include(x => x.BankAgency)
+                .Include(x=>x.BankAgency.BankSubFamily)
+                .Include(x => x.BankAgency.BankSubFamily.BankFamily)
+                        //.ThenInclude(x => x.BankSubFamily)
+                        .ThenInclude(x => x.Asset)
+                .Include(x => x.AccountType)
+                .Include(x => x.UserAccounts)
+                    .ThenInclude(ua => ua.User)
+                .AsQueryable();
+
+            accounts = GenericTableFilter.GetGenericFilters(accounts, filter);
+
+            var results = PagedListRepository<Account>.Create(accounts, filter.Pagination);
+            return results;
         }
 
         public Account GetForDetailById(int id)

@@ -44,7 +44,7 @@ export class AccountForDetailState extends LoaderState {
         state.datas = null;
         context.patchState(state);
 
-        this._referentialService.accountService.GetForDetail(action.payload)
+        this._referentialService.accountService.getForDetail(action.payload)
             .subscribe(result=> {
                 let state = context.getState();
                 state.datas = result;

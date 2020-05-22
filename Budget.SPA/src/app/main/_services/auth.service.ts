@@ -122,16 +122,14 @@ export class AuthService {
     changePassword(user: UserForPasswordChange) {
         return this._httpClient
             .post<any>(`${this.baseUrl}auth/change-password`,user);
-
     }
 
     logout() {
         // remove user from local storage to log user out
         this.currentUser = null;
-        // localStorage.removeItem('token');
         this._store.dispatch(new ClearNavigation());
         this._store.dispatch(new ClearUserDetail());
-
+        localStorage.clear();
         
         this._notificationsService.info('logged out success','Vous êtes maintenant déconnecté');
         this._router.navigate(['/pages/auth/login']);

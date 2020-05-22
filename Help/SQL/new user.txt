@@ -8,3 +8,7 @@ ID	USER_NAME	LAST_NAME	FIRST_NAME	PASSWORD_HASH	PASSWORD_SALT	GENDER	BIRTH_DATE	
 
 
   insert into [XmlToSwift_Demo].[ref].[ASSET] values ('images\Otf','OtfEnfant','svg',1)
+  
+  
+  insert into [XmlToSwift_Demo].[ref].[ASSET] values ('images\bank-family','BP','svg',2)
+  insert into [XmlToSwift_Demo].[ref].[ASSET] values ('images\bank-family','CA','svg',2)

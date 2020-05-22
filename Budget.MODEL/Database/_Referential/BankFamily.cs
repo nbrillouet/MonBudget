@@ -19,9 +19,9 @@ namespace Budget.MODEL.Database
         [Column("LABEL_LONG")]
         [StringLength(50)]
         public string LabelLong { get; set; }
-
-        [Column("LOGO_CLASS_NAME")]
-        [StringLength(30)]
-        public string LogoClassName { get; set; }
+        [Column("ID_ASSET")]
+        public int IdAsset { get; set; }
+        [ForeignKey("IdAsset")]
+        public Asset Asset { get; set; }
     }
 }

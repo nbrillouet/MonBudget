@@ -34,7 +34,7 @@ export class AccountStatementTableComponent implements OnInit, OnDestroy {
   asTableFilterSelection$$: Subscription;
   asTableFilterSelected$$: Subscription;
   asTable$$: Subscription;
-
+  
   filterAsSelected: FilterAsTableSelected;
   matTableFilter: MatTableFilter = {
     columns: AS_MODEL_1_COLUMNS,

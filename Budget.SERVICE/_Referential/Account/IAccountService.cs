@@ -1,5 +1,7 @@
-﻿using Budget.MODEL.Database;
+﻿using Budget.MODEL;
+using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
+using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +10,7 @@ namespace Budget.SERVICE
 {
     public interface IAccountService
     {
+        PagedList<AccountForTable> GetForTable(FilterAccountTableSelected filterAccountTableSelected);
         AccountForDetailDto GetForDetailById(int id);
         Account GetFullById(int idAccount);
         Account GetById(int idAccount);

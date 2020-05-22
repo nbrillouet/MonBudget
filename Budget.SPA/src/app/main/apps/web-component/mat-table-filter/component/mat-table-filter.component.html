@@ -128,7 +128,10 @@
 
                 <!-- STYLE: IMAGE -->
                 <div *ngSwitchCase="enumStyleType.image">
-                  <img class="avatar small" [src]="row[column.field]">
+                  <img 
+                    class="avatar small" 
+                    [src]="row[column.field]"
+                  >
                 </div>
     
                 <!-- STYLE: NUMBER-UP-DOWN -->
@@ -201,7 +204,7 @@
     </p>
   </div>
 
-    <mat-paginator *ngIf="filterSelected && matTableFilter.columns && rows && rows.length>0"
+    <mat-paginator *ngIf="filterSelected && filterSelected['pagination'] && matTableFilter.columns && rows && rows.length>0"
       [style.visibility]="!onloading ? 'visible' : 'hidden'"
       (page)="onPageChangeEvent($event)"
       [length]="filterSelected['pagination'].totalItems" 

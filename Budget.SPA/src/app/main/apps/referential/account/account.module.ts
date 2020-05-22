@@ -11,6 +11,10 @@ import { AccountForDetailState } from 'app/main/_ngxs/referential/account/accoun
 import { AngularMaterialModule } from 'app/angular-material.module';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
 import { AccountService } from 'app/main/_services/Referential/account.service';
+import { AccountTableFilterSelectionState } from 'app/main/_ngxs/referential/account/account-table/account-table-filter-selection/account-table-filter-selection.state';
+import { AccountTableFilterSelectedState } from 'app/main/_ngxs/referential/account/account-table/account-table-filter-selected/account-table-filter-selected.state';
+import { AccountTableState } from 'app/main/_ngxs/referential/account/account-table/account-table.state';
+import { MatTableFilterModule } from '../../web-component/mat-table-filter/mat-table-filter.module';
 
 const routes = [
   {
@@ -35,10 +39,13 @@ const routes = [
     FuseSharedModule,
     AngularMaterialModule,
     FuseConfirmDialogModule,
+    MatTableFilterModule,
     RouterModule.forChild(routes),
     NgxsModule.forFeature([
-      AccountForDetailState
-
+      AccountForDetailState,
+      AccountTableFilterSelectionState,
+      AccountTableFilterSelectedState,
+      AccountTableState
   ])
   ],
   declarations: [

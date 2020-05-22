@@ -39,3 +39,17 @@ export interface AreaImport {
     errorView: boolean,
     loadingView:boolean
 }
+
+export class AccountForTable {
+    id : number;
+    number : string;
+    label : string;
+    bankAgency : ISelect;
+    bankSubFamily: ISelect;
+    bankFamily: ISelect;
+    startAmount: number;
+    accountType: ISelect;
+    alertThreshold: number;
+    linkedUsers: ISelect[];
+    solde: number;
+}

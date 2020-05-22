@@ -6,6 +6,8 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Budget.MODEL.Filter;
+using Budget.MODEL;
 
 namespace Budget.SERVICE
 {
@@ -37,14 +39,20 @@ namespace Budget.SERVICE
             _mapper = mapper;
 
         }
+
+        public PagedList<AccountForTable> GetForTable(FilterAccountTableSelected filter)
+        {
+            var pagedList = _accountRepository.GetForTable(filter);
+
+            var results = new PagedList<AccountForTable>(_mapper.Map<List<AccountForTable>>(pagedList.Datas), pagedList.Pagination);
+            //var AccountForTables = _mapper.Map<List<AccountForTable>>(accounts);
+
+            return results;
+        }
+
         public Account GetByNumber(string number)
         {
             Account account = _accountRepository.GetByNumber(number);
-            //if (account == null)
-            //{
-            //    account = GetById((int)EnumAccount.Inconnu);
-            //    account.Number = number;
-            //}
             return account;
         }
 

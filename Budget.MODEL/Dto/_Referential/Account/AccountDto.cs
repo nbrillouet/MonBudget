@@ -5,16 +5,20 @@ using System.Text;
 
 namespace Budget.MODEL.Dto
 {
-    //public class AccountDto
-    //{
-    //    public int Id { get; set; }
-    //    public string Number { get; set; }
-    //    public string Label { get; set; }
-    //    public BankSubFamily BankAgency { get; set; }
-    //    public double StartAmount { get; set; }
-    //    public AccountType AccountType { get; set; }
-    //    public double AlertThreshold { get; set; }
-    //}
+    public class AccountForTable
+    {
+        public int Id { get; set; }
+        public string Number { get; set; }
+        public string Label { get; set; }
+        public Select BankAgency { get; set; }
+        public Select BankSubFamily { get; set; }
+        public SelectCode BankFamily { get; set; }
+        public double StartAmount { get; set; }
+        public Select AccountType { get; set; }
+        public double AlertThreshold { get; set; }
+        public List<Select> LinkedUsers { get; set; }
+        public double Solde { get; set; }
+    }
 
     public class AccountForLabelDto
     {

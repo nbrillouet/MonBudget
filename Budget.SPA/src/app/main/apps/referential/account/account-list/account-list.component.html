@@ -1,101 +1,47 @@
-
 <div id="products" class="page-layout carded fullwidth inner-scroll">
-  <!-- TOP BACKGROUND -->
-  <div class="top-bg accent header-1-background"></div>
-  <!-- / TOP BACKGROUND -->
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent header-1-background"></div>
+    <!-- / TOP BACKGROUND -->
+  
+      <!-- CENTER -->
+      <div class="center">
+  
+          <!-- HEADER -->
+          <div class="header-2-background accent p-12" fxLayout="row" fxLayoutAlign="space-between">
+              <!-- APP TITLE -->
+              <div fxLayout="row" fxLayoutAlign="space-between center" >
+                  <div fxLayout="row" fxLayoutAlign="start center" >
+                      <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                          account_balance
+                      </mat-icon>
+                      
+                      <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                          Comptes bancaires
+                      </span>
+                  </div>
+              </div>
+  
+              <!-- BUTTON -->
+              <div fxflex fxLayoutAlign="end center">
+                  <button mat-raised-button
+                          class="save-product-button white mt-16 mt-sm-0"
+                          [routerLink]="'/apps/referential/accounts/new'">
+                      <span>AJOUTER UN COMPTE</span>
+                  </button>
+              </div>
+          </div>
 
-    <!-- CENTER -->
-    <div class="center">
 
-        <!-- HEADER -->
-        <div class="header-2-background accent p-12" fxLayout="row" fxLayoutAlign="space-between">
-            <!-- APP TITLE -->
-            <div fxLayout="row" fxLayoutAlign="space-between center" >
-                <div fxLayout="row" fxLayoutAlign="start center" >
-                    <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-                        account_balance
-                    </mat-icon>
-                    
-                    <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                        Comptes bancaires
-                    </span>
-                </div>
-            </div>
-
-            <!-- BUTTON -->
-            <div fxflex fxLayoutAlign="end center">
-                <button mat-raised-button
-                        class="save-product-button white mt-16 mt-sm-0"
-                        [routerLink]="'/apps/referential/accounts/new'">
-                    <span>AJOUTER UN COMPTE</span>
-                </button>
-            </div>
-        </div>
-
-    
-    
-    
-    
-    
-    
-    
-    <div fxLayout='column' class="cards">
-        <div *ngFor="let bankAgency of currentUser.bankAgencies">
-            <mat-card class="example-card" >
-                <mat-card-header >
-                    <img mat-card-avatar src="assets/images/{{bankAgency.bankFamily.logoClassName}}"   alt="bank agency logo">
-                    <mat-card-title>{{bankAgency.bankSubFamily.labelLong}}</mat-card-title>
-                    <mat-card-subtitle>{{bankAgency.label}}</mat-card-subtitle>
-                </mat-card-header>
-                
-                <mat-card-content>
-                    <div fxLayout='column' >
-
-                        <div fxLayout="row" fxLayoutAlign="start center" style="background-color: #EDEEEF;color: #1F1F1F;" >
-                            <div fxflex = "0%" [hidden]="true"></div>
-                            <div fxFlex = "20%">Numéro de compte</div>
-                            <div fxFlex = "20%">Nom du compte</div>
-                            <div fxFlex = "20%"><mat-icon matTooltip="compte joint">link</mat-icon></div>
-                        </div>
-
-                        <div fxLayout='column' *ngFor="let account of bankAgency.accounts;last as last">
-                            <div fxLayout='row' fxLayoutAlign="start center" >
-                                <div  fxflex = "0%" [hidden]="true">{{account.id}}</div>
-                                <div  fxFlex = "20%" >{{account.number}}</div>
-                                <div  fxFlex = "20%" >{{account.label}}</div>
-                                <div  fxFlex = "20%" >
-                                    <mat-icon (mouseover)="visualizeLinkedUser(account)" matTooltip="{{linkUserToolTip}}" *ngIf="account.linkedUsers.length>0">link</mat-icon>
-                                </div>
-                                <div  fxFlex></div>
-                                <div  fxFlex = "30px" fxLayoutAlign="right center">
-                                    <button  matTooltip="Supprimer" 
-                                        mat-icon-button
-                                        (click)="delete(account)">
-                                        <mat-icon>delete</mat-icon>
-                                    </button>
-                                </div>
-                                <div  fxFlex = "30px" fxLayoutAlign="right center">
-                                    <button  
-                                        matTooltip="Détail" 
-                                        mat-icon-button
-                                        [routerLink]="['/apps/referential/accounts/', account.id]">
-                                        <mat-icon>more_horiz</mat-icon>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="list-divider"></div>
-                        </div>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-            <br>
-        </div>
-    </div>
-            
-
-    <!-- </div>  -->
-
-    </div>
-
+<div class="content-card">
+    <mat-table-filter 
+        [matTableFilter]="matTableFilter"
+        (onRowClick)="onRowClick($event)"
+        (changeFilterSelected)="applyFilterSelected($event)"
+        (changeFilterSelection)="applyFilterSelection($event)"
+        (toolbarAddItemEvent)="addItem($event)"
+        (toolbarDeleteItemsEvent)="deleteItems($event)">
+    </mat-table-filter>
 </div>
 
+</div>
+</div>

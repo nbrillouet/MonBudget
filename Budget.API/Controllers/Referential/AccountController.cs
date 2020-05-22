@@ -1,4 +1,5 @@
 ﻿using Budget.MODEL.Dto;
+using Budget.MODEL.Filter;
 using Budget.SERVICE;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +16,34 @@ namespace Budget.API.Controllers.Referential
     public class AccountController : Controller
     {
         private IAccountService _accountService;
+        private FilterService _filterService;
 
         public AccountController(
-            IAccountService accountService
+            IAccountService accountService,
+            FilterService filterService
         )
         {
             _accountService = accountService;
+            _filterService = filterService;
+        }
+
+        [HttpPost]
+        [Route("account-table-filter")]
+        public IActionResult getForTableFilter([FromBody] FilterAccountTableSelected filter)
+        {
+            var result = _filterService.FilterTableService.GetFilterAccountTable(filter);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("account-table")]
+        public IActionResult getForTable([FromBody] FilterAccountTableSelected filter)
+        {
+
+            var pagedList = _accountService.GetForTable(filter);
+
+            return Ok(pagedList);
         }
 
         [HttpGet("{id}/account-detail")]

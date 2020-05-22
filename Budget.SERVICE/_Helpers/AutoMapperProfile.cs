@@ -75,6 +75,10 @@ namespace Budget.SERVICE._Helpers
             CreateMap<UserShortcutDto, UserShortcut>();
             
             CreateMap<Account, AccountForLabelDto>();
+            CreateMap<Account, AccountForTable>()
+                .ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankAgency.BankSubFamily.BankFamily))
+                .ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankAgency.BankSubFamily));
+
             CreateMap<Account, AccountForDetailDto>()
                 .ForMember(d => d.AccountType, o => o.Ignore())
                 .ForMember(d => d.BankAgency, o => o.Ignore())
@@ -87,10 +91,15 @@ namespace Budget.SERVICE._Helpers
             CreateMap<BankFamily, BankGenericDto>();
             CreateMap<BankFamily, Select>()
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong));
+            CreateMap<BankFamily, SelectCode>()
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong))
+                .ForMember(d => d.Code, o => o.MapFrom(s => $"\\assets\\{s.Asset.Path}\\{s.Asset.Name}.{s.Asset.Extension}"));
+
             CreateMap<BankSubFamily, Select>()
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong));
             CreateMap<BankAgency, Select>();
-            CreateMap<BankSubFamily, BankGenericDto>();
+           
+                CreateMap<BankSubFamily, BankGenericDto>();
             CreateMap<BankAgency, BankAgencyDto>()
                 .ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankSubFamily.BankFamily))
                 .ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankSubFamily));

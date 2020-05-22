@@ -13,6 +13,7 @@ namespace Budget.SERVICE
         FilterAsiTableSelection GetFilterAsiTable(FilterAsiTableSelected filter);
         FilterAsifTableSelection GetFilterAsifTable(FilterAsifTableSelected filter);
         FilterUserTableSelection GetFilterUserTable(FilterUserTableSelected filter);
+        FilterAccountTableSelection GetFilterAccountTable(FilterAccountTableSelected filter);
         FilterOtfTableSelection GetFilterOtfTable(FilterOtfTableSelected filter);
         FilterOtTableSelection GetFilterOtTable(FilterOtTableSelected filter);
         FilterOperationTableSelection GetFilterOperationTable(FilterOperationTableSelected filter);

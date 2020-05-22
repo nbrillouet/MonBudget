@@ -4,14 +4,16 @@ using Budget.DATA;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Budget.DATA.Migrations
 {
     [DbContext(typeof(BudgetContext))]
-    partial class BudgetContextModelSnapshot : ModelSnapshot
+    [Migration("20200522133541_alterBankFamily")]
+    partial class alterBankFamily
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -390,8 +392,6 @@ namespace Budget.DATA.Migrations
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdAsset");
 
                     b.ToTable("BANK_FAMILY","ref");
                 });
@@ -1658,14 +1658,6 @@ namespace Budget.DATA.Migrations
                     b.HasOne("Budget.MODEL.Database.GMapAddress", "GMapAddress")
                         .WithMany()
                         .HasForeignKey("IdGMapAddress")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Budget.MODEL.Database.BankFamily", b =>
-                {
-                    b.HasOne("Budget.MODEL.Database.Asset", "Asset")
-                        .WithMany()
-                        .HasForeignKey("IdAsset")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
