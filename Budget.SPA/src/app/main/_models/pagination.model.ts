@@ -15,7 +15,7 @@ export class Pagination {
         this.totalPages = 0;
         this.sortColumn= 'id';
         this.sortDirection= 'asc';
-        this.nbItemsPerPageOption = null;
+        this.nbItemsPerPageOption = [15, 100, 200];
     }
 }
 

@@ -12,13 +12,13 @@ namespace Budget.MODEL.Database
         [Column("ID")]
         public int Id { get; set; }
 
-        [Column("LABEL_SHORT")]
-        [StringLength(50)]
-        public string LabelShort { get; set; }
+        [Column("CODE")]
+        [StringLength(4)]
+        public string Code { get; set; }
 
-        [Column("LABEL_LONG")]
+        [Column("LABEL")]
         [StringLength(50)]
-        public string LabelLong { get; set; }
+        public string Label { get; set; }
         [Column("ID_ASSET")]
         public int IdAsset { get; set; }
         [ForeignKey("IdAsset")]

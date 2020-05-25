@@ -115,14 +115,20 @@ export class MatTableFilterComponent implements OnInit, OnDestroy {
       let tableRow = new Row();
       for (let column of this.matTableFilter.columns) {
         let fields = column.field.split('-')
-        let value= null;
-
+        let value= data[fields[0]];
         if(fields.length>1){
-
-          value = data[fields[0]][fields[1]];
+          for (let i=1; i<fields.length;i++) {
+            value=value[fields[i]];
+          }
         }
-        else
-          value = data[fields[0]];
+
+
+        // if(fields.length>1){
+
+        //   value = data[fields[0]][fields[1]];
+        // }
+        // else
+        //   value = data[fields[0]];
 
         tableRow[`${column.field}`] = value;           
       }
@@ -137,25 +143,26 @@ export class MatTableFilterComponent implements OnInit, OnDestroy {
 
     for (let column of this.matTableFilter.columns) {
       let fields = column.field.split('-');
+      let idx = fields.length-2;
       switch(column.filter.type) {
         case EnumFilterType.comboMultiple:
-            column.filter.datas = <FilterComboMultiple> { placeholder:fields[0],combos:{list : filterDatas[`${fields[0]}`], listSelected: this.filterSelected[`${fields[0]}`] }}; //filterDatas.selected[`${fields[0]}`]} };
+            column.filter.datas = <FilterComboMultiple> { placeholder:fields[idx],combos:{list : filterDatas[`${fields[idx]}`], listSelected: this.filterSelected[`${fields[idx]}`] }}; //filterDatas.selected[`${fields[0]}`]} };
           break;
         case EnumFilterType.comboMultipleGroup:
           if(column.filter.datas) {
             let filterComboMultipleGroup  =  <FilterComboMultipleGroup>column.filter.datas;
-            filterComboMultipleGroup.combos.list = filterDatas[`${fields[0]}`];
+            filterComboMultipleGroup.combos.list = filterDatas[`${fields[idx]}`];
             column.filter.datas = filterComboMultipleGroup;
           }
           else {
-            column.filter.datas =<FilterComboMultipleGroup> { placeholder:fields[0],combos:{list : filterDatas[`${fields[0]}`], listSelected:this.filterSelected[`${fields[0]}`] }}; // filterDatas.selected[`${fields[0]}`]} };
+            column.filter.datas =<FilterComboMultipleGroup> { placeholder:fields[idx],combos:{list : filterDatas[`${fields[idx]}`], listSelected:this.filterSelected[`${fields[idx]}`] }}; // filterDatas.selected[`${fields[0]}`]} };
           }
           break;
         case EnumFilterType.dateRange:
-            column.filter.datas = <FilterDateRange> { placeholder:fields[0],dateMin:null,dateMax:null }; 
+            column.filter.datas = <FilterDateRange> { placeholder:fields[idx],dateMin:null,dateMax:null }; 
           break;
         case EnumFilterType.numberRange:
-            column.filter.datas = <FilterNumberRange> { placeholder:fields[0],suffixIcon:'euro_symbol',numberMin:null,numberMax:null };
+            column.filter.datas = <FilterNumberRange> { placeholder:fields[idx],suffixIcon:'euro_symbol',numberMin:null,numberMax:null };
           break;
       }
     }
@@ -254,26 +261,27 @@ export class MatTableFilterComponent implements OnInit, OnDestroy {
   applyFilter(column:Column, $event) {
 
     let fields=column.field.split('-');
+    let idx = fields.length-2;
 
     switch(column.filter.type) {
       case EnumFilterType.comboMultiple:
-        this.filterSelected[`${fields[0]}`] = $event;
+        this.filterSelected[`${fields[idx]}`] = $event;
         break;
       case EnumFilterType.comboMultipleGroup:
-        this.filterSelected[`${fields[0]}`] = $event;
+        this.filterSelected[`${fields[idx]}`] = $event;
         break;
       case EnumFilterType.dateRange:
         let filter = <FilterDateRange>$event;
         $event = (filter.dateMax==null && filter.dateMin==null) ? null : $event;
-        this.filterSelected[`${fields[0]}`]=$event;
+        this.filterSelected[`${fields[idx]}`]=$event;
         break;
       case EnumFilterType.numberRange:
         let filterNumber = <FilterNumberRange>$event;
         $event = (filterNumber.numberMax==null && filterNumber.numberMin==null) ? null : $event;
-        this.filterSelected[`${fields[0]}`]=$event;
+        this.filterSelected[`${fields[idx]}`]=$event;
         break;
       case EnumFilterType.label:
-          this.filterSelected[`${fields[0]}`]=$event;
+          this.filterSelected[`${fields[idx]}`]=$event;
           break;
     }
  

@@ -50,8 +50,8 @@ export class AccountTableState extends LoaderState {
                 let state = context.getState();
                 state.datas = result.datas;
                 context.patchState(state);
-
                 this.loaded(context,'datas');
+
                 this._store.dispatch(new UpdatePaginationAccountTableFilterSelected(result.pagination));
             });
     }

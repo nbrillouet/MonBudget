@@ -46,36 +46,44 @@ namespace Budget.API.Controllers.Referential
             return Ok(pagedList);
         }
 
-        [HttpGet("{id}/account-detail")]
-        public IActionResult Get(int id)
+        [HttpGet]
+        [Route("{idAccount}/account-detail")]
+        public IActionResult GetForDetail(int? idAccount)
         {
-            var accountForDetailDto = _accountService.GetForDetailById(id);
-
-            return Ok(accountForDetailDto);
+            var results = _accountService.GetForDetail(idAccount);
+            return Ok(results);
         }
 
-        [HttpPost("{id}/update")]
-        public IActionResult Update([FromBody] AccountForDetailDto accountForDetailDto)
+        [HttpPost]
+        [Route("account-detail-filter")]
+        public IActionResult GetForDetailFilter([FromBody] AccountForDetail accountForDetail)
         {
-             _accountService.Update(accountForDetailDto);
-
-            return Ok("UPDATED");
+            return Ok(_filterService.FilterDetailService.GetFilterForAccount(accountForDetail));
         }
 
-        [HttpPost("{id}/users/{idUser}/create")]
-        public IActionResult Create(int idUser,[FromBody] AccountForDetailDto accountForDetailDto)
-        {
-            _accountService.Create(idUser,accountForDetailDto);
 
-            return Ok("UPDATED");
-        }
+        //[HttpPost("{id}/update")]
+        //public IActionResult Update([FromBody] AccountForDetail accountForDetailDto)
+        //{
+        //     _accountService.Update(accountForDetailDto);
 
-        [HttpPost("{id}/users/{idUser}/delete")]
-        public IActionResult Delete(int idUser, [FromBody] AccountForDetailDto accountForDetailDto)
-        {
-            _accountService.Delete(idUser, accountForDetailDto.Id);
+        //    return Ok("UPDATED");
+        //}
 
-            return Ok("DELETED");
-        }
+        //[HttpPost("{id}/users/{idUser}/create")]
+        //public IActionResult Create(int idUser,[FromBody] AccountForDetail accountForDetailDto)
+        //{
+        //    _accountService.Create(idUser,accountForDetailDto);
+
+        //    return Ok("UPDATED");
+        //}
+
+        //[HttpPost("{id}/users/{idUser}/delete")]
+        //public IActionResult Delete(int idUser, [FromBody] AccountForDetailDto accountForDetailDto)
+        //{
+        //    _accountService.Delete(idUser, accountForDetailDto.Id);
+
+        //    return Ok("DELETED");
+        //}
     }
 }

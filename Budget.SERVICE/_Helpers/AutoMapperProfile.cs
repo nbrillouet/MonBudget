@@ -76,34 +76,44 @@ namespace Budget.SERVICE._Helpers
             
             CreateMap<Account, AccountForLabelDto>();
             CreateMap<Account, AccountForTable>()
-                .ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankAgency.BankSubFamily.BankFamily))
-                .ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankAgency.BankSubFamily));
+                .ForMember(d => d.LinkedUsers, o => o.MapFrom(s => s.UserAccounts));
+                //.ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankAgency.BankSubFamily.BankFamily))
+                //.ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankAgency.BankSubFamily));
 
-            CreateMap<Account, AccountForDetailDto>()
-                .ForMember(d => d.AccountType, o => o.Ignore())
-                .ForMember(d => d.BankAgency, o => o.Ignore())
-                .ForMember(d => d.BankFamily, o => o.Ignore())
-                .ForMember(d => d.BankSubFamily, o => o.Ignore())
+            CreateMap<Account, AccountForDetail>()
+                //.ForMember(d => d.AccountType, o => o.Ignore())
+                //.ForMember(d => d.BankAgency, o => o.Ignore())
                 .ForMember(d => d.LinkedUsers, o => o.Ignore());
+
             CreateMap<Account, Select>()
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.Number + " - " + s.Label));
 
+            //Mapping vers USER pour Select
+            CreateMap<UserAccount, Select>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.IdUser))
+                .ForMember(d => d.Label, o => o.MapFrom(s => $"{s.User.FirstName} {s.User.LastName}"));
+
             CreateMap<BankFamily, BankGenericDto>();
-            CreateMap<BankFamily, Select>()
-                .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong));
+            CreateMap<BankFamily, Select>();
+                //.ForMember(d => d.Label, o => o.MapFrom(s => s.Label));
             CreateMap<BankFamily, SelectCode>()
-                .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong))
+                //.ForMember(d => d.Label, o => o.MapFrom(s => s.Label))
                 .ForMember(d => d.Code, o => o.MapFrom(s => $"\\assets\\{s.Asset.Path}\\{s.Asset.Name}.{s.Asset.Extension}"));
 
             CreateMap<BankSubFamily, Select>()
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong));
             CreateMap<BankAgency, Select>();
            
-                CreateMap<BankSubFamily, BankGenericDto>();
+            CreateMap<BankSubFamily, BankGenericDto>();
+            CreateMap<BankSubFamily, BankSubFamilyForDetail>()
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong));
+
+
             CreateMap<BankAgency, BankAgencyDto>()
                 .ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankSubFamily.BankFamily))
                 .ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankSubFamily));
-
+            CreateMap<BankAgency, BankAgencyForDetail>();
+            
             CreateMap<BankAgency, BankAgencyWithAccountsDto>()
                 .ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankSubFamily.BankFamily));
             //.ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankSubFamily));

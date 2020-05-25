@@ -8,24 +8,34 @@ namespace Budget.MODEL.Filter
     public class FilterAccountTableSelected
     {
         public UserForGroupDto User { get; set; }
-        public string AccountNumber { get; set; }
-        public string AccountName { get; set; }
+        public List<Select> BankFamily { get; set; }
+        public string Number { get; set; }
+        public string Label { get; set; }
         public Pagination Pagination { get; set; }
 
         public FilterAccountTableSelected()
         {
-            Pagination = new Pagination();
+            //Pagination = new Pagination();
         }
     }
 
     public class FilterAccountTableSelection
     {
-        public string AccountNumber { get; set; }
-        public string AccountName { get; set; }
+        public List<Select> BankFamily { get; set; }
+        public string Number { get; set; }
+        public string Label { get; set; }
 
         public FilterAccountTableSelection()
         {
         }
+    }
+
+    public class FilterAccountForDetail
+    {
+        public List<Select> BankAgency { get; set; }
+        public List<Select> BankSubFamily { get; set; }
+        public List<Select> BankFamily { get; set; }
+        public List<Select> AccountType { get; set; }
     }
 
 }

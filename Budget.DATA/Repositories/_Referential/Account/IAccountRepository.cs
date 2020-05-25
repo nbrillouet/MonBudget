@@ -10,7 +10,7 @@ namespace Budget.DATA.Repositories
     public interface IAccountRepository : IBaseRepository<Account>
     {
         PagedList<Account> GetForTable(FilterAccountTableSelected filterAccountTableSelected);
-        Account GetForDetailById(int id);
+        Account GetForDetail(int idAccount);
         Account GetByNumber(string number);
         List<Account> GetByIdBankAgency(int idBankAgency);
 

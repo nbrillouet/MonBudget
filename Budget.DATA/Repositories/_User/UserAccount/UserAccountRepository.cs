@@ -39,6 +39,16 @@ namespace Budget.DATA.Repositories
             return GetBankAgencies(results);
         }
 
+        public List<BankFamily> GetBankFamily(int idUser)
+        {
+            var results = Context.UserAccount
+                .Where(x => x.IdUser == idUser)
+                .Select(x => x.Account.BankAgency.BankSubFamily.BankFamily)
+                .ToList();
+
+            return results;
+        }
+
         private List<BankAgency> GetBankAgencies(IQueryable<UserAccount> query)
         {
             List<Account> results = query.Select(x => x.Account)
@@ -57,6 +67,7 @@ namespace Budget.DATA.Repositories
 
             return distinctBankAgencies;
         }
+
 
         //public List<BankSubFamily> GetBankSubFamilies(List<int> idUsers)
         //{

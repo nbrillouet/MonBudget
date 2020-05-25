@@ -3,7 +3,7 @@ import { FilterAccountTableSelected } from "app/main/_models/filters/account.fil
 import { State, Store, Selector, Action, StateContext } from "@ngxs/store";
 import { Injectable } from "@angular/core";
 import { LoaderState } from "app/main/_ngxs/_base/loader-state";
-import { SynchronizeAccountTableFilterSelected, UpdatePaginationAccountTableFilterSelected } from "./account-table-filter-selected.action";
+import { SynchronizeAccountTableFilterSelected, UpdatePaginationAccountTableFilterSelected, LoadAccountTableFilterSelected } from "./account-table-filter-selected.action";
 import { LoadAccountTable } from "../account-table.action";
 
 export class AccountTableFilterSelectedStateModel extends FilterSelected<FilterAccountTableSelected> {
@@ -41,14 +41,36 @@ export class AccountTableFilterSelectedState extends LoaderState {
 
     @Action(SynchronizeAccountTableFilterSelected)
     SynchronizeAccountTableFilterSelected(context: StateContext<AccountTableFilterSelectedStateModel>, action: SynchronizeAccountTableFilterSelected) {
-        
+        this._store.dispatch(new LoadAccountTableFilterSelected(action.payload));
+
+        // this.loading(context,'filter-selected');
+        // let state = context.getState();
+        // state.selected = action.payload;
+        // context.patchState(state);
+        // this.loaded(context,'filter-selected');
+
+        this._store.dispatch(new LoadAccountTable(action.payload));
+    }
+
+    @Action(LoadAccountTableFilterSelected)
+    LoadAccountTableFilterSelected(context: StateContext<AccountTableFilterSelectedStateModel>, action: LoadAccountTableFilterSelected) {
+
         this.loading(context,'filter-selected');
         let state = context.getState();
         state.selected = action.payload;
         context.patchState(state);
         this.loaded(context,'filter-selected');
 
-        this._store.dispatch(new LoadAccountTable(action.payload));
+        // //chargement des données complémentaire provenant de asi
+        // this._asiService.getById(action.payload.idImport)
+        //     .subscribe(result=> {
+        //         let state = context.getState();
+        //         state.selected.asiBankAgencyLabel = result.bankAgency.label;
+        //         state.selected.asiDateImport = result.dateImport;
+        //         context.patchState(state);
+
+        //         this.loaded(context,'filter-selected');
+        //     });
     }
 
 }

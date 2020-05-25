@@ -12,3 +12,13 @@ ID	USER_NAME	LAST_NAME	FIRST_NAME	PASSWORD_HASH	PASSWORD_SALT	GENDER	BIRTH_DATE	
   
   insert into [XmlToSwift_Demo].[ref].[ASSET] values ('images\bank-family','BP','svg',2)
   insert into [XmlToSwift_Demo].[ref].[ASSET] values ('images\bank-family','CA','svg',2)
+  
+  
+  //bank-FAMILY
+  update [ref].[BANK_FAMILY] set code='INC' where ID=1
+  update [ref].[BANK_FAMILY] set code='BP' where ID=2
+  update [ref].[BANK_FAMILY] set code='CA' where ID=3
+
+  update [ref].[BANK_FAMILY] set label='INCONNU' where ID=1
+  update [ref].[BANK_FAMILY] set label='Banque Populaire' where ID=2
+  update [ref].[BANK_FAMILY] set label='Crédit Agricole' where ID=3

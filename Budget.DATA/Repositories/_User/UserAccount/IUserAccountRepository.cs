@@ -10,6 +10,7 @@ namespace Budget.DATA.Repositories
         UserAccount Get(int idUser, int idAccount);
         List<BankAgency> GetBankAgencies(int idUser);
         List<BankAgency> GetBankAgenciesByIdUserGroup(int idUserGroup);
+        List<BankFamily> GetBankFamily(int idUser);
 
     }
 }

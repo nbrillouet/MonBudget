@@ -17,13 +17,13 @@ namespace Budget.MODEL
 
         public Pagination()
         {
-            CurrentPage = 0;
-            NbItemsPerPage = 15;
-            TotalItems = 0;
-            TotalPages = 0;
-            SortColumn = "id";
-            SortDirection = EnumSortDirection.asc.ToString();
-            NbItemsPerPageOption = new List<int> { 15, 100, 200 };
+            //CurrentPage = 0;
+            //NbItemsPerPage = 15;
+            //TotalItems = 0;
+            //TotalPages = 0;
+            //SortColumn = "id";
+            //SortDirection = EnumSortDirection.asc.ToString();
+            //NbItemsPerPageOption = new List<int> { 15, 100, 200 };
         }
     }
 

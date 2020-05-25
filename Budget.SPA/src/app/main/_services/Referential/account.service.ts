@@ -1,13 +1,14 @@
 import { environment } from "../../../../environments/environment";
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { IAccountForDetail } from "app/main/_models/referential/account.model";
-import { FilterAccountTableSelected, FilterAccountTableSelection } from "app/main/_models/filters/account.filter";
+import { IAccountForDetail, AccountForDetail } from "app/main/_models/referential/account.model";
+import { FilterAccountTableSelected, FilterAccountTableSelection, FilterAccountDetail } from "app/main/_models/filters/account.filter";
 import { UserDetailState } from "app/main/_ngxs/user/user-detail/user-detail.state";
 import { Observable } from "rxjs";
 import { Select } from "@ngxs/store";
 import { IUser, IUserForGroup } from "app/main/_models/user.model";
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
+import { FilterForDetail } from "app/main/_models/filters/shared/filterDetail.filter";
 
 @Injectable()
 export class AccountService {
@@ -27,10 +28,21 @@ userForGroup: IUserForGroup;
         });
      }
 
-    getForDetail(id: number) {
+    // getForDetail(id: number) {
+    //     return this._httpClient
+    //     .get(this.baseUrl + `referential/accounts/${id}/account-detail`)
+    //     .map(response => <IAccountForDetail>response);
+    // }
+
+    getForDetail(filter: FilterForDetail) {
         return this._httpClient
-        .get(this.baseUrl + `referential/accounts/${id}/account-detail`)
-        .map(response => <IAccountForDetail>response);
+            .get(`${this.baseUrl}referential/accounts/${filter.id}/account-detail`)
+            .map(response => <AccountForDetail>response)
+    }
+
+    getForDetailFilter(filter: AccountForDetail) {
+        return this._httpClient
+            .post<FilterAccountDetail>(`${this.baseUrl}referential/accounts/account-detail-filter`,filter)
     }
 
     getForTable (filter: FilterAccountTableSelected) {
@@ -38,6 +50,7 @@ userForGroup: IUserForGroup;
         return this._httpClient
             .post(`${this.baseUrl}referential/accounts/account-table`,filter)
             .map((response: any) => {
+
                 return response;
             });
     }

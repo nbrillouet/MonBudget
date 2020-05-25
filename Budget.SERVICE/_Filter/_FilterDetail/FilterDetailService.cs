@@ -61,6 +61,23 @@ namespace Budget.SERVICE
             return filterOtfForDetail;
         }
 
+        public FilterAccountForDetail GetFilterForAccount(AccountForDetail accountForDetail)
+        {
+            FilterAccountForDetail filterAccountForDetail = new FilterAccountForDetail()
+            {
+                BankFamily = _referentialService.BankFamilyService.GetSelectList(EnumSelectType.Empty),
+                BankSubFamily = accountForDetail.BankAgency != null
+                    ? _referentialService.BankSubFamilyService.GetSelectList(accountForDetail.BankAgency.BankSubFamily.BankFamily.Id, EnumSelectType.Empty)
+                    : null,
+                BankAgency = accountForDetail.BankAgency != null 
+                    ?_referentialService.BankAgencyService.GetSelectList(accountForDetail.BankAgency.BankSubFamily.Id, EnumSelectType.Empty)
+                    : null,
+                AccountType = _referentialService.AccountTypeService.GetSelectList(EnumSelectType.Empty)
+            };
+
+            return filterAccountForDetail;
+        }
+
         public FilterAsForDetail GetFilterForAs(AsForDetail asForDetail)
         {
             FilterAsForDetail filterAsForDetail = new FilterAsForDetail()

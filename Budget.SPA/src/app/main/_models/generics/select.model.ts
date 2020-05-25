@@ -3,6 +3,11 @@ export interface ISelect {
     label: string;
 }
 
+export class Select {
+    id: number;
+    label: string;
+}
+
 export interface ISelectGroup extends ISelect {
     selects: ISelect[];
 }

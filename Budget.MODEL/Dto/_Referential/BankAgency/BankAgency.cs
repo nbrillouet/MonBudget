@@ -22,12 +22,20 @@ namespace Budget.MODEL.Dto
 
     public class BankAgencyWithAccountsDto : BankAgencyDto
     {
-        public List<AccountForDetailDto> Accounts { get; set; }
+        public List<AccountForDetail> Accounts { get; set; }
     }
 
     public class BankAgencyForListDto: BankAgencyDto
     {
 
+    }
+
+    public class BankAgencyForDetail: Select
+    {
+        //public int Id { get; set; }
+        //public string Label { get; set; }
+        public BankSubFamilyForDetail BankSubFamily { get; set; }
+        //public BankGenericDto BankFamily { get; set; }
     }
 
 }

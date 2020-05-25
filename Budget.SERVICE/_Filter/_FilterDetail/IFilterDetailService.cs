@@ -13,5 +13,6 @@ namespace Budget.SERVICE
         FilterOtfForDetail GetFilterForOtf(OtfForDetail otfForDetail);
         FilterAsForDetail GetFilterForAs(AsForDetail asForDetail);
         FilterAsifForDetail GetFilterForAsif(AsifForDetail asifForDetail);
+        FilterAccountForDetail GetFilterForAccount(AccountForDetail accountForDetail);
     }
 }

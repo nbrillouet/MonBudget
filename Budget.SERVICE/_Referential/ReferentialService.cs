@@ -16,7 +16,12 @@ namespace Budget.SERVICE
         public IOperationTypeFamilyService OperationTypeFamilyService { get; }
         public IMovementService MovementService { get; }
         public IAssetService AssetService { get; }
-
+        public IUserAccountService UserAccountService { get; }
+        public IBankAgencyService BankAgencyService { get; }
+        public IBankFamilyService BankFamilyService { get; }
+        public IAccountTypeService AccountTypeService { get; }
+        public IBankSubFamilyService BankSubFamilyService { get; }
+        
         public ReferentialService(
             IBankFileDefinitionService bankFileDefinitionService,
             IOperationMethodService operationMethodService,
@@ -27,7 +32,12 @@ namespace Budget.SERVICE
             IOperationService operationService,
             IOperationTypeFamilyService operationTypeFamilyService,
             IMovementService movementService,
-            IAssetService assetService
+            IAssetService assetService,
+            IUserAccountService userAccountService,
+            IBankAgencyService bankAgencyService,
+            IBankFamilyService bankFamilyService,
+            IAccountTypeService accountTypeService,
+            IBankSubFamilyService bankSubFamilyService
             )
         {
             BankFileDefinitionService = bankFileDefinitionService;
@@ -40,6 +50,11 @@ namespace Budget.SERVICE
             OperationTypeFamilyService = operationTypeFamilyService;
             MovementService = movementService;
             AssetService = assetService;
+            UserAccountService = userAccountService;
+            BankAgencyService = bankAgencyService;
+            BankFamilyService = bankFamilyService;
+            AccountTypeService = accountTypeService;
+            BankSubFamilyService = bankSubFamilyService;
         }
 
     }

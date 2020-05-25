@@ -22,7 +22,8 @@ import { HelperService } from 'app/main/_services/helper.service';
 import { LoadAccountTableFilterSelection } from 'app/main/_ngxs/referential/account/account-table/account-table-filter-selection/account-table-filter-selection.action';
 import { LoadAccountTable } from 'app/main/_ngxs/referential/account/account-table/account-table.action';
 import { FilterSelection, FilterSelected } from 'app/main/_models/generics/filter.info.model';
-import { SynchronizeAccountTableFilterSelected } from 'app/main/_ngxs/referential/account/account-table/account-table-filter-selected/account-table-filter-selected.action';
+import { SynchronizeAccountTableFilterSelected, LoadAccountTableFilterSelected } from 'app/main/_ngxs/referential/account/account-table/account-table-filter-selected/account-table-filter-selected.action';
+import { Pagination } from 'app/main/_models/pagination.model';
 
 @Component({
   selector: 'app-account-list',
@@ -60,19 +61,16 @@ export class AccountListComponent implements OnInit {
       
       this.user$.subscribe((user:IUser) => {
         if(user) {
-          debugger;
-          let selected = <FilterAccountTableSelected> {user:<IUserForGroup> {id:user.id,idUserGroup:user.idUserGroup}};
-          this._store.dispatch(new SynchronizeAccountTableFilterSelected(selected));
-
+          let selected = <FilterAccountTableSelected>{user:<IUserForGroup> {id:user.id,idUserGroup:user.idUserGroup},pagination: new Pagination()};
+          selected.pagination.sortColumn='bankAgency-bankSubFamily-bankFamily-label';
+          this._store.dispatch(new LoadAccountTableFilterSelected(selected));
         }
       });
 
       this.accountTableFilterSelected$$ = this.accountTableFilterSelected$
         .subscribe(selected => {
-          
           if(selected?.loader['filter-selected']?.loaded) {
             if(!this._helper.areEquals(this.filterAccountSelected,selected.selected)) {
-              debugger;
               this.filterAccountSelected = this._helper.getDeepClone(selected.selected);//JSON.parse(JSON.stringify(selected.selected));
               this._store.dispatch(new LoadAccountTableFilterSelection(this.filterAccountSelected));
               this._store.dispatch(new LoadAccountTable(this.filterAccountSelected));
@@ -86,19 +84,20 @@ export class AccountListComponent implements OnInit {
   }
 
   onRowClick($event) {
-
+    this._router.navigate(
+      [`apps/referential/accounts/${$event.id}/detail`]);
   }
 
-  applyFilterSelected($event) {
-
+  applyFilterSelected(selected: FilterAccountTableSelected) {
+    this._store.dispatch(new SynchronizeAccountTableFilterSelected(selected));
   }
 
-  applyFilterSelection($event) {
-
+  applyFilterSelection(selected: FilterAccountTableSelected) {
+    this._store.dispatch(new LoadAccountTableFilterSelection(selected));
   }
 
   addItem($event) {
-    this._router.navigate(['apps/referential/accounts/new']);
+    this._router.navigate(['apps/referential/accounts/new/detail']);
   }
 
   deleteItems($event) {

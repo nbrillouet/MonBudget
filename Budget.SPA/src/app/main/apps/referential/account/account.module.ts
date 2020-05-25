@@ -7,7 +7,7 @@ import { AuthGuard } from 'app/_guards/auth.guard';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseConfirmDialogModule } from '@fuse/components';
 import { NgxsModule } from '@ngxs/store';
-import { AccountForDetailState } from 'app/main/_ngxs/referential/account/account-detail/account-detail.state';
+import { AccountDetailState } from 'app/main/_ngxs/referential/account/account-detail/account-detail.state';
 import { AngularMaterialModule } from 'app/angular-material.module';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
 import { AccountService } from 'app/main/_services/Referential/account.service';
@@ -15,6 +15,7 @@ import { AccountTableFilterSelectionState } from 'app/main/_ngxs/referential/acc
 import { AccountTableFilterSelectedState } from 'app/main/_ngxs/referential/account/account-table/account-table-filter-selected/account-table-filter-selected.state';
 import { AccountTableState } from 'app/main/_ngxs/referential/account/account-table/account-table.state';
 import { MatTableFilterModule } from '../../web-component/mat-table-filter/mat-table-filter.module';
+import { AccountDetailFilterState } from 'app/main/_ngxs/referential/account/account-detail/account-detail-filter/account-detail-filter.state';
 
 const routes = [
   {
@@ -25,7 +26,7 @@ const routes = [
   }
   ,
   {
-      path     : ':idAccount',
+      path     : ':idAccount/detail',
       component: AccountDetailComponent,
       // resolve  : { account: AccountDetailResolver },
       canActivate: [AuthGuard]
@@ -42,7 +43,9 @@ const routes = [
     MatTableFilterModule,
     RouterModule.forChild(routes),
     NgxsModule.forFeature([
-      AccountForDetailState,
+      AccountDetailState,
+      AccountDetailFilterState,
+      // AccountForDetailState,
       AccountTableFilterSelectionState,
       AccountTableFilterSelectedState,
       AccountTableState

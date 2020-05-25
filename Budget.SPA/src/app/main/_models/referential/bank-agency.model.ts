@@ -1,4 +1,6 @@
 import { IAccountForDetail } from "./account.model";
+import { Select } from "../generics/select.model";
+import { BankSubFamilyForDetail } from "./bank-sub-family.model";
 
 
 export interface IBankGeneric {
@@ -18,4 +20,11 @@ export interface IBankAgency {
 export interface IBankAgencyAccounts extends IBankAgency {
 
     accounts: IAccountForDetail[];
+}
+
+export class BankAgencyForDetail extends Select {
+    // id : number;
+    // label: string;
+    bankSubFamily: BankSubFamilyForDetail;
+    // bankFamily: IBankGeneric;
 }

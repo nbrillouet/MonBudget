@@ -1,4 +1,6 @@
-<div id="product" class="page-layout carded fullwidth" fusePerfectScrollbar>
+<div 
+*ngIf="!firstLoad && (detailFilterInfo$ | async)?.loader['datas']?.loaded as loaded else tp_progress"
+    id="product" class="page-layout carded fullwidth" fusePerfectScrollbar>
 
   <!-- TOP BACKGROUND -->
   <div class="top-bg accent"></div>
@@ -19,16 +21,19 @@
                         <mat-icon>arrow_back</mat-icon>
                     </button>
 
-                    <div class="product-image mr-8 mr-sm-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-                        <mat-icon width="48px" height="48px">account_balance</mat-icon>  
+                    <div class="header-image mr-8 mr-sm-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                        <img [src]="accountForDetail?.bankAgency?.bankSubFamily?.bankFamily?.code">
                     </div>
+                    <!-- <div class="product-image mr-8 mr-sm-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                        <mat-icon width="48px" height="48px">account_balance</mat-icon>  
+                    </div> -->
 
                     <div fxLayout="column" fxLayoutAlign="start start"
                         *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                        <div class="h2" *ngIf="formLoaded && accountDetail && accountDetail.id!=0">
-                            {{accountDetail.number}}  {{accountDetail.label}}
+                        <div class="h2" *ngIf="(detailInfo$ | async).datas.id">
+                            {{accountForDetail.number}}  {{accountForDetail.label}}
                         </div>
-                        <div class="h2" *ngIf="formLoaded && accountDetail && accountDetail.id==0">
+                        <div class="h2" *ngIf="!(detailInfo$ | async).datas.id">
                             Nouveau compte bancaire
                         </div>
                         <div class="subtitle secondary-text">
@@ -37,11 +42,10 @@
                     </div>
                 </div>
 
-                <button mat-raised-button *ngIf="formLoaded && accountDetail"
-                class="save-product-button mat-white-bg mt-16 mt-sm-0"
-                [disabled]= "accountForm.invalid || accountForm.pristine"
-                (click)="save()"
-                >
+                <button mat-raised-button 
+                    class="save-product-button mat-white-bg mt-16 mt-sm-0"
+                    [disabled]= "accountDetailForm.invalid || accountDetailForm.pristine"
+                    (click)="save()">
                     <span>ENREGISTRER</span>
                 </button>
 
@@ -67,8 +71,8 @@
           <!-- CONTENT -->
           <div class="content">
               <form name="accountForm" 
-                *ngIf="formLoaded && accountDetail" 
-                [formGroup]="accountForm" 
+                
+                [formGroup]="accountDetailForm" 
                 class="product w-100-p" 
                 fxLayout="column" fxFlex>
                     <mat-tab-group>
@@ -78,7 +82,7 @@
                                 <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
                                     <mat-label>Groupe Bancaire</mat-label>
                                     <mat-select formControlName="bankFamily" placeholder="Groupe Bancaire" [compareWith]="compareObjects" >
-                                        <mat-option *ngFor="let item of accountDetail.bankFamily.list" [value]="item">
+                                        <mat-option *ngFor="let item of (detailFilterInfo$ | async).datas.bankFamily" [value]="item">
                                             {{ item.label }}
                                         </mat-option>
                                     </mat-select>
@@ -87,7 +91,7 @@
                                 <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
                                     <mat-label>Caisse</mat-label>
                                     <mat-select formControlName="bankSubFamily" placeholder="Caisse" [compareWith]="compareObjects" >
-                                        <mat-option *ngFor="let item of accountDetail.bankSubFamily.list" [value]="item">
+                                        <mat-option *ngFor="let item of (detailFilterInfo$ | async).datas.bankSubFamily" [value]="item">
                                             {{ item.label }}
                                         </mat-option>
                                     </mat-select>
@@ -96,7 +100,7 @@
                                 <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
                                     <mat-label>Agence</mat-label>
                                     <mat-select formControlName="bankAgency" placeholder="Agence" [compareWith]="compareObjects" >
-                                        <mat-option *ngFor="let item of accountDetail.bankAgency.list" [value]="item">
+                                        <mat-option *ngFor="let item of (detailFilterInfo$ | async).datas.bankAgency" [value]="item">
                                             {{ item.label }}
                                         </mat-option>
                                     </mat-select>
@@ -109,7 +113,7 @@
                             <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" >
                                 <mat-label>Type de compte</mat-label>
                                 <mat-select formControlName="accountType" placeholder="Type de compte" [compareWith]="compareObjects" >
-                                    <mat-option *ngFor="let item of accountDetail.accountType.list" [value]="item">
+                                    <mat-option *ngFor="let item of (detailFilterInfo$ | async).datas.accountType" [value]="item">
                                         {{ item.label }}
                                     </mat-option>
                                 </mat-select>
@@ -166,3 +170,10 @@
 
     </div>
 </div>
+
+<ng-template #tp_progress>
+    <mat-progress-bar
+        color="primary"
+        mode="indeterminate">
+    </mat-progress-bar>
+</ng-template>

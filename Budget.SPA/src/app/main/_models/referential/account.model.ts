@@ -1,4 +1,4 @@
-import { IBankAgency } from "./bank-agency.model";
+import { IBankAgency, BankAgencyForDetail } from "./bank-agency.model";
 import { ISelect } from "../generics/select.model";
 import { ComboSimple } from "../generics/combo.model";
 
@@ -44,12 +44,25 @@ export class AccountForTable {
     id : number;
     number : string;
     label : string;
-    bankAgency : ISelect;
-    bankSubFamily: ISelect;
-    bankFamily: ISelect;
+    bankAgency : BankAgencyForDetail;
+    // bankSubFamily: ISelect;
+    // bankFamily: ISelect;
     startAmount: number;
     accountType: ISelect;
     alertThreshold: number;
     linkedUsers: ISelect[];
     solde: number;
+}
+
+export class AccountForDetail {
+    id : number;
+    number : string;
+    label : string;
+    bankAgency : BankAgencyForDetail;
+    // bankSubFamily: ISelect;
+    // bankFamily: ISelect;
+    startAmount: number;
+    accountType: ISelect;
+    alertThreshold: number;
+    linkedUsers: ISelect[];
 }

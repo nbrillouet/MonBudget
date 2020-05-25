@@ -27,24 +27,32 @@ namespace Budget.DATA.Repositories
                 .Include(x => x.AccountType)
                 .Include(x => x.UserAccounts)
                     .ThenInclude(ua => ua.User)
+                
                 .AsQueryable();
 
+
             accounts = GenericTableFilter.GetGenericFilters(accounts, filter);
+            if(filter.BankFamily!=null && filter.BankFamily.Count>0)
+            {
+                List<int> bankFamilyIdList = filter.BankFamily.Select(x => x.Id).ToList();
+                accounts = accounts.Where(x => bankFamilyIdList.Contains(x.BankAgency.BankSubFamily.BankFamily.Id));//  x.BankAgency.BankSubFamily.BankFamily.Id)
+            }
 
             var results = PagedListRepository<Account>.Create(accounts, filter.Pagination);
             return results;
         }
 
-        public Account GetForDetailById(int id)
+        public Account GetForDetail(int idAccount)
         {
             return Context.Account
-                .Where(x => x.Id == id)
+                .Where(x => x.Id == idAccount)
                 .Include(x => x.BankAgency)
-                    .ThenInclude(x=>x.BankSubFamily)
-                        .ThenInclude(x=>x.BankFamily)
+                    .ThenInclude(x => x.BankSubFamily)
+                        .ThenInclude(x => x.BankFamily)
+                            .ThenInclude(x => x.Asset)
                 .Include(x => x.AccountType)
-                .Include(x=>x.UserAccounts)
-                    .ThenInclude(ua=>ua.User)
+                .Include(x => x.UserAccounts)
+                    .ThenInclude(ua => ua.User)
                 .FirstOrDefault();
         }
 

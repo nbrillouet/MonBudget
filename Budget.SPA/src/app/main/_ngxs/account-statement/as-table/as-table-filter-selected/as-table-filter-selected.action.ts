@@ -15,3 +15,4 @@ export class SynchronizeAsTableFilterSelected {
  
     constructor(public payload: FilterAsTableSelected) { }
 }
+

@@ -71,6 +71,16 @@ namespace Budget.SERVICE
             return results;
         }
 
+        public List<Select> GetBankFamily(int idUser)
+        {
+            var results = _userAccountRepository.GetBankFamily(idUser);
+            var groupResult = results
+                    .GroupBy(x => new { x.Id, x.Label })
+                    .Select(g => new Select { Id = g.Key.Id, Label = g.Key.Label })
+                    .ToList();
+            return _mapper.Map<List<Select>>(groupResult);
+        }
+
         public UserAccount Create(UserAccount userAccount)
         {
             return _userAccountRepository.Create(userAccount);

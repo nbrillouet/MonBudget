@@ -43,11 +43,51 @@ namespace Budget.SERVICE
         public PagedList<AccountForTable> GetForTable(FilterAccountTableSelected filter)
         {
             var pagedList = _accountRepository.GetForTable(filter);
-
+            foreach(var item in pagedList.Datas)
+            {
+                item.UserAccounts = item.UserAccounts.Where(x => x.IdUser != filter.User.Id).ToList();
+            }
+            //pagedList = pagedList.Datas.Where(x => x.UserAccounts.Any(p => p.IdUser != filter.User.Id)).ToList();
             var results = new PagedList<AccountForTable>(_mapper.Map<List<AccountForTable>>(pagedList.Datas), pagedList.Pagination);
+            
+            //foreach(var result in results.Datas)
+            //{
+            //    result.LinkedUsers = _mapper.Map<List<Select>>(result.UserAccounts.Select(x => x.User).ToList());
+            //}
             //var AccountForTables = _mapper.Map<List<AccountForTable>>(accounts);
 
             return results;
+        }
+
+        public AccountForDetail GetForDetail(int? idAccount)
+        {
+            AccountForDetail accountForDetail = !idAccount.HasValue ? GetForCreate() : GetForDetail(idAccount.Value);
+
+            return accountForDetail;
+        }
+
+        private AccountForDetail GetForCreate()
+        {
+            AccountForDetail accountForDetail = new AccountForDetail
+            {
+                AccountType = null,
+                AlertThreshold = 0,
+                BankAgency = null,
+                Label = null,
+                LinkedUsers = null,
+                Number = null,
+                StartAmount = 0
+            };
+
+            return accountForDetail;
+        }
+
+        public AccountForDetail GetForDetail(int idAccount)
+        {
+            Account account = _accountRepository.GetForDetail(idAccount);
+            var result = _mapper.Map<AccountForDetail>(account);
+
+            return result;
         }
 
         public Account GetByNumber(string number)
@@ -73,51 +113,51 @@ namespace Budget.SERVICE
 
         public Account GetFullById(int id)
         {
-            return _accountRepository.GetForDetailById(id);
+            return _accountRepository.GetForDetail(id);
         }
 
-        public AccountForDetailDto GetForDetailById(int idAccount)
-        {
-            Account account = new Account();
-            if (idAccount == 0)
-            {
-                account.AccountType = new AccountType { Id = 1, Label = "INCONNU" };
-            }
-            else
-            {
-                account = GetFullById(idAccount);
-            }
-            var accountDto = _mapper.Map<AccountForDetailDto>(account);
+        //public AccountForDetailDto GetForDetailById(int idAccount)
+        //{
+        //    Account account = new Account();
+        //    if (idAccount == 0)
+        //    {
+        //        account.AccountType = new AccountType { Id = 1, Label = "INCONNU" };
+        //    }
+        //    else
+        //    {
+        //        account = GetFullById(idAccount);
+        //    }
+        //    var accountDto = _mapper.Map<AccountForDetailDto>(account);
 
-            accountDto.AccountType = new ComboSimple<Select>
-            {
-                List = _accountTypeService.GetSelectList(EnumSelectType.Empty),
-                Selected = _mapper.Map<Select>(account.AccountType)
-            };
+        //    accountDto.AccountType = new ComboSimple<Select>
+        //    {
+        //        List = _accountTypeService.GetSelectList(EnumSelectType.Empty),
+        //        Selected = _mapper.Map<Select>(account.AccountType)
+        //    };
 
-            accountDto.BankFamily = new ComboSimple<Select>
-            {
-                List = _bankFamilyService.GetSelectList(EnumSelectType.Empty),
-                Selected = _mapper.Map<Select>(account.BankAgency.BankSubFamily.BankFamily)
-            };
+        //    accountDto.BankFamily = new ComboSimple<Select>
+        //    {
+        //        List = _bankFamilyService.GetSelectList(EnumSelectType.Empty),
+        //        Selected = _mapper.Map<Select>(account.BankAgency.BankSubFamily.BankFamily)
+        //    };
 
-            accountDto.BankSubFamily = new ComboSimple<Select>
-            {
-                List = _bankSubFamilyService.GetSelectList(account.BankAgency.BankSubFamily.BankFamily.Id, EnumSelectType.Empty),
-                Selected = _mapper.Map<Select>(account.BankAgency.BankSubFamily)
-            };
+        //    accountDto.BankSubFamily = new ComboSimple<Select>
+        //    {
+        //        List = _bankSubFamilyService.GetSelectList(account.BankAgency.BankSubFamily.BankFamily.Id, EnumSelectType.Empty),
+        //        Selected = _mapper.Map<Select>(account.BankAgency.BankSubFamily)
+        //    };
 
-            accountDto.BankAgency = new ComboSimple<Select>
-            {
-                List = _bankAgencyService.GetSelectList(account.BankAgency.BankSubFamily.Id,EnumSelectType.Empty),
-                Selected = _mapper.Map<Select>(account.BankAgency)
-            };
+        //    accountDto.BankAgency = new ComboSimple<Select>
+        //    {
+        //        List = _bankAgencyService.GetSelectList(account.BankAgency.BankSubFamily.Id,EnumSelectType.Empty),
+        //        Selected = _mapper.Map<Select>(account.BankAgency)
+        //    };
 
 
-            accountDto.LinkedUsers = _mapper.Map<List<Select>>(account.UserAccounts.Select(x => x.User).ToList());
-            return accountDto;
+        //    accountDto.LinkedUsers = _mapper.Map<List<Select>>(account.UserAccounts.Select(x => x.User).ToList());
+        //    return accountDto;
 
-        }
+        //}
 
         public Select GetSelectById(int idAccount)
         {
@@ -125,7 +165,7 @@ namespace Budget.SERVICE
             return _mapper.Map<Select>(account);
         }
 
-        public void Update(AccountForDetailDto accountForDetailDto)
+        public void Update(AccountForDetail accountForDetailDto)
         {
             //var account = _accountRepository.GetById(accountForDetailDto.Id);
             //account.IdBankAgency = accountForDetailDto.BankAgency.Id;
@@ -139,7 +179,7 @@ namespace Budget.SERVICE
 
         }
 
-        public Account Create(int idUser, AccountForDetailDto accountForDetailDto)
+        public Account Create(int idUser, AccountForDetail accountForDetailDto)
         {
             //var account = _accountRepository.GetByNumber(accountForDetailDto.Number);
             //if (account == null)

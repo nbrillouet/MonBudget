@@ -41,7 +41,6 @@ export class AccountTableFilterSelectionState extends LoaderState {
         const state = context.getState();
         state.selection = null;
         context.patchState(state);
-
         this._referentialService.accountService.getForTableFilter(action.payload)
             .subscribe(result=> {
                 let state = context.getState();

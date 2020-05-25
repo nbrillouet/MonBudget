@@ -104,7 +104,12 @@ namespace Budget.SERVICE
 
         public FilterAccountTableSelection GetFilterAccountTable(FilterAccountTableSelected filter)
         {
+            
             FilterAccountTableSelection filterAccountTableSelection = new FilterAccountTableSelection();
+
+            var bankFamily = _referentialService.UserAccountService.GetBankFamily(filter.User.Id);
+            filterAccountTableSelection.BankFamily = bankFamily;
+
             return filterAccountTableSelection;
         }
 
