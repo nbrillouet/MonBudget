@@ -65,7 +65,7 @@ namespace Budget.SERVICE
         {
             FilterAccountForDetail filterAccountForDetail = new FilterAccountForDetail()
             {
-                BankFamily = _referentialService.BankFamilyService.GetSelectList(EnumSelectType.Empty),
+                BankFamily = _referentialService.BankFamilyService.GetSelectCodeList(EnumSelectType.Empty),
                 BankSubFamily = accountForDetail.BankAgency != null
                     ? _referentialService.BankSubFamilyService.GetSelectList(accountForDetail.BankAgency.BankSubFamily.BankFamily.Id, EnumSelectType.Empty)
                     : null,

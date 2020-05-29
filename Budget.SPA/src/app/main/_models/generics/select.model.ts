@@ -3,10 +3,10 @@ export interface ISelect {
     label: string;
 }
 
-export class Select {
-    id: number;
-    label: string;
-}
+// export class Select {
+//     id: number;
+//     label: string;
+// }
 
 export interface ISelectGroup extends ISelect {
     selects: ISelect[];
@@ -22,6 +22,19 @@ export interface ISelectCode {
     id: number;
     label: string;
     code: string;
+}
+
+export class Select {
+    id: number;
+    label: string;
+}
+
+export class SelectCode extends Select {
+    code: string;
+}
+
+export class SelectCodeUrl extends SelectCode {
+    url: string;
 }
 
 export enum EnumSelectType {

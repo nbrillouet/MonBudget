@@ -3,11 +3,18 @@ import { IUserShortcut } from "app/main/_models/user-shortcut.model";
 
 export const USER_DETAIL_LOAD = 'user-detail-load';
 export const USER_DETAIL_CLEAR = 'user-detail-clear';
+export const USER_DETAIL_SYNCHRONIZE = 'user-detail-synchronize';
 
 export const USER_ADD = 'user-add';
 export const USER_DELETE = 'user-delete';
 export const USER_DELETE_SHORTCUT  = 'user-delete-shortcut';
 export const USER_ADD_SHORTCUT = 'user-add-shortcut';
+
+export class SynchronizeUserDetail {
+    static readonly type = USER_DETAIL_SYNCHRONIZE;
+
+    constructor(public payload: IUser) { }
+}
 
 export class AddUser {
     static readonly type = USER_ADD;

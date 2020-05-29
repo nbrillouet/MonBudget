@@ -263,6 +263,7 @@ namespace Budget.API
             services.AddScoped<IMailService, MailService>();
             services.AddScoped<IMailRegisterValidationService, MailRegisterValidationService>();
             services.AddScoped<IMailPasswordRecoveryService, MailPasswordRecoveryService>();
+            services.AddScoped<IMailAskAccountOwnerService, MailAskAccountOwnerService>();
             
 
 
@@ -282,7 +283,7 @@ namespace Budget.API
 
             services.AddScoped<IContextTransaction, ContextTransaction>();
 
-            services.AddTransient<IGreeter, Greeter>();
+            //services.AddTransient<IGreeter, Greeter>();
 
             //add authentification
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);

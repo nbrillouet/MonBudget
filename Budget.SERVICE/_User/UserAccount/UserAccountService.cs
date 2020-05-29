@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Budget.DATA.Repositories;
+using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using System.Collections.Generic;
@@ -26,6 +27,16 @@ namespace Budget.SERVICE
         public UserAccount Get(int idUser, int idAccount)
         {
             return _userAccountRepository.Get(idUser, idAccount);
+        }
+
+        public List<User> GetUsers(string accountNumber)
+        {
+            return _userAccountRepository.GetUsers(accountNumber);
+        }
+
+        public User GetUserOwner(string accountNumber)
+        {
+            return _userAccountRepository.GetUserOwner(accountNumber);
         }
 
         public List<BankAgencyWithAccountsDto> GetBankAgencies(int idUser)
@@ -62,7 +73,7 @@ namespace Budget.SERVICE
                 SelectGroupDto SelectGroupDto = new SelectGroupDto
                 {
                     Id = bankSubFamily.Id,
-                    Label = bankSubFamily.LabelLong,
+                    Label = bankSubFamily.Label,
                     Selects = _mapper.Map<List<Select>>(bankAgencies.Where(x => x.BankSubFamily.Id == bankSubFamily.Id).Select(x => x.Accounts).ToList()[0])
                 };
                 results.Add(SelectGroupDto);

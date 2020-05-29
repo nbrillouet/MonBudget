@@ -12,19 +12,21 @@ namespace Budget.SERVICE
     {
         PagedList<AccountForTable> GetForTable(FilterAccountTableSelected filterAccountTableSelected);
         AccountForDetail GetForDetail(int? idAccount);
-        //AccountForDetailDto GetForDetailById(int id);
         Account GetFullById(int idAccount);
-        Account GetById(int idAccount);
-        
         Account GetByNumber(string number);
-        List<Account> GetAll();
-        List<Account> GetByIdBankAgency(int idBankAgency);
         Select GetSelectById(int idAccount);
+        bool AskAccountOwner(AccountForDetail accountForDetail);
+        AccountForDetail Save(AccountForDetail accountForDetail);
+
 
         //void Update(AccountForDetailDto accountForDetailDto);
         //Account Create(int idUser, AccountForDetailDto accountForDetailDto);
-        void Update(Account account);
-        void Delete(Account account);
-        void Delete(int idUser, int idAccount);
+        //void Update(Account account);
+        //void Delete(Account account);
+        //void Delete(int idUser, int idAccount);
+        //List<Account> GetAll();
+        //List<Account> GetByIdBankAgency(int idBankAgency);
+        //Account GetById(int idAccount);
+        //AccountForDetailDto GetForDetailById(int id);
     }
 }

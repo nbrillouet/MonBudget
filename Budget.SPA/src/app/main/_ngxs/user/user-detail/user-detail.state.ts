@@ -1,5 +1,5 @@
 import { IUser, User } from "app/main/_models/user.model";
-import { AddUser, DeleteUser, User_DeleteShortcut, User_AddShortcut, LoadUserDetail, ClearUserDetail } from "./user-detail.action";
+import { AddUser, DeleteUser, User_DeleteShortcut, User_AddShortcut, LoadUserDetail, ClearUserDetail, SynchronizeUserDetail } from "./user-detail.action";
 import { UserService } from "app/main/apps/referential/user/user.service";
 import { IUserShortcut } from "app/main/_models/user-shortcut.model";
 import { State, Action, StateContext, Selector } from "@ngxs/store";
@@ -54,6 +54,12 @@ export class UserDetailState {
              action.payload
         
         );
+    }
+
+    @Action(SynchronizeUserDetail)
+    SynchronizeUserDetail(context: StateContext<UserDetailStateModel>, action: SynchronizeUserDetail) {
+        let state = context.getState();
+        context.patchState(state);
     }
 
     @Action(DeleteUser)

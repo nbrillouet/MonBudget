@@ -9,5 +9,6 @@ namespace Budget.SERVICE
     public interface ISelectService
     {
         List<Select> GetSelectList(EnumSelectType enumSelectType);
+        List<SelectCode> GetSelectCodeList(EnumSelectType enumSelectType);
     }
 }

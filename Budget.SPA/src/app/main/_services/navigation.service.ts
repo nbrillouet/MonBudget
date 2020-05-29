@@ -93,7 +93,7 @@ constructor(
         {
             let bankChild = {
                 id   : bank.id,
-                title: bank.bankFamily.labelLong,
+                title: bank.bankFamily.label,
                 type : 'collapsable',
                 children: []
             };
@@ -123,7 +123,8 @@ constructor(
             type : 'collapsable',
             icon : 'donut_small',
             children: []
-            }
+        };
+        
         var addEditMenu = {
             id   : 'addEditPlan',
             title: 'Création/modification',

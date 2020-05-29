@@ -1,4 +1,5 @@
-﻿using Budget.MODEL.Database;
+﻿using Budget.MODEL;
+using Budget.MODEL.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,35 @@ namespace Budget.DATA.Repositories
                 .FirstOrDefault();
         }
 
+        public List<User> GetUsers(string accountNumber)
+        {
+            return Context.UserAccount
+                .Where(x => x.Account.Number == accountNumber)
+                .Select(x => x.User)
+                .ToList();
+        }
+
+        public User GetUserOwner(string accountNumber)
+        {
+            //recherche du compte
+            var account = Context.Account
+                .Where(x => x.Number == accountNumber)
+                .FirstOrDefault();
+            //recherche du user owner
+            var user = Context.User
+                .Where(x => x.Id == account.IdUserOwner)
+                .FirstOrDefault();
+
+            return user;
+        }
+
         public List<BankAgency> GetBankAgencies(int idUser)
         {
             var results = Context.UserAccount
-                .Where(x => x.IdUser == idUser).AsQueryable();
-            
+                .Where(x => x.IdUser == idUser)
+                .Where(x=>x.ActivationCode==EnumActivationCode.Active.ToString())
+                .AsQueryable();
+
             return GetBankAgencies(results);
         }
 
@@ -55,6 +80,7 @@ namespace Budget.DATA.Repositories
                 .Include(x => x.BankAgency)
                     .ThenInclude(x => x.BankSubFamily)
                     .ThenInclude(x => x.BankFamily)
+                        .ThenInclude(x=>x.Asset)
                 .Include(x => x.AccountType)
                 .Include(x => x.UserAccounts)
                     .ThenInclude(ua => ua.User)

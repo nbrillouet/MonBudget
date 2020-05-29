@@ -9,24 +9,24 @@ using System.Threading.Tasks;
 
 namespace Budget.API.Helpers
 {
-    public class Greeter : IGreeter
-    {
-        public string Greet()
-        {
-            return "Hello from Greeter!\n";
-        }
-    }
+    //public class Greeter : IGreeter
+    //{
+    //    public string Greet()
+    //    {
+    //        return "Hello from Greeter!\n";
+    //    }
+    //}
 
-    public interface IGreeter
-    {
-        string Greet();
-    }
+    //public interface IGreeter
+    //{
+    //    string Greet();
+    //}
 
     public class RequestTrackerMiddleware
     {
         private readonly RequestDelegate _next;
         //private readonly UserService _userService;
-        private readonly IGreeter _greeter;
+        //private readonly IGreeter _greeter;
         public RequestTrackerMiddleware(
             RequestDelegate next
             //UserService userService
@@ -62,8 +62,11 @@ namespace Budget.API.Helpers
             if (idUser!=null)
             {
                 User user = await _userService.GetByIdAsync(Convert.ToInt32(idUser));
-                user.DateLastActive = DateTime.Now;
-                //_userService.Update(user);
+                if (user!=null)
+                {
+                    user.DateLastActive = DateTime.Now;
+                    _userService.Update(user);
+                }
 
             }
             //    //Format the response from the server

@@ -77,13 +77,18 @@ namespace Budget.SERVICE._Helpers
             CreateMap<Account, AccountForLabelDto>();
             CreateMap<Account, AccountForTable>()
                 .ForMember(d => d.LinkedUsers, o => o.MapFrom(s => s.UserAccounts));
-                //.ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankAgency.BankSubFamily.BankFamily))
-                //.ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankAgency.BankSubFamily));
+            //.ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankAgency.BankSubFamily.BankFamily))
+            //.ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankAgency.BankSubFamily));
 
             CreateMap<Account, AccountForDetail>()
                 //.ForMember(d => d.AccountType, o => o.Ignore())
                 //.ForMember(d => d.BankAgency, o => o.Ignore())
-                .ForMember(d => d.LinkedUsers, o => o.Ignore());
+                .ForMember(d => d.LinkedUsers, o => o.Ignore())
+            .ReverseMap()
+                .ForMember(d => d.IdAccountType, o => o.MapFrom(s => s.AccountType.Id))
+                .ForMember(d => d.IdBankAgency, o => o.MapFrom(s => s.BankAgency.Id))
+                .ForMember(d => d.UserAccounts, o => o.Ignore());
+                //.ForMember(d => d.idi, o => o.MapFrom(s => s.Number + " - " + s.Label));
 
             CreateMap<Account, Select>()
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.Number + " - " + s.Label));
@@ -93,27 +98,37 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.IdUser))
                 .ForMember(d => d.Label, o => o.MapFrom(s => $"{s.User.FirstName} {s.User.LastName}"));
 
-            CreateMap<BankFamily, BankGenericDto>();
+            //CreateMap<BankFamily, BankGenericDto>();
             CreateMap<BankFamily, Select>();
                 //.ForMember(d => d.Label, o => o.MapFrom(s => s.Label));
             CreateMap<BankFamily, SelectCode>()
                 //.ForMember(d => d.Label, o => o.MapFrom(s => s.Label))
                 .ForMember(d => d.Code, o => o.MapFrom(s => $"\\assets\\{s.Asset.Path}\\{s.Asset.Name}.{s.Asset.Extension}"));
-
+            CreateMap<BankFamily, SelectCodeUrl>()
+                .ForMember(d => d.Url, o => o.MapFrom(s => $"\\assets\\{s.Asset.Path}\\{s.Asset.Name}.{s.Asset.Extension}"));
+            
             CreateMap<BankSubFamily, Select>()
-                .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong));
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.Label));
+            CreateMap<BankSubFamily, SelectCodeUrl>();
+                //.ForMember(d => d.Url, o => o.MapFrom(s => $"\\assets\\{s.Asset.Path}\\{s.Asset.Name}.{s.Asset.Extension}"));
+
             CreateMap<BankAgency, Select>();
-           
-            CreateMap<BankSubFamily, BankGenericDto>();
-            CreateMap<BankSubFamily, BankSubFamilyForDetail>()
-                .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong));
+
+            //CreateMap<BankSubFamily, BankGenericDto>();
+            CreateMap<BankSubFamily, BankSubFamilyForDetail>();
+     
 
 
             CreateMap<BankAgency, BankAgencyDto>()
                 .ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankSubFamily.BankFamily))
                 .ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankSubFamily));
-            CreateMap<BankAgency, BankAgencyForDetail>();
-            
+            CreateMap<BankAgency, BankAgencyForDetail>()
+            .ReverseMap()
+                .ForMember(d => d.Id ,o => o.MapFrom(s => s.Id))
+                .ForPath(d => d.IdBankSubFamily, o => o.MapFrom(s => s.BankSubFamily.Id))
+                //.ForPath(d => d., o => o.MapFrom(s => s.BankSubFamily.BankFamily.Id))
+                .ForAllOtherMembers(o => o.Ignore());
+
             CreateMap<BankAgency, BankAgencyWithAccountsDto>()
                 .ForMember(d => d.BankFamily, o => o.MapFrom(s => s.BankSubFamily.BankFamily));
             //.ForMember(d => d.BankSubFamily, o => o.MapFrom(s => s.BankSubFamily));

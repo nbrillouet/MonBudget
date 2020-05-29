@@ -47,7 +47,11 @@ namespace Budget.MODEL
         BUS_AUTH_ERR_004,    //L'utilisateur n'existe pas
         BUS_AUTH_ERR_005,    //L'adresse mail indiqué ne correspond pas à l'adresse mail du compte
         BUS_AUTH_ERR_006,    //Email non vérifié, connexion impossible
+        BUS_AUTH_ERR_007,    //Un utilisateur possède déjà ce pseudonyme
 
-        BUS_USER_ERR_000     //Compte non trouvé, validation impossible
+        BUS_USER_ERR_000,    //Compte non trouvé, validation impossible
+        BUS_USER_ERR_001,    //Expiration du délai de validation du compte, validation impossible
+
+        BUS_ACC_ERR_000      //Ce compte est utilisé par un autre utilisateur
     }
 }

@@ -159,6 +159,10 @@
                                     <mat-icon matSuffix>euro_symbol</mat-icon>
                                 </mat-form-field>
                             </div>
+
+                            <ng-container *ngIf="this.hasSameUser">
+                                <ng-container *ngTemplateOutlet="tp_same_user"></ng-container>
+                            </ng-container>
                         </div>
                       </mat-tab>
                   </mat-tab-group>
@@ -177,3 +181,34 @@
         mode="indeterminate">
     </mat-progress-bar>
 </ng-template>
+
+<ng-template #tp_same_user>
+    <form name="askAccountOwnerForm">
+        <mat-card class="product w-100-p" >
+            <mat-card-header><b>Compte propriétaire</b></mat-card-header>
+            
+            <mat-card-content>
+                <h3 style='color:firebrick' [@animate]="{value:'*',params:{delay:'100ms', y:'25px'}}">
+                    Ce compte est utilisé par un autre utilisateur.<br>
+                    Son autorisation est requise pour que ce compte soit commun.
+            
+                    Demander autorisation au propriétaire du compte?
+                </h3> 
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button (click)="askAccountOwner()">OK</button>
+                <button mat-button (click)="cancelSave()">ANNULER</button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+<!--     
+    <mat-form-field appearance="outline" floatLabel="always"  >
+      <mat-label>Montant acheté</mat-label>
+      
+      <input matInput 
+        formControlName="montantAchat" 
+        [value]="data.couvertureSwap.montantAchat" 
+      > -->
+      <!-- <span matSuffix>{{data.couvertureSwap.deviseAchat?.code}}</span> -->
+    <!-- </mat-form-field> -->
+  </ng-template>

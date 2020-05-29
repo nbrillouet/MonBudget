@@ -1,6 +1,7 @@
 import { IBankAgency, BankAgencyForDetail } from "./bank-agency.model";
 import { ISelect } from "../generics/select.model";
 import { ComboSimple } from "../generics/combo.model";
+import { IUserForGroup } from "../user.model";
 
 export interface IAccount {
     id : number,
@@ -45,8 +46,6 @@ export class AccountForTable {
     number : string;
     label : string;
     bankAgency : BankAgencyForDetail;
-    // bankSubFamily: ISelect;
-    // bankFamily: ISelect;
     startAmount: number;
     accountType: ISelect;
     alertThreshold: number;
@@ -56,11 +55,10 @@ export class AccountForTable {
 
 export class AccountForDetail {
     id : number;
+    user : IUserForGroup;
     number : string;
     label : string;
     bankAgency : BankAgencyForDetail;
-    // bankSubFamily: ISelect;
-    // bankFamily: ISelect;
     startAmount: number;
     accountType: ISelect;
     alertThreshold: number;

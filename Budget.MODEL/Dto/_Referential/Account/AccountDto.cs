@@ -11,9 +11,6 @@ namespace Budget.MODEL.Dto
         public string Number { get; set; }
         public string Label { get; set; }
         public BankAgencyForDetail BankAgency { get; set; }
-        //public Select BankAgency { get; set; }
-        //public Select BankSubFamily { get; set; }
-        //public SelectCode BankFamily { get; set; }
         public double StartAmount { get; set; }
         public Select AccountType { get; set; }
         public double AlertThreshold { get; set; }
@@ -31,10 +28,9 @@ namespace Budget.MODEL.Dto
     public class AccountForDetail
     {
         public int Id { get; set; }
+        public UserForGroupDto User { get; set; }
         public string Number { get; set; }
         public string Label { get; set; }
-        //public Select BankFamily { get; set; }
-        //public Select BankSubFamily { get; set; }
         public BankAgencyForDetail BankAgency { get; set; }
         public Select AccountType { get; set; }
         public List<Select> LinkedUsers { get; set; }

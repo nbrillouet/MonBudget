@@ -61,6 +61,15 @@ namespace Budget.SERVICE {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ce compte est utilisé par un autre utilisateur.
+        /// </summary>
+        internal static string BUS_ACC_ERR_000 {
+            get {
+                return ResourceManager.GetString("BUS_ACC_ERR_000", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Import utilisé dans un ou plusieurs relevé de comptes.
         /// </summary>
         internal static string BUS_ASI_ERR_000 {
@@ -129,6 +138,15 @@ namespace Budget.SERVICE {
         internal static string BUS_AUTH_ERR_006 {
             get {
                 return ResourceManager.GetString("BUS_AUTH_ERR_006", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Un utilisateur possède déjà ce pseudonyme.
+        /// </summary>
+        internal static string BUS_AUTH_ERR_007 {
+            get {
+                return ResourceManager.GetString("BUS_AUTH_ERR_007", resourceCulture);
             }
         }
         
@@ -246,6 +264,15 @@ namespace Budget.SERVICE {
         internal static string BUS_USER_ERR_000 {
             get {
                 return ResourceManager.GetString("BUS_USER_ERR_000", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Expiration du délai de validation du compte, validation impossible.
+        /// </summary>
+        internal static string BUS_USER_ERR_001 {
+            get {
+                return ResourceManager.GetString("BUS_USER_ERR_001", resourceCulture);
             }
         }
     }

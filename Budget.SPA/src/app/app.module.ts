@@ -108,26 +108,20 @@ const appRoutes: Routes = [
         AuthGuard,
         AuthService,
         ErrorService,
-        // GoogleMapService,
         FuseSplashScreenService,
         FuseConfigService,
         FuseNavigationService,
-        // AccountService,
         NavigationService,
-        // BankAgencyService,
-        // AccountTypeService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
         { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
-        { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
         { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+        { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
         
-        // DatePipe,
-        // UserDetailResolver,
         UserLoaded,
         UserService,
         HelperService
-        // PlanService
     ],
     bootstrap   : [
         AppComponent

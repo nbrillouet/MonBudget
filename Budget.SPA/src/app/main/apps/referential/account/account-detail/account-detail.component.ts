@@ -9,7 +9,7 @@ import { IAccountForDetail, AccountForDetail } from 'app/main/_models/referentia
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { AccountDetailState } from 'app/main/_ngxs/referential/account/account-detail/account-detail.state';
-import { LoadAccountDetail, ClearAccountDetail } from 'app/main/_ngxs/referential/account/account-detail/account-detail.action';
+import { LoadAccountDetail, ClearAccountDetail, SynchronizeAccountDetail } from 'app/main/_ngxs/referential/account/account-detail/account-detail.action';
 import { ValidateIsUnknown } from './account-detail.validator';
 import { Datas, DetailInfo, DataInfo } from 'app/main/_models/generics/detail-info.model';
 import { AccountDetailFilterState } from 'app/main/_ngxs/referential/account/account-detail/account-detail-filter/account-detail-filter.state';
@@ -17,6 +17,7 @@ import { FilterForDetail } from 'app/main/_models/filters/shared/filterDetail.fi
 import { FilterAccountDetail, FilterAccountTableSelected } from 'app/main/_models/filters/account.filter';
 import { FilterSelected } from 'app/main/_models/generics/filter.info.model';
 import { AccountTableFilterSelectedState } from 'app/main/_ngxs/referential/account/account-table/account-table-filter-selected/account-table-filter-selected.state';
+import { AccountDetailFilterChangeBankFamily, AccountDetailFilterChangeBankSubFamily } from 'app/main/_ngxs/referential/account/account-detail/account-detail-filter/account-detail-filter.action';
 
 @Component({
   selector: 'account-detail',
@@ -36,6 +37,7 @@ accountForDetail: AccountForDetail
 filterAccountSelected: FilterAccountTableSelected;
 firstLoad: boolean=true;
 accountDetailForm: FormGroup;
+hasSameUser: boolean = false;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -95,27 +97,72 @@ accountDetailForm: FormGroup;
     
 
     this.accountDetailForm.get('bankFamily').valueChanges
-    .subscribe(val => {
-      // this._store.dispatch(new AccountForDetailChangeBankFamily(val));
-      this.accountDetailForm.controls['bankSubFamily'].setValue({id:1,label:'INCONNU'});
-    });
+      .subscribe(val => {
+        this._store.dispatch(new AccountDetailFilterChangeBankFamily(val));
+        this.accountDetailForm.controls['bankSubFamily'].setValue({id:1,label:'INCONNU'});
+      });
 
     this.accountDetailForm.get('bankSubFamily').valueChanges
     .subscribe(val => {
-      // this._store.dispatch(new AccountForDetailChangeBankSubFamily(val));
+      this._store.dispatch(new AccountDetailFilterChangeBankSubFamily(val));
       this.accountDetailForm.controls['bankAgency'].setValue({id:1,label:'INCONNU'});
     });
     
     this.accountDetailForm.valueChanges.subscribe(val=>{
-      this.accountForDetail.id = val;
+      this.accountForDetail.id = val.id;
+      this.accountForDetail.number = val.number;
+      this.accountForDetail.label = val.label;
+      this.accountForDetail.bankAgency = val.bankAgency;
 
-      //TODO synchronize
-      // this._store.dispatch(new LoadAccountForDetailSuccess(this.accountDetail));
+      if(this.accountForDetail.bankAgency)
+        this.accountForDetail.bankAgency.bankSubFamily = val.bankSubFamily;
+      if(this.accountForDetail.bankAgency.bankSubFamily)
+        this.accountForDetail.bankAgency.bankSubFamily.bankFamily = val.bankFamily;
+
+      this.accountForDetail.startAmount = val.startAmount;
+      this.accountForDetail.accountType = val.accountType;
+      this.accountForDetail.alertThreshold = val.alertThreshold;
+
+      console.log('this.accountForDetail',this.accountForDetail);
+      this._store.dispatch(new SynchronizeAccountDetail(this.accountForDetail));
     });
   }
 
   save(){
+    this._referentialService.accountService.save(this.accountForDetail)
+    .subscribe(resp=> {
+      // console.log('resp',resp);
+      // if(resp)
+      // {
+        this.hasSameUser=false;
+        this._notificationService.success('Enregistrement effectué', `Le compte est enregistrée`);
+        //this._store.dispatch(new SynchronizeAccountTableFilterSelected(this.filterOtfSelected));
+      // }
+      // else {
+      //   this._notificationService.error('Echec de l\'enregistrement');
+      // }
+    },
+    error => {
+        // this.enumSave = this.enumSaveList.ONERROR;
+        if (error.status === 400) {
+          //
+          if(error.error.filter(x => x.code=='BUS_ACC_ERR_000')[0]) {
+            this.hasSameUser=true;
+            console.log('erreur utilisateur')
+          }
+        }
+    });
+  }
 
+  askAccountOwner(){
+    this._referentialService.accountService.askAccountOwner(this.accountForDetail)
+    .subscribe(resp=> { 
+
+    });
+  }
+
+  cancelSave() {
+    this.hasSameUser = false;
   }
 
   compareObjects(o1: any, o2: any) {

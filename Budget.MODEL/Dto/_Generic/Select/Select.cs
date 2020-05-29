@@ -16,6 +16,11 @@ namespace Budget.MODEL.Dto
         public string Code { get; set; }
     }
 
+    public class SelectCodeUrl : SelectCode
+    {
+        public string Url { get; set; }
+    }
+
     //public class SelectValueDto<T>
     //{
     //    public int Id { get; set; }

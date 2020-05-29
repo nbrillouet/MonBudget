@@ -39,6 +39,12 @@ namespace Budget.MODEL.Database
         [Column("ALERT_THRESHOLD")]
         public double AlertThreshold { get; set; }
 
+        [Column("ID_USER_OWNER")]
+        public int IdUserOwner { get; set; }
+
+        [ForeignKey("IdUserOwner")]
+        public User UserOwner { get; set; }
+
         public virtual List<UserAccount> UserAccounts { get; set; }
 
         public Account()

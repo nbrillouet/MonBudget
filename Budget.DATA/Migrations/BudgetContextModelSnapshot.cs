@@ -56,6 +56,9 @@ namespace Budget.DATA.Migrations
                     b.Property<int>("IdBankAgency")
                         .HasColumnName("ID_BANK_AGENCY");
 
+                    b.Property<int>("IdUserOwner")
+                        .HasColumnName("ID_USER_OWNER");
+
                     b.Property<string>("Label")
                         .HasColumnName("LABEL")
                         .HasMaxLength(50);
@@ -72,6 +75,8 @@ namespace Budget.DATA.Migrations
                     b.HasIndex("IdAccountType");
 
                     b.HasIndex("IdBankAgency");
+
+                    b.HasIndex("IdUserOwner");
 
                     b.HasIndex("Number")
                         .IsUnique()
@@ -427,22 +432,23 @@ namespace Budget.DATA.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Code")
+                        .HasColumnName("CODE")
+                        .HasMaxLength(10);
+
+                    b.Property<int>("IdAsset")
+                        .HasColumnName("ID_ASSET");
+
                     b.Property<int>("IdBankFamily")
                         .HasColumnName("ID_BANK_FAMILY");
 
-                    b.Property<string>("LabelLong")
-                        .HasColumnName("LABEL_LONG")
+                    b.Property<string>("Label")
+                        .HasColumnName("LABEL")
                         .HasMaxLength(50);
-
-                    b.Property<string>("LabelShort")
-                        .HasColumnName("LABEL_SHORT")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("LogoClassName")
-                        .HasColumnName("LOGO_CLASS_NAME")
-                        .HasMaxLength(30);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdAsset");
 
                     b.HasIndex("IdBankFamily");
 
@@ -1279,6 +1285,9 @@ namespace Budget.DATA.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ActivationCode")
+                        .HasColumnName("ACTIVATION_CODE");
+
                     b.Property<int>("IdAccount")
                         .HasColumnName("ID_ACCOUNT");
 
@@ -1445,6 +1454,12 @@ namespace Budget.DATA.Migrations
                     b.Property<string>("ActivationCode")
                         .HasColumnName("ACTIVATION_CODE");
 
+                    b.Property<DateTime?>("ActivationDateSend")
+                        .HasColumnName("ACTIVATION_DATE_SEND");
+
+                    b.Property<bool>("ActivationIsConfirmed")
+                        .HasColumnName("ACTIVATION_IS_CONFIRMED");
+
                     b.Property<string>("AvatarUrl")
                         .HasColumnName("AVATAR_URL");
 
@@ -1471,9 +1486,6 @@ namespace Budget.DATA.Migrations
 
                     b.Property<int>("IdUserGroup")
                         .HasColumnName("ID_USER_GROUP");
-
-                    b.Property<bool>("IsMailConfirmed")
-                        .HasColumnName("IS_MAIL_CONFIRMED");
 
                     b.Property<string>("LastName")
                         .HasColumnName("LAST_NAME");
@@ -1539,6 +1551,11 @@ namespace Budget.DATA.Migrations
                     b.HasOne("Budget.MODEL.Database.BankAgency", "BankAgency")
                         .WithMany("Accounts")
                         .HasForeignKey("IdBankAgency")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Budget.MODEL.User", "UserOwner")
+                        .WithMany()
+                        .HasForeignKey("IdUserOwner")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1679,6 +1696,11 @@ namespace Budget.DATA.Migrations
 
             modelBuilder.Entity("Budget.MODEL.Database.BankSubFamily", b =>
                 {
+                    b.HasOne("Budget.MODEL.Database.Asset", "Asset")
+                        .WithMany()
+                        .HasForeignKey("IdAsset")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Budget.MODEL.Database.BankFamily", "BankFamily")
                         .WithMany()
                         .HasForeignKey("IdBankFamily")

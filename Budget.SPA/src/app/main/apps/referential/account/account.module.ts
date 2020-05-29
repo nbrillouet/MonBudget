@@ -16,6 +16,7 @@ import { AccountTableFilterSelectedState } from 'app/main/_ngxs/referential/acco
 import { AccountTableState } from 'app/main/_ngxs/referential/account/account-table/account-table.state';
 import { MatTableFilterModule } from '../../web-component/mat-table-filter/mat-table-filter.module';
 import { AccountDetailFilterState } from 'app/main/_ngxs/referential/account/account-detail/account-detail-filter/account-detail-filter.state';
+import { ReferentialServiceModule } from 'app/main/_services/Referential/referential.service.module';
 
 const routes = [
   {
@@ -41,11 +42,11 @@ const routes = [
     AngularMaterialModule,
     FuseConfirmDialogModule,
     MatTableFilterModule,
+    ReferentialServiceModule,
     RouterModule.forChild(routes),
     NgxsModule.forFeature([
       AccountDetailState,
       AccountDetailFilterState,
-      // AccountForDetailState,
       AccountTableFilterSelectionState,
       AccountTableFilterSelectedState,
       AccountTableState

@@ -22,5 +22,10 @@ namespace Budget.MODEL.Database
 
         [ForeignKey("IdAccount")]
         public Account Account { get; set; }
+
+        [Column("ACTIVATION_CODE")]
+        public string ActivationCode { get; set; }
+
+
     }
 }

@@ -9,6 +9,7 @@ using Budget.MODEL.Dto;
 using AutoMapper;
 using System.Linq;
 using Budget.SERVICE._Helpers;
+using Microsoft.Extensions.Configuration;
 
 namespace Budget.SERVICE
 {
@@ -19,7 +20,8 @@ namespace Budget.SERVICE
         private readonly IMailRegisterValidationService _mailRegisterValidationService;
         private readonly IMailPasswordRecoveryService _mailPasswordRecoveryService;
         private readonly IBusinessExceptionMessageService _businessExceptionMessageService;
-        
+        private readonly IConfiguration _configuration;
+
         private readonly IAuthRepository _authRepository;
 
         public AuthService(
@@ -28,6 +30,7 @@ namespace Budget.SERVICE
             IUserService userService,
             IMailRegisterValidationService mailRegisterValidationService,
             IMailPasswordRecoveryService mailPasswordRecoveryService,
+            IConfiguration configuration,
 
             IAuthRepository authRepository
             
@@ -38,17 +41,24 @@ namespace Budget.SERVICE
             _userService = userService;
             _mailRegisterValidationService = mailRegisterValidationService;
             _mailPasswordRecoveryService = mailPasswordRecoveryService;
+            _configuration = configuration;
 
             _authRepository = authRepository;
         }
 
         public UserForDetailDto Login(string username, string password)
         {
-            User user = _authRepository.Login(username, password);
+            User user = _userService.GetByUsername(username);
+            if (user == null)
+                return null;
+
+            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+                return null;
+            //User user = _authRepository.Login(username, password);
             CheckForLogin(user);
 
             UserForDetailDto UserForDetailDto = _userService.GetForDetailById(user.Id);
-            return UserForDetailDto; // _mapper.Map<UserForDetailDto>(user);
+            return UserForDetailDto;
         }
 
         public User Register(UserForRegister userForRegister)
@@ -59,13 +69,21 @@ namespace Budget.SERVICE
 
             user = CreatePasswordHash(user, userForRegister.Password);
             user.ActivationCode = GetActivationCode();
-            user.IsMailConfirmed = false;
+            user.ActivationIsConfirmed = false;
             user.Role = EnumRole.User.ToString();
+            user.AvatarUrl = _configuration.GetSection("Items:AvatarDefault").Value;
+            user.IdGMapAddress = 1;
+            user.DateCreated = DateTime.Now;
 
-            user = _authRepository.Register(user);
+            user = _userService.Register(user);
 
             //Envoi du mail validation
             _mailRegisterValidationService.SendRegisterValidationMail(user);
+
+            //Enregistrement date et heure d'envoi du mail validation
+            user.ActivationDateSend = DateTime.Now;
+            _userService.Update(user);
+
             return user;
         }
 
@@ -114,20 +132,25 @@ namespace Budget.SERVICE
             return true;
         }
 
-        private bool UserExists(string mail)
-        {
-            return _authRepository.UserExists(mail);
-        }
+        //private bool UserExists(string mail)
+        //{
+        //    return _authRepository.UserExists(mail);
+        //}
 
         private void CheckForRegister(User user, string password)
         {
             List<BusinessExceptionMessage> businessExceptionMessages = new List<BusinessExceptionMessage>();
+
             //Recherche si utilisateur existe deja (verification adresse mail)
-            if (UserExists(user.MailAddress))
+            if (_userService.GetByMail(user.MailAddress)!=null)
                 businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_AUTH_ERR_000));
 
+            //Recherche si utilisateur existe deja (verification username)
+            if (_userService.GetByUsername(user.UserName)!=null)
+                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_AUTH_ERR_007));
+
             //password doit être superieur a 8 caracteres
-            if (password.Length<8)
+            if (password.Length < 8)
             {
                 businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_AUTH_ERR_001));
             }
@@ -145,7 +168,7 @@ namespace Budget.SERVICE
             if (user==null)
                 businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_AUTH_ERR_002));
             //Recherche si utilisateur a son compte validé isMailConfirmed
-            if (!user.IsMailConfirmed)
+            if (!user.ActivationIsConfirmed)
                 businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_AUTH_ERR_006));
 
             if (businessExceptionMessages.Count() > 0)
@@ -236,6 +259,21 @@ namespace Budget.SERVICE
 
             return idUser;
         }
-            
+
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            {
+
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != passwordHash[i])
+                        return false;
+                }
+            }
+            return true;
+        }
+
     }
 }

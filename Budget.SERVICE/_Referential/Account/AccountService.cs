@@ -20,6 +20,9 @@ namespace Budget.SERVICE
         private readonly IBankFamilyService _bankFamilyService;
         private readonly IBankSubFamilyService _bankSubFamilyService;
         private readonly IBankAgencyService _bankAgencyService;
+        private readonly IBusinessExceptionMessageService _businessExceptionMessageService;
+        private readonly IUserService _userService;
+        private readonly IMailAskAccountOwnerService _mailAskAccountOwnerService;
 
         public AccountService(
             IAccountRepository accountRepository,
@@ -28,6 +31,9 @@ namespace Budget.SERVICE
             IBankFamilyService bankFamilyService,
             IBankSubFamilyService bankSubFamilyService,
             IBankAgencyService bankAgencyService,
+            IBusinessExceptionMessageService businessExceptionMessageService,
+            IUserService userService,
+            IMailAskAccountOwnerService mailAskAccountOwnerService,
             IMapper mapper)
         {
             _accountRepository = accountRepository;
@@ -36,6 +42,9 @@ namespace Budget.SERVICE
             _bankFamilyService = bankFamilyService;
             _bankSubFamilyService = bankSubFamilyService;
             _bankAgencyService = bankAgencyService;
+            _businessExceptionMessageService = businessExceptionMessageService;
+            _userService = userService;
+            _mailAskAccountOwnerService = mailAskAccountOwnerService;
             _mapper = mapper;
 
         }
@@ -96,20 +105,20 @@ namespace Budget.SERVICE
             return account;
         }
 
-        public Account GetById(int idAccount)
-        {
-            return _accountRepository.GetById(idAccount);
-        }
+        //public Account GetById(int idAccount)
+        //{
+        //    return _accountRepository.GetById(idAccount);
+        //}
 
-        public List<Account> GetAll()
-        {
-            return _accountRepository.GetAll();
-        }
+        //public List<Account> GetAll()
+        //{
+        //    return _accountRepository.GetAll();
+        //}
 
-        public List<Account> GetByIdBankAgency(int idBankAgency)
-        {
-            return _accountRepository.GetByIdBankAgency(idBankAgency);
-        }
+        //public List<Account> GetByIdBankAgency(int idBankAgency)
+        //{
+        //    return _accountRepository.GetByIdBankAgency(idBankAgency);
+        //}
 
         public Account GetFullById(int id)
         {
@@ -152,8 +161,7 @@ namespace Budget.SERVICE
         //        List = _bankAgencyService.GetSelectList(account.BankAgency.BankSubFamily.Id,EnumSelectType.Empty),
         //        Selected = _mapper.Map<Select>(account.BankAgency)
         //    };
-
-
+        
         //    accountDto.LinkedUsers = _mapper.Map<List<Select>>(account.UserAccounts.Select(x => x.User).ToList());
         //    return accountDto;
 
@@ -165,68 +173,135 @@ namespace Budget.SERVICE
             return _mapper.Map<Select>(account);
         }
 
-        public void Update(AccountForDetail accountForDetailDto)
+        public bool AskAccountOwner(AccountForDetail accountForDetail)
         {
-            //var account = _accountRepository.GetById(accountForDetailDto.Id);
-            //account.IdBankAgency = accountForDetailDto.BankAgency.Id;
-            //account.IdAccountType = accountForDetailDto.AccountType.Id;
-            //account.Label = accountForDetailDto.Label;
-            //account.Number = accountForDetailDto.Number;
-            //account.StartAmount = accountForDetailDto.StartAmount;
-            //account.AlertThreshold = accountForDetailDto.AlertThreshold;
+            var userCaller = _userService.GetById(accountForDetail.User.Id);
+            //recherche du owner de compte
+            var userOwner = _userAccountService.GetUserOwner(accountForDetail.Number);
 
-            //Update(account);
+            //Envoi du mail au owner de compte
+            _mailAskAccountOwnerService.SendAskAccountOwnerMail(userCaller, userOwner, accountForDetail.Number);
 
+            return true;
         }
 
-        public Account Create(int idUser, AccountForDetail accountForDetailDto)
+        public AccountForDetail Save(AccountForDetail accountForDetail)
         {
-            //var account = _accountRepository.GetByNumber(accountForDetailDto.Number);
-            //if (account == null)
+            var account = _mapper.Map<Account>(accountForDetail);
+            CheckForSave(account, accountForDetail.User.Id);
+
+            if (account.Id != 0)
+            {
+                _accountRepository.Update(account);
+            }
+            else
+            {
+                account = _accountRepository.Create(account);
+            }
+
+            return _mapper.Map<AccountForDetail>(account);
+        }
+
+        private void CheckForSave(Account account, int idUser)
+        {
+            List<BusinessExceptionMessage> businessExceptionMessages = new List<BusinessExceptionMessage>();
+            //Recherche si numero de compte est utilisé par un autre user
+            var users = _userAccountService.GetUsers(account.Number);
+            if (users.Where(x=>x.Id!= idUser).Any())
+                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_ACC_ERR_000));
+
+            ////Recherche si operation utilisée dans account statement file
+            //if (_accountStatementCheckReferentialService.AsifHasOtf(otf.Id))
             //{
-            //    account = new Account
-            //    {
-            //        IdBankAgency = accountForDetailDto.BankAgency.Id,
-            //        IdAccountType = accountForDetailDto.AccountType.Id,
-            //        Label = accountForDetailDto.Label,
-            //        Number = accountForDetailDto.Number,
-            //        StartAmount = accountForDetailDto.StartAmount,
-            //        AlertThreshold = accountForDetailDto.AlertThreshold
-            //    };
-            //    account = Create(account);
+            //    businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_OTF_ERR_001));
             //}
 
-            //var userAccount = new UserAccount
+            ////Recherche si operation utilisé dans account statement
+            //if (_accountStatementCheckReferentialService.AsHasOtf(otf.Id))
             //{
-            //    IdAccount = account.Id,
-            //    IdUser = idUser
-            //};
-            //_userAccountService.Create(userAccount);
+            //    businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_OTF_ERR_002));
+            //}
 
-            return null;
+            ////Recherche si operation utilisé dans type operation
+            //if (_userCheckReferentialService.HasOtf(otf.Id))
+            //{
+            //    businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_OTF_ERR_003));
+            //}
 
+            ////Recherche si operation utilisé dans User account
+            //if (_userCheckReferentialService.HasOtf(otf.Id))
+            //{
+            //    businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_OTF_ERR_004));
+            //}
+
+
+            if (businessExceptionMessages.Count() > 0)
+            {
+                throw new BusinessException(businessExceptionMessages);
+            }
         }
+        //public void Update(AccountForDetail accountForDetailDto)
+        //{
+        //    //var account = _accountRepository.GetById(accountForDetailDto.Id);
+        //    //account.IdBankAgency = accountForDetailDto.BankAgency.Id;
+        //    //account.IdAccountType = accountForDetailDto.AccountType.Id;
+        //    //account.Label = accountForDetailDto.Label;
+        //    //account.Number = accountForDetailDto.Number;
+        //    //account.StartAmount = accountForDetailDto.StartAmount;
+        //    //account.AlertThreshold = accountForDetailDto.AlertThreshold;
 
-        public void Delete(int idUser, int idAccount)
-        {
-            var userAccount = _userAccountService.Get(idUser, idAccount);
-            _userAccountService.Delete(userAccount);
-        }
+        //    //Update(account);
 
-        public Account Create(Account account)
-        {
-            return _accountRepository.Create(account);
-        }
+        //}
 
-        public void Update(Account account)
-        {
-            _accountRepository.Update(account);
-        }
+        //public Account Create(int idUser, AccountForDetail accountForDetailDto)
+        //{
+        //    //var account = _accountRepository.GetByNumber(accountForDetailDto.Number);
+        //    //if (account == null)
+        //    //{
+        //    //    account = new Account
+        //    //    {
+        //    //        IdBankAgency = accountForDetailDto.BankAgency.Id,
+        //    //        IdAccountType = accountForDetailDto.AccountType.Id,
+        //    //        Label = accountForDetailDto.Label,
+        //    //        Number = accountForDetailDto.Number,
+        //    //        StartAmount = accountForDetailDto.StartAmount,
+        //    //        AlertThreshold = accountForDetailDto.AlertThreshold
+        //    //    };
+        //    //    account = Create(account);
+        //    //}
 
-        public void Delete(Account account)
-        {
-            _accountRepository.Delete(account);
-        }
+        //    //var userAccount = new UserAccount
+        //    //{
+        //    //    IdAccount = account.Id,
+        //    //    IdUser = idUser
+        //    //};
+        //    //_userAccountService.Create(userAccount);
+
+        //    return null;
+
+        //}
+
+        //public void Delete(int idUser, int idAccount)
+        //{
+        //    var userAccount = _userAccountService.Get(idUser, idAccount);
+        //    _userAccountService.Delete(userAccount);
+        //}
+
+        //public Account Create(Account account)
+        //{
+        //    return _accountRepository.Create(account);
+        //}
+
+        //public void Update(Account account)
+        //{
+        //    _accountRepository.Update(account);
+        //}
+
+        //public void Delete(Account account)
+        //{
+        //    _accountRepository.Delete(account);
+        //}
 
 
     }

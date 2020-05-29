@@ -13,9 +13,11 @@ import { fuseAnimations } from '@fuse/animations';
 import { IUser } from 'app/main/_models/user.model';
 import { IGMapSearchInfo } from 'app/main/_models/g-map.model.';
 import { AuthService } from 'app/main/_services/auth.service';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
 import { Observable } from 'rxjs';
+import { HelperService } from 'app/main/_services/helper.service';
+import { SynchronizeUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.action';
 
 @Component({
   selector: 'user-detail',
@@ -48,6 +50,8 @@ export class UserDetailComponent implements OnInit {
     private authService: AuthService,
     private datePipe: DatePipe,
     private router: Router,
+    private _helperService: HelperService,
+    private _store: Store,
     private activatedRoute: ActivatedRoute,
   ) { }
 
@@ -65,7 +69,7 @@ export class UserDetailComponent implements OnInit {
               operationPlaceSearch: ""
               };
 
-          this.userForm=this.createUserForm();
+          this.createUserForm();
       }
     });
     // this.activatedRoute.data.subscribe(data => {
@@ -90,7 +94,7 @@ export class UserDetailComponent implements OnInit {
 
   createUserForm()
   {
-      return this.formBuilder.group({
+      this.userForm = this.formBuilder.group({
           id              : [this.user.id],
           userName        : [this.user.userName,[Validators.required]],
           lastName        : [this.user.lastName,[Validators.required]],
@@ -101,23 +105,37 @@ export class UserDetailComponent implements OnInit {
           dateCreated     : [{value:this.datePipe.transform(this.user.dateCreated,"dd/MM/yyyy"),disabled:true}],
           dateLastActive  : [{value:this.datePipe.transform(this.user.dateLastActive,"dd/MM/yyyy"),disabled:true}]
       });
+
+      this.userForm.valueChanges.subscribe(val=>{
+        this.user.id =val.id;
+        this.user.userName =val.userName;
+        this.user.lastName =val.lastName;
+        this.user.firstName =val.firstName;
+        this.user.idGMapAddress =val.idGMapAddress;
+        debugger;
+        this.user.dateOfBirth != null ? this._helperService.getUtc(val.dateOfBirth) : null;
+        
+        this._store.dispatch(new SynchronizeUserDetail(this.user));
+        
+      });
   }
 
   
   updateUser({ value, valid }: { value: IUser, valid: boolean }) {
-    this.user.id=value.id;
-    this.user.userName=value.userName;
-    this.user.lastName=value.lastName;
-    this.user.firstName=value.firstName;
-    this.user.idGMapAddress=value.idGMapAddress;
+    // this.user.id=value.id;
+    // this.user.userName=value.userName;
+    // this.user.lastName=value.lastName;
+    // this.user.firstName=value.firstName;
+    // this.user.idGMapAddress=value.idGMapAddress;
     
-    var mt:Moment = <Moment>this.userForm.value.dateOfBirth;
+    // this.user.dateOfBirth != null ? this._helperService.getUtc(value.dateOfBirth) : null;
+    
+    // var mt:Moment = <Moment>this.userForm.value.dateOfBirth;
+    // var dt = mt.toDate();
+    // dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
+    // this.user.dateOfBirth = dt;
 
-    var dt = mt.toDate();
-    dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
-    this.user.dateOfBirth = dt;
-
-    this.userService.updateUser(this.authService.decodedToken.nameid, this.user)
+    this.userService.updateUser(this.user.id, this.user)
       .subscribe(next => {
         this.userForm.reset(this.user);
         this.notificationService.success('Sauvegarde réussi', 'Utilisateur enregistré');
@@ -128,7 +146,6 @@ export class UserDetailComponent implements OnInit {
  
   updateUserAvatar(avatarUrl)
   {
-
     this.user.avatarUrl=avatarUrl;
   }
 
@@ -141,21 +158,21 @@ export class UserDetailComponent implements OnInit {
     
   }
 
-  onSelectedChange($event,idAccount:number)
-  {
-    if($event.checked) {
-      this.checkboxes.push(idAccount);
-    }
-    else
-    {
-      let index = this.checkboxes.indexOf(idAccount);
-      if (index > -1) {
-        this.checkboxes.splice(index, 1);
-      }
-    }
-    this.hasSelectedAccounts = this.checkboxes.length>0;
+  // onSelectedChange($event,idAccount:number)
+  // {
+  //   if($event.checked) {
+  //     this.checkboxes.push(idAccount);
+  //   }
+  //   else
+  //   {
+  //     let index = this.checkboxes.indexOf(idAccount);
+  //     if (index > -1) {
+  //       this.checkboxes.splice(index, 1);
+  //     }
+  //   }
+  //   this.hasSelectedAccounts = this.checkboxes.length>0;
 
-  }
+  // }
 
   navigate() {
     this.router.navigate([`apps/users`]);

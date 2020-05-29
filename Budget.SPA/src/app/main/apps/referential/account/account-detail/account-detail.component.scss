@@ -1,3 +1,5 @@
+@import "src/@fuse/scss/fuse";
+
 .header {
 
     .header-image {
@@ -27,6 +29,17 @@
     }
 }
 
+h3 {
+    // max-width: 480px;
+    text-align: left;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    margin: 0;
+
+    @include media-breakpoint('xs') {
+        font-size: 12px;
+    }
+}
 
 // #product {
 

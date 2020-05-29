@@ -8,7 +8,7 @@ namespace Budget.SERVICE
     public interface IBankFamilyService
     {
         List<Select> GetSelectList(EnumSelectType enumSelectType);
-
+        List<SelectCode> GetSelectCodeList(EnumSelectType enumSelectType);
     }
 
 }

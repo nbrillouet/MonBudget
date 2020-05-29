@@ -34,7 +34,7 @@ namespace Budget.MODEL.Filter
     {
         public List<Select> BankAgency { get; set; }
         public List<Select> BankSubFamily { get; set; }
-        public List<Select> BankFamily { get; set; }
+        public List<SelectCode> BankFamily { get; set; }
         public List<Select> AccountType { get; set; }
     }
 

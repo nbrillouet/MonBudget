@@ -1,7 +1,9 @@
-﻿using Budget.MODEL.Dto;
+﻿using Budget.MODEL;
+using Budget.MODEL.Dto;
 using Budget.MODEL.Filter;
 using Budget.SERVICE;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -61,29 +63,57 @@ namespace Budget.API.Controllers.Referential
             return Ok(_filterService.FilterDetailService.GetFilterForAccount(accountForDetail));
         }
 
+        [HttpPost]
+        [Route("account-save")]
+        public IActionResult Save([FromBody] AccountForDetail accountForDetail)
+        {
+            try
+            {
+                accountForDetail = _accountService.Save(accountForDetail);
 
-        //[HttpPost("{id}/update")]
-        //public IActionResult Update([FromBody] AccountForDetail accountForDetailDto)
-        //{
-        //     _accountService.Update(accountForDetailDto);
+                return Ok(accountForDetail);
+            }
+            catch (BusinessException e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, e.BusinessExceptionMessages);
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception);
+            }
+            
+        }
 
-        //    return Ok("UPDATED");
-        //}
+        [HttpPost]
+        [Route("ask-account-owner")]
+        public IActionResult AskAccountOwner([FromBody] AccountForDetail accountForDetail)
+        {
+            var result = _accountService.AskAccountOwner(accountForDetail);
 
-        //[HttpPost("{id}/users/{idUser}/create")]
-        //public IActionResult Create(int idUser,[FromBody] AccountForDetail accountForDetailDto)
-        //{
-        //    _accountService.Create(idUser,accountForDetailDto);
+            return Ok(result);
+        }
+            //[HttpPost("{id}/update")]
+            //public IActionResult Update([FromBody] AccountForDetail accountForDetailDto)
+            //{
+            //     _accountService.Update(accountForDetailDto);
 
-        //    return Ok("UPDATED");
-        //}
+            //    return Ok("UPDATED");
+            //}
 
-        //[HttpPost("{id}/users/{idUser}/delete")]
-        //public IActionResult Delete(int idUser, [FromBody] AccountForDetailDto accountForDetailDto)
-        //{
-        //    _accountService.Delete(idUser, accountForDetailDto.Id);
+            //[HttpPost("{id}/users/{idUser}/create")]
+            //public IActionResult Create(int idUser,[FromBody] AccountForDetail accountForDetailDto)
+            //{
+            //    _accountService.Create(idUser,accountForDetailDto);
 
-        //    return Ok("DELETED");
-        //}
-    }
+            //    return Ok("UPDATED");
+            //}
+
+            //[HttpPost("{id}/users/{idUser}/delete")]
+            //public IActionResult Delete(int idUser, [FromBody] AccountForDetailDto accountForDetailDto)
+            //{
+            //    _accountService.Delete(idUser, accountForDetailDto.Id);
+
+            //    return Ok("DELETED");
+            //}
+        }
 }

@@ -13,7 +13,7 @@ namespace Budget.DATA.Repositories
         public List<BankSubFamily> GetAllOrdering()
         {
             return Context.BankSubFamily
-                .OrderBy(x => x.LabelLong)
+                .OrderBy(x => x.Label)
                 .ToList();
         }
 
@@ -21,7 +21,7 @@ namespace Budget.DATA.Repositories
         {
             return Context.BankSubFamily
                 .Where(x=>x.IdBankFamily== idBankFamily)
-                .OrderBy(x => x.LabelLong)
+                .OrderBy(x => x.Label)
                 .ToList();
         }
 

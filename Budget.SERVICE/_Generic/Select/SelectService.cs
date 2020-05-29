@@ -8,25 +8,16 @@ namespace Budget.SERVICE
 {
     public class SelectService: ISelectService
     {
-        //private readonly OperationTypeService _operationTypeService;
-        //private readonly OperationTypeFamilyService _operationTypeFamilyService;
-        //private readonly OperationService _operationService;
-        //private readonly IMapper _mapper;
+        private readonly IMapper _mapper;
 
-        //public SelectService(
-        //    OperationTypeService operationTypeService,
-        //    OperationTypeFamilyService operationTypeFamilyService,
-        //    OperationService operationService,
-        //    IMapper mapper
+        public SelectService(
+            IMapper mapper
 
-        //    )
-        //{
-        //    _operationTypeService = operationTypeService;
-        //    _operationTypeFamilyService = operationTypeFamilyService;
-        //    _operationService = operationService;
-        //    _mapper = mapper;
+            )
+        {
+            _mapper = mapper;
 
-        //}
+        }
 
         public List<Select> GetSelectList(EnumSelectType enumSelectType)
         {
@@ -40,24 +31,6 @@ namespace Budget.SERVICE
                     return Selectlist;
                 case EnumSelectType.Inconnu:
                 case EnumSelectType.Inconnue:
-                    //switch(enumTableRef)
-                    //{
-                    //    case EnumTableRef.OperationType:
-                    //        select = _mapper.Map<SelectDto>(_operationTypeService.GetUnknown(idUserGroup));
-                    //        break;
-
-                    //    case EnumTableRef.OperationTypeFamily:
-                    //        select = _mapper.Map<SelectDto>(_operationTypeFamilyService.GetUnknown(idUserGroup));
-                    //        break;
-                    //    case EnumTableRef.Operation:
-                    //        select = _mapper.Map<SelectDto>(_operationService.GetUnknown(idUserGroup));
-                    //        break;
-                    //    case EnumTableRef.OperationMethod:
-                    //    case EnumTableRef.AccountType:
-                    //        select = new SelectDto { Id = 1, Label = "INCONNU" }; ;
-                    //        break;
-                    //}
-
                     select = new Select { Id = 1, Label = "INCONNU" };
                     break;
                 case EnumSelectType.Tous:
@@ -76,6 +49,13 @@ namespace Budget.SERVICE
 
             Selectlist.Add(select);
             return Selectlist;
+        }
+
+        public List<SelectCode> GetSelectCodeList(EnumSelectType enumSelectType)
+        {
+            List<SelectCode> SelectCodelist = _mapper.Map<List<SelectCode>>(GetSelectList(enumSelectType));
+            return SelectCodelist;
+
         }
     }
 }

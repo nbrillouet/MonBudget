@@ -64,29 +64,48 @@ userForGroup: IUserForGroup;
             });
     }
 
-    update(account: IAccountForDetail) {
+    save(accountDetail: AccountForDetail) {
+        accountDetail.user =  this.userForGroup;
+        
         return this._httpClient
-        .post(`${this.baseUrl}/referential/accounts/${account.id}/update`,account)
-        .map(res=><IAccountForDetail>res);
+              .post(`${this.baseUrl}referential/accounts/account-save`,accountDetail)
+              .map((response: AccountForDetail) => {
+                  return response;
+              });
     }
 
-    create(idUser:number, account: IAccountForDetail) {
-        return this._httpClient
-        .post(`${this.baseUrl}/referential/accounts/${account.id}/users/${idUser}/create`,account)
-        .map(res=><IAccountForDetail>res);
-    }
+    askAccountOwner(accountDetail: AccountForDetail) {
+        accountDetail.user =  this.userForGroup;
 
-    saveDetail(account: IAccountForDetail) {
         return this._httpClient
-        .post(`${this.baseUrl}/referential/accounts/${account.id}/users/${account.id}/create`,account)
-        .map(res=><IAccountForDetail>res);
+              .post(`${this.baseUrl}referential/accounts/ask-account-owner`,accountDetail)
+              .map((response: boolean) => {
+                  return response;
+              });
     }
+    // update(account: IAccountForDetail) {
+    //     return this._httpClient
+    //     .post(`${this.baseUrl}/referential/accounts/${account.id}/update`,account)
+    //     .map(res=><IAccountForDetail>res);
+    // }
 
-    delete(idUser:number, account: IAccountForDetail) {
-        return this._httpClient
-        .post(`${this.baseUrl}/referential/accounts/${account.id}/users/${idUser}/delete`,account)
-        .map(res=><IAccountForDetail>res);
-    }
+    // create(idUser:number, account: IAccountForDetail) {
+    //     return this._httpClient
+    //     .post(`${this.baseUrl}/referential/accounts/${account.id}/users/${idUser}/create`,account)
+    //     .map(res=><IAccountForDetail>res);
+    // }
+
+    // saveDetail(account: IAccountForDetail) {
+    //     return this._httpClient
+    //     .post(`${this.baseUrl}/referential/accounts/${account.id}/users/${account.id}/create`,account)
+    //     .map(res=><IAccountForDetail>res);
+    // }
+
+    // delete(idUser:number, account: IAccountForDetail) {
+    //     return this._httpClient
+    //     .post(`${this.baseUrl}/referential/accounts/${account.id}/users/${idUser}/delete`,account)
+    //     .map(res=><IAccountForDetail>res);
+    // }
 
     deleteList(idAccountList: number[]) {
         return this._httpClient

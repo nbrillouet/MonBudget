@@ -90,5 +90,14 @@ namespace Budget.DATA.Repositories
 
             return user;
         }
+
+        public User GetByUsername(string username)
+        {
+            var user = Context.User
+                .Where(x => x.UserName == username)
+                .FirstOrDefault();
+
+            return user;
+        }
     }
 }

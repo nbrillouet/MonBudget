@@ -1,6 +1,6 @@
 import { IUserForGroup } from "../user.model";
 import { Pagination } from "../pagination.model";
-import { ISelect } from "../generics/select.model";
+import { ISelect, ISelectCode } from "../generics/select.model";
 
 export class FilterAccountTableSelected {
     user: IUserForGroup= null;
@@ -27,6 +27,6 @@ export class FilterAccountTableSelection {
 export class FilterAccountDetail {
     bankAgency : ISelect[];
     bankSubFamily: ISelect[];
-    bankFamily: ISelect[];
+    bankFamily: ISelectCode[];
     accountType: ISelect[];
 }

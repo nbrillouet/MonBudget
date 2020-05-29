@@ -8,8 +8,8 @@ namespace Budget.DATA.Repositories
 {
     public interface IAuthRepository
     {
-        User Register(User user);
-        User Login(string username, string password);
-        bool UserExists(string mail);
+        //User Register(User user);
+        ////User Login(string username, string password);
+        //bool UserExists(string mail);
     }
 }

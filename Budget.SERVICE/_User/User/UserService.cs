@@ -4,6 +4,7 @@ using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using Budget.MODEL.Filter;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +20,14 @@ namespace Budget.SERVICE
         private readonly IBusinessExceptionMessageService _businessExceptionMessageService;
         //private readonly ReferentialService _referentialService;
         private readonly IMapper _mapper;
-
+       
 
         public UserService(
             IUserRepository userRepository,
             IMapper mapper,
             IUserAccountService userAccountService,
             IBusinessExceptionMessageService businessExceptionMessageService
+            
             //ReferentialService referentialService
             )
         {
@@ -33,6 +35,7 @@ namespace Budget.SERVICE
             _userAccountService = userAccountService;
             _mapper = mapper;
             _businessExceptionMessageService = businessExceptionMessageService;
+            
             //_referentialService = referentialService;
         }
 
@@ -82,9 +85,11 @@ namespace Budget.SERVICE
             CheckForActivateAccount(user);
 
             // Mettre à jour l'activation Code à ACTIVATED
-            user.ActivationCode = "ACTIVATED";
+            user.ActivationCode = EnumActivationCode.Active.ToString();
             // Mettre à jour le flag mail à true
-            user.IsMailConfirmed = true;
+            user.ActivationIsConfirmed = true;
+            //mettre activation_date_send a null
+            user.ActivationDateSend = null;
             // Creation d'un nouveau user group
             user.IdUserGroup = _userRepository.GetNewUserGroup();
 
@@ -99,6 +104,11 @@ namespace Budget.SERVICE
         public User GetById(int id)
         {
             return _userRepository.GetById(id);
+        }
+
+        public User GetByUsername(string username)
+        {
+            return _userRepository.GetByUsername(username);
         }
 
         public User GetByMail(string mail)
@@ -134,12 +144,29 @@ namespace Budget.SERVICE
             _userRepository.Update(user);
         }
 
+        public User Register(User user)
+        {
+            return _userRepository.Create(user);
+        }
+
         private void CheckForActivateAccount(User user)
         {
             List<BusinessExceptionMessage> businessExceptionMessages = new List<BusinessExceptionMessage>();
             //Recherche si utilisateur est trouvé par son code activation
             if (user==null)
                 businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_USER_ERR_000));
+            else
+            {
+                //Recherche si la date denvoi d'activation est > à 24h
+                if(user.ActivationDateSend.Value.AddDays(1) < DateTime.Now)
+                {
+                    businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_USER_ERR_001));
+                    //Suppression du compte
+                    _userRepository.Delete(user);
+                }
+                   
+            }
+
 
             if (businessExceptionMessages.Count() > 0)
             {

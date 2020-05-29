@@ -7,12 +7,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Budget.MODEL
 {
     [Table("USER", Schema = "user")]
-    public class User 
+    public class User
     {
         [Key]
         [Column("ID")]
         public int Id { get; set; }
-        
+
         [Column("USER_NAME")]
         public string UserName { get; set; }
         [Column("LAST_NAME")]
@@ -39,7 +39,7 @@ namespace Budget.MODEL
         public GMapAddress GMapAddress { get; set; }
 
         [Column("AVATAR_URL")]
-        public string AvatarUrl { get; set;}
+        public string AvatarUrl { get; set; }
         [Column("ID_AVATAR_CLOUD")]
         public string IdAvatarCloud { get; set; }
         [Column("ID_USER_GROUP")]
@@ -50,9 +50,12 @@ namespace Budget.MODEL
 
         [Column("ACTIVATION_CODE")]
         public string ActivationCode { get; set; }
+        [Column("ACTIVATION_DATE_SEND")]
+        public DateTime? ActivationDateSend { get; set; }
 
-        [Column("IS_MAIL_CONFIRMED")]
-        public bool IsMailConfirmed { get; set; }
+        [Column("ACTIVATION_IS_CONFIRMED")]
+        public bool ActivationIsConfirmed { get; set; }
+
         [Column("ROLE")]
         public string Role { get; set; }
 
@@ -64,12 +67,18 @@ namespace Budget.MODEL
             Shortcuts = new List<UserShortcut>();
             UserAccounts = new List<UserAccount>();
         }
-        
+
     }
 
     public enum EnumRole {
         Admin = 1,
         User = 2
+    }
+
+    public enum EnumActivationCode {
+        Active = 1,
+        Pending = 2,
+        Refused = 3
     }
 
 }

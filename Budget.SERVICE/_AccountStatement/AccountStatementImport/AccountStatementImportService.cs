@@ -184,7 +184,7 @@ namespace Budget.SERVICE
             AccountStatementImport accountStatementImport = new AccountStatementImport
             {
                 IdBankAgency = bankAgency.Id,
-                FileImport = String.Format("{0}_{1}.csv", DateTime.Now.ToString("yyyyMMdd"), bankAgency.BankSubFamily.LabelShort),
+                FileImport = String.Format("{0}_{1}.csv", DateTime.Now.ToString("yyyyMMdd"), bankAgency.BankSubFamily.Code),
                 DateImport = DateTime.Now,
                 File = reader,
                 IdUser = user.Id,
@@ -228,6 +228,7 @@ namespace Budget.SERVICE
 
             return accountStatementImport;
         }
+
         public BankAgency GetImportFileBank(StreamReader reader, List<String> accountNumbers)
         {
             Account firstAccount = _accountService.GetByNumber(accountNumbers[0]);
@@ -239,7 +240,7 @@ namespace Budget.SERVICE
                     if (account == null)
                         throw new Exception($"Compte bancaire inconnu: {accountNumber}");
                     if (account.IdBankAgency != firstAccount.BankAgency.Id)
-                        throw new Exception($"Ce compte: {accountNumber}, n'est pas un compte de: {firstAccount.BankAgency.BankSubFamily.LabelShort}");
+                        throw new Exception($"Ce compte: {accountNumber}, n'est pas un compte de: {firstAccount.BankAgency.BankSubFamily.Code}");
                 }
             }
             else

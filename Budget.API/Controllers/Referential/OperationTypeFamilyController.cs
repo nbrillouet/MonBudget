@@ -88,7 +88,6 @@ namespace Budget.API.Controllers.Referential
             var pagedList = _referentialService.OperationTypeFamilyService.Save(otfForDetailDto);
 
             return Ok(pagedList);
-
         }
 
         [HttpPost]

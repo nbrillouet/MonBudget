@@ -13,7 +13,7 @@ namespace Budget.DATA.Repositories
     {
         PagedList<User> GetUserTable(FilterUserTableSelected filter);
         List<User> GetByIdUserGroup(int idUserGroup);
-
+        User GetByUsername(string username);
         User GetForDetailById(int id);
         User GetLast();
         User GetByActivationCode(string activationCode);

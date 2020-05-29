@@ -191,7 +191,7 @@ export class AppComponent implements OnInit, OnDestroy
                 console.log('user',user);
                 if(user) {
                     this.navigation$.subscribe(result => {
-                        
+                        console.log('navigation', result);
                         if(!result) {
                             this.navigation= [{'id'      : 'applications',
                                     'title'   : 'Applications',

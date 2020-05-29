@@ -35,6 +35,15 @@ namespace Budget.SERVICE
             return selectList;
         }
 
+        public List<SelectCode> GetSelectCodeList(EnumSelectType enumSelectType)
+        {
+            var selectCodeList = _selectService.GetSelectCodeList(enumSelectType);
+            var bankFamilies = _bankFamilyRepository.GetAllOrdering();
+            selectCodeList.AddRange(_mapper.Map<List<SelectCode>>(bankFamilies).ToList());
+
+            return selectCodeList;
+        }
+
     }
 
 }
