@@ -4,7 +4,7 @@ import { ErrorService } from "app/main/_services/error.service";
 import { HttpClient } from '@angular/common/http';
 import { FilterAsifTableSelected, FilterAsifDetail, FilterAsifTableSelection } from "app/main/_models/filters/account-statement-import-file.filter";
 import { AsifDetail, AsifForDetail } from "app/main/_models/account-statement-import/account-statement-import-file.model";
-import { IUserForGroup, IUser } from "app/main/_models/user.model";
+import { IUserForGroup, UserForDetail } from "app/main/_models/user.model";
 import { Select } from "@ngxs/store";
 import { UserDetailState } from "app/main/_ngxs/user/user-detail/user-detail.state";
 import { Observable } from "rxjs";
@@ -12,16 +12,16 @@ import { FilterForDetail } from "app/main/_models/filters/shared/filterDetail.fi
 
 @Injectable()
 export class AsifService {
-    @Select(UserDetailState.getUser) user$: Observable<IUser>;
+    @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
     
 baseUrl = environment.apiUrl;
-currentUser: IUser;
+currentUser: UserForDetail;
 userForGroup: IUserForGroup; 
 
     constructor(
         private _httpClient: HttpClient
     ) { 
-        this.user$.subscribe((user:IUser) => {
+        this.user$.subscribe((user:UserForDetail) => {
             this.currentUser = user;
             this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
         });

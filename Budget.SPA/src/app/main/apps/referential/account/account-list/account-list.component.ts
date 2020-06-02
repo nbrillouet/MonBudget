@@ -3,7 +3,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
-import { IUser, IUserForGroup } from 'app/main/_models/user.model';
+import { UserForDetail, IUserForGroup } from 'app/main/_models/user.model';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
@@ -32,7 +32,7 @@ import { Pagination } from 'app/main/_models/pagination.model';
   animations   : fuseAnimations
 })
 export class AccountListComponent implements OnInit {
-  @Select(UserDetailState.getUser) user$: Observable<IUser>;
+  @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
 
   @Select(AccountTableFilterSelectionState.get) accountTableFilterSelection$: Observable<FilterSelection<FilterAccountTableSelection>>;
   @Select(AccountTableFilterSelectedState.get) accountTableFilterSelected$: Observable<FilterSelected<FilterAccountTableSelected>>;
@@ -59,7 +59,7 @@ export class AccountListComponent implements OnInit {
     private _notificationsService: NotificationsService
     ) {
       
-      this.user$.subscribe((user:IUser) => {
+      this.user$.subscribe((user:UserForDetail) => {
         if(user) {
           let selected = <FilterAccountTableSelected>{user:<IUserForGroup> {id:user.id,idUserGroup:user.idUserGroup},pagination: new Pagination()};
           selected.pagination.sortColumn='bankAgency-bankSubFamily-bankFamily-label';

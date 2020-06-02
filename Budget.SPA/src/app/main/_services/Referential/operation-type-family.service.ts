@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ISelectGroup, EnumSelectType, ISelect } from 'app/main/_models/generics/select.model';
-import { IUserForGroup, IUser } from 'app/main/_models/user.model';
+import { IUserForGroup, UserForDetail } from 'app/main/_models/user.model';
 import { FilterOtfTableSelected, FilterOtfTableSelection, FilterOtfDetail } from 'app/main/_models/filters/operation-type-family.filter';
 import { OtfForDetail } from 'app/main/_models/referential/operation-type-family.model';
 import { FilterForDetail } from 'app/main/_models/filters/shared/filterDetail.filter';
@@ -12,17 +12,17 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class OtfService {
-    @Select(UserDetailState.getUser) user$: Observable<IUser>;
+    @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
     
     baseUrl = environment.apiUrl;
-    currentUser: IUser;
+    currentUser: UserForDetail;
     // user = JSON.parse(localStorage.getItem('currentUser'));
     userForGroup: IUserForGroup; // = this.user!=null ? <IUserForGroup> {id:this.user.id,idUserGroup:this.user.idUserGroup} : null;
   
         constructor(
             private _httpClient: HttpClient
         ) {
-            this.user$.subscribe((user:IUser) => {
+            this.user$.subscribe((user:UserForDetail) => {
                 this.currentUser = user;
                 this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
             });

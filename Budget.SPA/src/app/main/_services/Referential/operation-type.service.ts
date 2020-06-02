@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ISelect, EnumSelectType } from 'app/main/_models/generics/select.model';
-import { IUserForGroup, IUser } from 'app/main/_models/user.model';
+import { IUserForGroup, UserForDetail } from 'app/main/_models/user.model';
 import { FilterOtTableSelected, FilterOtTableSelection, FilterOtDetail } from 'app/main/_models/filters/operation-type.filter';
 import { OtForDetail } from 'app/main/_models/referential/operation-type.model';
 import { FilterForDetail } from 'app/main/_models/filters/shared/filterDetail.filter';
@@ -12,16 +12,16 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class OtService {
-    @Select(UserDetailState.getUser) user$: Observable<IUser>;
+    @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
 
     baseUrl = environment.apiUrl;
-    currentUser: IUser;
+    currentUser: UserForDetail;
     userForGroup: IUserForGroup; 
 
     constructor(
             private _httpClient: HttpClient
         ) {
-            this.user$.subscribe((user:IUser) => {
+            this.user$.subscribe((user:UserForDetail) => {
                 this.currentUser = user;
                 this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
             });

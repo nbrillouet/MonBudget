@@ -18,20 +18,34 @@ import { UserTableState } from 'app/main/_ngxs/user/user-table/user-table.state'
 import { DatePipe } from '@angular/common';
 import { UserTableComponent } from './user-table/user-table.component';
 import { Role } from 'app/main/_models/user.model';
+import { MatDateFormats, MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+
+// export const MY_DATE_FORMAT: MatDateFormats = {
+//   parse: {
+//     dateInput: 'DD/MM/YYYY',
+//   },
+//   display: {
+//     dateInput: 'DD/MM/YYYY',
+//     monthYearLabel: 'MMM YYYY',
+//     dateA11yLabel: 'DD/MM/YYYY',
+//     monthYearA11yLabel: 'MMMM YYYY',
+//   },
+// };
 
 const routes = [
   {
-      path     : '',
-      component: UserTableComponent,
-      canActivate: [AuthGuard],
-      data: { roles: [Role.admin]}
+    path     : '',
+    component: UserTableComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.admin]}
   },
   {
-      path     : ':idUser/detail',
-      component: UserDetailComponent,
-      resolve  : { user: UserDetailResolver },
-      canActivate: [AuthGuard]
-      // canDeactivate: [PreventUnsavedChanges]
+    path     : ':idUser/detail',
+    component: UserDetailComponent,
+    resolve  : { user: UserDetailResolver },
+    canActivate: [AuthGuard]
+    // canDeactivate: [PreventUnsavedChanges]
   }
 
 ];
@@ -60,6 +74,11 @@ const routes = [
     UserDetailResolver,
     PreventUnsavedChanges,
     DatePipe
+    // { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+    // { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT },
+    // { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
+    // { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    // { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT },
   ]
 })
 export class UserModule { }

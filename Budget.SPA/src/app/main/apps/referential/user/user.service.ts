@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { environment } from 'environments/environment';
 import { ErrorService } from 'app/main/_services/error.service';
 import { Pagination, PaginatedResult } from 'app/main/_models/pagination.model';
-import { IUser, } from 'app/main/_models/user.model';
+import { UserForDetail } from 'app/main/_models/user.model';
 import { IUserShortcut } from 'app/main/_models/user-shortcut.model';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/shareReplay';
@@ -81,10 +81,10 @@ export class UserService {
     //     //     .catch(this.errorService.handleError);
     // }
 
-    getUser(id: number): Observable<IUser> {
+    getUser(id: number): Observable<UserForDetail> {
         return this.http
             .get(`${this.baseUrl}users/${id}/user-detail`)
-            .map(response => <IUser>response)
+            .map(response => <UserForDetail>response)
             .catch(this.errorService.handleError);
     }
     
@@ -98,7 +98,7 @@ export class UserService {
         });
     }
 
-    updateUser(id: number, user: IUser)
+    updateUser(id: number, user: UserForDetail)
     {
         return this.http.put(`${this.baseUrl}users/${id}/update`,user)
             .catch(this.errorService.handleError);

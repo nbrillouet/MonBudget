@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { ErrorService } from './error.service';
-import { IUser } from '../_models/user.model';
+import { UserForDetail } from '../_models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { IBankAgencyAccounts } from '../_models/referential/bank-agency.model';
 
@@ -14,7 +14,7 @@ constructor(
     private errorService: ErrorService
 ) { }
 
-    getReferentialMenu(user: IUser) {
+    getReferentialMenu(user: UserForDetail) {
         var referentialMenu = {
             id  : 'referential',
             title: 'Référentiel',

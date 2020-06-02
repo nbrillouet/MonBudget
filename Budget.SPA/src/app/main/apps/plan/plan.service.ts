@@ -9,7 +9,7 @@ import { PlanDetail } from "app/main/_models/plan/plan.model";
 import { PlanForTracking } from "app/main/_models/plan/plan-tracking.model";
 import { PlanAmountFilter } from "app/main/_models/filters/plan-amount.filter";
 import { AsTable } from "app/main/_models/account-statement/account-statement-table.model";
-import { IUserForGroup, IUser } from "app/main/_models/user.model";
+import { IUserForGroup, UserForDetail } from "app/main/_models/user.model";
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 import { FilterPlanNotAsTableSelected, FilterPlanNotAsTableSelection, FilterPlanNotAsTableGroupSelected } from "app/main/_models/filters/plan-not-as.filter";
 import { Select } from "@ngxs/store";
@@ -18,17 +18,17 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class PlanService {
-    @Select(UserDetailState.getUser) user$: Observable<IUser>;
+    @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
     
 baseUrl = environment.apiUrl;
-currentUser: IUser;
+currentUser: UserForDetail;
 userForGroup: IUserForGroup; 
 
     constructor(
         private http: HttpClient,
         private errorService: ErrorService
     ) {
-        this.user$.subscribe((user:IUser) => {
+        this.user$.subscribe((user:UserForDetail) => {
             this.currentUser = user;
             this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
         });

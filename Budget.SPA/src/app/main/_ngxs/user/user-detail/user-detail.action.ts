@@ -1,4 +1,4 @@
-import { IUser } from "app/main/_models/user.model";
+import { UserForDetail } from "app/main/_models/user.model";
 import { IUserShortcut } from "app/main/_models/user-shortcut.model";
 
 export const USER_DETAIL_LOAD = 'user-detail-load';
@@ -13,13 +13,13 @@ export const USER_ADD_SHORTCUT = 'user-add-shortcut';
 export class SynchronizeUserDetail {
     static readonly type = USER_DETAIL_SYNCHRONIZE;
 
-    constructor(public payload: IUser) { }
+    constructor(public payload: UserForDetail) { }
 }
 
 export class AddUser {
     static readonly type = USER_ADD;
  
-    constructor(public payload: IUser) { }
+    constructor(public payload: UserForDetail) { }
 }
 
 export class DeleteUser {
@@ -31,7 +31,7 @@ export class DeleteUser {
 export class LoadUserDetail {
     static readonly type = USER_DETAIL_LOAD;
  
-    constructor(public payload: IUser) { }
+    constructor(public payload: UserForDetail) { }
 }
 
 export class ClearUserDetail {

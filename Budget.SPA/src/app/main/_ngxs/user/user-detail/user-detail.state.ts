@@ -1,4 +1,4 @@
-import { IUser, User } from "app/main/_models/user.model";
+import { UserForDetail } from "app/main/_models/user.model";
 import { AddUser, DeleteUser, User_DeleteShortcut, User_AddShortcut, LoadUserDetail, ClearUserDetail, SynchronizeUserDetail } from "./user-detail.action";
 import { UserService } from "app/main/apps/referential/user/user.service";
 import { IUserShortcut } from "app/main/_models/user-shortcut.model";
@@ -6,7 +6,7 @@ import { State, Action, StateContext, Selector } from "@ngxs/store";
 import { NotificationsService } from "angular2-notifications";
 import { Injectable } from "@angular/core";
 
-export class UserDetailStateModel extends User  {
+export class UserDetailStateModel extends UserForDetail  {
 
 }
 

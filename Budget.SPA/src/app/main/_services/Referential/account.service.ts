@@ -6,23 +6,23 @@ import { FilterAccountTableSelected, FilterAccountTableSelection, FilterAccountD
 import { UserDetailState } from "app/main/_ngxs/user/user-detail/user-detail.state";
 import { Observable } from "rxjs";
 import { Select } from "@ngxs/store";
-import { IUser, IUserForGroup } from "app/main/_models/user.model";
+import { UserForDetail, IUserForGroup } from "app/main/_models/user.model";
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 import { FilterForDetail } from "app/main/_models/filters/shared/filterDetail.filter";
 
 @Injectable()
 export class AccountService {
-    @Select(UserDetailState.getUser) user$: Observable<IUser>;
+    @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
     
 baseUrl = environment.apiUrl;
-currentUser: IUser;
+currentUser: UserForDetail;
 userForGroup: IUserForGroup; 
 
     constructor(
         private _httpClient: HttpClient
 
     ) {
-        this.user$.subscribe((user:IUser) => {
+        this.user$.subscribe((user:UserForDetail) => {
             this.currentUser = user;
             this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
         });

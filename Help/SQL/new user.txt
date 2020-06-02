@@ -113,3 +113,84 @@ LEFT JOIN
 WHERE ID_USER=@idUser
 AND (UA.ID_ACCOUNT = @idAccount OR @idAccount is NULL)
 END
+
+
+
+
+
+/////BOULOT
+USE [XmlToSwift_Demo]
+GO
+/****** Object:  StoredProcedure [as].[spGetSolde]    Script Date: 02/06/2020 16:04:11 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [as].[spGetSolde]
+  (
+		@idUser		INT,
+		@idAccount	INT,
+		@dateStart	DATE,
+		@dateEnd	DATE,
+		@isWithITransfer INT
+  )
+  AS
+  BEGIN
+
+--DECLARE		@idAccount	INT;
+--DECLARE		@dateStart	DATE;
+--DECLARE		@dateEnd	DATE;
+--DECLARE		@isWithITransfer INT;
+--DECLARE		@idUser INT;
+
+--SET @idAccount	=null
+--SET @idUser		=3
+--SET @dateStart	='01-01-2000'
+--SET @dateEnd	='28-02-2019'
+--SET @isWithITransfer =0
+
+
+SELECT 
+	UA.ID_ACCOUNT AS IdAccount,
+	CAST(round(coalesce(CDT.CREDIT,0),2) as float) AS Credit,
+	CAST(round(coalesce(CDT.DEBIT,0),2) as float) AS Debit,
+	CAST(round(coalesce(CDT.TOTAL,0),2) as float) AS Total,
+	cast(A.START_AMOUNT + round(coalesce(TOTAL.TOTAL,0),2) as float) AS Solde
+
+FROM [user].USER_ACCOUNT UA
+INNER JOIN [ref].ACCOUNT A
+	ON UA.ID_ACCOUNT = A.ID
+LEFT JOIN 
+(
+	SELECT 
+		AST.ID_ACCOUNT,
+		SUM(AMOUNT_OPERATION) as TOTAL
+	FROM [as].ACCOUNT_STATEMENT AST
+	WHERE (ID_ACCOUNT = @idAccount OR @idAccount is NULL)
+	AND DATE_INTEGRATION<=@dateEnd
+	GROUP BY AST.ID_ACCOUNT
+) AS TOTAL
+ ON UA.ID_ACCOUNT = TOTAL.ID_ACCOUNT
+LEFT JOIN
+(
+	SELECT	
+		ID_ACCOUNT,
+		SUM(coalesce(DEBIT,0)) AS DEBIT,
+		SUM(coalesce(CREDIT,0)) AS CREDIT,
+		SUM(coalesce(DEBIT,0)) + SUM(coalesce(CREDIT,0)) AS TOTAL
+	FROM (
+	SELECT 
+		ID_ACCOUNT,
+		CASE WHEN AMOUNT_OPERATION<0 THEN AMOUNT_OPERATION END AS DEBIT,
+		CASE WHEN AMOUNT_OPERATION>0 THEN AMOUNT_OPERATION END AS CREDIT
+	FROM [as].ACCOUNT_STATEMENT
+	WHERE (ID_ACCOUNT = @idAccount OR @idAccount is NULL)
+	AND DATE_INTEGRATION >= @dateStart
+	AND DATE_INTEGRATION <= @dateEnd
+	) AS CDT
+	GROUP BY ID_ACCOUNT
+) AS CDT
+	ON UA.ID_ACCOUNT = CDT.ID_ACCOUNT
+WHERE ID_USER=@idUser
+AND (UA.ID_ACCOUNT = @idAccount OR @idAccount is NULL)
+END

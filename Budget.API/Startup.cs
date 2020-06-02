@@ -264,8 +264,8 @@ namespace Budget.API
             services.AddScoped<IMailRegisterValidationService, MailRegisterValidationService>();
             services.AddScoped<IMailPasswordRecoveryService, MailPasswordRecoveryService>();
             services.AddScoped<IMailAskAccountOwnerService, MailAskAccountOwnerService>();
+            services.AddScoped<IUserEventService, UserEventService>();
             
-
 
             services.AddScoped<IFilterTableService, FilterTableService>();
             services.AddScoped<IFilterDetailService, FilterDetailService>();

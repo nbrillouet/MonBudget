@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '@fuse/animations';
-import { IUser } from 'app/main/_models/user.model';
+import { UserForDetail } from 'app/main/_models/user.model';
 import { environment } from 'environments/environment';
 import { AuthService } from 'app/main/_services/auth.service';
 import { Select, Store } from '@ngxs/store';
@@ -18,14 +18,14 @@ import { LoadUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.acti
 })
 
 export class AvatarEditorComponent implements OnInit {
-  @Select(UserDetailState.getUser) user$: Observable<IUser>;
+  @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
   
   @Output() getUserAvatarChange = new EventEmitter<string>();
   
   uploader: FileUploader = new FileUploader({});
   hasBaseDropZoneOver: boolean = false;
   baseUrl = environment.apiUrl;
-  currentUser: IUser;
+  currentUser: UserForDetail;
 
   constructor(
     private authService: AuthService,
@@ -34,7 +34,7 @@ export class AvatarEditorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user$.subscribe((user:IUser) => {
+    this.user$.subscribe((user:UserForDetail) => {
       if(user) {
           this.currentUser = user;
       }
@@ -62,7 +62,7 @@ export class AvatarEditorComponent implements OnInit {
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
-        const res: IUser = JSON.parse(response);
+        const res: UserForDetail = JSON.parse(response);
         this.currentUser.avatarUrl = res.avatarUrl;
 
 

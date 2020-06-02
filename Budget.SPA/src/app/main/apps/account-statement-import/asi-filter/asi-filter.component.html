@@ -7,8 +7,8 @@
 >
     <mat-tab *ngFor="let bankAgency of selection.bankAgencies;index as i" [label]="bankAgency.label">
       <ng-template mat-tab-label>
-          <img class="img-32" [src]="'assets/images/'+bankAgency.bankFamily.logoClassName" [alt]="bankAgency.label">
-          {{bankAgency.bankSubFamily.labelLong}}
+          <img class="img-32" [src]="bankAgency.bankFamily.url" [alt]="bankAgency.label">
+          {{bankAgency.bankSubFamily.label}}
       </ng-template>
 
       <asi-table *ngIf="(asiTableFilterSelected$ | async)?.selected?.indexTabBankAgency == i"></asi-table>

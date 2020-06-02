@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { IUser, UserForRegister, UserForPasswordChange } from '../_models/user.model';
+import { UserForDetail, UserForRegister, UserForPasswordChange } from '../_models/user.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { IUserShortcut } from '../_models/user-shortcut.model';
 import { environment } from '../../../environments/environment';
@@ -23,7 +23,7 @@ export class AuthService {
     userToken: any;
     decodedToken : any;
 
-    currentUser: IUser;
+    currentUser: UserForDetail;
     private avatarUrl = new BehaviorSubject<string>('assets/images/avatars/profile.jpg');
     currentAvatarUrl = this.avatarUrl.asObservable();
     
@@ -39,7 +39,7 @@ export class AuthService {
         private _userService: UserService
         ) { }
     
-    loadUserProfile(user: IUser) {
+    loadUserProfile(user: UserForDetail) {
         this.currentUser = user;
         this.changeAvatar(user.avatarUrl);
         this.changeShortcuts(user.shortcuts);
@@ -72,7 +72,7 @@ export class AuthService {
     }
 
     login(username: string, password: string) {
-        return this._httpClient.post<IUser>(`${this.baseUrl}auth/login`, { username:username, password:password })
+        return this._httpClient.post<UserForDetail>(`${this.baseUrl}auth/login`, { username:username, password:password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {

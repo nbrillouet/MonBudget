@@ -49,13 +49,13 @@ namespace Budget.SERVICE
         public UserForDetailDto Login(string username, string password)
         {
             User user = _userService.GetByUsername(username);
-            if (user == null)
-                return null;
+            //if (user == null)
+            //    return null;
 
-            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-                return null;
+            //if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            //    return null;
             //User user = _authRepository.Login(username, password);
-            CheckForLogin(user);
+            CheckForLogin(user, password);
 
             UserForDetailDto UserForDetailDto = _userService.GetForDetailById(user.Id);
             return UserForDetailDto;
@@ -161,12 +161,17 @@ namespace Budget.SERVICE
             }
         }
 
-        private void CheckForLogin(User user)
+        private void CheckForLogin(User user, string password)
         {
             List<BusinessExceptionMessage> businessExceptionMessages = new List<BusinessExceptionMessage>();
             //Recherche si utilisateur a été trouvé
             if (user==null)
                 businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_AUTH_ERR_002));
+
+            //Recherche si mot de passe correct
+            if(!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_AUTH_ERR_008));
+
             //Recherche si utilisateur a son compte validé isMailConfirmed
             if (!user.ActivationIsConfirmed)
                 businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_AUTH_ERR_006));

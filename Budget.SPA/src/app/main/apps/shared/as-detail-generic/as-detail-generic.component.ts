@@ -10,7 +10,7 @@ import { IOperation } from 'app/main/_models/referential/operation.model';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
 import { NotificationsService } from 'angular2-notifications';
 import { OperationTransverse } from 'app/main/_models/referential/operation-transverse.model';
-import { IUser } from 'app/main/_models/user.model';
+import { UserForDetail } from 'app/main/_models/user.model';
 import { FilterAsDetail } from 'app/main/_models/filters/account-statement.filter';
 import { Router } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
@@ -26,7 +26,7 @@ import { SynchronizeAsifDetail } from 'app/main/_ngxs/account-statement-import-f
 import { EnumOperationMethod } from 'app/main/_constants/enum-operation-model.model';
 
 export class AsDetailGenericComponent {
-  @Select(UserDetailState.getUser) user$: Observable<IUser>;
+  @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
   
   asGenForDetail: AsifForDetail;
   asGenDetailFilter: FilterAsDetail | FilterAsifDetail;
@@ -38,7 +38,7 @@ export class AsDetailGenericComponent {
   firstLoad: boolean=true;
   isNewOperationTemplate: boolean;
   isNewOperationTransverseTemplate: boolean;
-  currentUser: IUser;
+  currentUser: UserForDetail;
   idAccount: number;
   idImport: number;
   from: string;
@@ -53,7 +53,7 @@ export class AsDetailGenericComponent {
     public _asService: AsService,
     public _asifService: AsifService
   ) {
-    this.user$.subscribe((user:IUser) => {
+    this.user$.subscribe((user:UserForDetail) => {
       this.currentUser = user;
     });
    }

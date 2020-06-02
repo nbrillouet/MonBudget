@@ -10,7 +10,7 @@ import { Moment } from 'moment';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { fuseAnimations } from '@fuse/animations';
-import { IUser } from 'app/main/_models/user.model';
+import { UserForDetail } from 'app/main/_models/user.model';
 import { IGMapSearchInfo } from 'app/main/_models/g-map.model.';
 import { AuthService } from 'app/main/_services/auth.service';
 import { Select, Store } from '@ngxs/store';
@@ -18,23 +18,24 @@ import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.sta
 import { Observable } from 'rxjs';
 import { HelperService } from 'app/main/_services/helper.service';
 import { SynchronizeUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.action';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'user-detail',
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss'],
-  animations   : fuseAnimations,
-  providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'fr'},
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
-  ]
+  animations: fuseAnimations
+  // providers: [
+  //   {provide: MAT_DATE_LOCALE, useValue: 'fr'},
+  //   {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+  //   {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  // ]
 })
 
 export class UserDetailComponent implements OnInit {
-  @Select(UserDetailState.getUser) user$: Observable<IUser>;
+  @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
 
-  user : IUser;
+  user : UserForDetail;
   onUserChanged: Subscription;
   pageType: string;
   userForm: FormGroup;
@@ -42,6 +43,8 @@ export class UserDetailComponent implements OnInit {
   gMapSearchInfo: IGMapSearchInfo;
   checkboxes: number[]=[];
   hasSelectedAccounts: boolean;
+
+  public selectedDate: Date = new Date();
 
   constructor(
     private userService: UserService,
@@ -53,16 +56,17 @@ export class UserDetailComponent implements OnInit {
     private _helperService: HelperService,
     private _store: Store,
     private activatedRoute: ActivatedRoute,
+    private _translateService: TranslateService,
+    private _dateAdapter: DateAdapter<Date>
   ) { }
 
   ngOnInit() {
     
     this.pageType = 'edit';
     
-    this.user$.subscribe((user:IUser) => {
+    this.user$.subscribe((user:UserForDetail) => {
       if(user) {
           this.user = user;
-
           this.gMapSearchInfo = <IGMapSearchInfo> { 
               idGMapAddress: this.user.idGMapAddress,
               operationPositionSearch:"",
@@ -72,6 +76,8 @@ export class UserDetailComponent implements OnInit {
           this.createUserForm();
       }
     });
+
+    this.useLanguage(this._translateService.getDefaultLang());
     // this.activatedRoute.data.subscribe(data => {
     //   this.user = data['user'];
    
@@ -86,10 +92,6 @@ export class UserDetailComponent implements OnInit {
     //   this.authService.currentAvatarUrl
     //     .subscribe(avatarUrl=> this.avatarUrl = avatarUrl);
     // })
-
-    
-
-
   }
 
   createUserForm()
@@ -112,8 +114,7 @@ export class UserDetailComponent implements OnInit {
         this.user.lastName =val.lastName;
         this.user.firstName =val.firstName;
         this.user.idGMapAddress =val.idGMapAddress;
-        debugger;
-        this.user.dateOfBirth != null ? this._helperService.getUtc(val.dateOfBirth) : null;
+        this.user.dateOfBirth = this._helperService.getUtc(val.dateOfBirth);
         
         this._store.dispatch(new SynchronizeUserDetail(this.user));
         
@@ -121,7 +122,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   
-  updateUser({ value, valid }: { value: IUser, valid: boolean }) {
+  updateUser({ value, valid }: { value: UserForDetail, valid: boolean }) {
     // this.user.id=value.id;
     // this.user.userName=value.userName;
     // this.user.lastName=value.lastName;
@@ -176,7 +177,11 @@ export class UserDetailComponent implements OnInit {
 
   navigate() {
     this.router.navigate([`apps/users`]);
+  }
 
+  useLanguage(language: string): void {
+    // this.translate.use(language);
+    this._dateAdapter.setLocale(language);
   }
   
 }

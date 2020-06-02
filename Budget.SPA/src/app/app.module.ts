@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { MatMomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatMomentDateModule, MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
@@ -37,19 +37,20 @@ import { UserService } from './main/apps/referential/user/user.service';
 import { NavigationState } from './main/_ngxs/navigation/navigation.state';
 import { UserDetailState } from './main/_ngxs/user/user-detail/user-detail.state';
 import { HelperService } from './main/_services/helper.service';
-import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
+import { CustomDatePickerAdapter, CUSTOM_DATE_FORMATS } from './_shared/date-adapter';
 
-export const MY_FORMATS = {
-    parse: {
-      dateInput: 'DD/MM/YYYY',
-    },
-    display: {
-      dateInput: 'DD/MM/YYYY',
-      monthYearLabel: 'MMM YYYY',
-      dateA11yLabel: 'LL',
-      monthYearA11yLabel: 'MMMM YYYY',
-    },
-  };
+// export const MY_DATE_FORMAT: MatDateFormats = {
+//     parse: {
+//       dateInput: 'DD/MM/YYYY',
+//     },
+//     display: {
+//       dateInput: 'DD/MM/YYYY',
+//       monthYearLabel: 'MMM YYYY',
+//       dateA11yLabel: 'DD/MM/YYYY',
+//       monthYearA11yLabel: 'MMMM YYYY',
+//     },
+//   };
   
 const appRoutes: Routes = [
     { path: '', redirectTo: 'pages/home', pathMatch:'full' },
@@ -115,10 +116,20 @@ const appRoutes: Routes = [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
-        { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
-        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-        { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
         
+        {provide: DateAdapter, useClass: CustomDatePickerAdapter},
+        {provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS},
+
+
+        // { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+        // { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT },
+        // { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+        
+        // { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+        // { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT },
+
+        //{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+                
         UserLoaded,
         UserService,
         HelperService

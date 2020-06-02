@@ -2,18 +2,18 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Select } from '@ngxs/store';
-import { IUser } from 'app/main/_models/user.model';
+import { UserForDetail } from 'app/main/_models/user.model';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-@Select(UserDetailState.getUser) user$: Observable<IUser>;
+@Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
  
-currentUser: IUser;
+currentUser: UserForDetail;
 
     constructor(
         ) {
-        this.user$.subscribe((user:IUser) => {
+        this.user$.subscribe((user:UserForDetail) => {
             this.currentUser = user;
         });
     }

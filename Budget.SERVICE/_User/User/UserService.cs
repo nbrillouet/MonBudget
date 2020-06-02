@@ -17,6 +17,7 @@ namespace Budget.SERVICE
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserAccountService _userAccountService;
+        private readonly IUserEventService _userEventService;
         private readonly IBusinessExceptionMessageService _businessExceptionMessageService;
         //private readonly ReferentialService _referentialService;
         private readonly IMapper _mapper;
@@ -26,6 +27,7 @@ namespace Budget.SERVICE
             IUserRepository userRepository,
             IMapper mapper,
             IUserAccountService userAccountService,
+            IUserEventService userEventService,
             IBusinessExceptionMessageService businessExceptionMessageService
             
             //ReferentialService referentialService
@@ -33,6 +35,7 @@ namespace Budget.SERVICE
         {
             _userRepository = userRepository;
             _userAccountService = userAccountService;
+            _userEventService = userEventService;
             _mapper = mapper;
             _businessExceptionMessageService = businessExceptionMessageService;
             
@@ -52,11 +55,9 @@ namespace Budget.SERVICE
         {
             var user =  _userRepository.GetForDetailById(id);
 
-            var bankAgencies = _userAccountService.GetBankAgencies(id);
-
             var userForDetailDto = _mapper.Map<UserForDetailDto>(user);
-            userForDetailDto.BankAgencies = bankAgencies;
-
+            userForDetailDto.BankAgencies = _userAccountService.GetBankAgencies(id);
+            userForDetailDto.UserEvents = _userEventService.GetByIdUser(id);
             return userForDetailDto;
         }
 

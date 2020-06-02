@@ -42,12 +42,13 @@ namespace Budget.MODEL
 
         BUS_AUTH_ERR_000,    //Un utilisateur possède déjà cette adresse Email
         BUS_AUTH_ERR_001,    //Le mot de passe doit être supérieur à 8 caractères
-        BUS_AUTH_ERR_002,    //Nom utilisateur ou mot de passe incorrect
+        BUS_AUTH_ERR_002,    //Nom utilisateur incorrect
         BUS_AUTH_ERR_003,    //Le mail indiqué n'existe pas
         BUS_AUTH_ERR_004,    //L'utilisateur n'existe pas
         BUS_AUTH_ERR_005,    //L'adresse mail indiqué ne correspond pas à l'adresse mail du compte
         BUS_AUTH_ERR_006,    //Email non vérifié, connexion impossible
         BUS_AUTH_ERR_007,    //Un utilisateur possède déjà ce pseudonyme
+        BUS_AUTH_ERR_008,    //Mot de passe incorrect
 
         BUS_USER_ERR_000,    //Compte non trouvé, validation impossible
         BUS_USER_ERR_001,    //Expiration du délai de validation du compte, validation impossible

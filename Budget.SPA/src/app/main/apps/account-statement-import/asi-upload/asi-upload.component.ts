@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { NotificationsService } from 'angular2-notifications';
-import { IUser } from 'app/main/_models/user.model';
+import { UserForDetail } from 'app/main/_models/user.model';
 
 import { AuthService } from 'app/main/_services/auth.service';
 import { environment } from 'environments/environment';
@@ -16,7 +16,7 @@ import { IAsifGroupByAccounts } from 'app/main/_models/account-statement-import/
 })
 export class AsiUploadComponent implements OnInit {
 
-  @Input()  user: IUser;
+  @Input()  user: UserForDetail;
   @Output() fileInProgress = new EventEmitter<boolean>();
   @Output() fileError= new EventEmitter<boolean>();
   @Output() fileSuccess= new EventEmitter<boolean>();

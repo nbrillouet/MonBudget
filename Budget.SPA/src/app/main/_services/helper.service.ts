@@ -7,12 +7,10 @@ export class HelperService {
     ) { }
     
     getUtc(date: Date) {
-        debugger;
         if(date!=null)
         {
             let myDate = new Date(date);
             let UTCDate = Date.UTC(myDate.getFullYear(), myDate.getMonth(), myDate.getDate()) - myDate.getTimezoneOffset();
-            let toto = new Date(UTCDate);
             return new Date(UTCDate);
         }
         return null;

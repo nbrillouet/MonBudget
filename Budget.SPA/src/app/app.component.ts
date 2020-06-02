@@ -15,7 +15,7 @@ import { navigation } from 'app/navigation/navigation';
 import { locale as navigationEnglish } from 'app/navigation/i18n/en';
 import { locale as navigationFrench } from 'app/navigation/i18n/fr';
 import { Select, Store } from '@ngxs/store';
-import { IUser } from './main/_models/user.model';
+import { UserForDetail } from './main/_models/user.model';
 import { NavigationService } from './main/_services/navigation.service';
 import { AddNavigation } from './main/_ngxs/navigation/navigation.action';
 import { NavigationState } from './main/_ngxs/navigation/navigation.state';
@@ -30,7 +30,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit, OnDestroy
 {
-    @Select(UserDetailState.getUser) user$: Observable<IUser>;
+    @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
     @Select(NavigationState.getNavigation) navigation$: Observable<any>;
 
     fuseConfig: any;
@@ -186,7 +186,7 @@ export class AppComponent implements OnInit, OnDestroy
             });
             
   
-            this.user$.subscribe((user:IUser) => {
+            this.user$.subscribe((user:UserForDetail) => {
 
                 console.log('user',user);
                 if(user) {

@@ -97,7 +97,7 @@ namespace Budget.SERVICE {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Nom utilisateur ou mot de passe incorrect.
+        ///   Recherche une chaîne localisée semblable à Nom utilisateur incorrect.
         /// </summary>
         internal static string BUS_AUTH_ERR_002 {
             get {
@@ -147,6 +147,15 @@ namespace Budget.SERVICE {
         internal static string BUS_AUTH_ERR_007 {
             get {
                 return ResourceManager.GetString("BUS_AUTH_ERR_007", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mot de passe incorrect.
+        /// </summary>
+        internal static string BUS_AUTH_ERR_008 {
+            get {
+                return ResourceManager.GetString("BUS_AUTH_ERR_008", resourceCulture);
             }
         }
         

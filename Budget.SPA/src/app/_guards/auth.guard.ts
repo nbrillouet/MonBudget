@@ -1,20 +1,20 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { IUser, UserLoaded, IUserForLabel } from 'app/main/_models/user.model';
+import { UserForDetail } from 'app/main/_models/user.model';
 import { Store, Select } from '@ngxs/store';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-@Select(UserDetailState.getUser) user$: Observable<IUser>;
+@Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
  
-currentUser: IUser;
+currentUser: UserForDetail;
 
     constructor(
         private router: Router
         ) { 
-            this.user$.subscribe((user:IUser) => {
+            this.user$.subscribe((user:UserForDetail) => {
                 this.currentUser = user;
             });
         }

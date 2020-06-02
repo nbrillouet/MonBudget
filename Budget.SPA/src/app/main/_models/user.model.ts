@@ -1,6 +1,7 @@
 import { IUserShortcut } from "./user-shortcut.model";
 import { Injectable } from "@angular/core";
 import { IBankAgencyAccounts } from "./referential/bank-agency.model";
+import { UserEvent } from "./user-event.model";
 
 
 export class UserTable {
@@ -15,27 +16,27 @@ export class UserTable {
     avatarUrl: string;
 }
 
-export interface IUser {
-    id: number;
-    idUserGroup: number;
-    userName: string;
-    lastName: string;
-    firstName: string;
-    gender: string;
-    age: number;
-    dateCreated: Date;
-    dateLastActive: Date;
-    dateOfBirth: Date;
-    idGMapAddress : number;
-    IdAvatarCloud : string;
-    avatarUrl: string;
-    shortcuts: IUserShortcut[];
-    role: string;
-    token: string;
-    bankAgencies: IBankAgencyAccounts[];
-}
+// export interface IUser {
+//     id: number;
+//     idUserGroup: number;
+//     userName: string;
+//     lastName: string;
+//     firstName: string;
+//     gender: string;
+//     age: number;
+//     dateCreated: Date;
+//     dateLastActive: Date;
+//     dateOfBirth: Date;
+//     idGMapAddress : number;
+//     IdAvatarCloud : string;
+//     avatarUrl: string;
+//     shortcuts: IUserShortcut[];
+//     role: string;
+//     token: string;
+//     bankAgencies: IBankAgencyAccounts[];
+// }
 
-export class User implements IUser {
+export class UserForDetail {
     id: number;
     idUserGroup: number;
     userName: string;
@@ -53,6 +54,7 @@ export class User implements IUser {
     role: string;
     token: string;
     bankAgencies: IBankAgencyAccounts[];
+    userEvents: UserEvent[];
 }
 
 export interface IUserForLabel {
@@ -79,6 +81,7 @@ export class UserForPasswordChange {
     email: string;
     password: string;
 }
+
 
 export enum Role {
     user = 'User',

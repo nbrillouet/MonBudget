@@ -3,7 +3,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { Select } from '@ngxs/store';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
 import { Observable } from 'rxjs';
-import { IUser } from 'app/main/_models/user.model';
+import { UserForDetail } from 'app/main/_models/user.model';
 import { AuthService } from 'app/main/_services/auth.service';
 
 @Component({
@@ -12,9 +12,9 @@ import { AuthService } from 'app/main/_services/auth.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  @Select(UserDetailState.getUser) user$: Observable<IUser>;
+  @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
 
-currentUser: IUser;
+currentUser: UserForDetail;
 image: string;
 
   constructor(
@@ -22,7 +22,7 @@ image: string;
     private _authService: AuthService
   ) {
     
-    this.user$.subscribe((user:IUser) => {
+    this.user$.subscribe((user:UserForDetail) => {
       this.currentUser = user;
     });
 

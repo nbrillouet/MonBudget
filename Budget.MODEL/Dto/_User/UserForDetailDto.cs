@@ -23,6 +23,7 @@ namespace Budget.MODEL.Dto
         public string Token { get; set; }
         public List<UserShortcutDto> Shortcuts { get; set; }
         public List<BankAgencyWithAccountsDto> BankAgencies { get; set; }
+        public List<UserEventDto> UserEvents { get; set; }
     }
 
     public class UserForConnection

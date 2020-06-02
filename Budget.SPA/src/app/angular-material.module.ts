@@ -82,7 +82,7 @@ const MATERIAL = [
 
 @NgModule({
     imports: [ ...MATERIAL],
-    exports: [ ...MATERIAL]
-   
+    exports: [ ...MATERIAL],
+    providers: [MatDatepickerModule]   
 })
 export class AngularMaterialModule { }

@@ -17,7 +17,7 @@ import { ISelect } from 'app/main/_models/generics/select.model';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
 import { NotificationsService } from 'angular2-notifications';
 import { AsifService } from '../asif.service';
-import { IUser } from 'app/main/_models/user.model';
+import { UserForDetail } from 'app/main/_models/user.model';
 import { OperationTransverse } from 'app/main/_models/referential/operation-transverse.model';
 import * as moment from 'moment';
 import { FuseConfigService } from '@fuse/services/config.service';

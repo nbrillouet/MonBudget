@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { AsForDetail } from 'app/main/_models/account-statement/account-statement-detail.model';
 import { AsChartEvolutionCustomOtfFilterSelected, AsChartEvolutionCdb, AsChartEvolutionCustomOtfFilter } from 'app/main/_models/account-statement/as-chart/as-chart-evolution.model';
 import { InternalTransferCouple } from 'app/main/_models/account-statement/account-statement-internal-transfer.model';
-import { IUserForGroup, IUser } from 'app/main/_models/user.model';
+import { IUserForGroup, UserForDetail } from 'app/main/_models/user.model';
 import { WidgetCardChartBar } from 'app/main/_models/chart/widget-card-chart-bar.model';
 import { AsChartCategorisationSelect } from 'app/main/_models/account-statement/as-chart/as-chart-categorisation.model';
 import { AsSolde } from 'app/main/_models/account-statement/account-statement-solde.model';
@@ -16,16 +16,16 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AsService {
-@Select(UserDetailState.getUser) user$: Observable<IUser>;
+@Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
 
     baseUrl = environment.apiUrl;
-    currentUser: IUser;
+    currentUser: UserForDetail;
     userForGroup: IUserForGroup; 
 
     constructor(
         private _httpClient: HttpClient
     ) { 
-        this.user$.subscribe((user:IUser) => {
+        this.user$.subscribe((user:UserForDetail) => {
             this.currentUser = user;
             this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
         });

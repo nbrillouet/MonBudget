@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { UserEvent } from 'app/main/_models/user-event.model';
 
 @Component({
   selector: 'alerting-bar',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./alerting-bar.component.scss']
 })
 export class AlertingBarComponent implements OnInit {
-  haveWarning:boolean;
+  @Input() userEvents: UserEvent[];
+
+  // haveWarning:boolean;
 
   constructor() {
-    this.haveWarning=true;
+    // this.haveWarning=true;
    }
 
   ngOnInit() {

@@ -18,7 +18,7 @@ import { PlanForTrackingState } from 'app/main/_ngxs/plan/plan-tracking/plan-tra
 import { ClearPlanPosteDetailDatas } from 'app/main/_ngxs/plan/plan-detail/plan-poste/plan-poste-detail/plan-poste-detail.action';
 import { ChangePlanForTrackingFilter } from 'app/main/_ngxs/plan/plan-tracking/plan-tracking.action';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
-import { IUser } from 'app/main/_models/user.model';
+import { UserForDetail } from 'app/main/_models/user.model';
 
 
 @Component({
@@ -30,7 +30,7 @@ import { IUser } from 'app/main/_models/user.model';
 })
 export class PlanSuiviComponent implements OnInit {
   @Select(PlanForTrackingState.get) planTracking$: Observable<DatasFilter<PlanForTracking,FilterPlanTracking>>;
-  @Select(UserDetailState.getUser) user$: Observable<IUser>;
+  @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
   
   selectYears : SelectYear[];
 
@@ -109,7 +109,7 @@ export class PlanSuiviComponent implements OnInit {
   ) { 
     this.grap = this.testGraph;
 
-    this.user$.subscribe((user:IUser) => {
+    this.user$.subscribe((user:UserForDetail) => {
       this._planService.GetPlanList(user.id).subscribe(plan => {
         this.selectYears = plan;
 

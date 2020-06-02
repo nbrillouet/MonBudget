@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { IUser } from 'app/main/_models/user.model';
+import { UserForDetail } from 'app/main/_models/user.model';
 import { AuthService } from 'app/main/_services/auth.service';
 // import { IUser } from '../../../../_models/user.model';
 // import { AuthService } from '../../../../_services/auth.service';
@@ -13,7 +13,7 @@ import { AuthService } from 'app/main/_services/auth.service';
 export class LoginService {
     // baseUrl = 'http://localhost:5001/api/auth/'
     userToken: any;
-    currentUser: IUser;
+    currentUser: UserForDetail;
 
     constructor(
         // private http: Http,

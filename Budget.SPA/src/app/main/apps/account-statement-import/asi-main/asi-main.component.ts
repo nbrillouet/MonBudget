@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
-import { IUser } from 'app/main/_models/user.model';
+import { UserForDetail } from 'app/main/_models/user.model';
 import { Store, Select } from '@ngxs/store';
 import { AreaImport, IAccount } from 'app/main/_models/referential/account.model';
 import { FilterAsiTableSelected } from 'app/main/_models/filters/account-statement-import.filter';
@@ -20,9 +20,9 @@ import { Observable } from 'rxjs';
   animations : fuseAnimations
 })
 export class AsiMainComponent implements OnInit {
-  @Select(UserDetailState.getUser) user$: Observable<IUser>;
+  @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
   
-  currentUser: IUser;
+  currentUser: UserForDetail;
   filterAsiSelected: FilterAsiTableSelected;
   fileInProgress: boolean;
   fileError: boolean;
@@ -38,7 +38,7 @@ export class AsiMainComponent implements OnInit {
     private _store: Store,
     public router: Router,
     private activatedRoute: ActivatedRoute) {
-      this.user$.subscribe((user:IUser) => {
+      this.user$.subscribe((user:UserForDetail) => {
         this.currentUser = user;
         this.filterAsiSelected = new FilterAsiTableSelected();
         this.filterAsiSelected.idUser = this.currentUser.id;

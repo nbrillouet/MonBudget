@@ -130,7 +130,7 @@
     <value>Le mot de passe doit être supérieur à 8 caractères</value>
   </data>
   <data name="BUS_AUTH_ERR_002" xml:space="preserve">
-    <value>Nom utilisateur ou mot de passe incorrect</value>
+    <value>Nom utilisateur incorrect</value>
   </data>
   <data name="BUS_AUTH_ERR_003" xml:space="preserve">
     <value>Le mail indiqué n'existe pas</value>
@@ -146,6 +146,9 @@
   </data>
   <data name="BUS_AUTH_ERR_007" xml:space="preserve">
     <value>Un utilisateur possède déjà ce pseudonyme</value>
+  </data>
+  <data name="BUS_AUTH_ERR_008" xml:space="preserve">
+    <value>Mot de passe incorrect</value>
   </data>
   <data name="BUS_OPE_ERR_000" xml:space="preserve">
     <value>Opération obligatoire, suppression impossible</value>
