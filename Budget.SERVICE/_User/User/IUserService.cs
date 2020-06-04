@@ -22,6 +22,7 @@ namespace Budget.SERVICE
         UserForGroupDto GetForUserGroup(int id);
         List<User> GetAll();
         List<User> GetByIdUserGroup(int idUserGroup);
+        //bool HasCompleteInformation(int idUser);
 
         void Update(UserForDetailDto entity);
         void Update(User entity);

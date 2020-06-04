@@ -19,6 +19,7 @@ namespace Budget.DATA.Repositories
         User GetByActivationCode(string activationCode);
         User GetByMail(string mail);
         int GetNewUserGroup();
+        //bool HasCompleteInformation(int idUser);
 
     }
 

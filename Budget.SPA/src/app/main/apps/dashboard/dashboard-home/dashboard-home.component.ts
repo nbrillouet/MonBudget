@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { fuseAnimations } from '@fuse/animations';
 import { AcademyFakeDb } from './api-fake';
+import { Select } from '@ngxs/store';
+import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
+import { UserForDetail } from 'app/main/_models/user.model';
+import { EnumUserCategory } from 'app/main/_constants/enum-user-category.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dashboard-home',
@@ -10,13 +15,16 @@ import { AcademyFakeDb } from './api-fake';
   animations : fuseAnimations
 })
 export class DashboardHomeComponent implements OnInit {
+  @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
 
-  categories: any[];
-    courses: any[];
-    coursesFilteredByCategory: any[];
-    filteredCourses: any[];
-    currentCategory: string;
-    searchTerm: string;
+  enumUserCategory: EnumUserCategory;
+  
+  categories: any[];  
+  courses: any[];
+  coursesFilteredByCategory: any[];
+  filteredCourses: any[];
+  currentCategory: string;
+  searchTerm: string;
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -27,6 +35,7 @@ export class DashboardHomeComponent implements OnInit {
      * @param {AcademyCoursesService} _academyCoursesService
      */
     constructor(
+      private _router: Router
         // private _academyCoursesService: AcademyCoursesService
     )
     {
@@ -139,6 +148,9 @@ export class DashboardHomeComponent implements OnInit {
       return ""
     }
 
+    navigate(url: string) {
+      this._router.navigate([url]);
+    }
 }
 
 

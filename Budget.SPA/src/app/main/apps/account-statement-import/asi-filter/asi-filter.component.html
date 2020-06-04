@@ -3,8 +3,8 @@
     *ngIf="(asiTableFilterSelection$ | async).selection as selection"
     [selectedIndex]="(asiTableFilterSelected$ | async)?.selected?.indexTabBankAgency"
     (selectedTabChange)="onTabChanged($event)"
-    fullwidth
->
+    fullwidth>
+    
     <mat-tab *ngFor="let bankAgency of selection.bankAgencies;index as i" [label]="bankAgency.label">
       <ng-template mat-tab-label>
           <img class="img-32" [src]="bankAgency.bankFamily.url" [alt]="bankAgency.label">

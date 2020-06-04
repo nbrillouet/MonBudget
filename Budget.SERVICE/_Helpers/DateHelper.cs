@@ -17,11 +17,15 @@ namespace Budget.SERVICE._Helpers
             return firstDayOfNextMonth.AddDays(-1);
         }
 
-        public static int CalculateAge(this DateTime theDateTime)
+        public static int? CalculateAge(this DateTime? theDateTime)
         {
-            var age = DateTime.Today.Year - theDateTime.Year;
-            if (theDateTime.AddYears(age) > DateTime.Today)
-                age--;
+            int? age = null;
+            if (theDateTime.HasValue)
+            {
+                age = DateTime.Today.Year - theDateTime.Value.Year;
+                if (theDateTime.Value.AddYears(age.Value) > DateTime.Today)
+                    age--;
+            }
 
             return age;
         }

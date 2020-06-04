@@ -27,7 +27,7 @@ namespace Budget.MODEL
         [Column("GENDER")]
         public string Gender { get; set; }
         [Column("BIRTH_DATE")]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         [Column("CREATION_DATE")]
         public DateTime DateCreated { get; set; }
         [Column("LAST_ACTIVE_DATE")]

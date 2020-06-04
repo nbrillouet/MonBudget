@@ -6,7 +6,7 @@ namespace Budget.MODEL
 {
     public class UserEventDto
     {
-        public EnumUserCategory Category { get; set; }
+        public string Category { get; set; }
         public string Title { get; set; }
         public string SubTitle { get; set; }
         public string Link { get; set; }

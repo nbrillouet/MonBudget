@@ -1,5 +1,7 @@
+import { EnumUserCategory } from "../_constants/enum-user-category.model";
+
 export class UserEvent {
-    idCategory: number;
+    category: string;
     title: string;
     subTitle: string;
     link: string;

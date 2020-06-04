@@ -99,5 +99,10 @@ namespace Budget.DATA.Repositories
 
             return user;
         }
+
+        //public bool HasCompleteInformation(int idUser)
+        //{
+
+        //}
     }
 }

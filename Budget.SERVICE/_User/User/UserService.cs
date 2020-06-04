@@ -127,6 +127,23 @@ namespace Budget.SERVICE
             return _userRepository.GetByIdUserGroup(idUserGroup);
         }
 
+        //public bool HasCompleteInformation(int idUser)
+        //{
+        //    var user = _userRepository.GetById(idUser);
+        //    if (string.IsNullOrEmpty(user.FirstName))
+        //        return false;
+        //    if (string.IsNullOrEmpty(user.LastName))
+        //        return false;
+        //    if (string.IsNullOrEmpty(user.Gender))
+        //        return false;
+        //    if (!user.DateOfBirth.HasValue)
+        //        return false;
+        //    if (user.IdGMapAddress==1)
+        //        return false;
+
+        //    return true;
+        //}
+
         public void Update(UserForDetailDto userForDetail)
         {
             User user = _userRepository.GetById(userForDetail.Id);
