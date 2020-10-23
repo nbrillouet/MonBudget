@@ -8,13 +8,14 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 import { navigation } from 'app/navigation/navigation';
-import { AuthService } from 'app/main/_services/auth.service';
+import { UserAuthService } from 'app/main/_services/auth.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { UserForDetail } from 'app/main/_models/user.model';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
 import { ClearUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.action';
+import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
     selector     : 'toolbar',
@@ -25,7 +26,7 @@ import { ClearUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.act
 
 export class ToolbarComponent implements OnInit, OnDestroy
 {
-    @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+    @Select(UserDetailState.getUser) user$: Observable<DataInfo<UserForDetail>>;
     
     horizontalNavbar: boolean;
     rightNavbar: boolean;
@@ -51,7 +52,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
         private _fuseConfigService: FuseConfigService,
         private _fuseSidebarService: FuseSidebarService,
         private _translateService: TranslateService,
-        private _authService: AuthService,
+        private _userAuthService: UserAuthService,
         private _notificationsService: NotificationsService,
         private _router: Router,
         private _store: Store
@@ -194,11 +195,8 @@ export class ToolbarComponent implements OnInit, OnDestroy
 
     logout()
     {
-        this._authService.logout();
-
-        // this._authService.currentUser = null;
-        // this._notificationsService.info('logged out success','Vous êtes maintenant déconnecté');
-        // this._router.navigate(['/pages/auth/login']);
+        //TODO
+        this._userAuthService.logout();
     }
 
     getUserProfile(idUser: number) {

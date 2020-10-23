@@ -31,6 +31,14 @@ namespace Budget.DATA.Repositories
                 .ToList();
         }
 
+        public List<Account> GetAccounts(int idUser)
+        {
+            return Context.UserAccount
+                .Where(x => x.User.Id == idUser)
+                .Select(x => x.Account)
+                .ToList();
+        }
+
         public User GetUserOwner(string accountNumber)
         {
             //recherche du compte

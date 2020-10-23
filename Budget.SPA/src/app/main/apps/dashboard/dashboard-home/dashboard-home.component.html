@@ -47,10 +47,10 @@
 
           </div>
 
-          <div class="courses" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
-
-              <div class="course" *ngFor="let course of (user$ | async).userEvents" fxFlex="100" fxFlex.gt-xs="50"
-                   fxFlex.gt-sm="33" [ngClass]="category" [@animate]="{value:'*',params:{y:'100%'}}">
+          <div *ngIf="(user$ | async)?.datas" class="courses" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
+            <!--TODO [ngClass]="category" -->
+              <div class="course" *ngFor="let course of (user$ | async).datas.userEvents" fxFlex="100" fxFlex.gt-xs="50"
+                   fxFlex.gt-sm="33"    [@animate]="{value:'*',params:{y:'100%'}}">
 
                   <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
 

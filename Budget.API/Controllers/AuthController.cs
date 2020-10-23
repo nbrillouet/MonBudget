@@ -21,7 +21,7 @@ namespace Budget.API.Controllers
 {
     [AllowAnonymous]
     [Produces("application/json")]
-    [Route("api/Auth")]
+    [Route("api/auth")]
     public class AuthController : Controller
     {
         private IAuthService _authService;
@@ -148,9 +148,8 @@ namespace Budget.API.Controllers
         {
             try
             {
-                var userForDetail = _authService.Login(userForLoginDto.Username, userForLoginDto.Password);
-                userForDetail.Token = GetToken(userForDetail);
-                return Ok(userForDetail);
+                var userAuth = _authService.Login(userForLoginDto.Username, userForLoginDto.Password);
+                return Ok(userAuth);
             }
             catch (BusinessException e)
             {
@@ -162,33 +161,33 @@ namespace Budget.API.Controllers
             }
         }
 
-        private string GetToken(UserForDetailDto userForDetail)
-        {
-            //generate token
-            var tokenHandler = new JwtSecurityTokenHandler();
+        //private string GetToken(UserForDetailDto userForDetail)
+        //{
+        //    //generate token
+        //    var tokenHandler = new JwtSecurityTokenHandler();
 
-            var key = Encoding.ASCII.GetBytes(_config.GetSection("AppSettings:Token").Value);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier,userForDetail.Id.ToString()),
-                    new Claim(ClaimTypes.Name, userForDetail.UserName),
-                    new Claim(ClaimTypes.GroupSid, userForDetail.IdUserGroup.ToString()),
-                    new Claim(ClaimTypes.Role, userForDetail.Role),
-                    new Claim(ClaimTypes.Locality, "fr")
-                }),
+        //    var key = Encoding.ASCII.GetBytes(_config.GetSection("AppSettings:Token").Value);
+        //    var tokenDescriptor = new SecurityTokenDescriptor
+        //    {
+        //        Subject = new ClaimsIdentity(new Claim[]
+        //        {
+        //            new Claim(ClaimTypes.NameIdentifier,userForDetail.Id.ToString()),
+        //            new Claim(ClaimTypes.Name, userForDetail.UserName),
+        //            new Claim(ClaimTypes.GroupSid, userForDetail.IdUserGroup.ToString()),
+        //            new Claim(ClaimTypes.Role, userForDetail.Role),
+        //            new Claim(ClaimTypes.Locality, "fr")
+        //        }),
 
-                Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
-                    SecurityAlgorithms.HmacSha512Signature)
-            };
+        //        Expires = DateTime.Now.AddDays(1),
+        //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+        //            SecurityAlgorithms.HmacSha512Signature)
+        //    };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
+        //    var token = tokenHandler.CreateToken(tokenDescriptor);
+        //    var tokenString = tokenHandler.WriteToken(token);
 
-            return tokenString;
-        }
+        //    return tokenString;
+        //}
 
 
         //if (userRetrieve == null)

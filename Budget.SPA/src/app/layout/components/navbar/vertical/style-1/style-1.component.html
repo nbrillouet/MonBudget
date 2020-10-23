@@ -24,7 +24,7 @@
 <div  class="navbar-scroll-container" [ngClass]="fuseConfig.layout.navbar.primaryBackground"
      fusePerfectScrollbar [fusePerfectScrollbarOptions]="{suppressScrollX: true}">
 
-    <div *ngIf="(user$ | async) as user" class="user" fxLayout="column" [ngClass]="fuseConfig.layout.navbar.secondaryBackground">
+    <div *ngIf="(user$ | async)?.datas as user" class="user" fxLayout="column" [ngClass]="fuseConfig.layout.navbar.secondaryBackground">
         <div class="h3 username">{{ user.firstName }} {{ user.lastName }}</div>
         <div class="h5 email hint-text mt-8">{{ user.userName }}</div>
         <div class="avatar-container" [ngClass]="fuseConfig.layout.navbar.primaryBackground">

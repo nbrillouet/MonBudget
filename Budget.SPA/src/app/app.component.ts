@@ -22,6 +22,7 @@ import { NavigationState } from './main/_ngxs/navigation/navigation.state';
 import { UserDetailState } from './main/_ngxs/user/user-detail/user-detail.state';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DataInfo } from './main/_models/generics/detail-info.model';
 
 @Component({
     selector   : 'app',
@@ -30,7 +31,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit, OnDestroy
 {
-    @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+    @Select(UserDetailState.getUser) user$: Observable<DataInfo<UserForDetail>>;
     @Select(NavigationState.getNavigation) navigation$: Observable<any>;
 
     fuseConfig: any;
@@ -43,7 +44,7 @@ export class AppComponent implements OnInit, OnDestroy
         showProgressBar: true,
         pauseOnHover: true,
         clickToClose: true
-        };              
+    };              
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -184,12 +185,11 @@ export class AppComponent implements OnInit, OnDestroy
 
                 this.document.body.classList.add(this.fuseConfig.colorTheme);
             });
-            
-  
-            this.user$.subscribe((user:UserForDetail) => {
+              
+            this.user$.subscribe(x => {
+                
+                if(x?.loader['datas']?.loaded) {
 
-                console.log('user',user);
-                if(user) {
                     this.navigation$.subscribe(result => {
                         console.log('navigation', result);
                         if(!result) {
@@ -199,8 +199,8 @@ export class AppComponent implements OnInit, OnDestroy
                                     'type'    : 'group',
                                     'children': []
                             }];
-                            this.navigation[0].children.push(this.navigationService.getReferentialMenu(user));
-                            this.navigation[0].children.push(this.navigationService.getBankMenu(user.bankAgencies));
+                            this.navigation[0].children.push(this.navigationService.getReferentialMenu(x.datas));
+                            this.navigation[0].children.push(this.navigationService.getBankMenu(x.datas.bankAgencies));
                             this.navigation[0].children.push(this.navigationService.getImportAccountMenu());
                             this.navigation[0].children.push(this.navigationService.getPlanMenu());
                             this.store.dispatch(new AddNavigation(this.navigation));
@@ -221,11 +221,8 @@ export class AppComponent implements OnInit, OnDestroy
                         // }
                     });
                 }
-
- 
+                
             });
-
-            
     }
 
     /**

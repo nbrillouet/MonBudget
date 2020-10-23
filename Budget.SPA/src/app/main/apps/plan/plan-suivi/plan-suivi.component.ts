@@ -18,7 +18,7 @@ import { PlanForTrackingState } from 'app/main/_ngxs/plan/plan-tracking/plan-tra
 import { ClearPlanPosteDetailDatas } from 'app/main/_ngxs/plan/plan-detail/plan-poste/plan-poste-detail/plan-poste-detail.action';
 import { ChangePlanForTrackingFilter } from 'app/main/_ngxs/plan/plan-tracking/plan-tracking.action';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
-import { UserForDetail } from 'app/main/_models/user.model';
+import { UserForDetail, UserForAuth } from 'app/main/_models/user.model';
 
 
 @Component({
@@ -30,8 +30,9 @@ import { UserForDetail } from 'app/main/_models/user.model';
 })
 export class PlanSuiviComponent implements OnInit {
   @Select(PlanForTrackingState.get) planTracking$: Observable<DatasFilter<PlanForTracking,FilterPlanTracking>>;
-  @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+//   @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
   
+    userAuth: UserForAuth = JSON.parse(localStorage.getItem('userInfo'));
   selectYears : SelectYear[];
 
   planSelected: SelectYear;
@@ -109,8 +110,8 @@ export class PlanSuiviComponent implements OnInit {
   ) { 
     this.grap = this.testGraph;
 
-    this.user$.subscribe((user:UserForDetail) => {
-      this._planService.GetPlanList(user.id).subscribe(plan => {
+    // this.user$.subscribe((user:UserForDetail) => {
+      this._planService.GetPlanList(this.userAuth.id).subscribe(plan => {
         this.selectYears = plan;
 
         this.planSelected = plan[0];
@@ -126,7 +127,7 @@ export class PlanSuiviComponent implements OnInit {
 
         this.isLoaded=true;
       });
-    });
+    // });
 
   }
 

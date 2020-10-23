@@ -91,6 +91,8 @@ namespace Budget.API
 
             services.AddAutoMapper();
 
+            services.AddLazyResolution();
+
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserRepository, UserRepository>();
 

@@ -10,7 +10,7 @@ import { IOperation } from 'app/main/_models/referential/operation.model';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
 import { NotificationsService } from 'angular2-notifications';
 import { OperationTransverse } from 'app/main/_models/referential/operation-transverse.model';
-import { UserForDetail } from 'app/main/_models/user.model';
+import { UserForDetail, UserForAuth } from 'app/main/_models/user.model';
 import { FilterAsDetail } from 'app/main/_models/filters/account-statement.filter';
 import { Router } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
@@ -24,10 +24,12 @@ import { FilterAsifDetail } from 'app/main/_models/filters/account-statement-imp
 import { asifDetailFilterChangeOtf, asifDetailFilterChangeOt, LoadAsifDetailFilter } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail-filter/asif-detail-filter.action';
 import { SynchronizeAsifDetail } from 'app/main/_ngxs/account-statement-import-file/asif-detail/asif-detail.action';
 import { EnumOperationMethod } from 'app/main/_constants/enum-operation-model.model';
+import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 
 export class AsDetailGenericComponent {
-  @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
-  
+//   @Select(UserDetailState.getUser) user$: Observable<DataInfo<UserForDetail>>;
+
+  userAuth: UserForAuth = JSON.parse(localStorage.getItem('userInfo'));
   asGenForDetail: AsifForDetail;
   asGenDetailFilter: FilterAsDetail | FilterAsifDetail;
 
@@ -38,7 +40,7 @@ export class AsDetailGenericComponent {
   firstLoad: boolean=true;
   isNewOperationTemplate: boolean;
   isNewOperationTransverseTemplate: boolean;
-  currentUser: UserForDetail;
+  
   idAccount: number;
   idImport: number;
   from: string;
@@ -53,9 +55,9 @@ export class AsDetailGenericComponent {
     public _asService: AsService,
     public _asifService: AsifService
   ) {
-    this.user$.subscribe((user:UserForDetail) => {
-      this.currentUser = user;
-    });
+    // this.user$.subscribe((user:UserForDetail) => {
+    //   this.currentUser = user;
+    // });
    }
 
   ngOnInit() {
@@ -208,7 +210,7 @@ export class AsDetailGenericComponent {
     const operationTransverse: OperationTransverse = <OperationTransverse> {
       id:0,
       label:label,
-      idUser:this.currentUser.id
+      idUser:this.userAuth.id
     };
     
     this._referentialService.operationTransverseService.Create(operationTransverse)

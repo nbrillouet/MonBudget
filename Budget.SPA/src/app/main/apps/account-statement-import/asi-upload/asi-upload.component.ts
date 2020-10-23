@@ -2,8 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { NotificationsService } from 'angular2-notifications';
 import { UserForDetail } from 'app/main/_models/user.model';
-
-import { AuthService } from 'app/main/_services/auth.service';
 import { environment } from 'environments/environment';
 import { fuseAnimations } from '@fuse/animations';
 import { IAsifGroupByAccounts } from 'app/main/_models/account-statement-import/account-statement-import-file.model';
@@ -27,7 +25,6 @@ export class AsiUploadComponent implements OnInit {
   baseUrl = environment.apiUrl;
   
   constructor(
-    private authService: AuthService,
     private notificationService: NotificationsService
   ) { }
 
@@ -69,13 +66,6 @@ export class AsiUploadComponent implements OnInit {
         // this.user.avatarUrl = res.avatarUrl;
         this.fileSuccess.emit(true);
         this.uploadResponse.emit(toto);
-
-
-        // this.getUserAvatarChange.emit(res.avatarUrl);
-        // this.authService.changeAvatar(res.avatarUrl);
-        //pour fonctionnement meme quand refresh du navigateur:
-        // this.authService.currentUser.avatarUrl = res.avatarUrl;
-        // localStorage.setItem('user',JSON.stringify(this.authService.currentUser));
 
         this.notificationService.success('Enregistrement réussi', 'Relevé chargé');
 

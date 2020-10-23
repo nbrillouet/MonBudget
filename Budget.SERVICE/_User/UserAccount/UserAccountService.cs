@@ -34,6 +34,11 @@ namespace Budget.SERVICE
             return _userAccountRepository.GetUsers(accountNumber);
         }
 
+        public List<Account> GetAccounts(int idUser)
+        {
+            return _userAccountRepository.GetAccounts(idUser);
+        }
+
         public User GetUserOwner(string accountNumber)
         {
             return _userAccountRepository.GetUserOwner(accountNumber);

@@ -9,7 +9,7 @@ import { PlanDetail } from "app/main/_models/plan/plan.model";
 import { PlanForTracking } from "app/main/_models/plan/plan-tracking.model";
 import { PlanAmountFilter } from "app/main/_models/filters/plan-amount.filter";
 import { AsTable } from "app/main/_models/account-statement/account-statement-table.model";
-import { IUserForGroup, UserForDetail } from "app/main/_models/user.model";
+import { IUserForGroup, UserForDetail, UserForAuth } from "app/main/_models/user.model";
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 import { FilterPlanNotAsTableSelected, FilterPlanNotAsTableSelection, FilterPlanNotAsTableGroupSelected } from "app/main/_models/filters/plan-not-as.filter";
 import { Select } from "@ngxs/store";
@@ -18,20 +18,21 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class PlanService {
-    @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
-    
+    // @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+userAuth: UserForAuth = JSON.parse(localStorage.getItem('userInfo'));
+userForGroup: IUserForGroup = {id: this.userAuth.id,idUserGroup:this.userAuth.idUserGroup};
 baseUrl = environment.apiUrl;
-currentUser: UserForDetail;
-userForGroup: IUserForGroup; 
+// currentUser: UserForDetail;
+// userForGroup: IUserForGroup; 
 
     constructor(
         private http: HttpClient,
         private errorService: ErrorService
     ) {
-        this.user$.subscribe((user:UserForDetail) => {
-            this.currentUser = user;
-            this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
-        });
+        // this.user$.subscribe((user:UserForDetail) => {
+        //     this.currentUser = user;
+        //     this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
+        // });
      }
     
     getPlanTableFilter(filter: FilterPlanTableSelected) {
@@ -72,35 +73,6 @@ userForGroup: IUserForGroup;
             .map(res=><string>res);
     }
 
-    // savePlanPosteDetail(planPosteForDetail: PlanPosteForDetail) {
-    //     return this.http
-    //         .post(`${this.baseUrl}plan-poste-details/save`,planPosteForDetail)
-    //         .map(res=><number>res)
-    //         .catch(this.errorService.handleError);
-    // }
-
-    // deletePlanPosteDetail(listIdPlanPoste: number[]) {
-    //     return this.http
-    //         .post(`${this.baseUrl}plan-poste-details/delete`,listIdPlanPoste)
-    //         .map(res=><number>res)
-    //         .catch(this.errorService.handleError);
-    // }
-
-    // GetPlanPosteForDetailById(idPlanPoste: number,idPlan:number,idPoste:number) {
-
-    //     return this.http
-    //     .get(`${this.baseUrl}plan-postes/${idPlanPoste}/user-groups/${this.userForGroup.idUserGroup}/plans/${idPlan}/postes/${idPoste}/plan-poste-detail`)
-    //     .map(response => <PlanPosteForDetail>response)
-    //     .catch(this.errorService.handleError);
-    // }
-
-    // GetPlanPosteReferenceByIdReferenceTable(planPosteReferenceFilter:PlanPosteReferenceFilter) {
-    //     return this.http
-    //         .get(`${this.baseUrl}plan-poste-references/user-groups/${this.userForGroup.idUserGroup}/plan-postes/${planPosteReferenceFilter.idPlanPoste}/reference-table/${planPosteReferenceFilter.idReferenceTable}/postes/${planPosteReferenceFilter.idPoste}/combo-reference`)
-    //         .map(response => <ComboMultiple<ISelectGroup>>response);
-
-    // }
-
     GetPlanTracking(filterPlanTracking: FilterPlanTracking) {
         return this.http
             .post(`${this.baseUrl}plans/${filterPlanTracking.idPlan}/plan-tracking`,filterPlanTracking)
@@ -121,28 +93,6 @@ userForGroup: IUserForGroup;
         .map(response => <AsTable[]>response)
     }
 
-    // getPlanPosteFrequencies(planPosteFrequencyFilter: PlanPosteFrequencyFilter) {
-    //     return this.http
-    //     .get(`${this.baseUrl}plan-poste-frequencies/plan-postes/${planPosteFrequencyFilter.idPlanPoste}/is-annual-estimation/${planPosteFrequencyFilter.isAnnualEstimation}`)
-    //     .map(response => <PlanPosteFrequencyForDetail[]>response)
-    // }
-
-    // getAsNotInPlan(filterAsPlan: FilterAsPlan) {
-    //     filterAsPlan.idUserGroup = this.userForGroup.idUserGroup;
-    //     return this.http
-    //         .get(`${this.baseUrl}plans/${filterAsPlan.idPlan}/user-groups/${filterAsPlan.idUserGroup}/as-not-in-plan`)
-    //         .map(response => <AsTable[]>response)
-    // }
-
-    // getPlanNotAsTable(filter: FilterPlanNotAsTableSelected) {
-    //     filter.userGroup = this.userForGroup;
-    //     return this.http
-    //         .post(`${this.baseUrl}plans/plan-not-as-table-filter`,filter)
-    //         .map((response: FilterPlanTableSelection) => {
-    //             return response;
-    //         });
-    // }
-
     getPlanNotAsTableFilter(filter: FilterPlanNotAsTableSelected) {
         filter.user=this.userForGroup;
         return this.http
@@ -156,7 +106,5 @@ userForGroup: IUserForGroup;
             .post(`${this.baseUrl}plan-not-as/plan-not-as-table-data`,filter)
             .map((response: any) => response);
     }
-
-
 
 }

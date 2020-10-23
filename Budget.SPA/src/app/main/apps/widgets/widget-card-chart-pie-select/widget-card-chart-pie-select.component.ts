@@ -102,7 +102,6 @@ export class WidgetCardChartPieSelectComponent implements OnInit, OnChanges {
         var sumTotal = this.widget.data.ranges.list
             .map(x=>x.selects.map(x=>x.value).reduce((sum,current) => sum + current))
             .reduce(function(acc, val) { return acc + val; }, 0);
-
    
         this.test = sumSelected;
         // if(sumTotal-sumSelected<100) {
@@ -123,8 +122,7 @@ export class WidgetCardChartPieSelectComponent implements OnInit, OnChanges {
 
   compareObjects(o1: ISelect, o2: ISelect) {
     return o1 && o2 ? o1.id === o2.id : o1 === o2;
-
- }
+  }
 
 
 }

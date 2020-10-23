@@ -82,6 +82,12 @@ export class UserForPasswordChange {
     password: string;
 }
 
+export class UserForAuth {
+    id: number;
+    role: string;
+    token: string;
+    idUserGroup: number;
+}
 
 export enum Role {
     user = 'User',

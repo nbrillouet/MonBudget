@@ -14,6 +14,6 @@ namespace Budget.SERVICE
         UserForRegister GetUserEncrypt(string userId);
         bool ChangePassword(UserForPasswordChange userForPasswordChange);
         void PasswordRecovery(string mail);
-        UserForDetailDto Login(string username, string password);
+        UserForAuth Login(string username, string password);
     }
 }

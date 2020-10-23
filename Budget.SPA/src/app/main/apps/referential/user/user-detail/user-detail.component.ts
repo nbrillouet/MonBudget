@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { Subscription } from 'rxjs/Subscription';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -12,13 +11,13 @@ import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/materia
 import { fuseAnimations } from '@fuse/animations';
 import { UserForDetail } from 'app/main/_models/user.model';
 import { IGMapSearchInfo } from 'app/main/_models/g-map.model.';
-import { AuthService } from 'app/main/_services/auth.service';
 import { Select, Store } from '@ngxs/store';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
 import { Observable } from 'rxjs';
 import { HelperService } from 'app/main/_services/helper.service';
 import { SynchronizeUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.action';
 import { TranslateService } from '@ngx-translate/core';
+import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'user-detail',
@@ -33,7 +32,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 
 export class UserDetailComponent implements OnInit {
-  @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+  @Select(UserDetailState.getUser) user$: Observable<DataInfo<UserForDetail>>;
 
   user : UserForDetail;
   onUserChanged: Subscription;
@@ -50,7 +49,6 @@ export class UserDetailComponent implements OnInit {
     private userService: UserService,
     private notificationService: NotificationsService,
     private formBuilder: FormBuilder,
-    private authService: AuthService,
     private datePipe: DatePipe,
     private router: Router,
     private _helperService: HelperService,
@@ -64,9 +62,9 @@ export class UserDetailComponent implements OnInit {
     
     this.pageType = 'edit';
     
-    this.user$.subscribe((user:UserForDetail) => {
-      if(user) {
-          this.user = user;
+    this.user$.subscribe(x => {
+      if(x.loader['datas']?.loaded) {
+          this.user = x.datas;
           this.gMapSearchInfo = <IGMapSearchInfo> { 
               idGMapAddress: this.user.idGMapAddress,
               operationPositionSearch:"",

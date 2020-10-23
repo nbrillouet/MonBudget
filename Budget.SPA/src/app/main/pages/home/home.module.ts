@@ -6,7 +6,6 @@ import { HomeNavigationComponent } from "./home-navigation/home-navigation.compo
 import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { AngularMaterialModule } from "app/angular-material.module";
-import { AuthService } from "app/main/_services/auth.service";
 import { MatButtonModule } from "@angular/material/button";
 
 const routes = [

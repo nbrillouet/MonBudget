@@ -7,29 +7,36 @@ import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.sta
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-@Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+// @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
  
-currentUser: UserForDetail;
+// currentUser: UserForDetail;
 
-    constructor(
-        ) {
-        this.user$.subscribe((user:UserForDetail) => {
-            this.currentUser = user;
-        });
+    constructor() {
+
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         //exclusion d adresse exterieur pour l'authorisation
         const excludeHttp = 'maps.googleapis.com';
         // add authorization header with jwt token if available
-        if (this.currentUser && this.currentUser.token && request.url.search(excludeHttp)===-1) {
+        let user = JSON.parse(localStorage.getItem('userInfo'));
+
+        if(user?.token && request.url.search(excludeHttp)===-1) {
             request = request.clone({
                 setHeaders: { 
-                    Authorization: `Bearer ${this.currentUser.token}`
+                    Authorization: `Bearer ${user.token}`
                 }
             });
         }
-        // let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        // if (this.currentUser && this.currentUser.token && request.url.search(excludeHttp)===-1) {
+        //     request = request.clone({
+        //         setHeaders: { 
+        //             Authorization: `Bearer ${this.currentUser.token}`
+        //         }
+        //     });
+        // }
+        // let token = JSON.parse(localStorage.getItem('currentUser'));
         // if (currentUser && currentUser.token && request.url.search(excludeHttp)===-1) {
         //     request = request.clone({
         //         setHeaders: { 
@@ -40,19 +47,5 @@ currentUser: UserForDetail;
 
         return next.handle(request);
     }
-
-
-
-    // ngOnInit(){
-    //     this.user$.subscribe((user:IUser) => {
-    //         this.currentUser = user;
-    //     });
-    // }
-
-    // loadCurrentUser(currentUser:IUserForLabel) {
-
-    //     this.store.dispatch(new LoadUserDetail(<IUser>currentUser));
-    //     this.userLoaded.isLoaded=true;
-    // }
 
 }

@@ -23,7 +23,7 @@
 
         </div>
 
-        <div *ngIf="(user$ | async) as user" class="" fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
+        <div *ngIf="(user$ | async)?.datas as user" class="" fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
 
             <button mat-button [matMenuTriggerFor]="userMenu"
                     class="user-button">
@@ -56,7 +56,7 @@
             <div class="toolbar-separator"></div>
 
 
-            <alerting-bar [userEvent]="user.userEvents"></alerting-bar>
+            <alerting-bar [userEvents]="user.userEvents"></alerting-bar>
             
             <div class="toolbar-separator"></div>
 
@@ -79,30 +79,9 @@
                 </button>
 
             </mat-menu>
-
-            <!-- <div class="toolbar-separator" fxHide fxShow.gt-xs></div>
-
-            <button 
-                mat-icon-button
-                class="quick-panel-toggle-button"
-                (click)="toggleFullscreen()"
-                aria-label="Plein écran">
-                <mat-icon *ngIf="!fullscreen">fullscreen</mat-icon>
-            </button> -->
-
-
-
         </div>
 
     </div>
 
 </mat-toolbar>
 
-<!-- <div *ngIf="fullscreen" class="fullscreen-exit">
-    <button 
-        mat-icon-button
-        (click)="toggleFullscreen()"
-    >
-        <mat-icon class="secondary-text">fullscreen_exit</mat-icon>
-    </button>
-</div> -->

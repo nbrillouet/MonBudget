@@ -5,7 +5,7 @@ import { NgModule } from "@angular/core";
 import { GMapModule } from "../g-map/g-map.module";
 import { AuthGuard } from "app/_guards/auth.guard";
 import { FuseSharedModule } from "@fuse/shared.module";
-import { PreventUnsavedChanges } from "app/_guards/prevent-unsaved-changes.guard";
+// import { PreventUnsavedChanges } from "app/_guards/prevent-unsaved-changes.guard";
 import { NgxsModule } from "@ngxs/store";
 import { AsifDetailComponent } from "../account-statement-import-file/asif-detail/asif-detail.component";
 import { AsifMainComponent } from "../account-statement-import-file/asif-main/asif-main.component";
@@ -94,7 +94,7 @@ const routes = [
         AsService,
         AsiService,
         AsifService,
-        PreventUnsavedChanges,
+        // PreventUnsavedChanges,
         DatePipe
     ]
     // entryComponents: [DialogGuardComponent]

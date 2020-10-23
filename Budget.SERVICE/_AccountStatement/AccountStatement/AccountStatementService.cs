@@ -19,7 +19,6 @@ namespace Budget.SERVICE
     {
         private readonly IMapper _mapper;
         private readonly IGMapAddressService _gMapAddressService;
-        //private readonly IPlanNotAsService _planNotAsService;
         private readonly IAccountStatementPlanService _accountStatementPlanService;
         private readonly IAccountStatementRepository _accountStatementRepository;
         private readonly IOperationTransverseAsService _operationTransverseAsService;
@@ -256,6 +255,14 @@ namespace Budget.SERVICE
             }
 
             return internalTransferDtos;
+        }
+
+        public List<AsForTable> GetAsInternalTransferOrphan(int idUserGroup)
+        {
+            List<AccountStatement> asOrphans = _accountStatementRepository.GetAsInternalTransferOrphan(idUserGroup);
+
+
+            return _mapper.Map<List<AsForTable>>(asOrphans);
         }
 
         public bool Update(AsForDetail asForDetail)

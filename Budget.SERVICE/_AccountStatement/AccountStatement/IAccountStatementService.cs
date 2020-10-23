@@ -18,6 +18,7 @@ namespace Budget.SERVICE
         //AsDetailDto GetAsDetail(FilterAsDetail filter);
         Solde GetSolde(FilterAsTableSelected filter);
         List<InternalTransferDto> GetAsInternalTransfer(FilterAsTableSelected filter);
+        List<AsForTable> GetAsInternalTransferOrphan(int idUserGroup);
         List<AsForTable> GetByPlanPosteReferences(List<PlanPosteReference> planPosteReferences,MonthYear monthYear);
 
         bool Save(List<AccountStatement> accountStatements);

@@ -14,7 +14,6 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AuthGuard } from './_guards/auth.guard';
-import { AuthService } from './main/_services/auth.service';
 import { ErrorService } from './main/_services/error.service';
 import { GoogleMapService } from './main/_services/google-map.service';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
@@ -22,9 +21,9 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { AccountService } from './main/_services/Referential/account.service';
 import { NavigationService } from './main/_services/navigation.service';
-import { AccountTypeService } from './main/_services/Referential/account-type.service';
-import { DatePipe, CommonModule } from '@angular/common';
-import { UserDetailResolver } from './main/apps/referential/user/user-detail/user-detail.resolver';
+// import { AccountTypeService } from './main/_services/Referential/account-type.service';
+// import { DatePipe, CommonModule } from '@angular/common';
+// import { UserDetailResolver } from './main/apps/referential/user/user-detail/user-detail.resolver';
 import { ErrorInterceptor } from './_interceptor/error.interceptor';
 import { JwtInterceptor } from './_interceptor/jwt.interceptor';
 import { SimpleNotificationsModule } from 'angular2-notifications';
@@ -39,6 +38,8 @@ import { UserDetailState } from './main/_ngxs/user/user-detail/user-detail.state
 import { HelperService } from './main/_services/helper.service';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
 import { CustomDatePickerAdapter, CUSTOM_DATE_FORMATS } from './_shared/date-adapter';
+import { UserAuthService } from './main/_services/auth.service';
+import { UserAuthState } from './main/_ngxs/user/user-auth/user-auth.state';
 
 // export const MY_DATE_FORMAT: MatDateFormats = {
 //     parse: {
@@ -95,19 +96,20 @@ const appRoutes: Routes = [
         // LoginModule,
         // RegisterModule,
         // ReferentialServiceModule,
-
+        
         NgxsModule.forRoot([
             UserDetailState,
-            NavigationState
+            NavigationState,
+            UserAuthState
         ]),
-        NgxsStoragePluginModule.forRoot({
-            key: [UserDetailState, NavigationState]
-        }),
+        // NgxsStoragePluginModule.forRoot({
+        //     key: [UserAuthState]
+        // }),
         NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production ? true : false })
     ],
     providers   : [
         AuthGuard,
-        AuthService,
+        UserAuthService,
         ErrorService,
         FuseSplashScreenService,
         FuseConfigService,

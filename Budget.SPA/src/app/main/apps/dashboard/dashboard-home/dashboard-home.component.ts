@@ -7,6 +7,7 @@ import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.sta
 import { UserForDetail } from 'app/main/_models/user.model';
 import { EnumUserCategory } from 'app/main/_constants/enum-user-category.model';
 import { Router } from '@angular/router';
+import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'dashboard-home',
@@ -15,7 +16,7 @@ import { Router } from '@angular/router';
   animations : fuseAnimations
 })
 export class DashboardHomeComponent implements OnInit {
-  @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+  @Select(UserDetailState.getUser) user$: Observable<DataInfo<UserForDetail>>;
 
   enumUserCategory: EnumUserCategory;
   
@@ -39,6 +40,7 @@ export class DashboardHomeComponent implements OnInit {
         // private _academyCoursesService: AcademyCoursesService
     )
     {
+        console.log('dashboard-home');
         // Set the defaults
         this.currentCategory = 'all';
         this.searchTerm = '';

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FuseLoginComponent } from './login.component';
-import { LoginService } from './login.service';
+// import { LoginService } from './login.service';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -30,7 +30,7 @@ const routes = [
         RouterModule.forChild(routes)
     ],
     providers:[
-        LoginService
+        // LoginService
     ]
 })
 

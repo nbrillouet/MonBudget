@@ -16,6 +16,7 @@ export class AlertingBarComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.log('this.userEvents',this.userEvents);
   }
 
 }

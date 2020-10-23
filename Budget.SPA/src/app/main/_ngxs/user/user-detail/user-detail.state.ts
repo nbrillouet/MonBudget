@@ -5,40 +5,44 @@ import { IUserShortcut } from "app/main/_models/user-shortcut.model";
 import { State, Action, StateContext, Selector } from "@ngxs/store";
 import { NotificationsService } from "angular2-notifications";
 import { Injectable } from "@angular/core";
+import { DataInfo } from "app/main/_models/generics/detail-info.model";
+import { LoaderState } from "../../_base/loader-state";
 
-export class UserDetailStateModel extends UserForDetail  {
+export class UserDetailStateModel extends DataInfo<UserForDetail>  {
 
 }
 
-let user = null;
+let user = new UserDetailStateModel();;
 @State<UserDetailStateModel>({
     name: 'user',
     defaults : user
 })
 
 @Injectable()
-export class UserDetailState {
+export class UserDetailState extends LoaderState {
     constructor(
         private _userService: UserService,
-        private _notification: NotificationsService) {
+        private _notificationsService: NotificationsService) {
         
+            super();
     }
 
     @Selector()
-    static getUser(state: UserDetailStateModel) {
-        return state;
-    }
+    static getUser(state: UserDetailStateModel) {  return state; }
 
     @Action(LoadUserDetail)
     loadUserDetail(context: StateContext<UserDetailStateModel>, action: LoadUserDetail) {
-        // const state = context.getState();
-        context.patchState(action.payload);
-        // this._userService.getUser(action.payload.id)
-        //     .subscribe(result=> {
-        //         context.patchState(
-        //             result
-        //         );
-        //     });
+
+        this.loading(context,'datas');
+        context.patchState({datas: null});
+
+        this._userService.getUserForDetail(action.payload.id).subscribe(result=> {
+            context.patchState(
+                {datas: result}
+            );
+            this.loaded(context,'datas');
+        });
+
     }
 
     @Action(ClearUserDetail)
@@ -46,13 +50,11 @@ export class UserDetailState {
         return context.setState(new UserDetailStateModel());
     }
 
-
     @Action(AddUser)
     save(context: StateContext<UserDetailStateModel>, action: AddUser) {
         const state = context.getState();
         context.patchState(
-             action.payload
-        
+            {datas: action.payload}
         );
     }
 
@@ -74,29 +76,27 @@ export class UserDetailState {
     removeShortcut(context: StateContext<UserDetailStateModel>, action: User_DeleteShortcut) {
         const state = context.getState();
 
-        this._userService.deleteShortcut(state.id,action.id)
+        this._userService.deleteShortcut(state.datas.id,action.id)
             .subscribe(result=> {
-                const state = context.getState();
-                state.shortcuts.splice(state.shortcuts.findIndex(x=>x.id==action.id), 1);
-                context.patchState(state);
-                
-                // context.dispatch(new User_DeleteShortcutSuccess(action.id));
-                // state.shortcuts.splice(state.shortcuts.findIndex(x=>x.id==action.id), 1)
+                //TODO
+                // state.shortcuts.splice(state.shortcuts.findIndex(x=>x.id==action.id), 1);
+                // context.patchState(state);
+
             })
     }
 
     @Action(User_AddShortcut)
     addShortcut(context: StateContext<UserDetailStateModel>, action: User_AddShortcut) {
         const state = context.getState();
-
-        this._userService.addShortcut(state.id,action.shortcut)
-            .subscribe(result=> {
-                state.shortcuts.push(<IUserShortcut>result);
+        //TODO
+        // this._userService.addShortcut(state.id,action.shortcut)
+        //     .subscribe(result=> {
+        //         state.shortcuts.push(<IUserShortcut>result);
                 
-                context.patchState(
-                    state
-                );
-            })
+        //         context.patchState(
+        //             state
+        //         );
+        //     })
     }
 
 }

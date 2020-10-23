@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'app/main/_services/auth.service';
+import { UserAuthService } from 'app/main/_services/auth.service';
 import { UserForRegister, UserForPasswordChange } from 'app/main/_models/user.model';
 import { NotificationsService } from 'angular2-notifications';
 
@@ -28,7 +28,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
         private _activatedRoute: ActivatedRoute,
-        private _authService: AuthService,
+        private _userAuthService: UserAuthService,
         private _notificationsService: NotificationsService,
         private _router: Router
 
@@ -105,7 +105,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy
 
     changePassword(){
         this.checkUser();
-        this._authService.changePassword(this.userForPasswordChange).subscribe(()=>{
+        this._userAuthService.changePassword(this.userForPasswordChange).subscribe(()=>{
             this._notificationsService.success('Modification mot de passe','votre mot de passe est modifié!');
             this._router.navigate(['/pages/auth/login']);
         }

@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { FuseConfigService } from '../../../../../core/services/config.service';
-// import { fuseAnimations } from '../../../../../core/animations';
 import { Router } from '@angular/router';
-// import { AuthService } from '../../../../_services/auth.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfigService } from '@fuse/services/config.service';
-import { AuthService } from 'app/main/_services/auth.service';
+import { UserAuthService } from 'app/main/_services/auth.service';
 
 @Component({
     selector   : 'fuse-register',
@@ -24,7 +21,7 @@ export class FuseRegisterComponent implements OnInit
     constructor(
         private _fuseConfigService: FuseConfigService,
         private formBuilder: FormBuilder,
-        private authService: AuthService,
+        private userAuthService: UserAuthService,
         private notif: NotificationsService,
         private router: Router
     )
@@ -101,7 +98,7 @@ export class FuseRegisterComponent implements OnInit
 
     register()
     {
-        this.authService.register(this.registerForm.value).subscribe(()=>{
+        this.userAuthService.register(this.registerForm.value).subscribe(()=>{
             // this.notif.success('Registration success','you are now registred')
             this.router.navigate(['/pages/auth/mail-confirm']);
         }, error =>{

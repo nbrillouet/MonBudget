@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ISelect, EnumSelectType } from 'app/main/_models/generics/select.model';
-import { IUserForGroup, UserForDetail } from 'app/main/_models/user.model';
+import { IUserForGroup, UserForDetail, UserForAuth } from 'app/main/_models/user.model';
 import { FilterOtTableSelected, FilterOtTableSelection, FilterOtDetail } from 'app/main/_models/filters/operation-type.filter';
 import { OtForDetail } from 'app/main/_models/referential/operation-type.model';
 import { FilterForDetail } from 'app/main/_models/filters/shared/filterDetail.filter';
@@ -12,19 +12,20 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class OtService {
-    @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+    // @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+    userAuth: UserForAuth = JSON.parse(localStorage.getItem('userInfo'));
+    userForGroup: IUserForGroup = {id:this.userAuth.id,idUserGroup:this.userAuth.idUserGroup}; 
 
     baseUrl = environment.apiUrl;
-    currentUser: UserForDetail;
-    userForGroup: IUserForGroup; 
-
+    // currentUser: UserForDetail;
+    
     constructor(
             private _httpClient: HttpClient
         ) {
-            this.user$.subscribe((user:UserForDetail) => {
-                this.currentUser = user;
-                this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
-            });
+            // this.user$.subscribe((user:UserForDetail) => {
+            //     this.currentUser = user;
+            //     this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
+            // });
          }
         
         GetSelectList(idOperationTypeFamily: number, enumSelectType: EnumSelectType) {
@@ -67,7 +68,7 @@ export class OtService {
 
         getSelectListByOperationTypeFamily(operationTypeFamilies: ISelect[]) {
             return this._httpClient
-                .post(`${this.baseUrl}referential/operation-types/user-groups/${this.currentUser.idUserGroup}/select-list`,operationTypeFamilies)
+                .post(`${this.baseUrl}referential/operation-types/user-groups/${this.userAuth.idUserGroup}/select-list`,operationTypeFamilies)
                 .map(res=><ISelect[]>res);
         }
 
@@ -88,37 +89,5 @@ export class OtService {
                     return response;
                 });
         }
-        // deleteOtDetail(idOt: number) {
-            
-        //   return this._httpClient
-        //         .delete(`${this.baseUrl}referential/operation-types/${idOt}/delete`)
-        //         .map((response: boolean) => {
-        //             return response;
-        //         });
-        // }
-
-        
-        
-
-
-
-
-
-
-
-// baseUrl = environment.apiUrl;
-// user = JSON.parse(localStorage.getItem('currentUser'));
-
-//     constructor(
-//         private _httpClient: HttpClient
-//     ) { }
-
-
-    // GetSelectListByOperationTypeFamily(operationTypeFamilies: ISelect[]) {
-    //     return this._httpClient
-    //         .post(`${this.baseUrl}referential/operation-types/user-groups/${this.user.idUserGroup}/select-list`,operationTypeFamilies)
-    //         .map(res=><ISelect[]>res);
-    // }
-
     
 }

@@ -3,7 +3,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
-import { UserForDetail, IUserForGroup } from 'app/main/_models/user.model';
+import { UserForDetail, IUserForGroup, UserForAuth } from 'app/main/_models/user.model';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { ReferentialService } from 'app/main/_services/Referential/referential.service';
@@ -32,12 +32,13 @@ import { Pagination } from 'app/main/_models/pagination.model';
   animations   : fuseAnimations
 })
 export class AccountListComponent implements OnInit {
-  @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+//   @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
 
   @Select(AccountTableFilterSelectionState.get) accountTableFilterSelection$: Observable<FilterSelection<FilterAccountTableSelection>>;
   @Select(AccountTableFilterSelectedState.get) accountTableFilterSelected$: Observable<FilterSelected<FilterAccountTableSelected>>;
   @Select(AccountTableState.get) accountTable$: Observable<Datas<AccountForTable[]>>;
   
+  userAuth: UserForAuth = JSON.parse(localStorage.getItem('userInfo'));
   accountTableFilterSelection$$: Subscription;
   accountTableFilterSelected$$: Subscription;
   accountTable$$: Subscription;
@@ -57,15 +58,16 @@ export class AccountListComponent implements OnInit {
     private _helper: HelperService,
     private _referentialService: ReferentialService,
     private _notificationsService: NotificationsService
-    ) {
+    ) 
+  {
       
-      this.user$.subscribe((user:UserForDetail) => {
-        if(user) {
-          let selected = <FilterAccountTableSelected>{user:<IUserForGroup> {id:user.id,idUserGroup:user.idUserGroup},pagination: new Pagination()};
-          selected.pagination.sortColumn='bankAgency-bankSubFamily-bankFamily-label';
-          this._store.dispatch(new LoadAccountTableFilterSelected(selected));
-        }
-      });
+    //   this.user$.subscribe((user:UserForDetail) => {
+    //     if(user) {
+    let selected = <FilterAccountTableSelected>{user:<IUserForGroup> {id:this.userAuth.id,idUserGroup:this.userAuth.idUserGroup},pagination: new Pagination()};
+    selected.pagination.sortColumn='bankAgency-bankSubFamily-bankFamily-label';
+    this._store.dispatch(new LoadAccountTableFilterSelected(selected));
+    //     }
+    //   });
 
       this.accountTableFilterSelected$$ = this.accountTableFilterSelected$
         .subscribe(selected => {
@@ -111,96 +113,3 @@ export class AccountListComponent implements OnInit {
 
 }
 
-
-
-// @Select(UserDetailState.getUser) user$: Observable<IUser>;
-
-// currentUser: IUser;
-// // bankAgencies: IBankAgencyAccounts[];
-// checkboxes: number[]=[];
-// hasSelectedAccounts: boolean = false;
-// linkUserToolTip: string;
-
-// confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
-
-//   constructor(
-//     public dialog: MatDialog,
-//     private _referentialService: ReferentialService,
-//     private notificationService: NotificationsService
-//   ) {
- 
-//     this.user$.subscribe((user:IUser) => {
-//       if(user) {
-//         this.currentUser = user;
-//       }
-//     });
-//   }
-
-//   ngOnInit() {
-    
-//   }
-
-//   onSelectedChange($event,idAccount:number)
-//   {
-//     if($event.checked) {
-//       this.checkboxes.push(idAccount);
-//     }
-//     else
-//     {
-//       let index = this.checkboxes.indexOf(idAccount);
-//       if (index > -1) {
-//         this.checkboxes.splice(index, 1);
-//       }
-//     }
-//     this.hasSelectedAccounts = this.checkboxes.length>0;
-
-//   }
-
-//   delete (account: IAccountForDetail) {
-//     this.confirmDialogRef = this.dialog.open(FuseConfirmDialogComponent, {
-//       disableClose: false
-//     });
-
-//     this.confirmDialogRef.componentInstance.confirmMessage = 'Etes vous sûr de supprimer ce compte?';
-
-//     this.confirmDialogRef.afterClosed().subscribe(result => {
-//         if (result)
-//         {
-//             this._referentialService.accountService.delete(this.currentUser.id,account)
-//             .subscribe(next => {
-//               this.deleteFromBankAgencies(account.id);
-//               this.notificationService.success('Suppression réussi', 'Compte supprimé');
-//             }, error => {
-//               this.notificationService.error('Echec suppression', error);
-//             })
-//         }
-//         this.confirmDialogRef = null;
-//     });
-//   }
-
-//   detail(account: IAccount) {
-    
-//   }
-
-//   visualizeLinkedUser(account: IAccountForDetail){
-//     let label : string = 'Utilisateur(s) associé(s) à ce compte:\n';
-//     for(let linkedUser of account.linkedUsers) {
-//       label = label  + `${linkedUser.label} \n`;
-//     }
-
-//     this.linkUserToolTip=label;
-//   }
-
-//   deleteFromBankAgencies(idAccount:number) {
-        
-//     for(let bankAgency of this.currentUser.bankAgencies)
-//     {
-//       var index = bankAgency.accounts.findIndex(x=>x.id==idAccount);
-//       if (index > -1) {
-//         bankAgency.accounts.splice(index, 1);
-//         break;
-//       }
-//     }
-//   }
-
-// }

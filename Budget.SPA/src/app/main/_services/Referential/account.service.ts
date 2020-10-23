@@ -6,33 +6,31 @@ import { FilterAccountTableSelected, FilterAccountTableSelection, FilterAccountD
 import { UserDetailState } from "app/main/_ngxs/user/user-detail/user-detail.state";
 import { Observable } from "rxjs";
 import { Select } from "@ngxs/store";
-import { UserForDetail, IUserForGroup } from "app/main/_models/user.model";
+import { UserForDetail, IUserForGroup, UserForAuth } from "app/main/_models/user.model";
 import { FilterAsTableSelected } from "app/main/_models/filters/account-statement.filter";
 import { FilterForDetail } from "app/main/_models/filters/shared/filterDetail.filter";
+import { DataInfo } from "app/main/_models/generics/detail-info.model";
+import { UserAuthService } from "../auth.service";
 
 @Injectable()
 export class AccountService {
-    @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+    // @Select(UserDetailState.getUser) user$: Observable<DataInfo<UserForDetail>>;
     
-baseUrl = environment.apiUrl;
-currentUser: UserForDetail;
-userForGroup: IUserForGroup; 
-
+    baseUrl = environment.apiUrl;
+    userAuth: UserForAuth = JSON.parse(localStorage.getItem('userInfo'));
+    userForGroup: IUserForGroup = {id:this.userAuth.id,idUserGroup:this.userAuth.idUserGroup};
+    
     constructor(
         private _httpClient: HttpClient
 
     ) {
-        this.user$.subscribe((user:UserForDetail) => {
-            this.currentUser = user;
-            this.userForGroup = this.currentUser!=null ? <IUserForGroup> {id:this.currentUser.id,idUserGroup:this.currentUser.idUserGroup} : null;
-        });
+        // this.userAuth = JSON.parse(localStorage.getItem('user'));
+        // this.user$.subscribe(x => {
+        //     if(x.loader['datas']?.loaded)
+        //         this.userForGroup = <IUserForGroup> {id:x.datas.id,idUserGroup:x.datas.idUserGroup};
+        // });
      }
 
-    // getForDetail(id: number) {
-    //     return this._httpClient
-    //     .get(this.baseUrl + `referential/accounts/${id}/account-detail`)
-    //     .map(response => <IAccountForDetail>response);
-    // }
 
     getForDetail(filter: FilterForDetail) {
         return this._httpClient

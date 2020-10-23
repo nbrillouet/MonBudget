@@ -9,6 +9,7 @@ namespace Budget.SERVICE
     {
         UserAccount Get(int idUser, int idAccount);
         List<User> GetUsers(string accountNumber);
+        List<Account> GetAccounts(int idUser);
         User GetUserOwner(string accountNumber);
         List<BankAgencyWithAccountsDto> GetBankAgencies(int idUser);
         List<SelectGroupDto> GetBankSubFamilySelectGroup(int idUserGroup);

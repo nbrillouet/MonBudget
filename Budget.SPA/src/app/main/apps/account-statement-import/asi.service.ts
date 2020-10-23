@@ -3,7 +3,7 @@ import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { FilterAsiTableSelected, FilterAsiTableSelection } from 'app/main/_models/filters/account-statement-import.filter';
 import { AsiTable } from 'app/main/_models/account-statement-import/account-statement-import.model';
-import { UserForDetail } from 'app/main/_models/user.model';
+import { UserForDetail, UserForAuth } from 'app/main/_models/user.model';
 import { Datas } from 'app/main/_models/generics/detail-info.model';
 import { Select } from '@ngxs/store';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
@@ -11,17 +11,17 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AsiService {
-    @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
-    
+    // @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+// userAuth: UserForAuth = JSON.parse(localStorage.getItem('user'));
 baseUrl = environment.apiUrl;
-currentUser: UserForDetail;
+// currentUser: UserForDetail;
 
     constructor(
         private _httpClient: HttpClient
     ) { 
-        this.user$.subscribe((user:UserForDetail) => {
-            this.currentUser = user;
-        });
+        // this.user$.subscribe((user:UserForDetail) => {
+        //     this.currentUser = user;
+        // });
     }
     
     getAsiTableFilter(filter: FilterAsiTableSelected) {

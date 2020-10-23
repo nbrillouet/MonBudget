@@ -1,17 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { FuseConfigService } from '../../../../../core/services/config.service';
-// import { fuseAnimations } from '../../../../../core/animations';
 import { Router } from '@angular/router';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NotificationsService } from 'angular2-notifications';
-// import { AuthService } from '../../../../_services/auth.service';
 import { FuseConfigService }    from '@fuse/services/config.service';
 import { fuseAnimations }       from '@fuse/animations';
-import { AuthService } from 'app/main/_services/auth.service';
-import { takeUntil } from 'rxjs/operators';
-import { LoadUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.action';
+import { UserAuthService } from 'app/main/_services/auth.service';
 import { Store } from '@ngxs/store';
+import { Login } from 'app/main/_ngxs/user/user-auth/user-auth.action';
 
 @Component({
     selector   : 'fuse-login',
@@ -27,21 +22,12 @@ export class FuseLoginComponent implements OnInit
     constructor(
         private _fuseConfigService: FuseConfigService,
         private formBuilder: FormBuilder,
-        private authService : AuthService,
+        private userAuthService : UserAuthService,
         private router: Router,
-        private notif: NotificationsService,
+        private notificationsService: NotificationsService,
         private _store: Store
     )
     {
-        // this._fuseConfigService.config
-        //     // .pipe(takeUntil(this._unsubscribeAll))
-        //     .subscribe(
-        //         (config) => {
-        //             var titi = config;
-              
-        //         }
-        //     );
-
        
         // Configure the layout
         this._fuseConfigService.config = {
@@ -102,18 +88,20 @@ export class FuseLoginComponent implements OnInit
             }
         }
     }
-//this.loginForm.value.
-    login(){
 
-        this.authService
-            .login(this.loginForm.value.username,this.loginForm.value.password)
-            .subscribe(data=>{
-                this.notif.success('Connexion réussie!','Vous êtes maintenant connecté');
-            },error => {
-                this.notif.error('Erreur connexion',error);
-            },() => {
-                this.router.navigate(['/']);
-            });
+    login(){
+        this._store.dispatch(new Login({username: this.loginForm.value.username, password: this.loginForm.value.password}));
+        
+        
+        // this.userAuthService
+        //     .login(this.loginForm.value.username,this.loginForm.value.password)
+        //     .subscribe(data=>{
+        //         this.notificationsService.success('Connexion réussie!','Vous êtes maintenant connecté');
+        //     },error => {
+        //         this.notificationsService.error('Erreur connexion',error);
+        //     },() => {
+        //         this.router.navigate(['/']);
+        //     });
     }
 
     

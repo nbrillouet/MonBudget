@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { NotificationsService } from 'angular2-notifications';
-import { AuthService } from 'app/main/_services/auth.service';
+import { UserAuthService } from 'app/main/_services/auth.service';
 
 @Component({
     selector     : 'forgot-password',
@@ -27,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
         private _notificationsService: NotificationsService,
-        private _authService: AuthService
+        private _userAuthService: UserAuthService
     )
     {
         // Configure the layout
@@ -64,7 +64,7 @@ export class ForgotPasswordComponent implements OnInit
     }
 
     validate(){
-        this._authService.accountPasswordRecovery(this.forgotPasswordForm.controls['email'].value).subscribe(()=>{
+        this._userAuthService.accountPasswordRecovery(this.forgotPasswordForm.controls['email'].value).subscribe(()=>{
             this._notificationsService.success('Réinitialisation mot de passe','Un email a été envoyé')
             // this._router.navigate(['/pages/auth/login']);
         });

@@ -10,6 +10,9 @@ using AutoMapper;
 using System.Linq;
 using Budget.SERVICE._Helpers;
 using Microsoft.Extensions.Configuration;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace Budget.SERVICE
 {
@@ -46,19 +49,47 @@ namespace Budget.SERVICE
             _authRepository = authRepository;
         }
 
-        public UserForDetailDto Login(string username, string password)
+        public UserForAuth Login(string username, string password)
         {
             User user = _userService.GetByUsername(username);
-            //if (user == null)
-            //    return null;
 
-            //if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-            //    return null;
-            //User user = _authRepository.Login(username, password);
             CheckForLogin(user, password);
 
-            UserForDetailDto UserForDetailDto = _userService.GetForDetailById(user.Id);
-            return UserForDetailDto;
+            UserForAuth userForAuth = new UserForAuth { 
+                Id = user.Id,
+                Role = user.Role,
+                IdUserGroup = user.IdUserGroup,
+                Token = GetToken(user)
+            };
+            return userForAuth;
+        }
+
+        private string GetToken(User user)
+        {
+            //generate token
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var key = Encoding.ASCII.GetBytes(_configuration.GetSection("AppSettings:Token").Value);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.GroupSid, user.IdUserGroup.ToString()),
+                    new Claim(ClaimTypes.Role, user.Role),
+                    new Claim(ClaimTypes.Locality, "fr")
+                }),
+
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha512Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            return tokenString;
         }
 
         public User Register(UserForRegister userForRegister)
@@ -167,14 +198,16 @@ namespace Budget.SERVICE
             //Recherche si utilisateur a été trouvé
             if (user==null)
                 businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_AUTH_ERR_002));
+            else
+            {
+                //Recherche si mot de passe correct
+                if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+                    businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_AUTH_ERR_008));
 
-            //Recherche si mot de passe correct
-            if(!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_AUTH_ERR_008));
-
-            //Recherche si utilisateur a son compte validé isMailConfirmed
-            if (!user.ActivationIsConfirmed)
-                businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_AUTH_ERR_006));
+                //Recherche si utilisateur a son compte validé isMailConfirmed
+                if (!user.ActivationIsConfirmed)
+                    businessExceptionMessages.Add(_businessExceptionMessageService.Get(EnumBusinessException.BUS_AUTH_ERR_006));
+            }
 
             if (businessExceptionMessages.Count() > 0)
             {

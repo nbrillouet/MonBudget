@@ -10,6 +10,7 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { Select } from '@ngxs/store';
 import { UserForDetail } from 'app/main/_models/user.model';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
+import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
     selector     : 'navbar-vertical-style-1',
@@ -19,7 +20,7 @@ import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.sta
 })
 export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
 {
-    @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+    @Select(UserDetailState.getUser) user$: Observable<DataInfo<UserForDetail>>;
     
     fuseConfig: any;
     navigation: any;

@@ -65,7 +65,8 @@ namespace Budget.API.Helpers
                 if (user!=null)
                 {
                     user.DateLastActive = DateTime.Now;
-                    _userService.Update(user);
+                    //TODO voir les suppresions user account qd update si un user est deja chargé (connexion)
+                    //_userService.Update(user);
                 }
 
             }

@@ -74,25 +74,7 @@ namespace Budget.API.Controllers
             return Ok(pagedList);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Get()
-        //{
-        //    var users = await _userService.GetAll();
-        //    var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
-
-        //    return Ok(usersToReturn);
-        //}
-
-        //[HttpGet]
-        //public async Task<IActionResult> Get([FromQuery] Pagination pagination)
-        //{
-        //    var users = await _userService.GetUsers(pagination);
-        //    var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
-        //    Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
-
-        //    return Ok(usersToReturn);
-        //}
-
+        
         [HttpGet("{id}/user-detail", Name = "GetUser")]
         public IActionResult Get(int id)
         {

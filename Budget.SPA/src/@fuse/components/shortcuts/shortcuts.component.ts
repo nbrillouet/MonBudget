@@ -13,6 +13,7 @@ import { NavigationState } from 'app/main/_ngxs/navigation/navigation.state';
 import { User_DeleteShortcut, User_AddShortcut } from 'app/main/_ngxs/user/user-detail/user-detail.action';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
 import { UserForDetail } from 'app/main/_models/user.model';
+import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
     selector   : 'fuse-shortcuts',
@@ -21,7 +22,7 @@ import { UserForDetail } from 'app/main/_models/user.model';
 })
 export class FuseShortcutsComponent implements OnInit, OnDestroy
 {
-    @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+    @Select(UserDetailState.getUser) user$: Observable<DataInfo<UserForDetail>>;
     @Select(NavigationState.getNavigation) navigation$: Observable<any>;
     
     shortcutItems: any[];
@@ -78,9 +79,9 @@ export class FuseShortcutsComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        this.user$.subscribe((user:UserForDetail) => {
-            if(user) {
-                this.shortcutItems = user.shortcuts;
+        this.user$.subscribe(x => {
+            if(x?.loader['datas']?.loaded) {
+                this.shortcutItems = x.datas.shortcuts;
             }
         });
         this.navigation$.subscribe(navigation => {

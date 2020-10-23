@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { RouterModule } from '@angular/router';
 import { UserService } from './user.service';
-import { UserDetailResolver } from './user-detail/user-detail.resolver';
+// import { UserDetailResolver } from './user-detail/user-detail.resolver';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AvatarEditorComponent } from './avatar-editor/avatar-editor.component';
 import { GMapModule } from '../../g-map/g-map.module';
 import { AuthGuard } from 'app/_guards/auth.guard';
 import { FuseSharedModule } from '@fuse/shared.module';
-import { PreventUnsavedChanges } from 'app/_guards/prevent-unsaved-changes.guard';
+// import { PreventUnsavedChanges } from 'app/_guards/prevent-unsaved-changes.guard';
 import { NgxsModule } from '@ngxs/store';
 import { AngularMaterialModule } from 'app/angular-material.module';
 import { MatTableFilterModule } from '../../web-component/mat-table-filter/mat-table-filter.module';
@@ -43,7 +43,7 @@ const routes = [
   {
     path     : ':idUser/detail',
     component: UserDetailComponent,
-    resolve  : { user: UserDetailResolver },
+    // resolve  : { user: UserDetailResolver },
     canActivate: [AuthGuard]
     // canDeactivate: [PreventUnsavedChanges]
   }
@@ -71,8 +71,8 @@ const routes = [
   ],
   providers : [
     UserService,
-    UserDetailResolver,
-    PreventUnsavedChanges,
+    // UserDetailResolver,
+    // PreventUnsavedChanges,
     DatePipe
     // { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
     // { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT },

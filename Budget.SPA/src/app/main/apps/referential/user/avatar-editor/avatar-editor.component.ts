@@ -4,11 +4,12 @@ import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '@fuse/animations';
 import { UserForDetail } from 'app/main/_models/user.model';
 import { environment } from 'environments/environment';
-import { AuthService } from 'app/main/_services/auth.service';
+import { UserAuthService } from 'app/main/_services/auth.service';
 import { Select, Store } from '@ngxs/store';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
 import { Observable } from 'rxjs';
 import { LoadUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.action';
+import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 
 @Component({
   selector: 'avatar-editor',
@@ -18,7 +19,7 @@ import { LoadUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.acti
 })
 
 export class AvatarEditorComponent implements OnInit {
-  @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
+  @Select(UserDetailState.getUser) user$: Observable<DataInfo<UserForDetail>>;
   
   @Output() getUserAvatarChange = new EventEmitter<string>();
   
@@ -28,15 +29,15 @@ export class AvatarEditorComponent implements OnInit {
   currentUser: UserForDetail;
 
   constructor(
-    private authService: AuthService,
+    private userAuthService: UserAuthService,
     private notificationService: NotificationsService,
     private _store: Store
   ) { }
 
   ngOnInit() {
-    this.user$.subscribe((user:UserForDetail) => {
-      if(user) {
-          this.currentUser = user;
+    this.user$.subscribe(x => {
+      if(x.loader['datas'].loaded) {
+          this.currentUser = x.datas;
       }
     });
 
@@ -65,42 +66,17 @@ export class AvatarEditorComponent implements OnInit {
         const res: UserForDetail = JSON.parse(response);
         this.currentUser.avatarUrl = res.avatarUrl;
 
-
-        // this.authService.changeAvatar(res.avatarUrl);
-
-        //pour fonctionnement meme quand refresh du navigateur:
-        // this.authService.currentUser.avatarUrl = res.avatarUrl;
-        // localStorage.setItem('user',JSON.stringify(this.authService.currentUser));
-        this._store.dispatch(new LoadUserDetail(this.currentUser))
+        //TODO revoir le chargement
+        // this._store.dispatch(new LoadUserDetail(this.currentUser));
         this.notificationService.success('Enregistrement réussi', 'Votre avatar est modifié');
-
       }
       
     }
 
     this.uploader.onErrorItem = ((item, response, status, headers):any => {
-
-      // var error = this.handleError(response);
       this.notificationService.error('Erreur', 'Erreur');
-      });
-
+    });
 
   }
 
-  // private handleError(error: any)
-  // {
-  //     const serverError = JSON.parse(error);
-  //     let modelStateErrors = '';
-  //     if(serverError) {
-  //         for(const key in serverError)
-  //         {
-  //             if(serverError[key]){
-  //                 modelStateErrors += serverError[key] + '\n';
-  //             }
-  //         }
-  //     }
-
-  //     return modelStateErrors;
-
-  // }
 }

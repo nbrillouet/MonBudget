@@ -26,6 +26,7 @@ namespace Budget.DATA.Repositories
         SoldeDto GetSolde(int? idUser, int? idAccount, DateTime dateMin, DateTime dateMax, bool isWithITransfer);
         List<AccountStatement> GetAsInternalTransfer(int idUserGroup, int? idAccount, DateTime dateMin, DateTime dateMax);
         AccountStatement GetAsInternalTransferCouple(int idUserGroup, int idAccountStatement);
+        List<AccountStatement> GetAsInternalTransferOrphan(int idUserGroup);
 
     }
 }

@@ -31,7 +31,7 @@ export class DeleteUser {
 export class LoadUserDetail {
     static readonly type = USER_DETAIL_LOAD;
  
-    constructor(public payload: UserForDetail) { }
+    constructor(public payload: {id: number}) { }
 }
 
 export class ClearUserDetail {

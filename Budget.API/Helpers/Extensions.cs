@@ -1,5 +1,6 @@
 ﻿using Budget.MODEL;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -37,5 +38,26 @@ namespace Budget.API.Helpers
 
         //    return age;
         //}
+
+
+        //
+        public static IServiceCollection AddLazyResolution(this IServiceCollection services)
+        {
+            return services.AddTransient(
+                typeof(Lazy<>),
+                typeof(LazilyResolved<>));
+        }
+
+        private class LazilyResolved<T> : Lazy<T>
+        {
+            public LazilyResolved(IServiceProvider serviceProvider)
+                : base(serviceProvider.GetRequiredService<T>)
+            {
+            }
+        }
     }
+
+    
+
+
 }

@@ -262,6 +262,19 @@ namespace Budget.DATA.Repositories
                .FirstOrDefault();
         }
 
+        public List<AccountStatement> GetAsInternalTransferOrphan(int idUserGroup)
+        {
+            var accountStatements = Context.Set<AccountStatement>()
+               .FromSql("[as].spGetAsInternalTransferOrphan @idUserGroup",
+                   new SqlParameter("@idUserGroup", idUserGroup))
+               .ToList();
+            return accountStatements;
+            //return Context.Set<AccountStatement>()
+            //   .FromSql("[as].spGetAsInternalTransferOrphan @idUserGroup",
+            //       new SqlParameter("@idUserGroup", idUserGroup))
+            //   .ToList();
+        }
+
         public bool HasOperation(int idOperation)
         {
             var result = Context.AccountStatement
