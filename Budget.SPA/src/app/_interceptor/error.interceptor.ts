@@ -5,13 +5,15 @@ import { catchError } from 'rxjs/operators';
 import { UserAuthService } from 'app/main/_services/auth.service';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { Router } from '@angular/router';
+import { Logout } from 'app/main/_ngxs/user/user-auth/user-auth.action';
+import { Store } from '@ngxs/store';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
     constructor(
-        private _userAuthService: UserAuthService,
         private _notificationsService: NotificationsService,
-        private _router: Router
+        private _router: Router,
+        private _store: Store
         ) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -26,7 +28,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                             break;
                         case 401:
                             // auto logout if 401 response returned from api
-                            this._userAuthService.logout();
+                            this._store.dispatch(new Logout());
                             
                             location.reload(true);
                             break;

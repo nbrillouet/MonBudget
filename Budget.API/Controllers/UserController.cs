@@ -124,10 +124,6 @@ namespace Budget.API.Controllers
             if (user == null)
                 return BadRequest("Could not find user");
 
-            //var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
-            //if (currentUserId != user.Id)
-            //    return Unauthorized();
 
             //ajout de l'avatar dans Cloudinary
             var file = avatarDto.File;
@@ -165,18 +161,18 @@ namespace Budget.API.Controllers
 
         }
 
-        /// <summary>
-        /// Rechercher les banques + comptes liés aux banque pour un utilisateurs
-        /// </summary>
-        /// <param name="idUser"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("{idUser}/bankAgencies")]
-        public IActionResult GetBankAgencies(int idUser)
-        {
-            var bankAgencies = _userAccountService.GetBankAgencies(idUser);
+        ///// <summary>
+        ///// Rechercher les banques + comptes liés aux banque pour un utilisateurs
+        ///// </summary>
+        ///// <param name="idUser"></param>
+        ///// <returns></returns>
+        //[HttpGet]
+        //[Route("{idUser}/bankAgencies")]
+        //public IActionResult GetBankAgencies(int idUser)
+        //{
+        //    var bankAgencies = _userAccountService.GetBankAgencies(idUser);
 
-            return Ok(bankAgencies);
-        }
+        //    return Ok(bankAgencies);
+        //}
     }
 }

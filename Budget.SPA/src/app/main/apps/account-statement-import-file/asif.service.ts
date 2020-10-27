@@ -1,24 +1,16 @@
 import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
-import { ErrorService } from "app/main/_services/error.service";
 import { HttpClient } from '@angular/common/http';
 import { FilterAsifTableSelected, FilterAsifDetail, FilterAsifTableSelection } from "app/main/_models/filters/account-statement-import-file.filter";
 import { AsifDetail, AsifForDetail } from "app/main/_models/account-statement-import/account-statement-import-file.model";
 import { IUserForGroup, UserForDetail, UserForAuth } from "app/main/_models/user.model";
-import { Select } from "@ngxs/store";
-import { UserDetailState } from "app/main/_ngxs/user/user-detail/user-detail.state";
-import { Observable } from "rxjs";
 import { FilterForDetail } from "app/main/_models/filters/shared/filterDetail.filter";
 
 @Injectable()
 export class AsifService {
-    // @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
 userAuth: UserForAuth = JSON.parse(localStorage.getItem('userInfo'));
 userForGroup: IUserForGroup = { id:this.userAuth.id,idUserGroup:this.userAuth.idUserGroup }; 
 baseUrl = environment.apiUrl;
-// currentUser: UserForDetail;
-
-
     constructor(
         private _httpClient: HttpClient
     ) { 

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { ErrorService } from './error.service';
 import { UserForDetail } from '../_models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { IBankAgencyAccounts } from '../_models/referential/bank-agency.model';
@@ -10,8 +9,7 @@ export class NavigationService {
 baseUrl = environment.apiUrl;
 
 constructor(
-    private http: HttpClient,
-    private errorService: ErrorService
+    private http: HttpClient
 ) { }
 
     getReferentialMenu(user: UserForDetail) {

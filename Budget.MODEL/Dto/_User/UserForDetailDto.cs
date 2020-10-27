@@ -16,7 +16,7 @@ namespace Budget.MODEL.Dto
         public DateTime DateCreated { get; set; }
         public DateTime DateLastActive { get; set; }
         public int IdGMapAddress { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public string IdAvatarCloud { get; set; }
         public string AvatarUrl { get; set; }
         public string Role { get; set; }

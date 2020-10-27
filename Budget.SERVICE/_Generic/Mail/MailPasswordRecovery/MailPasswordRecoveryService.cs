@@ -22,7 +22,7 @@ namespace Budget.SERVICE
             string encryptId = HELPER.CryptoHelper.Encrypt(user.Id.ToString());
             string linkpath = $"http://localhost:4200/pages/auth/reset-password/{encryptId}";
 
-            var file = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "datas", "mailPasswordRecovery.htm");
+            var file = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "datas/MailingTemplate", "mailPasswordRecovery.htm");
             string htmlPart = File.ReadAllText(file);
 
             htmlPart = htmlPart.Replace("[RECOVERY_PASSWORD_LINK]", linkpath);

@@ -15,7 +15,7 @@ import { navigation } from 'app/navigation/navigation';
 import { locale as navigationEnglish } from 'app/navigation/i18n/en';
 import { locale as navigationFrench } from 'app/navigation/i18n/fr';
 import { Select, Store } from '@ngxs/store';
-import { UserForDetail } from './main/_models/user.model';
+import { UserForDetail, UserForAuth } from './main/_models/user.model';
 import { NavigationService } from './main/_services/navigation.service';
 import { AddNavigation } from './main/_ngxs/navigation/navigation.action';
 import { NavigationState } from './main/_ngxs/navigation/navigation.state';
@@ -23,6 +23,7 @@ import { UserDetailState } from './main/_ngxs/user/user-detail/user-detail.state
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DataInfo } from './main/_models/generics/detail-info.model';
+import { LoadUserDetail } from './main/_ngxs/user/user-detail/user-detail.action';
 
 @Component({
     selector   : 'app',
@@ -36,6 +37,7 @@ export class AppComponent implements OnInit, OnDestroy
 
     fuseConfig: any;
     navigation: any;
+    userForDetail: UserForDetail;
 
     public notificationOptions = {
         position: ["top","right"],
@@ -73,7 +75,8 @@ export class AppComponent implements OnInit, OnDestroy
         private navigationService: NavigationService,
         private store: Store,
         private matIconRegistry: MatIconRegistry,
-        private domSanitizer: DomSanitizer
+        private domSanitizer: DomSanitizer,
+        private _store: Store
 
     )
     {
@@ -155,6 +158,12 @@ export class AppComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+        let userAuth: UserForAuth = JSON.parse(localStorage.getItem('userInfo'));
+        if(!this.userForDetail && userAuth) {
+            debugger;
+            this._store.dispatch(new LoadUserDetail({id:userAuth.id}));
+        }
+
         // Subscribe to config changes
         this._fuseConfigService.config
             .pipe(takeUntil(this._unsubscribeAll))
@@ -185,11 +194,11 @@ export class AppComponent implements OnInit, OnDestroy
 
                 this.document.body.classList.add(this.fuseConfig.colorTheme);
             });
-              
-            this.user$.subscribe(x => {
-                
-                if(x?.loader['datas']?.loaded) {
+            
 
+            this.user$.subscribe(x => {
+                if(x?.loader['datas']?.loaded) {
+                    this.userForDetail = x.datas;
                     this.navigation$.subscribe(result => {
                         console.log('navigation', result);
                         if(!result) {
@@ -215,13 +224,9 @@ export class AppComponent implements OnInit, OnDestroy
                         this._fuseNavigationService.register('admin-nav', this.navigation);
                         // Set the current navigation
                         this._fuseNavigationService.setCurrentNavigation('admin-nav');
-                        // else {
-                        //     let currentMenu = this._fuseNavigationService.getCurrentNavigation();
 
-                        // }
                     });
                 }
-                
             });
     }
 

@@ -20,7 +20,7 @@ namespace Budget.SERVICE
         List<InternalTransferDto> GetAsInternalTransfer(FilterAsTableSelected filter);
         List<AsForTable> GetAsInternalTransferOrphan(int idUserGroup);
         List<AsForTable> GetByPlanPosteReferences(List<PlanPosteReference> planPosteReferences,MonthYear monthYear);
-
+        AsForTable GetLastAccountStatement(int idAccount);
         bool Save(List<AccountStatement> accountStatements);
         AccountStatement Save(AccountStatement accountStatement);
         bool Update(AsForDetail asForDetail);

@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
-// import { Http, RequestOptions, Headers,Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { environment } from 'environments/environment';
-import { ErrorService } from 'app/main/_services/error.service';
-import { Pagination, PaginatedResult } from 'app/main/_models/pagination.model';
 import { UserForDetail } from 'app/main/_models/user.model';
 import { IUserShortcut } from 'app/main/_models/user-shortcut.model';
 import { HttpClient } from '@angular/common/http';

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { SimpleNotificationsModule } from 'angular2-notifications';
-import { NotificationsService } from 'angular2-notifications';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfigService } from '@fuse/services/config.service';
-import { UserAuthService } from 'app/main/_services/auth.service';
+import { Register } from 'app/main/_ngxs/user/user-auth/user-auth.action';
+import { Store } from '@ngxs/store';
 
 @Component({
     selector   : 'fuse-register',
@@ -21,9 +19,7 @@ export class FuseRegisterComponent implements OnInit
     constructor(
         private _fuseConfigService: FuseConfigService,
         private formBuilder: FormBuilder,
-        private userAuthService: UserAuthService,
-        private notif: NotificationsService,
-        private router: Router
+        private _store: Store
     )
     {
         this._fuseConfigService.config = {
@@ -98,12 +94,7 @@ export class FuseRegisterComponent implements OnInit
 
     register()
     {
-        this.userAuthService.register(this.registerForm.value).subscribe(()=>{
-            // this.notif.success('Registration success','you are now registred')
-            this.router.navigate(['/pages/auth/mail-confirm']);
-        }, error =>{
-            this.notif.error('Registration failed',error)
-        });
+        this._store.dispatch(new Register({userForRegister: this.registerForm.value}));
     }
 }
 

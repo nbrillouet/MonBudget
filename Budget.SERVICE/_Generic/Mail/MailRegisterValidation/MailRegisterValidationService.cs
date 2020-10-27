@@ -19,12 +19,12 @@ namespace Budget.SERVICE
 
         public void SendRegisterValidationMail(User user)
         {
-            var file = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "datas", "mailRegisterValidation.htm");
+            var file = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "datas/MailingTemplate", "mailRegisterValidation.htm");
 
             string htmlPart = File.ReadAllText(file);
             htmlPart = htmlPart.Replace("[ACTIVATION_CODE]", user.ActivationCode);
 
-        _mailService.SendEmailAsync(user.MailAddress, user.UserName, "Validation inscription", htmlPart);
+            _mailService.SendEmailAsync(user.MailAddress, user.UserName, "Validation inscription", htmlPart);
         }
     }
 }

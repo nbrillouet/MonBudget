@@ -26,7 +26,7 @@ export class DashboardHomeComponent implements OnInit {
   filteredCourses: any[];
   currentCategory: string;
   searchTerm: string;
-
+    seasonImage: string;
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -40,6 +40,7 @@ export class DashboardHomeComponent implements OnInit {
         // private _academyCoursesService: AcademyCoursesService
     )
     {
+        this.seasonImage = `assets/images/calendar/s${this.getSeason()}.jpg`;
         console.log('dashboard-home');
         // Set the defaults
         this.currentCategory = 'all';
@@ -62,7 +63,7 @@ export class DashboardHomeComponent implements OnInit {
     ngOnInit(): void
     {
 
-      console.log('getSeason',this.getSeason());
+      //console.log('getSeason',this.getSeason());
         // Subscribe to categories
         // this._academyCoursesService.onCategoriesChanged
         //     .pipe(takeUntil(this._unsubscribeAll))
@@ -88,54 +89,14 @@ export class DashboardHomeComponent implements OnInit {
         this._unsubscribeAll.complete();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Filter courses by category
-     */
-    // filterCoursesByCategory(): void
-    // {
-    //     // Filter
-    //     if ( this.currentCategory === 'all' )
-    //     {
-    //         this.coursesFilteredByCategory = this.courses;
-    //         this.filteredCourses = this.courses;
-    //     }
-    //     else
-    //     {
-    //         this.coursesFilteredByCategory = this.courses.filter((course) => {
-    //             return course.category === this.currentCategory;
-    //         });
-
-    //         this.filteredCourses = [...this.coursesFilteredByCategory];
-
-    //     }
-
-    //     // Re-filter by search term
-    //     this.filterCoursesByTerm();
-    // }
-
-    /**
-     * Filter courses by term
-     */
-    // filterCoursesByTerm(): void
-    // {
-    //     const searchTerm = this.searchTerm.toLowerCase();
-
-    //     // Search
-    //     if ( searchTerm === '' )
-    //     {
-    //         this.filteredCourses = this.coursesFilteredByCategory;
-    //     }
-    //     else
-    //     {
-    //         this.filteredCourses = this.coursesFilteredByCategory.filter((course) => {
-    //             return course.title.toLowerCase().includes(searchTerm);
-    //         });
-    //     }
-    // }
+    getIcon(category: string) {
+        switch(category) {
+            case 'Referential':
+                return 'settings';
+            case 'AccountStatement':
+                return 'description';
+        }
+    }
 
     getSeason() {
       var currentMonth = new Date().getMonth() + 1;
@@ -146,7 +107,7 @@ export class DashboardHomeComponent implements OnInit {
       else if (currentMonth >= 6 && currentMonth <= 8)
         return "summer";
       else if (currentMonth >= 9 && currentMonth <= 11)
-        return "fall";
+        return "autumn";
       return ""
     }
 

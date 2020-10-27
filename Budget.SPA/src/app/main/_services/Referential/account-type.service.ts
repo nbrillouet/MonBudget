@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../../environments/environment";
-import { ErrorService } from "../error.service";
 import { HttpClient } from '@angular/common/http';
 import { ISelect } from "app/main/_models/generics/select.model";
 
@@ -10,7 +9,6 @@ baseUrl = environment.apiUrl;
 
     constructor(
         private http: HttpClient
-        // private errorService: ErrorService
     ) { }
 
     GetSelectList(idSelectType: number) {

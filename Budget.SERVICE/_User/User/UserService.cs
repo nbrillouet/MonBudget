@@ -57,7 +57,7 @@ namespace Budget.SERVICE
 
             var userForDetailDto = _mapper.Map<UserForDetailDto>(user);
             userForDetailDto.BankAgencies = _userAccountService.GetBankAgencies(id);
-            userForDetailDto.UserEvents = _userEventService.GetByIdUser(id);
+            userForDetailDto.UserEvents = _userEventService.Get(userForDetailDto);
             return userForDetailDto;
         }
 

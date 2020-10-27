@@ -1,11 +1,9 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { UserAuthService } from 'app/main/_services/auth.service';
-import { NotificationsService } from 'angular2-notifications';
-import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { AccountActivation } from 'app/main/_ngxs/user/user-auth/user-auth.action';
 
 @Component({
     selector     : 'mail-confirm',
@@ -25,9 +23,7 @@ export class MailConfirmComponent implements OnInit
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
-        private _userAuthService: UserAuthService,
-        private _notificationsService: NotificationsService,
-        private _router: Router
+        private _store: Store
     )
     {
         // Configure the layout
@@ -56,9 +52,6 @@ export class MailConfirmComponent implements OnInit
     }
 
     validate(){
-        this._userAuthService.accountActivation(this.validateForm.controls['validationCode'].value).subscribe(()=>{
-            this._notificationsService.success('Activation compte','Votre compte est activé!')
-            this._router.navigate(['/pages/auth/login']);
-        });
+        this._store.dispatch(new AccountActivation({validationCode: this.validateForm.controls['validationCode'].value}));
     }
 }

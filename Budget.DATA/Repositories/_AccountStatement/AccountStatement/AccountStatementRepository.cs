@@ -311,6 +311,16 @@ namespace Budget.DATA.Repositories
             return result;
         }
 
+        public AccountStatement GetLastAccountStatement(int idAccount)
+        {
+            var result = Context.AccountStatement
+                .Where(x => x.IdAccount == idAccount)
+                .OrderByDescending(x => x.DateIntegration)
+                .FirstOrDefault();
+
+            return result;
+        }
+
 
     }
 }

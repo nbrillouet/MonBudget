@@ -15,6 +15,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Datas\Json\UserEvents.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Datas\Json\UserEvents.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -29,6 +39,21 @@
   <ItemGroup>
 
     <ProjectReference Include="..\Budget.SERVICE\Budget.SERVICE.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Datas\images\fond.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Datas\MailingTemplate\mailAskAccountOwner.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Datas\MailingTemplate\mailPasswordRecovery.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Datas\MailingTemplate\mailRegisterValidation.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

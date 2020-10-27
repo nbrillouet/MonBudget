@@ -2,13 +2,12 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators, CheckboxControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserAuthService } from 'app/main/_services/auth.service';
-import { UserForRegister, UserForPasswordChange } from 'app/main/_models/user.model';
-import { NotificationsService } from 'angular2-notifications';
+import { UserForPasswordChange } from 'app/main/_models/user.model';
+import { ChangePassword } from 'app/main/_ngxs/user/user-auth/user-auth.action';
+import { Store } from '@ngxs/store';
 
 @Component({
     selector     : 'reset-password',
@@ -28,9 +27,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
         private _activatedRoute: ActivatedRoute,
-        private _userAuthService: UserAuthService,
-        private _notificationsService: NotificationsService,
-        private _router: Router
+        private _store: Store
 
     )
     {
@@ -68,13 +65,6 @@ export class ResetPasswordComponent implements OnInit, OnDestroy
         this._activatedRoute.params.subscribe(routeParams => {
             let idUser=routeParams['encrypt'];
             this.userForPasswordChange.idCrypted = idUser; //encodeURIComponent(user)
-            // this._authService.getUserEncrypt(idUser).subscribe((user)=>{
-                
-            //     this.userForRegister = user;
-            //     console.log('user',this.userForRegister);
-            // });
-            // console.log('idUser',idUser);
-
         });
 
         this.resetPasswordForm = this._formBuilder.group({
@@ -105,25 +95,12 @@ export class ResetPasswordComponent implements OnInit, OnDestroy
 
     changePassword(){
         this.checkUser();
-        this._userAuthService.changePassword(this.userForPasswordChange).subscribe(()=>{
-            this._notificationsService.success('Modification mot de passe','votre mot de passe est modifié!');
-            this._router.navigate(['/pages/auth/login']);
-        }
-        );
+        this._store.dispatch(new ChangePassword({userForPasswordChange: this.userForPasswordChange}));
     }
 
     checkUser() {
-        
         this.userForPasswordChange.email = this.resetPasswordForm.get('email').value;
         this.userForPasswordChange.password = this.resetPasswordForm.get('password').value;
-        // if(!this.userForRegister)
-        //     this._notificationsService.warn('Modification mot de passe','Utilisateur non trouvé');
-        // else {
-        //     if(this.userForRegister.email!=this.resetPasswordForm.controls['email'].value) {
-        //         this._notificationsService.warn('Modification mot de passe','l\'adresse email renseigné ne corresponde pas au compte');
-        //     }
-        // }
-        
     }
 }
 

@@ -108,22 +108,22 @@ namespace Budget.API.Controllers
             }
         }
 
-        [HttpGet("user-encrypt/{user}")]
-        public IActionResult GetUserEncrypt(string user)
-        {
-            try
-            {
-                return Ok(_authService.GetUserEncrypt(System.Uri.UnescapeDataString(user)));
-            }
-            catch (BusinessException e)
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, e.BusinessExceptionMessages);
-            }
-            catch (Exception exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, exception);
-            }
-        }
+        //[HttpGet("user-encrypt/{user}")]
+        //public IActionResult GetUserEncrypt(string user)
+        //{
+        //    try
+        //    {
+        //        return Ok(_authService.GetUserEncrypt(System.Uri.UnescapeDataString(user)));
+        //    }
+        //    catch (BusinessException e)
+        //    {
+        //        return StatusCode(StatusCodes.Status400BadRequest, e.BusinessExceptionMessages);
+        //    }
+        //    catch (Exception exception)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, exception);
+        //    }
+        //}
 
         [HttpPost("change-password")]
         public IActionResult ChangePassword([FromBody] UserForPasswordChange userForPasswordChange)

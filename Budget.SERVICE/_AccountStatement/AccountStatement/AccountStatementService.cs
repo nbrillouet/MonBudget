@@ -319,8 +319,11 @@ namespace Budget.SERVICE
 
         }
 
-
-
+        public AsForTable GetLastAccountStatement(int idAccount)
+        {
+            var accountStatement = _accountStatementRepository.GetLastAccountStatement(idAccount);
+            return _mapper.Map<AsForTable>(accountStatement);// _accountStatementRepository.GetLastAccountStatement(idAccount);
+        }
 
     }
 }

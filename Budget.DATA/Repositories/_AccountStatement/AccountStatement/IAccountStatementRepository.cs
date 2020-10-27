@@ -27,6 +27,7 @@ namespace Budget.DATA.Repositories
         List<AccountStatement> GetAsInternalTransfer(int idUserGroup, int? idAccount, DateTime dateMin, DateTime dateMax);
         AccountStatement GetAsInternalTransferCouple(int idUserGroup, int idAccountStatement);
         List<AccountStatement> GetAsInternalTransferOrphan(int idUserGroup);
+        AccountStatement GetLastAccountStatement(int idAccount);
 
     }
 }

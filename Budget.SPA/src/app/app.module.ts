@@ -14,7 +14,6 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AuthGuard } from './_guards/auth.guard';
-import { ErrorService } from './main/_services/error.service';
 import { GoogleMapService } from './main/_services/google-map.service';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 import { FuseConfigService } from '@fuse/services/config.service';
@@ -110,7 +109,6 @@ const appRoutes: Routes = [
     providers   : [
         AuthGuard,
         UserAuthService,
-        ErrorService,
         FuseSplashScreenService,
         FuseConfigService,
         FuseNavigationService,

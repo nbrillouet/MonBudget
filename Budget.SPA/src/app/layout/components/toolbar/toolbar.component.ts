@@ -16,6 +16,7 @@ import { UserForDetail } from 'app/main/_models/user.model';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
 import { ClearUserDetail } from 'app/main/_ngxs/user/user-detail/user-detail.action';
 import { DataInfo } from 'app/main/_models/generics/detail-info.model';
+import { Logout } from 'app/main/_ngxs/user/user-auth/user-auth.action';
 
 @Component({
     selector     : 'toolbar',
@@ -52,7 +53,6 @@ export class ToolbarComponent implements OnInit, OnDestroy
         private _fuseConfigService: FuseConfigService,
         private _fuseSidebarService: FuseSidebarService,
         private _translateService: TranslateService,
-        private _userAuthService: UserAuthService,
         private _notificationsService: NotificationsService,
         private _router: Router,
         private _store: Store
@@ -195,8 +195,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
 
     logout()
     {
-        //TODO
-        this._userAuthService.logout();
+        this._store.dispatch(new Logout());
     }
 
     getUserProfile(idUser: number) {

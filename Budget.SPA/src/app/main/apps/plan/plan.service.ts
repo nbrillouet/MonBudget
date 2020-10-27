@@ -1,7 +1,6 @@
 import { FilterPlanTableSelected, FilterPlanTableSelection } from "app/main/_models/Filters/plan.filter";
 import { environment } from "environments/environment";
 import { Injectable } from "@angular/core";
-import { ErrorService } from "app/main/_services/error.service";
 import { HttpClient } from "@angular/common/http";
 import { FilterPlanTracking } from "app/main/_models/filters/plan-tracking.filter";
 import { SelectYear } from "app/main/_models/generics/select.model";
@@ -18,16 +17,12 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class PlanService {
-    // @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
 userAuth: UserForAuth = JSON.parse(localStorage.getItem('userInfo'));
 userForGroup: IUserForGroup = {id: this.userAuth.id,idUserGroup:this.userAuth.idUserGroup};
 baseUrl = environment.apiUrl;
-// currentUser: UserForDetail;
-// userForGroup: IUserForGroup; 
 
     constructor(
-        private http: HttpClient,
-        private errorService: ErrorService
+        private http: HttpClient
     ) {
         // this.user$.subscribe((user:UserForDetail) => {
         //     this.currentUser = user;
@@ -56,15 +51,13 @@ baseUrl = environment.apiUrl;
     GetForDetailById(idPlan: number) {
         return this.http
         .get(`${this.baseUrl}user-groups/${this.userForGroup.idUserGroup}/plans/${idPlan}/plan-detail`)
-        .map(response => <PlanDetail>response)
-        .catch(this.errorService.handleError);
+        .map(response => <PlanDetail>response);
     }
 
     savePlanDetail(planDetail: PlanDetail) {
         return this.http
             .post(`${this.baseUrl}plans/plan-details/save`,planDetail)
             .map(res=><number>res);
-            // .catch(this.errorService.handleError);
     }
 
     deletePlans(idList: number[]) {
@@ -76,15 +69,13 @@ baseUrl = environment.apiUrl;
     GetPlanTracking(filterPlanTracking: FilterPlanTracking) {
         return this.http
             .post(`${this.baseUrl}plans/${filterPlanTracking.idPlan}/plan-tracking`,filterPlanTracking)
-            .map(response => <PlanForTracking>response)
-            .catch(this.errorService.handleError);
+            .map(response => <PlanForTracking>response);
     }
 
     GetPlanList(idUser:number) {
         return this.http
             .get(`${this.baseUrl}plans/users/${idUser}/list`)
-            .map(response => <SelectYear[]>response)
-            .catch(this.errorService.handleError);
+            .map(response => <SelectYear[]>response);
     }
 
     getPlanAmountTable(PlanAmountFilter: PlanAmountFilter) {
