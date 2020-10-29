@@ -26,7 +26,7 @@
       </div>
 
           <!-- / HEADER -->
-          
+      <!-- <progress-bar-custom [inputValue]="80"></progress-bar-custom> -->
 
       <div class="content-card" *ngIf="(planTracking$ | async)?.loader['datas']?.loaded" >
           <div class="widget-group p-12" fxLayout="row wrap" fxFlex="100" *fuseIfOnDom
@@ -43,44 +43,28 @@
               
               <mat-grid-list cols="4" rowHeight="100px">
                   <mat-grid-tile>
-                    <mat-grid-tile-header>{{poste.poste.label}}</mat-grid-tile-header>
-                    <div class="mat-grid-header-height">
-                      global
-                    </div>
+                    <mat-grid-tile-header>
+                        <div class="text-inside-grid">{{poste.poste.label}}</div>
+                    </mat-grid-tile-header>
+                        <div class="text-inside-grid">
+                        global
+                        </div>
                   </mat-grid-tile>
                   
-                  <mat-grid-tile>
+                <mat-grid-tile>
                     <mat-grid-tile-header></mat-grid-tile-header>
-                    <ngx-gauge 
-                      size = 80
-                      class="mat-grid-header-height"
-                      [type]="gaugeType" 
-                      [value]="poste.gaugeValue"
-                      [label]="gaugeLabel"  
-                      [append]="gaugeAppendText"
-                      thick=10
-                      foregroundColor="rgba(0, 150, 136, 1)"
-                      backgroundColor = "rgba(0, 0, 0, 0.1)"
-                      duration=2500
-                      [thresholds]="poste.poste.id==1 ? thresholdConfig1 : poste.poste.id==2 ? thresholdConfig2 : thresholdConfig3"
-                    >
-                    <ngx-gauge-value style="font-size: 11px;font-weight: bold;">
-                        {{ poste.gaugeValue  }} %
-                      </ngx-gauge-value>
-                    </ngx-gauge>
-
-                  </mat-grid-tile>
+                    <progress-bar-custom fxFlex="100" [reverseColor]="poste.poste.code==enumPosteCategory.CREDIT.toString() ? true : false" [inputValue]="poste.gaugeValue"></progress-bar-custom>
+                </mat-grid-tile>
                   
-                  <mat-grid-tile>
-                      <mat-grid-tile-header>Réel</mat-grid-tile-header>
-                      <button class="mat-grid-header-height"
-                        mat-stroked-button
-                        color="accent"
-                        style="width: 85%;font-size: 11px;font-weight: bold;"
-                      >
-                        {{ poste.amountReal}} €
-                      </button>
-                  </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-grid-tile-header>Réel</mat-grid-tile-header>
+                    <button class="mat-grid-header-height"
+                    mat-stroked-button
+                    color="accent"
+                    style="width: 85%;font-size: 11px;font-weight: bold;">
+                    {{ poste.amountReal}} €
+                    </button>
+                </mat-grid-tile>
                   
                   <mat-grid-tile>
                     <mat-grid-tile-header>Prévu</mat-grid-tile-header>
@@ -91,10 +75,6 @@
                     >
                       {{ poste.amountPreview}} €
                     </button>
-                    <!-- <mat-form-field appearance="outline" floatLabel="always" color="accent">
-                          <input matInput [value]="poste.amountPreview">
-                          <mat-icon matSuffix>euro_symbol</mat-icon>
-                      </mat-form-field> -->
                   </mat-grid-tile>
              
               </mat-grid-list>
@@ -137,21 +117,13 @@
               <div *ngFor="let planPoste of poste.planPostes">
                 
                 <mat-grid-list cols="4" rowHeight="50px">
-                    <mat-grid-tile >
-                        {{planPoste.label}}
+                    <mat-grid-tile>
+                        <div fxFlex=100 class="text-inside-grid">{{planPoste.label}}</div>
                     </mat-grid-tile>
 
                     <mat-grid-tile >
-                      <!-- <canvas matTooltip="TESSSS" class="progress-medium"
-                        #baseChart="base-chart" baseChart
-                        [datasets]  = getDataSet(planPoste.gaugeValue)
-                        [options]   ="grap.options"
-                        [colors]    ="grap.colors"
-                        [chartType] ="grap.chartType">
-                      </canvas>   -->
                       
-                      
-                      <ngx-gauge 
+                      <!-- <ngx-gauge 
                         size = 50
                         class="gauge-width"
                         [type]="gaugeType" 
@@ -162,12 +134,13 @@
                         foregroundColor="rgba(0, 150, 136, 1)"
                         backgroundColor = "rgba(0, 0, 0, 0.1)"
                         duration=2500
-                        [thresholds]="poste.poste.id==1 ? thresholdConfig1 : poste.poste.id==2 ? thresholdConfig2 : thresholdConfig3"
-                      >
+                        [thresholds]="poste.poste.id==1 ? thresholdConfig1 : poste.poste.id==2 ? thresholdConfig2 : thresholdConfig3">
                         <ngx-gauge-value style="font-size: 11px;font-weight: bold;">
                           {{ planPoste.gaugeValue  }} %
                         </ngx-gauge-value>
-                      </ngx-gauge>
+                      </ngx-gauge> -->
+                      <progress-bar-custom fxFlex="100" [reverseColor]="poste.poste.code==enumPosteCategory.CREDIT.toString() ? true : false" [inputValue]="planPoste.gaugeValue"></progress-bar-custom>
+
                     </mat-grid-tile>
 
                     <mat-grid-tile>

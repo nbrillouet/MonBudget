@@ -64,19 +64,18 @@ namespace Budget.SERVICE
                 planForTracking.GaugeValue = CalculatePercentage(planTrackingAmountStore.AmountReal, planTrackingAmountStore.AmountPreview);
             }
 
-
             return planForTracking;
         }
 
         private List<PosteForTrackingDto> GetPostesForTracking(List<VPlanGlobal> vPlanGlobal,int idPlan, bool isBalanceSheet)
         {
-            List<Poste> postes = _posteRepository.GetAll();
+            List<Poste> postes = _posteRepository.GetAllEager();
             List<PosteForTrackingDto> postesForTracking = new List<PosteForTrackingDto>();
 
             foreach (var poste in postes)
             {
                 PosteForTrackingDto posteForTracking = new PosteForTrackingDto();
-                posteForTracking.Poste = _mapper.Map<Select>(poste);
+                posteForTracking.Poste = _mapper.Map<SelectCode>(poste);
 
                 var vByPoste = vPlanGlobal.Where(x => x.IdPoste == poste.Id).ToList();
                 //recherche des planPoste et affectation au planTrackingDto

@@ -5,19 +5,14 @@ using System.Text;
 
 namespace Budget.MODEL.Database
 {
-    [Table("POSTE", Schema = "plan")]
-    public class Poste
+    [Table("POSTE_CATEGORY", Schema = "plan")]
+    public class PosteCategory
     {
         [Column("ID")]
         public int Id { get; set; }
 
         [Column("LABEL")]
         public string Label { get; set; }
-
-        [Column("ID_POSTE_CATEGORY")]
-        public int? IdCategory { get; set; }
-
-        [ForeignKey("IdCategory")]
-        public PosteCategory Category { get; set; }
     }
+
 }

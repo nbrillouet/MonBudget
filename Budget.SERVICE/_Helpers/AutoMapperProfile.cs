@@ -253,14 +253,12 @@ namespace Budget.SERVICE._Helpers
             CreateMap<Month, Select>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.Label, o => o.MapFrom(s => s.LabelLong));
-            //CreateMap<Frequency, FrequencyDto>()
-            //    .ForMember(d => d.monthLabelShort, o => o.Ignore());
             
 
-            CreateMap<Poste, Select>();
+            CreateMap<Poste, SelectCode>()
+                .ForMember(d => d.Code, o => o.MapFrom(s => s.Category.Id));
+
             CreateMap<ReferenceTable, Select>();
-                //.ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
-                //.ForMember(d => d.Label, o => o.MapFrom(s => s.Label));
 
             CreateMap<PlanPosteUser, PlanPosteUserForDetailDto>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))

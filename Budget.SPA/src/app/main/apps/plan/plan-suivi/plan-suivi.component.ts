@@ -19,6 +19,7 @@ import { ClearPlanPosteDetailDatas } from 'app/main/_ngxs/plan/plan-detail/plan-
 import { ChangePlanForTrackingFilter } from 'app/main/_ngxs/plan/plan-tracking/plan-tracking.action';
 import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
 import { UserForDetail, UserForAuth } from 'app/main/_models/user.model';
+import { EnumPosteCategory } from 'app/main/_models/plan/poste/poste.enum';
 
 
 @Component({
@@ -31,10 +32,12 @@ import { UserForDetail, UserForAuth } from 'app/main/_models/user.model';
 export class PlanSuiviComponent implements OnInit {
   @Select(PlanForTrackingState.get) planTracking$: Observable<DatasFilter<PlanForTracking,FilterPlanTracking>>;
 //   @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
-  
+enumPosteCategory: typeof EnumPosteCategory = EnumPosteCategory;
+
     userAuth: UserForAuth = JSON.parse(localStorage.getItem('userInfo'));
   selectYears : SelectYear[];
-
+    toto=70;
+    tata=30;
   planSelected: SelectYear;
   filter: FilterPlanTracking;
   monthYear: IMonthYear;
@@ -110,8 +113,10 @@ export class PlanSuiviComponent implements OnInit {
   ) { 
     this.grap = this.testGraph;
 
-    // this.user$.subscribe((user:UserForDetail) => {
+
       this._planService.GetPlanList(this.userAuth.id).subscribe(plan => {
+
+        
         this.selectYears = plan;
 
         this.planSelected = plan[0];
@@ -135,6 +140,7 @@ export class PlanSuiviComponent implements OnInit {
   
     this.planTracking$.subscribe(planTracking => {
       if(planTracking.loader['datas']?.loaded) {
+          debugger;
         this.planTracking= planTracking;
       }
       

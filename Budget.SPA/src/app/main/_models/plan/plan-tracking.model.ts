@@ -1,4 +1,4 @@
-import { SelectYear, ISelect } from "../generics/select.model";
+import { SelectYear, ISelect, ISelectCode } from "../generics/select.model";
 
 export class PlanForTrackingValue {
     amountReal : number;
@@ -16,7 +16,7 @@ export class PlanForTracking extends PlanForTrackingValue {
 }
 
 export class PosteForTracking extends PlanForTrackingValue {
-    poste: ISelect;
+    poste: ISelectCode;
     planPostes: PlanPosteForTracking[];
 }
 

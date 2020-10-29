@@ -36,6 +36,8 @@ import { PlanForTrackingState } from "app/main/_ngxs/plan/plan-tracking/plan-tra
 import { PlanNotAsTableState } from "app/main/_ngxs/plan/plan-detail/plan-not-as-table/plan-not-as-table.state";
 import { PlanNotAsTableFilterSelectedState } from "app/main/_ngxs/plan/plan-detail/plan-not-as-table/plan-not-as-table-filter-selected/plan-not-as-table-filter-selected.state";
 import { PlanNotAsTableFilterSelectionState } from "app/main/_ngxs/plan/plan-detail/plan-not-as-table/plan-not-as-table-filter-selection/plan-not-as-table-filter-selection.state";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { ProgressBarCustomComponent } from "../web-component/progress-bar-custom/progress-bar-custom.component";
 
 
 const routes = [
@@ -75,6 +77,7 @@ const routes = [
       NgxGaugeModule,
       MatTableFilterModule,
       ChartsModule,
+      FlexLayoutModule,
       NgxsModule.forFeature([
         PlanTableFilterSelectionState,
         PlanTableFilterSelectedState,
@@ -105,7 +108,8 @@ const routes = [
         ChipAutocompleteComponent,
         MonthYearSelectionComponent,
         PlanAmountListComponent,
-        PlanNotAsTableComponent
+        PlanNotAsTableComponent,
+        ProgressBarCustomComponent
     ],
     providers : [
         PlanService,

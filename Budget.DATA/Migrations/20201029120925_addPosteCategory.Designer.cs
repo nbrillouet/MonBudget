@@ -4,14 +4,16 @@ using Budget.DATA;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Budget.DATA.Migrations
 {
     [DbContext(typeof(BudgetContext))]
-    partial class BudgetContextModelSnapshot : ModelSnapshot
+    [Migration("20201029120925_addPosteCategory")]
+    partial class addPosteCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1237,6 +1239,8 @@ namespace Budget.DATA.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("IdCategorie");
+
                     b.Property<int?>("IdCategory")
                         .HasColumnName("ID_POSTE_CATEGORY");
 
@@ -1245,7 +1249,7 @@ namespace Budget.DATA.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdCategory");
+                    b.HasIndex("IdCategorie");
 
                     b.ToTable("POSTE","plan");
                 });
@@ -1985,7 +1989,7 @@ namespace Budget.DATA.Migrations
                 {
                     b.HasOne("Budget.MODEL.Database.PosteCategory", "Category")
                         .WithMany()
-                        .HasForeignKey("IdCategory");
+                        .HasForeignKey("IdCategorie");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.UserAccount", b =>

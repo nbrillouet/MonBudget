@@ -8,7 +8,7 @@ namespace Budget.DATA.Repositories
     public interface IPosteRepository : IBaseRepository<Poste>
     {
 
-
+        List<Poste> GetAllEager();
     }
 
 

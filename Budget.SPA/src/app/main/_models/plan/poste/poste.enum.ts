@@ -4,3 +4,8 @@ export enum EnumPoste {
     DEPENSE_VARIABLE = 3,
     EPARGNE = 4
 }
+
+export enum EnumPosteCategory {
+    CREDIT = 1,
+    DEBIT = 2
+}
