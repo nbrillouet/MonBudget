@@ -88,7 +88,8 @@ namespace Budget.DATA.Repositories
         {
             var results = Context.Operation
                 .Where(x => x.IdUserGroup == idUserGroup
-                    && x.OperationType.OperationTypeFamily.IdMovement == (int)enumMovement)
+                    && ( x.OperationType.OperationTypeFamily.IdMovement == (int)enumMovement 
+                        || x.OperationType.OperationTypeFamily.IdMovement == (int)EnumMovement.TwoWays))
                 .Include(x => x.OperationType);
 
             return results.ToList();
