@@ -14,10 +14,10 @@ namespace Budget.MODEL.Database
         [Column("LABEL")]
         public string Label { get; set; }
 
-        [Column("ID_POSTE_CATEGORY")]
-        public int? IdCategory { get; set; }
+        [Column("ID_MOVEMENT")]
+        public int IdMovement { get; set; }
 
-        [ForeignKey("IdCategory")]
-        public PosteCategory Category { get; set; }
+        [ForeignKey("IdMovement")]
+        public Movement Movement { get; set; }
     }
 }

@@ -17,9 +17,9 @@ import { PlanPosteDetailComponent } from '../plan-detail/plan-poste/plan-poste-d
 import { PlanForTrackingState } from 'app/main/_ngxs/plan/plan-tracking/plan-tracking.state';
 import { ClearPlanPosteDetailDatas } from 'app/main/_ngxs/plan/plan-detail/plan-poste/plan-poste-detail/plan-poste-detail.action';
 import { ChangePlanForTrackingFilter } from 'app/main/_ngxs/plan/plan-tracking/plan-tracking.action';
-import { UserDetailState } from 'app/main/_ngxs/user/user-detail/user-detail.state';
-import { UserForDetail, UserForAuth } from 'app/main/_models/user.model';
-import { EnumPosteCategory } from 'app/main/_models/plan/poste/poste.enum';
+import { UserForAuth } from 'app/main/_models/user.model';
+import { EnumMovement } from 'app/main/_constants/enum-movement.enum';
+
 
 
 @Component({
@@ -30,9 +30,10 @@ import { EnumPosteCategory } from 'app/main/_models/plan/poste/poste.enum';
   encapsulation: ViewEncapsulation.None
 })
 export class PlanSuiviComponent implements OnInit {
-  @Select(PlanForTrackingState.get) planTracking$: Observable<DatasFilter<PlanForTracking,FilterPlanTracking>>;
-//   @Select(UserDetailState.getUser) user$: Observable<UserForDetail>;
-enumPosteCategory: typeof EnumPosteCategory = EnumPosteCategory;
+@Select(PlanForTrackingState.get) planTracking$: Observable<DatasFilter<PlanForTracking,FilterPlanTracking>>;
+
+enumMovement: typeof EnumMovement = EnumMovement;
+panelOpenState = false;
 
     userAuth: UserForAuth = JSON.parse(localStorage.getItem('userInfo'));
   selectYears : SelectYear[];

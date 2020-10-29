@@ -17,7 +17,7 @@ namespace Budget.SERVICE
         List<Select> GetSelectList(int idUserGroup, EnumMovement enumMovement, EnumSelectType enumSelectType);
         List<Select> GetSelectList(int idUserGroup, EnumSelectType enumSelectType);
         List<SelectGroupDto> GetSelectGroup(int idUserGroup);
-        List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste);
+        List<SelectGroupDto> GetSelectGroupListByMovement(int idUserGroup, EnumMovement enumMovement);
         List<Select> GetSelectListByIdList(List<int> idList);
         List<Select> GetByIdUserGroup(int idUserGroup);
 

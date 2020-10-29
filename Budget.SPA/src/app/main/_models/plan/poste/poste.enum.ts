@@ -5,7 +5,3 @@ export enum EnumPoste {
     EPARGNE = 4
 }
 
-export enum EnumPosteCategory {
-    CREDIT = 1,
-    DEBIT = 2
-}

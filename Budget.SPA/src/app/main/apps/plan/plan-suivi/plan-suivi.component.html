@@ -53,7 +53,7 @@
                   
                 <mat-grid-tile>
                     <mat-grid-tile-header></mat-grid-tile-header>
-                    <progress-bar-custom fxFlex="100" [reverseColor]="poste.poste.code==enumPosteCategory.CREDIT.toString() ? true : false" [inputValue]="poste.gaugeValue"></progress-bar-custom>
+                    <progress-bar-custom fxFlex="100" [reverseColor]="poste.poste.code==enumMovement.credit.toString() ? true : false" [inputValue]="poste.gaugeValue"></progress-bar-custom>
                 </mat-grid-tile>
                   
                 <mat-grid-tile>
@@ -78,44 +78,19 @@
                   </mat-grid-tile>
              
               </mat-grid-list>
-              <!-- </div> -->
 
-              <!-- <mat-grid-list cols="4" rowHeight="40px">
-                  <mat-grid-tile [rowspan]="2">1</mat-grid-tile>
-                  <mat-grid-tile [rowspan]="2">2</mat-grid-tile>
-                  <mat-grid-tile>3</mat-grid-tile>
-                  <mat-grid-tile>4</mat-grid-tile>
-                  <mat-grid-tile>
-                      <mat-grid-list cols="2" rowHeight="40px">
-                          <mat-grid-tile>5</mat-grid-tile>
-                          <mat-grid-tile>55</mat-grid-tile>
-                      </mat-grid-list>
-                  </mat-grid-tile>
-                  <mat-grid-tile>6</mat-grid-tile>
-              </mat-grid-list> -->
+              <!-- <mat-accordion>
+                <mat-expansion-panel 
+                    (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Détail {{panelOpenState ? 'open' : 'closed'}}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header> -->
 
-              <!-- [labels]="widget.labels"
-              [options]="widget.options"
-                (chartClick)="onSelect($event)" -->
-              <!-- <canvas #baseChart="base-chart" baseChart
-                    [datasets]="grap.datasets"
-                    [options] = "grap.options"
-                    [chartType]="grap.chartType">
-              </canvas> -->
-
-              <!-- <mat-accordion> -->
-                  <!-- <mat-expansion-panel *ngFor="let planPoste of poste.planPostes">
-                    <mat-expansion-panel-header>
-                      <mat-panel-title>
-                        Détail
-                      </mat-panel-title>
-
-                    </mat-expansion-panel-header>
-                   
-                  </mat-expansion-panel> -->
-
-              <div *ngFor="let planPoste of poste.planPostes">
                 
+              <div *ngFor="let planPoste of poste.planPostes">
                 <mat-grid-list cols="4" rowHeight="50px">
                     <mat-grid-tile>
                         <div fxFlex=100 class="text-inside-grid">{{planPoste.label}}</div>
@@ -206,9 +181,8 @@
                 </div>
               </div>
 
-              
-            <!-- </mat-expansion-panel> -->
-          <!-- </mat-accordion> -->
+            <!-- </mat-expansion-panel>
+            </mat-accordion> -->
 
             </div>
 

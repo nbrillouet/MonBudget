@@ -130,17 +130,17 @@ namespace Budget.SERVICE
             }
 
 
-
             //var selectList = _selectService.GetSelectList(EnumTableRef.OperationType, operationTypeFamily.IdUserGroup,enumSelectType);
             var operationTypeFamilies = _operationTypeRepository.GetByIdOperationTypeFamily(idOperationTypeFamily);
             selectList.AddRange(_mapper.Map<IEnumerable<Select>>(operationTypeFamilies).ToList());
 
             return selectList;
         }
-        public List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste)
+
+        public List<SelectGroupDto> GetSelectGroupListByMovement(int idUserGroup, EnumMovement enumMovement)
         {
-            EnumMovement idMovement = idPoste == (int)EnumMovement.Credit ? EnumMovement.Credit : EnumMovement.Debit;
-            List<OperationType> operationTypes = _operationTypeRepository.GetByIdMovement(idUserGroup, idMovement);
+            //EnumMovement idMovement = idPoste == (int)EnumMovement.Credit ? EnumMovement.Credit : EnumMovement.Debit;
+            List<OperationType> operationTypes = _operationTypeRepository.GetByIdMovement(idUserGroup, enumMovement);
 
             return GetSelectGroupList(operationTypes);
         }

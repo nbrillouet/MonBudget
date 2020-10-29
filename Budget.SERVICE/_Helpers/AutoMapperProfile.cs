@@ -256,7 +256,7 @@ namespace Budget.SERVICE._Helpers
             
 
             CreateMap<Poste, SelectCode>()
-                .ForMember(d => d.Code, o => o.MapFrom(s => s.Category.Id));
+                .ForMember(d => d.Code, o => o.MapFrom(s => s.Movement.Id));
 
             CreateMap<ReferenceTable, Select>();
 

@@ -12,7 +12,7 @@ namespace Budget.SERVICE
         List<Select> GetSelectList(int idUserGroup);
         List<Select> GetSelectList(int idUserGroup, int idOperationMethod, int idOperationType, EnumSelectType enumSelectType);
         List<Select> GetSelectList(int idUserGroup, List<Select> operationMethodList, List<Select> operationTypeFamilyList, List<Select> operationTypeList);
-        List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste);
+        List<SelectGroupDto> GetSelectGroupListByMovement(int idUserGroup, EnumMovement enumMovement);
         List<Select> GetSelectListByIdList(List<int> idList);
         PagedList<OperationForTableDto> GetForTable(FilterOperationTableSelected filter);
         OperationForDetail GetForDetail(int? idOperation, int idUser);

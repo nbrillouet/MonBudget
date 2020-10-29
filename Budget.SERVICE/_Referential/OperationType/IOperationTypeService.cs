@@ -13,7 +13,7 @@ namespace Budget.SERVICE
         List<SelectGroupDto> GetSelectGroup(int idUserGroup, List<Select> operationTypeFamilies);
         List<Select> GetSelectList(int idUserGroup, List<Select> operationTypeFamilies);
         List<Select> GetSelectList(int idOperationTypeFamily, EnumSelectType enumSelectType);
-        List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste);
+        List<SelectGroupDto> GetSelectGroupListByMovement(int idUserGroup, EnumMovement enumMovement);
         List<Select> GetSelectListByIdList(List<int> idList);
         OperationType GetByIdWithOperationTypeFamily(int idOperationType);
         OperationType GetUnknown(int idUserGroup);

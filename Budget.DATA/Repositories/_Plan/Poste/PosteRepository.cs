@@ -17,7 +17,7 @@ namespace Budget.DATA.Repositories
         public List<Poste> GetAllEager()
         {
             var results = Context.Poste
-                .Include(x => x.Category)
+                .Include(x => x.Movement)
                 .ToList();
 
             return results;

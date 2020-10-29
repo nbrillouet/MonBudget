@@ -114,9 +114,9 @@ namespace Budget.SERVICE
             return selectGroups;
         }
 
-        public List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste)
+        public List<SelectGroupDto> GetSelectGroupListByMovement(int idUserGroup, EnumMovement enumMovement)
         {
-            EnumMovement enumMovement = idPoste == (int)EnumMovement.Credit ? EnumMovement.Credit : EnumMovement.Debit;
+            //EnumMovement enumMovement = idMovement == (int)EnumMovement.Credit ? EnumMovement.Credit : EnumMovement.Debit;
 
             List<OperationTypeFamily> operationTypeFamilies = _operationTypeFamilyRepository.GetByIdMovement(idUserGroup, enumMovement);
 

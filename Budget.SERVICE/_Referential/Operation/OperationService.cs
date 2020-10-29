@@ -82,10 +82,10 @@ namespace Budget.SERVICE
         //    return _mapper.Map<List<SelectDto>>(operations);
         //}
 
-        public List<SelectGroupDto> GetSelectGroupListByIdPoste(int idUserGroup, int idPoste)
+        public List<SelectGroupDto> GetSelectGroupListByMovement(int idUserGroup, EnumMovement enumMovement)
         {
-            EnumMovement idMovement = idPoste == (int)EnumMovement.Credit ? EnumMovement.Credit : EnumMovement.Debit;
-            List<Operation> operations = _operationRepository.GetByIdMovement(idUserGroup, idMovement);
+            //EnumMovement idMovement = idPoste == (int)EnumMovement.Credit ? EnumMovement.Credit : EnumMovement.Debit;
+            List<Operation> operations = _operationRepository.GetByIdMovement(idUserGroup, enumMovement);
 
             return GetSelectGroupList(operations);
         }
@@ -114,7 +114,7 @@ namespace Budget.SERVICE
 
                 results.Add(selectGroup);
             }
-            return results;
+            return results.OrderBy(x=>x.Label).ToList();
         }
 
         public Select GetUnknown(int idUserGroup)

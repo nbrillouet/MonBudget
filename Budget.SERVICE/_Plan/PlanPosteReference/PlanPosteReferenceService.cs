@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Budget.DATA.Repositories;
+using Budget.MODEL;
 using Budget.MODEL.Database;
 using Budget.MODEL.Dto;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace Budget.SERVICE
     {
         private readonly IMapper _mapper;
         private readonly IPlanPosteReferenceRepository _planPosteReferenceRepository;
+        private readonly IPosteService _posteService;
         private readonly ReferentialService _referentialService;
 
         public PlanPosteReferenceService(
             IMapper mapper,
+            IPosteService posteService,
             IPlanPosteReferenceRepository planPosteReferenceRepository,
             ReferentialService referentialService
         )
@@ -22,6 +25,7 @@ namespace Budget.SERVICE
             _mapper = mapper;
             _planPosteReferenceRepository = planPosteReferenceRepository;
             _referentialService = referentialService;
+            _posteService = posteService;
         }
 
        
@@ -31,19 +35,20 @@ namespace Budget.SERVICE
 
             List<PlanPosteReference> planPosteReferences = Get(idPlanPoste, idReferenceTable);
             List<int> idList = planPosteReferences.Select(x => x.IdReference ).ToList();
+            var poste = _posteService.GetById(idPoste);
 
             switch (idReferenceTable)
             {
-                case 1: //OPERATION_TYPE_FAMILY
-                    result.List = _referentialService.OperationTypeFamilyService.GetSelectGroupListByIdPoste(idUserGroup, idPoste);
+                case 1: // OPERATION_TYPE_FAMILY
+                    result.List = _referentialService.OperationTypeFamilyService.GetSelectGroupListByMovement(idUserGroup, (EnumMovement)poste.IdMovement);
                     result.ListSelected = _referentialService.OperationTypeFamilyService.GetSelectListByIdList(idList);
                     break;
-                case 2: // "OPERATION_TYPE"
-                    result.List = _referentialService.OperationTypeService.GetSelectGroupListByIdPoste(idUserGroup, idPoste);
+                case 2: // OPERATION_TYPE
+                    result.List = _referentialService.OperationTypeService.GetSelectGroupListByMovement(idUserGroup, (EnumMovement)poste.IdMovement);
                     result.ListSelected = _referentialService.OperationTypeService.GetSelectListByIdList(idList);
                     break;
-                case 3: //TODO OPERATION
-                    result.List = _referentialService.OperationService.GetSelectGroupListByIdPoste(idUserGroup, idPoste);
+                case 3: // OPERATION
+                    result.List = _referentialService.OperationService.GetSelectGroupListByMovement(idUserGroup, (EnumMovement)poste.IdMovement);
                     result.ListSelected = _referentialService.OperationService.GetSelectListByIdList(idList);
                     break;
             }

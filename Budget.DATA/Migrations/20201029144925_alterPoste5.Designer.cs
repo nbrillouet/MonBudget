@@ -4,14 +4,16 @@ using Budget.DATA;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Budget.DATA.Migrations
 {
     [DbContext(typeof(BudgetContext))]
-    partial class BudgetContextModelSnapshot : ModelSnapshot
+    [Migration("20201029144925_alterPoste5")]
+    partial class alterPoste5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1237,7 +1239,7 @@ namespace Budget.DATA.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IdMovement")
+                    b.Property<int?>("IdMovement")
                         .HasColumnName("ID_MOVEMENT");
 
                     b.Property<string>("Label")
@@ -1970,8 +1972,7 @@ namespace Budget.DATA.Migrations
                 {
                     b.HasOne("Budget.MODEL.Movement", "Movement")
                         .WithMany()
-                        .HasForeignKey("IdMovement")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdMovement");
                 });
 
             modelBuilder.Entity("Budget.MODEL.Database.UserAccount", b =>

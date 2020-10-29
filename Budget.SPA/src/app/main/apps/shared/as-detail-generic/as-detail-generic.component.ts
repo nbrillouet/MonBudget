@@ -27,7 +27,6 @@ import { EnumOperationMethod } from 'app/main/_constants/enum-operation-model.mo
 import { DataInfo } from 'app/main/_models/generics/detail-info.model';
 
 export class AsDetailGenericComponent {
-//   @Select(UserDetailState.getUser) user$: Observable<DataInfo<UserForDetail>>;
 
   userAuth: UserForAuth = JSON.parse(localStorage.getItem('userInfo'));
   asGenForDetail: AsifForDetail;
@@ -61,6 +60,7 @@ export class AsDetailGenericComponent {
    }
 
   ngOnInit() {
+    
   }
 
   createForms() {
@@ -108,8 +108,7 @@ export class AsDetailGenericComponent {
         this.asGenDetailForm.controls['operationType'].setValue({id:0,label:'INCONNU'});
     });
     
-    this.asGenDetailForm.get('operationType').valueChanges
-      .subscribe(val => {
+    this.asGenDetailForm.get('operationType').valueChanges.subscribe(val => {
         let filterOperationType=<FilterOperationType> { operationType: val, operationMethod:this.asGenForDetail.operationMethod}
         switch(this.from) {
           case 'AS':
@@ -154,8 +153,6 @@ export class AsDetailGenericComponent {
 
       this.synchronizeStore(this.asGenForDetail);
       
-      console.log('obj',this.asGenForDetail);
-      console.log('form',this.asGenDetailForm);
     });
      
     this.operationAddForm = this._formBuilder.group({

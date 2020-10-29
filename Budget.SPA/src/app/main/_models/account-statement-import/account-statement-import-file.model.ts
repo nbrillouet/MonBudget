@@ -25,12 +25,10 @@ export class AsifTable {
 }
 
 export class AsifForDetail extends AsForDetail {
-    
     operationKeywordTemp: string;
     operationLabelTemp: string;
     placeLabelTemp: string;
     placeKeywordTemp: string;
-
 }
 
 // export class AsForDetail {
