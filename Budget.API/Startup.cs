@@ -49,6 +49,7 @@ namespace Budget.API
             //var DefaultConnexion = CryptoHelper.Encrypt("Server = PS10; Database = XmlToSwift_Demo; Trusted_Connection = True; MultipleActiveResultSets = true");
             //var DefaultConnexion = CryptoHelper.Encrypt("Server = nl1-wsq1.a2hosting.com; Database = monbudge_budget; user=monbudge_budget; password=9A3xit4m?");
             //var DefaultConnexion = CryptoHelper.Encrypt(@"Server = DESKTOP-0M47AE3\SQLEXPRESS; Database = Budget; Trusted_Connection = True; MultipleActiveResultSets = true");
+            //var DefaultConnexion = CryptoHelper.Encrypt(@"Server = DESKTOP-29ARAIO\SQLEXPRESS; Database = Budget; Trusted_Connection = True; MultipleActiveResultSets = true");
 
             //var CloudName = CryptoHelper.Encrypt("killmeagain77"); 
             //var ApiKey = CryptoHelper.Encrypt("867256855236325");

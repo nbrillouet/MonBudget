@@ -40,8 +40,8 @@ namespace Budget.HELPER
                         Buffer.BlockCopy(encrypted, 0, result, iv.Length, encrypted.Length);
 
                         var toBase64String = Convert.ToBase64String(result);
-                        var toto = HttpUtility.UrlEncode(toBase64String);
-                        return toto;
+                        //var toto = HttpUtility.UrlEncode(toBase64String);
+                        return toBase64String;
                         //return Convert.ToBase64String(result).Replace('/','*');
                     }
                 }
