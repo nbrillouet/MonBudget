@@ -7,6 +7,7 @@ import { MailConfirmModule } from './authentication/mail-confirm/mail-confirm.mo
 import { ForgotPasswordModule } from './authentication/forgot-password/forgot-password.module';
 import { ForgotPassword2Module } from './authentication/forgot-password-2/forgot-password-2.module';
 import { ResetPasswordModule } from './authentication/reset-password/reset-password.module';
+import { MatHomeModule } from './mat-home/mat-home.module';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import { ResetPasswordModule } from './authentication/reset-password/reset-passw
         // LazyLoadImageModule,
         // Auth
         HomeModule,
+        MatHomeModule,
         LoginModule,
         // Login2Module,
         RegisterModule,
