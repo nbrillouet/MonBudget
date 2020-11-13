@@ -86,7 +86,6 @@ export class AsiUploadComponent implements OnInit {
 
     this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
       this.fileInProgress.emit(false);
-
     };
 
     this.uploader.onErrorItem = ((item, response, status, headers):any => {

@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Budget.DATA.Migrations
 {
     [DbContext(typeof(BudgetContext))]
-    [Migration("20200527085313_alterAccount6")]
-    partial class alterAccount6
+    [Migration("20201030123125_InitMigration")]
+    partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -434,22 +434,23 @@ namespace Budget.DATA.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Code")
+                        .HasColumnName("CODE")
+                        .HasMaxLength(10);
+
+                    b.Property<int>("IdAsset")
+                        .HasColumnName("ID_ASSET");
+
                     b.Property<int>("IdBankFamily")
                         .HasColumnName("ID_BANK_FAMILY");
 
-                    b.Property<string>("LabelLong")
-                        .HasColumnName("LABEL_LONG")
+                    b.Property<string>("Label")
+                        .HasColumnName("LABEL")
                         .HasMaxLength(50);
-
-                    b.Property<string>("LabelShort")
-                        .HasColumnName("LABEL_SHORT")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("LogoClassName")
-                        .HasColumnName("LOGO_CLASS_NAME")
-                        .HasMaxLength(30);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdAsset");
 
                     b.HasIndex("IdBankFamily");
 
@@ -1238,10 +1239,15 @@ namespace Budget.DATA.Migrations
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("IdMovement")
+                        .HasColumnName("ID_MOVEMENT");
+
                     b.Property<string>("Label")
                         .HasColumnName("LABEL");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdMovement");
 
                     b.ToTable("POSTE","plan");
                 });
@@ -1285,6 +1291,9 @@ namespace Budget.DATA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ActivationCode")
+                        .HasColumnName("ACTIVATION_CODE");
 
                     b.Property<int>("IdAccount")
                         .HasColumnName("ID_ACCOUNT");
@@ -1452,6 +1461,12 @@ namespace Budget.DATA.Migrations
                     b.Property<string>("ActivationCode")
                         .HasColumnName("ACTIVATION_CODE");
 
+                    b.Property<DateTime?>("ActivationDateSend")
+                        .HasColumnName("ACTIVATION_DATE_SEND");
+
+                    b.Property<bool>("ActivationIsConfirmed")
+                        .HasColumnName("ACTIVATION_IS_CONFIRMED");
+
                     b.Property<string>("AvatarUrl")
                         .HasColumnName("AVATAR_URL");
 
@@ -1461,7 +1476,7 @@ namespace Budget.DATA.Migrations
                     b.Property<DateTime>("DateLastActive")
                         .HasColumnName("LAST_ACTIVE_DATE");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnName("BIRTH_DATE");
 
                     b.Property<string>("FirstName")
@@ -1478,9 +1493,6 @@ namespace Budget.DATA.Migrations
 
                     b.Property<int>("IdUserGroup")
                         .HasColumnName("ID_USER_GROUP");
-
-                    b.Property<bool>("IsMailConfirmed")
-                        .HasColumnName("IS_MAIL_CONFIRMED");
 
                     b.Property<string>("LastName")
                         .HasColumnName("LAST_NAME");
@@ -1548,7 +1560,7 @@ namespace Budget.DATA.Migrations
                         .HasForeignKey("IdBankAgency")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Budget.MODEL.User", "User")
+                    b.HasOne("Budget.MODEL.User", "UserOwner")
                         .WithMany()
                         .HasForeignKey("IdUserOwner")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -1691,6 +1703,11 @@ namespace Budget.DATA.Migrations
 
             modelBuilder.Entity("Budget.MODEL.Database.BankSubFamily", b =>
                 {
+                    b.HasOne("Budget.MODEL.Database.Asset", "Asset")
+                        .WithMany()
+                        .HasForeignKey("IdAsset")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Budget.MODEL.Database.BankFamily", "BankFamily")
                         .WithMany()
                         .HasForeignKey("IdBankFamily")
@@ -1948,6 +1965,14 @@ namespace Budget.DATA.Migrations
                     b.HasOne("Budget.MODEL.User", "User")
                         .WithMany()
                         .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Budget.MODEL.Database.Poste", b =>
+                {
+                    b.HasOne("Budget.MODEL.Movement", "Movement")
+                        .WithMany()
+                        .HasForeignKey("IdMovement")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -9,7 +9,7 @@ import { MatButtonModule } from "@angular/material/button";
 
 const routes = [
     {
-        path     : 'home_old',
+        path     : 'home',
         component: HomeComponent
     }
 ];

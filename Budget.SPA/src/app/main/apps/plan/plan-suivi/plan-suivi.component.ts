@@ -35,10 +35,8 @@ export class PlanSuiviComponent implements OnInit {
 enumMovement: typeof EnumMovement = EnumMovement;
 panelOpenState = false;
 
-    userAuth: UserForAuth = JSON.parse(localStorage.getItem('userInfo'));
+  userAuth: UserForAuth = JSON.parse(localStorage.getItem('userInfo'));
   selectYears : SelectYear[];
-    toto=70;
-    tata=30;
   planSelected: SelectYear;
   filter: FilterPlanTracking;
   monthYear: IMonthYear;

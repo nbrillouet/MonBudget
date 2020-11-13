@@ -59,6 +59,7 @@ namespace Budget.API
             //var decrypt = CryptoHelper.Decrypt(Configuration.GetConnectionString("DefaultConnexion"));
             var defaultconnection = CryptoHelper.Decrypt(Configuration.GetConnectionString("DefaultConnexion"));
             //Add context DB
+
             services.AddDbContext<BudgetContext>(options =>
                 options.UseSqlServer(CryptoHelper.Decrypt(Configuration.GetConnectionString("DefaultConnexion"))));
 

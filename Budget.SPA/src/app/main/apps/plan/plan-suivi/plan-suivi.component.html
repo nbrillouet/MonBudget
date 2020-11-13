@@ -114,7 +114,7 @@
                           {{ planPoste.gaugeValue  }} %
                         </ngx-gauge-value>
                       </ngx-gauge> -->
-                      <progress-bar-custom fxFlex="100" [reverseColor]="poste.poste.code==enumPosteCategory.CREDIT.toString() ? true : false" [inputValue]="planPoste.gaugeValue"></progress-bar-custom>
+                      <progress-bar-custom fxFlex="100" [reverseColor]="poste.poste.code==enumMovement.credit.toString() ? true : false" [inputValue]="planPoste.gaugeValue"></progress-bar-custom>
 
                     </mat-grid-tile>
 

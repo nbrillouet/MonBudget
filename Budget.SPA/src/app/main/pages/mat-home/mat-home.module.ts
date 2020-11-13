@@ -10,7 +10,7 @@ import { NgModule } from "@angular/core";
 
 const routes = [
     {
-        path     : 'home',
+        path     : 'home_mat',
         component: MatHomeComponent
     }
 ];

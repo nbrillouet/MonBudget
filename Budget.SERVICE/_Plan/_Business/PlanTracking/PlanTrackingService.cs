@@ -167,7 +167,8 @@ namespace Budget.SERVICE
             List<PlanTrackingAmountStoreDto> planTrackingAmountStoreMonths = vByPoste
                 .Where(x => x.Month != (int)EnumMonth.BalanceSheetYear)
                 .GroupBy(x => new { x.IdPlanPoste, x.PlanPosteLabel })
-                .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPlanPoste.Value, Label = g.Key.PlanPosteLabel, AmountPreview = g.Sum(a=>a.PreviewAmount.Value), AmountReal = g.Sum(a => a.AmountOperation.Value) })
+                //.Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPlanPoste.Value, Label = g.Key.PlanPosteLabel, AmountPreview = g.Sum(a=>a.PreviewAmount.Value), AmountReal = g.Sum(a => a.AmountOperation.Value) })
+                .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPlanPoste.Value, Label = g.Key.PlanPosteLabel, AmountPreview = g.Max(a=>a.PreviewAmount.Value), AmountReal = g.Sum(a => a.AmountOperation.Value) })
                 .ToList();
 
             //List<PlanTrackingAmountStoreDto> planTrackingAmountStores = planTrackingAmountStoreYears;
