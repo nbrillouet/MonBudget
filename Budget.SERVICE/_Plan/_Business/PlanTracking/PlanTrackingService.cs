@@ -97,50 +97,55 @@ namespace Budget.SERVICE
 
         private PlanTrackingAmountStoreDto GetplanTrackingAmountStore(List<VPlanGlobal> vByPoste, bool isBalanceSheet)
         {
-            PlanTrackingAmountStoreDto planTrackingAmountStore = new PlanTrackingAmountStoreDto();
-            if (!isBalanceSheet)
-            {
-                //sommme pour le poste
-                planTrackingAmountStore = vByPoste
-                    .GroupBy(x => new { x.PreviewAmount, x.IdPoste })
-                    .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPoste.Value, Label = g.Key.IdPoste.Value.ToString(), AmountPreview = g.Key.PreviewAmount.Value, AmountReal = g.Sum(a => a.AmountOperation.Value) })
-                    .GroupBy(x => new { x.Id })
-                    .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.Id, Label = g.Key.Id.ToString(), AmountPreview = g.Sum(ap => ap.AmountPreview), AmountReal = g.Sum(a => a.AmountReal) })
-                    .First();
-            }
-            else
-            {
-                //sommme pour le poste, preview annuel
-                PlanTrackingAmountStoreDto planTrackingAmountStoreYear = new PlanTrackingAmountStoreDto();
-                if (vByPoste.Where(x => x.Month == (int)EnumMonth.BalanceSheetYear).Any())
-                {
-                    planTrackingAmountStoreYear = vByPoste
-                        .Where(x => x.Month == (int)EnumMonth.BalanceSheetYear)
-                        .GroupBy(x => new { x.PreviewAmount, x.IdPoste })
-                        .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPoste.Value, Label = g.Key.IdPoste.Value.ToString(), AmountPreview = g.Key.PreviewAmount.Value, AmountReal = g.Sum(a => a.AmountOperation.Value) })
-                        .GroupBy(x => new { x.Id })
-                        .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.Id, Label = g.Key.Id.ToString(), AmountPreview = g.Sum(ap => ap.AmountPreview), AmountReal = g.Sum(a => a.AmountReal) })
-                        .First();
-                }
-                //sommme pour le poste, preview mensuel
-                PlanTrackingAmountStoreDto planTrackingAmountStoreMonth = vByPoste
-                    .Where(x => x.Month != (int)EnumMonth.BalanceSheetYear)
-                    .GroupBy(x => new { x.IdPoste })
-                    .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPoste.Value, Label = g.Key.IdPoste.Value.ToString(), AmountPreview = g.Sum(a => a.PreviewAmount.Value), AmountReal = g.Sum(a => a.AmountOperation.Value) })
-                    .GroupBy(x => new { x.Id })
-                    .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.Id, Label = g.Key.Id.ToString(), AmountPreview = g.Sum(ap => ap.AmountPreview), AmountReal = g.Sum(a => a.AmountReal) })
-                    .First();
 
-                List<PlanTrackingAmountStoreDto> planTrackingAmountStores = new List<PlanTrackingAmountStoreDto>();
-                planTrackingAmountStores.Add(planTrackingAmountStoreMonth);
-                if (planTrackingAmountStoreYear.Id != 0)
-                    planTrackingAmountStores.Add(planTrackingAmountStoreYear);
+            var planTrackingAmountStore = GenerateQueryByPoste(vByPoste, isBalanceSheet).First();
 
-                planTrackingAmountStore = planTrackingAmountStores
-                    .GroupBy(x => new { x.Id })
-                    .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.Id, Label = g.Key.Id.ToString(), AmountPreview = g.Sum(ap => ap.AmountPreview), AmountReal = g.Sum(a => a.AmountReal) })
-                    .FirstOrDefault();
-            }
+
+
+            //PlanTrackingAmountStoreDto planTrackingAmountStore = new PlanTrackingAmountStoreDto();
+            //if (!isBalanceSheet)
+            //{
+            //    //sommme pour le poste
+            //    planTrackingAmountStore = vByPoste
+            //        .GroupBy(x => new { x.PreviewAmount, x.IdPoste })
+            //        .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPoste.Value, Label = g.Key.IdPoste.Value.ToString(), AmountPreview = g.Key.PreviewAmount.Value, AmountReal = g.Sum(a => a.AmountOperation.Value) })
+            //        .GroupBy(x => new { x.Id })
+            //        .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.Id, Label = g.Key.Id.ToString(), AmountPreview = g.Sum(ap => ap.AmountPreview), AmountReal = g.Sum(a => a.AmountReal) })
+            //        .First();
+            //}
+            //else
+            //{
+            //    //sommme pour le poste, preview annuel
+            //    PlanTrackingAmountStoreDto planTrackingAmountStoreYear = new PlanTrackingAmountStoreDto();
+            //    if (vByPoste.Where(x => x.Month == (int)EnumMonth.BalanceSheetYear).Any())
+            //    {
+            //        planTrackingAmountStoreYear = vByPoste
+            //            .Where(x => x.Month == (int)EnumMonth.BalanceSheetYear)
+            //            .GroupBy(x => new { x.PreviewAmount, x.IdPoste })
+            //            .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPoste.Value, Label = g.Key.IdPoste.Value.ToString(), AmountPreview = g.Key.PreviewAmount.Value, AmountReal = g.Sum(a => a.AmountOperation.Value) })
+            //            .GroupBy(x => new { x.Id })
+            //            .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.Id, Label = g.Key.Id.ToString(), AmountPreview = g.Sum(ap => ap.AmountPreview), AmountReal = g.Sum(a => a.AmountReal) })
+            //            .First();
+            //    }
+            //    //sommme pour le poste, preview mensuel
+            //    PlanTrackingAmountStoreDto planTrackingAmountStoreMonth = vByPoste
+            //        .Where(x => x.Month != (int)EnumMonth.BalanceSheetYear)
+            //        .GroupBy(x => new { x.IdPoste })
+            //        .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPoste.Value, Label = g.Key.IdPoste.Value.ToString(), AmountPreview = g.Sum(a => a.PreviewAmount.Value), AmountReal = g.Sum(a => a.AmountOperation.Value) })
+            //        .GroupBy(x => new { x.Id })
+            //        .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.Id, Label = g.Key.Id.ToString(), AmountPreview = g.Sum(ap => ap.AmountPreview), AmountReal = g.Sum(a => a.AmountReal) })
+            //        .First();
+
+            //    List<PlanTrackingAmountStoreDto> planTrackingAmountStores = new List<PlanTrackingAmountStoreDto>();
+            //    planTrackingAmountStores.Add(planTrackingAmountStoreMonth);
+            //    if (planTrackingAmountStoreYear.Id != 0)
+            //        planTrackingAmountStores.Add(planTrackingAmountStoreYear);
+
+            //    planTrackingAmountStore = planTrackingAmountStores
+            //        .GroupBy(x => new { x.Id })
+            //        .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.Id, Label = g.Key.Id.ToString(), AmountPreview = g.Sum(ap => ap.AmountPreview), AmountReal = g.Sum(a => a.AmountReal) })
+            //        .FirstOrDefault();
+            //}
 
 
             return planTrackingAmountStore;
@@ -152,50 +157,86 @@ namespace Budget.SERVICE
             List<PlanPosteForTrackingDto> PlanPostesForTracking = new List<PlanPosteForTrackingDto>();
 
             //somme des PlanPoste group by PlanPoste
-            //List<PlanTrackingAmountStoreDto> planTrackingAmountStores = vByPoste
-            //    .GroupBy(x => new { x.PreviewAmount, x.IdPlanPoste,x.PlanPosteLabel })
-            //    .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPlanPoste.Value, Label=g.Key.PlanPosteLabel, AmountPreview = g.Key.PreviewAmount.Value, AmountReal = g.Sum(a => a.AmountOperation.Value) })
+            List<PlanTrackingAmountStoreDto> planTrackingAmountStoreYears = GenerateQuery(vByPoste, true).ToList();
+
+            //List<PlanTrackingAmountStoreDto> planTrackingAmountStoreYears = vByPoste
+            //    .Where(x => x.Month==(int)EnumMonth.BalanceSheetYear)
+            //    .GroupBy(x => new { x.PreviewAmount, x.IdPlanPoste, x.PlanPosteLabel })
+            //    .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPlanPoste.Value, Label = g.Key.PlanPosteLabel, AmountPreview = g.Key.PreviewAmount.Value, AmountReal = g.Sum(a => a.AmountOperation.Value) })
             //    .ToList();
 
-            //somme des PlanPoste group by PlanPoste
-            List<PlanTrackingAmountStoreDto> planTrackingAmountStoreYears = vByPoste
-                .Where(x => x.Month==(int)EnumMonth.BalanceSheetYear)
-                .GroupBy(x => new { x.PreviewAmount, x.IdPlanPoste, x.PlanPosteLabel })
-                .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPlanPoste.Value, Label = g.Key.PlanPosteLabel, AmountPreview = g.Key.PreviewAmount.Value, AmountReal = g.Sum(a => a.AmountOperation.Value) })
-                .ToList();
+            List<PlanTrackingAmountStoreDto> planTrackingAmountStoreMonths = GenerateQuery(vByPoste, false).ToList();
+            //List<PlanTrackingAmountStoreDto> planTrackingAmountStoreMonths = vByPoste
+            //    .Where(x => x.Month != (int)EnumMonth.BalanceSheetYear)
+            //    .GroupBy(x => new { x.IdPlanPoste, x.PlanPosteLabel,x.Month,x.PreviewAmount })
+            //    .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPlanPoste.Value, Label = g.Key.PlanPosteLabel, AmountPreview = g.Key.PreviewAmount.Value, AmountReal = g.Sum(a => a.AmountOperation.Value) })
+            //    .GroupBy(x => new { x.Id, x.Label })
+            //    .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.Id, Label = g.Key.Label, AmountPreview = g.Sum(a => a.AmountPreview), AmountReal = g.Sum(a => a.AmountReal) })
+            //    .ToList();
+             
 
-            List<PlanTrackingAmountStoreDto> planTrackingAmountStoreMonths = vByPoste
-                .Where(x => x.Month != (int)EnumMonth.BalanceSheetYear)
-                .GroupBy(x => new { x.IdPlanPoste, x.PlanPosteLabel })
-                //.Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPlanPoste.Value, Label = g.Key.PlanPosteLabel, AmountPreview = g.Sum(a=>a.PreviewAmount.Value), AmountReal = g.Sum(a => a.AmountOperation.Value) })
-                .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPlanPoste.Value, Label = g.Key.PlanPosteLabel, AmountPreview = g.Max(a=>a.PreviewAmount.Value), AmountReal = g.Sum(a => a.AmountOperation.Value) })
-                .ToList();
-
-            //List<PlanTrackingAmountStoreDto> planTrackingAmountStores = planTrackingAmountStoreYears;
-            //planTrackingAmountStores.AddRange(planTrackingAmountStoreMonths);
+            //List<PlanTrackingAmountStoreDto> planTrackingAmountStoreMonths = vByPoste
+            //    .Where(x => x.Month != (int)EnumMonth.BalanceSheetYear)
+            //    .GroupBy(x => new { x.IdPlanPoste, x.PlanPosteLabel })
+            //    .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPlanPoste.Value, Label = g.Key.PlanPosteLabel, AmountPreview = g.Max(a=>a.PreviewAmount.Value), AmountReal = g.Sum(a => a.AmountOperation.Value) })
+            //    .ToList();
 
             PlanPostesForTracking.AddRange(CalculatePlanPosteTracking(vByPoste, planTrackingAmountStoreYears, true));
             PlanPostesForTracking.AddRange(CalculatePlanPosteTracking(vByPoste, planTrackingAmountStoreMonths, false));
 
-            //foreach (var planTrackingAmountStore in planTrackingAmountStores)
-            //{
-            //    PlanPosteForTrackingDto planPosteForTracking = new PlanPosteForTrackingDto
-            //    {
-            //        IdPlanPoste = planTrackingAmountStore.Id,
-            //        //IdPlan = idPlan,
-            //        //IdPoste = idPoste,
-            //        Label = planTrackingAmountStore.Label,
-            //        AmountReal = Math.Round(planTrackingAmountStore.AmountReal,2),
-            //        AmountPreview = Math.Round(planTrackingAmountStore.AmountPreview,2),
-            //        GaugeValue = CalculatePercentage(planTrackingAmountStore.AmountReal, planTrackingAmountStore.AmountPreview)
-            //    };
-            //    var vByPlanPoste = vByPoste.Where(x => x.IdPlanPoste == planTrackingAmountStore.Id).ToList();
-            //    planPosteForTracking.PlanPosteUsers = GetPlanPosteUsersForTracking(planPosteForTracking, planTrackingAmountStore.Id);
-
-            //    PlanPostesForTracking.Add(planPosteForTracking);
-            //}
 
             return PlanPostesForTracking;
+        }
+
+        private IQueryable<PlanTrackingAmountStoreDto> GenerateQuery(List<VPlanGlobal> vByPoste, bool isForBalanceSheetYear)
+        {
+            var query = vByPoste.AsQueryable();
+            query = isForBalanceSheetYear
+                ? query.Where(x => x.Month == (int)EnumMonth.BalanceSheetYear).AsQueryable()
+                : query.Where(x => x.Month != (int)EnumMonth.BalanceSheetYear).AsQueryable();
+
+            var query2 = query
+                .GroupBy(x => new { x.IdPlanPoste, x.PlanPosteLabel, x.Month, x.PreviewAmount })
+                .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPlanPoste.Value, Label = g.Key.PlanPosteLabel, AmountPreview = g.Key.PreviewAmount.Value, AmountReal = g.Sum(a => a.AmountOperation.Value) })
+                .GroupBy(x => new { x.Id, x.Label })
+                .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.Id, Label = g.Key.Label, AmountPreview = g.Sum(a => a.AmountPreview), AmountReal = g.Sum(a => a.AmountReal) })
+                .AsQueryable();
+
+            
+
+            return query2;
+        }
+
+        private IQueryable<PlanTrackingAmountStoreDto> GenerateQueryByPoste(List<VPlanGlobal> vByPoste, bool isForBalanceSheetYear)
+        {
+            var querye = vByPoste.AsQueryable();
+            querye = isForBalanceSheetYear
+                ? querye.Where(x => x.Month == (int)EnumMonth.BalanceSheetYear).AsQueryable()
+                : querye.Where(x => x.Month != (int)EnumMonth.BalanceSheetYear).AsQueryable();
+
+            var query3 = querye
+                .GroupBy(x => new { x.IdPoste, x.Month, x.PreviewAmount })
+                .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPoste.Value, Label = g.Key.IdPoste.Value.ToString(), AmountPreview = g.Key.PreviewAmount.Value, AmountReal = g.Sum(a => a.AmountOperation.Value) })
+                .ToList();
+
+
+
+
+            var query = vByPoste.AsQueryable();
+            query = isForBalanceSheetYear
+                ? query.Where(x => x.Month == (int)EnumMonth.BalanceSheetYear).AsQueryable()
+                : query.Where(x => x.Month != (int)EnumMonth.BalanceSheetYear).AsQueryable();
+
+            var query2 = query
+                .GroupBy(x => new { x.IdPoste, x.Month, x.PreviewAmount })
+                .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPoste.Value, Label = g.Key.IdPoste.Value.ToString(), AmountPreview = g.Key.PreviewAmount.Value, AmountReal = g.Sum(a => a.AmountOperation.Value) })
+                        //.Where(x => x.Month == (int)EnumMonth.BalanceSheetYear)
+                        //.GroupBy(x => new { x.PreviewAmount, x.IdPoste })
+                        //.Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.IdPoste.Value, Label = g.Key.IdPoste.Value.ToString(), AmountPreview = g.Key.PreviewAmount.Value, AmountReal = g.Sum(a => a.AmountOperation.Value) })
+                        .GroupBy(x => new { x.Id })
+                        .Select(g => new PlanTrackingAmountStoreDto { Id = g.Key.Id, Label = g.Key.Id.ToString(), AmountPreview = g.Sum(ap => ap.AmountPreview), AmountReal = g.Sum(a => a.AmountReal) });
+
+            return query2;
         }
 
         private List<PlanPosteForTrackingDto> CalculatePlanPosteTracking(List<VPlanGlobal> vByPoste, List<PlanTrackingAmountStoreDto> planTrackingAmountStores,bool isAnnualPreview)
