@@ -148,7 +148,7 @@ namespace Budget.DATA.Repositories
                     && x.DateIntegration <= dateMax)
                 .ToList();
 
-            //case 3: //TODO OPERATION
+            //case 3: OPERATION
             var idOperationList = planPosteReferences
                .Where(x => x.IdReferenceTable == 3)
                .Select(x => x.IdReference)

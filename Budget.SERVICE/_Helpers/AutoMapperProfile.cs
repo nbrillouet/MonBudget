@@ -217,16 +217,21 @@ namespace Budget.SERVICE._Helpers
 
             CreateMap<AccountStatementImportFile, AsifForDetail>()
                 .ForMember(d => d.Asset, o => o.MapFrom(s => s.OperationTypeFamily.Asset));
-                //.ForMember(d => d.Asset, o => o.MapFrom(s => s.OperationTypeFamily.Asset))
-                //.ForMember(d => d.Operation, o => o.Ignore())
-                //.ForMember(d => d.OperationMethod, o => o.Ignore())
-                //.ForMember(d => d.OperationType, o => o.Ignore())
-                //.ForMember(d => d.OperationTypeFamily, o => o.Ignore());
+            //.ForMember(d => d.Asset, o => o.MapFrom(s => s.OperationTypeFamily.Asset))
+            //.ForMember(d => d.Operation, o => o.Ignore())
+            //.ForMember(d => d.OperationMethod, o => o.Ignore())
+            //.ForMember(d => d.OperationType, o => o.Ignore())
+            //.ForMember(d => d.OperationTypeFamily, o => o.Ignore());
 
 
-            
+
 
             //Plan
+            CreateMap<Plan, SelectCode>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.Label))
+                .ForMember(d => d.Code, o => o.MapFrom(s => s.Color));
+
             CreateMap<Plan, PlanForDetailDto>()
                 .ForMember(d => d.Plan, o => o.MapFrom(s => s));
 
@@ -245,10 +250,10 @@ namespace Budget.SERVICE._Helpers
                 .ForMember(d => d.PlanPosteFrequencies, o => o.Ignore())
                 .ForMember(d => d.ReferenceTable, o => o.Ignore());
 
-            CreateMap<AccountStatementPlan, SelectCode>()
-                .ForMember(d => d.Id, o => o.MapFrom(s => s.IdPlan))
-                .ForMember(d => d.Label, o => o.MapFrom(s => s.Plan.Label))
-                .ForMember(d => d.Code, o => o.MapFrom(s => s.Plan.Color));
+            //CreateMap<AccountStatementPlan, SelectCode>()
+            //    .ForMember(d => d.Id, o => o.MapFrom(s => s.IdPlan))
+            //    .ForMember(d => d.Label, o => o.MapFrom(s => s.Plan.Label))
+            //    .ForMember(d => d.Code, o => o.MapFrom(s => s.Plan.Color));
 
             CreateMap<Month, Select>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))

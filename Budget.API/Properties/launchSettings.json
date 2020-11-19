@@ -1,7 +1,10 @@
 {
   "profiles": {
     "Budget.API": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     },
     "IIS Express": {
       "commandName": "Executable",

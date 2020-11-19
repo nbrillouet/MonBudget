@@ -6,6 +6,7 @@ using Budget.MODEL.Dto;
 using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Budget.SERVICE
@@ -16,33 +17,37 @@ namespace Budget.SERVICE
         private readonly IPlanAccountService _planAccountService;
         private readonly IPlanUserService _planUserService;
         private readonly IPlanPosteService _planPosteService;
-        
+        private readonly IVPlanGlobalService _vPlanGlobalService;
+
         private readonly IPlanRepository _planRepository;
-        private readonly IPlanUserRepository _planUserRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IPlanPosteRepository _planPosteRepository;
+        //private readonly IPlanUserRepository _planUserRepository;
+        //private readonly IUserRepository _userRepository;
+        //private readonly IPlanPosteRepository _planPosteRepository;
 
         public PlanService(
             IMapper mapper,
             IPlanAccountService planAccountService,
             IPlanUserService planUserService,
             IPlanPosteService planPosteService,
+            IVPlanGlobalService vPlanGlobalService,
 
-            IPlanRepository planRepository,
-            IPlanUserRepository planUserRepository,
-            IUserRepository userRepository,
-            IPlanPosteRepository planPosteRepository)
+            IPlanRepository planRepository
+            //IPlanUserRepository planUserRepository,
+            //IUserRepository userRepository,
+            //IPlanPosteRepository planPosteRepository
+            )
             //IPlanService planService)
         {
             _mapper = mapper;
             _planAccountService = planAccountService;
             _planUserService = planUserService;
             _planPosteService = planPosteService;
+            _vPlanGlobalService = vPlanGlobalService;
 
             _planRepository = planRepository;
-            _planUserRepository = planUserRepository;
-            _userRepository = userRepository;
-            _planPosteRepository = planPosteRepository;
+            //_planUserRepository = planUserRepository;
+            //_userRepository = userRepository;
+            //_planPosteRepository = planPosteRepository;
             //_planService = planService;
         }
 
@@ -99,8 +104,26 @@ namespace Budget.SERVICE
         {
             return _planRepository.GetById(idPlan);
         }
+        public List<SelectCode> GetForSelectByIdAs(int idAs)
+        {
+            List<VPlanGlobal> vPlanGlobalList = _vPlanGlobalService.GetByIdAccountStatement(idAs);
+            List<SelectCode> results = new List<SelectCode>();
+            foreach (var item in vPlanGlobalList)
+            {
+                SelectCode plan = _mapper.Map<SelectCode>(GetById(item.IdPlan.Value));
+                results.Add(plan);
+            }
 
-        
+            return results;
+        }
+
+        //public List<int?> GetIdAsInPlan(int idPlan)
+        //{
+        //    List<VPlanGlobal> vPlanGlobalList = _vPlanGlobalService.GetByIdPlan(idPlan);
+
+        //    return vPlanGlobalList.Select(x => x.IdAccountStatement).ToList();
+        //}
+
         public void Create(Plan plan)
         {
             _planRepository.Create(plan);

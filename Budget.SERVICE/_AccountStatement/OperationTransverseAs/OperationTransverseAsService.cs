@@ -13,18 +13,14 @@ namespace Budget.SERVICE
     {
         private readonly IOperationTransverseAsRepository _operationTransverseAsRepository;
         private readonly IMapper _mapper;
-        private readonly ISelectService _selectService;
 
         public OperationTransverseAsService(
             IOperationTransverseAsRepository operationTransverseAsRepository,
-            IMapper mapper,
-            ISelectService selectService
-
+            IMapper mapper
             )
         {
             _mapper = mapper;
             _operationTransverseAsRepository = operationTransverseAsRepository;
-            _selectService = selectService;
         }
 
         public List<Select> GetOperationTransverseSelectList(int IdAccountStatement, EnumSelectType enumSelectType)

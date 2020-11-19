@@ -14,30 +14,27 @@ namespace Budget.SERVICE
     public class PlanNotAsService: IPlanNotAsService
     {
         private readonly IMapper _mapper;
-        private readonly IAccountStatementPlanService _accountStatementPlanService;
-        //private readonly IVPlanGlobalService _vPlanGlobalService;
         private readonly IPlanAccountService _planAccountService;
         private readonly IPlanService _planService;
+        private readonly IVPlanGlobalService _vPlanGlobalService;
         private readonly ReferentialService _referentialService;
         private readonly IAccountStatementService _accountStatementService;
 
         public PlanNotAsService(
             IMapper mapper,
-            //IVPlanGlobalService vPlanGlobalService,
             IPlanAccountService planAccountService,
-            IAccountStatementPlanService accountStatementPlanService,
             ReferentialService referentialService,
             IPlanService planService,
+            IVPlanGlobalService vPlanGlobalService,
             IAccountStatementService accountStatementService
             )
         {
             _mapper = mapper;
-            //_vPlanGlobalService = vPlanGlobalService;
-            _accountStatementPlanService = accountStatementPlanService;
             _planAccountService = planAccountService;
             _referentialService = referentialService;
             _planService = planService;
             _accountStatementService = accountStatementService;
+            _vPlanGlobalService = vPlanGlobalService;
         }
 
         //Recherche des account statement non pris en compte dans le plan indiqué en parametre
@@ -67,7 +64,7 @@ namespace Budget.SERVICE
             //Recherche du plan
             var plan = _planService.GetById(filterFixed.IdPlan);
             //Recherche des account statement pris en compte dans le plan
-            var asInPlan = _accountStatementPlanService.GetByIdPlan(filterFixed.IdPlan);
+            var asInPlan = _vPlanGlobalService.GetByIdPlan(filterFixed.IdPlan);
             //Recherche des Accounts utilisés dans le plan
             var planAccounts = _planAccountService.GetByIdPlan(filterFixed.IdPlan);
             //Recherche du virement interne pour le user group (pas de prise en compte dess virements internes)
@@ -75,7 +72,7 @@ namespace Budget.SERVICE
 
             filterFixed.Year = plan.Year;
             filterFixed.IdInternalTransfert = otfViri.Id;
-            filterFixed.AsInPlan = asInPlan.Select(x => x.IdAccountStatement).ToList();
+            filterFixed.AsInPlan = asInPlan.Select(x => x.IdAccountStatement.Value).ToList();
             filterFixed.Accounts = planAccounts.Select(x => x.IdAccount).ToList();
 
             return filterFixed;

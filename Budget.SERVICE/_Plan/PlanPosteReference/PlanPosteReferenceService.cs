@@ -11,9 +11,11 @@ namespace Budget.SERVICE
     public class PlanPosteReferenceService : IPlanPosteReferenceService
     {
         private readonly IMapper _mapper;
-        private readonly IPlanPosteReferenceRepository _planPosteReferenceRepository;
         private readonly IPosteService _posteService;
         private readonly ReferentialService _referentialService;
+
+        private readonly IPlanPosteReferenceRepository _planPosteReferenceRepository;
+
 
         public PlanPosteReferenceService(
             IMapper mapper,

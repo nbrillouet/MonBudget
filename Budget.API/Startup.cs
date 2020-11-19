@@ -28,6 +28,7 @@ using Budget.MODEL.Dto;
 using Microsoft.AspNetCore.Identity;
 using Budget.MODEL.Mailing;
 using Budget.MODEL;
+using Newtonsoft.Json;
 
 namespace Budget.API
 {
@@ -198,8 +199,8 @@ namespace Budget.API
             services.AddScoped<IPlanAccountService, PlanAccountService>();
             services.AddScoped<IPlanAccountRepository, PlanAccountRepository>();
 
-            services.AddScoped<IAccountStatementPlanRepository, AccountStatementPlanRepository>();
-            services.AddScoped<IAccountStatementPlanService, AccountStatementPlanService>();
+            //services.AddScoped<IAccountStatementPlanRepository, AccountStatementPlanRepository>();
+            //services.AddScoped<IAccountStatementPlanService, AccountStatementPlanService>();
 
             services.AddScoped<IReferenceTableService, ReferenceTableService>();
             services.AddScoped<IReferenceTableRepository, ReferenceTableRepository>();
@@ -302,7 +303,10 @@ namespace Budget.API
                         ValidateAudience = false
                     };
                 });
-
+            
+            services.AddAuthorization(options =>
+                options.AddPolicy("Admin",
+                    policy => policy.RequireClaim("Admin")));
             //Identity
             //services.AddIdentity<UserForLoginDto, IdentityRole>(opt =>
             //{
@@ -315,10 +319,19 @@ namespace Budget.API
             //    opt.SignIn.RequireConfirmedEmail = true;
             //});
 
-            services.AddMvc().AddJsonOptions(opt=>
-            {
-                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            });
+            services.AddMvcCore()
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            //services.AddMvc().AddJsonOptions(opt =>
+            //{
+            //    opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+            //});
+
+            //services.AddAuthorization(config =>
+            //{
+            //    config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
+            //    config.AddPolicy(Policies.User, Policies.UserPolicy());
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -330,20 +343,30 @@ namespace Budget.API
 
                 var toto = _cloudinaryConfig.Value;
                 //Add our new middleware to the pipeline
-                app.UseMiddleware<RequestTrackerMiddleware>();
+                //app.UseMiddleware<RequestTrackerMiddleware>();
                 //Add Cors
                 app.UseCors(builder =>
                 {
                     builder.WithOrigins(Configuration.GetSection("Cors")["Url"])
                     .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
                 });
-                //app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
-                //Add Authentication
+                app.UseRouting();
                 app.UseAuthentication();
+                app.UseAuthorization();
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
 
-                //Add Mvc
-                app.UseMvc();
+                ////app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
+                ////Add Authentication
+                //app.UseAuthentication();
+
+                ////Add Mvc
+                ////app.UseMvc();
+                //app.UseRouting();
             }
             else
             {
@@ -363,7 +386,7 @@ namespace Budget.API
                 });
 
                 //Add our new middleware to the pipeline
-                app.UseMiddleware<RequestTrackerMiddleware>();
+                //app.UseMiddleware<RequestTrackerMiddleware>();
                 //Add Cors
                 app.UseCors(builder =>
                 {
@@ -378,14 +401,15 @@ namespace Budget.API
                 //utilisation du wwwRoot pour production:
                 app.UseDefaultFiles();
                 app.UseStaticFiles();
-                app.UseMvc(routes =>
-                {
-                    routes.MapSpaFallbackRoute(
-                        name: "spa-fallback",
-                        defaults: new { controller = "Fallback", action = "Index" }
-                        );
-                });
-                //--
+
+                //app.UseMvc(routes =>
+                //{
+                //    routes.MapSpaFallbackRoute(
+                //        name: "spa-fallback",
+                //        defaults: new { controller = "Fallback", action = "Index" }
+                //        );
+                //});
+                
             }
 
             app.UseHttpsRedirection();

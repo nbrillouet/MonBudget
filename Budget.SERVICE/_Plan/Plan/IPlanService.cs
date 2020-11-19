@@ -11,8 +11,9 @@ namespace Budget.SERVICE
     public interface IPlanService
     {
         PagedList<Plan> GetPlanTable(FilterPlanTableSelected filter);
-        //PlanForTableComboFilter GetPlanTableComboFilter();
         Plan GetById(int idPlan);
+        List<SelectCode> GetForSelectByIdAs(int idAs);
+        //List<int> GetIdAsInPlan(int idPlan);
         List<int> GetDistinctYears();
 
         void Create(Plan plan);

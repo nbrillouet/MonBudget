@@ -54,5 +54,14 @@ namespace Budget.DATA.Repositories
 
             return planGlobals;
         }
+
+        public List<VPlanGlobal> GetByIdAccountStatement(int idAs)
+        {
+            var results = Context.VPlanGlobal
+                .Where(x => x.IdAccountStatement == idAs)
+                .ToList();
+
+            return results;
+        }
     }
 }

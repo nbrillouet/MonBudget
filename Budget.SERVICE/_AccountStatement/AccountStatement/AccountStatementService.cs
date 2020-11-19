@@ -18,32 +18,34 @@ namespace Budget.SERVICE
     public class AccountStatementService : IAccountStatementService
     {
         private readonly IMapper _mapper;
-        private readonly IGMapAddressService _gMapAddressService;
-        private readonly IAccountStatementPlanService _accountStatementPlanService;
-        private readonly IAccountStatementRepository _accountStatementRepository;
+        //private readonly IGMapAddressService _gMapAddressService;
+        //private readonly IVPlanGlobalService _vPlanGlobalService;
+        private readonly IPlanService _planService;
         private readonly IOperationTransverseAsService _operationTransverseAsService;
-        private readonly IOperationDetailService _operationDetailService;
+        //private readonly IOperationDetailService _operationDetailService;
         private readonly ReferentialService _referentialService;
-        
+
+        private readonly IAccountStatementRepository _accountStatementRepository;
 
         public AccountStatementService(
             IMapper mapper,
-            IGMapAddressService gMapAddressService,
-            IAccountStatementRepository accountStatementRepository,
-            //IPlanNotAsService planNotAsService,
-            IAccountStatementPlanService accountStatementPlanService,
+            //IGMapAddressService gMapAddressService,
+            //IVPlanGlobalService vPlanGlobalService,
+            IPlanService planService,
             IOperationTransverseAsService operationTransverseAsService,
-            IOperationDetailService operationDetailService,
-            ReferentialService referentialService
+            //IOperationDetailService operationDetailService,
+            ReferentialService referentialService,
+
+            IAccountStatementRepository accountStatementRepository
             )
         {
             _mapper = mapper;
-            _gMapAddressService = gMapAddressService;
+            //_gMapAddressService = gMapAddressService;
             _accountStatementRepository = accountStatementRepository;
-            _accountStatementPlanService = accountStatementPlanService;
-            //_planNotAsService = planNotAsService;
+            //_vPlanGlobalService = vPlanGlobalService;
+            _planService = planService;
             _operationTransverseAsService = operationTransverseAsService;
-            _operationDetailService = operationDetailService;
+            //_operationDetailService = operationDetailService;
             _referentialService = referentialService;
         }
 
@@ -55,7 +57,9 @@ namespace Budget.SERVICE
 
             foreach (var data in result.Datas)
             {
-                data.Plans = _accountStatementPlanService.GetPlansByIdAccountStatement(data.Id, data.DateIntegration.Value.Year);
+                //var toto = _planService.GetForSelectByIdAs(data.Id);
+                ////data.Plans = 
+                data.Plans = _planService.GetForSelectByIdAs(data.Id);
             }
 
             return result;

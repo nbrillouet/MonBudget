@@ -1,4 +1,5 @@
 ﻿using Budget.MODEL.Database;
+using Budget.MODEL.Dto;
 using Budget.MODEL.Filter;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace Budget.SERVICE
     {
         List<VPlanGlobal> Get(FilterPlanTracking filter);
         List<VPlanGlobal> GetByIdPlan(int IdPlan);
+        List<VPlanGlobal> GetByIdAccountStatement(int idAs);
     }
 
 

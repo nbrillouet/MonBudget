@@ -16,7 +16,7 @@ namespace Budget.SERVICE
         private readonly IPlanPosteReferenceService _planPosteReferenceService;
         private readonly IPlanPosteFrequencyService _planPosteFrequencyService;
         private readonly IMonthService _frequencyService;
-        private readonly IAccountStatementPlanService _accountStatementPlanService;
+        //private readonly IAccountStatementPlanService _accountStatementPlanService;
         private readonly IPlanAccountService _planAccountService;
 
         public PlanPosteDetailService(
@@ -28,7 +28,7 @@ namespace Budget.SERVICE
             IPlanPosteReferenceService planPosteReferenceService,
             IPlanPosteFrequencyService planPosteFrequencyService,
             IMonthService frequencyService,
-            IAccountStatementPlanService accountStatementPlanService,
+            //IAccountStatementPlanService accountStatementPlanService,
             IPlanAccountService planAccountService
 
             )
@@ -41,7 +41,7 @@ namespace Budget.SERVICE
             _planPosteReferenceService = planPosteReferenceService;
             _planPosteFrequencyService = planPosteFrequencyService;
             _frequencyService = frequencyService;
-            _accountStatementPlanService = accountStatementPlanService;
+            //_accountStatementPlanService = accountStatementPlanService;
             _planAccountService = planAccountService;
         }
 
@@ -150,7 +150,7 @@ namespace Budget.SERVICE
             UpdatePlanPosteFrequency(planPoste.Id, planPosteForDetailDto.PlanPosteFrequencies);
 
             // MAJ accountStatementPlan: A faire apres enregistrement 
-            _accountStatementPlanService.SaveByIdPlan(planPoste.IdPlan);
+            //_accountStatementPlanService.SaveByIdPlan(planPoste.IdPlan);
 
             return planPoste.Id;
         }

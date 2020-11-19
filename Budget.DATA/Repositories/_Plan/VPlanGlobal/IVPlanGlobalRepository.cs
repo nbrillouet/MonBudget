@@ -10,5 +10,6 @@ namespace Budget.DATA.Repositories
     {
         List<VPlanGlobal> Get(FilterPlanTracking filter);
         List<VPlanGlobal> GetByIdPlan(int IdPlan);
+        List<VPlanGlobal> GetByIdAccountStatement(int idAs);
     }
 }
